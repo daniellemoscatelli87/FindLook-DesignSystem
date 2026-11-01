@@ -41,7 +41,7 @@ function maskPhone(v: string) {
 }
 
 /* ── Variante: formulário "Cadastrar minha loja" (demonstração) ── */
-function StorePanelDemo() {
+function StorePanelDemo({ triggerLabel = "Cadastrar minha loja", outline = false }: { triggerLabel?: string; outline?: boolean }) {
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -72,8 +72,10 @@ function StorePanelDemo() {
   return (
     <SidePanel open={open} onOpenChange={o => { setOpen(o); if (!o) setTimeout(reset, 300); }}>
       <SidePanelTrigger asChild>
-        <button className="inline-flex h-10 items-center gap-2 rounded-full bg-primary px-5 text-[0.875rem] font-semibold text-primary-foreground transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-          <Store className="h-4 w-4" aria-hidden /> Cadastrar minha loja
+        <button className={outline
+          ? "inline-flex h-10 items-center gap-2 rounded-[12px] border border-border bg-card px-4 text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          : "inline-flex h-10 items-center gap-2 rounded-full bg-primary px-5 text-[0.875rem] font-semibold text-primary-foreground transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"}>
+          <Store className="h-4 w-4" aria-hidden /> {triggerLabel}
         </button>
       </SidePanelTrigger>
       <SidePanelContent closeLabel="Fechar cadastro da loja">
@@ -129,32 +131,6 @@ function StorePanelDemo() {
             </SidePanelFooter>
           </>
         )}
-      </SidePanelContent>
-    </SidePanel>
-  );
-}
-
-/* ── Demonstração simples ── */
-function SimplePanelDemo() {
-  return (
-    <SidePanel>
-      <SidePanelTrigger asChild>
-        <button className="inline-flex h-10 items-center gap-2 rounded-[12px] border border-border bg-card px-4 text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-accent">
-          Abrir painel lateral
-        </button>
-      </SidePanelTrigger>
-      <SidePanelContent closeLabel="Fechar painel">
-        <SidePanelHeader eyebrow="Detalhes" title="Painel lateral" description="Cabeçalho, corpo rolável e barra de ação fixa." />
-        <SidePanelBody>
-          <div className="space-y-3 text-[0.875rem] leading-relaxed text-muted-foreground">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <p key={i}>O corpo rola sozinho enquanto o cabeçalho e a barra de ação ficam no lugar. Pressione Esc, clique fora ou use o botão fechar para sair.</p>
-            ))}
-          </div>
-        </SidePanelBody>
-        <SidePanelActions>
-          <button className="h-10 w-full rounded-full bg-primary text-[0.875rem] font-semibold text-primary-foreground transition-colors hover:bg-[var(--primary-hover)]">Ação principal</button>
-        </SidePanelActions>
       </SidePanelContent>
     </SidePanel>
   );
@@ -223,8 +199,8 @@ export function SidePanelShowcase() {
         <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <ShowcaseCard>
             <p className="mb-4 text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Experimente</p>
-            <SimplePanelDemo />
-            <p className="mt-4 text-[0.75rem] text-muted-foreground">Abra, role o corpo, pressione Esc, clique fora, use Tab: o foco fica dentro e volta para este botão ao fechar.</p>
+            <StorePanelDemo triggerLabel="Abrir painel com formulário" outline />
+            <p className="mt-4 text-[0.75rem] text-muted-foreground">Abra, preencha ou tente enviar vazio para ver a validação, pressione Esc, clique fora, use Tab: o foco fica dentro e volta para este botão ao fechar.</p>
           </ShowcaseCard>
           <ShowcaseCard>
             <ul className="space-y-3">
