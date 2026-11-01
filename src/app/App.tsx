@@ -282,6 +282,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "canvas-reveal-bg",  label: "Canvas Reveal",      sectionId: "backgrounds" },
           { id: "vortex-bg",         label: "Vortex",             sectionId: "backgrounds" },
           { id: "bg-lines-bg",       label: "Background Lines",   sectionId: "backgrounds" },
+          { id: "doodle-bg",         label: "Textura doodle",     sectionId: "backgrounds" },
           { id: "backgrounds-tokens",label: "Tokens",             sectionId: "backgrounds" },
         ],
       },
