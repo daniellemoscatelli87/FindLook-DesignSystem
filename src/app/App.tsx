@@ -900,9 +900,16 @@ function AppShell() {
           <footer className="relative z-10 border-t border-border px-6 md:px-10 py-6">
             <div className="max-w-5xl mx-auto flex items-center justify-center text-center">
               <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
-                © 2026 <span className="font-medium text-foreground">Dani Moscatelli</span>
-                <span aria-hidden className="mx-1 text-muted-foreground/60">•</span>
-                Experience Design Studio. All rights reserved.
+                © 2026{" "}
+                <a
+                  href="https://www.danimoscatelli.com.br"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-foreground underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+                >
+                  Dani Moscatelli <span aria-hidden className="mx-1 text-muted-foreground/60">•</span> Experience Design Studio
+                </a>
+                . All rights reserved.
               </p>
             </div>
           </footer>
