@@ -6,6 +6,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
+  PanelRight,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -27,6 +28,7 @@ import { PrinciplesShowcase } from "./components/showcase/PrinciplesShowcase";
 import { UsabilityShowcase } from "./components/showcase/UsabilityShowcase";
 import { AccessibilityShowcase } from "./components/showcase/AccessibilityShowcase";
 import { CardShowcase } from "./components/showcase/CardShowcase";
+import { SidePanelShowcase } from "./components/showcase/SidePanelShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
 
@@ -394,6 +396,16 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "overlays-tokens",  label: "Tokens",     sectionId: "overlays" },
         ],
       },
+      { id: "sidepanel", label: "Painel lateral", icon: PanelRight,
+        items: [
+          { id: "sidepanel-anatomy",  label: "Anatomia",                   sectionId: "sidepanel" },
+          { id: "sidepanel-behavior", label: "Comportamento",              sectionId: "sidepanel" },
+          { id: "sidepanel-store",    label: "Formulário em painel",       sectionId: "sidepanel" },
+          { id: "sidepanel-a11y",     label: "Checklist de acessibilidade", sectionId: "sidepanel" },
+          { id: "sidepanel-usage",    label: "Uso",                        sectionId: "sidepanel" },
+          { id: "sidepanel-tokens",   label: "Tokens",                     sectionId: "sidepanel" },
+        ],
+      },
     ],
   },
 ];
@@ -421,6 +433,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   badges:    <FeedbackShowcase />,
   icons:     <IconsShowcase />,
   overlays:  <OverlaysShowcase />,
+  sidepanel: <SidePanelShowcase />,
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
   templates:   <TemplatesShowcase />,
@@ -444,6 +457,7 @@ const sectionLabels: Record<string, string> = {
   badges:    "Labels & Patterns",
   icons:     "Icons",
   overlays:  "Overlays & Navigation",
+  sidepanel: "Painel lateral",
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
   templates:   "Templates",
@@ -470,6 +484,7 @@ function AppShell() {
     badges:    false,
     icons:     false,
     overlays:  false,
+    sidepanel: false,
     motion:      false,
     backgrounds: false,
   });
