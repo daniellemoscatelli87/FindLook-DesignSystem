@@ -866,11 +866,9 @@ function AppShell() {
           <footer className="relative z-10 border-t border-border px-6 md:px-10 py-6">
             <div className="max-w-5xl mx-auto flex items-center justify-center text-center">
               <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
-                © 2026 <span className="font-medium text-foreground">FindLook</span>
+                © 2026 <span className="font-medium text-foreground">Dani Moscatelli</span>
                 <span aria-hidden className="mx-1 text-muted-foreground/60">•</span>
-                Seu estilo por perto.
-                <span aria-hidden className="mx-1 text-muted-foreground/60">•</span>
-                Design System v1.0, só em português.
+                Experience Design Studio. All rights reserved.
               </p>
             </div>
           </footer>
