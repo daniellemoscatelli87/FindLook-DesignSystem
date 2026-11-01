@@ -3,7 +3,6 @@ import { CheckCircle, XCircle, Copy, Check, Download, Monitor, Tablet, Smartphon
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 
 import pngSimbolo from "@/imports/findlook/findlook-simbolo.png";
-import pngSimboloGrafite from "@/imports/findlook/findlook-simbolo-cabide-grafite.png";
 import pngSimboloMonoBranco from "@/imports/findlook/findlook-simbolo-mono-branco.png";
 import pngSimboloMonoGrafite from "@/imports/findlook/findlook-simbolo-mono-grafite.png";
 import pngHorizontalClaro from "@/imports/findlook/findlook-horizontal-sobre-claro.png";
@@ -14,7 +13,6 @@ import pngWordmarkClaro from "@/imports/findlook/findlook-wordmark-sobre-claro.p
 import pngWordmarkGrafite from "@/imports/findlook/findlook-wordmark-sobre-grafite.png";
 
 import svgSimbolo from "@/imports/svg/findlook-simbolo.svg?raw";
-import svgSimboloGrafite from "@/imports/svg/findlook-simbolo-cabide-grafite.svg?raw";
 import svgSimboloMonoBranco from "@/imports/svg/findlook-simbolo-mono-branco.svg?raw";
 import svgSimboloMonoGrafite from "@/imports/svg/findlook-simbolo-mono-grafite.svg?raw";
 import svgHorizontalClaro from "@/imports/svg/findlook-horizontal-sobre-claro.svg?raw";
@@ -179,7 +177,7 @@ export function BrandShowcase() {
           Diretrizes de uso da marca FindLook: assinatura, símbolo, paleta, tipografia e regras de aplicação, para que a marca seja reconhecida sem ruído em todos os pontos de contato.
         </p>
         <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
-          Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os logos desta página foram vetorizados a partir das peças de referência; antes da produção, conferir proporções, cores e espessuras no arquivo-mestre.
+          Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os arquivos desta página são os vetores oficiais da marca (assinaturas horizontal e vertical, para fundo claro e escuro, e o símbolo). O wordmark é recortado da assinatura oficial e as versões monocromáticas do símbolo são o vetor oficial em uma só cor.
         </p>
       </div>
 
@@ -242,29 +240,29 @@ export function BrandShowcase() {
         <SectionBlock
           id="brand-simbolo"
           title="Símbolo — localização + moda"
-          subtitle="O pin de localização com o cabide. Em escala pequena, é a aplicação reduzida da marca. Nunca redesenhe o cabide nem separe suas partes."
+          subtitle="O pin de localização com o cabide vazado. Em escala pequena, é a aplicação reduzida da marca. Nunca redesenhe o cabide nem separe suas partes. Por ser vazado, o cabide toma a cor do fundo: prefira fundos lisos, brancos ou grafite."
         />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           <LogoCard
             download={{ png: pngSimbolo, svg: svgSimbolo, filename: "findlook-simbolo" }}
-            label="Pink com cabide branco"
-            description="Versão principal, para qualquer fundo"
+            label="Símbolo oficial sobre claro"
+            description="O cabide é vazado: assume a cor do fundo (branco aqui)"
             bg="bg-white"
           >
-            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide branco" className="h-28 w-auto object-contain" />
+            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide vazado, sobre fundo branco" className="h-28 w-auto object-contain" />
           </LogoCard>
           <LogoCard
-            download={{ png: pngSimboloGrafite, svg: svgSimboloGrafite, filename: "findlook-simbolo-cabide-grafite" }}
-            label="Pink com cabide grafite"
-            description="Variação para superfícies claras"
-            bg={ROSA_BG}
+            download={{ png: pngSimbolo, svg: svgSimbolo, filename: "findlook-simbolo" }}
+            label="Símbolo oficial sobre grafite"
+            description="Mesmo arquivo: o cabide vazado fica grafite"
+            bg={GRAFITE_BG}
           >
-            <ImageWithFallback src={pngSimboloGrafite} alt="Símbolo FindLook: pin pink com cabide grafite" className="h-28 w-auto object-contain" />
+            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide vazado, sobre fundo grafite" className="h-28 w-auto object-contain" />
           </LogoCard>
           <LogoCard
             download={{ png: pngSimboloMonoBranco, svg: svgSimboloMonoBranco, filename: "findlook-simbolo-mono-branco" }}
             label="Monocromático branco"
-            description="Marca d’água e fundos escuros ou fotográficos"
+            description="Vetor oficial em branco: marca d’água, fundo pink e fotos"
             bg={GRAFITE_BG}
           >
             <ImageWithFallback src={pngSimboloMonoBranco} alt="Símbolo FindLook monocromático branco" className="h-28 w-auto object-contain" />
@@ -272,7 +270,7 @@ export function BrandShowcase() {
           <LogoCard
             download={{ png: pngSimboloMonoGrafite, svg: svgSimboloMonoGrafite, filename: "findlook-simbolo-mono-grafite" }}
             label="Monocromático grafite"
-            description="Impressão em uma cor e carimbos"
+            description="Vetor oficial em grafite: impressão em uma cor e carimbos"
             bg="bg-white"
           >
             <ImageWithFallback src={pngSimboloMonoGrafite} alt="Símbolo FindLook monocromático grafite" className="h-28 w-auto object-contain" />
@@ -285,7 +283,7 @@ export function BrandShowcase() {
         <SectionBlock
           id="brand-wordmark"
           title="Wordmark — uso restrito"
-          subtitle="O logotipo sem o símbolo só é permitido quando o símbolo já aparece na mesma peça ou quando o espaço horizontal é extremo (por exemplo, rodapés de uma linha)."
+          subtitle="Recorte da assinatura oficial. Só é permitido quando o símbolo já aparece na mesma peça ou quando o espaço horizontal é extremo (por exemplo, rodapés de uma linha)."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <LogoCard
@@ -339,7 +337,7 @@ export function BrandShowcase() {
             { icon: LayoutDashboard, label: "Cabeçalho mobile", desc: "Topo do app em telas estreitas", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
             { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[#2B2833]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
             { icon: Monitor, label: "Tela de carregamento", desc: "Splash e estados de espera", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-12" },
-            { icon: Tablet, label: "Menu lateral recolhido", desc: "Painel do lojista em modo compacto", bg: "bg-card", preview: pngSimboloGrafite, previewSize: "h-8" },
+            { icon: Tablet, label: "Menu lateral recolhido", desc: "Painel do lojista em modo compacto", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
           ].map(({ icon: Icon, label, desc, bg, preview, previewSize }) => (
             <div key={label} className={`rounded-2xl border border-border ${bg} p-5 flex flex-col gap-4`}>
               <div className="flex items-start justify-between">
@@ -466,7 +464,7 @@ export function BrandShowcase() {
           <ColorChip name="Rosa Claro" hex="#FFF2F5" usage="Apoio / superfícies" />
         </div>
         <p className="mt-3 text-[0.8125rem] text-muted-foreground">
-          Paleta sugerida a partir das peças de referência do brand book; validar no arquivo-mestre. Texto branco sobre o pink atinge 4,2:1: use-o em botões e títulos; para texto corrido em pink, use o tom <span className="font-mono text-foreground">pink-600</span> (ver Acessibilidade).
+          Paleta do brand book (sugerida a partir das peças de referência). Os vetores oficiais do logo usam <span className="font-mono text-foreground">#E62040</span> no pink e <span className="font-mono text-foreground">#060608</span> no texto escuro; a unificação com os tokens depende de decisão da marca. Texto branco sobre o pink atinge 4,2:1: use-o em botões e títulos; para texto corrido em pink, use o tom <span className="font-mono text-foreground">pink-600</span> (ver Acessibilidade).
         </p>
       </div>
 
