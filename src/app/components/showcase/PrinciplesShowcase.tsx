@@ -119,7 +119,7 @@ export function PrinciplesShowcase({ onNavigate }: { onNavigate: Navigate }) {
     <div className="space-y-10 min-w-0">
       <PageHeader
         eyebrow="Início"
-        title="Princípios de design"
+        title="Princípios de **design**"
         description="A plataforma conduz. Seis diretrizes do brand book que orientam produto, conteúdo e interação em todas as jornadas da FindLook."
       />
 

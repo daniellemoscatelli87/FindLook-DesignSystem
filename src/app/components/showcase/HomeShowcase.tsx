@@ -3,6 +3,7 @@ import { ChevronRight, Sparkles, Fingerprint, Layers, Coins, Compass, Accessibil
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
 import { SectionLabel, CardGrid, useGo, type Navigate, type CardItem } from "./GetStartedShowcase";
 import { changelog, type ChangeKind } from "./shared/changelog";
+import { withHighlight } from "@/app/components/ui/heading";
 
 const display = "font-[family-name:var(--font-display)]";
 
@@ -74,7 +75,7 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
             <h1 className={`${display} text-[2rem] sm:text-[2.5rem] font-extrabold tracking-[-0.035em] text-foreground mb-3 leading-none`}>
               Find<span className="text-primary">Look</span>
             </h1>
-            <p className={`${display} text-[1.25rem] font-bold tracking-[-0.02em] text-foreground mb-3`}>Uma experiência, dois públicos.</p>
+            <p className={`${display} text-[1.25rem] font-bold tracking-[-0.02em] text-foreground mb-3`}>{withHighlight("Uma experiência, **dois públicos**.")}</p>
             <p className="text-[1.0625rem] text-muted-foreground max-w-xl leading-relaxed mb-6">
               Os fundamentos, componentes e padrões que dão forma à experiência da FindLook, a plataforma web de descoberta de moda local. Para que cada tela, em qualquer jornada, seja consistente, acessível e fácil de evoluir.
             </p>

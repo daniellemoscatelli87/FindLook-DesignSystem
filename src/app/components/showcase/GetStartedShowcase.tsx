@@ -5,6 +5,7 @@ import {
   Image, LayoutTemplate, Link as LinkIcon, Check,
 } from "lucide-react";
 import { useI18n, type Bi } from "../../i18n";
+import { withHighlight } from "@/app/components/ui/heading";
 
 export type Navigate = (id: string, anchor?: string) => void;
 
@@ -72,7 +73,7 @@ export function PageHeader({
   return (
     <header>
       <p className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-primary mb-3">{eyebrow}</p>
-      <h1 className={`${display} text-[2.5rem] tracking-[-0.035em] leading-none text-foreground mb-4`}>{title}</h1>
+      <h1 className={`${display} text-[2rem] sm:text-[2.5rem] font-bold tracking-[-0.035em] leading-none text-foreground mb-4 [text-wrap:balance]`}>{withHighlight(title)}</h1>
       <p className="text-[1.0625rem] text-muted-foreground max-w-2xl leading-relaxed">{description}</p>
     </header>
   );
@@ -176,7 +177,7 @@ export function GetStartedShowcase({ onNavigate }: { onNavigate: Navigate }) {
     <div className="space-y-14">
       <PageHeader
         eyebrow={t("Start", "Início")}
-        title={t("Get Started", "Primeiros passos")}
+        title={t("Get **started**", "Primeiros **passos**")}
         description={t(
           "Conheça o FindLook Design System: da marca e dos fundamentos aos componentes reutilizáveis, às diretrizes de conteúdo e aos tokens que conectam design e código.",
           "Conheça o FindLook Design System: da marca e dos fundamentos aos componentes reutilizáveis, às diretrizes de conteúdo e aos tokens que conectam design e código."

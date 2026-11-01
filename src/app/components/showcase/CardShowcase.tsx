@@ -12,6 +12,8 @@ import {
 } from "../ui/card";
 import { Button } from "../ui/button";
 import { ShineBorder } from "../ui/shine-border";
+import { PartnerCard } from "../ui/partner-card";
+import { Handshake, Store } from "lucide-react";
 import { Callout, DataTable, DoDont, Mono, Panel, PrincipleGrid, SubTitle, display } from "./shared/Guidance";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 
@@ -410,6 +412,42 @@ export function CardShowcase() {
         </div>
       </section>
 
+
+      {/* ── CARD DE CONVITE AO PARCEIRO ── */}
+      <section id="card-partner" className="scroll-mt-32">
+        <SectionHeader title={t("Partner invitation card", "Card de convite ao parceiro")} description={t('Convite ao lojista para criar o perfil da loja: selo, título com destaque, benefício em uma frase, ação principal e link secundário. Vertical para colunas e fim de página; horizontal para faixas entre seções.', 'Convite ao lojista para criar o perfil da loja: selo, título com destaque, benefício em uma frase, ação principal e link secundário. Vertical para colunas e fim de página; horizontal para faixas entre seções.')} />
+        <div className="space-y-8">
+          <div>
+            <SubTitle>{t("Vertical — sizes S, M and L", "Vertical — tamanhos P, M e G")}</SubTitle>
+            <div className="grid gap-5 md:grid-cols-[2fr_3fr] items-start">
+              <PartnerCard size="p" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
+              <PartnerCard size="m" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
+            </div>
+            <div className="mt-5 max-w-[600px]">
+              <PartnerCard size="g" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
+            </div>
+          </div>
+          <div>
+            <SubTitle>{t("Horizontal — sizes S, M and L", "Horizontal — tamanhos P, M e G")}</SubTitle>
+            <div className="space-y-5">
+              <PartnerCard orientation="horizontal" size="p" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
+              <PartnerCard orientation="horizontal" size="m" surface="tint" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
+              <PartnerCard orientation="horizontal" size="g" surface="dark" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              [t("Sizes", "Tamanhos"), t("S: sidebars and lists (title 18 px). M: content columns (24–28 px). L: page ends and landing bands (32–40 px).", "P: barras laterais e listas (título 18 px). M: colunas de conteúdo (24–28 px). G: fim de página e faixas de landing (32–40 px).")],
+              [t("Surfaces", "Superfícies"), t("card (default), tint (support surface) and dark (graphite, for contrast bands). The primary glow in the corner echoes the hero background.", "card (padrão), tint (superfície de apoio) e dark (grafite, para faixas de contraste). O brilho primário no canto ecoa o fundo do hero.")],
+              [t("Content", "Conteúdo"), t("One headline with one highlight, one benefit sentence, one primary action (verb first) and at most one secondary link.", "Um título com um destaque, uma frase de benefício, uma ação principal (verbo primeiro) e no máximo um link secundário.")],
+            ].map(([a, b]) => (
+              <div key={a} className="rounded-[14px] border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></div>
+            ))}
+          </div>
+          <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { PartnerCard } from "@/app/components/ui/partner-card";
+<PartnerCard orientation="horizontal" size="m" eyebrow="…" title="… **destaque** …" description="…" cta={{ label: "…", href: "/…" }} />`}</code></pre>
+        </div>
+      </section>
       <section id="card-guidelines" className="scroll-mt-32">
         <SectionHeader
           title={t("Usage guidelines", "Diretrizes de uso")}

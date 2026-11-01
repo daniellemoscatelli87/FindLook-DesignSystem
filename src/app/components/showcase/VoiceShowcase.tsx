@@ -50,7 +50,7 @@ export function VoiceShowcase() {
     <div className="space-y-14 min-w-0">
       <PageHeader
         eyebrow="Diretrizes"
-        title="Tom de voz"
+        title="Tom de **voz**"
         description="A conversa é direta. Uma marca amigável, urbana e fácil de entender, que diz exatamente o que sabe e convida a agir."
       />
 

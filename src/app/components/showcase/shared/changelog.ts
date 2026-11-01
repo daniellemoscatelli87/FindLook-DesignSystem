@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Card de convite ao parceiro"),
+    desc: pt("Card que convida o lojista a cadastrar a loja: selo, título com destaque, benefício, ação principal e link secundário. Vertical e horizontal, tamanhos P, M e G, superfícies card, apoio e grafite. Em Componentes › Cards."),
+    page: "cards", anchor: "card-partner",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Títulos com destaque na cor primária"),
+    desc: pt("Padrão do hero do site aplicado aos títulos: a expressão-chave fica em pink (componente Heading, destaque entre asteriscos). Títulos de página do design system atualizados e regra documentada em Fundamentos › Tipografia."),
+    page: "colors", anchor: "typography",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Componentes de upload"),
     desc: pt("Área de arrastar e soltar (com câmera no celular), lista de arquivos com progresso e estados, imagem única com prévia (logo da loja, capa) e galeria de fotos da peça com capa. Validação de tipo, tamanho e quantidade, mensagens em português, checklist de acessibilidade, uso e tokens."),
     page: "upload", anchor: "upload-dropzone",

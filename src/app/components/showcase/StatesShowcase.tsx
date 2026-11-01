@@ -77,7 +77,7 @@ export function StatesShowcase() {
     <div className="space-y-14 min-w-0">
       <PageHeader
         eyebrow="Diretrizes"
-        title="Estados de informação"
+        title="Estados de **informação**"
         description="Dizer exatamente o que se sabe. Cinco estados padronizados mostram, com clareza, de onde vem cada dado de peça e de loja, e o que a pessoa pode fazer a respeito."
       />
 
