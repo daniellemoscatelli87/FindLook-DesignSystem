@@ -423,30 +423,30 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Chart Palette", "Paleta de gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Series 1 — primary pink", "Série 1 — pink primário"),    light: "#F4144B", dark: "#F4144B", isColor: true },
-      { name: "--chart-2", description: t("Series 2 — graphite mid", "Série 2 — grafite médio"),       light: "#69637E", dark: "#88819C", isColor: true },
-      { name: "--chart-3", description: t("Series 3 — graphite light", "Série 3 — grafite claro"),     light: "#B3AFC0", dark: "#69637E", isColor: true },
-      { name: "--chart-4", description: t("Series 4 — graphite lighter", "Série 4 — grafite mais claro"),   light: "#D4D1DB", dark: "#514C61", isColor: true },
-      { name: "--chart-5", description: t("Series 5 — graphite pale", "Série 5 — grafite pálido"),      light: "#E9E8ED", dark: "#3E3A4A", isColor: true },
+      { name: "--chart-1", description: t("Series 1 — primary pink", "Série 1 — pink primário"),    light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--chart-2", description: t("Series 2 — graphite mid", "Série 2 — grafite médio"),       light: "#696977", dark: "#888896", isColor: true },
+      { name: "--chart-3", description: t("Series 3 — graphite light", "Série 3 — grafite claro"),     light: "#B3B3BC", dark: "#696977", isColor: true },
+      { name: "--chart-4", description: t("Series 4 — graphite lighter", "Série 4 — grafite mais claro"),   light: "#D4D4D9", dark: "#51515C", isColor: true },
+      { name: "--chart-5", description: t("Series 5 — graphite pale", "Série 5 — grafite pálido"),      light: "#E9E9EC", dark: "#3E3E46", isColor: true },
     ],
   },
   {
     group: t("Card & Table Surface", "Superfície de card e tabela"),
     tokens: [
-      { name: "--card",             description: t("Card / table background", "Fundo de card / tabela"),    light: "#FFFFFF",              dark: "rgba(29,27,34,0.75)", isColor: true },
-      { name: "--card-foreground",  description: t("Primary text on card", "Texto principal no card"),       light: "#1D1B22",              dark: "#F6F5F7",             isColor: true },
-      { name: "--muted",            description: t("Row hover / stripe", "Hover / zebra de linha"),         light: "#E9E8ED",              dark: "rgba(43,40,51,0.60)", isColor: true },
-      { name: "--muted-foreground", description: t("Secondary cell text", "Texto secundário da célula"),        light: "#88819C",              dark: "#B3AFC0",             isColor: true },
-      { name: "--border",           description: t("Table dividers", "Divisores da tabela"),             light: "rgba(29,27,34,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--card",             description: t("Card / table background", "Fundo de card / tabela"),    light: "#FFFFFF",              dark: "rgba(29,29,32,0.75)", isColor: true },
+      { name: "--card-foreground",  description: t("Primary text on card", "Texto principal no card"),       light: "#1D1D20",              dark: "#F6F6F7",             isColor: true },
+      { name: "--muted",            description: t("Row hover / stripe", "Hover / zebra de linha"),         light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--muted-foreground", description: t("Secondary cell text", "Texto secundário da célula"),        light: "#888896",              dark: "#B3B3BC",             isColor: true },
+      { name: "--border",           description: t("Table dividers", "Divisores da tabela"),             light: "rgba(29,29,32,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
     ],
   },
   {
     group: t("KPI Semantic", "Semântica de KPI"),
     tokens: [
       { name: "--success",  description: t("Positive delta / up trend", "Variação positiva / tendência de alta"),  light: "#4fb57b", dark: "#22C55E", isColor: true },
-      { name: "--error",    description: t("Negative delta / down trend", "Variação negativa / tendência de queda"), light: "#F4144B", dark: "#F4144B", isColor: true },
+      { name: "--error",    description: t("Negative delta / down trend", "Variação negativa / tendência de queda"), light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--warning",  description: t("Caution / neutral trend", "Atenção / tendência neutra"),    light: "#e5a94e", dark: "#f5b320", isColor: true },
-      { name: "--primary",  description: t("Highlighted KPI accent", "Acento de KPI em destaque"),     light: "#F4144B", dark: "#F4144B", isColor: true },
+      { name: "--primary",  description: t("Highlighted KPI accent", "Acento de KPI em destaque"),     light: "#E62040", dark: "#E62040", isColor: true },
     ],
   },
   {

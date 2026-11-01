@@ -133,15 +133,15 @@ export function TokensShowcase() {
               <p className="text-[0.5625rem] font-bold uppercase tracking-[0.08em] text-muted-foreground/60">{t("Without tokens", "Sem tokens")}</p>
               <div className="rounded-[10px] border border-border bg-muted/30 p-3 space-y-2">
                 <p className="text-[0.75rem] text-muted-foreground leading-relaxed">
-                  {lang === "pt" ? <>O designer diz <em>"use o vermelho <strong className="font-mono text-foreground">#F4144B</strong>"</em>.
-                  O dev copia o hex. Três meses depois, o tom muda para <span className="font-mono">#C94040</span> no rebrand.</> : <>The designer says <em>"use the red <strong className="font-mono text-foreground">#F4144B</strong>"</em>.
+                  {lang === "pt" ? <>O designer diz <em>"use o vermelho <strong className="font-mono text-foreground">#E62040</strong>"</em>.
+                  O dev copia o hex. Três meses depois, o tom muda para <span className="font-mono">#C94040</span> no rebrand.</> : <>The designer says <em>"use the red <strong className="font-mono text-foreground">#E62040</strong>"</em>.
                   The dev copies the hex. Three months later, the shade changes to <span className="font-mono">#C94040</span> in the rebrand.</>}
                 </p>
                 <p className="text-[0.75rem] text-muted-foreground leading-relaxed">
                   {t("Result: someone spends days hunting down every place the old hex appears in the code.", "Resultado: alguém passa dias caçando cada lugar do código onde o hex antigo aparece.")}
                 </p>
                 <div className="flex gap-2 pt-1">
-                  {["#F4144B","#F4144B","#F4144B","#D44D4E"].map((h, i) => (
+                  {["#E62040","#E62040","#E62040","#D44D4E"].map((h, i) => (
                     <div key={i} className="h-5 rounded-[4px] flex-1" style={{ background: h }} />
                   ))}
                 </div>
@@ -225,24 +225,24 @@ export function TokensShowcase() {
                 </p>
                 <div className="rounded-[8px] bg-background border border-border p-2.5 space-y-1.5 font-mono text-[0.625rem]">
                   <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#F4144B" }} />
+                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#E62040" }} />
                     <span className="text-violet-400">--pink-500</span>
-                    <span className="text-muted-foreground ml-auto">#F4144B</span>
+                    <span className="text-muted-foreground ml-auto">#E62040</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#C71340" }} />
+                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#B91B35" }} />
                     <span className="text-violet-400">--pink-600</span>
-                    <span className="text-muted-foreground ml-auto">#C71340</span>
+                    <span className="text-muted-foreground ml-auto">#B91B35</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#111014" }} />
+                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#060608" }} />
                     <span className="text-violet-400">--graphite-950</span>
-                    <span className="text-muted-foreground ml-auto">#111014</span>
+                    <span className="text-muted-foreground ml-auto">#060608</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#F6F5F7", border: "1px solid var(--border)" }} />
+                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#F6F6F7", border: "1px solid var(--border)" }} />
                     <span className="text-violet-400">--graphite-50</span>
-                    <span className="text-muted-foreground ml-auto">#F6F5F7</span>
+                    <span className="text-muted-foreground ml-auto">#F6F6F7</span>
                   </div>
                 </div>
                 <div className="rounded-[6px] bg-amber-500/10 border border-amber-500/20 px-2.5 py-1.5">
@@ -422,7 +422,7 @@ export function TokensShowcase() {
 
           {/* Pitfalls */}
           <div className="rounded-[14px] border border-destructive/30 bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
-            <div className="px-5 py-3 border-b border-destructive/20 flex items-center gap-2" style={{ background: "rgba(244,20,75,0.05)" }}>
+            <div className="px-5 py-3 border-b border-destructive/20 flex items-center gap-2" style={{ background: "rgba(230,32,64,0.05)" }}>
               <AlertTriangle className="h-4 w-4 text-destructive shrink-0" />
               <p className="text-[0.8125rem] font-bold text-foreground">{t("Common pitfalls", "Armadilhas comuns")}</p>
             </div>
@@ -430,7 +430,7 @@ export function TokensShowcase() {
               {[
                 {
                   title: { en: "AI generates hardcoded hex", pt: "A IA gera hex fixo no código" },
-                  body: { en: "When you ask for \"create a red button\", the AI writes background: #F4144B or bg-red-500. That code violates the token system and breaks when the theme changes.", pt: "Quando você pede \"crie um botão vermelho\", a IA escreve background: #F4144B ou bg-red-500. Esse código viola o sistema de tokens e quebra quando o tema muda." },
+                  body: { en: "When you ask for \"create a red button\", the AI writes background: #E62040 or bg-red-500. That code violates the token system and breaks when the theme changes.", pt: "Quando você pede \"crie um botão vermelho\", a IA escreve background: #E62040 ou bg-red-500. Esse código viola o sistema de tokens e quebra quando o tema muda." },
                   fix: { en: "Always review the generated code and replace literal colors with the matching token.", pt: "Sempre revise o código gerado e troque as cores literais pelo token correspondente." },
                 },
                 {
@@ -652,9 +652,9 @@ export function TokensShowcase() {
             <pre className="px-4 py-4 text-[0.6875rem] font-mono leading-relaxed overflow-x-auto" style={{ color: "var(--muted-foreground)" }}>
 {``}<span style={{ color: "var(--muted-foreground)", opacity: 0.45 }}>{"/* 1. Primitives — raw values */"}</span>{`
 `}<span style={{ color: "#3b82f6" }}>:root</span>{` {
-  `}<span style={{ color: "#8B5CF6" }}>--pink-500</span>{`: `}<span style={{ color: "var(--success)" }}>#F4144B</span>{`;
-  `}<span style={{ color: "#8B5CF6" }}>--graphite-50</span>{`:  `}<span style={{ color: "var(--success)" }}>#F6F5F7</span>{`;
-  `}<span style={{ color: "#8B5CF6" }}>--graphite-950</span>{`: `}<span style={{ color: "var(--success)" }}>#111014</span>{`;
+  `}<span style={{ color: "#8B5CF6" }}>--pink-500</span>{`: `}<span style={{ color: "var(--success)" }}>#E62040</span>{`;
+  `}<span style={{ color: "#8B5CF6" }}>--graphite-50</span>{`:  `}<span style={{ color: "var(--success)" }}>#F6F6F7</span>{`;
+  `}<span style={{ color: "#8B5CF6" }}>--graphite-950</span>{`: `}<span style={{ color: "var(--success)" }}>#060608</span>{`;
 }
 
 `}<span style={{ color: "var(--muted-foreground)", opacity: 0.45 }}>{"/* 2. Semantics — reference primitives */"}</span>{`
@@ -701,7 +701,7 @@ export function TokensShowcase() {
           <div>
             <p className="text-[0.8125rem] font-bold text-foreground">{t("Golden rule", "Regra de ouro")}</p>
             <p className="text-[0.75rem] text-muted-foreground leading-relaxed mt-0.5">
-              {lang === "pt" ? <>Nos componentes, <strong className="text-foreground">use sempre classes Tailwind semânticas</strong> (<InlineCode>bg-primary</InlineCode>, <InlineCode>text-foreground</InlineCode>, <InlineCode>border-border</InlineCode>) — nunca cores literais (<InlineCode>bg-red-500</InlineCode>, <InlineCode>bg-[#F4144B]</InlineCode>). Isso garante que o componente funcione em qualquer tema, agora e no futuro.</> : <>In components, <strong className="text-foreground">always use semantic Tailwind classes</strong> (<InlineCode>bg-primary</InlineCode>, <InlineCode>text-foreground</InlineCode>, <InlineCode>border-border</InlineCode>) — never literal colors (<InlineCode>bg-red-500</InlineCode>, <InlineCode>bg-[#F4144B]</InlineCode>). This ensures the component works in any theme, now and in the future.</>}
+              {lang === "pt" ? <>Nos componentes, <strong className="text-foreground">use sempre classes Tailwind semânticas</strong> (<InlineCode>bg-primary</InlineCode>, <InlineCode>text-foreground</InlineCode>, <InlineCode>border-border</InlineCode>) — nunca cores literais (<InlineCode>bg-red-500</InlineCode>, <InlineCode>bg-[#E62040]</InlineCode>). Isso garante que o componente funcione em qualquer tema, agora e no futuro.</> : <>In components, <strong className="text-foreground">always use semantic Tailwind classes</strong> (<InlineCode>bg-primary</InlineCode>, <InlineCode>text-foreground</InlineCode>, <InlineCode>border-border</InlineCode>) — never literal colors (<InlineCode>bg-red-500</InlineCode>, <InlineCode>bg-[#E62040]</InlineCode>). This ensures the component works in any theme, now and in the future.</>}
             </p>
           </div>
         </div>

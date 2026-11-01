@@ -41,22 +41,22 @@ function Result({ ok, label }: { ok: boolean; label: string }) {
 type Pair = { name: string; usage: Bi; fg: string; bg: string };
 
 const lightPairs: Pair[] = [
-  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#111014", bg: "#FFFFFF" },
-  { name: "card-foreground / card", usage: { en: "Text in cards", pt: "Texto em cards" }, fg: "#111014", bg: "#FFFFFF" },
-  { name: "muted-foreground / card", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#69637E", bg: "#FFFFFF" },
-  { name: "muted-foreground / muted", usage: { en: "Captions on muted surface", pt: "Legendas em superfície suave" }, fg: "#69637E", bg: "#F6F5F7" },
-  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#F4144B" },
-  { name: "primary / card", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#F4144B", bg: "#FFFFFF" },
-  { name: "pink-600 / card", usage: { en: "Small primary text", pt: "Texto primário pequeno (primary-text)" }, fg: "#C71340", bg: "#FFFFFF" },
+  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#060608", bg: "#FFFFFF" },
+  { name: "card-foreground / card", usage: { en: "Text in cards", pt: "Texto em cards" }, fg: "#060608", bg: "#FFFFFF" },
+  { name: "muted-foreground / card", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#696977", bg: "#FFFFFF" },
+  { name: "muted-foreground / muted", usage: { en: "Captions on muted surface", pt: "Legendas em superfície suave" }, fg: "#696977", bg: "#F6F6F7" },
+  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
+  { name: "primary / card", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#FFFFFF" },
+  { name: "pink-600 / card", usage: { en: "Small primary text", pt: "Texto primário pequeno (primary-text)" }, fg: "#B91B35", bg: "#FFFFFF" },
   { name: "success / card", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#4FB57B", bg: "#FFFFFF" },
 ];
 const darkPairs: Pair[] = [
-  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#F6F5F7", bg: "#111014" },
-  { name: "muted-foreground / background", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#B3AFC0", bg: "#111014" },
-  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#F4144B" },
-  { name: "primary / background", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#F4144B", bg: "#111014" },
-  { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#FA8AA5", bg: "#111014" },
-  { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#22C55E", bg: "#111014" },
+  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#F6F6F7", bg: "#060608" },
+  { name: "muted-foreground / background", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#B3B3BC", bg: "#060608" },
+  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
+  { name: "primary / background", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#060608" },
+  { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#F290A0", bg: "#060608" },
+  { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#22C55E", bg: "#060608" },
 ];
 
 function ContrastTable() {
@@ -115,7 +115,7 @@ function ContrastTable() {
 
 function ContrastChecker() {
   const { t } = useI18n();
-  const [fg, setFg] = useState("#88819C");
+  const [fg, setFg] = useState("#888896");
   const [bg, setBg] = useState("#FFFFFF");
   const r = ratio(fg, bg);
   const idFg = useId();
@@ -450,7 +450,7 @@ export function AccessibilityShowcase() {
           <ContrastTable />
           <Callout title={t("What this tells us", "O que isso nos diz")}>
             <p>
-              <Mono>primary</Mono> {t("reaches the 3:1 needed for large text, icons and button fills, but not 4.5:1 for small text on white.", "atinge os 3:1 necessários para texto grande, ícones e preenchimentos de botão, mas não os 4,5:1 para texto pequeno sobre branco.")}{" "}
+              <Mono>primary</Mono> {t("atinge 4,5:1 com texto branco, o mínimo para texto normal (AA), além dos 3:1 de ícones e preenchimentos de botão.", "atinge 4,5:1 com texto branco, o mínimo para texto normal (AA), além dos 3:1 de ícones e preenchimentos de botão.")}{" "}
               {t("For small primary-colored text use", "Para texto pequeno na cor primária, use")} <Mono>pink-600</Mono> {t("in light mode. Status colors like", "no modo claro. Cores de status como")} <Mono>success</Mono> {t("must always be paired with an icon and a text label.", "devem sempre ser acompanhadas de um ícone e de um rótulo de texto.")}
             </p>
           </Callout>

@@ -1472,7 +1472,7 @@ function OrbitCanvas({ center, reverse = false, solid = false }: { center: React
     <div className="relative flex items-center justify-center" style={{ width: CANVAS, height: CANVAS }}>
       {/* Dashed orbit paths */}
       {orbitRings.map(ring => (
-        <div key={ring.radius} className="absolute rounded-full border border-dashed border-[#D4D1DB] dark:border-[#3E3A4A]"
+        <div key={ring.radius} className="absolute rounded-full border border-dashed border-[#D4D4D9] dark:border-[#3E3E46]"
           style={{ width: ring.radius * 2, height: ring.radius * 2, top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} />
       ))}
       {/* Central element */}
@@ -1628,7 +1628,7 @@ function AvatarOrbitCanvas() {
       {avatarRings.map(ring => (
         <div
           key={ring.radius}
-          className="absolute rounded-full border border-dashed border-[#D4D1DB] dark:border-[#3E3A4A]"
+          className="absolute rounded-full border border-dashed border-[#D4D4D9] dark:border-[#3E3E46]"
           style={{ width: ring.radius * 2, height: ring.radius * 2, top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
         />
       ))}
@@ -1801,7 +1801,7 @@ type SpotlightOption = {
 
 const SPOTLIGHT_OPTIONS: SpotlightOption[] = [
   { id: "none",    label: "None", labelPt: "Nenhum", swatch: null,      rgba: () => "none" },
-  { id: "pink", label: "Pink", labelPt: "Pink", swatch: "#F4144B", rgba: a => `rgba(244,20,75,${a})` },
+  { id: "pink", label: "Pink", labelPt: "Pink", swatch: "#E62040", rgba: a => `rgba(230,32,64,${a})` },
   { id: "blue",    label: "Blue", labelPt: "Azul", swatch: "#3B82F6", rgba: a => `rgba(59,130,246,${a})` },
   { id: "teal",    label: "Teal", labelPt: "Verde-azulado", swatch: "#14B8A6", rgba: a => `rgba(20,184,166,${a})` },
   { id: "purple",  label: "Purple", labelPt: "Roxo", swatch: "#A855F7", rgba: a => `rgba(168,85,247,${a})` },
@@ -1864,8 +1864,8 @@ function WobbleCardDemo({
     }
   }, [spotlightId]);
 
-  const bg  = dark ? "#2B2833" : "#FFFFFF";
-  const bdr = dark ? "rgba(255,255,255,0.09)" : "rgba(29,27,34,0.09)";
+  const bg  = dark ? "#2B2B31" : "#FFFFFF";
+  const bdr = dark ? "rgba(255,255,255,0.09)" : "rgba(29,29,32,0.09)";
 
   return (
     <motion.div
@@ -1884,33 +1884,33 @@ function WobbleCardDemo({
     >
       <div ref={glowRef} style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", borderRadius: 18 }} />
       <div style={{ position: "relative", zIndex: 1, padding: "24px 24px 20px" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(244,20,75,0.30)" : "rgba(244,20,75,0.20)"}`, background: dark ? "rgba(244,20,75,0.10)" : "rgba(244,20,75,0.07)", marginBottom: 12 }}>
-          <Star style={{ width: 10, height: 10, color: "#F4144B" }} />
-          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "#F4144B", textTransform: "uppercase", letterSpacing: "0.06em" }}>Enterprise</span>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(230,32,64,0.30)" : "rgba(230,32,64,0.20)"}`, background: dark ? "rgba(230,32,64,0.10)" : "rgba(230,32,64,0.07)", marginBottom: 12 }}>
+          <Star style={{ width: 10, height: 10, color: "#E62040" }} />
+          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.06em" }}>Enterprise</span>
         </div>
-        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: dark ? "#F6F5F7" : "#1D1B22", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
+        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
           {t("Bank-grade", "Segurança")}<br />{t("security.", "nível bancário.")}
         </h3>
-        <p style={{ fontSize: "0.75rem", color: dark ? "#88819C" : "#B3AFC0", lineHeight: 1.6, marginBottom: 16 }}>
+        <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC", lineHeight: 1.6, marginBottom: 16 }}>
           {t("SOC 2 Type II, end-to-end encryption and complete access auditing.", "SOC 2 Tipo II, criptografia de ponta a ponta e auditoria completa de acessos.")}
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
           {[t("SSO & mandatory MFA", "SSO e MFA obrigatório"), t("Real-time audit log", "Log de auditoria em tempo real"), t("RBAC per workspace", "RBAC por workspace")].map(item => (
             <div key={item} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <div style={{ width: 16, height: 16, borderRadius: 8, background: "rgba(244,20,75,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Check style={{ width: 9, height: 9, color: "#F4144B" }} />
+              <div style={{ width: 16, height: 16, borderRadius: 8, background: "rgba(230,32,64,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Check style={{ width: 9, height: 9, color: "#E62040" }} />
               </div>
-              <span style={{ fontSize: "0.6875rem", color: dark ? "#B3AFC0" : "#88819C", fontWeight: 500 }}>{item}</span>
+              <span style={{ fontSize: "0.6875rem", color: dark ? "#B3B3BC" : "#888896", fontWeight: 500 }}>{item}</span>
             </div>
           ))}
         </div>
-        <div style={{ height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(29,27,34,0.07)", marginBottom: 16 }} />
+        <div style={{ height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(29,29,32,0.07)", marginBottom: 16 }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: dark ? "#F6F5F7" : "#1D1B22" }}>R$499</span>
-            <span style={{ fontSize: "0.625rem", color: dark ? "#69637E" : "#B3AFC0" }}>{t("/mo", "/mês")}</span>
+            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20" }}>R$499</span>
+            <span style={{ fontSize: "0.625rem", color: dark ? "#696977" : "#B3B3BC" }}>{t("/mo", "/mês")}</span>
           </div>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "#F4144B", color: "#fff", fontSize: "0.6875rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "#E62040", color: "#fff", fontSize: "0.6875rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
             {t("Subscribe", "Contratar")} <ArrowRight style={{ width: 12, height: 12 }} />
           </button>
         </div>
@@ -1925,9 +1925,9 @@ function WobbleCardSection() {
   const [spotlightId,   setSpotlightId]   = useState("pink");
   const [wobbleEnabled, setWobbleEnabled] = useState(true);
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,27,34,0.08)";
-  const activeStyle = { border: "1.5px solid #F4144B", background: "rgba(244,20,75,0.08)", color: "#F4144B" };
-  const idleColor   = dark ? "#B3AFC0" : "#88819C";
+  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const activeStyle = { border: "1.5px solid #E62040", background: "rgba(230,32,64,0.08)", color: "#E62040" };
+  const idleColor   = dark ? "#B3B3BC" : "#888896";
 
   return (
     <Section
@@ -1939,7 +1939,7 @@ function WobbleCardSection() {
         {/* Preview */}
         <div
           className="flex items-center justify-center p-12"
-          style={{ background: dark ? "#111014" : "#F6F5F7", minHeight: 300 }}
+          style={{ background: dark ? "#060608" : "#F6F6F7", minHeight: 300 }}
         >
           <WobbleCardDemo dark={dark} spotlightId={spotlightId} wobbleEnabled={wobbleEnabled} />
         </div>

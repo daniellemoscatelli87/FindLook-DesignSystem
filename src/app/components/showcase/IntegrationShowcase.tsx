@@ -397,21 +397,21 @@ export function IntegrationShowcase() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <CodeBlock filename={t("❌ Avoid", "❌ Evite")} label={t("hex / literal", "hex / literal")}>
-                <span style={{ color: "#F4144B" }}>{"className"}</span>
+                <span style={{ color: "#E62040" }}>{"className"}</span>
                 {"="}
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
-                <span style={{ color: "#F4144B" }}>bg-red-500 text-white</span>
+                <span style={{ color: "#E62040" }}>bg-red-500 text-white</span>
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
                 {"\n"}
-                <span style={{ color: "#F4144B" }}>{"style"}</span>
+                <span style={{ color: "#E62040" }}>{"style"}</span>
                 {"={{ "}
-                <span style={{ color: "#F4144B" }}>background: "#F4144B"</span>
+                <span style={{ color: "#E62040" }}>background: "#E62040"</span>
                 {" }}"}
                 {"\n"}
-                <span style={{ color: "#F4144B" }}>{"className"}</span>
+                <span style={{ color: "#E62040" }}>{"className"}</span>
                 {"="}
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
-                <span style={{ color: "#F4144B" }}>{"bg-[#F4144B]"}</span>
+                <span style={{ color: "#E62040" }}>{"bg-[#E62040]"}</span>
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
               </CodeBlock>
               <CodeBlock filename={t("✓ Correct", "✓ Correto")} label={t("semantic tokens", "tokens semânticos")}>

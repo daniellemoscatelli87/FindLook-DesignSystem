@@ -635,11 +635,11 @@ function AppShell() {
             padding-bottom: 0.12em;
             background-image: linear-gradient(
               90deg,
-              #88819C 0%,
-              #B3AFC0 25%,
-              #D4D1DB 50%,
-              #B3AFC0 75%,
-              #88819C 100%
+              #888896 0%,
+              #B3B3BC 25%,
+              #D4D4D9 50%,
+              #B3B3BC 75%,
+              #888896 100%
             );
             background-size: 200% 100%;
             background-repeat: repeat-x;
@@ -650,7 +650,7 @@ function AppShell() {
             animation: ds-shimmer 5.5s linear infinite;
           }
           html:not(.dark) .ds-shimmer {
-            background-image: linear-gradient(90deg, #88819C 0%, #69637E 25%, #1D1B22 50%, #69637E 75%, #88819C 100%);
+            background-image: linear-gradient(90deg, #888896 0%, #696977 25%, #1D1D20 50%, #696977 75%, #888896 100%);
           }
           @media (prefers-reduced-motion: reduce) { .ds-shimmer { animation: none; } }
         `}</style>
@@ -665,7 +665,7 @@ function AppShell() {
             </span>
             <span
               className="mx-2 text-[1.0625rem] font-light hidden sm:inline"
-              style={{ color: "#88819C", opacity: 0.4 }}
+              style={{ color: "#888896", opacity: 0.4 }}
             >
               |
             </span>

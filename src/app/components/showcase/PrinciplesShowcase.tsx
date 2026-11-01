@@ -52,7 +52,7 @@ const principles: PrincipleItem[] = [
     title: "Inclusiva",
     statement: "Meta WCAG 2.2 AA: teclado, foco, contraste e rótulos.",
     practice: [
-      "Texto branco sobre pink só em botões e títulos; texto corrido em pink usa pink-600.",
+      "Branco sobre pink passa o AA (4,5:1); texto corrido em pink sobre branco usa pink-600 (6,4:1).",
       "Todo componente é operável por teclado, com foco visível e rótulo acessível.",
     ],
     linkLabel: "Acessibilidade › Contraste",

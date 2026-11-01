@@ -47,30 +47,30 @@ const BLOB_SLOTS = [
 type PaletteEntry = { id: string; group: "Graphite" | "Pink"; label: string; display: string; blob: string };
 
 const DARK_PALETTE: PaletteEntry[] = [
-  { id: "g900", group: "Graphite", label: "G-900", display: "#1D1B22", blob: "rgba(29,27,34,0.90)"   },
-  { id: "g800", group: "Graphite", label: "G-800", display: "#2B2833", blob: "rgba(43,40,51,0.85)"   },
-  { id: "g700", group: "Graphite", label: "G-700", display: "#3E3A4A", blob: "rgba(43,40,51,0.80)"   },
-  { id: "g600", group: "Graphite", label: "G-600", display: "#514C61", blob: "rgba(81,76,97,0.68)"   },
-  { id: "g500", group: "Graphite", label: "G-500", display: "#69637E", blob: "rgba(105,99,126,0.58)"  },
-  { id: "c950", group: "Pink",  label: "P-950", display: "#35111D", blob: "rgba(53,17,29,0.82)"     },
-  { id: "c900", group: "Pink",  label: "P-900", display: "#35111D", blob: "rgba(85,17,37,0.72)"     },
-  { id: "c700", group: "Pink",  label: "P-700", display: "#9E1236", blob: "rgba(158,18,54,0.52)"  },
-  { id: "c500", group: "Pink",  label: "P-500", display: "#C71340", blob: "rgba(199,19,64,0.38)"  },
-  { id: "c400", group: "Pink",  label: "P-400", display: "#F4144B", blob: "rgba(244,20,75,0.26)"  },
+  { id: "g900", group: "Graphite", label: "G-900", display: "#1D1D20", blob: "rgba(29,29,32,0.90)"   },
+  { id: "g800", group: "Graphite", label: "G-800", display: "#2B2B31", blob: "rgba(43,43,49,0.85)"   },
+  { id: "g700", group: "Graphite", label: "G-700", display: "#3E3E46", blob: "rgba(43,43,49,0.80)"   },
+  { id: "g600", group: "Graphite", label: "G-600", display: "#51515C", blob: "rgba(81,81,92,0.68)"   },
+  { id: "g500", group: "Graphite", label: "G-500", display: "#696977", blob: "rgba(105,105,119,0.58)"  },
+  { id: "c950", group: "Pink",  label: "P-950", display: "#2A0A11", blob: "rgba(42,10,17,0.82)"     },
+  { id: "c900", group: "Pink",  label: "P-900", display: "#2A0A11", blob: "rgba(73,14,25,0.72)"     },
+  { id: "c700", group: "Pink",  label: "P-700", display: "#91162B", blob: "rgba(145,22,43,0.52)"  },
+  { id: "c500", group: "Pink",  label: "P-500", display: "#B91B35", blob: "rgba(185,27,53,0.38)"  },
+  { id: "c400", group: "Pink",  label: "P-400", display: "#E62040", blob: "rgba(230,32,64,0.26)"  },
 ];
 
 /* Paleta light */
 const LIGHT_PALETTE: PaletteEntry[] = [
   { id: "white", group: "Graphite", label: "White",  display: "#FFFFFF", blob: "rgba(255,255,255,1.00)" },
-  { id: "g50",   group: "Graphite", label: "G-50",   display: "#F6F5F7", blob: "rgba(246,245,247,0.95)" },
-  { id: "g100",  group: "Graphite", label: "G-100",  display: "#E9E8ED", blob: "rgba(233,232,237,0.90)" },
-  { id: "g200",  group: "Graphite", label: "G-200",  display: "#D4D1DB", blob: "rgba(212,209,219,0.82)" },
-  { id: "g300",  group: "Graphite", label: "G-300",  display: "#B3AFC0", blob: "rgba(179,175,192,0.62)" },
-  { id: "g400",  group: "Graphite", label: "G-400",  display: "#88819C", blob: "rgba(136,129,156,0.48)"  },
-  { id: "c50",   group: "Pink",  label: "P-50",   display: "#FEF1F4", blob: "rgba(254,241,244,1.00)" },
-  { id: "c100",  group: "Pink",  label: "P-100",  display: "#FDDEE6", blob: "rgba(253,222,230,0.78)" },
-  { id: "c200",  group: "Pink",  label: "P-200",  display: "#FA8AA5", blob: "rgba(250,138,165,0.38)" },
-  { id: "c400l", group: "Pink",  label: "Primary", display: "#F4144B", blob: "rgba(244,20,75,0.22)"  },
+  { id: "g50",   group: "Graphite", label: "G-50",   display: "#F6F6F7", blob: "rgba(246,246,247,0.95)" },
+  { id: "g100",  group: "Graphite", label: "G-100",  display: "#E9E9EC", blob: "rgba(233,233,236,0.90)" },
+  { id: "g200",  group: "Graphite", label: "G-200",  display: "#D4D4D9", blob: "rgba(212,212,217,0.82)" },
+  { id: "g300",  group: "Graphite", label: "G-300",  display: "#B3B3BC", blob: "rgba(179,179,188,0.62)" },
+  { id: "g400",  group: "Graphite", label: "G-400",  display: "#888896", blob: "rgba(136,136,150,0.48)"  },
+  { id: "c50",   group: "Pink",  label: "P-50",   display: "#FEF2F4", blob: "rgba(254,242,244,1.00)" },
+  { id: "c100",  group: "Pink",  label: "P-100",  display: "#FCE0E4", blob: "rgba(252,224,228,0.78)" },
+  { id: "c200",  group: "Pink",  label: "P-200",  display: "#F290A0", blob: "rgba(242,144,160,0.38)" },
+  { id: "c400l", group: "Pink",  label: "Primary", display: "#E62040", blob: "rgba(230,32,64,0.22)"  },
 ];
 
 const DEFAULT_DARK  = ["g700", "c900", "g800", "c700"];
@@ -82,7 +82,7 @@ function GradientAnimBg({
   dark, blobColors, children,
 }: { dark: boolean; blobColors: string[]; children: React.ReactNode }) {
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", background: dark ? "#111014" : "#FFFFFF" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", background: dark ? "#060608" : "#FFFFFF" }}>
       {BLOB_SLOTS.slice(0, blobColors.length).map((slot, i) => (
         <motion.div key={i}
           style={{
@@ -118,11 +118,11 @@ function Swatch({
         width: 24, height: 24, borderRadius: "50%", flexShrink: 0,
         background: entry.display,
         border: active
-          ? "2.5px solid #F4144B"
+          ? "2.5px solid #E62040"
           : isWhite
             ? "2px solid rgba(0,0,0,0.18)"
             : "2px solid rgba(255,255,255,0.10)",
-        boxShadow: active ? "0 0 0 1px rgba(244,20,75,0.40)" : "none",
+        boxShadow: active ? "0 0 0 1px rgba(230,32,64,0.40)" : "none",
         cursor: disabled && !active ? "not-allowed" : "pointer",
         opacity: disabled && !active ? 0.35 : 1,
         transform: active ? "scale(1.20)" : "scale(1)",
@@ -133,7 +133,7 @@ function Swatch({
       {active && (
         <span style={{
           position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "0.5rem", color: isWhite ? "#F4144B" : "#fff",
+          fontSize: "0.5rem", color: isWhite ? "#E62040" : "#fff",
           fontWeight: 900, userSelect: "none",
         }}>✓</span>
       )}
@@ -340,9 +340,9 @@ type RGB = [number, number, number];
 type CanvasPreset = { id: string; label: string; swatches: string[]; colors: RGB[] };
 
 const CANVAS_PRESETS: CanvasPreset[] = [
-  { id: "pink",  label: "Pink",  swatches: ["#F4144B","#C71340","#FA8AA5"], colors: [[244,20,75],[199,19,64],[250,138,165]] },
-  { id: "graphite", label: "Graphite", swatches: ["#514C61","#88819C","#D4D1DB"], colors: [[81,76,97],[105,99,126],[179,175,192]] },
-  { id: "ember",    label: "Ember",    swatches: ["#FF6B35","#F59E0B","#F4144B"], colors: [[255,107,53],[245,158,11],[244,20,75]] },
+  { id: "pink",  label: "Pink",  swatches: ["#E62040","#B91B35","#F290A0"], colors: [[230,32,64],[185,27,53],[242,144,160]] },
+  { id: "graphite", label: "Graphite", swatches: ["#51515C","#888896","#D4D4D9"], colors: [[81,81,92],[105,105,119],[179,179,188]] },
+  { id: "ember",    label: "Ember",    swatches: ["#FF6B35","#F59E0B","#E62040"], colors: [[255,107,53],[245,158,11],[230,32,64]] },
   { id: "aurora",   label: "Aurora",   swatches: ["#0EA5E9","#10B981","#A855F7"], colors: [[14,165,233],[16,185,129],[168,85,247]] },
   { id: "rose",     label: "Rose",     swatches: ["#F43F5E","#FB7185","#E11D48"], colors: [[244,63,94],[251,113,133],[225,29,72]] },
 ];
@@ -362,7 +362,7 @@ const ANIM_SPEEDS = [
 
 /* Animated dot canvas — mounted via AnimatePresence on card hover */
 function CanvasRevealEffect({
-  colors = [[244, 20, 75]] as RGB[],
+  colors = [[230, 32, 64]] as RGB[],
   dotSize = 4,
   animationSpeed = 4,
 }: {
@@ -513,14 +513,14 @@ function CanvasRevealCard() {
   const dotOpt   = DOT_SIZES.find(s => s.id === dotSizeId)!;
   const speedOpt = ANIM_SPEEDS.find(s => s.id === speedId)!;
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,27,34,0.08)";
-  const idle = dark ? "#B3AFC0" : "#88819C";
+  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const idle = dark ? "#B3B3BC" : "#888896";
   const tags: EffectTag[] = ["Interativo", "Canvas"];
 
   const demoCards: RevealCardDef[] = [
-    { title: t("Security", "Segurança"),      icon: <Shield     style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#111014" },
-    { title: t("Performance", "Performance"),    icon: <Zap        style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#1D1B22" },
-    { title: t("Scalability", "Escalabilidade"), icon: <TrendingUp style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#2B2833" },
+    { title: t("Security", "Segurança"),      icon: <Shield     style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#060608" },
+    { title: t("Performance", "Performance"),    icon: <Zap        style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#1D1D20" },
+    { title: t("Scalability", "Escalabilidade"), icon: <TrendingUp style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#2B2B31" },
   ];
 
   return (
@@ -548,9 +548,9 @@ function CanvasRevealCard() {
               <button key={p.id} onClick={() => setPresetId(p.id)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${presetId === p.id ? "#F4144B" : ctrl}`,
-                  background: presetId === p.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: presetId === p.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${presetId === p.id ? "#E62040" : ctrl}`,
+                  background: presetId === p.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: presetId === p.id ? "#E62040" : idle,
                 }}>
                 <span className="flex gap-0.5">
                   {p.swatches.map(hex => (
@@ -570,9 +570,9 @@ function CanvasRevealCard() {
               <button key={s.id} onClick={() => setDotSizeId(s.id)}
                 className="w-9 py-1.5 rounded-[7px] text-[0.6875rem] font-bold transition-all"
                 style={{
-                  border: `1.5px solid ${dotSizeId === s.id ? "#F4144B" : ctrl}`,
-                  background: dotSizeId === s.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: dotSizeId === s.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${dotSizeId === s.id ? "#E62040" : ctrl}`,
+                  background: dotSizeId === s.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: dotSizeId === s.id ? "#E62040" : idle,
                 }}>
                 {bi(s.label)}
               </button>
@@ -587,9 +587,9 @@ function CanvasRevealCard() {
               <button key={s.id} onClick={() => setSpeedId(s.id)}
                 className="px-3 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${speedId === s.id ? "#F4144B" : ctrl}`,
-                  background: speedId === s.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: speedId === s.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${speedId === s.id ? "#E62040" : ctrl}`,
+                  background: speedId === s.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: speedId === s.id ? "#E62040" : idle,
                 }}>
                 {bi(s.label)}
               </button>
@@ -683,10 +683,10 @@ type BBPalette = {
   fast: RGB[]; mid: RGB[]; slow: RGB[];
 };
 const BB_PALETTES: BBPalette[] = [
-  { id: "pink", label: "Pink", swatches: ["#F4144B","#FA8AA5","#ffffff"],
+  { id: "pink", label: "Pink", swatches: ["#E62040","#F290A0","#ffffff"],
     fast: [[255,255,255],[255,220,220],[255,200,200]],
-    mid:  [[244,20,75],[250,138,165],[255,107,107],[199,19,64]],
-    slow: [[81,76,97],[105,99,126],[43,40,51],[136,129,156]] },
+    mid:  [[230,32,64],[242,144,160],[255,107,107],[185,27,53]],
+    slow: [[81,81,92],[105,105,119],[43,43,49],[136,136,150]] },
   { id: "cosmos",  label: "Cosmos",  swatches: ["#7C3AED","#A78BFA","#C4B5FD"],
     fast: [[255,255,255],[230,220,255],[210,200,255]],
     mid:  [[124,58,237],[167,139,250],[139,92,246],[109,40,217]],
@@ -714,18 +714,18 @@ type BglPalette = {
   hRgb: RGB[]; vRgb: RGB[];
 };
 const BGL_PALETTES: BglPalette[] = [
-  { id: "pink",  label: "Pink",  swatches: ["#F4144B","#FA8AA5"],
-    hRgb: [[244,20,75],[250,138,165],[255,107,107],[255,255,255]],
-    vRgb: [[81,76,97],[105,99,126],[136,129,156],[43,40,51]] },
+  { id: "pink",  label: "Pink",  swatches: ["#E62040","#F290A0"],
+    hRgb: [[230,32,64],[242,144,160],[255,107,107],[255,255,255]],
+    vRgb: [[81,81,92],[105,105,119],[136,136,150],[43,43,49]] },
   { id: "cyan",     label: "Cyan",    swatches: ["#06B6D4","#67E8F9"],
     hRgb: [[6,182,212],[103,232,249],[34,211,238],[255,255,255]],
     vRgb: [[15,60,80],[20,70,90],[30,80,100],[10,50,70]] },
   { id: "aurora",   label: "Aurora",   swatches: ["#8B5CF6","#34D399"],
     hRgb: [[139,92,246],[167,139,250],[52,211,153],[255,255,255]],
     vRgb: [[50,30,80],[60,40,90],[30,60,50],[40,20,60]] },
-  { id: "graphite", label: "Graphite",  swatches: ["#B3AFC0","#88819C"],
-    hRgb: [[179,175,192],[136,129,156],[212,209,219],[200,215,230]],
-    vRgb: [[43,40,51],[81,76,97],[105,99,126],[30,38,57]] },
+  { id: "graphite", label: "Graphite",  swatches: ["#B3B3BC","#888896"],
+    hRgb: [[179,179,188],[136,136,150],[212,212,217],[200,215,230]],
+    vRgb: [[43,43,49],[81,81,92],[105,105,119],[30,38,57]] },
 ];
 const BGL_SPEEDS = [
   { id: "slow",   label: { en: "Slow",   pt: "Lenta" },  mul: 0.4 },
@@ -782,8 +782,8 @@ function VortexBg({ dark, cfg, children }: { dark: boolean; cfg: BBCfg; children
     const cx = W / 2, cy = H / 2;
     const MAX_R = Math.hypot(W, H) * 0.6;
 
-    const BG      = dark ? "#111014" : "#F0F2F7";
-    const FADE_BG = dark ? "rgba(17,16,20,0.22)" : "rgba(240,242,247,0.22)";
+    const BG      = dark ? "#060608" : "#F0F2F7";
+    const FADE_BG = dark ? "rgba(6,6,8,0.22)" : "rgba(240,242,247,0.22)";
 
     let particles:  BBParticle[] = [];
     let shockwaves: Shockwave[]  = [];
@@ -963,9 +963,9 @@ function BackgroundLinesBg({ dark, cfg, children }: { dark: boolean; cfg: BglCfg
     const cw = W / COLS;
     const ch = H / ROWS;
 
-    const BG      = dark ? "#111014" : "#F0F2F7";
-    const FADE_BG = dark ? "rgba(17,16,20,0.28)" : "rgba(240,242,247,0.28)";
-    const GRID_C  = dark ? "rgba(81,76,97,0.13)"  : "rgba(139,155,180,0.16)";
+    const BG      = dark ? "#060608" : "#F0F2F7";
+    const FADE_BG = dark ? "rgba(6,6,8,0.28)" : "rgba(240,242,247,0.28)";
+    const GRID_C  = dark ? "rgba(81,81,92,0.13)"  : "rgba(139,155,180,0.16)";
 
     // Streams store colorIdx — actual RGB looked up from cfgRef at draw time
     type HStream = { row:number; x:number; baseSpd:number; len:number; colorIdx:number; alpha:number; dir:1|-1 };
@@ -1125,7 +1125,7 @@ function BackgroundLinesBg({ dark, cfg, children }: { dark: boolean; cfg: BglCfg
       // Vignette
       const vg = ctx.createRadialGradient(W/2, H/2, H * 0.15, W/2, H/2, H * 0.9);
       vg.addColorStop(0, "rgba(0,0,0,0)");
-      vg.addColorStop(1, dark ? "rgba(17,16,20,0.60)" : "rgba(215,220,235,0.50)");
+      vg.addColorStop(1, dark ? "rgba(6,6,8,0.60)" : "rgba(215,220,235,0.50)");
       ctx.globalAlpha = 1;
       ctx.fillStyle   = vg;
       ctx.fillRect(0, 0, W, H);
@@ -1162,8 +1162,8 @@ function BigBangCard() {
 
   const cfg: BBCfg = { speedMul: speedOpt.mul, bangInterval: speedOpt.interval, palette };
 
-  const ctrl    = dark ? "rgba(255,255,255,0.07)" : "rgba(29,27,34,0.08)";
-  const idle    = dark ? "#B3AFC0" : "#88819C";
+  const ctrl    = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const idle    = dark ? "#B3B3BC" : "#888896";
   const ef      = { name: "Big Bang", tags: ["Animado", "Canvas"] as EffectTag[] };
 
   return (
@@ -1182,9 +1182,9 @@ function BigBangCard() {
               <button key={s.id} onClick={() => setSpeedId(s.id)}
                 className="px-3 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${speedId === s.id ? "#F4144B" : ctrl}`,
-                  background: speedId === s.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: speedId === s.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${speedId === s.id ? "#E62040" : ctrl}`,
+                  background: speedId === s.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: speedId === s.id ? "#E62040" : idle,
                 }}>
                 {bi(s.label)}
               </button>
@@ -1199,9 +1199,9 @@ function BigBangCard() {
               <button key={p.id} onClick={() => setPaletteId(p.id)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${paletteId === p.id ? "#F4144B" : ctrl}`,
-                  background: paletteId === p.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: paletteId === p.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${paletteId === p.id ? "#E62040" : ctrl}`,
+                  background: paletteId === p.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: paletteId === p.id ? "#E62040" : idle,
                 }}>
                 <span className="flex gap-0.5">
                   {p.swatches.slice(0, 2).map((hex, i) => (
@@ -1256,8 +1256,8 @@ function BgLinesCard() {
 
   const cfg: BglCfg = { speedMul: speedOpt.mul, palette, densityMul: densityOpt.val };
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,27,34,0.08)";
-  const idle = dark ? "#B3AFC0" : "#88819C";
+  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const idle = dark ? "#B3B3BC" : "#888896";
   const ef   = { name: "Background Lines", tags: ["Animado", "Canvas"] as EffectTag[] };
 
   return (
@@ -1276,9 +1276,9 @@ function BgLinesCard() {
               <button key={s.id} onClick={() => setSpeedId(s.id)}
                 className="px-3 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${speedId === s.id ? "#F4144B" : ctrl}`,
-                  background: speedId === s.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: speedId === s.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${speedId === s.id ? "#E62040" : ctrl}`,
+                  background: speedId === s.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: speedId === s.id ? "#E62040" : idle,
                 }}>
                 {bi(s.label)}
               </button>
@@ -1293,9 +1293,9 @@ function BgLinesCard() {
               <button key={d.id} onClick={() => setDensityId(d.id)}
                 className="px-3 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${densityId === d.id ? "#F4144B" : ctrl}`,
-                  background: densityId === d.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: densityId === d.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${densityId === d.id ? "#E62040" : ctrl}`,
+                  background: densityId === d.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: densityId === d.id ? "#E62040" : idle,
                 }}>
                 {bi(d.label)}
               </button>
@@ -1310,9 +1310,9 @@ function BgLinesCard() {
               <button key={p.id} onClick={() => setPaletteId(p.id)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[7px] text-[0.6875rem] font-semibold transition-all"
                 style={{
-                  border: `1.5px solid ${paletteId === p.id ? "#F4144B" : ctrl}`,
-                  background: paletteId === p.id ? "rgba(244,20,75,0.08)" : "transparent",
-                  color: paletteId === p.id ? "#F4144B" : idle,
+                  border: `1.5px solid ${paletteId === p.id ? "#E62040" : ctrl}`,
+                  background: paletteId === p.id ? "rgba(230,32,64,0.08)" : "transparent",
+                  color: paletteId === p.id ? "#E62040" : idle,
                 }}>
                 <span className="flex gap-0.5">
                   {p.swatches.map((hex, i) => (
@@ -1362,14 +1362,14 @@ function BgLinesCard() {
 
 function HeroContent({ dark }: { dark: boolean }) {
   const { t, lang } = useI18n();
-  const c = dark ? "#F6F5F7" : "#1D1B22";
-  const m = dark ? "#88819C" : "#B3AFC0";
+  const c = dark ? "#F6F6F7" : "#1D1D20";
+  const m = dark ? "#888896" : "#B3B3BC";
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ maxWidth: 280 }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(29,27,34,0.15)"}`, marginBottom: 14 }}>
-          <span style={{ width: 6, height: 6, borderRadius: 99, background: "#F4144B", display: "inline-block" }} />
-          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "rgba(255,255,255,0.6)" : "#88819C", textTransform: "uppercase", letterSpacing: "0.06em" }}>{t("v2.0 available", "v2.0 disponível")}</span>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(29,29,32,0.15)"}`, marginBottom: 14 }}>
+          <span style={{ width: 6, height: 6, borderRadius: 99, background: "#E62040", display: "inline-block" }} />
+          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "rgba(255,255,255,0.6)" : "#888896", textTransform: "uppercase", letterSpacing: "0.06em" }}>{t("v2.0 available", "v2.0 disponível")}</span>
         </div>
         <h1 style={{ fontSize: "1.375rem", fontWeight: 900, color: c, lineHeight: 1.15, letterSpacing: "-0.03em", marginBottom: 10 }}>
           {lang === "pt" ? <>A plataforma para<br />times que entregam.</> : <>The platform for<br />teams that ship.</>}
@@ -1378,10 +1378,10 @@ function HeroContent({ dark }: { dark: boolean }) {
           {t("Deploy, observability and monitoring in one place.", "Deploy, observabilidade e monitoramento em um só lugar.")}
         </p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 9, background: "#F4144B", color: "#fff", fontSize: "0.75rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 9, background: "#E62040", color: "#fff", fontSize: "0.75rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
             {t("Get started", "Começar")} <ArrowRight style={{ width: 12, height: 12 }} />
           </button>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 9, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(29,27,34,0.15)"}`, background: "transparent", color: dark ? "#B3AFC0" : "#88819C", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 9, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(29,29,32,0.15)"}`, background: "transparent", color: dark ? "#B3B3BC" : "#888896", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer" }}>
             {t("View demo", "Ver demo")}
           </button>
         </div>
@@ -1392,17 +1392,17 @@ function HeroContent({ dark }: { dark: boolean }) {
 
 function StatsContent({ dark }: { dark: boolean }) {
   const { t, lang } = useI18n();
-  const m = dark ? "#88819C" : "#B3AFC0";
+  const m = dark ? "#888896" : "#B3B3BC";
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, maxWidth: 300, width: "100%" }}>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F5F7" : "#1D1B22", letterSpacing: "-0.025em", textAlign: "center", lineHeight: 1.2 }}>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20", letterSpacing: "-0.025em", textAlign: "center", lineHeight: 1.2 }}>
           {lang === "pt" ? <>Passe o mouse para revelar<br />o que está embaixo.</> : <>Hover to reveal<br />what's below.</>}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, width: "100%" }}>
           {[{ v: "99.9%", l: "Uptime" }, { v: "50ms", l: t("Latency", "Latência") }, { v: "10k+", l: t("Customers", "Clientes") }].map(s => (
-            <div key={s.l} style={{ textAlign: "center", padding: "10px 6px", borderRadius: 10, background: dark ? "rgba(29,27,34,0.60)" : "rgba(255,255,255,0.70)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(29,27,34,0.08)"}` }}>
-              <div style={{ fontSize: "1rem", fontWeight: 900, color: "#F4144B" }}>{s.v}</div>
+            <div key={s.l} style={{ textAlign: "center", padding: "10px 6px", borderRadius: 10, background: dark ? "rgba(29,29,32,0.60)" : "rgba(255,255,255,0.70)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)"}` }}>
+              <div style={{ fontSize: "1rem", fontWeight: 900, color: "#E62040" }}>{s.v}</div>
               <div style={{ fontSize: "0.5625rem", color: m }}>{s.l}</div>
             </div>
           ))}
@@ -1417,14 +1417,14 @@ function VortexContent({ dark }: { dark: boolean }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 99, background: dark ? "rgba(244,20,75,0.15)" : "rgba(244,20,75,0.10)", border: `1px solid rgba(244,20,75,0.25)`, marginBottom: 14 }}>
-          <Zap style={{ width: 12, height: 12, color: "#F4144B" }} />
-          <span style={{ fontSize: "0.625rem", fontWeight: 700, color: "#F4144B", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Processing", "Processamento")}</span>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 99, background: dark ? "rgba(230,32,64,0.15)" : "rgba(230,32,64,0.10)", border: `1px solid rgba(230,32,64,0.25)`, marginBottom: 14 }}>
+          <Zap style={{ width: 12, height: 12, color: "#E62040" }} />
+          <span style={{ fontSize: "0.625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Processing", "Processamento")}</span>
         </div>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F5F7" : "#1D1B22", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: 8 }}>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: 8 }}>
           {lang === "pt" ? <>1M+ eventos<br />por segundo.</> : <>1M+ events<br />per second.</>}
         </h2>
-        <p style={{ fontSize: "0.75rem", color: dark ? "#88819C" : "#B3AFC0" }}>
+        <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC" }}>
           {t("Distributed infrastructure with zero downtime.", "Infraestrutura distribuída com zero downtime.")}
         </p>
       </div>
@@ -1437,18 +1437,18 @@ function LinesContent({ dark }: { dark: boolean }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", maxWidth: 300 }}>
-        <p style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "#69637E" : "#B3AFC0", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Integrations", "Integrações")}</p>
+        <p style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "#696977" : "#B3B3BC", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Integrations", "Integrações")}</p>
         {[
           { icon: Shield, label: "GitHub Actions", status: "active" },
           { icon: BarChart2, label: "Datadog", status: "active" },
           { icon: Package, label: "Docker Hub", status: "setup" },
         ].map(item => (
-          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 10, background: dark ? "rgba(29,27,34,0.70)" : "rgba(255,255,255,0.80)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(29,27,34,0.08)"}` }}>
-            <div style={{ width: 28, height: 28, borderRadius: 8, background: dark ? "rgba(244,20,75,0.15)" : "rgba(244,20,75,0.10)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <item.icon style={{ width: 14, height: 14, color: "#F4144B" }} />
+          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 10, background: dark ? "rgba(29,29,32,0.70)" : "rgba(255,255,255,0.80)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)"}` }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: dark ? "rgba(230,32,64,0.15)" : "rgba(230,32,64,0.10)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <item.icon style={{ width: 14, height: 14, color: "#E62040" }} />
             </div>
-            <span style={{ flex: 1, fontSize: "0.75rem", fontWeight: 600, color: dark ? "#F6F5F7" : "#1D1B22" }}>{item.label}</span>
-            <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: item.status === "active" ? "#4fb57b" : dark ? "#88819C" : "#B3AFC0" }}>● {item.status === "active" ? t("Active", "Ativo") : t("Setting up", "Configurando")}</span>
+            <span style={{ flex: 1, fontSize: "0.75rem", fontWeight: 600, color: dark ? "#F6F6F7" : "#1D1D20" }}>{item.label}</span>
+            <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: item.status === "active" ? "#4fb57b" : dark ? "#888896" : "#B3B3BC" }}>● {item.status === "active" ? t("Active", "Ativo") : t("Setting up", "Configurando")}</span>
           </div>
         ))}
       </div>
@@ -1594,45 +1594,45 @@ const getBgTokenGroups = (t: (en: string, pt: string) => string): TokenGroup[] =
   {
     group: t("Gradient Animation — blobs", "Gradient Animation — blobs"),
     tokens: [
-      { name: "--graphite-700", description: t("Blob base dark", "Base do blob (dark)"),    light: "#3E3A4A", dark: "#3E3A4A", isColor: true },
-      { name: "--pink-900",  description: t("Blob accent dark", "Destaque do blob (dark)"),  light: "#35111D", dark: "#35111D", isColor: true },
-      { name: "--graphite-100", description: t("Blob base light", "Base do blob (light)"),   light: "#E9E8ED", isColor: true },
-      { name: "--pink-50",   description: t("Blob accent light", "Destaque do blob (light)"), light: "#FEF1F4", isColor: true },
+      { name: "--graphite-700", description: t("Blob base dark", "Base do blob (dark)"),    light: "#3E3E46", dark: "#3E3E46", isColor: true },
+      { name: "--pink-900",  description: t("Blob accent dark", "Destaque do blob (dark)"),  light: "#2A0A11", dark: "#2A0A11", isColor: true },
+      { name: "--graphite-100", description: t("Blob base light", "Base do blob (light)"),   light: "#E9E9EC", isColor: true },
+      { name: "--pink-50",   description: t("Blob accent light", "Destaque do blob (light)"), light: "#FEF2F4", isColor: true },
     ],
   },
   {
     group: t("Canvas Reveal — hover cells", "Canvas Reveal — células no hover"),
     tokens: [
-      { name: "--graphite-900", description: t("Dark cell (tone 1)", "Célula escura (tom 1)"),  light: "#1D1B22", dark: "#1D1B22", isColor: true },
-      { name: "--graphite-800", description: t("Dark cell (tone 2)", "Célula escura (tom 2)"),  light: "#2B2833", dark: "#2B2833", isColor: true },
-      { name: "--graphite-700", description: t("Dark cell (tone 3)", "Célula escura (tom 3)"),  light: "#3E3A4A", dark: "#3E3A4A", isColor: true },
-      { name: "--graphite-200", description: t("Light cell", "Célula clara"),         light: "#D4D1DB", isColor: true },
+      { name: "--graphite-900", description: t("Dark cell (tone 1)", "Célula escura (tom 1)"),  light: "#1D1D20", dark: "#1D1D20", isColor: true },
+      { name: "--graphite-800", description: t("Dark cell (tone 2)", "Célula escura (tom 2)"),  light: "#2B2B31", dark: "#2B2B31", isColor: true },
+      { name: "--graphite-700", description: t("Dark cell (tone 3)", "Célula escura (tom 3)"),  light: "#3E3E46", dark: "#3E3E46", isColor: true },
+      { name: "--graphite-200", description: t("Light cell", "Célula clara"),         light: "#D4D4D9", isColor: true },
     ],
   },
   {
     group: t("Big Bang — Pink palette (default)", "Big Bang — paleta Pink (padrão)"),
     tokens: [
       { name: "fast[0]",  description: t("Fast particle — white tip", "Partícula rápida — ponta branca"),           light: "#ffffff", dark: "#ffffff", isColor: true },
-      { name: "mid[0]",   description: t("Medium particle — primary accent", "Partícula média — destaque primário"),          light: "#F4144B", dark: "#F4144B", isColor: true },
-      { name: "mid[1]",   description: t("Medium particle — pinkish variation", "Partícula média — variação rosada"),          light: "#FA8AA5", dark: "#FA8AA5", isColor: true },
-      { name: "slow[0]",  description: t("Slow particle — dark graphite", "Partícula lenta — graphite escuro"),          light: "#514C61", dark: "#514C61", isColor: true },
-      { name: "slow[2]",  description: t("Slow particle — medium graphite", "Partícula lenta — graphite médio"),           light: "#88819C", dark: "#88819C", isColor: true },
+      { name: "mid[0]",   description: t("Medium particle — primary accent", "Partícula média — destaque primário"),          light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "mid[1]",   description: t("Medium particle — pinkish variation", "Partícula média — variação rosada"),          light: "#F290A0", dark: "#F290A0", isColor: true },
+      { name: "slow[0]",  description: t("Slow particle — dark graphite", "Partícula lenta — graphite escuro"),          light: "#51515C", dark: "#51515C", isColor: true },
+      { name: "slow[2]",  description: t("Slow particle — medium graphite", "Partícula lenta — graphite médio"),           light: "#888896", dark: "#888896", isColor: true },
     ],
   },
   {
     group: t("Background Lines — H-streams Pink palette (default)", "Background Lines — H-streams, paleta Pink (padrão)"),
     tokens: [
-      { name: "hRgb[0]",  description: t("Horizontal stream — pure pink", "Stream horizontal — pink puro"),           light: "#F4144B", dark: "#F4144B", isColor: true },
-      { name: "hRgb[1]",  description: t("Horizontal stream — soft pink", "Stream horizontal — pink suave"),          light: "#FA8AA5", dark: "#FA8AA5", isColor: true },
+      { name: "hRgb[0]",  description: t("Horizontal stream — pure pink", "Stream horizontal — pink puro"),           light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "hRgb[1]",  description: t("Horizontal stream — soft pink", "Stream horizontal — pink suave"),          light: "#F290A0", dark: "#F290A0", isColor: true },
       { name: "hRgb[3]",  description: t("Stream tip — warm white", "Ponta do stream — branco quente"),              light: "#ffffff", dark: "#ffffff", isColor: true },
     ],
   },
   {
     group: t("Background Lines — V-drops (graphite, all modes)", "Background Lines — V-drops (graphite, todos os modos)"),
     tokens: [
-      { name: "vRgb[0]",  description: t("Vertical drop — dark graphite", "Drop vertical — graphite escuro"),            light: "#514C61", dark: "#514C61", isColor: true },
-      { name: "vRgb[1]",  description: t("Vertical drop — medium graphite", "Drop vertical — graphite médio"),             light: "#69637E", dark: "#69637E", isColor: true },
-      { name: "vRgb[2]",  description: t("Vertical drop — light graphite", "Drop vertical — graphite claro"),             light: "#88819C", dark: "#88819C", isColor: true },
+      { name: "vRgb[0]",  description: t("Vertical drop — dark graphite", "Drop vertical — graphite escuro"),            light: "#51515C", dark: "#51515C", isColor: true },
+      { name: "vRgb[1]",  description: t("Vertical drop — medium graphite", "Drop vertical — graphite médio"),             light: "#696977", dark: "#696977", isColor: true },
+      { name: "vRgb[2]",  description: t("Vertical drop — light graphite", "Drop vertical — graphite claro"),             light: "#888896", dark: "#888896", isColor: true },
     ],
   },
 ];
@@ -1707,12 +1707,12 @@ export function BackgroundsShowcase() {
             {
               title: t("Technical SaaS", "SaaS técnico"),
               mode: "dark-first" as const,
-              accent: "#F4144B",
+              accent: "#E62040",
               sections: [
                 { label: "Hero",     effect: "Gradient Animation", note: t("Soft blobs, high legibility", "Blobs suaves, alta legibilidade"),   band: "#1e2a3d", accent: "#3b6fd4" },
-                { label: "Features", effect: "Bg Lines Graphite",   note: t("Data grid, dense", "Grade de dados, densa"),             band: "#1D1B22", accent: "#B3AFC0" },
-                { label: t("Pricing", "Preços"),  effect: "Canvas Reveal",      note: t("Hover reveals plan card", "Hover revela o card do plano"),       band: "#111014", accent: "var(--success)" },
-                { label: "CTA",      effect: "Big Bang Pink",   note: t("Impact explosion at the close", "Explosão de impacto no fechamento"),band: "#1a0e0e", accent: "#F4144B" },
+                { label: "Features", effect: "Bg Lines Graphite",   note: t("Data grid, dense", "Grade de dados, densa"),             band: "#1D1D20", accent: "#B3B3BC" },
+                { label: t("Pricing", "Preços"),  effect: "Canvas Reveal",      note: t("Hover reveals plan card", "Hover revela o card do plano"),       band: "#060608", accent: "var(--success)" },
+                { label: "CTA",      effect: "Big Bang Pink",   note: t("Impact explosion at the close", "Explosão de impacto no fechamento"),band: "#1a0e0e", accent: "#E62040" },
               ],
             },
             {
@@ -1720,10 +1720,10 @@ export function BackgroundsShowcase() {
               mode: "dark" as const,
               accent: "#7C3AED",
               sections: [
-                { label: "Hero",        effect: "Big Bang Cosmos",    note: t("Conveys scale and power", "Transmite escala e poder"),          band: "#111014", accent: "#7C3AED" },
-                { label: "Dashboard",   effect: "Canvas Reveal",      note: t("Product screenshot with hover", "Screenshot do produto com hover"),  band: "#2B2833", accent: "#06b6d4" },
+                { label: "Hero",        effect: "Big Bang Cosmos",    note: t("Conveys scale and power", "Transmite escala e poder"),          band: "#060608", accent: "#7C3AED" },
+                { label: "Dashboard",   effect: "Canvas Reveal",      note: t("Product screenshot with hover", "Screenshot do produto com hover"),  band: "#2B2B31", accent: "#06b6d4" },
                 { label: t("Integrations", "Integrações"), effect: "Bg Lines Cyan",     note: t("Evokes pipelines and flow", "Evoca pipelines e fluxo"),          band: "#0f1e2e", accent: "#0ea5e9" },
-                { label: t("Conversion", "Conversão"),   effect: "Big Bang + Wobble",  note: t("Highlighted pink CTA", "CTA pink em destaque"),          band: "#111014", accent: "#F4144B" },
+                { label: t("Conversion", "Conversão"),   effect: "Big Bang + Wobble",  note: t("Highlighted pink CTA", "CTA pink em destaque"),          band: "#060608", accent: "#E62040" },
               ],
             },
             {
@@ -1731,10 +1731,10 @@ export function BackgroundsShowcase() {
               mode: "light-first" as const,
               accent: "#8B5CF6",
               sections: [
-                { label: "Hero",        effect: "Gradient Animation", note: t("Light — soft, welcoming", "Light — suave, acolhedor"),        band: "#F6F5F7", accent: "#8B5CF6" },
-                { label: "Features",    effect: "Bg Lines Graphite",   note: t("Neutral and elegant", "Neutro e elegante"),               band: "#ffffff",  accent: "#B3AFC0" },
-                { label: t("Testimonials", "Depoimentos"), effect: "Canvas Reveal",      note: t("Light on social proof cards", "Light em cards de prova social"),  band: "#F6F5F7",  accent: "#3b82f6" },
-                { label: "CTA",         effect: "Big Bang Aurora",    note: t("Dark inversion + final energy", "Inversão dark + energia final"),   band: "#1D1B22",  accent: "#8B5CF6" },
+                { label: "Hero",        effect: "Gradient Animation", note: t("Light — soft, welcoming", "Light — suave, acolhedor"),        band: "#F6F6F7", accent: "#8B5CF6" },
+                { label: "Features",    effect: "Bg Lines Graphite",   note: t("Neutral and elegant", "Neutro e elegante"),               band: "#ffffff",  accent: "#B3B3BC" },
+                { label: t("Testimonials", "Depoimentos"), effect: "Canvas Reveal",      note: t("Light on social proof cards", "Light em cards de prova social"),  band: "#F6F6F7",  accent: "#3b82f6" },
+                { label: "CTA",         effect: "Big Bang Aurora",    note: t("Dark inversion + final energy", "Inversão dark + energia final"),   band: "#1D1D20",  accent: "#8B5CF6" },
               ],
             },
           ].map(guide => (
@@ -1794,13 +1794,13 @@ export function BackgroundsShowcase() {
               </thead>
               <tbody>
                 {[
-                  { palette: "Pink", dot: "#F4144B", personality: t("Energy, urgency, primary brand", "Energia, urgência, marca principal"), bb: t("Launch hero, CTA", "Hero de lançamento, CTA"), bgl: t("Technical features, B2B product", "Funcionalidades técnicas, produto B2B") },
+                  { palette: "Pink", dot: "#E62040", personality: t("Energy, urgency, primary brand", "Energia, urgência, marca principal"), bb: t("Launch hero, CTA", "Hero de lançamento, CTA"), bgl: t("Technical features, B2B product", "Funcionalidades técnicas, produto B2B") },
                   { palette: "Cosmos",  dot: "#7C3AED", personality: t("Mystery, scale, ambition", "Mistério, escala, ambição"),         bb: t("Impact hero, splash screens", "Hero de impacto, telas de splash"),  bgl: t("AI product, data, ML", "Produto de IA, dados, ML") },
                   { palette: "Ocean",  dot: "#0EA5E9", personality: t("Trust, flow, technology", "Confiança, fluxo, tecnologia"),      bb: t("Infrastructure product, cloud", "Produto de infraestrutura, cloud"),  bgl: t("Pipelines, ETL, integrations", "Pipelines, ETL, integrações") },
                   { palette: "Neon",    dot: "#22D3EE", personality: t("Innovation, future, creative energy", "Inovação, futuro, energia criativa"),bb: t("Gaming, creativity, agencies", "Games, criatividade, agências"),    bgl: t("Dev product, realtime, live", "Produto para devs, realtime, ao vivo") },
                   { palette: "Cyan",   dot: "#06B6D4", personality: t("Precision, data, clean technical", "Precisão, dados, técnico e limpo"),   bb: "—",                                bgl: t("Dashboard, analytics, CI/CD", "Dashboard, analytics, CI/CD") },
                   { palette: "Aurora",  dot: "#8B5CF6", personality: t("Premium, creative, distinctive", "Premium, criativo, diferenciado"),  bb: t("Consumer CTA, consumer product", "CTA consumer, produto consumer"),   bgl: t("Design tools, creative platforms", "Ferramentas de design, plataformas criativas") },
-                  { palette: "Graphite", dot: "#B3AFC0", personality: t("Neutral, elegant, subtle background", "Neutro, elegante, fundo sutil"),  bb: "—",                                bgl: t("Features background, light mode", "Fundo de features, light mode") },
+                  { palette: "Graphite", dot: "#B3B3BC", personality: t("Neutral, elegant, subtle background", "Neutro, elegante, fundo sutil"),  bb: "—",                                bgl: t("Features background, light mode", "Fundo de features, light mode") },
                 ].map(row => (
                   <tr key={row.palette} className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors">
                     <td className="px-4 py-2.5">

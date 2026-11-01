@@ -4,43 +4,43 @@ import { Check, X } from "lucide-react";
 import { useI18n } from "../../i18n";
 
 const graphiteScale = [
-  { name: "50",  var: "--graphite-50",  hex: "#F6F5F7" },
-  { name: "100", var: "--graphite-100", hex: "#E9E8ED" },
-  { name: "200", var: "--graphite-200", hex: "#D4D1DB" },
-  { name: "300", var: "--graphite-300", hex: "#B3AFC0" },
-  { name: "400", var: "--graphite-400", hex: "#88819C" },
-  { name: "500", var: "--graphite-500", hex: "#69637E" },
-  { name: "600", var: "--graphite-600", hex: "#514C61" },
-  { name: "700", var: "--graphite-700", hex: "#3E3A4A" },
-  { name: "800", var: "--graphite-800", hex: "#2B2833" },
-  { name: "900", var: "--graphite-900", hex: "#1D1B22" },
-  { name: "950", var: "--graphite-950", hex: "#111014" },
+  { name: "50",  var: "--graphite-50",  hex: "#F6F6F7" },
+  { name: "100", var: "--graphite-100", hex: "#E9E9EC" },
+  { name: "200", var: "--graphite-200", hex: "#D4D4D9" },
+  { name: "300", var: "--graphite-300", hex: "#B3B3BC" },
+  { name: "400", var: "--graphite-400", hex: "#888896" },
+  { name: "500", var: "--graphite-500", hex: "#696977" },
+  { name: "600", var: "--graphite-600", hex: "#51515C" },
+  { name: "700", var: "--graphite-700", hex: "#3E3E46" },
+  { name: "800", var: "--graphite-800", hex: "#2B2B31" },
+  { name: "900", var: "--graphite-900", hex: "#1D1D20" },
+  { name: "950", var: "--graphite-950", hex: "#060608" },
 ];
 
 const pinkScale = [
-  { name: "50",  hex: "#FEF1F4" },
-  { name: "100", hex: "#FDDEE6" },
-  { name: "200", hex: "#FCB9C9" },
-  { name: "300", hex: "#FA8AA5" },
-  { name: "400", hex: "#F7517A" },
-  { name: "500", hex: "#F4144B" },
-  { name: "600", hex: "#C71340" },
-  { name: "700", hex: "#9E1236" },
-  { name: "800", hex: "#77122D" },
-  { name: "900", hex: "#551125" },
-  { name: "950", hex: "#35111D" },
+  { name: "50",  hex: "#FEF2F4" },
+  { name: "100", hex: "#FCE0E4" },
+  { name: "200", hex: "#F8BCC6" },
+  { name: "300", hex: "#F290A0" },
+  { name: "400", hex: "#EC5A72" },
+  { name: "500", hex: "#E62040" },
+  { name: "600", hex: "#B91B35" },
+  { name: "700", hex: "#91162B" },
+  { name: "800", hex: "#6B1221" },
+  { name: "900", hex: "#490E19" },
+  { name: "950", hex: "#2A0A11" },
 ];
 
 const semanticColors = [
-  { name: "Background", pt: "Fundo",       token: "--background",        swatch: "bg-background",       text: "text-foreground", light: "#FFFFFF", dark: "#111014" },
-  { name: "Surface (Card)", pt: "Superfície (Card)",   token: "--card",              swatch: "bg-card",             text: "text-card-foreground", light: "#FFFFFF", dark: "rgba(29,27,34,.75)" },
-  { name: "Foreground", pt: "Texto (foreground)",       token: "--foreground",        swatch: "bg-foreground",       text: "text-background", light: "#111014", dark: "#F6F5F7" },
-  { name: "Muted", pt: "Suave (muted)",            token: "--muted-foreground",  swatch: "bg-muted-foreground", text: "text-background", light: "#69637E", dark: "#B3AFC0" },
-  { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#F4144B", dark: "#F4144B" },
-  { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(17,16,20,.10)", dark: "rgba(255,255,255,.07)" },
+  { name: "Background", pt: "Fundo",       token: "--background",        swatch: "bg-background",       text: "text-foreground", light: "#FFFFFF", dark: "#060608" },
+  { name: "Surface (Card)", pt: "Superfície (Card)",   token: "--card",              swatch: "bg-card",             text: "text-card-foreground", light: "#FFFFFF", dark: "rgba(29,29,32,.75)" },
+  { name: "Foreground", pt: "Texto (foreground)",       token: "--foreground",        swatch: "bg-foreground",       text: "text-background", light: "#060608", dark: "#F6F6F7" },
+  { name: "Muted", pt: "Suave (muted)",            token: "--muted-foreground",  swatch: "bg-muted-foreground", text: "text-background", light: "#696977", dark: "#B3B3BC" },
+  { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E62040", dark: "#E62040" },
+  { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(6,6,8,.10)", dark: "rgba(255,255,255,.07)" },
   { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-white", light: "#4FB57B", dark: "#22C55E" },
   { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#E5A94E", dark: "#F5B320" },
-  { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#F4144B", dark: "#F4144B" },
+  { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#E62040", dark: "#E62040" },
   { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-white", light: "#448ABC", dark: "#3B82F6" },
 ];
 
@@ -79,12 +79,12 @@ const radiusScale = [
 const spacingScale = [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96];
 
 const shadowTokens = [
-  { name: "shadow-xs",  label: "Subtle", pt: "Sutil",    css: "0 1px 2px rgba(17,16,20,0.05)" },
-  { name: "shadow-sm",  label: "Small", pt: "Pequena",     css: "0 1px 3px rgba(17,16,20,0.07), 0 2px 6px rgba(17,16,20,0.05)" },
-  { name: "shadow",     label: "Default", pt: "Padrão",   css: "0 2px 6px rgba(17,16,20,0.07), 0 6px 20px rgba(17,16,20,0.05)" },
-  { name: "shadow-md",  label: "Medium", pt: "Média",    css: "0 4px 12px rgba(17,16,20,0.08), 0 12px 36px rgba(17,16,20,0.06)" },
-  { name: "shadow-lg",  label: "Large", pt: "Grande",     css: "0 8px 24px rgba(17,16,20,0.09), 0 24px 64px rgba(17,16,20,0.07)" },
-  { name: "shadow-xl",  label: "XL", pt: "XL",        css: "0 16px 48px rgba(17,16,20,0.10), 0 40px 96px rgba(17,16,20,0.08)" },
+  { name: "shadow-xs",  label: "Subtle", pt: "Sutil",    css: "0 1px 2px rgba(6,6,8,0.05)" },
+  { name: "shadow-sm",  label: "Small", pt: "Pequena",     css: "0 1px 3px rgba(6,6,8,0.07), 0 2px 6px rgba(6,6,8,0.05)" },
+  { name: "shadow",     label: "Default", pt: "Padrão",   css: "0 2px 6px rgba(6,6,8,0.07), 0 6px 20px rgba(6,6,8,0.05)" },
+  { name: "shadow-md",  label: "Medium", pt: "Média",    css: "0 4px 12px rgba(6,6,8,0.08), 0 12px 36px rgba(6,6,8,0.06)" },
+  { name: "shadow-lg",  label: "Large", pt: "Grande",     css: "0 8px 24px rgba(6,6,8,0.09), 0 24px 64px rgba(6,6,8,0.07)" },
+  { name: "shadow-xl",  label: "XL", pt: "XL",        css: "0 16px 48px rgba(6,6,8,0.10), 0 40px 96px rgba(6,6,8,0.08)" },
 ];
 
 function SectionHeader({ title, description }: { title: string; description?: string }) {
@@ -113,7 +113,7 @@ export function FoundationShowcase() {
 
       {/* ── COLORS ── */}
       <section id="colors">
-        <SectionHeader title={t("Color Palette", "Paleta de cores")} description={t("Grafite neutro derivado do Preto Grafite #111014 e Pink FindLook #F4144B como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.", "Grafite neutro derivado do Preto Grafite #111014 e Pink FindLook #F4144B como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.")} />
+        <SectionHeader title={t("Color Palette", "Paleta de cores")} description={t("Grafite neutro derivado do Preto Grafite #060608 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.", "Grafite neutro derivado do Preto Grafite #060608 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.")} />
 
         <SubSection title={t("Escala Grafite", "Escala Grafite")}>
           <div className="grid grid-cols-11 gap-1.5">
@@ -370,18 +370,18 @@ export function FoundationShowcase() {
 
               {/* ✕ Evitar */}
               <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
-                <div className="px-4 pt-4 pb-3 border-b border-border" style={{ background: "rgba(244,20,75,0.06)" }}>
+                <div className="px-4 pt-4 pb-3 border-b border-border" style={{ background: "rgba(230,32,64,0.06)" }}>
                   <div className="flex items-center gap-2">
-                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(244,20,75,0.15)" }}>
-                      <X style={{ height: 11, width: 11, color: "#F4144B" }} />
+                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(230,32,64,0.15)" }}>
+                      <X style={{ height: 11, width: 11, color: "#E62040" }} />
                     </div>
-                    <p className="text-[0.6875rem] font-bold" style={{ color: "#F4144B" }}>{t("Avoid", "Evitar")}</p>
+                    <p className="text-[0.6875rem] font-bold" style={{ color: "#E62040" }}>{t("Avoid", "Evitar")}</p>
                   </div>
                 </div>
                 <ul className="px-4 py-3 space-y-2.5">
                   {[t("Fontes decorativas ou de outra família", "Fontes decorativas ou de outra família"), t("Excesso de pesos na mesma tela", "Excesso de pesos na mesma tela"), t("Texto em caixa alta contínua", "Texto em caixa alta contínua")].map(item => (
                     <li key={item} className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "#F4144B", opacity: 0.6 }} />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "#E62040", opacity: 0.6 }} />
                       <span className="text-[0.6875rem] text-muted-foreground leading-snug">{item}</span>
                     </li>
                   ))}
@@ -535,23 +535,23 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Brand", "Marca"),
     tokens: [
-      { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#F4144B", dark: "#F4144B", isColor: true },
+      { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--primary-foreground", description: t("Text on primary", "Texto sobre primária"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted primary background", "Fundo com tom da primária"),       light: "rgba(244,20,75,0.10)", dark: "rgba(244,20,75,0.15)", isColor: true },
+      { name: "--primary-muted",      description: t("Tinted primary background", "Fundo com tom da primária"),       light: "rgba(230,32,64,0.10)", dark: "rgba(230,32,64,0.15)", isColor: true },
     ],
   },
   {
     group: t("Background & Surface", "Fundo e superfície"),
     tokens: [
-      { name: "--background",      description: t("Page background", "Fundo da página"),           light: "#F6F5F7",              dark: "#111014",              isColor: true },
-      { name: "--foreground",      description: t("Primary text", "Texto principal"),              light: "#1D1B22",              dark: "#F6F5F7",              isColor: true },
-      { name: "--muted-foreground",description: t("Secondary / label text", "Texto secundário / rótulos"),    light: "#88819C",              dark: "#B3AFC0",              isColor: true },
-      { name: "--card",            description: t("Card surface", "Superfície do card"),              light: "#FFFFFF",              dark: "rgba(29,27,34,0.75)",  isColor: true },
-      { name: "--card-foreground", description: t("Text on card", "Texto sobre o card"),              light: "#1D1B22",              dark: "#F6F5F7",              isColor: true },
-      { name: "--popover",         description: t("Popover / tooltip surface", "Superfície de popover / tooltip"), light: "#FFFFFF",              dark: "rgba(29,27,34,0.95)",  isColor: true },
-      { name: "--muted",           description: t("Subtle background", "Fundo sutil"),        light: "#E9E8ED",              dark: "rgba(43,40,51,0.60)", isColor: true },
-      { name: "--accent",          description: t("Hover background", "Fundo de hover"),         light: "#E9E8ED",              dark: "rgba(43,40,51,0.60)", isColor: true },
-      { name: "--secondary",       description: t("Secondary button surface", "Superfície do botão secundário"), light: "#F6F5F7",              dark: "rgba(43,40,51,0.80)", isColor: true },
+      { name: "--background",      description: t("Page background", "Fundo da página"),           light: "#F6F6F7",              dark: "#060608",              isColor: true },
+      { name: "--foreground",      description: t("Primary text", "Texto principal"),              light: "#1D1D20",              dark: "#F6F6F7",              isColor: true },
+      { name: "--muted-foreground",description: t("Secondary / label text", "Texto secundário / rótulos"),    light: "#888896",              dark: "#B3B3BC",              isColor: true },
+      { name: "--card",            description: t("Card surface", "Superfície do card"),              light: "#FFFFFF",              dark: "rgba(29,29,32,0.75)",  isColor: true },
+      { name: "--card-foreground", description: t("Text on card", "Texto sobre o card"),              light: "#1D1D20",              dark: "#F6F6F7",              isColor: true },
+      { name: "--popover",         description: t("Popover / tooltip surface", "Superfície de popover / tooltip"), light: "#FFFFFF",              dark: "rgba(29,29,32,0.95)",  isColor: true },
+      { name: "--muted",           description: t("Subtle background", "Fundo sutil"),        light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--accent",          description: t("Hover background", "Fundo de hover"),         light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--secondary",       description: t("Secondary button surface", "Superfície do botão secundário"), light: "#F6F6F7",              dark: "rgba(43,43,49,0.80)", isColor: true },
     ],
   },
   {
@@ -559,9 +559,9 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     tokens: [
       { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#4fb57b", dark: "#22C55E", isColor: true },
       { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#e5a94e", dark: "#f5b320", isColor: true },
-      { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#F4144B", dark: "#F4144B", isColor: true },
+      { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--info",            description: t("Informational", "Informativo"),            light: "#448abc", dark: "#3B82F6", isColor: true },
-      { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#F4144B", dark: "#F4144B", isColor: true },
+      { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--violet",          description: t("Accent purple", "Roxo de destaque"),            light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",          description: t("Accent orange", "Laranja de destaque"),            light: "#fa9852", dark: "#ff8833", isColor: true },
     ],
@@ -569,19 +569,19 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Border & Ring", "Borda e anel"),
     tokens: [
-      { name: "--border",       description: t("Default border", "Borda padrão"),          light: "rgba(29,27,34,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
-      { name: "--border-strong",description: t("Emphasized border", "Borda enfatizada"),       light: "rgba(29,27,34,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
-      { name: "--ring",         description: t("Focus ring / outline", "Anel de foco / contorno"),    light: "rgba(244,20,75,0.35)", dark: "rgba(244,20,75,0.40)",   isColor: true },
+      { name: "--border",       description: t("Default border", "Borda padrão"),          light: "rgba(29,29,32,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--border-strong",description: t("Emphasized border", "Borda enfatizada"),       light: "rgba(29,29,32,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
+      { name: "--ring",         description: t("Focus ring / outline", "Anel de foco / contorno"),    light: "rgba(230,32,64,0.35)", dark: "rgba(230,32,64,0.40)",   isColor: true },
     ],
   },
   {
     group: t("Charts", "Gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Series 1 — pink", "Série 1 — pink"),  light: "#F4144B", dark: "#F4144B", isColor: true },
-      { name: "--chart-2", description: t("Series 2 — graphite", "Série 2 — grafite"), light: "#69637E", dark: "#88819C", isColor: true },
-      { name: "--chart-3", description: t("Series 3", "Série 3"),            light: "#B3AFC0", dark: "#69637E", isColor: true },
-      { name: "--chart-4", description: t("Series 4", "Série 4"),            light: "#D4D1DB", dark: "#514C61", isColor: true },
-      { name: "--chart-5", description: t("Series 5", "Série 5"),            light: "#E9E8ED", dark: "#3E3A4A", isColor: true },
+      { name: "--chart-1", description: t("Series 1 — pink", "Série 1 — pink"),  light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--chart-2", description: t("Series 2 — graphite", "Série 2 — grafite"), light: "#696977", dark: "#888896", isColor: true },
+      { name: "--chart-3", description: t("Series 3", "Série 3"),            light: "#B3B3BC", dark: "#696977", isColor: true },
+      { name: "--chart-4", description: t("Series 4", "Série 4"),            light: "#D4D4D9", dark: "#51515C", isColor: true },
+      { name: "--chart-5", description: t("Series 5", "Série 5"),            light: "#E9E9EC", dark: "#3E3E46", isColor: true },
     ],
   },
   {

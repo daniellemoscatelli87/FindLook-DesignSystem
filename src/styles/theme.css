@@ -2,8 +2,8 @@
 
 /* =========================================================
    FINDLOOK DESIGN SYSTEM — GRAFITE + PINK
-   Moda local · Base grafite #111014 · Pink FindLook #F4144B · Rosa claro #FFF2F5
-   Fonte: Brand Book FindLook v1.0 (paleta sugerida, validar no arquivo-mestre)
+   Moda local · Base grafite #060608 · Pink FindLook #E62040 · Rosa claro #FFF2F5
+   Fonte: cores do arquivo vetorial oficial do logo (o brand book v1.0 sugeria #F4144B e #111014; unificado em 01/11/2026)
    ========================================================= */
 
 :root {
@@ -20,31 +20,31 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
-  /* ── Escala Grafite (neutro quase puro, derivado do Preto Grafite #111014 da marca) ── */
-  --graphite-50:  #F6F5F7;
-  --graphite-100: #E9E8ED;
-  --graphite-200: #D4D1DB;
-  --graphite-300: #B3AFC0;
-  --graphite-400: #88819C;
-  --graphite-500: #69637E;
-  --graphite-600: #514C61;
-  --graphite-700: #3E3A4A;
-  --graphite-800: #2B2833;
-  --graphite-900: #1D1B22;
-  --graphite-950: #111014;
+  /* ── Escala Grafite (neutro quase puro, derivado do Preto Grafite #060608 do logo oficial) ── */
+  --graphite-50:  #F6F6F7;
+  --graphite-100: #E9E9EC;
+  --graphite-200: #D4D4D9;
+  --graphite-300: #B3B3BC;
+  --graphite-400: #888896;
+  --graphite-500: #696977;
+  --graphite-600: #51515C;
+  --graphite-700: #3E3E46;
+  --graphite-800: #2B2B31;
+  --graphite-900: #1D1D20;
+  --graphite-950: #060608;
 
-  /* ── Escala Pink (500 = Pink FindLook #F4144B; claros misturados com branco, escuros com grafite) ── */
-  --pink-50:  #FEF1F4;
-  --pink-100: #FDDEE6;
-  --pink-200: #FCB9C9;
-  --pink-300: #FA8AA5;
-  --pink-400: #F7517A;
-  --pink-500: #F4144B;
-  --pink-600: #C71340;
-  --pink-700: #9E1236;
-  --pink-800: #77122D;
-  --pink-900: #551125;
-  --pink-950: #35111D;
+  /* ── Escala Pink (500 = Pink FindLook #E62040, cor do logo oficial; claros misturados com branco, escuros com grafite) ── */
+  --pink-50:  #FEF2F4;
+  --pink-100: #FCE0E4;
+  --pink-200: #F8BCC6;
+  --pink-300: #F290A0;
+  --pink-400: #EC5A72;
+  --pink-500: #E62040;
+  --pink-600: #B91B35;
+  --pink-700: #91162B;
+  --pink-800: #6B1221;
+  --pink-900: #490E19;
+  --pink-950: #2A0A11;
 
   /* ── Cores oficiais da marca (atalhos) ── */
   --brand-pink:      var(--pink-500);
@@ -60,11 +60,11 @@
   --foreground-muted:  var(--graphite-500);
   --foreground-subtle: var(--graphite-400);
 
-  --primary:                  var(--pink-500);   /* CTA pink: texto branco só em botões e títulos (4,2:1) */
+  --primary:                  var(--pink-500);   /* CTA pink: texto branco atinge 4,5:1 (AA para texto normal) */
   --primary-hover:             var(--pink-600);
   --primary-foreground:        #FFFFFF;
-  --primary-muted:             rgba(244, 20, 75, 0.10);
-  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 5,8:1 sobre branco */
+  --primary-muted:             rgba(230, 32, 64, 0.10);
+  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 6,4:1 sobre branco */
   --primary-text:              var(--pink-600);
   --surface-tint:              var(--brand-rose); /* Rosa Claro: cards e faixas de apoio */
 
@@ -77,8 +77,8 @@
   --accent:           var(--graphite-100);
   --accent-foreground: var(--graphite-950);
 
-  --border:       rgba(17, 16, 20, 0.10);
-  --border-strong: rgba(17, 16, 20, 0.18);
+  --border:       rgba(6, 6, 8, 0.10);
+  --border-strong: rgba(6, 6, 8, 0.18);
 
   --success:            #4fb57b;
   --success-foreground: #FFFFFF;
@@ -106,16 +106,16 @@
   --input:            transparent;
   --input-background: #FFFFFF;
   --switch-background: var(--graphite-200);
-  --ring:             rgba(244, 20, 75, 0.40);
+  --ring:             rgba(230, 32, 64, 0.40);
 
   --radius: 0.75rem;
 
-  --shadow-xs:  0 1px 2px rgba(17, 16, 20, 0.05);
-  --shadow-sm:  0 1px 3px rgba(17, 16, 20, 0.07), 0 2px 6px rgba(17, 16, 20, 0.05);
-  --shadow:     0 2px 6px rgba(17, 16, 20, 0.07), 0 6px 20px rgba(17, 16, 20, 0.05);
-  --shadow-md:  0 4px 12px rgba(17, 16, 20, 0.08), 0 12px 36px rgba(17, 16, 20, 0.06);
-  --shadow-lg:  0 8px 24px rgba(17, 16, 20, 0.09), 0 24px 64px rgba(17, 16, 20, 0.07);
-  --shadow-xl:  0 16px 48px rgba(17, 16, 20, 0.10), 0 40px 96px rgba(17, 16, 20, 0.08);
+  --shadow-xs:  0 1px 2px rgba(6, 6, 8, 0.05);
+  --shadow-sm:  0 1px 3px rgba(6, 6, 8, 0.07), 0 2px 6px rgba(6, 6, 8, 0.05);
+  --shadow:     0 2px 6px rgba(6, 6, 8, 0.07), 0 6px 20px rgba(6, 6, 8, 0.05);
+  --shadow-md:  0 4px 12px rgba(6, 6, 8, 0.08), 0 12px 36px rgba(6, 6, 8, 0.06);
+  --shadow-lg:  0 8px 24px rgba(6, 6, 8, 0.09), 0 24px 64px rgba(6, 6, 8, 0.07);
+  --shadow-xl:  0 16px 48px rgba(6, 6, 8, 0.10), 0 40px 96px rgba(6, 6, 8, 0.08);
 
   --chart-1: var(--pink-500);
   --chart-2: var(--graphite-500);
@@ -132,33 +132,33 @@
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent:            var(--graphite-50);
   --sidebar-accent-foreground: var(--graphite-950);
-  --sidebar-border:            rgba(17, 16, 20, 0.10);
-  --sidebar-ring:              rgba(244, 20, 75, 0.40);
+  --sidebar-border:            rgba(6, 6, 8, 0.10);
+  --sidebar-ring:              rgba(230, 32, 64, 0.40);
 }
 
 /* ── DARK MODE ── */
 .dark {
   --background:        var(--graphite-950);
-  --foreground:        #F6F5F7;
+  --foreground:        #F6F6F7;
   --foreground-muted:  var(--graphite-300);
   --foreground-subtle: var(--graphite-400);
 
   --primary:                  var(--pink-500);
   --primary-hover:             var(--pink-400);
   --primary-foreground:        #FFFFFF;
-  --primary-muted:             rgba(244, 20, 75, 0.16);
-  --primary-muted-foreground:  var(--pink-300);   /* pink para texto no escuro: 8,3:1 sobre grafite-950 */
+  --primary-muted:             rgba(230, 32, 64, 0.16);
+  --primary-muted-foreground:  var(--pink-300);   /* pink para texto no escuro: 8,9:1 sobre grafite-950 */
   --primary-text:              var(--pink-300);
-  --surface-tint:              rgba(244, 20, 75, 0.08);
+  --surface-tint:              rgba(230, 32, 64, 0.08);
 
-  --secondary:            rgba(43, 40, 51, 0.85);
-  --secondary-hover:      rgba(43, 40, 51, 1);
-  --secondary-foreground: #F6F5F7;
+  --secondary:            rgba(43, 43, 49, 0.85);
+  --secondary-hover:      rgba(43, 43, 49, 1);
+  --secondary-foreground: #F6F6F7;
 
-  --muted:            rgba(43, 40, 51, 0.6);
+  --muted:            rgba(43, 43, 49, 0.6);
   --muted-foreground: var(--graphite-300);
-  --accent:           rgba(43, 40, 51, 0.6);
-  --accent-foreground: #F6F5F7;
+  --accent:           rgba(43, 43, 49, 0.6);
+  --accent-foreground: #F6F6F7;
 
   --border:       rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.12);
@@ -170,7 +170,7 @@
   --warning-foreground: #FFFFFF;
   --warning-muted:      rgba(245, 179, 32, 0.12);
   --error:              #F0645D;
-  --error-foreground:   #111014;
+  --error-foreground:   #060608;
   --error-muted:        rgba(240, 100, 93, 0.15);
   --info:               #3B82F6;
   --info-foreground:    #FFFFFF;
@@ -182,14 +182,14 @@
   --orange-foreground:  #FFFFFF;
   --orange-muted:       rgba(255, 136, 51, 0.12);
 
-  --card:             rgba(29, 27, 34, 0.80);
-  --card-foreground:  #F6F5F7;
-  --popover:          rgba(29, 27, 34, 0.97);
-  --popover-foreground: #F6F5F7;
-  --input:            rgba(29, 27, 34, 0.6);
-  --input-background: rgba(29, 27, 34, 0.6);
+  --card:             rgba(29, 29, 32, 0.80);
+  --card-foreground:  #F6F6F7;
+  --popover:          rgba(29, 29, 32, 0.97);
+  --popover-foreground: #F6F6F7;
+  --input:            rgba(29, 29, 32, 0.6);
+  --input-background: rgba(29, 29, 32, 0.6);
   --switch-background: var(--graphite-600);
-  --ring:             rgba(244, 20, 75, 0.45);
+  --ring:             rgba(230, 32, 64, 0.45);
 
   --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -205,16 +205,16 @@
   --chart-5: var(--graphite-700);
 
   --destructive:            #F0645D;
-  --destructive-foreground: #111014;
+  --destructive-foreground: #060608;
 
-  --sidebar:                   rgba(17, 16, 20, 0.97);
-  --sidebar-foreground:        #F6F5F7;
+  --sidebar:                   rgba(6, 6, 8, 0.97);
+  --sidebar-foreground:        #F6F6F7;
   --sidebar-primary:           var(--pink-500);
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent:            rgba(43, 40, 51, 0.6);
-  --sidebar-accent-foreground: #F6F5F7;
+  --sidebar-accent:            rgba(43, 43, 49, 0.6);
+  --sidebar-accent-foreground: #F6F6F7;
   --sidebar-border:            rgba(255, 255, 255, 0.07);
-  --sidebar-ring:              rgba(244, 20, 75, 0.45);
+  --sidebar-ring:              rgba(230, 32, 64, 0.45);
 }
 
 /* ── Tailwind v4 theme mapping ── */
@@ -316,7 +316,7 @@
 
 /* ── Scrollbar — light mode ── */
 :root {
-  scrollbar-color: #B3AFC0 #F6F5F7;
+  scrollbar-color: #B3B3BC #F6F6F7;
   scrollbar-width: thin;
 }
 
@@ -326,33 +326,33 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F6F5F7;
+  background: #F6F6F7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B3AFC0;
+  background: #B3B3BC;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #88819C;
+  background: #888896;
 }
 
 /* ── Scrollbar — dark mode ── */
 .dark {
-  scrollbar-color: #3E3A4A #111014;
+  scrollbar-color: #3E3E46 #060608;
 }
 
 .dark::-webkit-scrollbar-track {
-  background: #111014;
+  background: #060608;
 }
 
 .dark::-webkit-scrollbar-thumb {
-  background: #3E3A4A;
+  background: #3E3E46;
 }
 
 .dark::-webkit-scrollbar-thumb:hover {
-  background: #514C61;
+  background: #51515C;
 }
 
 /* ── Base styles ── */

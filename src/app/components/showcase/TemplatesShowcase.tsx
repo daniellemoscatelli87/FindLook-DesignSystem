@@ -1273,37 +1273,37 @@ const templatesTokenGroups = (t: (en: string, pt: string) => string): TokenGroup
   {
     group: t("Layout Background", "Fundo do layout"),
     tokens: [
-      { name: "--background",      description: t("Page / app shell background", "Fundo da página / estrutura do app"),  light: "#F6F5F7",              dark: "#111014",              isColor: true },
-      { name: "--foreground",      description: t("Default body text", "Texto padrão do corpo"),             light: "#1D1B22",              dark: "#F6F5F7",              isColor: true },
-      { name: "--muted-foreground",description: t("Subdued labels and captions", "Rótulos e legendas discretos"),   light: "#88819C",              dark: "#B3AFC0",              isColor: true },
+      { name: "--background",      description: t("Page / app shell background", "Fundo da página / estrutura do app"),  light: "#F6F6F7",              dark: "#060608",              isColor: true },
+      { name: "--foreground",      description: t("Default body text", "Texto padrão do corpo"),             light: "#1D1D20",              dark: "#F6F6F7",              isColor: true },
+      { name: "--muted-foreground",description: t("Subdued labels and captions", "Rótulos e legendas discretos"),   light: "#888896",              dark: "#B3B3BC",              isColor: true },
     ],
   },
   {
     group: t("Sidebar", "Barra lateral"),
     tokens: [
-      { name: "--sidebar",                   description: t("Sidebar panel background", "Fundo do painel da barra lateral"),      light: "#FFFFFF",              dark: "rgba(17,16,20,0.97)",  isColor: true },
-      { name: "--sidebar-foreground",        description: t("Sidebar text", "Texto da barra lateral"),                  light: "#1D1B22",              dark: "#F6F5F7",              isColor: true },
-      { name: "--sidebar-primary",           description: t("Active nav item", "Item de navegação ativo"),               light: "#F4144B",              dark: "#F4144B",              isColor: true },
+      { name: "--sidebar",                   description: t("Sidebar panel background", "Fundo do painel da barra lateral"),      light: "#FFFFFF",              dark: "rgba(6,6,8,0.97)",  isColor: true },
+      { name: "--sidebar-foreground",        description: t("Sidebar text", "Texto da barra lateral"),                  light: "#1D1D20",              dark: "#F6F6F7",              isColor: true },
+      { name: "--sidebar-primary",           description: t("Active nav item", "Item de navegação ativo"),               light: "#E62040",              dark: "#E62040",              isColor: true },
       { name: "--sidebar-primary-foreground",description: t("Text on active nav item", "Texto no item de navegação ativo"),       light: "#FFFFFF",              dark: "#FFFFFF",              isColor: true },
-      { name: "--sidebar-accent",            description: t("Nav hover background", "Fundo de hover da navegação"),          light: "#E9E8ED",              dark: "rgba(43,40,51,0.60)", isColor: true },
-      { name: "--sidebar-border",            description: t("Sidebar separator", "Separador da barra lateral"),             light: "rgba(29,27,34,0.09)", dark: "rgba(255,255,255,0.06)", isColor: true },
+      { name: "--sidebar-accent",            description: t("Nav hover background", "Fundo de hover da navegação"),          light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--sidebar-border",            description: t("Sidebar separator", "Separador da barra lateral"),             light: "rgba(29,29,32,0.09)", dark: "rgba(255,255,255,0.06)", isColor: true },
     ],
   },
   {
     group: t("Card & Section Surfaces", "Superfícies de cards e seções"),
     tokens: [
-      { name: "--card",            description: t("Content card background", "Fundo do card de conteúdo"),       light: "#FFFFFF",             dark: "rgba(29,27,34,0.75)", isColor: true },
-      { name: "--card-foreground", description: t("Card body text", "Texto do corpo do card"),                light: "#1D1B22",             dark: "#F6F5F7",             isColor: true },
-      { name: "--border",          description: t("Section divider", "Divisor de seção"),               light: "rgba(29,27,34,0.09)",dark: "rgba(255,255,255,0.07)", isColor: true },
-      { name: "--muted",           description: t("Subtle row / alternate bg", "Linha sutil / fundo alternado"),    light: "#E9E8ED",             dark: "rgba(43,40,51,0.60)", isColor: true },
+      { name: "--card",            description: t("Content card background", "Fundo do card de conteúdo"),       light: "#FFFFFF",             dark: "rgba(29,29,32,0.75)", isColor: true },
+      { name: "--card-foreground", description: t("Card body text", "Texto do corpo do card"),                light: "#1D1D20",             dark: "#F6F6F7",             isColor: true },
+      { name: "--border",          description: t("Section divider", "Divisor de seção"),               light: "rgba(29,29,32,0.09)",dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--muted",           description: t("Subtle row / alternate bg", "Linha sutil / fundo alternado"),    light: "#E9E9EC",             dark: "rgba(43,43,49,0.60)", isColor: true },
     ],
   },
   {
     group: t("Brand & CTA", "Marca e CTA"),
     tokens: [
-      { name: "--primary",            description: t("Primary CTA button / link", "Botão / link CTA primário"),  light: "#F4144B", dark: "#F4144B", isColor: true },
+      { name: "--primary",            description: t("Primary CTA button / link", "Botão / link CTA primário"),  light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--primary-foreground", description: t("Text on CTA", "Texto sobre o CTA"),               light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "rgba(244,20,75,0.10)", dark: "rgba(244,20,75,0.15)", isColor: true },
+      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "rgba(230,32,64,0.10)", dark: "rgba(230,32,64,0.15)", isColor: true },
     ],
   },
   {
