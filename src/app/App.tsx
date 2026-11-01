@@ -6,7 +6,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight,
+  PanelRight, UploadCloud,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -29,6 +29,7 @@ import { UsabilityShowcase } from "./components/showcase/UsabilityShowcase";
 import { AccessibilityShowcase } from "./components/showcase/AccessibilityShowcase";
 import { CardShowcase } from "./components/showcase/CardShowcase";
 import { SidePanelShowcase } from "./components/showcase/SidePanelShowcase";
+import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
 
@@ -407,6 +408,19 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "sidepanel-tokens",   label: "Tokens",                     sectionId: "sidepanel" },
         ],
       },
+      { id: "upload", label: "Upload", icon: UploadCloud,
+        items: [
+          { id: "upload-dropzone", label: "Área de soltar",            sectionId: "upload" },
+          { id: "upload-list",     label: "Lista de arquivos",         sectionId: "upload" },
+          { id: "upload-image",    label: "Imagem única",              sectionId: "upload" },
+          { id: "upload-gallery",  label: "Fotos da peça (galeria)",   sectionId: "upload" },
+          { id: "upload-sheet",    label: "Importar planilha",         sectionId: "upload" },
+          { id: "upload-states",   label: "Estados e mensagens",       sectionId: "upload" },
+          { id: "upload-a11y",     label: "Checklist de acessibilidade", sectionId: "upload" },
+          { id: "upload-usage",    label: "Uso",                       sectionId: "upload" },
+          { id: "upload-tokens",   label: "Tokens",                    sectionId: "upload" },
+        ],
+      },
     ],
   },
 ];
@@ -435,6 +449,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   icons:     <IconsShowcase />,
   overlays:  <OverlaysShowcase />,
   sidepanel: <SidePanelShowcase />,
+  upload:    <UploadShowcase />,
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
   templates:   <TemplatesShowcase />,
@@ -459,6 +474,7 @@ const sectionLabels: Record<string, string> = {
   icons:     "Icons",
   overlays:  "Overlays & Navigation",
   sidepanel: "Painel lateral",
+  upload:    "Upload",
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
   templates:   "Templates",
@@ -486,6 +502,7 @@ function AppShell() {
     icons:     false,
     overlays:  false,
     sidepanel: false,
+    upload:    false,
     motion:      false,
     backgrounds: false,
   });
