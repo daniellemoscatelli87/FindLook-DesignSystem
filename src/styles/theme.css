@@ -1,0 +1,435 @@
+@custom-variant dark (&:is(.dark *));
+
+/* =========================================================
+   FINDLOOK DESIGN SYSTEM — GRAFITE + PINK
+   Moda local · Base grafite #111014 · Pink FindLook #F4144B · Rosa claro #FFF2F5
+   Fonte: Brand Book FindLook v1.0 (paleta sugerida, validar no arquivo-mestre)
+   ========================================================= */
+
+:root {
+  /* ── Typography ── */
+  /* Só Plus Jakarta Sans (brand book: sem fontes decorativas). Títulos ExtraBold/Bold, textos Regular/Medium. */
+  --font-sans:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-accent:  'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+  --font-size: 16px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* ── Escala Grafite (neutro quase puro, derivado do Preto Grafite #111014 da marca) ── */
+  --graphite-50:  #F6F5F7;
+  --graphite-100: #E9E8ED;
+  --graphite-200: #D4D1DB;
+  --graphite-300: #B3AFC0;
+  --graphite-400: #88819C;
+  --graphite-500: #69637E;
+  --graphite-600: #514C61;
+  --graphite-700: #3E3A4A;
+  --graphite-800: #2B2833;
+  --graphite-900: #1D1B22;
+  --graphite-950: #111014;
+
+  /* ── Escala Pink (500 = Pink FindLook #F4144B; claros misturados com branco, escuros com grafite) ── */
+  --pink-50:  #FEF1F4;
+  --pink-100: #FDDEE6;
+  --pink-200: #FCB9C9;
+  --pink-300: #FA8AA5;
+  --pink-400: #F7517A;
+  --pink-500: #F4144B;
+  --pink-600: #C71340;
+  --pink-700: #9E1236;
+  --pink-800: #77122D;
+  --pink-900: #551125;
+  --pink-950: #35111D;
+
+  /* ── Cores oficiais da marca (atalhos) ── */
+  --brand-pink:      var(--pink-500);
+  --brand-graphite:  var(--graphite-950);
+  --brand-white:     #FFFFFF;
+  --brand-rose:      #FFF2F5; /* Rosa Claro: apoio / superfícies */
+
+  /* ── LIGHT MODE SEMANTIC TOKENS ── */
+  /* Semantic tokens reference primitives. Tokens without an exact primitive
+     match (pure white, rgba alphas, fine-tuned grays) keep their raw value. */
+  --background:        #FFFFFF;
+  --foreground:        var(--graphite-950);
+  --foreground-muted:  var(--graphite-500);
+  --foreground-subtle: var(--graphite-400);
+
+  --primary:                  var(--pink-500);   /* CTA pink: texto branco só em botões e títulos (4,2:1) */
+  --primary-hover:             var(--pink-600);
+  --primary-foreground:        #FFFFFF;
+  --primary-muted:             rgba(244, 20, 75, 0.10);
+  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 5,8:1 sobre branco */
+  --primary-text:              var(--pink-600);
+  --surface-tint:              var(--brand-rose); /* Rosa Claro: cards e faixas de apoio */
+
+  --secondary:            var(--graphite-100);
+  --secondary-hover:      var(--graphite-200);
+  --secondary-foreground: var(--graphite-950);
+
+  --muted:            var(--graphite-50);
+  --muted-foreground: var(--graphite-500);
+  --accent:           var(--graphite-100);
+  --accent-foreground: var(--graphite-950);
+
+  --border:       rgba(17, 16, 20, 0.10);
+  --border-strong: rgba(17, 16, 20, 0.18);
+
+  --success:            #4fb57b;
+  --success-foreground: #FFFFFF;
+  --success-muted:      rgba(79, 181, 123, 0.1);
+  --warning:            #e5a94e;
+  --warning-foreground: #FFFFFF;
+  --warning-muted:      rgba(229, 169, 78, 0.1);
+  --error:              #D1322B;
+  --error-foreground:   #FFFFFF;
+  --error-muted:        rgba(209, 50, 43, 0.1);
+  --info:               #448abc;
+  --info-foreground:    #FFFFFF;
+  --info-muted:         rgba(68, 138, 188, 0.1);
+  --violet:             #ba69dc;
+  --violet-foreground:  #FFFFFF;
+  --violet-muted:       rgba(186, 105, 220, 0.1);
+  --orange:             #fa9852;
+  --orange-foreground:  #FFFFFF;
+  --orange-muted:       rgba(250, 152, 82, 0.1);
+
+  --card:             #FFFFFF;
+  --card-foreground:  var(--graphite-950);
+  --popover:          #FFFFFF;
+  --popover-foreground: var(--graphite-950);
+  --input:            transparent;
+  --input-background: #FFFFFF;
+  --switch-background: var(--graphite-200);
+  --ring:             rgba(244, 20, 75, 0.40);
+
+  --radius: 0.75rem;
+
+  --shadow-xs:  0 1px 2px rgba(17, 16, 20, 0.05);
+  --shadow-sm:  0 1px 3px rgba(17, 16, 20, 0.07), 0 2px 6px rgba(17, 16, 20, 0.05);
+  --shadow:     0 2px 6px rgba(17, 16, 20, 0.07), 0 6px 20px rgba(17, 16, 20, 0.05);
+  --shadow-md:  0 4px 12px rgba(17, 16, 20, 0.08), 0 12px 36px rgba(17, 16, 20, 0.06);
+  --shadow-lg:  0 8px 24px rgba(17, 16, 20, 0.09), 0 24px 64px rgba(17, 16, 20, 0.07);
+  --shadow-xl:  0 16px 48px rgba(17, 16, 20, 0.10), 0 40px 96px rgba(17, 16, 20, 0.08);
+
+  --chart-1: var(--pink-500);
+  --chart-2: var(--graphite-500);
+  --chart-3: var(--graphite-300);
+  --chart-4: var(--graphite-200);
+  --chart-5: var(--graphite-100);
+
+  --destructive:            #D1322B;
+  --destructive-foreground: #FFFFFF;
+
+  --sidebar:                   #FFFFFF;
+  --sidebar-foreground:        var(--graphite-950);
+  --sidebar-primary:           var(--pink-500);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:            var(--graphite-50);
+  --sidebar-accent-foreground: var(--graphite-950);
+  --sidebar-border:            rgba(17, 16, 20, 0.10);
+  --sidebar-ring:              rgba(244, 20, 75, 0.40);
+}
+
+/* ── DARK MODE ── */
+.dark {
+  --background:        var(--graphite-950);
+  --foreground:        #F6F5F7;
+  --foreground-muted:  var(--graphite-300);
+  --foreground-subtle: var(--graphite-400);
+
+  --primary:                  var(--pink-500);
+  --primary-hover:             var(--pink-400);
+  --primary-foreground:        #FFFFFF;
+  --primary-muted:             rgba(244, 20, 75, 0.16);
+  --primary-muted-foreground:  var(--pink-300);   /* pink para texto no escuro: 8,3:1 sobre grafite-950 */
+  --primary-text:              var(--pink-300);
+  --surface-tint:              rgba(244, 20, 75, 0.08);
+
+  --secondary:            rgba(43, 40, 51, 0.85);
+  --secondary-hover:      rgba(43, 40, 51, 1);
+  --secondary-foreground: #F6F5F7;
+
+  --muted:            rgba(43, 40, 51, 0.6);
+  --muted-foreground: var(--graphite-300);
+  --accent:           rgba(43, 40, 51, 0.6);
+  --accent-foreground: #F6F5F7;
+
+  --border:       rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --success:            #22C55E;
+  --success-foreground: #FFFFFF;
+  --success-muted:      rgba(34, 197, 94, 0.12);
+  --warning:            #f5b320;
+  --warning-foreground: #FFFFFF;
+  --warning-muted:      rgba(245, 179, 32, 0.12);
+  --error:              #F0645D;
+  --error-foreground:   #111014;
+  --error-muted:        rgba(240, 100, 93, 0.15);
+  --info:               #3B82F6;
+  --info-foreground:    #FFFFFF;
+  --info-muted:         rgba(59, 130, 246, 0.12);
+  --violet:             #eb6cff;
+  --violet-foreground:  #FFFFFF;
+  --violet-muted:       rgba(235, 108, 255, 0.12);
+  --orange:             #ff8833;
+  --orange-foreground:  #FFFFFF;
+  --orange-muted:       rgba(255, 136, 51, 0.12);
+
+  --card:             rgba(29, 27, 34, 0.80);
+  --card-foreground:  #F6F5F7;
+  --popover:          rgba(29, 27, 34, 0.97);
+  --popover-foreground: #F6F5F7;
+  --input:            rgba(29, 27, 34, 0.6);
+  --input-background: rgba(29, 27, 34, 0.6);
+  --switch-background: var(--graphite-600);
+  --ring:             rgba(244, 20, 75, 0.45);
+
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow:     0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.45), 0 16px 48px rgba(0, 0, 0, 0.30);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.50), 0 32px 80px rgba(0, 0, 0, 0.35);
+  --shadow-xl:  0 16px 64px rgba(0, 0, 0, 0.55), 0 48px 100px rgba(0, 0, 0, 0.40);
+
+  --chart-1: var(--pink-400);
+  --chart-2: var(--graphite-400);
+  --chart-3: var(--graphite-500);
+  --chart-4: var(--graphite-600);
+  --chart-5: var(--graphite-700);
+
+  --destructive:            #F0645D;
+  --destructive-foreground: #111014;
+
+  --sidebar:                   rgba(17, 16, 20, 0.97);
+  --sidebar-foreground:        #F6F5F7;
+  --sidebar-primary:           var(--pink-500);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:            rgba(43, 40, 51, 0.6);
+  --sidebar-accent-foreground: #F6F5F7;
+  --sidebar-border:            rgba(255, 255, 255, 0.07);
+  --sidebar-ring:              rgba(244, 20, 75, 0.45);
+}
+
+/* ── Tailwind v4 theme mapping ── */
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --animate-shine: shine var(--duration) infinite linear;
+
+  @keyframes shine {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    to {
+      background-position: 0% 0%;
+    }
+  }
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  --color-violet: var(--violet);
+  --color-violet-foreground: var(--violet-foreground);
+  --color-violet-muted: var(--violet-muted);
+  --color-orange: var(--orange);
+  --color-orange-foreground: var(--orange-foreground);
+  --color-orange-muted: var(--orange-muted);
+  --color-primary-text: var(--primary-text);
+  --color-surface-tint: var(--surface-tint);
+  --color-brand-rose: var(--brand-rose);
+
+  --color-graphite-50:  var(--graphite-50);
+  --color-graphite-100: var(--graphite-100);
+  --color-graphite-200: var(--graphite-200);
+  --color-graphite-300: var(--graphite-300);
+  --color-graphite-400: var(--graphite-400);
+  --color-graphite-500: var(--graphite-500);
+  --color-graphite-600: var(--graphite-600);
+  --color-graphite-700: var(--graphite-700);
+  --color-graphite-800: var(--graphite-800);
+  --color-graphite-900: var(--graphite-900);
+  --color-graphite-950: var(--graphite-950);
+
+  --color-pink-50: var(--pink-50);
+  --color-pink-100: var(--pink-100);
+  --color-pink-200: var(--pink-200);
+  --color-pink-300: var(--pink-300);
+  --color-pink-400: var(--pink-400);
+  --color-pink-500: var(--pink-500);
+  --color-pink-600: var(--pink-600);
+  --color-pink-700: var(--pink-700);
+  --color-pink-800: var(--pink-800);
+  --color-pink-900: var(--pink-900);
+  --color-pink-950: var(--pink-950);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 12px);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ── Scrollbar — light mode ── */
+:root {
+  scrollbar-color: #B3AFC0 #F6F5F7;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F6F5F7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B3AFC0;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #88819C;
+}
+
+/* ── Scrollbar — dark mode ── */
+.dark {
+  scrollbar-color: #3E3A4A #111014;
+}
+
+.dark::-webkit-scrollbar-track {
+  background: #111014;
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background: #3E3A4A;
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #514C61;
+}
+
+/* ── Base styles ── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: var(--font-size);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-extrabold);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: var(--font-weight-extrabold);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+
+  h5 {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.4;
+  }
+
+  h6 {
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.5;
+  }
+
+  input, textarea, select {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-normal);
+  }
+}
