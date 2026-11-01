@@ -177,7 +177,7 @@ export function BrandShowcase() {
           Diretrizes de uso da marca FindLook: assinatura, símbolo, paleta, tipografia e regras de aplicação, para que a marca seja reconhecida sem ruído em todos os pontos de contato.
         </p>
         <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
-          Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os arquivos desta página são os vetores oficiais da marca (assinaturas horizontal e vertical, para fundo claro e escuro, e o símbolo). O wordmark é recortado da assinatura oficial e as versões monocromáticas do símbolo são o vetor oficial em uma só cor.
+          Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os arquivos desta página são os vetores oficiais da marca (assinaturas horizontal e vertical, para fundo claro e escuro, e o símbolo), com o cabide sempre branco. O wordmark é recortado da assinatura oficial e as versões monocromáticas do símbolo são o vetor oficial em uma só cor (nelas o cabide é vazado, por serem de uma cor só).
         </p>
       </div>
 
@@ -240,24 +240,24 @@ export function BrandShowcase() {
         <SectionBlock
           id="brand-simbolo"
           title="Símbolo — localização + moda"
-          subtitle="O pin de localização com o cabide vazado. Em escala pequena, é a aplicação reduzida da marca. Nunca redesenhe o cabide nem separe suas partes. Por ser vazado, o cabide toma a cor do fundo: prefira fundos lisos, brancos ou grafite."
+          subtitle="O pin de localização com o cabide branco. Em escala pequena, é a aplicação reduzida da marca. Nunca redesenhe o cabide nem separe suas partes. O cabide é sempre branco, em qualquer fundo."
         />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           <LogoCard
             download={{ png: pngSimbolo, svg: svgSimbolo, filename: "findlook-simbolo" }}
             label="Símbolo oficial sobre claro"
-            description="O cabide é vazado: assume a cor do fundo (branco aqui)"
+            description="Pin pink com cabide branco"
             bg="bg-white"
           >
-            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide vazado, sobre fundo branco" className="h-28 w-auto object-contain" />
+            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide branco, sobre fundo branco" className="h-28 w-auto object-contain" />
           </LogoCard>
           <LogoCard
             download={{ png: pngSimbolo, svg: svgSimbolo, filename: "findlook-simbolo" }}
             label="Símbolo oficial sobre grafite"
-            description="Mesmo arquivo: o cabide vazado fica grafite"
+            description="Mesmo arquivo: o cabide continua branco"
             bg={GRAFITE_BG}
           >
-            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide vazado, sobre fundo grafite" className="h-28 w-auto object-contain" />
+            <ImageWithFallback src={pngSimbolo} alt="Símbolo FindLook: pin pink com cabide branco, sobre fundo grafite" className="h-28 w-auto object-contain" />
           </LogoCard>
           <LogoCard
             download={{ png: pngSimboloMonoBranco, svg: svgSimboloMonoBranco, filename: "findlook-simbolo-mono-branco" }}
