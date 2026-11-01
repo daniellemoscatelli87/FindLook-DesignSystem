@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Selo (tag do hero)"),
+    desc: pt("A pílula do topo da página Experience Intelligence do site do estúdio virou componente: fundo de card, borda fina, caixa alta com espaçamento largo e ponto ou ícone na cor primária. Em Rótulos › Selo, com regras de uso e tokens."),
+    page: "badges", anchor: "selo",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Cabide sempre branco nos logos"),
     desc: pt("Os vetores oficiais traziam o cabide como recorte, e ele ficava grafite no fundo escuro. Agora o cabide é branco em qualquer fundo, no símbolo e nas assinaturas horizontal e vertical. SVGs, PNGs e favicon regenerados."),
     page: "brand", anchor: "brand-simbolo",
