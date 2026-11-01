@@ -71,6 +71,9 @@ function GlassFinishPicker() {
     { value: "padrao", label: t("Default", "Padrão"), desc: t("Balanced glass, the one used in the intensities above.", "Vidro equilibrado, o mesmo das intensidades acima.") },
   ];
   const current = finishes.find(x => x.value === finish)!;
+  // textos secundários: brancos no vidro escuro em qualquer tema
+  const sub = tone === "escura" ? "text-white/70" : "text-muted-foreground dark:text-white/70";
+  const mono = tone === "escura" ? "text-white/60" : "text-muted-foreground dark:text-white/60";
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -87,22 +90,22 @@ function GlassFinishPicker() {
           <SegmentedControl size="sm" aria-label={t("Opacity", "Opacidade")} value={intensity} onValueChange={setIntensity} options={[{ value: "leve", label: t("Light", "Leve") }, { value: "media", label: t("Medium", "Média") }, { value: "forte", label: t("Strong", "Forte") }]} />
         </div>
       </div>
-      <GlassScene dark={tone === "escura"}>
+      <GlassScene>
         <div className="grid gap-5 md:grid-cols-[1fr_1fr] items-start">
           <GlassCard finish={finish} tone={tone} intensity={intensity} interactive tabIndex={0}>
-            <p className="inline-flex items-center gap-1 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground dark:text-white/70"><MapPin className="h-3 w-3" aria-hidden /> {"Brechó · 1,2 km"}</p>
+            <p className={`inline-flex items-center gap-1 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] ${sub}`}><MapPin className="h-3 w-3" aria-hidden /> {"Brechó · 1,2 km"}</p>
             <p className={`${display} mt-2 text-[1.25rem] font-semibold tracking-[-0.01em]`}>{"Garimpo da Lu"}</p>
-            <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground dark:text-white/70">{"Vintage, jeans e acessórios. Aberto até as 19h."}</p>
+            <p className={`mt-2 text-[0.8125rem] leading-relaxed ${sub}`}>{"Vintage, jeans e acessórios. Aberto até as 19h."}</p>
             <div className="mt-4 flex items-center justify-between">
               <span className="text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))]">{"Ver loja"}</span>
               <ArrowUpRight className="h-5 w-5 text-primary" aria-hidden />
             </div>
-            <p className="mt-4 text-[0.6875rem] font-mono text-muted-foreground dark:text-white/60">finish="{finish}" tone="{tone}" intensity="{intensity}"</p>
+            <p className={`mt-4 text-[0.6875rem] font-mono ${mono}`}>finish="{finish}" tone="{tone}" intensity="{intensity}"</p>
           </GlassCard>
           <GlassCard finish={finish} tone={tone} intensity={intensity} tint>
             <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-[var(--primary-text,var(--primary))]">{current.label}</p>
             <p className="mt-2 text-[0.875rem] leading-relaxed">{current.desc}</p>
-            <p className="mt-4 text-[0.6875rem] font-mono text-muted-foreground dark:text-white/60">+ tint</p>
+            <p className={`mt-4 text-[0.6875rem] font-mono ${mono}`}>+ tint</p>
           </GlassCard>
         </div>
       </GlassScene>
@@ -334,8 +337,9 @@ export function CardShowcase() {
             </GlassScene>
           </div>
           <div>
-            <SubTitle>{t("Dark glass — over photos and ambient scenes", "Vidro escuro — sobre fotos e ambientes")}</SubTitle>
-            <GlassScene dark>
+            <SubTitle>{t("Dark glass (tone escura)", "Vidro escuro (tom escuro)")}</SubTitle>
+            <p className="mb-4 text-[0.8125rem] leading-relaxed text-muted-foreground max-w-3xl">{t("Graphite glass with white text, for photos and busy scenes. The example follows the theme: over the light brand scene here, over the dark one in dark mode.", "Vidro grafite com texto branco, para fotos e cenas movimentadas. O exemplo segue o tema: sobre a cena clara da marca aqui, sobre a escura no modo escuro.")}</p>
+            <GlassScene>
               <div className="grid gap-5 md:grid-cols-[1.2fr_0.8fr]">
                 <GlassCard tone="escura" intensity="media">
                   <p className={`${display} text-[1.375rem] font-bold leading-tight tracking-[-0.02em]`}>{"Uma cidade. Muitos estilos."}</p>
