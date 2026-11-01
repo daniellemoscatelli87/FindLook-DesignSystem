@@ -1,4 +1,4 @@
-# FindLook Design System
+# FindLook - Design System
 
 Design system da FindLook, plataforma web de descoberta de moda local. Só em português.
 
