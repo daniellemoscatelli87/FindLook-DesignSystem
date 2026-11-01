@@ -186,7 +186,7 @@ export function BrandShowcase() {
         <SectionBlock
           id="brand-assinatura"
           title="Assinatura principal — horizontal"
-          subtitle="Símbolo + logotipo. Priorize a assinatura horizontal em peças amplas: cabeçalhos, banners, materiais impressos e apresentações."
+          subtitle="Símbolo + logotipo. Priorize a assinatura horizontal em peças amplas: cabeçalhos, banners, materiais impressos e apresentações. Proporção fixa: símbolo com 2,25 vezes a altura do “F” e espaço de 0,3 F entre o símbolo e o logotipo."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <LogoCard
