@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Ícones de moda (IconeModa)"),
+    desc: pt("Componente IconeModa com ícones de traço no estilo Lucide para peças que o Lucide não tem: camiseta, camisa, cropped, jaqueta, vestido, calça, shorts, saia, biquíni, meia, tênis, sandália, bota, salto, boné, chapéu, óculos de sol, bolsa, clutch, cinto, gravata, colar, brinco, anel, pulseira e cabide. Mesmos desenhos da textura doodle. Pedido da dona do produto para as listas de produtos da FindLook."),
+    page: "icons", anchor: "icon-sizes",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Textura doodle só com peças de moda"),
     desc: pt("Decisão da dona do produto: a textura passa a ter exatamente oito peças (vestido, calça, saia, boné, óculos de sol, sandália, tênis e camiseta), sem outros elementos nem enfeites soltos, para ler como moda à primeira vista. Boné, sandália e saia redesenhados; SVG e PNG regerados."),
     page: "backgrounds", anchor: "doodle-bg",

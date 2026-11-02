@@ -14,6 +14,7 @@ function lucide(name) {
 const P = (d) => ["path", { d }];
 const C = (cx, cy, r) => ["circle", { cx, cy, r }];
 // ── ícones próprios (viewBox 24, traço 2, estilo lucide) ──
+// Os ícones de moda também estão em src/app/components/ui/fashion-icons.tsx (componente IconeModa): ao mudar um desenho, mude nos dois.
 const custom = {
   // estúdio
   "duplo-diamante": [P("M3 12l4.5-6 4.5 6-4.5 6z"), P("M12 12l4.5-6 4.5 6-4.5 6z")],

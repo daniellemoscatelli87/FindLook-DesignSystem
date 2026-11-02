@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as LucideIcons from "lucide-react";
 import { useI18n } from "../../i18n";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
+import { IconeModa, iconesModa, nomesIconesModa } from "../ui/fashion-icons";
 
 const {
   Zap, Bell, Settings, Search, Check, Plus, Download, Filter,
@@ -671,6 +672,27 @@ export function IconsShowcase() {
           title={t("Icons", "Ícones")}
           description={t("Outline Lucide React icons only. Never use filled, skeuomorphic, or heavy-stroke icons.", "Apenas ícones outline do Lucide React. Nunca use ícones preenchidos, esqueuomórficos ou de traço grosso.")}
         />
+
+        <SubSection title={t("Fashion icons", "Ícones de moda")}>
+          <ShowcaseCard>
+            <p className="mb-5 text-[0.875rem] text-muted-foreground">
+              {t(
+                "Custom outline icons for fashion items that Lucide does not have (pants, dress, skirt, sneakers…). Same drawing style as Lucide; the same drawings make up the doodle texture.",
+                "Ícones de traço próprios para as peças de moda que o Lucide não tem (calça, vestido, saia, tênis…). Mesmo estilo de desenho do Lucide; são os mesmos desenhos da textura doodle.",
+              )}
+            </p>
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-7">
+              {nomesIconesModa.map((nome) => (
+                <div key={nome} className="flex flex-col items-center gap-2 rounded-[12px] border border-border p-3 text-center">
+                  <IconeModa nome={nome} className="size-6 text-foreground" strokeWidth={1.75} />
+                  <span className="text-[0.75rem] font-semibold text-foreground">{iconesModa[nome].rotulo}</span>
+                  <code className="text-[0.6875rem] text-muted-foreground">{nome}</code>
+                </div>
+              ))}
+            </div>
+            <pre className="mt-5 overflow-x-auto rounded-[10px] bg-muted p-3 text-[0.75rem]"><code>{`import { IconeModa } from "@/components/ui/fashion-icons";\n\n<IconeModa nome="calca" className="size-4 text-primary" />`}</code></pre>
+          </ShowcaseCard>
+        </SubSection>
 
         <SubSection title={t("Sizes", "Tamanhos")}>
           <ShowcaseCard>
