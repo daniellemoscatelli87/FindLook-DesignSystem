@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Textura doodle: boné e sandália; sete itens obrigatórios"),
+    desc: pt("A textura passa a ter obrigatoriamente vestido, calça, boné, óculos de sol, sandália, tênis e camiseta, com o dobro de presença; boné e sandália foram desenhados. Cinquenta desenhos distintos; arquivos SVG e PNG regerados."),
+    page: "backgrounds", anchor: "doodle-bg",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Cards glassmorphism: área de teste com alerta de contraste"),
     desc: pt("Exemplos sobre a textura do sistema em ícones pequenos; cada card de teste mede o contraste de título e subtítulo contra a superfície efetiva do vidro (WCAG AA) e alerta quando a acessibilidade fica comprometida. Helper glassTextContrast e utilitários de contraste exportados."),
     page: "cards", anchor: "card-glass",
