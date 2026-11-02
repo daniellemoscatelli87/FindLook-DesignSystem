@@ -4,7 +4,7 @@ import { cn } from "./utils";
 /**
  * DoodleTexture (textura doodle)
  *
- * Padrão de ícones de traço, sem emenda, no universo da marca: peças de roupa, sapatos, acessórios e tudo que vem da moda.
+ * Padrão de ícones de traço, sem emenda, no universo da marca: só peças de moda: vestido, calça, saia, boné, óculos de sol, sandália, tênis e camiseta.
  * O desenho vem de `public/texturas/doodle-moda-traco.svg` e é aplicado como máscara,
  * então a cor do traço é qualquer token (sólida, sem transparência) e segue o tema.
  * Padrão: grafite-200 no claro e grafite-800 no escuro, como no papel de parede de referência.
