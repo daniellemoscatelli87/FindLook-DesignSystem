@@ -650,9 +650,9 @@ const feedbackTokenGroups = (t: TFn): TokenGroup[] => [
   {
     group: t("Toast / Notification Surface", "Superfície de toast / notificação"),
     tokens: [
-      { name: "--popover",           description: t("Toast background", "Fundo do toast"),       light: "#FFFFFF",             dark: "rgba(29,29,32,0.95)", isColor: true },
-      { name: "--popover-foreground",description: t("Toast text", "Texto do toast"),             light: "#1D1D20",             dark: "#F6F6F7",             isColor: true },
-      { name: "--border",            description: t("Toast border", "Borda do toast"),           light: "rgba(29,29,32,0.09)", dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--popover",           description: t("Toast background", "Fundo do toast"),       light: "#FFFFFF",             dark: "rgba(25,25,28,0.95)", isColor: true },
+      { name: "--popover-foreground",description: t("Toast text", "Texto do toast"),             light: "#19191C",             dark: "#F6F6F7",             isColor: true },
+      { name: "--border",            description: t("Toast border", "Borda do toast"),           light: "rgba(25,25,28,0.09)", dark: "rgba(255,255,255,0.07)", isColor: true },
       { name: "--shadow-md",         description: t("Toast elevation", "Elevação do toast"),       light: "0 4px 12px …" },
     ],
   },
@@ -676,14 +676,14 @@ const badgesTokenGroups = (t: TFn): TokenGroup[] => [
       { name: "--orange-muted", description: t("Orange badge tinted", "Badge laranja com tom"),  light: "rgba(250,152,82,0.10)", dark: "rgba(255,136,51,0.12)", isColor: true },
       { name: "--card / --border", description: t("Hero tag (selo) surface and border", "Superfície e borda do selo (tag do hero)"), light: "#FFFFFF", dark: "card", isColor: false },
       { name: "--graphite-700", description: t("Hero tag text (graphite-300 in dark)", "Texto do selo (graphite-300 no escuro)"), light: "graphite-700", dark: "graphite-300", isColor: false },
-      { name: "--muted",        description: t("Neutral / default badge", "Badge neutro / padrão"),light: "#E9E9EC", dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--muted",        description: t("Neutral / default badge", "Badge neutro / padrão"),light: "#E9E9EC", dark: "rgba(44,44,51,0.60)", isColor: true },
     ],
   },
   {
     group: t("Avatar", "Avatar"),
     tokens: [
-      { name: "--border",        description: t("Avatar ring border", "Borda do anel do avatar"),      light: "rgba(29,29,32,0.09)", dark: "rgba(255,255,255,0.07)", isColor: true },
-      { name: "--muted",         description: t("Avatar fallback bg", "Fundo de fallback do avatar"),     light: "#E9E9EC",             dark: "rgba(43,43,49,0.60)",    isColor: true },
+      { name: "--border",        description: t("Avatar ring border", "Borda do anel do avatar"),      light: "rgba(25,25,28,0.09)", dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--muted",         description: t("Avatar fallback bg", "Fundo de fallback do avatar"),     light: "#E9E9EC",             dark: "rgba(44,44,51,0.60)",    isColor: true },
       { name: "--muted-foreground",description: t("Avatar initials text", "Texto das iniciais do avatar"), light: "#888896",             dark: "#B3B3BC",                isColor: true },
       { name: "--primary",       description: t("Avatar active ring", "Anel ativo do avatar"),     light: "#E62040",             dark: "#E62040",                isColor: true },
     ],

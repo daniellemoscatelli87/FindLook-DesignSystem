@@ -1864,8 +1864,8 @@ function WobbleCardDemo({
     }
   }, [spotlightId]);
 
-  const bg  = dark ? "#2B2B31" : "#FFFFFF";
-  const bdr = dark ? "rgba(255,255,255,0.09)" : "rgba(29,29,32,0.09)";
+  const bg  = dark ? "#2C2C33" : "#FFFFFF";
+  const bdr = dark ? "rgba(255,255,255,0.09)" : "rgba(25,25,28,0.09)";
 
   return (
     <motion.div
@@ -1888,7 +1888,7 @@ function WobbleCardDemo({
           <Star style={{ width: 10, height: 10, color: "#E62040" }} />
           <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.06em" }}>Enterprise</span>
         </div>
-        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
+        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
           {t("Bank-grade", "Segurança")}<br />{t("security.", "nível bancário.")}
         </h3>
         <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC", lineHeight: 1.6, marginBottom: 16 }}>
@@ -1904,10 +1904,10 @@ function WobbleCardDemo({
             </div>
           ))}
         </div>
-        <div style={{ height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(29,29,32,0.07)", marginBottom: 16 }} />
+        <div style={{ height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(25,25,28,0.07)", marginBottom: 16 }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20" }}>R$499</span>
+            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C" }}>R$499</span>
             <span style={{ fontSize: "0.625rem", color: dark ? "#696977" : "#B3B3BC" }}>{t("/mo", "/mês")}</span>
           </div>
           <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "#E62040", color: "#fff", fontSize: "0.6875rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
@@ -1925,7 +1925,7 @@ function WobbleCardSection() {
   const [spotlightId,   setSpotlightId]   = useState("pink");
   const [wobbleEnabled, setWobbleEnabled] = useState(true);
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)";
   const activeStyle = { border: "1.5px solid #E62040", background: "rgba(230,32,64,0.08)", color: "#E62040" };
   const idleColor   = dark ? "#B3B3BC" : "#888896";
 
@@ -1939,7 +1939,7 @@ function WobbleCardSection() {
         {/* Preview */}
         <div
           className="flex items-center justify-center p-12"
-          style={{ background: dark ? "#060608" : "#F6F6F7", minHeight: 300 }}
+          style={{ background: dark ? "#000000" : "#F6F6F7", minHeight: 300 }}
         >
           <WobbleCardDemo dark={dark} spotlightId={spotlightId} wobbleEnabled={wobbleEnabled} />
         </div>

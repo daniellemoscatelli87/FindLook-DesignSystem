@@ -163,8 +163,8 @@ export function CardShowcase() {
     {
       group: t("Surface", "Superfície"),
       tokens: [
-        { name: "--card", description: t("Card background", "Fundo do card"), light: "#FFFFFF", dark: "rgba(29,29,32,0.75)", isColor: true },
-        { name: "--card-foreground", description: t("Primary content", "Conteúdo principal"), light: "#1D1D20", dark: "#F6F6F7", isColor: true },
+        { name: "--card", description: t("Card background", "Fundo do card"), light: "#FFFFFF", dark: "rgba(25,25,28,0.75)", isColor: true },
+        { name: "--card-foreground", description: t("Primary content", "Conteúdo principal"), light: "#19191C", dark: "#F6F6F7", isColor: true },
         { name: "--muted-foreground", description: t("Descriptions and metadata", "Descrições e metadados"), light: "#888896", dark: "#B3B3BC", isColor: true },
         { name: "--border", description: t("Default outline", "Contorno padrão"), light: "#E9E9EC", dark: "#3E3E46", isColor: true },
       ],

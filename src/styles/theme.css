@@ -2,7 +2,7 @@
 
 /* =========================================================
    FINDLOOK DESIGN SYSTEM — GRAFITE + PINK
-   Moda local · Base grafite #060608 · Pink FindLook #E62040 · Rosa claro #FFF2F5
+   Moda local · Base grafite #000000 · Pink FindLook #E62040 · Rosa claro #FFF2F5
    Fonte: cores do arquivo vetorial oficial do logo (o brand book v1.0 sugeria #F4144B e #111014; unificado em 01/11/2026)
    ========================================================= */
 
@@ -20,7 +20,7 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
-  /* ── Escala Grafite (neutro quase puro, derivado do Preto Grafite #060608 do logo oficial) ── */
+  /* ── Escala Grafite (neutro quase puro, derivado do Preto Grafite #000000 do logo oficial) ── */
   --graphite-50:  #F6F6F7;
   --graphite-100: #E9E9EC;
   --graphite-200: #D4D4D9;
@@ -29,9 +29,9 @@
   --graphite-500: #696977;
   --graphite-600: #51515C;
   --graphite-700: #3E3E46;
-  --graphite-800: #2B2B31;
-  --graphite-900: #1D1D20;
-  --graphite-950: #060608;
+  --graphite-800: #2C2C33;
+  --graphite-900: #19191C;
+  --graphite-950: #000000;
 
   /* ── Escala Pink (500 = Pink FindLook #E62040, cor do logo oficial; claros misturados com branco, escuros com grafite) ── */
   --pink-50:  #FEF2F4;
@@ -77,8 +77,8 @@
   --accent:           var(--graphite-100);
   --accent-foreground: var(--graphite-950);
 
-  --border:       rgba(6, 6, 8, 0.10);
-  --border-strong: rgba(6, 6, 8, 0.18);
+  --border:       rgba(0, 0, 0, 0.10);
+  --border-strong: rgba(0, 0, 0, 0.18);
 
   --success:            #4fb57b;
   --success-foreground: #FFFFFF;
@@ -110,12 +110,12 @@
 
   --radius: 0.75rem;
 
-  --shadow-xs:  0 1px 2px rgba(6, 6, 8, 0.05);
-  --shadow-sm:  0 1px 3px rgba(6, 6, 8, 0.07), 0 2px 6px rgba(6, 6, 8, 0.05);
-  --shadow:     0 2px 6px rgba(6, 6, 8, 0.07), 0 6px 20px rgba(6, 6, 8, 0.05);
-  --shadow-md:  0 4px 12px rgba(6, 6, 8, 0.08), 0 12px 36px rgba(6, 6, 8, 0.06);
-  --shadow-lg:  0 8px 24px rgba(6, 6, 8, 0.09), 0 24px 64px rgba(6, 6, 8, 0.07);
-  --shadow-xl:  0 16px 48px rgba(6, 6, 8, 0.10), 0 40px 96px rgba(6, 6, 8, 0.08);
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow:     0 2px 6px rgba(0, 0, 0, 0.07), 0 6px 20px rgba(0, 0, 0, 0.05);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 36px rgba(0, 0, 0, 0.06);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.09), 0 24px 64px rgba(0, 0, 0, 0.07);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.10), 0 40px 96px rgba(0, 0, 0, 0.08);
 
   --chart-1: var(--pink-500);
   --chart-2: var(--graphite-500);
@@ -132,7 +132,7 @@
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent:            var(--graphite-50);
   --sidebar-accent-foreground: var(--graphite-950);
-  --sidebar-border:            rgba(6, 6, 8, 0.10);
+  --sidebar-border:            rgba(0, 0, 0, 0.10);
   --sidebar-ring:              rgba(230, 32, 64, 0.40);
 }
 
@@ -151,13 +151,13 @@
   --primary-text:              var(--pink-300);
   --surface-tint:              rgba(230, 32, 64, 0.08);
 
-  --secondary:            rgba(43, 43, 49, 0.85);
-  --secondary-hover:      rgba(43, 43, 49, 1);
+  --secondary:            rgba(44, 44, 51, 0.85);
+  --secondary-hover:      rgba(44, 44, 51, 1);
   --secondary-foreground: #F6F6F7;
 
-  --muted:            rgba(43, 43, 49, 0.6);
+  --muted:            rgba(44, 44, 51, 0.6);
   --muted-foreground: var(--graphite-300);
-  --accent:           rgba(43, 43, 49, 0.6);
+  --accent:           rgba(44, 44, 51, 0.6);
   --accent-foreground: #F6F6F7;
 
   --border:       rgba(255, 255, 255, 0.07);
@@ -170,7 +170,7 @@
   --warning-foreground: #FFFFFF;
   --warning-muted:      rgba(245, 179, 32, 0.12);
   --error:              #F0645D;
-  --error-foreground:   #060608;
+  --error-foreground:   #000000;
   --error-muted:        rgba(240, 100, 93, 0.15);
   --info:               #3B82F6;
   --info-foreground:    #FFFFFF;
@@ -182,12 +182,12 @@
   --orange-foreground:  #FFFFFF;
   --orange-muted:       rgba(255, 136, 51, 0.12);
 
-  --card:             rgba(29, 29, 32, 0.80);
+  --card:             rgba(25, 25, 28, 0.80);
   --card-foreground:  #F6F6F7;
-  --popover:          rgba(29, 29, 32, 0.97);
+  --popover:          rgba(25, 25, 28, 0.97);
   --popover-foreground: #F6F6F7;
-  --input:            rgba(29, 29, 32, 0.6);
-  --input-background: rgba(29, 29, 32, 0.6);
+  --input:            rgba(25, 25, 28, 0.6);
+  --input-background: rgba(25, 25, 28, 0.6);
   --switch-background: var(--graphite-600);
   --ring:             rgba(230, 32, 64, 0.45);
 
@@ -205,13 +205,13 @@
   --chart-5: var(--graphite-700);
 
   --destructive:            #F0645D;
-  --destructive-foreground: #060608;
+  --destructive-foreground: #000000;
 
-  --sidebar:                   rgba(6, 6, 8, 0.97);
+  --sidebar:                   rgba(0, 0, 0, 0.97);
   --sidebar-foreground:        #F6F6F7;
   --sidebar-primary:           var(--pink-500);
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent:            rgba(43, 43, 49, 0.6);
+  --sidebar-accent:            rgba(44, 44, 51, 0.6);
   --sidebar-accent-foreground: #F6F6F7;
   --sidebar-border:            rgba(255, 255, 255, 0.07);
   --sidebar-ring:              rgba(230, 32, 64, 0.45);
@@ -340,11 +340,11 @@
 
 /* ── Scrollbar — dark mode ── */
 .dark {
-  scrollbar-color: #3E3E46 #060608;
+  scrollbar-color: #3E3E46 #000000;
 }
 
 .dark::-webkit-scrollbar-track {
-  background: #060608;
+  background: #000000;
 }
 
 .dark::-webkit-scrollbar-thumb {

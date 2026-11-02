@@ -853,7 +853,7 @@ const iconsTokenGroups: TokenGroup[] = [
   {
     group: "Icon Colors",
     tokens: [
-      { name: "--foreground",       description: "Default / emphasis icon",    light: "#1D1D20", dark: "#F6F6F7", isColor: true },
+      { name: "--foreground",       description: "Default / emphasis icon",    light: "#19191C", dark: "#F6F6F7", isColor: true },
       { name: "--muted-foreground", description: "Secondary / subdued icon",   light: "#888896", dark: "#B3B3BC", isColor: true },
       { name: "--foreground-subtle",description: "Decorative / disabled icon", light: "#B3B3BC", dark: "#888896", isColor: true },
       { name: "--primary",          description: "Accent / active icon",       light: "#E62040", dark: "#E62040", isColor: true },
@@ -868,7 +868,7 @@ const iconsTokenGroups: TokenGroup[] = [
   {
     group: "Icon Containers",
     tokens: [
-      { name: "--muted",            description: "Icon container background",  light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--muted",            description: "Icon container background",  light: "#E9E9EC",              dark: "rgba(44,44,51,0.60)", isColor: true },
       { name: "--primary-muted",    description: "Primary icon container bg",  light: "rgba(230,32,64,0.10)", dark: "rgba(230,32,64,0.15)", isColor: true },
       { name: "--success-muted",    description: "Success icon container bg",  light: "rgba(79,181,123,0.10)",dark: "rgba(34,197,94,0.12)", isColor: true },
       { name: "--warning-muted",    description: "Warning icon container bg",  light: "rgba(229,169,78,0.10)",dark: "rgba(245,179,32,0.12)", isColor: true },

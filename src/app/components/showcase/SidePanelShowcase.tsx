@@ -140,8 +140,8 @@ const tokenGroups: TokenGroup[] = [
   {
     group: "Painel lateral — superfície",
     tokens: [
-      { name: "--card", description: "Fundo do painel", light: "#FFFFFF", dark: "rgba(29,29,32,.80)", isColor: true },
-      { name: "--border", description: "Divisórias entre as zonas", light: "rgba(6,6,8,.10)", dark: "rgba(255,255,255,.07)", isColor: true },
+      { name: "--card", description: "Fundo do painel", light: "#FFFFFF", dark: "rgba(25,25,28,.80)", isColor: true },
+      { name: "--border", description: "Divisórias entre as zonas", light: "rgba(0,0,0,.10)", dark: "rgba(255,255,255,.07)", isColor: true },
       { name: "--shadow-xl", description: "Elevação do painel", light: "0 16px 48px …" },
       { name: "overlay", description: "Fundo escurecido: foreground a 40% + blur-sm", light: "bg-foreground/40" },
       { name: "radius", description: "Cantos esquerdos a partir do tablet", light: "24px (rounded-l-3xl)" },

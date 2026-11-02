@@ -57,7 +57,7 @@ const finishes: Record<Exclude<GlassFinish, "padrao">, { blur: string; clara: Re
     clara: { leve: "bg-white/35 dark:bg-white/8", media: "bg-white/48 dark:bg-white/12", forte: "bg-white/62 dark:bg-white/16" },
     escura: { leve: "bg-[var(--graphite-950)]/50 dark:bg-[var(--graphite-950)]/30", media: "bg-[var(--graphite-950)]/65 dark:bg-[var(--graphite-950)]/45", forte: "bg-[var(--graphite-950)]/80 dark:bg-[var(--graphite-950)]/60" },
     // foco de luz no canto superior esquerdo + brilho interno
-    extra: "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[radial-gradient(120%_80%_at_12%_0%,rgba(255,255,255,0.55),rgba(255,255,255,0.12)_38%,transparent_62%)] dark:after:bg-[radial-gradient(120%_80%_at_12%_0%,rgba(255,255,255,0.28),rgba(255,255,255,0.06)_38%,transparent_62%)] data-[tone=escura]:after:bg-[radial-gradient(120%_80%_at_12%_0%,rgba(255,255,255,0.22),rgba(255,255,255,0.05)_38%,transparent_62%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_8px_32px_rgba(6,6,8,0.10)]",
+    extra: "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[radial-gradient(120%_80%_at_12%_0%,rgba(255,255,255,0.55),rgba(255,255,255,0.12)_38%,transparent_62%)] dark:after:bg-[radial-gradient(120%_80%_at_12%_0%,rgba(255,255,255,0.28),rgba(255,255,255,0.06)_38%,transparent_62%)] data-[tone=escura]:after:bg-[radial-gradient(120%_80%_at_12%_0%,rgba(255,255,255,0.22),rgba(255,255,255,0.05)_38%,transparent_62%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_8px_32px_rgba(0,0,0,0.10)]",
   },
   cristal: {
     blur: "backdrop-blur-md backdrop-brightness-105",
@@ -65,7 +65,7 @@ const finishes: Record<Exclude<GlassFinish, "padrao">, { blur: string; clara: Re
     escura: { leve: "bg-[var(--graphite-950)]/42 dark:bg-[var(--graphite-950)]/22", media: "bg-[var(--graphite-950)]/54 dark:bg-[var(--graphite-950)]/34", forte: "bg-[var(--graphite-950)]/66 dark:bg-[var(--graphite-950)]/46" },
     border: "border-white/90 dark:border-white/30",
     // reflexo diagonal
-    extra: "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.45)_45%,rgba(255,255,255,0.08)_52%,transparent_60%)] dark:after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.18)_45%,rgba(255,255,255,0.03)_52%,transparent_60%)] data-[tone=escura]:after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.14)_45%,rgba(255,255,255,0.03)_52%,transparent_60%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35),0_8px_32px_rgba(6,6,8,0.10)]",
+    extra: "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.45)_45%,rgba(255,255,255,0.08)_52%,transparent_60%)] dark:after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.18)_45%,rgba(255,255,255,0.03)_52%,transparent_60%)] data-[tone=escura]:after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.14)_45%,rgba(255,255,255,0.03)_52%,transparent_60%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35),0_8px_32px_rgba(0,0,0,0.10)]",
   },
 };
 
@@ -94,13 +94,13 @@ export function GlassCard({ finish = "padrao", intensity = "media", tone = "clar
         "relative isolate overflow-hidden rounded-[20px] border p-6 backdrop-saturate-150",
         f ? f.blur : blur[intensity],
         escura
-          ? cn(f ? f.escura[intensity] : escuraBg[intensity], "border-white/15 text-white shadow-[0_8px_32px_rgba(6,6,8,0.25)]")
-          : cn(f ? f.clara[intensity] : claraBg[intensity], "border-white/60 text-foreground shadow-[0_8px_32px_rgba(6,6,8,0.08)] dark:border-white/15 dark:text-white"),
+          ? cn(f ? f.escura[intensity] : escuraBg[intensity], "border-white/15 text-white shadow-[0_8px_32px_rgba(0,0,0,0.25)]")
+          : cn(f ? f.clara[intensity] : claraBg[intensity], "border-white/60 text-foreground shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:border-white/15 dark:text-white"),
         f?.border,
         f?.extra,
         // fio de luz no topo, como o reflexo de um vidro
         "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/80 before:to-transparent dark:before:via-white/40",
-        interactive && "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(6,6,8,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        interactive && "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         // sem transparência: card sólido
         "[@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none",
         escura

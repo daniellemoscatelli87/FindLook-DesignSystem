@@ -433,11 +433,11 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Card & Table Surface", "Superfície de card e tabela"),
     tokens: [
-      { name: "--card",             description: t("Card / table background", "Fundo de card / tabela"),    light: "#FFFFFF",              dark: "rgba(29,29,32,0.75)", isColor: true },
-      { name: "--card-foreground",  description: t("Primary text on card", "Texto principal no card"),       light: "#1D1D20",              dark: "#F6F6F7",             isColor: true },
-      { name: "--muted",            description: t("Row hover / stripe", "Hover / zebra de linha"),         light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--card",             description: t("Card / table background", "Fundo de card / tabela"),    light: "#FFFFFF",              dark: "rgba(25,25,28,0.75)", isColor: true },
+      { name: "--card-foreground",  description: t("Primary text on card", "Texto principal no card"),       light: "#19191C",              dark: "#F6F6F7",             isColor: true },
+      { name: "--muted",            description: t("Row hover / stripe", "Hover / zebra de linha"),         light: "#E9E9EC",              dark: "rgba(44,44,51,0.60)", isColor: true },
       { name: "--muted-foreground", description: t("Secondary cell text", "Texto secundário da célula"),        light: "#888896",              dark: "#B3B3BC",             isColor: true },
-      { name: "--border",           description: t("Table dividers", "Divisores da tabela"),             light: "rgba(29,29,32,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--border",           description: t("Table dividers", "Divisores da tabela"),             light: "rgba(25,25,28,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
     ],
   },
   {

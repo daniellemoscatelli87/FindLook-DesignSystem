@@ -235,9 +235,9 @@ export function TokensShowcase() {
                     <span className="text-muted-foreground ml-auto">#B91B35</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#060608" }} />
+                    <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#000000" }} />
                     <span className="text-violet-400">--graphite-950</span>
-                    <span className="text-muted-foreground ml-auto">#060608</span>
+                    <span className="text-muted-foreground ml-auto">#000000</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="h-3 w-3 rounded-full shrink-0" style={{ background: "#F6F6F7", border: "1px solid var(--border)" }} />
@@ -654,7 +654,7 @@ export function TokensShowcase() {
 `}<span style={{ color: "#3b82f6" }}>:root</span>{` {
   `}<span style={{ color: "#8B5CF6" }}>--pink-500</span>{`: `}<span style={{ color: "var(--success)" }}>#E62040</span>{`;
   `}<span style={{ color: "#8B5CF6" }}>--graphite-50</span>{`:  `}<span style={{ color: "var(--success)" }}>#F6F6F7</span>{`;
-  `}<span style={{ color: "#8B5CF6" }}>--graphite-950</span>{`: `}<span style={{ color: "var(--success)" }}>#060608</span>{`;
+  `}<span style={{ color: "#8B5CF6" }}>--graphite-950</span>{`: `}<span style={{ color: "var(--success)" }}>#000000</span>{`;
 }
 
 `}<span style={{ color: "var(--muted-foreground)", opacity: 0.45 }}>{"/* 2. Semantics — reference primitives */"}</span>{`

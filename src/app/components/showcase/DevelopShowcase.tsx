@@ -46,7 +46,7 @@ const themeCode = `/* 1. Primitives — raw values */
 :root {
   --pink-500: #E62040;
   --graphite-50:  #F6F6F7;
-  --graphite-950: #060608;
+  --graphite-950: #000000;
 }
 
 /* 2. Semantics — reference primitives */

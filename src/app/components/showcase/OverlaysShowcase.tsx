@@ -567,17 +567,17 @@ const overlaysTokenGroups = (t: TFn): TokenGroup[] => [
   {
     group: t("Popover & Dialog Surface", "Superfície de popover e diálogo"),
     tokens: [
-      { name: "--popover",            description: t("Floating panel background", "Fundo do painel flutuante"),    light: "#FFFFFF",             dark: "rgba(29,29,32,0.95)", isColor: true },
-      { name: "--popover-foreground", description: t("Floating panel text", "Texto do painel flutuante"),          light: "#1D1D20",             dark: "#F6F6F7",             isColor: true },
-      { name: "--card",               description: t("Dialog card background", "Fundo do card do diálogo"),       light: "#FFFFFF",             dark: "rgba(29,29,32,0.75)", isColor: true },
-      { name: "--card-foreground",    description: t("Dialog card text", "Texto do card do diálogo"),             light: "#1D1D20",             dark: "#F6F6F7",             isColor: true },
+      { name: "--popover",            description: t("Floating panel background", "Fundo do painel flutuante"),    light: "#FFFFFF",             dark: "rgba(25,25,28,0.95)", isColor: true },
+      { name: "--popover-foreground", description: t("Floating panel text", "Texto do painel flutuante"),          light: "#19191C",             dark: "#F6F6F7",             isColor: true },
+      { name: "--card",               description: t("Dialog card background", "Fundo do card do diálogo"),       light: "#FFFFFF",             dark: "rgba(25,25,28,0.75)", isColor: true },
+      { name: "--card-foreground",    description: t("Dialog card text", "Texto do card do diálogo"),             light: "#19191C",             dark: "#F6F6F7",             isColor: true },
     ],
   },
   {
     group: t("Border & Focus", "Borda e foco"),
     tokens: [
-      { name: "--border",       description: t("Default border", "Borda padrão"),              light: "rgba(29,29,32,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
-      { name: "--border-strong",description: t("Active / hover border", "Borda ativa / hover"),       light: "rgba(29,29,32,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
+      { name: "--border",       description: t("Default border", "Borda padrão"),              light: "rgba(25,25,28,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--border-strong",description: t("Active / hover border", "Borda ativa / hover"),       light: "rgba(25,25,28,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
       { name: "--ring",         description: t("Keyboard focus ring", "Anel de foco do teclado"),         light: "rgba(230,32,64,0.35)", dark: "rgba(230,32,64,0.40)",   isColor: true },
     ],
   },
@@ -593,7 +593,7 @@ const overlaysTokenGroups = (t: TFn): TokenGroup[] => [
   {
     group: t("Background Overlay", "Overlay de fundo"),
     tokens: [
-      { name: "--foreground / 20", description: t("Dialog backdrop (20% opacity)", "Backdrop do diálogo (20% de opacidade)"), light: "rgba(29,29,32,0.20)",  dark: "rgba(29,29,32,0.60)", isColor: true },
+      { name: "--foreground / 20", description: t("Dialog backdrop (20% opacity)", "Backdrop do diálogo (20% de opacidade)"), light: "rgba(25,25,28,0.20)",  dark: "rgba(25,25,28,0.60)", isColor: true },
     ],
   },
   {
@@ -608,19 +608,19 @@ const overlaysTokenGroups = (t: TFn): TokenGroup[] => [
     group: t("Pagination", "Paginação"),
     tokens: [
       { name: "--primary",       description: t("Active page number bg", "Fundo do número da página ativa"), light: "#E62040",  dark: "#E62040",  isColor: true },
-      { name: "--muted",         description: t("Page item hover bg", "Fundo do item de página no hover"),    light: "#E9E9EC",  dark: "rgba(43,43,49,0.60)", isColor: true },
+      { name: "--muted",         description: t("Page item hover bg", "Fundo do item de página no hover"),    light: "#E9E9EC",  dark: "rgba(44,44,51,0.60)", isColor: true },
       { name: "--muted-foreground",description: t("Inactive page text", "Texto de página inativa"),  light: "#888896",  dark: "#B3B3BC",  isColor: true },
     ],
   },
   {
     group: t("Accordion", "Accordion"),
     tokens: [
-      { name: "--card",            description: t("Accordion panel background", "Fundo do painel do accordion"),      light: "#FFFFFF",              dark: "rgba(29,29,32,0.75)", isColor: true },
-      { name: "--muted",           description: t("Trigger hover background", "Fundo do gatilho no hover"),        light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
-      { name: "--border",          description: t("Item separator", "Separador de item"),                  light: "rgba(29,29,32,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--card",            description: t("Accordion panel background", "Fundo do painel do accordion"),      light: "#FFFFFF",              dark: "rgba(25,25,28,0.75)", isColor: true },
+      { name: "--muted",           description: t("Trigger hover background", "Fundo do gatilho no hover"),        light: "#E9E9EC",              dark: "rgba(44,44,51,0.60)", isColor: true },
+      { name: "--border",          description: t("Item separator", "Separador de item"),                  light: "rgba(25,25,28,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
       { name: "--primary",         description: t("Open item accent border / icon", "Borda de destaque / ícone do item aberto"),  light: "#E62040",              dark: "#E62040", isColor: true },
       { name: "--primary-muted",   description: t("Open item tinted background", "Fundo com tom do item aberto"),     light: "rgba(230,32,64,0.03)", dark: "rgba(230,32,64,0.05)", isColor: true },
-      { name: "--foreground",      description: t("Trigger text", "Texto do gatilho"),                    light: "#1D1D20",              dark: "#F6F6F7", isColor: true },
+      { name: "--foreground",      description: t("Trigger text", "Texto do gatilho"),                    light: "#19191C",              dark: "#F6F6F7", isColor: true },
       { name: "--muted-foreground",description: t("Content / chevron text", "Texto do conteúdo / chevron"),          light: "#888896",              dark: "#B3B3BC", isColor: true },
     ],
   },

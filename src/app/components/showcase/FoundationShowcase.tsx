@@ -13,9 +13,9 @@ const graphiteScale = [
   { name: "500", var: "--graphite-500", hex: "#696977" },
   { name: "600", var: "--graphite-600", hex: "#51515C" },
   { name: "700", var: "--graphite-700", hex: "#3E3E46" },
-  { name: "800", var: "--graphite-800", hex: "#2B2B31" },
-  { name: "900", var: "--graphite-900", hex: "#1D1D20" },
-  { name: "950", var: "--graphite-950", hex: "#060608" },
+  { name: "800", var: "--graphite-800", hex: "#2C2C33" },
+  { name: "900", var: "--graphite-900", hex: "#19191C" },
+  { name: "950", var: "--graphite-950", hex: "#000000" },
 ];
 
 const pinkScale = [
@@ -33,12 +33,12 @@ const pinkScale = [
 ];
 
 const semanticColors = [
-  { name: "Background", pt: "Fundo",       token: "--background",        swatch: "bg-background",       text: "text-foreground", light: "#FFFFFF", dark: "#060608" },
-  { name: "Surface (Card)", pt: "Superfície (Card)",   token: "--card",              swatch: "bg-card",             text: "text-card-foreground", light: "#FFFFFF", dark: "rgba(29,29,32,.75)" },
-  { name: "Foreground", pt: "Texto (foreground)",       token: "--foreground",        swatch: "bg-foreground",       text: "text-background", light: "#060608", dark: "#F6F6F7" },
+  { name: "Background", pt: "Fundo",       token: "--background",        swatch: "bg-background",       text: "text-foreground", light: "#FFFFFF", dark: "#000000" },
+  { name: "Surface (Card)", pt: "Superfície (Card)",   token: "--card",              swatch: "bg-card",             text: "text-card-foreground", light: "#FFFFFF", dark: "rgba(25,25,28,.75)" },
+  { name: "Foreground", pt: "Texto (foreground)",       token: "--foreground",        swatch: "bg-foreground",       text: "text-background", light: "#000000", dark: "#F6F6F7" },
   { name: "Muted", pt: "Suave (muted)",            token: "--muted-foreground",  swatch: "bg-muted-foreground", text: "text-background", light: "#696977", dark: "#B3B3BC" },
   { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E62040", dark: "#E62040" },
-  { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(6,6,8,.10)", dark: "rgba(255,255,255,.07)" },
+  { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(0,0,0,.10)", dark: "rgba(255,255,255,.07)" },
   { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-white", light: "#4FB57B", dark: "#22C55E" },
   { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#E5A94E", dark: "#F5B320" },
   { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#E62040", dark: "#E62040" },
@@ -80,12 +80,12 @@ const radiusScale = [
 const spacingScale = [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96];
 
 const shadowTokens = [
-  { name: "shadow-xs",  label: "Subtle", pt: "Sutil",    css: "0 1px 2px rgba(6,6,8,0.05)" },
-  { name: "shadow-sm",  label: "Small", pt: "Pequena",     css: "0 1px 3px rgba(6,6,8,0.07), 0 2px 6px rgba(6,6,8,0.05)" },
-  { name: "shadow",     label: "Default", pt: "Padrão",   css: "0 2px 6px rgba(6,6,8,0.07), 0 6px 20px rgba(6,6,8,0.05)" },
-  { name: "shadow-md",  label: "Medium", pt: "Média",    css: "0 4px 12px rgba(6,6,8,0.08), 0 12px 36px rgba(6,6,8,0.06)" },
-  { name: "shadow-lg",  label: "Large", pt: "Grande",     css: "0 8px 24px rgba(6,6,8,0.09), 0 24px 64px rgba(6,6,8,0.07)" },
-  { name: "shadow-xl",  label: "XL", pt: "XL",        css: "0 16px 48px rgba(6,6,8,0.10), 0 40px 96px rgba(6,6,8,0.08)" },
+  { name: "shadow-xs",  label: "Subtle", pt: "Sutil",    css: "0 1px 2px rgba(0,0,0,0.05)" },
+  { name: "shadow-sm",  label: "Small", pt: "Pequena",     css: "0 1px 3px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.05)" },
+  { name: "shadow",     label: "Default", pt: "Padrão",   css: "0 2px 6px rgba(0,0,0,0.07), 0 6px 20px rgba(0,0,0,0.05)" },
+  { name: "shadow-md",  label: "Medium", pt: "Média",    css: "0 4px 12px rgba(0,0,0,0.08), 0 12px 36px rgba(0,0,0,0.06)" },
+  { name: "shadow-lg",  label: "Large", pt: "Grande",     css: "0 8px 24px rgba(0,0,0,0.09), 0 24px 64px rgba(0,0,0,0.07)" },
+  { name: "shadow-xl",  label: "XL", pt: "XL",        css: "0 16px 48px rgba(0,0,0,0.10), 0 40px 96px rgba(0,0,0,0.08)" },
 ];
 
 function SectionHeader({ title, description }: { title: string; description?: string }) {
@@ -114,7 +114,7 @@ export function FoundationShowcase() {
 
       {/* ── COLORS ── */}
       <section id="colors">
-        <SectionHeader title={t("Color Palette", "Paleta de cores")} description={t("Grafite neutro derivado do Preto Grafite #060608 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.", "Grafite neutro derivado do Preto Grafite #060608 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.")} />
+        <SectionHeader title={t("Color Palette", "Paleta de cores")} description={t("Grafite neutro derivado do Preto Grafite #000000 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.", "Grafite neutro derivado do Preto Grafite #000000 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.")} />
 
         <SubSection title={t("Escala Grafite", "Escala Grafite")}>
           <div className="grid grid-cols-11 gap-1.5">
@@ -563,15 +563,15 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Background & Surface", "Fundo e superfície"),
     tokens: [
-      { name: "--background",      description: t("Page background", "Fundo da página"),           light: "#F6F6F7",              dark: "#060608",              isColor: true },
-      { name: "--foreground",      description: t("Primary text", "Texto principal"),              light: "#1D1D20",              dark: "#F6F6F7",              isColor: true },
+      { name: "--background",      description: t("Page background", "Fundo da página"),           light: "#F6F6F7",              dark: "#000000",              isColor: true },
+      { name: "--foreground",      description: t("Primary text", "Texto principal"),              light: "#19191C",              dark: "#F6F6F7",              isColor: true },
       { name: "--muted-foreground",description: t("Secondary / label text", "Texto secundário / rótulos"),    light: "#888896",              dark: "#B3B3BC",              isColor: true },
-      { name: "--card",            description: t("Card surface", "Superfície do card"),              light: "#FFFFFF",              dark: "rgba(29,29,32,0.75)",  isColor: true },
-      { name: "--card-foreground", description: t("Text on card", "Texto sobre o card"),              light: "#1D1D20",              dark: "#F6F6F7",              isColor: true },
-      { name: "--popover",         description: t("Popover / tooltip surface", "Superfície de popover / tooltip"), light: "#FFFFFF",              dark: "rgba(29,29,32,0.95)",  isColor: true },
-      { name: "--muted",           description: t("Subtle background", "Fundo sutil"),        light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
-      { name: "--accent",          description: t("Hover background", "Fundo de hover"),         light: "#E9E9EC",              dark: "rgba(43,43,49,0.60)", isColor: true },
-      { name: "--secondary",       description: t("Secondary button surface", "Superfície do botão secundário"), light: "#F6F6F7",              dark: "rgba(43,43,49,0.80)", isColor: true },
+      { name: "--card",            description: t("Card surface", "Superfície do card"),              light: "#FFFFFF",              dark: "rgba(25,25,28,0.75)",  isColor: true },
+      { name: "--card-foreground", description: t("Text on card", "Texto sobre o card"),              light: "#19191C",              dark: "#F6F6F7",              isColor: true },
+      { name: "--popover",         description: t("Popover / tooltip surface", "Superfície de popover / tooltip"), light: "#FFFFFF",              dark: "rgba(25,25,28,0.95)",  isColor: true },
+      { name: "--muted",           description: t("Subtle background", "Fundo sutil"),        light: "#E9E9EC",              dark: "rgba(44,44,51,0.60)", isColor: true },
+      { name: "--accent",          description: t("Hover background", "Fundo de hover"),         light: "#E9E9EC",              dark: "rgba(44,44,51,0.60)", isColor: true },
+      { name: "--secondary",       description: t("Secondary button surface", "Superfície do botão secundário"), light: "#F6F6F7",              dark: "rgba(44,44,51,0.80)", isColor: true },
     ],
   },
   {
@@ -589,8 +589,8 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Border & Ring", "Borda e anel"),
     tokens: [
-      { name: "--border",       description: t("Default border", "Borda padrão"),          light: "rgba(29,29,32,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
-      { name: "--border-strong",description: t("Emphasized border", "Borda enfatizada"),       light: "rgba(29,29,32,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
+      { name: "--border",       description: t("Default border", "Borda padrão"),          light: "rgba(25,25,28,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
+      { name: "--border-strong",description: t("Emphasized border", "Borda enfatizada"),       light: "rgba(25,25,28,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
       { name: "--ring",         description: t("Focus ring / outline", "Anel de foco / contorno"),    light: "rgba(230,32,64,0.35)", dark: "rgba(230,32,64,0.40)",   isColor: true },
     ],
   },

@@ -49,9 +49,9 @@ const BLOB_SLOTS = [
 type PaletteEntry = { id: string; group: "Graphite" | "Pink"; label: string; display: string; blob: string };
 
 const DARK_PALETTE: PaletteEntry[] = [
-  { id: "g900", group: "Graphite", label: "G-900", display: "#1D1D20", blob: "rgba(29,29,32,0.90)"   },
-  { id: "g800", group: "Graphite", label: "G-800", display: "#2B2B31", blob: "rgba(43,43,49,0.85)"   },
-  { id: "g700", group: "Graphite", label: "G-700", display: "#3E3E46", blob: "rgba(43,43,49,0.80)"   },
+  { id: "g900", group: "Graphite", label: "G-900", display: "#19191C", blob: "rgba(25,25,28,0.90)"   },
+  { id: "g800", group: "Graphite", label: "G-800", display: "#2C2C33", blob: "rgba(44,44,51,0.85)"   },
+  { id: "g700", group: "Graphite", label: "G-700", display: "#3E3E46", blob: "rgba(44,44,51,0.80)"   },
   { id: "g600", group: "Graphite", label: "G-600", display: "#51515C", blob: "rgba(81,81,92,0.68)"   },
   { id: "g500", group: "Graphite", label: "G-500", display: "#696977", blob: "rgba(105,105,119,0.58)"  },
   { id: "c950", group: "Pink",  label: "P-950", display: "#2A0A11", blob: "rgba(42,10,17,0.82)"     },
@@ -84,7 +84,7 @@ function GradientAnimBg({
   dark, blobColors, children,
 }: { dark: boolean; blobColors: string[]; children: React.ReactNode }) {
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", background: dark ? "#060608" : "#FFFFFF" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", background: dark ? "#000000" : "#FFFFFF" }}>
       {BLOB_SLOTS.slice(0, blobColors.length).map((slot, i) => (
         <motion.div key={i}
           style={{
@@ -515,14 +515,14 @@ function CanvasRevealCard() {
   const dotOpt   = DOT_SIZES.find(s => s.id === dotSizeId)!;
   const speedOpt = ANIM_SPEEDS.find(s => s.id === speedId)!;
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)";
   const idle = dark ? "#B3B3BC" : "#888896";
   const tags: EffectTag[] = ["Interativo", "Canvas"];
 
   const demoCards: RevealCardDef[] = [
-    { title: t("Security", "Segurança"),      icon: <Shield     style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#060608" },
-    { title: t("Performance", "Performance"),    icon: <Zap        style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#1D1D20" },
-    { title: t("Scalability", "Escalabilidade"), icon: <TrendingUp style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#2B2B31" },
+    { title: t("Security", "Segurança"),      icon: <Shield     style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#000000" },
+    { title: t("Performance", "Performance"),    icon: <Zap        style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#19191C" },
+    { title: t("Scalability", "Escalabilidade"), icon: <TrendingUp style={{ width:38, height:38, color:"rgba(255,255,255,0.45)" }} />, bg: "#2C2C33" },
   ];
 
   return (
@@ -784,8 +784,8 @@ function VortexBg({ dark, cfg, children }: { dark: boolean; cfg: BBCfg; children
     const cx = W / 2, cy = H / 2;
     const MAX_R = Math.hypot(W, H) * 0.6;
 
-    const BG      = dark ? "#060608" : "#F0F2F7";
-    const FADE_BG = dark ? "rgba(6,6,8,0.22)" : "rgba(240,242,247,0.22)";
+    const BG      = dark ? "#000000" : "#F0F2F7";
+    const FADE_BG = dark ? "rgba(0,0,0,0.22)" : "rgba(240,242,247,0.22)";
 
     let particles:  BBParticle[] = [];
     let shockwaves: Shockwave[]  = [];
@@ -965,8 +965,8 @@ function BackgroundLinesBg({ dark, cfg, children }: { dark: boolean; cfg: BglCfg
     const cw = W / COLS;
     const ch = H / ROWS;
 
-    const BG      = dark ? "#060608" : "#F0F2F7";
-    const FADE_BG = dark ? "rgba(6,6,8,0.28)" : "rgba(240,242,247,0.28)";
+    const BG      = dark ? "#000000" : "#F0F2F7";
+    const FADE_BG = dark ? "rgba(0,0,0,0.28)" : "rgba(240,242,247,0.28)";
     const GRID_C  = dark ? "rgba(81,81,92,0.13)"  : "rgba(139,155,180,0.16)";
 
     // Streams store colorIdx — actual RGB looked up from cfgRef at draw time
@@ -1127,7 +1127,7 @@ function BackgroundLinesBg({ dark, cfg, children }: { dark: boolean; cfg: BglCfg
       // Vignette
       const vg = ctx.createRadialGradient(W/2, H/2, H * 0.15, W/2, H/2, H * 0.9);
       vg.addColorStop(0, "rgba(0,0,0,0)");
-      vg.addColorStop(1, dark ? "rgba(6,6,8,0.60)" : "rgba(215,220,235,0.50)");
+      vg.addColorStop(1, dark ? "rgba(0,0,0,0.60)" : "rgba(215,220,235,0.50)");
       ctx.globalAlpha = 1;
       ctx.fillStyle   = vg;
       ctx.fillRect(0, 0, W, H);
@@ -1164,7 +1164,7 @@ function BigBangCard() {
 
   const cfg: BBCfg = { speedMul: speedOpt.mul, bangInterval: speedOpt.interval, palette };
 
-  const ctrl    = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const ctrl    = dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)";
   const idle    = dark ? "#B3B3BC" : "#888896";
   const ef      = { name: "Big Bang", tags: ["Animado", "Canvas"] as EffectTag[] };
 
@@ -1258,7 +1258,7 @@ function BgLinesCard() {
 
   const cfg: BglCfg = { speedMul: speedOpt.mul, palette, densityMul: densityOpt.val };
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)";
+  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)";
   const idle = dark ? "#B3B3BC" : "#888896";
   const ef   = { name: "Background Lines", tags: ["Animado", "Canvas"] as EffectTag[] };
 
@@ -1364,12 +1364,12 @@ function BgLinesCard() {
 
 function HeroContent({ dark }: { dark: boolean }) {
   const { t, lang } = useI18n();
-  const c = dark ? "#F6F6F7" : "#1D1D20";
+  const c = dark ? "#F6F6F7" : "#19191C";
   const m = dark ? "#888896" : "#B3B3BC";
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ maxWidth: 280 }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(29,29,32,0.15)"}`, marginBottom: 14 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(25,25,28,0.15)"}`, marginBottom: 14 }}>
           <span style={{ width: 6, height: 6, borderRadius: 99, background: "#E62040", display: "inline-block" }} />
           <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "rgba(255,255,255,0.6)" : "#888896", textTransform: "uppercase", letterSpacing: "0.06em" }}>{t("v2.0 available", "v2.0 disponível")}</span>
         </div>
@@ -1383,7 +1383,7 @@ function HeroContent({ dark }: { dark: boolean }) {
           <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 9, background: "#E62040", color: "#fff", fontSize: "0.75rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
             {t("Get started", "Começar")} <ArrowRight style={{ width: 12, height: 12 }} />
           </button>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 9, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(29,29,32,0.15)"}`, background: "transparent", color: dark ? "#B3B3BC" : "#888896", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 9, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(25,25,28,0.15)"}`, background: "transparent", color: dark ? "#B3B3BC" : "#888896", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer" }}>
             {t("View demo", "Ver demo")}
           </button>
         </div>
@@ -1398,12 +1398,12 @@ function StatsContent({ dark }: { dark: boolean }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, maxWidth: 300, width: "100%" }}>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20", letterSpacing: "-0.025em", textAlign: "center", lineHeight: 1.2 }}>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", letterSpacing: "-0.025em", textAlign: "center", lineHeight: 1.2 }}>
           {lang === "pt" ? <>Passe o mouse para revelar<br />o que está embaixo.</> : <>Hover to reveal<br />what's below.</>}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, width: "100%" }}>
           {[{ v: "99.9%", l: "Uptime" }, { v: "50ms", l: t("Latency", "Latência") }, { v: "10k+", l: t("Customers", "Clientes") }].map(s => (
-            <div key={s.l} style={{ textAlign: "center", padding: "10px 6px", borderRadius: 10, background: dark ? "rgba(29,29,32,0.60)" : "rgba(255,255,255,0.70)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)"}` }}>
+            <div key={s.l} style={{ textAlign: "center", padding: "10px 6px", borderRadius: 10, background: dark ? "rgba(25,25,28,0.60)" : "rgba(255,255,255,0.70)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)"}` }}>
               <div style={{ fontSize: "1rem", fontWeight: 900, color: "#E62040" }}>{s.v}</div>
               <div style={{ fontSize: "0.5625rem", color: m }}>{s.l}</div>
             </div>
@@ -1423,7 +1423,7 @@ function VortexContent({ dark }: { dark: boolean }) {
           <Zap style={{ width: 12, height: 12, color: "#E62040" }} />
           <span style={{ fontSize: "0.625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Processing", "Processamento")}</span>
         </div>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#1D1D20", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: 8 }}>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: 8 }}>
           {lang === "pt" ? <>1M+ eventos<br />por segundo.</> : <>1M+ events<br />per second.</>}
         </h2>
         <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC" }}>
@@ -1445,11 +1445,11 @@ function LinesContent({ dark }: { dark: boolean }) {
           { icon: BarChart2, label: "Datadog", status: "active" },
           { icon: Package, label: "Docker Hub", status: "setup" },
         ].map(item => (
-          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 10, background: dark ? "rgba(29,29,32,0.70)" : "rgba(255,255,255,0.80)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(29,29,32,0.08)"}` }}>
+          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 10, background: dark ? "rgba(25,25,28,0.70)" : "rgba(255,255,255,0.80)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)"}` }}>
             <div style={{ width: 28, height: 28, borderRadius: 8, background: dark ? "rgba(230,32,64,0.15)" : "rgba(230,32,64,0.10)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <item.icon style={{ width: 14, height: 14, color: "#E62040" }} />
             </div>
-            <span style={{ flex: 1, fontSize: "0.75rem", fontWeight: 600, color: dark ? "#F6F6F7" : "#1D1D20" }}>{item.label}</span>
+            <span style={{ flex: 1, fontSize: "0.75rem", fontWeight: 600, color: dark ? "#F6F6F7" : "#19191C" }}>{item.label}</span>
             <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: item.status === "active" ? "#4fb57b" : dark ? "#888896" : "#B3B3BC" }}>● {item.status === "active" ? t("Active", "Ativo") : t("Setting up", "Configurando")}</span>
           </div>
         ))}
@@ -1605,8 +1605,8 @@ const getBgTokenGroups = (t: (en: string, pt: string) => string): TokenGroup[] =
   {
     group: t("Canvas Reveal — hover cells", "Canvas Reveal — células no hover"),
     tokens: [
-      { name: "--graphite-900", description: t("Dark cell (tone 1)", "Célula escura (tom 1)"),  light: "#1D1D20", dark: "#1D1D20", isColor: true },
-      { name: "--graphite-800", description: t("Dark cell (tone 2)", "Célula escura (tom 2)"),  light: "#2B2B31", dark: "#2B2B31", isColor: true },
+      { name: "--graphite-900", description: t("Dark cell (tone 1)", "Célula escura (tom 1)"),  light: "#19191C", dark: "#19191C", isColor: true },
+      { name: "--graphite-800", description: t("Dark cell (tone 2)", "Célula escura (tom 2)"),  light: "#2C2C33", dark: "#2C2C33", isColor: true },
       { name: "--graphite-700", description: t("Dark cell (tone 3)", "Célula escura (tom 3)"),  light: "#3E3E46", dark: "#3E3E46", isColor: true },
       { name: "--graphite-200", description: t("Light cell", "Célula clara"),         light: "#D4D4D9", isColor: true },
     ],
@@ -1805,8 +1805,8 @@ export function BackgroundsShowcase() {
               accent: "#E62040",
               sections: [
                 { label: "Hero",     effect: "Gradient Animation", note: t("Soft blobs, high legibility", "Blobs suaves, alta legibilidade"),   band: "#1e2a3d", accent: "#3b6fd4" },
-                { label: "Features", effect: "Bg Lines Graphite",   note: t("Data grid, dense", "Grade de dados, densa"),             band: "#1D1D20", accent: "#B3B3BC" },
-                { label: t("Pricing", "Preços"),  effect: "Canvas Reveal",      note: t("Hover reveals plan card", "Hover revela o card do plano"),       band: "#060608", accent: "var(--success)" },
+                { label: "Features", effect: "Bg Lines Graphite",   note: t("Data grid, dense", "Grade de dados, densa"),             band: "#19191C", accent: "#B3B3BC" },
+                { label: t("Pricing", "Preços"),  effect: "Canvas Reveal",      note: t("Hover reveals plan card", "Hover revela o card do plano"),       band: "#000000", accent: "var(--success)" },
                 { label: "CTA",      effect: "Big Bang Pink",   note: t("Impact explosion at the close", "Explosão de impacto no fechamento"),band: "#1a0e0e", accent: "#E62040" },
               ],
             },
@@ -1815,10 +1815,10 @@ export function BackgroundsShowcase() {
               mode: "dark" as const,
               accent: "#7C3AED",
               sections: [
-                { label: "Hero",        effect: "Big Bang Cosmos",    note: t("Conveys scale and power", "Transmite escala e poder"),          band: "#060608", accent: "#7C3AED" },
-                { label: "Dashboard",   effect: "Canvas Reveal",      note: t("Product screenshot with hover", "Screenshot do produto com hover"),  band: "#2B2B31", accent: "#06b6d4" },
+                { label: "Hero",        effect: "Big Bang Cosmos",    note: t("Conveys scale and power", "Transmite escala e poder"),          band: "#000000", accent: "#7C3AED" },
+                { label: "Dashboard",   effect: "Canvas Reveal",      note: t("Product screenshot with hover", "Screenshot do produto com hover"),  band: "#2C2C33", accent: "#06b6d4" },
                 { label: t("Integrations", "Integrações"), effect: "Bg Lines Cyan",     note: t("Evokes pipelines and flow", "Evoca pipelines e fluxo"),          band: "#0f1e2e", accent: "#0ea5e9" },
-                { label: t("Conversion", "Conversão"),   effect: "Big Bang + Wobble",  note: t("Highlighted pink CTA", "CTA pink em destaque"),          band: "#060608", accent: "#E62040" },
+                { label: t("Conversion", "Conversão"),   effect: "Big Bang + Wobble",  note: t("Highlighted pink CTA", "CTA pink em destaque"),          band: "#000000", accent: "#E62040" },
               ],
             },
             {
@@ -1829,7 +1829,7 @@ export function BackgroundsShowcase() {
                 { label: "Hero",        effect: "Gradient Animation", note: t("Light — soft, welcoming", "Light — suave, acolhedor"),        band: "#F6F6F7", accent: "#8B5CF6" },
                 { label: "Features",    effect: "Bg Lines Graphite",   note: t("Neutral and elegant", "Neutro e elegante"),               band: "#ffffff",  accent: "#B3B3BC" },
                 { label: t("Testimonials", "Depoimentos"), effect: "Canvas Reveal",      note: t("Light on social proof cards", "Light em cards de prova social"),  band: "#F6F6F7",  accent: "#3b82f6" },
-                { label: "CTA",         effect: "Big Bang Aurora",    note: t("Dark inversion + final energy", "Inversão dark + energia final"),   band: "#1D1D20",  accent: "#8B5CF6" },
+                { label: "CTA",         effect: "Big Bang Aurora",    note: t("Dark inversion + final energy", "Inversão dark + energia final"),   band: "#19191C",  accent: "#8B5CF6" },
               ],
             },
           ].map(guide => (

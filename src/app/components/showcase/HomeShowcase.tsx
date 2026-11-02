@@ -52,7 +52,7 @@ const explore: { label: string; items: CardItem[] }[] = [
   },
 ];
 
-const graphite = ["#F6F6F7","#E9E9EC","#D4D4D9","#B3B3BC","#888896","#696977","#51515C","#3E3E46","#2B2B31","#1D1D20","#060608"];
+const graphite = ["#F6F6F7","#E9E9EC","#D4D4D9","#B3B3BC","#888896","#696977","#51515C","#3E3E46","#2C2C33","#19191C","#000000"];
 const pink = ["#FEF2F4","#FCE0E4","#F8BCC6","#F290A0","#EC5A72","#E62040","#B91B35","#91162B","#6B1221","#490E19","#2A0A11"];
 
 export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {

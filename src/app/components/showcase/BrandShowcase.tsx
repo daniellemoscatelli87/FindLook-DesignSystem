@@ -164,7 +164,7 @@ function RuleCard({ type, bg, children, label }: { type: "do" | "dont"; bg: stri
   );
 }
 
-const GRAFITE_BG = "bg-[#060608]";
+const GRAFITE_BG = "bg-[#000000]";
 const ROSA_BG = "bg-[#FFF2F5]";
 
 export function BrandShowcase() {
@@ -335,7 +335,7 @@ export function BrandShowcase() {
             { icon: UserCircle2, label: "Avatar da plataforma", desc: "Perfil oficial e notificações", bg: "bg-card", preview: pngSimbolo, previewSize: "h-10" },
             { icon: Share2, label: "Redes sociais", desc: "Foto de perfil do @findlook.cwb", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-10" },
             { icon: LayoutDashboard, label: "Cabeçalho mobile", desc: "Topo do app em telas estreitas", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
-            { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[#2B2B31]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
+            { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[#2C2C33]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
             { icon: Monitor, label: "Tela de carregamento", desc: "Splash e estados de espera", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-12" },
             { icon: Tablet, label: "Menu lateral recolhido", desc: "Painel do lojista em modo compacto", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
           ].map(({ icon: Icon, label, desc, bg, preview, previewSize }) => (
@@ -459,12 +459,12 @@ export function BrandShowcase() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <ColorChip name="Pink FindLook" hex="#E62040" usage="Destaque / ação (cor do logo oficial)" />
-          <ColorChip name="Preto Grafite" hex="#060608" usage="Base / contraste (cor do logo oficial)" />
+          <ColorChip name="Preto Grafite" hex="#000000" usage="Base / contraste (grafite-950; o vetor do logo usa #060608)" />
           <ColorChip name="Branco" hex="#FFFFFF" usage="Clareza / respiro" />
           <ColorChip name="Rosa Claro" hex="#FFF2F5" usage="Apoio / superfícies" />
         </div>
         <p className="mt-3 text-[0.8125rem] text-muted-foreground">
-          Pink e Preto Grafite são as cores do arquivo vetorial oficial do logo, adotadas nos tokens em 01/11/2026 (o brand book v1.0 sugeria <span className="font-mono text-foreground">#F4144B</span> e <span className="font-mono text-foreground">#111014</span> e pedia validação no arquivo-mestre). Texto branco sobre o pink atinge 4,5:1 e passa o AA para texto normal; para texto corrido em pink sobre branco, o sistema usa <span className="font-mono text-foreground">pink-600</span> (6,4:1), ver Acessibilidade.
+          Pink é a cor do arquivo vetorial oficial do logo, adotada nos tokens em 01/11/2026. O Preto Grafite dos tokens passou a #000000 em 02/11/2026, quando a escala de grafite ganhou o balanço #3E3E46 · #2C2C33 · #19191C · #000000 (700 a 950); o vetor do logo mantém #060608, visualmente igual (o brand book v1.0 sugeria <span className="font-mono text-foreground">#F4144B</span> e <span className="font-mono text-foreground">#111014</span> e pedia validação no arquivo-mestre). Texto branco sobre o pink atinge 4,5:1 e passa o AA para texto normal; para texto corrido em pink sobre branco, o sistema usa <span className="font-mono text-foreground">pink-600</span> (6,4:1), ver Acessibilidade.
         </p>
       </div>
 

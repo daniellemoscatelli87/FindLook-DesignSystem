@@ -41,8 +41,8 @@ function Result({ ok, label }: { ok: boolean; label: string }) {
 type Pair = { name: string; usage: Bi; fg: string; bg: string };
 
 const lightPairs: Pair[] = [
-  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#060608", bg: "#FFFFFF" },
-  { name: "card-foreground / card", usage: { en: "Text in cards", pt: "Texto em cards" }, fg: "#060608", bg: "#FFFFFF" },
+  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#000000", bg: "#FFFFFF" },
+  { name: "card-foreground / card", usage: { en: "Text in cards", pt: "Texto em cards" }, fg: "#000000", bg: "#FFFFFF" },
   { name: "muted-foreground / card", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#696977", bg: "#FFFFFF" },
   { name: "muted-foreground / muted", usage: { en: "Captions on muted surface", pt: "Legendas em superfície suave" }, fg: "#696977", bg: "#F6F6F7" },
   { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
@@ -51,12 +51,12 @@ const lightPairs: Pair[] = [
   { name: "success / card", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#4FB57B", bg: "#FFFFFF" },
 ];
 const darkPairs: Pair[] = [
-  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#F6F6F7", bg: "#060608" },
-  { name: "muted-foreground / background", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#B3B3BC", bg: "#060608" },
+  { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#F6F6F7", bg: "#000000" },
+  { name: "muted-foreground / background", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#B3B3BC", bg: "#000000" },
   { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
-  { name: "primary / background", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#060608" },
-  { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#F290A0", bg: "#060608" },
-  { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#22C55E", bg: "#060608" },
+  { name: "primary / background", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#000000" },
+  { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#F290A0", bg: "#000000" },
+  { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#22C55E", bg: "#000000" },
 ];
 
 function ContrastTable() {
