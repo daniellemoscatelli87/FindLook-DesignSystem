@@ -34,6 +34,18 @@ const ilustracoes: Illustration[] = [
     descricao: "O zero do 404 vira o pin de localização da FindLook com o cabide dentro: a página não foi encontrada, mas a busca continua. O gato de óculos escuros na sacola dá o tom leve e fashion do erro.",
     elementos: ["Pin de localização com cabide (símbolo da marca)", "Gato preto de óculos escuros (personagem)", "Sacola de compras pink com lenço", "Par de botas pretas de salto", "Traços de ênfase em pink"],
   },
+  {
+    id: "ilustracao-favoritos-vazio",
+    nome: "Favoritos vazios",
+    uso: "Área logada do consumidor › Favoritos, quando ainda não há favoritos adicionados",
+    arquivoWebp: "ilustracoes/findlook-favoritos-vazio.webp",
+    arquivoPng: "ilustracoes/findlook-favoritos-vazio.png",
+    largura: 1448,
+    altura: 1086,
+    alt: "Gato preto de óculos escuros e lenço pink abre, surpreso, um guarda-roupa pink vazio com dois cabides na arara; no topo do móvel, o pin de localização com o cabide; ao lado, um par de sapatos de salto e uma caixa de presente listrada.",
+    descricao: "O guarda-roupa está vazio, mas pronto: os cabides esperam as primeiras peças favoritas. O gato surpreso dá leveza ao estado vazio e convida a explorar.",
+    elementos: ["Guarda-roupa pink aberto com dois cabides vazios", "Pin de localização com cabide no topo (símbolo da marca)", "Gato preto de óculos escuros e lenço pink (personagem)", "Sapatos de salto e caixa de presente listrada", "Brilhos e traços de ênfase em pink"],
+  },
 ];
 
 function SectionHeader({ title, description }: { title: string; description: string }) {
@@ -96,7 +108,7 @@ function IllustrationCard({ il }: { il: Illustration }) {
           rows={[
             [t("Use", "Uso"), il.uso],
             [t("File", "Arquivo"), <span key="f" className="font-mono text-[0.75rem]">{il.arquivoWebp} · {il.arquivoPng}</span>],
-            [t("Size", "Dimensões"), `${il.largura} × ${il.altura} px (3:2)`],
+            [t("Size", "Dimensões"), `${il.largura} × ${il.altura} px (${(il.largura / il.altura).toFixed(2).replace(".", ",")}:1)`],
             [t("Background", "Fundo"), t("Transparent; works on light surfaces. In dark mode, place it on a light surface (white card): the cat and the number are graphite.", "Transparente; funciona sobre superfícies claras. No tema escuro, coloque sobre uma superfície clara (card branco): o gato e o número são grafite.")],
             [t("Alt text", "Texto alternativo"), il.alt],
             [t("Elements", "Elementos"), il.elementos.join(" · ")],
@@ -106,7 +118,7 @@ function IllustrationCard({ il }: { il: Illustration }) {
           <DoDont
             dos={[
               t("Use it only on the page it was made for; one illustration per screen.", "Use só na página para a qual foi feita; uma ilustração por tela."),
-              t("Keep the 3:2 proportion; scale between 280 px and 720 px wide.", "Mantenha a proporção 3:2; escale entre 280 px e 720 px de largura."),
+              t("Keep the original proportion; scale between 280 px and 720 px wide.", "Mantenha a proporção original; escale entre 280 px e 720 px de largura."),
               t("Always provide the alt text above (or alt=\"\" if the text next to it already says the same).", "Informe sempre o texto alternativo acima (ou alt=\"\" se o texto ao lado já diz o mesmo)."),
             ]}
             donts={[
@@ -164,7 +176,7 @@ export function IllustrationsShowcase() {
           head={[t("Illustration", "Ilustração"), t("Use", "Uso"), t("Status", "Status")]}
           rows={ilustracoes.map((il) => [il.nome, il.uso, <span key={il.id} className="inline-flex items-center gap-1 text-[var(--success)]"><Check className="h-3.5 w-3.5" aria-hidden /> {t("Available", "Disponível")}</span>])}
         />
-        <p className="mt-2 text-[0.75rem] text-muted-foreground"><X className="mr-1 inline h-3 w-3" aria-hidden />{t("Other moments (empty state, onboarding, no results) have no illustration yet.", "Outros momentos (estado vazio, onboarding, busca sem resultado) ainda não têm ilustração.")}</p>
+        <p className="mt-2 text-[0.75rem] text-muted-foreground"><X className="mr-1 inline h-3 w-3" aria-hidden />{t("Other moments (onboarding, no results, other empty lists) have no illustration yet.", "Outros momentos (onboarding, busca sem resultado, outras listas vazias) ainda não têm ilustração.")}</p>
       </section>
     </div>
   );

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Ilustração: favoritos vazios"),
+    desc: pt("Segunda peça da seção Ilustrações: gato surpreso abrindo um guarda-roupa pink vazio, para a página de Favoritos da área logada do consumidor quando ainda não há favoritos. WebP e PNG, texto alternativo e regras de uso."),
+    page: "ilustracoes", anchor: "ilustracao-favoritos-vazio",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Seção Ilustrações: página 404"),
     desc: pt("Nova seção, só no FindLook: estilo das ilustrações, catálogo e a primeira peça, a ilustração da página 404 (gato de óculos escuros na sacola, pin com cabide no lugar do zero), com WebP e PNG para download, texto alternativo e regras de uso."),
     page: "ilustracoes", anchor: "ilustracao-404",

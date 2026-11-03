@@ -201,6 +201,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
         items: [
           { id: "ilustracoes-estilo", label: "Estilo",      sectionId: "ilustracoes" },
           { id: "ilustracao-404",     label: "Página 404",  sectionId: "ilustracoes" },
+          { id: "ilustracao-favoritos-vazio", label: "Favoritos vazios", sectionId: "ilustracoes" },
         ],
       },
     ],
