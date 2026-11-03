@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Card de peça: estoque, escassez e última atualização"),
+    desc: pt("No lugar de \"A confirmar\" e \"Confirmado há…\", o card mostra a quantidade disponível, a tag âmbar de escassez quando restam até 3 peças (\"Só N restantes\" / \"Última peça\"), \"Esgotada\" com zero, e \"Estoque atualizado há…\"."),
+    page: "cards", anchor: "card-produto",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Card de peça (ProductCard)"),
     desc: pt("Card de produto para busca, favoritos e vitrine da loja, montado com a anatomia do Card, o Button padrão, o Selo e os ícones de moda: imagem com favorito acessível, tag Novo, bairro, nome, loja · estilo, preço em reais, ação \"Ver peça\" e confirmação com ícone + texto. Densidade compacta para listas estreitas. Em Componentes › Cards."),
     page: "cards", anchor: "card-produto",

@@ -725,27 +725,27 @@ export function CardShowcase() {
         <SectionHeader
           title={t("Product card", "Card de peça")}
           description={t(
-            "The piece card used in search results, favorites and the store's showcase. Built from the system's Card anatomy (surface, border, radius and shadow tokens), the default Button for the main action, the Selo for the \"Novo\" tag and the fashion icons as image placeholder. The favorite is a toggle button with an accessible state; the confirmation of the piece always combines icon and text.",
-            "O card de peça usado nos resultados da busca, nos favoritos e na vitrine da loja. Montado com a anatomia do Card do sistema (tokens de superfície, borda, raio e sombra), o Button padrão na ação principal, o Selo na tag \"Novo\" e os ícones de moda como marcador de imagem. O favorito é um botão de alternância com estado acessível; a confirmação da peça combina sempre ícone e texto.",
+            "The piece card used in search results, favorites and the store's showcase. Built from the system's Card anatomy (surface, border, radius and shadow tokens), the default Button for the main action, the Selo for the \"Novo\" tag and the fashion icons as image placeholder. The favorite is a toggle button with an accessible state; stock, scarcity and last update always combine icon and text.",
+            "O card de peça usado nos resultados da busca, nos favoritos e na vitrine da loja. Montado com a anatomia do Card do sistema (tokens de superfície, borda, raio e sombra), o Button padrão na ação principal, o Selo na tag \"Novo\" e os ícones de moda como marcador de imagem. O favorito é um botão de alternância com estado acessível; estoque, escassez e última atualização combinam sempre ícone e texto.",
           )}
         />
         <div className="space-y-8">
           <div>
             <SubTitle>{t("Reference (from the prototype)", "Referência (a partir do protótipo)")}</SubTitle>
             <div className="grid gap-5 sm:grid-cols-2 max-w-[760px]">
-              <ProductCard nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic" preco={329} bairro="Batel" novo icone="jaqueta" favorito status={{ tipo: "a-confirmar" }} cta={{ href: "#card-produto" }} />
-              <ProductCard nome="Calça jeans wide leg" loja="Movimento Livre" estilo="Casual" preco={189.9} bairro="Água Verde" novo icone="calca" status={{ tipo: "confirmado", ha: "há 1 dia" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic" preco={329} bairro="Batel" novo icone="jaqueta" favorito estoque={{ quantidade: 2, atualizadoHa: "há 2 h" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Calça jeans wide leg" loja="Movimento Livre" estilo="Casual" preco={189.9} bairro="Água Verde" novo icone="calca" estoque={{ quantidade: 8, atualizadoHa: "há 1 dia" }} cta={{ href: "#card-produto" }} />
             </div>
           </div>
           <div>
             <SubTitle>{t("Variations", "Variações")}</SubTitle>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              <ProductCard nome="Vestido midi floral" loja="Casa Flor" estilo="Romântico" preco={259} bairro="Centro" icone="vestido" status={{ tipo: "confirmado", ha: "há 3 h" }} cta={{ href: "#card-produto" }} />
-              <ProductCard nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} icone="tenis" status={{ tipo: "a-confirmar" }} cta={{ href: "#card-produto" }} />
-              <ProductCard nome="Saia plissada" loja="Brechó da Lu" estilo="Vintage" preco={89} bairro="Bigorrilho" novo icone="saia" favorito cta={{ href: "#card-produto" }} />
-              <ProductCard compacto nome="Camiseta oversized" loja="Movimento Livre" preco={79.9} bairro="Batel" icone="camiseta" status={{ tipo: "confirmado", ha: "ontem" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Vestido midi floral" loja="Casa Flor" estilo="Romântico" preco={259} bairro="Centro" icone="vestido" estoque={{ quantidade: 1, atualizadoHa: "há 3 h" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} icone="tenis" estoque={{ quantidade: 0, atualizadoHa: "há 5 dias" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Saia plissada" loja="Brechó da Lu" estilo="Vintage" preco={89} bairro="Bigorrilho" novo icone="saia" favorito estoque={{ quantidade: 12 }} cta={{ href: "#card-produto" }} />
+              <ProductCard compacto nome="Camiseta oversized" loja="Movimento Livre" preco={79.9} bairro="Batel" icone="camiseta" estoque={{ quantidade: 3, atualizadoHa: "ontem" }} cta={{ href: "#card-produto" }} />
             </div>
-            <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Left to right: confirmed without \"new\"; without neighbourhood; favorited without status; compact density (4:3 image, smaller type) for narrow lists.", "Da esquerda para a direita: confirmado sem \"Novo\"; sem bairro; favoritado sem status; densidade compacta (imagem 4:3, tipos menores) para listas estreitas.")}</p>
+            <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Left to right: last piece; sold out; stock without update date; compact density (4:3 image, smaller type) with 3 pieces, the scarcity threshold.", "Da esquerda para a direita: última peça; esgotada; estoque sem data de atualização; densidade compacta (imagem 4:3, tipos menores) com 3 peças, o limite da escassez.")}</p>
           </div>
           <div className="grid gap-5 lg:grid-cols-2">
             <DataTable
@@ -758,7 +758,8 @@ export function CardShowcase() {
                 [t("Title and store", "Título e loja"), t("Piece name (semibold) and store · style (muted). Two lines at most; the name never wraps beyond two.", "Nome da peça (semibold) e loja · estilo (muted). Duas linhas no máximo; o nome nunca passa de duas.")],
                 [t("Price", "Preço"), t("Formatted as BRL by the component (pt-BR). Bold, 22 px.", "Formatado em reais pelo componente (pt-BR). Bold, 22 px.")],
                 [t("Action", "Ação"), t("Default Button (primary, pill): \"Ver peça\". Link when href is given, button otherwise.", "Button padrão (primária, pílula): \"Ver peça\". Link quando há href, botão caso contrário.")],
-                [t("Confirmation", "Confirmação"), t("\"Confirmado há …\" with a check in --success, or \"A confirmar\" with a clock. Icon + text, never only color.", "\"Confirmado há …\" com check em --success, ou \"A confirmar\" com relógio. Ícone + texto, nunca só cor.")],
+                [t("Stock", "Estoque"), t("\"N disponíveis\" with a package icon (green when there are pieces); \"Sem peças no momento\" when zero. On the same line, \"Atualizado há …\" with the relative time supplied by the product; the stock row sits above the action, separated by a hairline. Icon + text, never only color.", "\"N disponíveis\" com ícone de pacote (verde quando há peças); \"Sem peças no momento\" quando zero. Na mesma linha, \"Atualizado há …\" com o tempo relativo informado pelo produto; a linha de estoque fica acima da ação, separada por um fio. Ícone + texto, nunca só cor.")],
+                [t("Scarcity tag", "Tag de escassez"), t("When quantity is 1 to 3 (poucasAte, default 3): amber tag over the image, top left, \"Só N restantes\" or \"Última peça\", with a flame icon; the count in the footer turns amber too. Zero shows \"Esgotada\" in neutral.", "Quando a quantidade é de 1 a 3 (poucasAte, padrão 3): tag âmbar sobre a imagem, no canto superior esquerdo, \"Só N restantes\" ou \"Última peça\", com ícone de chama; a contagem do rodapé também fica âmbar. Zero mostra \"Esgotada\" em neutro.")],
               ]}
             />
             <div className="space-y-4">
@@ -766,12 +767,12 @@ export function CardShowcase() {
                 dos={[
                   t("Use the same card in search, favorites and store showcase; only the data changes.", "Use o mesmo card na busca, nos favoritos e na vitrine da loja; só os dados mudam."),
                   t("Keep a fixed grid: 2 columns on phone (compact), 3 to 4 on desktop.", "Mantenha a grade fixa: 2 colunas no celular (compacto), 3 a 4 no desktop."),
-                  t("Always pass status when the store confirms availability; the person decides based on it.", "Informe sempre o status quando a loja confirma a disponibilidade; a pessoa decide com base nele."),
+                  t("Always pass the stock with its update time: the person decides based on it, and the date says how fresh it is.", "Informe sempre o estoque com o momento da atualização: a pessoa decide com base nele, e a data diz o quanto ele é recente."),
                 ]}
                 donts={[
                   t("Do not add a second action in the card (contact, share): that lives on the piece page.", "Não acrescente uma segunda ação no card (contato, compartilhar): isso fica na página da peça."),
                   t("Do not make the whole card clickable with the favorite inside it: the two targets conflict.", "Não torne o card inteiro clicável com o favorito dentro: os dois alvos conflitam."),
-                  t("Do not change the button color to graphite or black: the main action is always the primary.", "Não troque a cor do botão para grafite ou preto: a ação principal é sempre a primária."),
+                  t("Do not fake scarcity: the tag only appears from real stock data, never as a marketing trick.", "Não simule escassez: a tag só aparece a partir do estoque real, nunca como truque de marketing."),
                 ]}
               />
               <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { ProductCard } from "@/app/components/ui/product-card";
@@ -781,7 +782,7 @@ export function CardShowcase() {
   preco={329} bairro="Batel" novo
   imagem={{ src: "/fotos/jaqueta.jpg", alt: "Jaqueta biker em couro caramelo" }}
   favorito={false} onFavoritar={(v) => salvar(id, v)}
-  status={{ tipo: "a-confirmar" }}
+  estoque={{ quantidade: 2, poucasAte: 3, atualizadoHa: "há 2 h" }}
   cta={{ href: "/pecas/123" }}
 />`}</code></pre>
             </div>

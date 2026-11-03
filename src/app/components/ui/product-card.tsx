@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heart, MapPin, CheckCircle2, Clock } from "lucide-react";
+import { Heart, MapPin, Flame, PackageCheck, RefreshCw } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Selo } from "./selo";
@@ -11,9 +11,19 @@ import { IconeModa, type NomeIconeModa } from "./fashion-icons";
  * Card de uma peça na busca, nos favoritos ou na vitrine da loja. Segue a anatomia do Card do sistema:
  * superfície `--card`, borda `--border`, raio `--radius`, sombra `--shadow-sm`; imagem em superfície de apoio
  * (`--surface-tint`); ação principal com o Button padrão; favorito como botão de alternância com estado
- * acessível (aria-pressed); confirmação da peça sempre com ícone + texto, nunca só cor.
+ * acessível (aria-pressed); estoque sempre com ícone + texto, nunca só cor.
+ *
+ * Estoque: `estoque.quantidade` mostra "N disponíveis"; quando `quantidade <= estoque.poucasAte` (padrão 3)
+ * entra a tag de escassez ("Só 2 restantes" / "Última peça"); `estoque.atualizadoHa` informa a última
+ * atualização pela loja ("Estoque atualizado há 2 h").
  */
-export type ProductStatus = { tipo: "confirmado"; ha: string } | { tipo: "a-confirmar" };
+export type ProductStock = {
+  quantidade: number;
+  /** Limite para a tag de escassez (inclusive). Padrão: 3. */
+  poucasAte?: number;
+  /** Texto relativo, já formatado pelo produto: "há 2 h", "ontem", "há 3 dias". */
+  atualizadoHa?: string;
+};
 
 export type ProductCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> & {
   nome: string;
@@ -28,7 +38,7 @@ export type ProductCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   icone?: NomeIconeModa;
   favorito?: boolean;
   onFavoritar?: (favorito: boolean) => void;
-  status?: ProductStatus;
+  estoque?: ProductStock;
   cta?: { label?: string; href?: string; onClick?: () => void };
   /** Densidade compacta para listas em telas estreitas. */
   compacto?: boolean;
@@ -38,9 +48,12 @@ const formatarPreco = (v: number | string) =>
   typeof v === "number" ? v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : v;
 
 export function ProductCard({
-  nome, loja, estilo, preco, bairro, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, status, cta, compacto = false, className, ...props
+  nome, loja, estilo, preco, bairro, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, compacto = false, className, ...props
 }: ProductCardProps) {
   const [fav, setFav] = React.useState(favorito);
+  const poucasAte = estoque?.poucasAte ?? 3;
+  const escasso = !!estoque && estoque.quantidade > 0 && estoque.quantidade <= poucasAte;
+  const esgotado = !!estoque && estoque.quantidade <= 0;
   React.useEffect(() => setFav(favorito), [favorito]);
   const toggle = () => { const v = !fav; setFav(v); onFavoritar?.(v); };
   const Cta = cta?.href ? "a" : "button";
@@ -56,6 +69,14 @@ export function ProductCard({
           <img src={imagem.src} alt={imagem.alt} className="h-full w-full object-cover" loading="lazy" />
         ) : (
           <IconeModa nome={icone} size={compacto ? 56 : 88} strokeWidth={1.5} className="text-[var(--primary-text,var(--primary))] opacity-80" titulo={nome} />
+        )}
+        {escasso && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[var(--warning)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-[var(--graphite-950)] shadow-[var(--shadow-sm)]">
+            <Flame className="h-3.5 w-3.5" aria-hidden />{estoque!.quantidade === 1 ? "Última peça" : `Só ${estoque!.quantidade} restantes`}
+          </span>
+        )}
+        {esgotado && (
+          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-card px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-muted-foreground shadow-[var(--shadow-sm)]">Esgotada</span>
         )}
         <button
           type="button"
@@ -84,15 +105,21 @@ export function ProductCard({
           <p className="mt-0.5 text-[0.875rem] text-muted-foreground">{loja}{estilo ? ` · ${estilo}` : ""}</p>
         </div>
         <p className={cn("font-bold tracking-[-0.02em] text-foreground", compacto ? "text-[1.125rem]" : "text-[1.375rem]")}>{formatarPreco(preco)}</p>
-        <div className="mt-auto flex items-center justify-between gap-3 pt-1">
+        {estoque && (
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-border pt-3 text-[0.75rem] text-muted-foreground">
+            <span className={cn("inline-flex items-center gap-1 font-semibold", esgotado ? "text-muted-foreground" : escasso ? "text-[#8a5a00] dark:text-[var(--warning)]" : "text-foreground")}>
+              <PackageCheck className={cn("h-3.5 w-3.5", !esgotado && !escasso && "text-[var(--success)]")} aria-hidden />
+              {esgotado ? "Sem peças no momento" : estoque.quantidade === 1 ? "1 disponível" : `${estoque.quantidade} disponíveis`}
+            </span>
+            {estoque.atualizadoHa && (
+              <span className="inline-flex items-center gap-1 whitespace-nowrap"><RefreshCw className="h-3 w-3" aria-hidden />Atualizado {estoque.atualizadoHa}</span>
+            )}
+          </div>
+        )}
+        <div className={cn("flex items-center", !estoque && "mt-auto pt-1")}>
           <Button asChild={!!cta?.href} size={compacto ? "sm" : "default"} className="rounded-full px-5">
             <Cta {...(cta?.href ? { href: cta.href } : { type: "button", onClick: cta?.onClick })}>{cta?.label ?? "Ver peça"}</Cta>
           </Button>
-          {status && (status.tipo === "confirmado" ? (
-            <span className="inline-flex items-center gap-1 text-[0.75rem] text-muted-foreground"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--success)]" aria-hidden />Confirmado {status.ha}</span>
-          ) : (
-            <span className="inline-flex items-center gap-1 text-[0.75rem] text-muted-foreground"><Clock className="h-3.5 w-3.5" aria-hidden />A confirmar</span>
-          ))}
         </div>
       </div>
     </article>
