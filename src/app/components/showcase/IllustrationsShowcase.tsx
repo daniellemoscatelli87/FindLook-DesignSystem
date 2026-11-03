@@ -15,7 +15,9 @@ type Illustration = {
   id: string;
   nome: string;
   contexto: "vazio" | "erro";
-  arquivoWebp: string;
+  /** Origem: WebP (raster) ou SVG (vetor). */
+  arquivoWebp?: string;
+  arquivoSvg?: string;
   arquivoPng: string;
   largura: number;
   altura: number;
@@ -82,6 +84,20 @@ const ilustracoes: Illustration[] = [
     onde: "Área logada do consumidor › Seus contatos com lojas.",
     quando: "Quando a pessoa ainda não iniciou nenhum contato com uma loja. Some assim que o primeiro contato existir.",
     naoUsar: ["Não usar na caixa de mensagens da loja (área do lojista): a cena é do ponto de vista de quem compra.", "Não usar quando há contatos arquivados ou filtrados: aí a lista não está \"ainda vazia\"."],
+  },
+  {
+    id: "ilustracao-sem-lojas-locais",
+    nome: "Nenhuma loja por perto",
+    contexto: "vazio",
+    arquivoSvg: "ilustracoes/findlook-sem-lojas-locais.svg",
+    arquivoPng: "ilustracoes/findlook-sem-lojas-locais.png",
+    largura: 1448,
+    altura: 1086,
+    alt: "Nyx, a gata preta de óculos escuros e lenço pink, de pé com os braços abertos e interrogações sobre a cabeça, em uma rua vazia com um poste de luz, um cordão de isolamento e arbustos pink.",
+    expressao: "Surpresa (braços abertos, interrogações)",
+    onde: "Busca e mapa do consumidor, quando não há lojas cadastradas na região da pessoa.",
+    quando: "Quando a localização é conhecida e a FindLook ainda não tem lojas naquela cidade ou raio. Vem com um convite: ampliar o raio, buscar em outra cidade ou indicar uma loja.",
+    naoUsar: ["Não usar quando a busca por termo ou filtro não encontrou nada, mas há lojas na região: aí o estado é \"nenhum resultado\".", "Não usar quando a pessoa negou a localização: aí o estado é de permissão, não de ausência de lojas."],
   },
 ];
 
@@ -161,9 +177,11 @@ function EmptyStateMock({ src, alt, mobile = false }: { src: string; alt: string
 function IllustrationCard({ il }: { il: Illustration }) {
   const { t } = useI18n();
   const base = import.meta.env.BASE_URL;
-  const webp = base + il.arquivoWebp;
+  const origem = il.arquivoSvg ?? il.arquivoWebp!;
+  const webp = base + origem;
   const png = base + il.arquivoPng;
-  const nomeArquivo = il.arquivoWebp.split("/").pop()!.replace(/\.webp$/, "");
+  const nomeArquivo = origem.split("/").pop()!.replace(/\.(webp|svg)$/, "");
+  const ext = il.arquivoSvg ? "svg" : "webp";
   return (
     <section id={il.id} className="scroll-mt-32 space-y-6 rounded-[24px] border border-border bg-card p-5 sm:p-8" style={{ boxShadow: "var(--shadow-sm)" }}>
       <div>
@@ -175,7 +193,7 @@ function IllustrationCard({ il }: { il: Illustration }) {
         <Label>{t("Image", "Imagem")}</Label>
         <Panel src={webp} alt={il.alt} className="[&_img]:max-w-[560px]" />
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <DownloadButton url={webp} filename={`${nomeArquivo}.webp`} label="WebP" />
+          <DownloadButton url={webp} filename={`${nomeArquivo}.${ext}`} label={il.arquivoSvg ? t("SVG (vector)", "SVG (vetor)") : "WebP"} />
           <DownloadButton url={png} filename={`${nomeArquivo}.png`} label="PNG" />
           <span className="text-[0.75rem] text-muted-foreground">{il.largura} × {il.altura} px · {t("transparent background", "fundo transparente")} · <span className="font-mono">{nomeArquivo}</span></span>
         </div>
@@ -361,7 +379,7 @@ export function IllustrationsShowcase() {
         <SectionHeader title={t("Assets and naming", "Ativos e nomenclatura")} description={t("Every file of the library, with its naming rule.", "Todos os arquivos da biblioteca, com a regra de nomes.")} />
         <div className="mb-5 rounded-[14px] border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
           <p className="font-semibold text-foreground">{t("Naming rule", "Regra de nomes")}</p>
-          <p className="mt-1"><span className="font-mono text-foreground">findlook-&lt;contexto&gt;-&lt;estado&gt;.webp</span> {t("for scenes (e.g. findlook-favoritos-vazio), and", "para cenas (ex.: findlook-favoritos-vazio), e")} <span className="font-mono text-foreground">nyx-&lt;parte&gt;.webp</span> {t("for the character reference (e.g. nyx-turnaround). Lowercase, no accents, hyphens; scenes in WebP (source) and PNG (fallback); the character in SVG (master vector).", "para a referência do personagem (ex.: nyx-turnaround). Minúsculas, sem acentos, com hífens; cenas em WebP (origem) e PNG (fallback); o personagem em SVG (vetor mestre).")}</p>
+          <p className="mt-1"><span className="font-mono text-foreground">findlook-&lt;contexto&gt;-&lt;estado&gt;.webp</span> {t("for scenes (e.g. findlook-favoritos-vazio), and", "para cenas (ex.: findlook-favoritos-vazio), e")} <span className="font-mono text-foreground">nyx-&lt;parte&gt;.webp</span> {t("for the character reference (e.g. nyx-turnaround). Lowercase, no accents, hyphens; scenes in SVG (vector, preferred) or WebP as source and PNG as fallback; the character in SVG (master vector).", "para a referência do personagem (ex.: nyx-turnaround). Minúsculas, sem acentos, com hífens; cenas em SVG (vetor, preferido) ou WebP como origem e PNG como fallback; o personagem em SVG (vetor mestre).")}</p>
         </div>
         <DataTable
           head={[t("File", "Arquivo"), t("What it is", "O que é"), t("Context", "Contexto"), t("Size", "Dimensões")]}
@@ -369,7 +387,7 @@ export function IllustrationsShowcase() {
             [<span key="1" className="font-mono text-[0.75rem]">mascote/nyx-mestre.svg</span>, t("Master file (vector): character, turnaround, expressions, elements, palette", "Arquivo mestre (vetor): personagem, turnaround, expressões, elementos, paleta"), t("Reference", "Referência"), "1536 × 1024"],
             [<span key="1b" className="font-mono text-[0.75rem]">mascote/nyx-folha-canonica.png · .webp</span>, t("Raster export of the master sheet", "Exportação raster da folha mestre"), t("Reference", "Referência"), "1536 × 1024"],
             [<span key="2" className="font-mono text-[0.75rem]">mascote/nyx-master · nyx-turnaround · nyx-expressoes · nyx-elementos · nyx-paleta.svg</span>, t("Panels of the master file (same vector, cropped viewBox)", "Painéis do arquivo mestre (mesmo vetor, viewBox recortado)"), t("Reference", "Referência"), t("variable", "variável")],
-            ...ilustracoes.map((il) => [<a key={il.id} href={`#${il.id}`} className="font-mono text-[0.75rem] text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{il.arquivoWebp.replace("ilustracoes/", "")} · .png</a>, il.nome, il.contexto === "vazio" ? t("Empty state", "Estado vazio") : t("Error state", "Estado de erro"), `${il.largura} × ${il.altura}`]),
+            ...ilustracoes.map((il) => [<a key={il.id} href={`#${il.id}`} className="font-mono text-[0.75rem] text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{(il.arquivoSvg ?? il.arquivoWebp!).replace("ilustracoes/", "")} · .png</a>, il.nome, il.contexto === "vazio" ? t("Empty state", "Estado vazio") : t("Error state", "Estado de erro"), `${il.largura} × ${il.altura}`]),
           ]}
         />
         <p className="mt-3 text-[0.75rem] text-muted-foreground">{t("All files live in public/ilustracoes and public/mascote of the FindLook Design System repository and are served from the same paths on the published site.", "Todos os arquivos ficam em public/ilustracoes e public/mascote do repositório FindLook Design System e são servidos nos mesmos caminhos no site publicado.")}</p>

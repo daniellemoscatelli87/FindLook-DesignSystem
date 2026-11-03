@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Ilustração: nenhuma loja por perto (SVG)"),
+    desc: pt("Quinta cena da biblioteca, a primeira em vetor: Nyx surpresa, de braços abertos, numa rua sem lojas, para a busca e o mapa quando não há lojas cadastradas na região. SVG como origem e PNG como fallback; texto alternativo e regras de uso."),
+    page: "ilustracoes", anchor: "ilustracao-sem-lojas-locais",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Mascote: arquivo mestre em SVG e cabeçalho padrão"),
     desc: pt("A folha canônica da Nyx passa a ser o vetor mestre (nyx-mestre.svg, fundo transparente), com os painéis de personagem, turnaround, expressões, elementos e paleta recortados do mesmo vetor. Página com o cabeçalho padrão das demais (eyebrow, título com destaque, descrição)."),
     page: "ilustracoes", anchor: "mascote-personagem",
