@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Selo de seção"),
+    desc: pt("Pílula colorida das seções do site (tom claro da primária, borda na primária, texto na primária em caixa alta com espaçamento largo), para nomear o assunto acima do título de cada seção. Ao lado do selo do hero, em Componentes › Rótulos."),
+    page: "badges", anchor: "selo-secao",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Card de peça: sem bairro, estoque acima do divisor, botões com ícone"),
     desc: pt("Bairro removido; quantidade e atualização ficam acima do divisor e só a ação abaixo; preço antigo riscado na primária acima do atual, com o percentual ao lado; \"Ver peça\" com chevron; \"Avise-me\" como botão de contorno pink; exemplo compacto vertical removido."),
     page: "cards", anchor: "card-produto",

@@ -392,6 +392,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
         items: [
           { id: "badges",        label: "Badges & Tags", sectionId: "badges" },
           { id: "selo",          label: "Selo (tag do hero)", sectionId: "badges" },
+          { id: "selo-secao",    label: "Selo de seção",  sectionId: "badges" },
           { id: "avatar",        label: "Avatar",        sectionId: "badges" },
           { id: "avatar-circles", label: "Avatar Circles", sectionId: "badges" },
           { id: "empty-states",  label: "Empty States",  sectionId: "badges" },
