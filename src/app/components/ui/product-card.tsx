@@ -14,8 +14,9 @@ import { IconeModa, type NomeIconeModa } from "./fashion-icons";
  * acessível (aria-pressed); estoque sempre com ícone + texto, nunca só cor.
  *
  * Estoque: `estoque.quantidade` mostra "N disponíveis"; quando `quantidade <= estoque.poucasAte` (padrão 3)
- * entra a tag de escassez ("Só 2 restantes" / "Última peça"); `estoque.atualizadoHa` informa a última
- * atualização pela loja ("Estoque atualizado há 2 h").
+ * entra a tag de escassez na primária ("Só 2 restantes" / "Última peça") e a contagem fica na primária;
+ * `estoque.atualizadoHa` informa a última atualização pela loja ("Atualizado há 2 h").
+ * Esgotada (quantidade 0): imagem e textos em preto e branco, só o botão colorido, com o rótulo "Avise-me".
  */
 export type ProductStock = {
   quantidade: number;
@@ -31,7 +32,7 @@ export type ProductCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   estilo?: string;
   preco: number | string;
   bairro?: string;
-  /** Peça recém-cadastrada. */
+  /** Peça recém-cadastrada: Selo "Novo" sobre a imagem, canto inferior esquerdo. */
   novo?: boolean;
   /** Imagem da peça; sem ela, um ícone de moda ocupa a área. */
   imagem?: { src: string; alt: string };
@@ -64,19 +65,22 @@ export function ProductCard({
       {...props}
     >
       {/* Imagem */}
-      <div className={cn("relative flex items-center justify-center bg-[var(--surface-tint,var(--muted))]", compacto ? "aspect-[4/3]" : "aspect-square")}>
+      <div className={cn("relative flex items-center justify-center bg-[var(--surface-tint,var(--muted))]", compacto ? "aspect-[4/3]" : "aspect-square", esgotado && "grayscale")}>
         {imagem ? (
           <img src={imagem.src} alt={imagem.alt} className="h-full w-full object-cover" loading="lazy" />
         ) : (
           <IconeModa nome={icone} size={compacto ? 56 : 88} strokeWidth={1.5} className="text-[var(--primary-text,var(--primary))] opacity-80" titulo={nome} />
         )}
         {escasso && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[var(--warning)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-[var(--graphite-950)] shadow-[var(--shadow-sm)]">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-primary-foreground shadow-[var(--shadow-sm)]">
             <Flame className="h-3.5 w-3.5" aria-hidden />{estoque!.quantidade === 1 ? "Última peça" : `Só ${estoque!.quantidade} restantes`}
           </span>
         )}
         {esgotado && (
           <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-card px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-muted-foreground shadow-[var(--shadow-sm)]">Esgotada</span>
+        )}
+        {novo && (
+          <span className="absolute bottom-3 left-3"><Selo size="sm" tone="primary" dot={false} className="bg-card shadow-[var(--shadow-sm)]">Novo</Selo></span>
         )}
         <button
           type="button"
@@ -94,10 +98,10 @@ export function ProductCard({
 
       {/* Conteúdo */}
       <div className={cn("flex flex-1 flex-col", compacto ? "gap-2 p-4" : "gap-3 p-5")}>
-        {(novo || bairro) && (
-          <div className="flex items-center justify-between gap-2">
-            {novo ? <Selo size="sm" tone="primary" dot={false}>Novo</Selo> : <span />}
-            {bairro && <span className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))]"><MapPin className="h-3.5 w-3.5" aria-hidden />{bairro}</span>}
+        <div className={cn("flex flex-1 flex-col", compacto ? "gap-2" : "gap-3", esgotado && "grayscale")}>
+        {bairro && (
+          <div className="flex items-center justify-end">
+            <span className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))]"><MapPin className="h-3.5 w-3.5" aria-hidden />{bairro}</span>
           </div>
         )}
         <div>
@@ -107,7 +111,7 @@ export function ProductCard({
         <p className={cn("font-bold tracking-[-0.02em] text-foreground", compacto ? "text-[1.125rem]" : "text-[1.375rem]")}>{formatarPreco(preco)}</p>
         {estoque && (
           <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-border pt-3 text-[0.75rem] text-muted-foreground">
-            <span className={cn("inline-flex items-center gap-1 font-semibold", esgotado ? "text-muted-foreground" : escasso ? "text-[#8a5a00] dark:text-[var(--warning)]" : "text-foreground")}>
+            <span className={cn("inline-flex items-center gap-1 font-semibold", esgotado ? "text-muted-foreground" : escasso ? "text-[var(--primary-text,var(--primary))]" : "text-foreground")}>
               <PackageCheck className={cn("h-3.5 w-3.5", !esgotado && !escasso && "text-[var(--success)]")} aria-hidden />
               {esgotado ? "Sem peças no momento" : estoque.quantidade === 1 ? "1 disponível" : `${estoque.quantidade} disponíveis`}
             </span>
@@ -116,9 +120,10 @@ export function ProductCard({
             )}
           </div>
         )}
+        </div>
         <div className={cn("flex items-center", !estoque && "mt-auto pt-1")}>
           <Button asChild={!!cta?.href} size={compacto ? "sm" : "default"} className="rounded-full px-5">
-            <Cta {...(cta?.href ? { href: cta.href } : { type: "button", onClick: cta?.onClick })}>{cta?.label ?? "Ver peça"}</Cta>
+            <Cta {...(cta?.href ? { href: cta.href } : { type: "button", onClick: cta?.onClick })}>{cta?.label ?? (esgotado ? "Avise-me" : "Ver peça")}</Cta>
           </Button>
         </div>
       </div>
