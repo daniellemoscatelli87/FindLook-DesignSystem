@@ -2,6 +2,7 @@ import React from "react";
 import { Download, Check, X } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { DataTable, display } from "./shared/Guidance";
+import { PageHeader } from "./GetStartedShowcase";
 
 /* ══════════════════════════════════════
    MASCOTE & ILUSTRAÇÕES — parte da identidade da marca FindLook
@@ -221,6 +222,11 @@ export function IllustrationsShowcase() {
   const erros = ilustracoes.filter((i) => i.contexto === "erro");
   return (
     <div className="space-y-16 pb-16">
+      <PageHeader
+        eyebrow="Marca"
+        title="Mascote & **Ilustrações**"
+        description="A Nyx, a gatinha FindLook, e as cenas que ela protagoniza: personagem oficial, expressões e poses, estilo, estados vazios e de erro, diretrizes de uso e ativos."
+      />
 
       {/* ── 1. PERSONAGEM / MASTER ── */}
       <section id="mascote-personagem" className="scroll-mt-32">
@@ -234,24 +240,24 @@ export function IllustrationsShowcase() {
         <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Label>{t("Official character", "Personagem oficial")}</Label>
-            <Panel src={m("nyx-master.webp")} alt={t("Nyx, the FindLook mascot: a black cat sitting, with pink sunglasses on her head and a pink scarf, looking up with a smile.", "Nyx, a mascote da FindLook: uma gata preta sentada, com óculos escuros pink na cabeça e lenço pink, olhando para cima com um sorriso.")} className="[&_img]:max-w-[360px]" />
+            <Panel src={m("nyx-master.svg")} alt={t("Nyx, the FindLook mascot: a black cat sitting, with pink sunglasses on her head and a pink scarf, looking up with a smile.", "Nyx, a mascote da FindLook: uma gata preta sentada, com óculos escuros pink na cabeça e lenço pink, olhando para cima com um sorriso.")} className="[&_img]:max-w-[360px]" />
             <p className={`${display} mt-3 text-center text-[1.125rem] font-semibold text-foreground`}>Nyx</p>
             <p className="text-center text-[0.8125rem] text-muted-foreground">{t("The FindLook cat · official character", "A gatinha FindLook · personagem oficial")}</p>
           </div>
           <div className="space-y-5">
             <div>
               <Label>{t("Turnaround (reference views)", "Turnaround (visões de referência)")}</Label>
-              <Panel src={m("nyx-turnaround.webp")} alt={t("Nyx in four views: front, three-quarter right, right profile and back.", "Nyx em quatro visões: frente, 3/4 direita, perfil direita e costas.")} />
+              <Panel src={m("nyx-turnaround.svg")} alt={t("Nyx in four views: front, three-quarter right, right profile and back.", "Nyx em quatro visões: frente, 3/4 direita, perfil direita e costas.")} />
               <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Front · 3/4 right · right profile · back. New scenes start from one of these views.", "Frente · 3/4 direita · perfil direita · costas. Novas cenas partem de uma destas visões.")}</p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <Label>{t("Elements and proportions", "Elementos e proporções")}</Label>
-                <Panel src={m("nyx-elementos.webp")} alt={t("Nyx's fixed elements: head and ear shape, default eyes, default muzzle, three whiskers per side, default paw.", "Elementos fixos da Nyx: formato da cabeça e orelhas, olhos padrão, focinho padrão, três bigodes por lado, pata padrão.")} />
+                <Panel src={m("nyx-elementos.svg")} alt={t("Nyx's fixed elements: head and ear shape, default eyes, default muzzle, three whiskers per side, default paw.", "Elementos fixos da Nyx: formato da cabeça e orelhas, olhos padrão, focinho padrão, três bigodes por lado, pata padrão.")} />
               </div>
               <div>
                 <Label>{t("Character palette", "Paleta do personagem")}</Label>
-                <Panel src={m("nyx-paleta.webp")} alt={t("Character palette: graphite for the fur, pink for sunglasses and scarf, white for eyes and outlines, light gray for the base shadow.", "Paleta do personagem: grafite na pelagem, pink nos óculos e no lenço, branco nos olhos e contornos, cinza claro na sombra da base.")} />
+                <Panel src={m("nyx-paleta.svg")} alt={t("Character palette: graphite for the fur, pink for sunglasses and scarf, white for eyes and outlines, light gray for the base shadow.", "Paleta do personagem: grafite na pelagem, pink nos óculos e no lenço, branco nos olhos e contornos, cinza claro na sombra da base.")} />
               </div>
             </div>
           </div>
@@ -270,8 +276,9 @@ export function IllustrationsShowcase() {
             <p className="mb-2 font-semibold text-foreground">{t("Download the master sheet", "Baixar a folha de referência")}</p>
             <p className="mb-3">{t("The canonical sheet is the starting point for any new scene: same proportions, same elements, same palette.", "A folha canônica é o ponto de partida de qualquer cena nova: mesmas proporções, mesmos elementos, mesma paleta.")}</p>
             <div className="flex flex-wrap gap-2">
-              <DownloadButton url={m("nyx-folha-canonica.webp")} filename="nyx-folha-canonica.webp" label="WebP" />
+              <DownloadButton url={m("nyx-mestre.svg")} filename="nyx-mestre.svg" label={t("SVG (master file)", "SVG (arquivo mestre)")} />
               <DownloadButton url={m("nyx-folha-canonica.png")} filename="nyx-folha-canonica.png" label="PNG" />
+              <DownloadButton url={m("nyx-folha-canonica.webp")} filename="nyx-folha-canonica.webp" label="WebP" />
             </div>
           </div>
         </div>
@@ -280,7 +287,7 @@ export function IllustrationsShowcase() {
       {/* ── 2. EXPRESSÕES E POSES ── */}
       <section id="mascote-expressoes" className="scroll-mt-32">
         <SectionHeader title={t("Expressions and poses", "Expressões e poses")} description={t("Five main expressions are allowed. Each one answers a moment of the journey; the pose and the props complete the message.", "Cinco expressões principais são permitidas. Cada uma responde a um momento da jornada; a pose e os objetos de cena completam a mensagem.")} />
-        <Panel src={m("nyx-expressoes.webp")} alt={t("Nyx's five main expressions: happy, surprised, thoughtful, curious and radiant.", "As cinco expressões principais da Nyx: feliz, surpresa, pensativa, curiosa e radiante.")} className="[&_img]:max-w-[900px]" />
+        <Panel src={m("nyx-expressoes.svg")} alt={t("Nyx's five main expressions: happy, surprised, thoughtful, curious and radiant.", "As cinco expressões principais da Nyx: feliz, surpresa, pensativa, curiosa e radiante.")} className="[&_img]:max-w-[900px]" />
         <div className="mt-5">
           <DataTable
             head={[t("Expression", "Expressão"), t("When to use", "Quando usar"), t("In the library", "Na biblioteca")]}
@@ -354,13 +361,14 @@ export function IllustrationsShowcase() {
         <SectionHeader title={t("Assets and naming", "Ativos e nomenclatura")} description={t("Every file of the library, with its naming rule.", "Todos os arquivos da biblioteca, com a regra de nomes.")} />
         <div className="mb-5 rounded-[14px] border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
           <p className="font-semibold text-foreground">{t("Naming rule", "Regra de nomes")}</p>
-          <p className="mt-1"><span className="font-mono text-foreground">findlook-&lt;contexto&gt;-&lt;estado&gt;.webp</span> {t("for scenes (e.g. findlook-favoritos-vazio), and", "para cenas (ex.: findlook-favoritos-vazio), e")} <span className="font-mono text-foreground">nyx-&lt;parte&gt;.webp</span> {t("for the character reference (e.g. nyx-turnaround). Lowercase, no accents, hyphens; WebP is the source, PNG the fallback.", "para a referência do personagem (ex.: nyx-turnaround). Minúsculas, sem acentos, com hífens; WebP é a origem, PNG o fallback.")}</p>
+          <p className="mt-1"><span className="font-mono text-foreground">findlook-&lt;contexto&gt;-&lt;estado&gt;.webp</span> {t("for scenes (e.g. findlook-favoritos-vazio), and", "para cenas (ex.: findlook-favoritos-vazio), e")} <span className="font-mono text-foreground">nyx-&lt;parte&gt;.webp</span> {t("for the character reference (e.g. nyx-turnaround). Lowercase, no accents, hyphens; scenes in WebP (source) and PNG (fallback); the character in SVG (master vector).", "para a referência do personagem (ex.: nyx-turnaround). Minúsculas, sem acentos, com hífens; cenas em WebP (origem) e PNG (fallback); o personagem em SVG (vetor mestre).")}</p>
         </div>
         <DataTable
           head={[t("File", "Arquivo"), t("What it is", "O que é"), t("Context", "Contexto"), t("Size", "Dimensões")]}
           rows={[
-            [<span key="1" className="font-mono text-[0.75rem]">mascote/nyx-folha-canonica.webp · .png</span>, t("Master sheet (character, turnaround, expressions, elements, palette)", "Folha de referência (personagem, turnaround, expressões, elementos, paleta)"), t("Reference", "Referência"), "1536 × 1024"],
-            [<span key="2" className="font-mono text-[0.75rem]">mascote/nyx-master · nyx-turnaround · nyx-expressoes · nyx-elementos · nyx-paleta.webp</span>, t("Panels cut from the master sheet", "Painéis recortados da folha de referência"), t("Reference", "Referência"), t("variable", "variável")],
+            [<span key="1" className="font-mono text-[0.75rem]">mascote/nyx-mestre.svg</span>, t("Master file (vector): character, turnaround, expressions, elements, palette", "Arquivo mestre (vetor): personagem, turnaround, expressões, elementos, paleta"), t("Reference", "Referência"), "1536 × 1024"],
+            [<span key="1b" className="font-mono text-[0.75rem]">mascote/nyx-folha-canonica.png · .webp</span>, t("Raster export of the master sheet", "Exportação raster da folha mestre"), t("Reference", "Referência"), "1536 × 1024"],
+            [<span key="2" className="font-mono text-[0.75rem]">mascote/nyx-master · nyx-turnaround · nyx-expressoes · nyx-elementos · nyx-paleta.svg</span>, t("Panels of the master file (same vector, cropped viewBox)", "Painéis do arquivo mestre (mesmo vetor, viewBox recortado)"), t("Reference", "Referência"), t("variable", "variável")],
             ...ilustracoes.map((il) => [<a key={il.id} href={`#${il.id}`} className="font-mono text-[0.75rem] text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{il.arquivoWebp.replace("ilustracoes/", "")} · .png</a>, il.nome, il.contexto === "vazio" ? t("Empty state", "Estado vazio") : t("Error state", "Estado de erro"), `${il.largura} × ${il.altura}`]),
           ]}
         />

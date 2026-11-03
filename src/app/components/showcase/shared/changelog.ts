@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Mascote: arquivo mestre em SVG e cabeçalho padrão"),
+    desc: pt("A folha canônica da Nyx passa a ser o vetor mestre (nyx-mestre.svg, fundo transparente), com os painéis de personagem, turnaround, expressões, elementos e paleta recortados do mesmo vetor. Página com o cabeçalho padrão das demais (eyebrow, título com destaque, descrição)."),
+    page: "ilustracoes", anchor: "mascote-personagem",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Mascote & Ilustrações: hierarquia completa e folha canônica da Nyx"),
     desc: pt("Seção reorganizada em Personagem (folha de referência com turnaround, elementos e paleta), Expressões e poses (cinco expressões permitidas), Estilo de ilustração, Estados vazios, Estados de erro, Diretrizes de uso (princípios, aplicação e governança) e Ativos e nomenclatura."),
     page: "ilustracoes", anchor: "mascote-personagem",
