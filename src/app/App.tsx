@@ -6,7 +6,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, UploadCloud, Brush,
+  PanelRight, UploadCloud, Milestone, Brush,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -30,6 +30,7 @@ import { UsabilityShowcase } from "./components/showcase/UsabilityShowcase";
 import { AccessibilityShowcase } from "./components/showcase/AccessibilityShowcase";
 import { CardShowcase } from "./components/showcase/CardShowcase";
 import { SidePanelShowcase } from "./components/showcase/SidePanelShowcase";
+import { TimelineShowcase } from "./components/showcase/TimelineShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
@@ -426,6 +427,14 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "sidepanel-tokens",   label: "Tokens",                     sectionId: "sidepanel" },
         ],
       },
+      { id: "timeline", label: "Linha do tempo", icon: Milestone,
+        items: [
+          { id: "timeline-demo",    label: "Demonstração",             sectionId: "timeline" },
+          { id: "timeline-anatomy", label: "Anatomia",                 sectionId: "timeline" },
+          { id: "timeline-motion",  label: "Movimento: Step Indicator", sectionId: "timeline" },
+          { id: "timeline-usage",   label: "Uso",                      sectionId: "timeline" },
+        ],
+      },
       { id: "upload", label: "Upload", icon: UploadCloud,
         items: [
           { id: "upload-dropzone", label: "Área de soltar",            sectionId: "upload" },
@@ -468,6 +477,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   icons:     <IconsShowcase />,
   overlays:  <OverlaysShowcase />,
   sidepanel: <SidePanelShowcase />,
+  timeline:  <TimelineShowcase />,
   upload:    <UploadShowcase />,
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
@@ -494,6 +504,7 @@ const sectionLabels: Record<string, string> = {
   icons:     "Icons",
   overlays:  "Overlays & Navigation",
   sidepanel: "Painel lateral",
+  timeline:  "Linha do tempo",
   upload:    "Upload",
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
