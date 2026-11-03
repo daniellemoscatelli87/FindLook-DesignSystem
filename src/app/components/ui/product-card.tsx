@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heart, MapPin, Flame, PackageCheck, RefreshCw, Bell } from "lucide-react";
+import { Heart, Flame, PackageCheck, RefreshCw, Bell, ChevronRight } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Selo } from "./selo";
@@ -13,13 +13,14 @@ import { IconeModa, type NomeIconeModa } from "./fashion-icons";
  * (`--surface-tint`); ação principal com o Button padrão; favorito como botão de alternância com estado
  * acessível (aria-pressed); estoque sempre com ícone + texto, nunca só cor.
  *
- * Sempre presentes: bairro (à esquerda, acima do nome), estoque com quantidade e "Atualizado há …".
+ * Sempre presentes: estoque com quantidade e "Atualizado há …", acima do divisor; abaixo dele, só a ação.
  * Nome da peça em até duas linhas, com reticências.
  * Escassez: `quantidade <= estoque.poucasAte` (padrão 3) mostra a tag na primária ("Só 2 restantes" /
  * "Última peça") e a contagem na primária. Esgotada (0): imagem e textos em preto e branco, só o favorito
  * e o botão coloridos, botão "Avise-me" com sino.
  * `orientation="horizontal"`: imagem à esquerda, conteúdo à direita (listas e resultados em linha).
- * Desconto: `precoAntigo` mostra o preço anterior riscado antes do atual e o percentual "-N%" (calculado).
+ * Desconto: `precoAntigo` mostra o preço anterior riscado, na primária, acima do atual; o percentual "-N%" fica ao lado do atual.
+ * Ações: "Ver peça" (primária, com chevron) ou, esgotada, "Avise-me" (contorno na primária, com sino).
  */
 export type ProductStock = {
   quantidade: number;
@@ -34,9 +35,8 @@ export type ProductCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   loja: string;
   estilo?: string;
   preco: number | string;
-  /** Preço anterior, quando há desconto: aparece riscado, com o percentual calculado (só com números). */
+  /** Preço anterior, quando há desconto: aparece riscado acima do atual, com o percentual calculado (só com números). */
   precoAntigo?: number | string;
-  bairro: string;
   /** Peça recém-cadastrada: Selo "Novo" sobre a imagem, canto inferior esquerdo. */
   novo?: boolean;
   /** Imagem da peça; sem ela, um ícone de moda ocupa a área. */
@@ -55,7 +55,7 @@ const formatarPreco = (v: number | string) =>
   typeof v === "number" ? v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : v;
 
 export function ProductCard({
-  nome, loja, estilo, preco, precoAntigo, bairro, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, compacto = false, orientation = "vertical", className, ...props
+  nome, loja, estilo, preco, precoAntigo, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, compacto = false, orientation = "vertical", className, ...props
 }: ProductCardProps) {
   const [fav, setFav] = React.useState(favorito);
   React.useEffect(() => setFav(favorito), [favorito]);
@@ -117,31 +117,32 @@ export function ProductCard({
         <div className={cn("flex min-w-0 flex-1 flex-col", compacto || horizontal ? "gap-2" : "gap-3", esgotado && "grayscale")}>
           <div>
             {horizontal && tagEstoque && <div className="mb-2">{tagEstoque}</div>}
-            <p className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))]"><MapPin className="h-3.5 w-3.5" aria-hidden />{bairro}</p>
-            <h3 className={cn("mt-1 line-clamp-2 font-semibold tracking-[-0.01em] text-foreground", compacto || horizontal ? "text-[1rem]" : "text-[1.125rem]")} style={{ fontFamily: "var(--font-sans)" }} title={nome}>{nome}</h3>
+            <h3 className={cn("line-clamp-2 font-semibold tracking-[-0.01em] text-foreground", compacto || horizontal ? "text-[1rem]" : "text-[1.125rem]")} style={{ fontFamily: "var(--font-sans)" }} title={nome}>{nome}</h3>
             <p className="mt-0.5 truncate text-[0.875rem] text-muted-foreground">{loja}{estilo ? ` · ${estilo}` : ""}</p>
           </div>
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+          <div>
             {precoAntigo !== undefined && (
-              <span className="text-[0.8125rem] text-muted-foreground line-through decoration-muted-foreground/60"><span className="sr-only">De </span>{formatarPreco(precoAntigo)}</span>
+              <p className="text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] line-through decoration-[var(--primary-text,var(--primary))]/70"><span className="sr-only">De </span>{formatarPreco(precoAntigo)}</p>
             )}
-            <span className={cn("font-bold tracking-[-0.02em] text-foreground", compacto || horizontal ? "text-[1.125rem]" : "text-[1.375rem]")}>{precoAntigo !== undefined && <span className="sr-only">por </span>}{formatarPreco(preco)}</span>
-            {desconto !== null && desconto > 0 && (
-              <span className="rounded-full bg-[var(--primary-muted)] px-2 py-0.5 text-[0.6875rem] font-bold text-[var(--primary-text,var(--primary))]">-{desconto}%</span>
-            )}
+            <p className="flex flex-wrap items-center gap-2">
+              <span className={cn("font-bold tracking-[-0.02em] text-foreground", compacto || horizontal ? "text-[1.125rem]" : "text-[1.375rem]")}>{precoAntigo !== undefined && <span className="sr-only">por </span>}{formatarPreco(preco)}</span>
+              {desconto !== null && desconto > 0 && (
+                <span className="rounded-full bg-[var(--primary-muted)] px-2 py-0.5 text-[0.6875rem] font-bold text-[var(--primary-text,var(--primary))]">-{desconto}%</span>
+              )}
+            </p>
           </div>
-          <div className={cn("mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-border pt-3 text-[0.75rem] text-muted-foreground", horizontal && "pt-2")}>
+          <div className="mt-auto flex flex-col gap-0.5 text-[0.75rem] text-muted-foreground">
             <span className={cn("inline-flex items-center gap-1 font-semibold", esgotado ? "text-muted-foreground" : escasso ? "text-[var(--primary-text,var(--primary))]" : "text-foreground")}>
               <PackageCheck className={cn("h-3.5 w-3.5", !esgotado && !escasso && "text-[var(--success)]")} aria-hidden />
               {esgotado ? "Sem peças no momento" : estoque.quantidade === 1 ? "1 disponível" : `${estoque.quantidade} disponíveis`}
             </span>
-            <span className="inline-flex items-center gap-1 whitespace-nowrap"><RefreshCw className="h-3 w-3" aria-hidden />Atualizado {estoque.atualizadoHa}</span>
+            <span className="inline-flex items-center gap-1"><RefreshCw className="h-3 w-3" aria-hidden />Atualizado {estoque.atualizadoHa}</span>
           </div>
         </div>
-        <div className="flex items-center">
-          <Button asChild={!!cta?.href} size={compacto || horizontal ? "sm" : "default"} className="rounded-full px-5">
+        <div className={cn("flex items-center border-t border-border", horizontal ? "pt-3" : "pt-4")}>
+          <Button asChild={!!cta?.href} size={compacto || horizontal ? "sm" : "default"} variant={esgotado ? "outline" : "default"} className={cn("rounded-full px-5", esgotado && "border-primary text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)] hover:text-[var(--primary-text,var(--primary))]")}>
             <Cta {...(cta?.href ? { href: cta.href } : { type: "button", onClick: cta?.onClick })}>
-              {esgotado && <Bell aria-hidden />}{ctaLabel}
+              {esgotado && <Bell aria-hidden />}{ctaLabel}{!esgotado && <ChevronRight aria-hidden />}
             </Cta>
           </Button>
         </div>

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Card de peça: sem bairro, estoque acima do divisor, botões com ícone"),
+    desc: pt("Bairro removido; quantidade e atualização ficam acima do divisor e só a ação abaixo; preço antigo riscado na primária acima do atual, com o percentual ao lado; \"Ver peça\" com chevron; \"Avise-me\" como botão de contorno pink; exemplo compacto vertical removido."),
+    page: "cards", anchor: "card-produto",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Linha do tempo (Timeline)"),
     desc: pt("Portada da seção \"Como funciona\" do site do estúdio: etapas com marcador redondo e card, linha à esquerda no celular e no centro com cards alternados a partir de 768 px, e a animação Step Indicator na rolagem (etapa atual cresce, feitas preenchem a linha, cards entram uma vez). Respeita movimento reduzido. Em Componentes."),
     page: "timeline", anchor: "timeline-demo",
