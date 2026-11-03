@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Card de peça (ProductCard)"),
+    desc: pt("Card de produto para busca, favoritos e vitrine da loja, montado com a anatomia do Card, o Button padrão, o Selo e os ícones de moda: imagem com favorito acessível, tag Novo, bairro, nome, loja · estilo, preço em reais, ação \"Ver peça\" e confirmação com ícone + texto. Densidade compacta para listas estreitas. Em Componentes › Cards."),
+    page: "cards", anchor: "card-produto",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Mascote e cenas de volta em PNG e WebP"),
     desc: pt("Os SVGs vetorizados não ficaram bons: a folha mestre da Nyx, seus painéis e a cena \"Nenhuma loja por perto\" voltam a ser entregues em WebP (origem) e PNG (fallback), a partir dos arquivos raster enviados pela dona da marca."),
     page: "ilustracoes", anchor: "mascote-ativos",

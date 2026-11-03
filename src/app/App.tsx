@@ -363,6 +363,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "card-actions",       label: "Buttons in Cards",   sectionId: "cards" },
           { id: "card-states",        label: "Interactive States", sectionId: "cards" },
           { id: "card-partner",       label: "Card de convite ao parceiro", sectionId: "cards" },
+          { id: "card-produto",       label: "Card de peça",       sectionId: "cards" },
           { id: "card-guidelines",    label: "Usage Guidelines",   sectionId: "cards" },
           { id: "card-accessibility", label: "Card Accessibility", sectionId: "cards" },
           { id: "card-tokens",        label: "Card Tokens",        sectionId: "cards" },
