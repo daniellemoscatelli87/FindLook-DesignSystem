@@ -46,6 +46,18 @@ const ilustracoes: Illustration[] = [
     descricao: "O guarda-roupa está vazio, mas pronto: os cabides esperam as primeiras peças favoritas. O gato surpreso dá leveza ao estado vazio e convida a explorar.",
     elementos: ["Guarda-roupa pink aberto com dois cabides vazios", "Pin de localização com cabide no topo (símbolo da marca)", "Gato preto de óculos escuros e lenço pink (personagem)", "Sapatos de salto e caixa de presente listrada", "Brilhos e traços de ênfase em pink"],
   },
+  {
+    id: "ilustracao-lojas-seguidas-vazio",
+    nome: "Lojas seguidas vazias",
+    uso: "Área logada do consumidor › Lojas seguidas, quando ainda não há lojas seguidas",
+    arquivoWebp: "ilustracoes/findlook-lojas-seguidas-vazio.webp",
+    arquivoPng: "ilustracoes/findlook-lojas-seguidas-vazio.png",
+    largura: 1536,
+    altura: 1024,
+    alt: "Gato preto de óculos escuros e lenço pink, sentado e pensativo, diante de três vitrines de lojas de roupa; cada loja tem o pin de localização com cabide no telhado e um botão pink \"+ Seguir\" na vitrine.",
+    descricao: "Três vitrines convidam, cada uma com o pin da marca e o botão \"+ Seguir\". O gato ainda escolhe: o estado vazio de lojas seguidas vira um convite para descobrir e seguir as primeiras lojas.",
+    elementos: ["Três vitrines de lojas de roupa (vestido, araras com camisetas e calças, blazer e bolsa)", "Pin de localização com cabide no telhado de cada loja (símbolo da marca)", "Botões pink \"+ Seguir\" nas vitrines", "Gato preto de óculos escuros e lenço pink, pensativo (personagem)", "Toldo pink e branco na loja central"],
+  },
 ];
 
 function SectionHeader({ title, description }: { title: string; description: string }) {
