@@ -17,6 +17,9 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Seção Ilustrações: página 404"),
+    desc: pt("Nova seção, só no FindLook: estilo das ilustrações, catálogo e a primeira peça, a ilustração da página 404 (gato de óculos escuros na sacola, pin com cabide no lugar do zero), com WebP e PNG para download, texto alternativo e regras de uso."),
+    page: "ilustracoes", anchor: "ilustracao-404",
     date: "Nov 2026", kind: "New", title: pt("Ícones de moda (IconeModa)"),
     desc: pt("Componente IconeModa com ícones de traço no estilo Lucide para peças que o Lucide não tem: camiseta, camisa, cropped, jaqueta, vestido, calça, shorts, saia, biquíni, meia, tênis, sandália, bota, salto, boné, chapéu, óculos de sol, bolsa, clutch, cinto, gravata, colar, brinco, anel, pulseira e cabide. Mesmos desenhos da textura doodle. Pedido da dona do produto para as listas de produtos da FindLook."),
     page: "icons", anchor: "icon-sizes",

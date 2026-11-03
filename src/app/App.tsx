@@ -6,10 +6,11 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, UploadCloud,
+  PanelRight, UploadCloud, Brush,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
+import { IllustrationsShowcase } from "./components/showcase/IllustrationsShowcase";
 import { FormShowcase } from "./components/showcase/FormShowcase";
 import { DataShowcase } from "./components/showcase/DataShowcase";
 import { FeedbackShowcase } from "./components/showcase/FeedbackShowcase";
@@ -194,6 +195,12 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "brand-tipografia",  label: "Tipografia",             sectionId: "brand" },
           { id: "brand-regras",      label: "Regras para crescer",    sectionId: "brand" },
           { id: "brand-respiro",     label: "Área de proteção",       sectionId: "brand" },
+        ],
+      },
+      { id: "ilustracoes", label: "Ilustrações", icon: Brush,
+        items: [
+          { id: "ilustracoes-estilo", label: "Estilo",      sectionId: "ilustracoes" },
+          { id: "ilustracao-404",     label: "Página 404",  sectionId: "ilustracoes" },
         ],
       },
     ],
@@ -443,6 +450,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   voice:     <VoiceShowcase />,
   states:    <StatesShowcase />,
   brand:     <BrandShowcase />,
+  ilustracoes: <IllustrationsShowcase />,
   colors:    <FoundationShowcase />,
   tokens:      <TokensShowcase />,
   integration: <IntegrationShowcase />,
@@ -470,6 +478,7 @@ const sectionLabels: Record<string, string> = {
   voice:     "Tom de voz",
   states:    "Estados de informação",
   brand:     "Brand Identity",
+  ilustracoes: "Ilustrações",
   colors:    "Foundation",
   buttons:   "Form Controls",
   cards:     "Cards",
@@ -492,6 +501,7 @@ function AppShell() {
   const [activeSection, setActiveSection] = useState("overview");
   const [sidebarExpanded, setSidebarExpanded] = useState<Record<string, boolean>>({
     brand:     false,
+    ilustracoes: false,
     voice:     false,
     states:    false,
     usability: false,
