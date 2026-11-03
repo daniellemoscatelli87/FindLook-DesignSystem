@@ -58,6 +58,18 @@ const ilustracoes: Illustration[] = [
     descricao: "Três vitrines convidam, cada uma com o pin da marca e o botão \"+ Seguir\". O gato ainda escolhe: o estado vazio de lojas seguidas vira um convite para descobrir e seguir as primeiras lojas.",
     elementos: ["Três vitrines de lojas de roupa (vestido, araras com camisetas e calças, blazer e bolsa)", "Pin de localização com cabide no telhado de cada loja (símbolo da marca)", "Botões pink \"+ Seguir\" nas vitrines", "Gato preto de óculos escuros e lenço pink, pensativo (personagem)", "Toldo pink e branco na loja central"],
   },
+  {
+    id: "ilustracao-contatos-vazio",
+    nome: "Contatos com lojas vazios",
+    uso: "Área logada do consumidor › Seus contatos com lojas, quando nenhum contato foi feito ainda",
+    arquivoWebp: "ilustracoes/findlook-contatos-vazio.webp",
+    arquivoPng: "ilustracoes/findlook-contatos-vazio.png",
+    largura: 1536,
+    altura: 1024,
+    alt: "Gato preto de óculos escuros e lenço pink, sentado com um celular pink na pata, imagina em um balão de pensamento um vestido pink pendurado em um cabide; ao lado, uma sacola de compras pink.",
+    descricao: "O gato já tem a peça em mente e o celular na pata, mas ainda não falou com ninguém. O estado vazio de contatos vira o convite para a primeira conversa com uma loja.",
+    elementos: ["Gato preto de óculos escuros e lenço pink, sentado com celular pink (personagem)", "Balão de pensamento com vestido pink no cabide", "Sacola de compras pink", "Brilhos e traços de ênfase em pink"],
+  },
 ];
 
 function SectionHeader({ title, description }: { title: string; description: string }) {

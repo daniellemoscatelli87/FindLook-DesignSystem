@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Ilustração: contatos com lojas vazios"),
+    desc: pt("Quarta peça da seção Ilustrações: gato com celular na pata imaginando um vestido, para a tela \"Seus contatos com lojas\" da área logada do consumidor quando nenhum contato foi feito. WebP e PNG, texto alternativo e regras de uso."),
+    page: "ilustracoes", anchor: "ilustracao-contatos-vazio",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Ilustração: lojas seguidas vazias"),
     desc: pt("Terceira peça da seção Ilustrações: gato pensativo diante de três vitrines com o botão \"+ Seguir\", para a página de Lojas seguidas da área logada do consumidor quando ainda não há lojas seguidas. WebP e PNG, texto alternativo e regras de uso."),
     page: "ilustracoes", anchor: "ilustracao-lojas-seguidas-vazio",

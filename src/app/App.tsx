@@ -203,6 +203,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "ilustracao-404",     label: "Página 404",  sectionId: "ilustracoes" },
           { id: "ilustracao-favoritos-vazio", label: "Favoritos vazios", sectionId: "ilustracoes" },
           { id: "ilustracao-lojas-seguidas-vazio", label: "Lojas seguidas vazias", sectionId: "ilustracoes" },
+          { id: "ilustracao-contatos-vazio", label: "Contatos com lojas vazios", sectionId: "ilustracoes" },
         ],
       },
     ],
