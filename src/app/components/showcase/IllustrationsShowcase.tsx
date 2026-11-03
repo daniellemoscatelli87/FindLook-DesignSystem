@@ -1,74 +1,77 @@
 import React from "react";
-import { Download, Check, X, AlertTriangle } from "lucide-react";
+import { Download, Check, X } from "lucide-react";
 import { useI18n } from "../../i18n";
-import { DataTable, DoDont, SubTitle, display } from "./shared/Guidance";
+import { DataTable, display } from "./shared/Guidance";
 
 /* ══════════════════════════════════════
-   ILUSTRAÇÕES — só no FindLook Design System
-   Cada ilustração entra aqui conforme a dona do produto envia.
+   ILUSTRAÇÕES — parte da identidade da marca FindLook
+   Mascote: Nyx, a gata preta. Só no FindLook Design System.
+   Cada ilustração entra aqui conforme a dona da marca envia.
 ══════════════════════════════════════ */
 
 type Illustration = {
   id: string;
   nome: string;
-  uso: string;
   arquivoWebp: string;
   arquivoPng: string;
   largura: number;
   altura: number;
   alt: string;
-  descricao: string;
-  elementos: string[];
+  /** Onde / quando usar. */
+  onde: string;
+  quando: string;
+  /** Como não usar (específico da peça). */
+  naoUsar: string[];
 };
 
 const ilustracoes: Illustration[] = [
   {
     id: "ilustracao-404",
-    nome: "Página 404",
-    uso: "Página não encontrada",
+    nome: "Página não encontrada (404)",
     arquivoWebp: "ilustracoes/findlook-404.webp",
     arquivoPng: "ilustracoes/findlook-404.png",
     largura: 1536,
     altura: 1024,
-    alt: "Número 404 com um pin de localização no lugar do zero e um cabide dentro; um gato preto de óculos escuros espia de dentro de uma sacola de compras pink, ao lado de um par de botas pretas.",
-    descricao: "O zero do 404 vira o pin de localização da FindLook com o cabide dentro: a página não foi encontrada, mas a busca continua. O gato de óculos escuros na sacola dá o tom leve e fashion do erro.",
-    elementos: ["Pin de localização com cabide (símbolo da marca)", "Gato preto de óculos escuros (personagem)", "Sacola de compras pink com lenço", "Par de botas pretas de salto", "Traços de ênfase em pink"],
+    alt: "Número 404 com o pin de localização da FindLook no lugar do zero e um cabide dentro; Nyx, a gata preta de óculos escuros, espia de dentro de uma sacola de compras pink, ao lado de um par de botas pretas.",
+    onde: "Página 404 (endereço inexistente), em qualquer área do produto.",
+    quando: "Sempre que a página pedida não existe ou foi removida. Vem acompanhada de um caminho de volta (início ou busca).",
+    naoUsar: ["Não usar em erros de sistema (500) nem em falhas de conexão: o tom brincalhão não combina com falha do produto.", "Não usar em estados vazios: o 404 já está escrito na imagem."],
   },
   {
     id: "ilustracao-favoritos-vazio",
-    nome: "Favoritos vazios",
-    uso: "Área logada do consumidor › Favoritos, quando ainda não há favoritos adicionados",
+    nome: "Favoritos ainda vazios",
     arquivoWebp: "ilustracoes/findlook-favoritos-vazio.webp",
     arquivoPng: "ilustracoes/findlook-favoritos-vazio.png",
     largura: 1448,
     altura: 1086,
-    alt: "Gato preto de óculos escuros e lenço pink abre, surpreso, um guarda-roupa pink vazio com dois cabides na arara; no topo do móvel, o pin de localização com o cabide; ao lado, um par de sapatos de salto e uma caixa de presente listrada.",
-    descricao: "O guarda-roupa está vazio, mas pronto: os cabides esperam as primeiras peças favoritas. O gato surpreso dá leveza ao estado vazio e convida a explorar.",
-    elementos: ["Guarda-roupa pink aberto com dois cabides vazios", "Pin de localização com cabide no topo (símbolo da marca)", "Gato preto de óculos escuros e lenço pink (personagem)", "Sapatos de salto e caixa de presente listrada", "Brilhos e traços de ênfase em pink"],
+    alt: "Nyx, a gata preta de óculos escuros e lenço pink, abre surpresa um guarda-roupa pink vazio com dois cabides na arara; no topo do móvel, o pin de localização com o cabide; ao lado, sapatos de salto e uma caixa de presente listrada.",
+    onde: "Área logada do consumidor › Favoritos.",
+    quando: "Quando a pessoa ainda não salvou nenhuma peça como favorita. Some assim que o primeiro favorito existir.",
+    naoUsar: ["Não usar quando a lista está vazia por filtro ou busca: aí o estado é \"nenhum resultado\", não \"ainda vazio\".", "Não usar para favoritos de lojas: esta peça fala de peças de roupa (guarda-roupa)."],
   },
   {
     id: "ilustracao-lojas-seguidas-vazio",
-    nome: "Lojas seguidas vazias",
-    uso: "Área logada do consumidor › Lojas seguidas, quando ainda não há lojas seguidas",
+    nome: "Nenhuma loja seguida",
     arquivoWebp: "ilustracoes/findlook-lojas-seguidas-vazio.webp",
     arquivoPng: "ilustracoes/findlook-lojas-seguidas-vazio.png",
     largura: 1536,
     altura: 1024,
-    alt: "Gato preto de óculos escuros e lenço pink, sentado e pensativo, diante de três vitrines de lojas de roupa; cada loja tem o pin de localização com cabide no telhado e um botão pink \"+ Seguir\" na vitrine.",
-    descricao: "Três vitrines convidam, cada uma com o pin da marca e o botão \"+ Seguir\". O gato ainda escolhe: o estado vazio de lojas seguidas vira um convite para descobrir e seguir as primeiras lojas.",
-    elementos: ["Três vitrines de lojas de roupa (vestido, araras com camisetas e calças, blazer e bolsa)", "Pin de localização com cabide no telhado de cada loja (símbolo da marca)", "Botões pink \"+ Seguir\" nas vitrines", "Gato preto de óculos escuros e lenço pink, pensativo (personagem)", "Toldo pink e branco na loja central"],
+    alt: "Nyx, a gata preta de óculos escuros e lenço pink, sentada e pensativa diante de três vitrines de lojas de roupa; cada loja tem o pin de localização com cabide no telhado e um botão pink \"+ Seguir\" na vitrine.",
+    onde: "Área logada do consumidor › Lojas seguidas.",
+    quando: "Quando a pessoa ainda não segue nenhuma loja. Some assim que a primeira loja for seguida.",
+    naoUsar: ["Não usar na lista de lojas da busca ou do mapa: os botões \"+ Seguir\" da imagem podem parecer clicáveis.", "Não usar para favoritos de peças: esta peça fala de lojas (vitrines)."],
   },
   {
     id: "ilustracao-contatos-vazio",
-    nome: "Contatos com lojas vazios",
-    uso: "Área logada do consumidor › Seus contatos com lojas, quando nenhum contato foi feito ainda",
+    nome: "Nenhum contato com lojas",
     arquivoWebp: "ilustracoes/findlook-contatos-vazio.webp",
     arquivoPng: "ilustracoes/findlook-contatos-vazio.png",
     largura: 1536,
     altura: 1024,
-    alt: "Gato preto de óculos escuros e lenço pink, sentado com um celular pink na pata, imagina em um balão de pensamento um vestido pink pendurado em um cabide; ao lado, uma sacola de compras pink.",
-    descricao: "O gato já tem a peça em mente e o celular na pata, mas ainda não falou com ninguém. O estado vazio de contatos vira o convite para a primeira conversa com uma loja.",
-    elementos: ["Gato preto de óculos escuros e lenço pink, sentado com celular pink (personagem)", "Balão de pensamento com vestido pink no cabide", "Sacola de compras pink", "Brilhos e traços de ênfase em pink"],
+    alt: "Nyx, a gata preta de óculos escuros e lenço pink, sentada com um celular pink na pata, imagina em um balão de pensamento um vestido pink pendurado em um cabide; ao lado, uma sacola de compras pink.",
+    onde: "Área logada do consumidor › Seus contatos com lojas.",
+    quando: "Quando a pessoa ainda não iniciou nenhum contato com uma loja. Some assim que o primeiro contato existir.",
+    naoUsar: ["Não usar na caixa de mensagens da loja (área do lojista): a cena é do ponto de vista de quem compra.", "Não usar quando há contatos arquivados ou filtrados: aí a lista não está \"ainda vazia\"."],
   },
 ];
 
@@ -79,6 +82,10 @@ function SectionHeader({ title, description }: { title: string; description: str
       <p className="text-[0.9375rem] leading-relaxed text-muted-foreground max-w-3xl">{description}</p>
     </div>
   );
+}
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
 }
 
 function saveBlob(blob: Blob, filename: string) {
@@ -100,6 +107,23 @@ async function baixar(url: string, filename: string) {
   }
 }
 
+/** Esqueleto de estado vazio (web e mobile) com a ilustração no lugar: textos são marcadores, não copy do produto. */
+function EmptyStateMock({ src, alt, mobile = false }: { src: string; alt: string; mobile?: boolean }) {
+  const { t } = useI18n();
+  return (
+    <div className={mobile ? "mx-auto w-[300px] rounded-[28px] border-[6px] border-[var(--graphite-900)] bg-white p-4 pt-8 shadow-[var(--shadow-md)]" : "rounded-[16px] border border-border bg-white p-8 shadow-[var(--shadow-xs)]"}>
+      {!mobile && <div className="mb-6 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[var(--graphite-300)]" /><span className="h-2 w-16 rounded-full bg-[var(--graphite-200)]" /><span className="ml-auto h-2 w-10 rounded-full bg-[var(--graphite-200)]" /></div>}
+      <div className={`flex flex-col items-center text-center ${mobile ? "gap-3" : "gap-4"}`}>
+        <img src={src} alt={alt} className={mobile ? "w-[180px] h-auto" : "w-[300px] h-auto"} />
+        <span className={`${display} ${mobile ? "text-[1rem]" : "text-[1.25rem]"} font-semibold tracking-[-0.01em] text-[var(--graphite-950)]`}>{t("Empty state title", "Título do estado vazio")}</span>
+        <span className={`${mobile ? "text-[0.75rem]" : "text-[0.875rem]"} max-w-[28ch] leading-relaxed text-[var(--graphite-500)]`}>{t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}</span>
+        <span className={`inline-flex items-center rounded-full bg-primary ${mobile ? "h-9 px-4 text-[0.75rem]" : "h-10 px-5 text-[0.875rem]"} font-semibold text-primary-foreground`}>{t("Primary action", "Ação principal")}</span>
+      </div>
+      {mobile && <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-[var(--graphite-200)]" />}
+    </div>
+  );
+}
+
 function IllustrationCard({ il }: { il: Illustration }) {
   const { t } = useI18n();
   const base = import.meta.env.BASE_URL;
@@ -107,56 +131,57 @@ function IllustrationCard({ il }: { il: Illustration }) {
   const png = base + il.arquivoPng;
   const nomeArquivo = il.arquivoWebp.split("/").pop()!.replace(/\.webp$/, "");
   return (
-    <section id={il.id} className="scroll-mt-32 space-y-6">
-      <SectionHeader title={il.nome} description={il.descricao} />
+    <section id={il.id} className="scroll-mt-32 space-y-6 rounded-[24px] border border-border bg-card p-5 sm:p-8" style={{ boxShadow: "var(--shadow-sm)" }}>
+      {/* Nome */}
+      <div>
+        <Label>{t("Name", "Nome")}</Label>
+        <h3 className={`${display} text-[1.375rem] font-semibold tracking-[-0.02em] text-foreground`}>{il.nome}</h3>
+      </div>
 
-      {/* prévia: a ilustração tem o gato em grafite, então no tema escuro ela fica sobre uma superfície clara */}
-      <div className="rounded-[20px] border border-border bg-card p-4 sm:p-6" style={{ boxShadow: "var(--shadow-sm)" }}>
-        <div className="rounded-[16px] bg-white p-6 sm:p-10 dark:ring-1 dark:ring-white/10">
-          <img src={webp} width={il.largura} height={il.altura} alt={il.alt} className="mx-auto h-auto w-full max-w-[720px]" />
+      {/* Imagem */}
+      <div>
+        <Label>{t("Image", "Imagem")}</Label>
+        <div className="rounded-[16px] bg-white p-6 sm:p-8 dark:ring-1 dark:ring-white/10">
+          <img src={webp} width={il.largura} height={il.altura} alt={il.alt} className="mx-auto h-auto w-full max-w-[560px]" />
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <button type="button" onClick={() => baixar(webp, `${nomeArquivo}.webp`)} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[0.75rem] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
-            <Download className="h-3.5 w-3.5" aria-hidden /> WebP · {il.largura}×{il.altura}
+            <Download className="h-3.5 w-3.5" aria-hidden /> WebP
           </button>
           <button type="button" onClick={() => baixar(png, `${nomeArquivo}.png`)} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[0.75rem] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
-            <Download className="h-3.5 w-3.5" aria-hidden /> PNG · {il.largura}×{il.altura}
+            <Download className="h-3.5 w-3.5" aria-hidden /> PNG
           </button>
-          <span className="text-[0.75rem] text-muted-foreground">{t("Transparent background", "Fundo transparente")}</span>
+          <span className="text-[0.75rem] text-muted-foreground">{il.largura} × {il.altura} px · {t("transparent background", "fundo transparente")}</span>
+        </div>
+        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">{t("Alt text", "Texto alternativo")}:</span> {il.alt}</p>
+      </div>
+
+      {/* Visão web / Visão mobile */}
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <div>
+          <Label>{t("Web view", "Visão web")}</Label>
+          <EmptyStateMock src={webp} alt="" />
+        </div>
+        <div>
+          <Label>{t("Mobile view", "Visão mobile")}</Label>
+          <EmptyStateMock src={webp} alt="" mobile />
         </div>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-2">
-        <DataTable
-          head={[t("Attribute", "Atributo"), t("Value", "Valor")]}
-          rows={[
-            [t("Use", "Uso"), il.uso],
-            [t("File", "Arquivo"), <span key="f" className="font-mono text-[0.75rem]">{il.arquivoWebp} · {il.arquivoPng}</span>],
-            [t("Size", "Dimensões"), `${il.largura} × ${il.altura} px (${(il.largura / il.altura).toFixed(2).replace(".", ",")}:1)`],
-            [t("Background", "Fundo"), t("Transparent; works on light surfaces. In dark mode, place it on a light surface (white card): the cat and the number are graphite.", "Transparente; funciona sobre superfícies claras. No tema escuro, coloque sobre uma superfície clara (card branco): o gato e o número são grafite.")],
-            [t("Alt text", "Texto alternativo"), il.alt],
-            [t("Elements", "Elementos"), il.elementos.join(" · ")],
-          ]}
-        />
-        <div className="space-y-4">
-          <DoDont
-            dos={[
-              t("Use it only on the page it was made for; one illustration per screen.", "Use só na página para a qual foi feita; uma ilustração por tela."),
-              t("Keep the original proportion; scale between 280 px and 720 px wide.", "Mantenha a proporção original; escale entre 280 px e 720 px de largura."),
-              t("Always provide the alt text above (or alt=\"\" if the text next to it already says the same).", "Informe sempre o texto alternativo acima (ou alt=\"\" se o texto ao lado já diz o mesmo)."),
-            ]}
-            donts={[
-              t("Do not recolor, mirror, crop the character or add effects.", "Não recolorir, espelhar, cortar o personagem nem aplicar efeitos."),
-              t("Do not place it over photos, textures or the brand pink: the pink elements disappear.", "Não colocar sobre fotos, texturas ou o pink da marca: os elementos pink somem."),
-              t("Do not use it as a logo, icon or avatar.", "Não usar como logo, ícone ou avatar."),
-            ]}
-          />
-          <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`<img
-  src="/${il.arquivoWebp}"
-  width="${il.largura}" height="${il.altura}"
-  alt="${il.alt}"
-  class="mx-auto w-full max-w-[560px] h-auto"
-/>`}</code></pre>
+      {/* Onde / quando usar · Como não usar */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <Label>{t("Where / when to use", "Onde / quando usar")}</Label>
+          <ul className="space-y-2 text-[0.875rem] leading-relaxed text-foreground">
+            <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span><span className="font-semibold">{t("Where", "Onde")}:</span> {il.onde}</span></li>
+            <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span><span className="font-semibold">{t("When", "Quando")}:</span> {il.quando}</span></li>
+          </ul>
+        </div>
+        <div>
+          <Label>{t("How not to use", "Como não usar")}</Label>
+          <ul className="space-y-2 text-[0.875rem] leading-relaxed text-foreground">
+            {il.naoUsar.map((n) => <li key={n} className="flex gap-2"><X className="mt-1 h-4 w-4 shrink-0 text-[var(--error,var(--destructive))]" aria-hidden /><span>{n}</span></li>)}
+          </ul>
         </div>
       </div>
     </section>
@@ -165,43 +190,52 @@ function IllustrationCard({ il }: { il: Illustration }) {
 
 export function IllustrationsShowcase() {
   const { t } = useI18n();
+  const base = import.meta.env.BASE_URL;
   return (
-    <div className="space-y-16 pb-16">
+    <div className="space-y-12 pb-16">
+      {/* Identidade: a mascote Nyx */}
       <section id="ilustracoes-estilo" className="scroll-mt-32">
         <SectionHeader
-          title={t("Illustrations", "Ilustrações")}
+          title={t("Illustrations and the mascot Nyx", "Ilustrações e a mascote Nyx")}
           description={t(
-            "Illustrations are part of the FindLook voice: light, fashion-minded and with the brand symbol in the scene. They are used sparingly, in specific moments (errors, empty states, onboarding), and each one is published here with its file, alt text and usage rules.",
-            "As ilustrações fazem parte da voz da FindLook: leves, com humor de moda e com o símbolo da marca na cena. São usadas com parcimônia, em momentos específicos (erros, estados vazios, onboarding), e cada uma é publicada aqui com arquivo, texto alternativo e regras de uso.",
+            "Illustrations are part of the FindLook brand identity, next to the symbol, the colors and the typography. They star Nyx, the black cat: she appears in every piece, always with her pink sunglasses and pink scarf, and brings the brand's light, fashion-minded tone to the moments when there is nothing on screen yet.",
+            "As ilustrações fazem parte da identidade da marca FindLook, ao lado do símbolo, das cores e da tipografia. Elas têm como protagonista a Nyx, a gata preta: ela aparece em todas as peças, sempre com os óculos escuros pink e o lenço pink, e leva o tom leve e fashion da marca para os momentos em que ainda não há nada na tela.",
           )}
         />
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            [t("Style", "Estilo"), t("Flat shapes, no outlines, soft shadows at the base. Rounded, friendly forms.", "Formas chapadas, sem contorno, sombra suave na base. Formas arredondadas e simpáticas.")],
-            [t("Colors", "Cores"), t("Only the brand palette: pink (--primary), graphite (--graphite-950) and white. Pink carries the brand elements; graphite carries the character and the type.", "Só a paleta da marca: pink (--primary), grafite (--graphite-950) e branco. O pink leva os elementos da marca; o grafite leva o personagem e o número.")],
-            [t("Recurring elements", "Elementos recorrentes"), t("The location pin with the hanger (brand symbol), the cat with sunglasses (character) and fashion pieces: bag, boots, scarf.", "O pin de localização com o cabide (símbolo da marca), o gato de óculos escuros (personagem) e peças de moda: sacola, botas, lenço.")],
-          ].map(([a, b]) => (
-            <div key={a as string} className="rounded-[14px] border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></div>
-          ))}
+        <div className="grid gap-5 lg:grid-cols-[1fr_1.2fr]">
+          <div className="rounded-[20px] bg-white p-6 dark:ring-1 dark:ring-white/10">
+            <img src={base + "ilustracoes/findlook-contatos-vazio.webp"} alt={t("Nyx, the FindLook mascot: a black cat with pink sunglasses and a pink scarf.", "Nyx, a mascote da FindLook: uma gata preta de óculos escuros pink e lenço pink.")} className="mx-auto h-auto w-full max-w-[380px]" />
+            <p className={`${display} mt-3 text-center text-[1.125rem] font-semibold text-[var(--graphite-950)]`}>Nyx</p>
+            <p className="text-center text-[0.8125rem] text-[var(--graphite-500)]">{t("The FindLook mascot", "A mascote da FindLook")}</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              [t("Who she is", "Quem ela é"), t("A black cat, curious and stylish. She is the person who searches: she looks, compares, imagines the piece and goes find it in the city.", "Uma gata preta, curiosa e estilosa. Ela é quem procura: olha, compara, imagina a peça e vai encontrá-la na cidade.")],
+              [t("Her signature", "Sua marca registrada"), t("Pink sunglasses on the head or the eyes and a pink scarf. Never without them; never in another color.", "Óculos escuros pink na cabeça ou nos olhos e lenço pink. Nunca sem eles; nunca em outra cor.")],
+              [t("Her world", "Seu mundo"), t("The brand symbol (the location pin with the hanger) is always in the scene, plus fashion pieces: bags, boots, dresses, hangers, store fronts.", "O símbolo da marca (o pin de localização com o cabide) está sempre na cena, junto de peças de moda: sacolas, botas, vestidos, cabides, vitrines.")],
+              [t("Style", "Estilo"), t("Flat shapes, no outlines, soft shadow at the base. Only the brand palette: pink, graphite and white.", "Formas chapadas, sem contorno, sombra suave na base. Só a paleta da marca: pink, grafite e branco.")],
+              [t("Where she appears", "Onde ela aparece"), t("In specific moments: errors and empty states of the consumer area, onboarding. One illustration per screen, never as decoration.", "Em momentos específicos: erros e estados vazios da área do consumidor, onboarding. Uma ilustração por tela, nunca como decoração.")],
+              [t("Where she does not appear", "Onde ela não aparece"), t("In the logo, as icon or avatar, in the store owner's area, over photos or over the brand pink.", "No logo, como ícone ou avatar, na área do lojista, sobre fotos ou sobre o pink da marca.")],
+            ].map(([a, b]) => (
+              <div key={a as string} className="rounded-[14px] border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></div>
+            ))}
+          </div>
         </div>
-        <div className="mt-4 flex items-start gap-2 rounded-[12px] border border-border bg-muted/40 p-3 text-[0.8125rem] text-muted-foreground">
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--warning)]" aria-hidden />
-          <p>{t("Illustrations are supplied by the brand owner; they are not generated in the product. New pieces are added to this section as they are delivered.", "As ilustrações são fornecidas pela dona da marca; não são geradas no produto. Novas peças entram nesta seção conforme são entregues.")}</p>
-        </div>
+        <p className="mt-4 text-[0.8125rem] leading-relaxed text-muted-foreground">{t("The illustrations are supplied by the brand owner and are not generated in the product. New pieces enter this section as they are delivered, always with Nyx. In dark mode, place them on a light surface: Nyx and the type are graphite.", "As ilustrações são fornecidas pela dona da marca e não são geradas no produto. Novas peças entram nesta seção conforme são entregues, sempre com a Nyx. No tema escuro, coloque-as sobre superfície clara: a Nyx e os números são grafite.")}</p>
       </section>
 
-      <div className="space-y-16">
+      {/* Catálogo */}
+      <section className="scroll-mt-32">
+        <SectionHeader title={t("Catalog", "Catálogo")} description={t("Each piece below has name, image, web and mobile views, where and when to use it and how not to use it.", "Cada peça abaixo tem nome, imagem, visão web, visão mobile, onde e quando usar e como não usar.")} />
+        <DataTable
+          head={[t("Illustration", "Ilustração"), t("Where", "Onde"), t("Status", "Status")]}
+          rows={ilustracoes.map((il) => [<a key={il.id} href={`#${il.id}`} className="font-semibold text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{il.nome}</a>, il.onde, <span key={il.id + "s"} className="inline-flex items-center gap-1 text-[var(--success)]"><Check className="h-3.5 w-3.5" aria-hidden /> {t("Available", "Disponível")}</span>])}
+        />
+      </section>
+
+      <div className="space-y-10">
         {ilustracoes.map((il) => <IllustrationCard key={il.id} il={il} />)}
       </div>
-
-      <section className="scroll-mt-32">
-        <SubTitle>{t("Catalog", "Catálogo")}</SubTitle>
-        <DataTable
-          head={[t("Illustration", "Ilustração"), t("Use", "Uso"), t("Status", "Status")]}
-          rows={ilustracoes.map((il) => [il.nome, il.uso, <span key={il.id} className="inline-flex items-center gap-1 text-[var(--success)]"><Check className="h-3.5 w-3.5" aria-hidden /> {t("Available", "Disponível")}</span>])}
-        />
-        <p className="mt-2 text-[0.75rem] text-muted-foreground"><X className="mr-1 inline h-3 w-3" aria-hidden />{t("Other moments (onboarding, no results, other empty lists) have no illustration yet.", "Outros momentos (onboarding, busca sem resultado, outras listas vazias) ainda não têm ilustração.")}</p>
-      </section>
     </div>
   );
 }
