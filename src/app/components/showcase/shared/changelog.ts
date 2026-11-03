@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Card de peça: versão horizontal, desconto e regras fixas"),
+    desc: pt("Nova orientação horizontal (imagem à esquerda) para listas; variação com desconto (preço antigo riscado, atual e -N%); bairro e \"Atualizado há …\" sempre presentes; bairro à esquerda acima do nome; nome em até duas linhas com reticências; favorito mantém a cor no card esgotado; \"Avise-me\" com sino."),
+    page: "cards", anchor: "card-produto",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Card de peça: escassez na primária, Novo sobre a imagem, esgotada em preto e branco"),
     desc: pt("Tag de escassez e contagem em pink com texto branco (o âmbar não é cor da grade principal); Selo Novo sobre a imagem no canto inferior esquerdo; peça esgotada em preto e branco com só o botão colorido e rótulo \"Avise-me\"."),
     page: "cards", anchor: "card-produto",

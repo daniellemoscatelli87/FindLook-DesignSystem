@@ -739,25 +739,36 @@ export function CardShowcase() {
           <div>
             <SubTitle>{t("Variations", "Variações")}</SubTitle>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              <ProductCard nome="Vestido midi floral" loja="Casa Flor" estilo="Romântico" preco={259} bairro="Centro" icone="vestido" estoque={{ quantidade: 1, atualizadoHa: "há 3 h" }} cta={{ href: "#card-produto" }} />
-              <ProductCard nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} icone="tenis" estoque={{ quantidade: 0, atualizadoHa: "há 5 dias" }} cta={{ href: "#card-produto" }} />
-              <ProductCard nome="Saia plissada" loja="Brechó da Lu" estilo="Vintage" preco={89} bairro="Bigorrilho" novo icone="saia" favorito estoque={{ quantidade: 12 }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Vestido midi floral com mangas bufantes e cinto de amarrar" loja="Casa Flor" estilo="Romântico" preco={259} bairro="Centro" icone="vestido" estoque={{ quantidade: 1, atualizadoHa: "há 3 h" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} bairro="Portão" icone="tenis" estoque={{ quantidade: 0, atualizadoHa: "há 5 dias" }} cta={{ href: "#card-produto" }} />
+              <ProductCard nome="Saia plissada" loja="Brechó da Lu" estilo="Vintage" preco={89} precoAntigo={129} bairro="Bigorrilho" novo icone="saia" favorito estoque={{ quantidade: 12, atualizadoHa: "há 20 min" }} cta={{ href: "#card-produto" }} />
               <ProductCard compacto nome="Camiseta oversized" loja="Movimento Livre" preco={79.9} bairro="Batel" icone="camiseta" estoque={{ quantidade: 3, atualizadoHa: "ontem" }} cta={{ href: "#card-produto" }} />
             </div>
-            <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Left to right: last piece; sold out (black and white, only the \"Avise-me\" button in color); stock without update date; compact density (4:3 image, smaller type) with 3 pieces, the scarcity threshold.", "Da esquerda para a direita: última peça; esgotada (preto e branco, só o botão \"Avise-me\" colorido); estoque sem data de atualização; densidade compacta (imagem 4:3, tipos menores) com 3 peças, o limite da escassez.")}</p>
+            <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Left to right: last piece and a long name clamped to two lines; sold out (black and white, only the favorite and the \"Avise-me\" button in color); favorited with a discount (old price struck through, current and -31%); compact density (4:3 image, smaller type) with 3 pieces, the scarcity threshold.", "Da esquerda para a direita: última peça e nome longo cortado em duas linhas; esgotada (preto e branco, só o favorito e o botão \"Avise-me\" coloridos); favoritada com desconto (preço antigo riscado, atual e -31%); densidade compacta (imagem 4:3, tipos menores) com 3 peças, o limite da escassez.")}</p>
+          </div>
+          <div>
+            <SubTitle>{t("Horizontal", "Horizontal")}</SubTitle>
+            <div className="grid gap-4 lg:grid-cols-2 max-w-[1000px]">
+              <ProductCard orientation="horizontal" nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic" preco={329} bairro="Batel" novo icone="jaqueta" favorito estoque={{ quantidade: 2, atualizadoHa: "há 2 h" }} cta={{ href: "#card-produto" }} />
+              <ProductCard orientation="horizontal" nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} bairro="Portão" icone="tenis" estoque={{ quantidade: 0, atualizadoHa: "há 5 dias" }} cta={{ href: "#card-produto" }} />
+              <ProductCard orientation="horizontal" compacto nome="Calça jeans wide leg" loja="Movimento Livre" estilo="Casual" preco={189.9} precoAntigo={249.9} bairro="Água Verde" novo icone="calca" estoque={{ quantidade: 8, atualizadoHa: "há 1 dia" }} cta={{ href: "#card-produto" }} />
+              <ProductCard orientation="horizontal" compacto nome="Vestido midi floral com mangas bufantes e cinto de amarrar" loja="Casa Flor" estilo="Romântico" preco={259} bairro="Centro" icone="vestido" estoque={{ quantidade: 1, atualizadoHa: "há 3 h" }} cta={{ href: "#card-produto" }} />
+            </div>
+            <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Image on the left (144 to 192 px; 112 to 144 px compact), content on the right. For result lists, favorites in list view and the store's piece list. Second row: compact density.", "Imagem à esquerda (144 a 192 px; 112 a 144 px no compacto), conteúdo à direita. Para listas de resultados, favoritos em lista e a lista de peças da loja. Segunda linha: densidade compacta.")}</p>
           </div>
           <div className="grid gap-5 lg:grid-cols-2">
             <DataTable
               head={[t("Element", "Elemento"), t("Rule", "Regra")]}
               rows={[
+                [t("Orientation", "Orientação"), t("Vertical (default) for grids; horizontal for lists. Same content and rules in both; in the horizontal the scarcity tag moves from the image to the top of the content.", "Vertical (padrão) para grades; horizontal para listas. Mesmo conteúdo e mesmas regras nas duas; na horizontal a tag de escassez sai da imagem e vai para o topo do conteúdo.")],
                 [t("Image", "Imagem"), t("Square (1:1) over --surface-tint; object-fit cover. Without a photo, the fashion icon of the category (IconeModa) in the primary text color.", "Quadrada (1:1) sobre --surface-tint; object-fit cover. Sem foto, o ícone de moda da categoria (IconeModa) na cor primária de texto.")],
-                [t("Favorite", "Favorito"), t("Round 40 px button over the image, top right; aria-pressed and a label that names the piece; filled heart in primary when saved.", "Botão redondo de 40 px sobre a imagem, no canto superior direito; aria-pressed e rótulo que nomeia a peça; coração preenchido na primária quando salva.")],
+                [t("Favorite", "Favorito"), t("Round 40 px button over the image, top right; aria-pressed and a label that names the piece; filled heart in primary when saved. It keeps its color on a sold-out card.", "Botão redondo de 40 px sobre a imagem, no canto superior direito; aria-pressed e rótulo que nomeia a peça; coração preenchido na primária quando salva. Mantém a cor no card esgotado.")],
                 [t("\"Novo\" tag", "Tag \"Novo\""), t("Selo, size sm, primary tone, no dot, over the image in the bottom-left corner. Only for pieces registered in the last 7 days (product rule).", "Selo, tamanho sm, tom primário, sem ponto, sobre a imagem no canto inferior esquerdo. Só para peças cadastradas nos últimos 7 dias (regra do produto).")],
-                [t("Neighbourhood", "Bairro"), t("Pin icon + name in the primary text color, aligned right above the title.", "Ícone de pin + nome na cor primária de texto, alinhado à direita acima do título.")],
-                [t("Title and store", "Título e loja"), t("Piece name (semibold) and store · style (muted). Two lines at most; the name never wraps beyond two.", "Nome da peça (semibold) e loja · estilo (muted). Duas linhas no máximo; o nome nunca passa de duas.")],
-                [t("Price", "Preço"), t("Formatted as BRL by the component (pt-BR). Bold, 22 px.", "Formatado em reais pelo componente (pt-BR). Bold, 22 px.")],
+                [t("Neighbourhood", "Bairro"), t("Always present: pin icon + name in the primary text color, left-aligned above the piece name.", "Sempre presente: ícone de pin + nome na cor primária de texto, à esquerda, acima do nome da peça.")],
+                [t("Title and store", "Título e loja"), t("Piece name (semibold) in at most two lines, with an ellipsis beyond that (the full name goes in the title attribute); store · style (muted) in one line.", "Nome da peça (semibold) em até duas linhas, com reticências a partir daí (o nome completo vai no atributo title); loja · estilo (muted) em uma linha.")],
+                [t("Price", "Preço"), t("Formatted as BRL by the component (pt-BR). Bold, 22 px. With precoAntigo: old price struck through before the current one, plus a \"-N%\" pill in the primary tint with the percentage calculated by the component (\"De … por …\" for screen readers).", "Formatado em reais pelo componente (pt-BR). Bold, 22 px. Com precoAntigo: preço antigo riscado antes do atual, mais a pílula \"-N%\" no tom primário com o percentual calculado pelo componente (\"De … por …\" para leitores de tela).")],
                 [t("Action", "Ação"), t("Default Button (primary, pill): \"Ver peça\". Link when href is given, button otherwise.", "Button padrão (primária, pílula): \"Ver peça\". Link quando há href, botão caso contrário.")],
-                [t("Stock", "Estoque"), t("\"N disponíveis\" with a package icon (green when there are pieces; primary color when scarce); \"Sem peças no momento\" when zero: the image and texts turn black and white and the button reads \"Avise-me\". On the same line, \"Atualizado há …\" with the relative time supplied by the product; the stock row sits above the action, separated by a hairline. Icon + text, never only color.", "\"N disponíveis\" com ícone de pacote (verde quando há peças; na cor primária quando escasso); \"Sem peças no momento\" quando zero: imagem e textos ficam em preto e branco e o botão vira \"Avise-me\". Na mesma linha, \"Atualizado há …\" com o tempo relativo informado pelo produto; a linha de estoque fica acima da ação, separada por um fio. Ícone + texto, nunca só cor.")],
+                [t("Stock", "Estoque"), t("\"N disponíveis\" with a package icon (green when there are pieces; primary color when scarce); \"Sem peças no momento\" when zero: the image and texts turn black and white and the button reads \"Avise-me\" with a bell icon. \"Atualizado há …\" is always present. On the same line, \"Atualizado há …\" with the relative time supplied by the product; the stock row sits above the action, separated by a hairline. Icon + text, never only color.", "\"N disponíveis\" com ícone de pacote (verde quando há peças; na cor primária quando escasso); \"Sem peças no momento\" quando zero: imagem e textos ficam em preto e branco e o botão vira \"Avise-me\" com ícone de sino. \"Atualizado há …\" aparece sempre. Na mesma linha, \"Atualizado há …\" com o tempo relativo informado pelo produto; a linha de estoque fica acima da ação, separada por um fio. Ícone + texto, nunca só cor.")],
                 [t("Scarcity tag", "Tag de escassez"), t("When quantity is 1 to 3 (poucasAte, default 3): primary-color tag with white text over the image, top left, \"Só N restantes\" or \"Última peça\", with a flame icon; the count in the stock row turns primary too. Zero shows \"Esgotada\" in neutral.", "Quando a quantidade é de 1 a 3 (poucasAte, padrão 3): tag na cor primária com texto branco sobre a imagem, no canto superior esquerdo, \"Só N restantes\" ou \"Última peça\", com ícone de chama; a contagem da linha de estoque também fica na primária. Zero mostra \"Esgotada\" em neutro.")],
               ]}
             />
@@ -778,12 +789,14 @@ export function CardShowcase() {
 
 <ProductCard
   nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic"
-  preco={329} bairro="Batel" novo
+  preco={329} precoAntigo={449} bairro="Batel" novo
   imagem={{ src: "/fotos/jaqueta.jpg", alt: "Jaqueta biker em couro caramelo" }}
   favorito={false} onFavoritar={(v) => salvar(id, v)}
   estoque={{ quantidade: 2, poucasAte: 3, atualizadoHa: "há 2 h" }}
   cta={{ href: "/pecas/123" }}
-/>`}</code></pre>
+/>
+
+<ProductCard orientation="horizontal" compacto … />`}</code></pre>
             </div>
           </div>
         </div>
