@@ -118,9 +118,10 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
             return (
               <label key={s.chave} className="inline-flex cursor-pointer items-center gap-2 text-[0.8125rem] text-foreground">
                 <input type="checkbox" checked={ativa} onChange={() => alternar(s.chave)} className="peer sr-only" />
-                <span aria-hidden className={cn("flex h-4 w-4 items-center justify-center rounded-[4px] border-2 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background")} style={{ borderColor: s.cor, background: ativa ? s.cor : "transparent" }}>
-                  {ativa && <svg viewBox="0 0 12 12" className="h-2.5 w-2.5 text-white" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M2.5 6.5l2.2 2.2 4.8-5" /></svg>}
+                <span aria-hidden className={cn("flex h-4 w-4 items-center justify-center rounded-[4px] border-2 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background", ativa ? "border-foreground bg-foreground text-background" : "border-muted-foreground bg-card")}>
+                  {ativa && <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M2.5 6.5l2.2 2.2 4.8-5" /></svg>}
                 </span>
+                <span aria-hidden className="h-[3px] w-4 rounded-full" style={{ background: s.cor }} />
                 {s.rotulo}
               </label>
             );
@@ -140,7 +141,7 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
             </defs>
             <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="3 3" />
             <XAxis dataKey={chaveX} tickLine={false} axisLine={false} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} interval="preserveStartEnd" minTickGap={24} />
-            <YAxis tickLine={false} axisLine={false} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} tickFormatter={(v: number) => formatarNumero(v)} width={52} />
+            <YAxis tickLine={false} axisLine={false} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} tickFormatter={(v: number) => formatarNumero(v)} width={52} domain={[0, (max: number) => Math.max(1, Math.ceil(max * 1.18))]} allowDecimals={false} />
             <ReTooltip
               cursor={{ stroke: "var(--border)" }}
               contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 10, fontSize: 12, color: "var(--popover-foreground)" }}
@@ -265,9 +266,9 @@ function AnelDePontuacao({ valor, tamanho = 112, rotulo, className }: { valor: n
         <circle cx="50" cy="50" r={r} fill="none" stroke="var(--muted)" strokeWidth="9" />
         <circle cx="50" cy="50" r={r} fill="none" stroke={faixa.cor} strokeWidth="9" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - valor / 100)} />
       </svg>
-      <span aria-hidden className="absolute text-center">
-        <span className={`${display} block text-[1.5rem] font-extrabold leading-none text-foreground`}>{valor}%</span>
-        <span className="block text-[0.75rem] font-semibold text-muted-foreground">{rotulo ?? faixa.rotulo}</span>
+      <span aria-hidden className="absolute flex max-w-[64%] flex-col items-center text-center">
+        <span className={`${display} block font-extrabold leading-none text-foreground`} style={{ fontSize: Math.round(tamanho * 0.2) }}>{valor}%</span>
+        <span className="mt-0.5 block text-[0.6875rem] font-semibold leading-tight text-muted-foreground">{rotulo ?? faixa.rotulo}</span>
       </span>
     </div>
   );

@@ -282,6 +282,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
         items: [
           { id: "states-lista",      label: "Os cinco estados", sectionId: "states" },
           { id: "states-componente", label: "Chip de status",   sectionId: "states" },
+          { id: "states-publicacao", label: "Status de publicação", sectionId: "states" },
           { id: "states-regras",     label: "Nunca só cor",     sectionId: "states" },
           { id: "states-tokens",     label: "Tokens",           sectionId: "states" },
         ],
@@ -373,8 +374,12 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       { id: "data", label: "Data Display", icon: TableProperties,
         items: [
           { id: "kpi-cards",   label: "KPI Cards", sectionId: "data" },
+          { id: "kpi-painel",  label: "Indicador do painel", sectionId: "data" },
           { id: "charts",      label: "Charts",    sectionId: "data" },
+          { id: "grafico-desempenho", label: "Gráfico de desempenho", sectionId: "data" },
           { id: "table",       label: "Table",     sectionId: "data" },
+          { id: "tabela-produtos", label: "Tabela de produtos", sectionId: "data" },
+          { id: "pontuacao-checklist", label: "Pontuação e checklist", sectionId: "data" },
           { id: "data-tokens", label: "Tokens",    sectionId: "data" },
         ],
       },
