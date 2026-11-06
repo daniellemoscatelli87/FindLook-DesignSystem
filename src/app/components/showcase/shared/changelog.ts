@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: { en: "Opens in light mode", pt: "DS abre no modo claro" },
+    desc: { en: "Light mode is FindLook's official theme.", pt: "O modo claro é o oficial da FindLook: o design system agora abre no claro. O modo escuro continua disponível no botão Escuro." },
+    page: "overview",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: { en: "Store panel components in their sections", pt: "Componentes do painel nas seções do DS" },
     desc: { en: "Panel components documented in existing sections.", pt: "A aba Painel da loja saiu. Cada componente do painel agora está na seção onde se encaixa, no mesmo padrão das demais: Exibição de dados (indicador, gráfico de desempenho, tabela de produtos, pontuação e checklist), Estados (status de publicação), Botões (botão dividido, seletor de período), Navegação (menu do painel, barra superior, cabeçalho da página), Feedback (abas com contador, banner promocional), Rótulos (listas de atividade e ações) e Cards (card de plano, card de dica, faixa de benefícios)." },
     page: "data", anchor: "kpi-painel",

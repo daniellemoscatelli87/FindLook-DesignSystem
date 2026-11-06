@@ -529,7 +529,7 @@ const sectionLabels: Record<string, string> = {
 function AppShell() {
   const { lang, t } = useI18n();
   const tl = (label: string) => (lang === "pt" ? ptLabels[label] ?? label : label);
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false); // FindLook: o modo claro é o oficial; o DS abre no claro
   const [activeSection, setActiveSection] = useState("overview");
   const [sidebarExpanded, setSidebarExpanded] = useState<Record<string, boolean>>({
     brand:     false,
