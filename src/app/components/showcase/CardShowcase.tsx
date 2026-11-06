@@ -153,7 +153,7 @@ function GlassFinishPicker() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex min-w-0 max-w-full flex-col gap-1.5 overflow-x-auto">
           <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Finish", "Acabamento")}</span>
           <SegmentedControl size="sm" aria-label={t("Finish", "Acabamento")} value={finish} onValueChange={setFinish} options={finishes.map(x => ({ value: x.value, label: x.label }))} />
         </div>
@@ -481,7 +481,7 @@ export function CardShowcase() {
               </div>
             </GlassScene>
           </div>
-          <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
             <DataTable
               head={[t("Rule", "Regra"), t("Guidance", "Orientação")]}
               rows={[
@@ -799,7 +799,7 @@ export function CardShowcase() {
             </div>
             <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Image on the left (144 to 192 px; 112 to 144 px compact), content on the right. For result lists, favorites in list view and the store's piece list. Second row: compact density.", "Imagem à esquerda (144 a 192 px; 112 a 144 px no compacto), conteúdo à direita. Para listas de resultados, favoritos em lista e a lista de peças da loja. Segunda linha: densidade compacta.")}</p>
           </div>
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 [&>*]:min-w-0">
             <DataTable
               head={[t("Element", "Elemento"), t("Rule", "Regra")]}
               rows={[

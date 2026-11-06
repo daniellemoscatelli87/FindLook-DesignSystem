@@ -275,18 +275,18 @@ function AnelDePontuacao({ valor, tamanho = 112, rotulo, className }: { valor: n
 }
 
 /* ── Carrossel de dicas ──────────────────────────────────────── */
-type Dica = { titulo: string; texto: string; acao: string; midia?: React.ReactNode };
+type Dica = { titulo: string; texto: string; acao: string; midia?: React.ReactNode; href?: string; onAcao?: React.MouseEventHandler<HTMLAnchorElement> };
 
 function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFechar?: () => void; className?: string }) {
   const [i, setI] = React.useState(0);
   const dica = dicas[i]!;
-  const btn = cn("flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted disabled:opacity-40 disabled:pointer-events-none", foco);
+  const btn = cn("flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted aria-disabled:opacity-40 aria-disabled:cursor-not-allowed", foco);
   return (
     <div data-slot="carrossel-de-dicas" role="region" aria-roledescription="carrossel" aria-label="Dicas para vender mais" className={cn("min-w-0", className)}>
       <div className="mb-3 flex items-center justify-end gap-2">
-        <button type="button" className={btn} onClick={() => setI(v => v - 1)} disabled={i === 0} aria-label="Dica anterior"><ChevronLeft aria-hidden className="h-4 w-4" /></button>
+        <button type="button" className={btn} onClick={() => setI(v => Math.max(0, v - 1))} aria-disabled={i === 0} aria-label="Dica anterior"><ChevronLeft aria-hidden className="h-4 w-4" /></button>
         <span className="min-w-12 text-center text-[0.75rem] font-medium text-muted-foreground" aria-live="polite">{i + 1} de {dicas.length}</span>
-        <button type="button" className={btn} onClick={() => setI(v => v + 1)} disabled={i === dicas.length - 1} aria-label="Próxima dica"><ChevronRight aria-hidden className="h-4 w-4" /></button>
+        <button type="button" className={btn} onClick={() => setI(v => Math.min(dicas.length - 1, v + 1))} aria-disabled={i === dicas.length - 1} aria-label="Próxima dica"><ChevronRight aria-hidden className="h-4 w-4" /></button>
         {onFechar && <button type="button" className={cn(btn, "border-transparent")} onClick={onFechar} aria-label="Fechar dicas"><X aria-hidden className="h-4 w-4" /></button>}
       </div>
       <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className="flex gap-4 rounded-[14px] border border-border bg-card p-3">
@@ -294,7 +294,7 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
         <div className="min-w-0 flex-1">
           <p className="text-[0.9375rem] font-bold text-foreground">{dica.titulo}</p>
           <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">{dica.texto}</p>
-          <a href="#" className={cn("mt-2 inline-flex h-8 items-center rounded-[8px] border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)]", foco)}>{dica.acao}</a>
+          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-[8px] border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)]", foco)}>{dica.acao}</a>
         </div>
       </div>
     </div>
@@ -325,14 +325,15 @@ function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { ic
 }
 
 /* ── Card de seção do painel (título, descrição, ação) ───────── */
-function CardDoPainel({ icone, titulo, descricao, acao, children, className, id }: { icone?: React.ReactNode; titulo: string; descricao?: string; acao?: React.ReactNode; children: React.ReactNode; className?: string; id?: string }) {
+function CardDoPainel({ icone, titulo, descricao, acao, children, className, id, nivel = 2 }: { icone?: React.ReactNode; titulo: string; descricao?: string; acao?: React.ReactNode; children: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
+  const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   return (
     <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-[18px] border border-border bg-card p-4 shadow-[var(--shadow-xs)] @xl:p-5", className)}>
       <div className="mb-4 flex items-start gap-3">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>}
         <div className="min-w-0 flex-1">
-          <h2 id={tid} className={`${display} text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground`}>{titulo}</h2>
+          <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
           {descricao && <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{descricao}</p>}
         </div>
         {acao}

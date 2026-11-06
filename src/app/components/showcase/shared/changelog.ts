@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: { en: "Store panel components in their sections", pt: "Componentes do painel nas seções do DS" },
+    desc: { en: "Panel components documented in existing sections.", pt: "A aba Painel da loja saiu. Cada componente do painel agora está na seção onde se encaixa, no mesmo padrão das demais: Exibição de dados (indicador, gráfico de desempenho, tabela de produtos, pontuação e checklist), Estados (status de publicação), Botões (botão dividido, seletor de período), Navegação (menu do painel, barra superior, cabeçalho da página), Feedback (abas com contador, banner promocional), Rótulos (listas de atividade e ações) e Cards (card de plano, card de dica, faixa de benefícios)." },
+    page: "data", anchor: "kpi-painel",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: { en: "Store panel: single navigable prototype", pt: "Painel da loja: protótipo navegável em uma janela só" },
     desc: { en: "Panel templates merged into one prototype.", pt: "Os templates do painel viraram um protótipo só, com altura fixa e rolagem própria: o menu lateral troca de página (Início, Produtos, Importar, Buscas, Inteligência de vendas, Perfil, Equipe, Planos, Configurações, Ajuda e Notificações), com busca que leva às páginas, menu do sino e da conta. O menu tem rolagem própria e vira gaveta dentro da janela em telas estreitas. Logo sem distorção. Entrar e criar conta e a landing page continuam separadas." },
     page: "templates", anchor: "template-dashboard",
