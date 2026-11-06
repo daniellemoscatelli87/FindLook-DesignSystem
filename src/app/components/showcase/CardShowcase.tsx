@@ -851,8 +851,8 @@ export function CardShowcase() {
           description="Mostra o plano atual da loja no menu do painel, com o mesmo nome e preço da página de planos (Visibilidade, Desempenho ou Oportunidades), e leva para a gestão do plano."
         />
         <div className="space-y-5">
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] items-start">
-            <div className="grid gap-5 sm:grid-cols-2 items-start">
+          <div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:max-w-3xl items-start">
               <div>
                 <RotuloVariante nome="Completo" prop="padrão" />
                 <CardDePlano plano="Plano Desempenho" preco="R$ 149" descricao="Análise de interesse, desempenho e recomendações para a sua loja." />
@@ -860,23 +860,9 @@ export function CardShowcase() {
               <div>
                 <RotuloVariante nome="Compacto" prop="compacto" />
                 <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" />
-                <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground">Para o rodapé do menu lateral, onde o espaço vertical é curto.</p>
               </div>
             </div>
-            <DataTable
-              head={["Regra", "Orientação"]}
-              rows={[
-                ["Nome e preço", "Os mesmos da página de planos: Visibilidade (R$ 79), Desempenho (R$ 149) ou Oportunidades (R$ 299). Nunca um nome só do menu."],
-                ["Ação", "Uma só, com verbo: “Gerenciar plano” por padrão. Leva para a página de planos, nunca para um pagamento direto."],
-                ["Onde usar", "Completo na página da conta ou no menu aberto; compacto no rodapé do menu lateral. Um card de plano por tela."],
-                ["Acessibilidade", "Texto em --primary-foreground sobre a primária, foco visível no botão e ícone de coroa decorativo (aria-hidden)."],
-              ]}
-            />
           </div>
-          <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { CardDePlano } from "@/app/components/ui/painel-shell";
-
-<CardDePlano plano="Plano Desempenho" preco="R$ 149" descricao="…" onAcao={() => ir("planos")} />
-<CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" onAcao={() => ir("planos")} />`}</code></pre>
         </div>
       </section>
 
@@ -887,33 +873,10 @@ export function CardShowcase() {
           description="Dicas curtas para a loja vender mais, uma por vez, que a pessoa passa no próprio ritmo e pode fechar."
         />
         <div className="space-y-5">
-          <div className="grid gap-5 lg:grid-cols-2 items-start">
-            <div className="min-w-0 space-y-5">
+          <div>
+            <div className="min-w-0 max-w-2xl">
               <DemoCarrosselDeDicas />
-              <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { CardDoPainel, CarrosselDeDicas }
-  from "@/app/components/ui/painel-dados";
-
-<CardDoPainel icone={<Lightbulb />} titulo="Dicas para vender mais">
-  <CarrosselDeDicas
-    onFechar={() => setDicas(false)}
-    dicas={[{
-      titulo: "Melhore suas fotos", texto: "…",
-      acao: "Ver dicas de foto",
-      midia: <IconeModa nome="cabide" size={40} />,
-    }]}
-  />
-</CardDoPainel>`}</code></pre>
             </div>
-            <DataTable
-              head={["Regra", "Orientação"]}
-              rows={[
-                ["Ritmo", "Não passa sozinho: a pessoa usa as setas e vê “1 de 3”. Sem rolagem automática."],
-                ["Quantidade", "De duas a cinco dicas, cada uma com título, uma frase e uma ação."],
-                ["Texto", "Conselho prático e verdadeiro. Sem promessas nem números de resultado sem fonte (nada de “+40% de vendas”)."],
-                ["Fechar", "Sempre fechável; ofereça “Mostrar de novo” no mesmo lugar e lembre a escolha da pessoa."],
-                ["Onde usar", "Dentro de um card do painel com título, nunca solto na página."],
-              ]}
-            />
           </div>
         </div>
       </section>
@@ -937,31 +900,6 @@ export function CardShowcase() {
                 { icone: <TrendingUp />, rotulo: "Mais oportunidades de venda" },
               ]}
             />
-          </div>
-          <div className="grid gap-5 lg:grid-cols-2 items-start">
-            <DataTable
-              head={["Regra", "Orientação"]}
-              rows={[
-                ["Conteúdo", "Um título, uma frase e quatro benefícios de duas a quatro palavras, cada um com ícone."],
-                ["Benefícios", "Descreva o que o produto faz, sem números nem promessas de resultado."],
-                ["Onde usar", "No fim de uma página do painel ou entre seções; uma faixa por página."],
-                ["Layout", "Envolva em @container: 1, 2 ou 4 colunas conforme a largura; texto e ícones ao lado no espaço largo."],
-              ]}
-            />
-            <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { FaixaDeBeneficios }
-  from "@/app/components/ui/painel-dados";
-
-<div className="@container">
-  <FaixaDeBeneficios
-    icone={<Sparkles />}
-    titulo="Mais visibilidade, mais oportunidades."
-    texto="Suas peças aparecem para quem procura o seu estilo."
-    beneficios={[
-      { icone: <Search />, rotulo: "Descoberta de peças" },
-      { icone: <MapPin />, rotulo: "Clientes da sua região" },
-    ]}
-  />
-</div>`}</code></pre>
           </div>
         </div>
       </section>

@@ -35,13 +35,13 @@ type CabecalhoDaPaginaProps = {
 function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, nivel = 1, className }: CabecalhoDaPaginaProps) {
   const Titulo = `h${nivel}` as "h1" | "h2" | "h3";
   return (
-    <header data-slot="cabecalho-da-pagina" className={cn("flex flex-col gap-4 @3xl:flex-row @3xl:items-end @3xl:justify-between", className)}>
+    <header data-slot="cabecalho-da-pagina" className={cn("flex flex-col gap-4 @4xl:flex-row @4xl:items-end @4xl:justify-between @4xl:gap-8", className)}>
       <div className="min-w-0 max-w-2xl">
         {saudacao && <p className="mb-1 text-[0.9375rem] font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
         <Titulo className={`${display} text-[1.625rem] @xl:text-[2rem] font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
         {descricao && <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">{descricao}</p>}
       </div>
-      {acoes && <div className="flex flex-wrap items-center gap-2">{acoes}</div>}
+      {acoes && <div className="flex shrink-0 flex-wrap items-center gap-2 @4xl:flex-nowrap">{acoes}</div>}
     </header>
   );
 }
@@ -61,7 +61,7 @@ function SeletorDePeriodo({ valor, onChange, periodos = periodosPadrao, classNam
       <DropdownMenuTrigger
         aria-label={`Período: ${atual.rotulo}. Trocar período`}
         className={cn(
-          "inline-flex h-10 items-center gap-2 rounded-[10px] border border-border bg-card px-3 text-[0.8125rem] font-medium text-foreground shadow-[var(--shadow-xs)] transition-colors hover:bg-muted/60",
+          "inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[10px] border border-border bg-card px-3 text-[0.9375rem] text-foreground transition-colors hover:bg-accent",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className,
         )}
@@ -86,14 +86,14 @@ type AcaoDoMenu = { rotulo: string; icone?: React.ReactNode; onSelect?: () => vo
 function BotaoDividido({ rotulo, icone, onClick, acoes, rotuloMenu = "Mais opções", className }: { rotulo: string; icone?: React.ReactNode; onClick?: () => void; acoes: AcaoDoMenu[]; rotuloMenu?: string; className?: string }) {
   const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
   return (
-    <div data-slot="botao-dividido" className={cn("inline-flex h-10 rounded-[10px] bg-primary text-primary-foreground shadow-[var(--shadow-sm)]", className)}>
-      <button type="button" onClick={onClick} className={cn("inline-flex items-center gap-2 rounded-l-[10px] px-4 text-[0.875rem] font-semibold transition-colors hover:bg-primary/90", foco)}>
+    <div data-slot="botao-dividido" className={cn("inline-flex h-10 rounded-[12px] bg-primary text-primary-foreground shadow-sm", className)}>
+      <button type="button" onClick={onClick} className={cn("inline-flex items-center gap-2 whitespace-nowrap rounded-l-[12px] pl-3.5 pr-4 text-[0.9375rem] font-medium transition-colors hover:bg-[var(--primary-hover)]", foco)}>
         {icone && <span aria-hidden className="[&>svg]:h-4 [&>svg]:w-4">{icone}</span>}
         {rotulo}
       </button>
       <span aria-hidden className="my-2 w-px bg-primary-foreground/40" />
       <DropdownMenu>
-        <DropdownMenuTrigger aria-label={`${rotuloMenu}: ${rotulo}`} className={cn("inline-flex w-10 items-center justify-center rounded-r-[10px] transition-colors hover:bg-primary/90", foco)}>
+        <DropdownMenuTrigger aria-label={`${rotuloMenu}: ${rotulo}`} className={cn("inline-flex w-10 items-center justify-center rounded-r-[12px] transition-colors hover:bg-[var(--primary-hover)]", foco)}>
           <ChevronDown aria-hidden className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-52">
@@ -131,7 +131,7 @@ function BannerPromocional({ titulo, texto, acao, onAcao, onFechar, imagem, clas
         <button
           type="button"
           onClick={onAcao}
-          className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-[10px] bg-primary px-3.5 text-[0.8125rem] font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="mt-3 inline-flex h-10 items-center gap-1.5 rounded-[12px] bg-primary px-4 text-[0.9375rem] font-medium text-primary-foreground shadow-sm transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {acao} <ArrowRight aria-hidden className="h-4 w-4" />
         </button>

@@ -353,7 +353,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
 ───────────────────────────────────────────── */
 function BotaoContorno({ children, onClick, href = "#", externo }: { children: React.ReactNode; onClick?: React.MouseEventHandler<HTMLAnchorElement>; href?: string; externo?: boolean }) {
   return (
-    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 rounded-[10px] border border-border bg-card px-3.5 text-[0.875rem] font-medium text-foreground shadow-[var(--shadow-xs)] transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[12px] border border-[var(--border-strong)] bg-transparent px-4 text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
       {children}
     </a>
   );
@@ -416,13 +416,11 @@ function PaginaInicio() {
       </div>
 
       <div className="grid gap-4 @6xl:grid-cols-[minmax(0,1fr)_22rem]">
-        <CardDoPainel icone={<Shirt />} titulo={`Seus produtos (${formatarNumero(137)})`} descricao="Gerencie, edite e acompanhe o desempenho das suas peças.">
-          <TabelaDeProdutos produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={4} onVerTodos={() => ir("produtos")} />
-        </CardDoPainel>
+        <TabelaDeProdutos titulo="Seus produtos" descricao="Gerencie, edite e acompanhe o desempenho das suas peças." produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={4} onVerTodos={() => ir("produtos")} />
         <div className="grid gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
           <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
             <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
-            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-[10px] border border-primary text-[0.875rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
+            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-[12px] border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
           </CardDoPainel>
           <CardDoPainel icone={<ClipboardList />} titulo="Próximas ações" descricao="O que fazer agora para ser mais encontrada.">
             <div className="space-y-2">
@@ -481,14 +479,12 @@ function PaginaProdutos() {
         </>}
       />
       <div className="grid grid-cols-2 gap-3 @min-[44rem]:grid-cols-4">
-        <CardIndicador estilo="pilula" icone={<Shirt />} valor={128} rotulo="Publicados" variacao={12} />
-        <CardIndicador estilo="pilula" icone={<ClipboardList />} valor={6} rotulo="Pendentes" explicacao="Peças com alguma informação faltando ou foto em baixa qualidade. Elas só aparecem na vitrine depois de revisadas." />
-        <CardIndicador estilo="pilula" icone={<Boxes />} valor={3} rotulo="Esgotados" />
-        <CardIndicador estilo="pilula" icone={<Bell />} valor={2} rotulo="Reservados" />
+        <CardIndicador icone={<Shirt />} valor={128} rotulo="Publicados" variacao={12} />
+        <CardIndicador icone={<ClipboardList />} valor={6} rotulo="Pendentes" explicacao="Peças com alguma informação faltando ou foto em baixa qualidade. Elas só aparecem na vitrine depois de revisadas." />
+        <CardIndicador icone={<Boxes />} valor={3} rotulo="Esgotados" />
+        <CardIndicador icone={<Bell />} valor={2} rotulo="Reservados" />
       </div>
-      <CardDoPainel titulo={`Todos os produtos (${formatarNumero(137)})`} descricao="Selecione peças para publicar, marcar como esgotadas ou excluir de uma vez.">
-        <TabelaDeProdutos produtos={produtosExemplo} total={137} contagens={contagensExemplo} estiloAbas="sublinhado" />
-      </CardDoPainel>
+      <TabelaDeProdutos titulo="Todos os produtos" descricao="Selecione peças para publicar, marcar como esgotadas ou excluir de uma vez." produtos={produtosExemplo} total={137} contagens={contagensExemplo} />
     </>
   );
 }
@@ -581,7 +577,7 @@ function PaginaEmBreve({ titulo }: { titulo: string }) {
         <span aria-hidden className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]"><Construction className="h-6 w-6" /></span>
         <p className="font-[family-name:var(--font-display)] text-[1.125rem] font-bold text-foreground">Esta página ainda não tem template no DS</p>
         <p className="mt-1 max-w-md text-[0.875rem] leading-relaxed text-muted-foreground">O menu já leva até aqui para mostrar a navegação. O conteúdo de “{titulo}” ainda vai ser desenhado com os componentes do painel.</p>
-        <a href="#inicio" onClick={irPara(ir, "inicio")} className="mt-5 inline-flex h-10 items-center rounded-[10px] bg-primary px-4 text-[0.875rem] font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Voltar ao início</a>
+        <a href="#inicio" onClick={irPara(ir, "inicio")} className="mt-5 inline-flex h-10 items-center rounded-[12px] bg-primary px-4 text-[0.9375rem] font-medium text-primary-foreground shadow-sm hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Voltar ao início</a>
       </div>
     </>
   );

@@ -155,42 +155,25 @@ export function StatesShowcase() {
 
       <PageSection
         id="states-publicacao"
-        label="Componente do painel"
+        label="Componente"
         title="Status de publicação do produto"
-        intro={<p>Mostra ao lojista em que etapa cada peça está no painel. Como o chip, junta ícone, texto e cor; quando a peça está pendente, traz o motivo logo abaixo.</p>}
+        intro={<p>Mostra ao lojista, no painel, em que etapa cada peça está. Usa o mesmo chip compacto dos estados de informação: ícone, texto e cor sempre juntos. Quando a peça está pendente, o motivo aparece logo abaixo.</p>}
       >
         <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-6">
           <div>
             <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">Os cinco status</p>
-            <div className="flex flex-wrap gap-2">{statusPublicacao.map(s => <StatusDePublicacao key={s.status} status={s.status} />)}</div>
-          </div>
-          <div>
-            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">Quando usar cada um</p>
-            <div className="rounded-[var(--radius)] border border-border bg-background overflow-hidden">
-              {statusPublicacao.map((s, i, arr) => (
-                <div key={s.status} className={`grid grid-cols-1 sm:grid-cols-[12rem_minmax(0,1fr)] gap-2 sm:gap-4 px-4 py-3 ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
-                  <StatusDePublicacao status={s.status} motivo={s.motivo} />
-                  <p className="text-[0.8125rem] text-foreground leading-relaxed sm:pt-0.5">{s.quando}</p>
-                </div>
-              ))}
+            <div className="flex flex-wrap gap-2">
+              {(["publicado", "pendente", "esgotado", "reservado", "rascunho"] as const).map(st => <StatusDePublicacao key={st} status={st} />)}
             </div>
           </div>
-          <div className="rounded-[10px] bg-muted/60 border border-border p-4 text-[0.8125rem] text-muted-foreground font-mono leading-relaxed overflow-x-auto whitespace-pre">
-            {'<StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />\n// publicado | pendente | esgotado | reservado | rascunho'}
+          <div>
+            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">Com motivo</p>
+            <StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />
+          </div>
+          <div className="rounded-[10px] bg-muted/60 border border-border p-4 text-[0.8125rem] text-muted-foreground font-mono leading-relaxed overflow-x-auto">
+            {'<StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />  // publicado | pendente | esgotado | reservado | rascunho'}
           </div>
         </div>
-        <ul className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
-          {[
-            ["Estado de informação ≠ status de publicação", "O estado de informação diz o quanto um dado é confiável (confirmado, a confirmar, sugerido por IA). O status de publicação diz em que etapa a peça está no painel da loja."],
-            ["Quem vê cada um", "Estados de informação aparecem para o consumidor e para o lojista. O status de publicação é do painel da loja; na vitrine, o consumidor só vê o resultado."],
-            ["Esgotado nos dois", "É o mesmo nome e o mesmo ícone: no painel, o lojista muda o status; na vitrine, o consumidor vê o chip “Esgotado”."],
-          ].map(([t, d]) => (
-            <li key={t} className="rounded-[var(--radius)] border border-border bg-card p-4">
-              <p className="text-[0.875rem] font-semibold text-foreground mb-1">{t}</p>
-              <p className="text-[0.8125rem] text-muted-foreground leading-relaxed">{d}</p>
-            </li>
-          ))}
-        </ul>
       </PageSection>
 
       <PageSection

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: { en: "Panel components aligned with the DS", pt: "Componentes do painel alinhados ao DS" },
+    desc: { en: "Panel components now follow existing DS components and documentation.", pt: "Os componentes do painel passaram a seguir os que já existiam: indicador com a anatomia do Card de KPI, tabela de produtos no desenho da Tabela de dados (com o checkbox do DS), abas com contador iguais às Abas, status no chip dos Estados de informação, botão dividido e seletor de período nas medidas do botão e do select, legenda do gráfico em pontos. O anel de pontuação virou Gráfico de anel, em Gráficos. A documentação das seções novas segue o padrão do DS: título, descrição e exemplos." },
+    page: "data", anchor: "grafico-anel",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: { en: "Opens in light mode", pt: "DS abre no modo claro" },
     desc: { en: "Light mode is FindLook's official theme.", pt: "O modo claro é o oficial da FindLook: o design system agora abre no claro. O modo escuro continua disponível no botão Escuro." },
     page: "overview",

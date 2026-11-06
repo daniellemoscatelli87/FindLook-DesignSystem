@@ -5,7 +5,7 @@ import {
   TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight,
   Users, DollarSign, Activity, BarChart2, ChevronUp, ChevronDown,
   ChevronsUpDown, ExternalLink, MoreHorizontal, Filter, Download,
-  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2,
+  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch,
 } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line,
@@ -156,29 +156,6 @@ function DemoLabel({ children }: { children: React.ReactNode }) {
   return <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">{children}</p>;
 }
 
-function UsageBlock({ code, rules }: { code: string; rules: [string, string][] }) {
-  return (
-    <div className="mt-6 space-y-6">
-      <div>
-        <DemoLabel>Código</DemoLabel>
-        <div className="rounded-[16px] border border-border bg-muted/40 overflow-hidden">
-          <pre className="px-5 py-4 text-[0.75rem] leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto"><code>{code}</code></pre>
-        </div>
-      </div>
-      <div>
-        <DemoLabel>Regras de uso</DemoLabel>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {rules.map(([titulo, texto]) => (
-            <li key={titulo} className="rounded-[16px] border border-border bg-card p-4">
-              <p className="text-[0.875rem] font-semibold text-foreground mb-1">{titulo}</p>
-              <p className="text-[0.8125rem] text-muted-foreground leading-relaxed">{texto}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
 
 const seriesDesempenho = [
   { chave: "visualizacoes", rotulo: "Visualizações", cor: "var(--chart-1)" },
@@ -186,45 +163,10 @@ const seriesDesempenho = [
   { chave: "contatos", rotulo: "Contatos", cor: "var(--chart-3)" },
 ];
 
-const codigoIndicador = `<CardIndicador
-  icone={<Eye />}
-  valor={1284}
-  rotulo="Visualizações"
-  variacao={18.6}
-  comparacao="vs. 30 dias"
-/>
 
-// Variação no canto superior, para grades compactas
-<CardIndicador estilo="pilula" icone={<Search />} valor={312} rotulo="Buscas com a sua loja" variacao={12} />`;
 
-const codigoGrafico = `const series = [
-  { chave: "visualizacoes", rotulo: "Visualizações", cor: "var(--chart-1)" },
-  { chave: "favoritos",     rotulo: "Favoritos",     cor: "var(--chart-2)" },
-  { chave: "contatos",      rotulo: "Contatos",      cor: "var(--chart-3)" },
-];
 
-<GraficoDeDesempenho dados={dados} chaveX="dia" series={series} visiveisIniciais={["visualizacoes"]} />`;
 
-const codigoTabela = `<TabelaDeProdutos
-  produtos={produtos}
-  total={137}
-  contagens={{ publicado: 128, pendente: 6, esgotado: 3, reservado: 2 }}
-  limite={5}
-  onVerTodos={() => irPara("produtos")}
-/>`;
-
-const codigoPontuacao = `<AnelDePontuacao valor={85} />   // 80 a 100: Bom · 50 a 79: Regular · abaixo de 50: Precisa melhorar
-
-<ul>
-  <ItemDeChecklist estado="ok" texto="Fotos com boa qualidade" href="/produtos" />
-  <ItemDeChecklist estado="atencao" texto="2 peças sem tamanho informado" href="/produtos?filtro=sem-tamanho" />
-</ul>`;
-
-const exemplosPontuacao = [
-  { valor: 85, detalhe: "De 80 a 100" },
-  { valor: 62, detalhe: "De 50 a 79" },
-  { valor: 34, detalhe: "Abaixo de 50" },
-];
 
 const itensChecklist: { estado: "ok" | "atencao"; texto: string }[] = [
   { estado: "ok", texto: "Fotos com boa qualidade" },
@@ -311,34 +253,13 @@ export function DataShowcase() {
 
       {/* ── INDICADOR DO PAINEL ── */}
       <section id="kpi-painel">
-        <SectionHeader title="Indicador do painel" description="Card de número do painel da loja, com variação em seta e texto e explicação opcional do termo." />
+        <SectionHeader title="Indicador do painel" description="Card de KPI do painel da loja: mesma anatomia dos Cards de KPI, sem o gráfico, com explicação opcional do termo." />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="flex flex-col min-w-0">
-            <DemoLabel>Linha, com comparação</DemoLabel>
-            <CardIndicador className="flex-1" icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <DemoLabel>Com explicação</DemoLabel>
-            <CardIndicador className="flex-1" icone={<Heart />} valor={24} rotulo="Favoritos" variacao={9} comparacao="vs. 30 dias" explicacao="Quantas vezes alguém salvou uma peça da sua loja para ver depois." />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <DemoLabel>Variação negativa</DemoLabel>
-            <CardIndicador className="flex-1" icone={<MessageCircle />} valor={6} rotulo="Contatos" variacao={-4} comparacao="vs. 30 dias" />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <DemoLabel>Pílula</DemoLabel>
-            <CardIndicador className="flex-1" estilo="pilula" icone={<Search />} valor={312} rotulo="Buscas com a sua loja" variacao={12} />
-          </div>
+          <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
+          <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
+          <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
+          <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
         </div>
-        <UsageBlock
-          code={codigoIndicador}
-          rules={[
-            ["Variação com seta e texto", "A cor só reforça: a seta e o sinal (+ ou −) comunicam. O leitor de tela ouve, por exemplo, “Alta de 18,6% vs. 30 dias”."],
-            ["Sempre diga a comparação", "Use “vs. 30 dias” ou o período escolhido no painel. Uma variação sem referência confunde."],
-            ["Explique termos novos", "Use explicacao quando o rótulo não for óbvio. O botão de informação abre por toque, teclado e mouse."],
-            ["Linha ou pílula", "Linha nos indicadores principais do painel; pílula em grades compactas, quando falta espaço vertical."],
-          ]}
-        />
       </section>
 
       {/* ── CHARTS ── */}
@@ -434,34 +355,39 @@ export function DataShowcase() {
 
       {/* ── GRÁFICO DE DESEMPENHO ── */}
       <section id="grafico-desempenho">
-        <SectionHeader title="Gráfico de desempenho" description="Gráfico de área do painel da loja, com legenda que liga e desliga cada série." />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <ShowcaseCard className="lg:col-span-2 min-w-0">
-            <DemoLabel>Padrão: começa com uma série</DemoLabel>
-            <div className="mb-4">
-              <h3 className="text-[1rem] font-semibold text-foreground">Desempenho da loja</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">Últimos 30 dias. Marque Favoritos ou Contatos para comparar.</p>
-            </div>
-            <GraficoDeDesempenho dados={dadosDesempenho} chaveX="dia" series={seriesDesempenho} visiveisIniciais={["visualizacoes"]} />
-          </ShowcaseCard>
-          <ShowcaseCard className="min-w-0">
-            <DemoLabel>Séries de escala parecida</DemoLabel>
-            <div className="mb-4">
-              <h3 className="text-[1rem] font-semibold text-foreground">Favoritos e contatos</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">Últimos 30 dias</p>
-            </div>
-            <GraficoDeDesempenho dados={dadosDesempenho} chaveX="dia" series={seriesDesempenho} visiveisIniciais={["favoritos", "contatos"]} destacarUltimo={false} />
-          </ShowcaseCard>
+        <SectionHeader title="Gráfico de desempenho" description="Gráfico de área do painel da loja, com legenda que liga e desliga cada série e destaque do valor mais recente." />
+        <ShowcaseCard>
+          <div className="mb-4">
+            <h3 className="text-[1rem] font-semibold text-foreground">Desempenho da descoberta</h3>
+            <p className="text-[0.8125rem] text-muted-foreground">Visualizações, favoritos e contatos nos últimos 30 dias</p>
+          </div>
+          <GraficoDeDesempenho dados={dadosDesempenho} chaveX="dia" series={seriesDesempenho} visiveisIniciais={["visualizacoes"]} altura={240} />
+        </ShowcaseCard>
+      </section>
+
+      {/* ── GRÁFICO DE ANEL ── */}
+      <section id="grafico-anel">
+        <SectionHeader title="Gráfico de anel" description="Pontuação de 0 a 100 em anel, com o número e a faixa escritos no centro: Bom, Regular ou Precisa melhorar." />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-4">
+          {[{ v: 85, faixa: "80 a 100" }, { v: 62, faixa: "50 a 79" }, { v: 34, faixa: "Abaixo de 50" }].map(x => (
+            <ShowcaseCard key={x.v} className="flex flex-col items-center gap-3 text-center">
+              <AnelDePontuacao valor={x.v} tamanho={128} />
+              <p className="text-[0.8125rem] text-muted-foreground">{x.faixa}</p>
+            </ShowcaseCard>
+          ))}
         </div>
-        <UsageBlock
-          code={codigoGrafico}
-          rules={[
-            ["Comece com uma série", "Visualizações têm escala muito maior que favoritos e contatos. Mostre uma por vez e deixe a pessoa marcar as outras."],
-            ["Legenda é controle", "Cada item da legenda é uma caixa de seleção com rótulo, por toque e teclado. Pelo menos uma série fica sempre visível."],
-            ["Cores só dos tokens", "Use var(--chart-1), var(--chart-2) e var(--chart-3), nessa ordem. A série principal fica com o pink."],
-            ["Resumo em texto", "O gráfico tem descrição para leitor de tela com o último valor de cada série visível, e o último número aparece em destaque."],
-          ]}
-        />
+        <ShowcaseCard>
+          <div className="mb-4">
+            <h3 className="text-[1rem] font-semibold text-foreground">Saúde do catálogo</h3>
+            <p className="text-[0.8125rem] text-muted-foreground">Em uso: o anel ao lado da lista do que falta melhorar</p>
+          </div>
+          <div className="flex flex-col items-center gap-6 sm:flex-row">
+            <AnelDePontuacao valor={85} tamanho={128} />
+            <ul className="w-full min-w-0 flex-1 space-y-1">
+              {itensChecklist.map(i => <ItemDeChecklist key={i.texto} estado={i.estado} texto={i.texto} />)}
+            </ul>
+          </div>
+        </ShowcaseCard>
       </section>
 
       {/* ── TABLE ── */}
@@ -563,101 +489,8 @@ export function DataShowcase() {
 
       {/* ── TABELA DE PRODUTOS ── */}
       <section id="tabela-produtos">
-        <SectionHeader title="Tabela de produtos" description="Lista de peças do painel da loja, com abas por status, busca, seleção em lote e ações por linha." />
-        <DemoLabel>Anatomia</DemoLabel>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <ShowcaseCard className="min-w-0">
-            <p className="text-[0.875rem] font-semibold text-foreground">1. Célula de produto</p>
-            <p className="text-[0.8125rem] text-muted-foreground mb-4">Foto ou ícone, nome e detalhes (SKU, tamanho, material).</p>
-            <CelulaDeProduto nome={produtosExemplo[0]!.nome} detalhes={produtosExemplo[0]!.detalhes} icone={produtosExemplo[0]!.icone} />
-            <p className="mt-4 text-[0.6875rem] font-mono text-muted-foreground">CelulaDeProduto</p>
-          </ShowcaseCard>
-          <ShowcaseCard className="min-w-0">
-            <p className="text-[0.875rem] font-semibold text-foreground">2. Medidor de desempenho</p>
-            <p className="text-[0.8125rem] text-muted-foreground mb-4">Cinco barras de nível, sempre com as visualizações e os favoritos em texto.</p>
-            <div className="flex h-12 items-center overflow-x-auto">
-              <MedidorDeDesempenho nivel={produtosExemplo[0]!.nivel} visualizacoes={produtosExemplo[0]!.visualizacoes} favoritos={produtosExemplo[0]!.favoritos} />
-            </div>
-            <p className="mt-4 text-[0.6875rem] font-mono text-muted-foreground">MedidorDeDesempenho</p>
-          </ShowcaseCard>
-          <ShowcaseCard className="md:col-span-2 min-w-0">
-            <p className="text-[0.875rem] font-semibold text-foreground">3. Seleção e ações em lote</p>
-            <p className="text-[0.8125rem] text-muted-foreground mb-4">Ao marcar produtos na tabela, aparece a barra com a quantidade e as ações para todos de uma vez. Exemplo com 2 produtos marcados:</p>
-            {selecaoExemplo > 0 ? (
-              <BarraDeAcoesEmLote
-                selecionados={selecaoExemplo}
-                onLimpar={() => setSelecaoExemplo(0)}
-                acoes={[
-                  { rotulo: "Publicar", icone: <Send aria-hidden /> },
-                  { rotulo: "Marcar como esgotado", icone: <Ban aria-hidden /> },
-                  { rotulo: "Excluir", icone: <Trash2 aria-hidden />, destrutiva: true },
-                ]}
-              />
-            ) : (
-              <div className="flex flex-wrap items-center gap-2 rounded-[12px] border border-dashed border-border px-3 py-2">
-                <p className="mr-auto text-[0.8125rem] text-muted-foreground">Sem produtos marcados, a barra não aparece.</p>
-                <button type="button" onClick={() => setSelecaoExemplo(2)} className="inline-flex h-8 items-center rounded-[8px] border border-border bg-card px-3 text-[0.8125rem] font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                  Marcar 2 de novo
-                </button>
-              </div>
-            )}
-            <p className="mt-4 text-[0.6875rem] font-mono text-muted-foreground">BarraDeAcoesEmLote</p>
-          </ShowcaseCard>
-        </div>
-        <ShowcaseCard className="min-w-0">
-          <DemoLabel>Tabela completa, prévia de 5 produtos</DemoLabel>
-          <div className="mb-4">
-            <h3 className="text-[1rem] font-semibold text-foreground">Produtos</h3>
-            <p className="text-[0.8125rem] text-muted-foreground">137 produtos na loja</p>
-          </div>
-          <TabelaDeProdutos produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={5} />
-        </ShowcaseCard>
-        <UsageBlock
-          code={codigoTabela}
-          rules={[
-            ["Vira lista em telas estreitas", "Quando o espaço é menor que 672 px, cada produto vira um card com preço, status e desempenho."],
-            ["Contagem real nas abas", "Se a tabela mostra só parte das peças, passe total e contagens para as abas e o rodapé mostrarem os números da loja inteira."],
-            ["Desempenho com número", "As barras do medidor nunca aparecem sozinhas: as visualizações e os favoritos vêm sempre em texto."],
-            ["Ações em lote só com seleção", "A barra aparece quando há produto marcado e anuncia a quantidade. Excluir fica por último, com borda de erro e texto."],
-          ]}
-        />
-      </section>
-
-      {/* ── PONTUAÇÃO E CHECKLIST ── */}
-      <section id="pontuacao-checklist">
-        <SectionHeader title="Pontuação e checklist" description="Nota de 0 a 100 da loja e a lista do que está em dia ou precisa de atenção." />
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-4">
-          <ShowcaseCard className="min-w-0">
-            <DemoLabel>Anel de pontuação, três faixas</DemoLabel>
-            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {exemplosPontuacao.map(e => (
-                <li key={e.valor} className="flex items-center gap-4 rounded-[12px] border border-border bg-background p-4 sm:flex-col sm:text-center">
-                  <AnelDePontuacao valor={e.valor} tamanho={144} />
-                  <div className="min-w-0">
-                    <p className="text-[0.875rem] font-semibold text-foreground">{e.detalhe}</p>
-                    <p className="text-[0.6875rem] font-mono text-muted-foreground">valor={"{"}{e.valor}{"}"}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </ShowcaseCard>
-          <ShowcaseCard className="min-w-0">
-            <DemoLabel>Item de checklist, em dia e atenção</DemoLabel>
-            <ul className="divide-y divide-border rounded-[12px] border border-border bg-background p-1">
-              {itensChecklist.map(i => <ItemDeChecklist key={i.texto} estado={i.estado} texto={i.texto} />)}
-            </ul>
-            <p className="mt-3 text-[0.8125rem] text-muted-foreground">3 de 5 itens em dia. Cada linha abre a tela onde o item se resolve.</p>
-          </ShowcaseCard>
-        </div>
-        <UsageBlock
-          code={codigoPontuacao}
-          rules={[
-            ["Faixa escrita, não só cor", "Bom, Regular ou Precisa melhorar aparece escrito dentro do anel, além da cor da faixa."],
-            ["O checklist explica a nota", "Mostre o checklist perto do anel, para a pessoa entender o que fazer para subir a pontuação."],
-            ["Cada item leva à correção", "Todo item é um link para a tela onde o problema se resolve."],
-            ["Ícone diferente por estado", "Em dia usa o ícone de confirmação; atenção usa o triângulo. O leitor de tela ouve “Em dia:” ou “Precisa de atenção:”."],
-          ]}
-        />
+        <SectionHeader title="Tabela de produtos" description="Tabela do painel da loja, no mesmo desenho da Tabela de dados, com abas por status, busca, seleção com ações em lote e menu por linha." />
+        <TabelaDeProdutos titulo="Produtos" produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={5} />
       </section>
 
       {/* ── Tokens ── */}

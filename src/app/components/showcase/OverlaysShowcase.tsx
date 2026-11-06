@@ -275,7 +275,7 @@ export function OverlaysShowcase() {
         <SectionHeader title="Menu do painel" description="Menu lateral do painel da loja: troca de loja, páginas agrupadas por assunto e o plano atual no rodapé." />
         <SubSection title="Anatomia do menu">
           <ShowcaseCard>
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:items-start">
+            <div>
               <div className="w-64 max-w-full">
                 <nav aria-label="Menu do painel (exemplo)" className="flex flex-col gap-2 rounded-[16px] border border-border bg-background p-3">
                   <SeletorDeLoja loja="Ateliê Aurora" />
@@ -295,37 +295,8 @@ export function OverlaysShowcase() {
                   </GrupoDoMenu>
                   <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" className="mt-2" />
                 </nav>
-                <p className="mt-3 text-[0.75rem] text-muted-foreground" aria-live="polite">Página atual: <span className="font-medium text-foreground">{rotuloAtivo}</span></p>
               </div>
-              <ListaDePartes
-                itens={[
-                  { nome: "Seletor de loja", texto: "Mostra a loja aberta e o selo de loja verificada. Toque para trocar de loja quando a pessoa cuida de mais de uma." },
-                  { nome: "Item ativo", texto: "A página aberta tem fundo suave, texto em destaque e uma barra à esquerda. Para o leitor de tela, o link recebe aria-current=\"page\"." },
-                  { nome: "Contador", texto: "Número de novidades da página, como 3 pedidos novos. Some quando é zero e é lido junto com o rótulo (\"3 pedidos novos\")." },
-                  { nome: "Grupo", texto: "Junta páginas do mesmo assunto sob um título curto, como \"Minha loja\". O primeiro grupo pode ficar sem título." },
-                  { nome: "Card de plano", texto: "Fica no rodapé do menu e mostra o plano e o preço, com um atalho para gerenciar a assinatura." },
-                ]}
-              />
             </div>
-            <pre className="mt-6 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeletorDeLoja, GrupoDoMenu, ItemDoMenu, CardDePlano } from "@/app/components/ui/painel-shell";
-
-<nav aria-label="Menu do painel">
-  <SeletorDeLoja loja="Ateliê Aurora" onClick={abrirTrocaDeLoja} />
-  <GrupoDoMenu>
-    <ItemDoMenu href="/painel" icone={<House />} ativo>Início</ItemDoMenu>
-    <ItemDoMenu href="/pedidos" icone={<ShoppingBag />} contador={3} rotuloContador="pedidos novos">Pedidos</ItemDoMenu>
-  </GrupoDoMenu>
-  <GrupoDoMenu titulo="Minha loja">
-    <ItemDoMenu href="/perfil" icone={<Store />}>Perfil da loja</ItemDoMenu>
-  </GrupoDoMenu>
-  <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" />
-</nav>`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
-              <li>• Só um item ativo por vez, sempre a página aberta. A marcação não depende só da cor: há barra lateral e aria-current.</li>
-              <li>• Rótulos de uma ou duas palavras, com ícone. Até sete itens por grupo; mais que isso, crie outro grupo.</li>
-              <li>• Use o contador só para o que pede ação (pedidos novos, reservas pendentes) e passe um rotuloContador que explique o número.</li>
-              <li>• Envolva o menu em um nav com aria-label. Teclado: Tab percorre os itens na ordem em que aparecem.</li>
-            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
@@ -371,34 +342,6 @@ export function OverlaysShowcase() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            <p className="mt-3 min-h-[1.25rem] text-[0.75rem] text-muted-foreground" aria-live="polite">{avisoBusca || "Toque na busca, no sino ou na conta para ver o que cada um abre."}</p>
-            <ListaDePartes
-              className="mt-6 sm:grid-cols-3"
-              itens={[
-                { nome: "Busca global", texto: "Ocupa o espaço livre da barra. Parece um campo, mas é um botão que abre a busca do painel inteiro (produtos, pedidos, relatórios). Mostra o atalho Ctrl + K em telas largas." },
-                { nome: "Notificações", texto: "Sino com um ponto quando há novidades. O número de não lidas vai no rótulo para o leitor de tela (\"Notificações: 4 não lidas\"), não só no ponto." },
-                { nome: "Conta", texto: "Foto ou iniciais, nome e papel na loja. Em telas estreitas fica só o avatar. Abre o menu com perfil, troca de loja e sair." },
-              ]}
-            />
-            <pre className="mt-6 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta } from "@/app/components/ui/painel-shell";
-
-<header className="flex items-center gap-3">
-  <div className="min-w-0 flex-1"><CampoDeBuscaGlobal onAbrir={abrirBusca} /></div>
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild><BotaoDeNotificacoes naoLidas={4} /></DropdownMenuTrigger>
-    <DropdownMenuContent align="end">…</DropdownMenuContent>
-  </DropdownMenu>
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild><GatilhoDaConta nome="Ana Oliveira" papel="Proprietária" /></DropdownMenuTrigger>
-    <DropdownMenuContent align="end">…</DropdownMenuContent>
-  </DropdownMenu>
-</header>`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
-              <li>• A busca fica sempre à esquerda e cresce; sino e conta ficam juntos à direita, nessa ordem.</li>
-              <li>• Os botões do sino e da conta repassam a ref: use DropdownMenuTrigger com asChild para abrir os menus.</li>
-              <li>• Mantenha a barra com no máximo esses três elementos. A ação principal da página vai no cabeçalho, não aqui.</li>
-              <li>• Tamanho de toque mínimo de 40 px em todos os botões; o foco aparece com o anel do DS.</li>
-            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
@@ -427,34 +370,6 @@ export function OverlaysShowcase() {
                 </>}
               />
             </div>
-            <ListaDePartes
-              className="mt-6 sm:grid-cols-2 lg:grid-cols-4"
-              itens={[
-                { nome: "Saudação", texto: "Opcional. Curta e com o primeiro nome da pessoa." },
-                { nome: "Título", texto: "O título da página. O trecho entre ** ** ganha a cor de destaque, como a palavra da marca." },
-                { nome: "Descrição", texto: "Uma frase que diz o que a pessoa encontra ou pode fazer na página." },
-                { nome: "Ações", texto: "Filtros da página e a ação principal, alinhados à direita em telas largas e embaixo do texto em telas estreitas." },
-              ]}
-            />
-            <pre className="mt-6 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { CabecalhoDaPagina, SeletorDePeriodo, BotaoDividido } from "@/app/components/ui/painel-cabecalho";
-
-<div className="@container">
-  <CabecalhoDaPagina
-    saudacao="Olá, Ana! 👋"
-    titulo="Sua loja em destaque na **FindLook**"
-    descricao="Veja como sua loja está indo e o que fazer hoje para vender mais."
-    acoes={<>
-      <SeletorDePeriodo valor={periodo} onChange={setPeriodo} />
-      <BotaoDividido rotulo="Cadastrar produto" acoes={[…]} />
-    </>}
-  />
-</div>`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
-              <li>• O cabeçalho usa container queries: coloque-o dentro de um elemento com a classe @container. As ações vão para o lado a partir de 48 rem de largura.</li>
-              <li>• Um cabeçalho por página. O título já é o h1, então não repita outro h1 na página.</li>
-              <li>• Destaque só uma palavra ou expressão curta do título, nunca o título inteiro.</li>
-              <li>• No máximo duas ações: um filtro (como o período) e a ação principal. O resto vai para dentro da página.</li>
-            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>

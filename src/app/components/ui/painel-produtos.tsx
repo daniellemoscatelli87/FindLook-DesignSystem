@@ -4,6 +4,7 @@ import { cn } from "./utils";
 import { IconeModa, type NomeIconeModa } from "./fashion-icons";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./dropdown-menu";
 import { formatarNumero, formatarPreco } from "./painel-dados";
+import { Checkbox } from "./checkbox";
 
 /**
  * Produtos no painel da loja (FindLook)
@@ -30,7 +31,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
     onChange(abas[n]!.valor);
   };
   return (
-    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full gap-1 overflow-x-auto", estilo === "pilula" ? "rounded-[12px] border border-border bg-muted/50 p-1" : "border-b border-border", className)}>
+    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full overflow-x-auto", estilo === "pilula" ? "h-9 w-fit items-center rounded-xl bg-muted p-[3px] text-muted-foreground" : "gap-1 border-b border-border", className)}>
       {abas.map((a, i) => {
         const ativa = a.valor === valor;
         return (
@@ -44,15 +45,15 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
             onClick={() => onChange(a.valor)}
             onKeyDown={e => mover(e, i)}
             className={cn(
-              "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap px-3 text-[0.8125rem] font-medium transition-colors",
+              "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-medium transition-[color,box-shadow]",
               foco,
               estilo === "pilula"
-                ? cn("h-8 rounded-[9px]", ativa ? "bg-primary text-primary-foreground shadow-[var(--shadow-xs)]" : "text-foreground hover:bg-card")
-                : cn("-mb-px h-10 border-b-2", ativa ? "border-primary font-semibold text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:text-foreground"),
+                ? cn("h-[calc(100%-1px)] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
+                : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
             )}
           >
             {a.rotulo}
-            {a.quantidade !== undefined && <span className={cn("tabular-nums", estilo === "pilula" && !ativa && "text-muted-foreground")}>({formatarNumero(a.quantidade)})</span>}
+            {a.quantidade !== undefined && <span className={cn("rounded-full px-1.5 text-[0.6875rem] font-semibold tabular-nums", ativa ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted-foreground/10 text-muted-foreground")}>{formatarNumero(a.quantidade)}</span>}
           </button>
         );
       })}
@@ -99,20 +100,21 @@ function MedidorDeDesempenho({ nivel, visualizacoes, favoritos, className }: { n
 /* ── Status de publicação ────────────────────────────────────── */
 type StatusProduto = "publicado" | "pendente" | "esgotado" | "reservado" | "rascunho";
 
+/** Mesmas cores e formato do Chip de status (Estados de informação). */
 const statusInfo: Record<StatusProduto, { rotulo: string; Icone: React.ElementType; cor: string; fundo: string }> = {
-  publicado: { rotulo: "Publicado", Icone: CheckCircle2, cor: "text-success", fundo: "border-success/30 bg-success/10" },
-  pendente:  { rotulo: "Pendente",  Icone: Clock,        cor: "text-warning", fundo: "border-warning/40 bg-warning/10" },
-  esgotado:  { rotulo: "Esgotado",  Icone: Ban,          cor: "text-muted-foreground", fundo: "border-border bg-muted" },
-  reservado: { rotulo: "Reservado", Icone: Bookmark,     cor: "text-[var(--primary-text,var(--primary))]", fundo: "border-primary/30 bg-[var(--primary-muted)]" },
-  rascunho:  { rotulo: "Rascunho",  Icone: FilePen,      cor: "text-muted-foreground", fundo: "border-border bg-card" },
+  publicado: { rotulo: "Publicado", Icone: CheckCircle2, cor: "text-success", fundo: "bg-success/10 border-success/30" },
+  pendente:  { rotulo: "Pendente",  Icone: Clock,        cor: "text-warning", fundo: "bg-warning/10 border-warning/40" },
+  esgotado:  { rotulo: "Esgotado",  Icone: Ban,          cor: "text-foreground", fundo: "bg-muted border-border" },
+  reservado: { rotulo: "Reservado", Icone: Bookmark,     cor: "text-primary-text", fundo: "bg-primary/10 border-primary/30" },
+  rascunho:  { rotulo: "Rascunho",  Icone: FilePen,      cor: "text-muted-foreground", fundo: "bg-card border-border" },
 };
 
 function StatusDePublicacao({ status, motivo, className }: { status: StatusProduto; motivo?: string; className?: string }) {
   const s = statusInfo[status];
   return (
     <div data-slot="status-de-publicacao" className={cn("min-w-0", className)}>
-      <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[0.75rem] font-semibold text-foreground", s.fundo)}>
-        <s.Icone aria-hidden className={cn("h-3.5 w-3.5", s.cor)} />
+      <span className={cn("inline-flex h-6 items-center gap-1 rounded-full border px-2 text-[0.6875rem] font-semibold", s.fundo, s.cor)}>
+        <s.Icone aria-hidden className="h-3 w-3" />
         {s.rotulo}
       </span>
       {motivo && <p className="mt-1 text-[0.75rem] leading-snug text-muted-foreground">{motivo}</p>}
@@ -157,6 +159,9 @@ type Produto = {
 
 type TabelaDeProdutosProps = {
   produtos: Produto[];
+  /** Título e descrição no topo do card (como a Tabela de dados do DS). */
+  titulo?: string;
+  descricao?: string;
   /** Total de produtos da loja (para o rodapé e para a aba "Todos"). */
   total?: number;
   /** Mostra só N linhas e o link "Ver todos os produtos". */
@@ -176,7 +181,12 @@ const abasStatus: { valor: "todos" | StatusProduto; rotulo: string }[] = [
   { valor: "esgotado", rotulo: "Esgotados" }, { valor: "reservado", rotulo: "Reservados" },
 ];
 
-function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estiloAbas = "pilula", contagens, onVerTodos, className }: TabelaDeProdutosProps) {
+/** Botão de ferramenta da tabela: mesmo desenho dos botões Filtrar/Exportar da Tabela de dados. */
+const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1.5 rounded-[9px] border border-border bg-card px-3 text-[0.875rem] font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
+const th = "px-4 py-3 text-left text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground whitespace-nowrap";
+const etiqueta = "inline-flex items-center rounded-[6px] border border-border bg-muted/40 px-2 py-0.5 text-[0.75rem] font-medium text-foreground";
+
+function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecionavel = true, estiloAbas = "sublinhado", contagens, onVerTodos, className }: TabelaDeProdutosProps) {
   const [aba, setAba] = React.useState("todos");
   const [busca, setBusca] = React.useState("");
   const [selecionados, setSelecionados] = React.useState<string[]>([]);
@@ -190,11 +200,9 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
   const alternar = (id: string) => setSelecionados(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id]);
   const alternarTodos = () => setSelecionados(s => todosMarcados ? s.filter(id => !visiveis.some(p => p.id === id)) : Array.from(new Set([...s, ...visiveis.map(p => p.id)])));
 
-  const caixa = "h-4 w-4 shrink-0 cursor-pointer rounded-[4px] accent-[var(--primary)]";
-
   const MenuDaLinha = ({ p }: { p: Produto }) => (
     <DropdownMenu>
-      <DropdownMenuTrigger aria-label={`Ações de ${p.nome}`} className={cn("flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground", foco)}>
+      <DropdownMenuTrigger aria-label={`Ações de ${p.nome}`} className={cn("flex h-8 w-8 items-center justify-center rounded-[8px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground", foco)}>
         <MoreHorizontal aria-hidden className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-44">
@@ -208,62 +216,71 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
   );
 
   return (
-    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 space-y-3", className)}>
-      <div className="flex flex-col gap-3 @3xl:flex-row @3xl:items-center @3xl:justify-between">
-        <AbasComContador abas={abasStatus.map(a => ({ ...a, quantidade: contagem(a.valor) }))} valor={aba} onChange={setAba} estilo={estiloAbas} />
-        <div className="flex gap-2">
-          <div className="relative min-w-0 flex-1 @3xl:w-64 @3xl:flex-none">
+    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-[16px] border border-border bg-card", className)} style={{ boxShadow: "var(--shadow)" }}>
+      {/* Cabeçalho: título à esquerda, ferramentas à direita (como a Tabela de dados) */}
+      <div className="flex flex-col gap-3 border-b border-border px-4 py-4 @2xl:flex-row @2xl:items-center @2xl:justify-between @2xl:px-6">
+        <div className="min-w-0">
+          {titulo && <h3 className="text-[1rem] font-semibold text-foreground">{titulo}</h3>}
+          <p className="text-[0.8125rem] text-muted-foreground">{descricao ?? `${formatarNumero(total ?? produtos.length)} produtos na loja`}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative min-w-0 flex-1 @2xl:w-60 @2xl:flex-none">
             <label htmlFor={idBusca} className="sr-only">Buscar produto</label>
             <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto, SKU ou categoria…" className={cn("h-9 w-full rounded-[10px] border border-border bg-card pl-9 pr-3 text-[0.8125rem] text-foreground placeholder:text-muted-foreground", foco)} />
+            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-[9px] border border-border bg-input-background pl-9 pr-3 text-[0.875rem] text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
           </div>
-          <button type="button" className={cn("inline-flex h-9 shrink-0 items-center gap-1.5 rounded-[10px] border border-border bg-card px-3 text-[0.8125rem] font-medium text-foreground transition-colors hover:bg-muted", foco)}>
-            <SlidersHorizontal aria-hidden className="h-4 w-4" />Filtros
-          </button>
+          <button type="button" className={botaoFerramenta}><SlidersHorizontal aria-hidden className="h-4 w-4" />Filtros</button>
         </div>
       </div>
 
-      {selecionavel && (
-        <BarraDeAcoesEmLote
-          selecionados={selecionados.length}
-          onLimpar={() => setSelecionados([])}
-          acoes={[{ rotulo: "Publicar", icone: <Send aria-hidden /> }, { rotulo: "Marcar como esgotado", icone: <Ban aria-hidden /> }, { rotulo: "Excluir", icone: <Trash2 aria-hidden />, destrutiva: true }]}
-        />
+      {/* Abas por status */}
+      <div className={cn("px-4 @2xl:px-6", estiloAbas === "pilula" ? "py-3" : "pt-1")}>
+        <AbasComContador abas={abasStatus.map(a => ({ ...a, quantidade: contagem(a.valor) }))} valor={aba} onChange={setAba} estilo={estiloAbas} className={estiloAbas === "sublinhado" ? "border-b-0" : undefined} />
+      </div>
+
+      {selecionavel && selecionados.length > 0 && (
+        <div className="px-4 pb-3 @2xl:px-6">
+          <BarraDeAcoesEmLote
+            selecionados={selecionados.length}
+            onLimpar={() => setSelecionados([])}
+            acoes={[{ rotulo: "Publicar", icone: <Send aria-hidden /> }, { rotulo: "Marcar como esgotado", icone: <Ban aria-hidden /> }, { rotulo: "Excluir", icone: <Trash2 aria-hidden />, destrutiva: true }]}
+          />
+        </div>
       )}
 
-      {/* Tabela (telas largas) */}
-      <div className="relative hidden overflow-x-auto rounded-[12px] border border-border @2xl:block">
-        <table className="w-full text-left">
+      {/* Tabela (quadros largos) */}
+      <div className="relative hidden overflow-x-auto border-t border-border @2xl:block">
+        <table className="w-full">
           <caption className="sr-only">Produtos da loja{aba !== "todos" ? `, filtro: ${abasStatus.find(a => a.valor === aba)?.rotulo}` : ""}</caption>
-          <thead className="bg-muted/50 text-[0.75rem] font-semibold text-muted-foreground">
-            <tr>
+          <thead>
+            <tr className="border-b border-border bg-muted/30">
               {selecionavel && (
-                <th scope="col" className="w-10 px-3 py-2.5">
-                  <input type="checkbox" className={caixa} aria-label="Selecionar todos os produtos visíveis" checked={todosMarcados} ref={el => { if (el) el.indeterminate = algunsMarcados; }} onChange={alternarTodos} />
+                <th scope="col" className="w-12 py-3 pl-6 pr-2">
+                  <Checkbox aria-label="Selecionar todos os produtos visíveis" checked={todosMarcados ? true : algunsMarcados ? "indeterminate" : false} onCheckedChange={alternarTodos} />
                 </th>
               )}
-              <th scope="col" className="px-3 py-2.5">Produto</th>
-              <th scope="col" className="hidden px-3 py-2.5 @4xl:table-cell">Condição</th>
-              <th scope="col" className="hidden px-3 py-2.5 text-right @4xl:table-cell">Estoque</th>
-              <th scope="col" className="px-3 py-2.5 text-right">Preço</th>
-              <th scope="col" className="hidden px-3 py-2.5 @4xl:table-cell">Desempenho (30 dias)</th>
-              <th scope="col" className="px-3 py-2.5">Status</th>
-              <th scope="col" className="px-3 py-2.5"><span className="sr-only">Ações</span></th>
+              <th scope="col" className={cn(th, !selecionavel && "pl-6")}>Produto</th>
+              <th scope="col" className={cn(th, "hidden @4xl:table-cell")}>Condição</th>
+              <th scope="col" className={cn(th, "hidden text-right @4xl:table-cell")}>Estoque</th>
+              <th scope="col" className={cn(th, "text-right")}>Preço</th>
+              <th scope="col" className={cn(th, "hidden @3xl:table-cell")}>Desempenho</th>
+              <th scope="col" className={th}>Status</th>
+              <th scope="col" className="w-12 py-3 pr-4"><span className="sr-only">Ações</span></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border">
-            {visiveis.map(p => {
+          <tbody>
+            {visiveis.map((p, i) => {
               const marcado = selecionados.includes(p.id);
               return (
-                <tr key={p.id} className={cn("transition-colors hover:bg-muted/40", marcado && "bg-[var(--primary-muted)]")}>
-                  {selecionavel && <td className="px-3 py-3"><input type="checkbox" className={caixa} aria-label={`Selecionar ${p.nome}`} checked={marcado} onChange={() => alternar(p.id)} /></td>}
-                  <td className="max-w-64 px-3 py-3"><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /><div className="mt-1 space-y-1 pl-[3.75rem] @4xl:hidden"><p className="text-[0.75rem] text-muted-foreground">{p.condicao} · {p.estoque} em estoque</p><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></div></td>
-                  <td className="hidden px-3 py-3 @4xl:table-cell"><span className="rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[0.75rem] text-foreground">{p.condicao}</span></td>
-                  <td className="hidden px-3 py-3 text-right text-[0.875rem] tabular-nums text-foreground @4xl:table-cell">{p.estoque}</td>
-                  <td className="whitespace-nowrap px-3 py-3 text-right text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}</td>
-                  <td className="hidden px-3 py-3 @4xl:table-cell"><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></td>
-                  <td className="max-w-44 px-3 py-3"><StatusDePublicacao status={p.status} motivo={p.motivo} /></td>
-                  <td className="px-3 py-3 text-right"><MenuDaLinha p={p} /></td>
+                <tr key={p.id} data-state={marcado ? "selected" : undefined} className={cn("border-b border-border/50 transition-colors hover:bg-muted/20", i === visiveis.length - 1 && "border-b-0", marcado && "bg-[var(--primary-muted)] hover:bg-[var(--primary-muted)]")}>
+                  {selecionavel && <td className="py-3 pl-6 pr-2 align-middle"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></td>}
+                  <td className={cn("max-w-72 px-4 py-3 align-middle", !selecionavel && "pl-6")}><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
+                  <td className="hidden px-4 py-3 align-middle @4xl:table-cell"><span className={etiqueta}>{p.condicao}</span></td>
+                  <td className="hidden px-4 py-3 text-right align-middle text-[0.875rem] tabular-nums text-foreground @4xl:table-cell">{p.estoque}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-right align-middle text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}</td>
+                  <td className="hidden px-4 py-3 align-middle @3xl:table-cell"><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></td>
+                  <td className="px-4 py-3 align-middle"><StatusDePublicacao status={p.status} motivo={p.motivo} /></td>
+                  <td className="py-3 pr-4 text-right align-middle"><MenuDaLinha p={p} /></td>
                 </tr>
               );
             })}
@@ -271,43 +288,43 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
         </table>
       </div>
 
-      {/* Lista de cards (telas estreitas) */}
-      <ul className="space-y-2 @2xl:hidden" aria-label="Produtos da loja">
+      {/* Lista (quadros estreitos): cada produto vira um item com as mesmas informações */}
+      <ul className="divide-y divide-border/50 border-t border-border @2xl:hidden" aria-label="Produtos da loja">
         {visiveis.map(p => {
           const marcado = selecionados.includes(p.id);
           return (
-            <li key={p.id} className={cn("rounded-[12px] border border-border bg-card p-3", marcado && "border-primary/40 bg-[var(--primary-muted)]")}>
-              <div className="flex items-start gap-3">
-                {selecionavel && <input type="checkbox" className={cn(caixa, "mt-4")} aria-label={`Selecionar ${p.nome}`} checked={marcado} onChange={() => alternar(p.id)} />}
-                <CelulaDeProduto nome={p.nome} detalhes={`${p.detalhes} · ${p.condicao}`} icone={p.icone} foto={p.foto} className="flex-1" />
+            <li key={p.id} className={cn("px-4 py-3", marcado && "bg-[var(--primary-muted)]")}>
+              <div className="flex items-center gap-3">
+                {selecionavel && <Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} />}
+                <CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} className="flex-1" />
                 <MenuDaLinha p={p} />
               </div>
-              <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[0.9375rem] font-bold tabular-nums text-foreground">{formatarPreco(p.preco)} <span className="text-[0.75rem] font-normal text-muted-foreground">· {p.estoque} em estoque</span></span>
+              <div className={cn("mt-2 flex flex-wrap items-center justify-between gap-2", selecionavel && "pl-7")}>
+                <span className="text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}<span className="ml-1.5 text-[0.75rem] font-normal text-muted-foreground">{p.condicao} · {p.estoque} em estoque</span></span>
                 <StatusDePublicacao status={p.status} />
               </div>
-              {p.motivo && <p className="mt-1 text-[0.75rem] text-muted-foreground">{p.motivo}</p>}
-              <MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} className="mt-2" />
+              {p.motivo && <p className={cn("mt-1 text-[0.75rem] text-muted-foreground", selecionavel && "pl-7")}>{p.motivo}</p>}
             </li>
           );
         })}
       </ul>
 
       {visiveis.length === 0 && (
-        <div className="rounded-[12px] border border-dashed border-border p-8 text-center">
+        <div className="border-t border-border px-6 py-10 text-center">
           <p className="text-[0.9375rem] font-semibold text-foreground">Nenhum produto encontrado</p>
           <p className="mt-1 text-[0.8125rem] text-muted-foreground">Tente outra palavra ou limpe os filtros.</p>
         </div>
       )}
 
-      {limite !== undefined && (
-        <div className="flex flex-wrap items-center justify-between gap-2 px-1 pt-1">
-          <p className="text-[0.8125rem] text-muted-foreground">Exibindo {visiveis.length} de {formatarNumero(contagem(aba))} produtos</p>
+      {/* Rodapé (como a Tabela de dados) */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 @2xl:px-6">
+        <p className="text-[0.8125rem] text-muted-foreground">Exibindo {visiveis.length ? `1–${visiveis.length}` : "0"} de {formatarNumero(contagem(aba))}</p>
+        {limite !== undefined && (
           <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
             Ver todos os produtos <ArrowRight aria-hidden className="h-3.5 w-3.5" />
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

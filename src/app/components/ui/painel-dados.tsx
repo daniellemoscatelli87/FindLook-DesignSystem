@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDown, ArrowRight, ArrowUp, CheckCircle2, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
@@ -27,15 +27,16 @@ function formatarVariacao(n: number) {
 }
 
 /* ── Variação (seta + texto; nunca só cor) ───────────────────── */
-function Variacao({ valor, comparacao, pilula, className }: { valor: number; comparacao?: string; pilula?: boolean; className?: string }) {
+function Variacao({ valor, comparacao, className }: { valor: number; comparacao?: string; pilula?: boolean; className?: string }) {
   const sobe = valor >= 0;
-  const Icone = sobe ? ArrowUp : ArrowDown;
+  const Icone = sobe ? ArrowUpRight : ArrowDownRight;
   const leitura = `${sobe ? "Alta" : "Queda"} de ${formatarVariacao(Math.abs(valor)).replace("+", "")}${comparacao ? ` ${comparacao}` : ""}`;
+  // Mesmo desenho da variação dos Cards de KPI: seta + número na cor da tendência, comparação em texto suave.
   return (
-    <span className={cn("inline-flex items-center gap-1 text-[0.75rem] font-semibold", pilula && "rounded-full border px-2 py-0.5", pilula && (sobe ? "border-success/30 bg-success/10" : "border-error/30 bg-error/10"), className)}>
-      <Icone aria-hidden className={cn("h-3.5 w-3.5", sobe ? "text-success" : "text-error")} />
-      <span aria-hidden className="text-foreground">{formatarVariacao(valor)}</span>
-      {comparacao && <span aria-hidden className="font-normal text-muted-foreground">{comparacao}</span>}
+    <span className={cn("inline-flex items-center gap-1 text-[0.8125rem] font-semibold", sobe ? "text-success" : "text-primary", className)}>
+      <Icone aria-hidden className="h-3.5 w-3.5" />
+      <span aria-hidden>{formatarVariacao(valor)}</span>
+      {comparacao && <span aria-hidden className="ml-1 font-normal text-muted-foreground">{comparacao}</span>}
       <span className="sr-only">{leitura}</span>
     </span>
   );
@@ -66,21 +67,21 @@ type CardIndicadorProps = {
   className?: string;
 };
 
-function CardIndicador({ icone, valor, rotulo, variacao, comparacao, explicacao, estilo = "linha", className }: CardIndicadorProps) {
+/** Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. */
+function CardIndicador({ icone, valor, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
   return (
-    <div data-slot="card-indicador" className={cn("relative flex gap-3 rounded-[16px] border border-border bg-card p-4 shadow-[var(--shadow-xs)]", estilo === "pilula" ? "flex-col" : "items-start", className)}>
-      <div className="flex items-start justify-between gap-2">
-        <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>
-        {estilo === "pilula" && variacao !== undefined && <Variacao valor={variacao} pilula />}
+    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-[16px] border border-border bg-card p-5", className)} style={{ boxShadow: "var(--shadow)" }}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
+            {rotulo}
+            {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
+          </p>
+          <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{formatarNumero(valor)}</p>
+        </div>
+        <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
       </div>
-      <div className="min-w-0">
-        <p className={`${display} text-[1.625rem] font-extrabold leading-none tracking-[-0.02em] text-foreground`}>{formatarNumero(valor)}</p>
-        <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">
-          {rotulo}
-          {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
-        </p>
-        {estilo === "linha" && variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} className="mt-1.5" />}
-      </div>
+      {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
     </div>
   );
 }
@@ -111,22 +112,17 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
   return (
     <div data-slot="grafico-de-desempenho" className={cn("min-w-0", className)}>
       {series.length > 1 && (
-        <fieldset className="mb-3 flex flex-wrap gap-x-4 gap-y-2">
-          <legend className="sr-only">Séries exibidas no gráfico</legend>
+        <div role="group" aria-label="Séries exibidas no gráfico" className="mb-3 flex flex-wrap gap-x-4 gap-y-1.5">
           {series.map(s => {
             const ativa = visiveis.includes(s.chave);
             return (
-              <label key={s.chave} className="inline-flex cursor-pointer items-center gap-2 text-[0.8125rem] text-foreground">
-                <input type="checkbox" checked={ativa} onChange={() => alternar(s.chave)} className="peer sr-only" />
-                <span aria-hidden className={cn("flex h-4 w-4 items-center justify-center rounded-[4px] border-2 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background", ativa ? "border-foreground bg-foreground text-background" : "border-muted-foreground bg-card")}>
-                  {ativa && <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M2.5 6.5l2.2 2.2 4.8-5" /></svg>}
-                </span>
-                <span aria-hidden className="h-[3px] w-4 rounded-full" style={{ background: s.cor }} />
+              <button key={s.chave} type="button" aria-pressed={ativa} onClick={() => alternar(s.chave)} className={cn("inline-flex items-center gap-1.5 rounded-[6px] py-0.5 text-[0.75rem] transition-opacity", ativa ? "text-foreground" : "text-muted-foreground opacity-60 hover:opacity-100", foco)}>
+                <span aria-hidden className="inline-block h-2 w-2 rounded-full" style={{ background: s.cor }} />
                 {s.rotulo}
-              </label>
+              </button>
             );
           })}
-        </fieldset>
+        </div>
       )}
       <div role="img" aria-label={`Gráfico de área. Último dia, ${ultimo?.[chaveX]}: ${resumo}.`} style={{ height: altura }}>
         <ResponsiveContainer width="100%" height="100%">

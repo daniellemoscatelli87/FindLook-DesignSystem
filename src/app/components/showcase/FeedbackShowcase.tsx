@@ -297,31 +297,10 @@ export function FeedbackShowcase() {
         <div id="abas-contador" className="scroll-mt-32" />
         <SubSection title="Abas com contador">
           <ShowcaseCard>
-            <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
-              Filtra uma lista por status e mostra quantos itens há em cada aba, como na lista de produtos do painel da loja. As setas esquerda e direita, Home e End trocam de aba pelo teclado.
-            </p>
             <div className="space-y-6">
               <DemoAbasComContador estilo="pilula" />
               <DemoAbasComContador estilo="sublinhado" />
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AbasComContador } from "@/app/components/ui/painel-produtos";
-
-<AbasComContador
-  estilo="pilula"            // ou "sublinhado"
-  rotulo="Filtrar produtos por status"
-  valor={aba} onChange={setAba}
-  abas={[
-    { valor: "todos", rotulo: "Todos", quantidade: 137 },
-    { valor: "publicados", rotulo: "Publicados", quantidade: 128 },
-  ]}
-/>`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
-              <li>• Use para filtrar a mesma lista; para trocar de assunto, use as abas comuns.</li>
-              <li>• O número vem entre parênteses, ao lado do nome; a aba ativa nunca depende só da cor (fundo cheio ou sublinhado).</li>
-              <li>• Pílula para filtros dentro de um card; sublinhado para o topo de uma página.</li>
-              <li>• Sempre informe rotulo: ele nomeia o grupo de abas para leitores de tela.</li>
-              <li>• Mostre a quantidade real; se ainda não houver contagem, deixe quantidade vazia.</li>
-            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
@@ -352,29 +331,7 @@ export function FeedbackShowcase() {
         <div id="banner-promocional" className="scroll-mt-32" />
         <SubSection title="Banner promocional">
           <ShowcaseCard>
-            <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
-              Convite fechável para uma ação opcional que ajuda a loja, com imagem, texto curto e um botão. Não serve para erros nem para avisos do sistema: para isso, use o alerta acima.
-            </p>
             <DemoBannerPromocional />
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { BannerPromocional } from "@/app/components/ui/painel-cabecalho";
-
-<div className="@container">
-  <BannerPromocional
-    titulo="Destaque sua coleção"
-    texto="Fotos com boa luz e fundo neutro deixam a sua vitrine mais atrativa."
-    acao="Ver dicas de foto"
-    imagem={<IconeModa nome="cabide" size={44} />}
-    onAcao={abrirDicas}
-    onFechar={() => setAberto(false)}
-  />
-</div>`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
-              <li>• Um banner por página, no topo do conteúdo; ele nunca bloqueia a tarefa.</li>
-              <li>• Erro, falha ou prazo vencendo vão em alerta, não em banner.</li>
-              <li>• Sempre fechável, e lembre a escolha: quem fechou não deve ver o mesmo banner de novo logo depois.</li>
-              <li>• A imagem é decorativa e some em espaços estreitos; envolva o banner em @container.</li>
-              <li>• Um título, uma frase e uma ação com verbo; sem números de resultado que você não pode comprovar.</li>
-            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
@@ -799,22 +756,6 @@ export function FeedbackShowcase() {
             </ShowcaseCard>
           </div>
           <ShowcaseCard className="mt-4">
-            <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components/ui/painel-dados";
-
-<ul className="divide-y divide-border">
-  <ItemDeAtividade icone={<Heart />} titulo="Peça favoritada" detalhe="Vestido midi" quando="há 26 min" />
-</ul>
-
-<ItemDeAcao href="/produtos?fotos" midia={<Camera />} titulo="Melhore 3 fotos" descricao="…" />
-
-<ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Tênis branco", variacao: -8 }]} />`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
-              <li>• Atividade conta o que já aconteceu: coloque os itens dentro de uma lista (ul) com divisores, do mais recente para o mais antigo.</li>
-              <li>• Item de ação leva a um lugar: título com verbo ou fato, uma frase de apoio e um destino real (href).</li>
-              <li>• Na tendência, a variação sempre vem com seta e sinal, nunca só com verde ou vermelho.</li>
-              <li>• Mostre de três a cinco itens e um link “Ver tudo” para o restante.</li>
-              <li>• Use só dados reais da loja e do período; sem dado, mostre o estado vazio.</li>
-            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
