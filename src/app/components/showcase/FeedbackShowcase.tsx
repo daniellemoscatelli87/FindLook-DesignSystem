@@ -8,8 +8,13 @@ import {
   CheckCircle, AlertCircle, AlertTriangle, Info, X,
   Loader2, Clock, Check,
 } from "lucide-react";
+import { Search, Heart, CalendarCheck, MessageCircle, Camera, Ruler, TrendingUp } from "lucide-react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { useI18n } from "../../i18n";
+import { AbasComContador } from "@/app/components/ui/painel-produtos";
+import { BannerPromocional } from "@/app/components/ui/painel-cabecalho";
+import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components/ui/painel-dados";
+import { IconeModa } from "@/app/components/ui/fashion-icons";
 
 type Bi = { en: string; pt: string };
 type TFn = (en: string, pt: string) => string;
@@ -126,6 +131,76 @@ const tabItems = [
   { id: "settings",  label: { en: "Settings", pt: "Configurações" } },
 ];
 
+/* ── Abas com contador ── */
+const abasContador = [
+  { valor: "todos",      rotulo: "Todos",      quantidade: 137, leitura: "137 produtos no total" },
+  { valor: "publicados", rotulo: "Publicados", quantidade: 128, leitura: "128 produtos publicados" },
+  { valor: "pendentes",  rotulo: "Pendentes",  quantidade: 6,   leitura: "6 produtos pendentes de revisão" },
+  { valor: "esgotados",  rotulo: "Esgotados",  quantidade: 3,   leitura: "3 produtos esgotados" },
+];
+
+function DemoAbasComContador({ estilo }: { estilo: "pilula" | "sublinhado" }) {
+  const [aba, setAba] = useState("todos");
+  const atual = abasContador.find(a => a.valor === aba)!;
+  return (
+    <div className="min-w-0">
+      <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+        {estilo === "pilula" ? "Pílula" : "Sublinhado"} <span className="font-mono normal-case tracking-normal">· estilo="{estilo}"</span>
+      </p>
+      <AbasComContador abas={abasContador} valor={aba} onChange={setAba} estilo={estilo} rotulo={`Filtrar produtos por status (${estilo === "pilula" ? "pílula" : "sublinhado"})`} />
+      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-[12px] bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+        Mostrando <strong className="text-foreground">{atual.leitura}</strong>.
+      </div>
+    </div>
+  );
+}
+
+/* ── Banner promocional ── */
+function DemoBannerPromocional() {
+  const [aberto, setAberto] = useState(true);
+  const area = React.useRef<HTMLDivElement>(null);
+  const primeiraVez = React.useRef(true);
+  // Leva o foco para o próximo controle visível ao fechar e ao reabrir (o botão clicado some da tela)
+  React.useEffect(() => {
+    if (primeiraVez.current) { primeiraVez.current = false; return; }
+    const alvo = area.current?.querySelector<HTMLButtonElement>(aberto ? 'button[aria-label^="Fechar"]' : "button");
+    alvo?.focus();
+  }, [aberto]);
+  return (
+    <div ref={area} className="@container">
+      {aberto ? (
+        <BannerPromocional
+          titulo="Destaque sua coleção"
+          texto="Fotos com boa luz e fundo neutro deixam a sua vitrine mais atrativa."
+          acao="Ver dicas de foto"
+          imagem={<IconeModa nome="cabide" size={44} />}
+          onAcao={() => {}}
+          onFechar={() => setAberto(false)}
+        />
+      ) : (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[16px] border border-dashed border-border px-4 py-3.5">
+          <p className="text-[0.875rem] text-muted-foreground">Você fechou o banner.</p>
+          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+            Mostrar de novo
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Listas do painel ── */
+const evitarSalto = (e: React.MouseEvent) => e.preventDefault();
+
+function TituloDaLista({ titulo, componente }: { titulo: string; componente: string }) {
+  return (
+    <div className="mb-4">
+      <h4 className="text-[0.9375rem] font-semibold text-foreground">{titulo}</h4>
+      <p className="mt-0.5 font-mono text-[0.75rem] text-muted-foreground">{componente}</p>
+    </div>
+  );
+}
+
 /* ── Badges ── */
 const badgeVariants = [
   { label: { en: "Default", pt: "Padrão" },  cls: "bg-muted text-foreground border-border" },
@@ -176,7 +251,7 @@ export function FeedbackShowcase() {
         <SubSection title={t("Default Tabs", "Abas padrão")}>
           <ShowcaseCard>
             <TabsPrimitive.Root value={defaultTab} onValueChange={setDefaultTab}>
-              <TabsPrimitive.List className="flex items-center gap-1 p-1 bg-muted rounded-[10px] w-fit mb-5">
+              <TabsPrimitive.List className="flex items-center gap-1 p-1 bg-muted rounded-[10px] w-fit max-w-full overflow-x-auto mb-5">
                 {tabItems.map(tab => (
                   <TabsPrimitive.Trigger
                     key={tab.id}
@@ -201,7 +276,7 @@ export function FeedbackShowcase() {
 
         <SubSection title={t("Underline Tabs", "Abas sublinhadas")}>
           <ShowcaseCard>
-            <div className="flex items-center border-b border-border gap-1 mb-5">
+            <div className="flex items-center border-b border-border gap-1 mb-5 max-w-full overflow-x-auto">
               {tabItems.map(tab => (
                 <button
                   key={tab.id}
@@ -216,6 +291,37 @@ export function FeedbackShowcase() {
             <div className="text-[0.875rem] text-muted-foreground">
               {t("Viewing:", "Visualizando:")} <strong className="text-foreground">{bi(tabItems.find(x => x.id === underlineTab)!.label)}</strong>
             </div>
+          </ShowcaseCard>
+        </SubSection>
+
+        <div id="abas-contador" className="scroll-mt-32" />
+        <SubSection title="Abas com contador">
+          <ShowcaseCard>
+            <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+              Filtra uma lista por status e mostra quantos itens há em cada aba, como na lista de produtos do painel da loja. As setas esquerda e direita, Home e End trocam de aba pelo teclado.
+            </p>
+            <div className="space-y-6">
+              <DemoAbasComContador estilo="pilula" />
+              <DemoAbasComContador estilo="sublinhado" />
+            </div>
+            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AbasComContador } from "@/app/components/ui/painel-produtos";
+
+<AbasComContador
+  estilo="pilula"            // ou "sublinhado"
+  rotulo="Filtrar produtos por status"
+  valor={aba} onChange={setAba}
+  abas={[
+    { valor: "todos", rotulo: "Todos", quantidade: 137 },
+    { valor: "publicados", rotulo: "Publicados", quantidade: 128 },
+  ]}
+/>`}</code></pre>
+            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+              <li>• Use para filtrar a mesma lista; para trocar de assunto, use as abas comuns.</li>
+              <li>• O número vem entre parênteses, ao lado do nome; a aba ativa nunca depende só da cor (fundo cheio ou sublinhado).</li>
+              <li>• Pílula para filtros dentro de um card; sublinhado para o topo de uma página.</li>
+              <li>• Sempre informe rotulo: ele nomeia o grupo de abas para leitores de tela.</li>
+              <li>• Mostre a quantidade real; se ainda não houver contagem, deixe quantidade vazia.</li>
+            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
@@ -240,6 +346,35 @@ export function FeedbackShowcase() {
                 <Alert key={k} kind={k} dismissible />
               ))}
             </div>
+          </ShowcaseCard>
+        </SubSection>
+
+        <div id="banner-promocional" className="scroll-mt-32" />
+        <SubSection title="Banner promocional">
+          <ShowcaseCard>
+            <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+              Convite fechável para uma ação opcional que ajuda a loja, com imagem, texto curto e um botão. Não serve para erros nem para avisos do sistema: para isso, use o alerta acima.
+            </p>
+            <DemoBannerPromocional />
+            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { BannerPromocional } from "@/app/components/ui/painel-cabecalho";
+
+<div className="@container">
+  <BannerPromocional
+    titulo="Destaque sua coleção"
+    texto="Fotos com boa luz e fundo neutro deixam a sua vitrine mais atrativa."
+    acao="Ver dicas de foto"
+    imagem={<IconeModa nome="cabide" size={44} />}
+    onAcao={abrirDicas}
+    onFechar={() => setAberto(false)}
+  />
+</div>`}</code></pre>
+            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+              <li>• Um banner por página, no topo do conteúdo; ele nunca bloqueia a tarefa.</li>
+              <li>• Erro, falha ou prazo vencendo vão em alerta, não em banner.</li>
+              <li>• Sempre fechável, e lembre a escolha: quem fechou não deve ver o mesmo banner de novo logo depois.</li>
+              <li>• A imagem é decorativa e some em espaços estreitos; envolva o banner em @container.</li>
+              <li>• Um título, uma frase e uma ação com verbo; sem números de resultado que você não pode comprovar.</li>
+            </ul>
           </ShowcaseCard>
         </SubSection>
       </section>
@@ -634,6 +769,54 @@ export function FeedbackShowcase() {
             </div>
           </ShowcaseCard>
         </div>
+      </section>
+
+      {/* ── LISTAS DO PAINEL ── */}
+      <section id="listas-painel">
+        <SectionHeader title="Listas de atividade e ações" description="Três listas do painel da loja: o que aconteceu, o que fazer agora e o que está em alta nas buscas." />
+        <SubSection title="Atividade, ações e tendências">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <ShowcaseCard>
+              <TituloDaLista titulo="Atividade recente" componente="ItemDeAtividade" />
+              <ul className="-my-3 divide-y divide-border" aria-label="Atividade recente">
+                <ItemDeAtividade icone={<Search />} titulo="Sua peça apareceu em buscas" detalhe="“vestido midi de linho”" quando="há 12 min" />
+                <ItemDeAtividade icone={<Heart />} titulo="Peça favoritada" detalhe="Vestido midi · R$ 249,90" quando="há 26 min" />
+                <ItemDeAtividade icone={<CalendarCheck />} titulo="Reserva solicitada" detalhe="Vestido midi · Tam. P" quando="há 1 h" />
+                <ItemDeAtividade icone={<MessageCircle />} titulo="Contato de interesse" detalhe="Dúvida sobre uma peça" quando="há 2 h" />
+              </ul>
+            </ShowcaseCard>
+            <ShowcaseCard>
+              <TituloDaLista titulo="Insight e próxima ação" componente="ItemDeAcao" />
+              <div className="space-y-2">
+                <ItemDeAcao onClick={evitarSalto} midia={<IconeModa nome="calca" size={24} />} titulo="Calças wide leg em alta" descricao="8 buscas combinam com suas peças." />
+                <ItemDeAcao onClick={evitarSalto} midia={<Camera />} titulo="Melhore 3 fotos" descricao="Fotos nítidas ajudam a peça a ser escolhida." />
+                <ItemDeAcao onClick={evitarSalto} midia={<Ruler />} titulo="Cadastre os tamanhos" descricao="3 peças estão sem tamanho." />
+              </div>
+            </ShowcaseCard>
+            <ShowcaseCard>
+              <TituloDaLista titulo="Buscas em alta na região" componente="ListaDeTendencias" />
+              <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }, { termo: "Bolsa de palha", variacao: 21 }, { termo: "Tênis branco", variacao: -8 }]} />
+            </ShowcaseCard>
+          </div>
+          <ShowcaseCard className="mt-4">
+            <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components/ui/painel-dados";
+
+<ul className="divide-y divide-border">
+  <ItemDeAtividade icone={<Heart />} titulo="Peça favoritada" detalhe="Vestido midi" quando="há 26 min" />
+</ul>
+
+<ItemDeAcao href="/produtos?fotos" midia={<Camera />} titulo="Melhore 3 fotos" descricao="…" />
+
+<ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Tênis branco", variacao: -8 }]} />`}</code></pre>
+            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+              <li>• Atividade conta o que já aconteceu: coloque os itens dentro de uma lista (ul) com divisores, do mais recente para o mais antigo.</li>
+              <li>• Item de ação leva a um lugar: título com verbo ou fato, uma frase de apoio e um destino real (href).</li>
+              <li>• Na tendência, a variação sempre vem com seta e sinal, nunca só com verde ou vermelho.</li>
+              <li>• Mostre de três a cinco itens e um link “Ver tudo” para o restante.</li>
+              <li>• Use só dados reais da loja e do período; sem dado, mostre o estado vazio.</li>
+            </ul>
+          </ShowcaseCard>
+        </SubSection>
       </section>
 
       {/* ── Feedback Tokens ── */}

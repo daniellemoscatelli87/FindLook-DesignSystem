@@ -22,6 +22,10 @@ import { Slider } from "../ui/slider";
 import { AvatarCircles } from "../ui/avatar-circles";
 import { ArrowUpRight, MapPin, Heart } from "lucide-react";
 import { Handshake, Store } from "lucide-react";
+import { Lightbulb, MessageCircle, Ruler, Search, TrendingUp, Zap } from "lucide-react";
+import { CardDePlano } from "../ui/painel-shell";
+import { CarrosselDeDicas, CardDoPainel, FaixaDeBeneficios } from "../ui/painel-dados";
+import { IconeModa } from "../ui/fashion-icons";
 import { Callout, DataTable, DoDont, Mono, Panel, PrincipleGrid, SubTitle, display } from "./shared/Guidance";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { cn } from "../ui/utils";
@@ -197,6 +201,46 @@ function GlassFinishPicker() {
           ))}
         </div>
       </GlassScene>
+    </div>
+  );
+}
+
+/** Rótulo de variante: nome em caixa alta + prop em mono. */
+function RotuloVariante({ nome, prop }: { nome: string; prop: string }) {
+  return (
+    <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+      {nome} <span className="font-mono normal-case tracking-normal">· {prop}</span>
+    </p>
+  );
+}
+
+const dicasDemo = [
+  { titulo: "Melhore suas fotos", texto: "Fotos com boa luz e fundo neutro mostram melhor a cor e o tecido da peça.", acao: "Ver dicas de foto", midia: <IconeModa nome="cabide" size={40} /> },
+  { titulo: "Informe todos os tamanhos", texto: "Com os tamanhos cadastrados, a peça aparece para quem filtra pelo próprio tamanho.", acao: "Revisar tamanhos", midia: <Ruler className="h-9 w-9" /> },
+  { titulo: "Responda no mesmo dia", texto: "Responda os contatos enquanto a pessoa ainda está decidindo a compra.", acao: "Ver contatos", midia: <MessageCircle className="h-9 w-9" /> },
+];
+
+function DemoCarrosselDeDicas() {
+  const [aberto, setAberto] = useState(true);
+  const area = React.useRef<HTMLDivElement>(null);
+  const primeiraVez = React.useRef(true);
+  // O botão clicado some ao fechar e ao reabrir: o foco vai para o próximo controle visível
+  React.useEffect(() => {
+    if (primeiraVez.current) { primeiraVez.current = false; return; }
+    area.current?.querySelector<HTMLElement>(aberto ? 'button[aria-label="Próxima dica"]' : "button")?.focus();
+  }, [aberto]);
+  return (
+    <div ref={area} className="@container" onClickCapture={e => { if ((e.target as HTMLElement).closest('a[href="#"]')) e.preventDefault(); }}>
+      <CardDoPainel icone={<Lightbulb />} titulo="Dicas para vender mais" descricao="Ações simples para melhorar a sua vitrine.">
+        {aberto ? (
+          <CarrosselDeDicas dicas={dicasDemo} onFechar={() => setAberto(false)} />
+        ) : (
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-[14px] border border-dashed border-border px-4 py-3.5">
+            <p className="text-[0.8125rem] text-muted-foreground">Você fechou as dicas.</p>
+            <Button variant="outline" size="sm" onClick={() => setAberto(true)}>Mostrar de novo</Button>
+          </div>
+        )}
+      </CardDoPainel>
     </div>
   );
 }
@@ -796,6 +840,128 @@ export function CardShowcase() {
 
 <ProductCard orientation="horizontal" compacto … />`}</code></pre>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CARD DE PLANO ── */}
+      <section id="card-plano" className="scroll-mt-32">
+        <SectionHeader
+          title="Card de plano"
+          description="Mostra o plano atual da loja no menu do painel, com o mesmo nome e preço da página de planos (Visibilidade, Desempenho ou Oportunidades), e leva para a gestão do plano."
+        />
+        <div className="space-y-5">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] items-start">
+            <div className="grid gap-5 sm:grid-cols-2 items-start">
+              <div>
+                <RotuloVariante nome="Completo" prop="padrão" />
+                <CardDePlano plano="Plano Desempenho" preco="R$ 149" descricao="Análise de interesse, desempenho e recomendações para a sua loja." />
+              </div>
+              <div>
+                <RotuloVariante nome="Compacto" prop="compacto" />
+                <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" />
+                <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground">Para o rodapé do menu lateral, onde o espaço vertical é curto.</p>
+              </div>
+            </div>
+            <DataTable
+              head={["Regra", "Orientação"]}
+              rows={[
+                ["Nome e preço", "Os mesmos da página de planos: Visibilidade (R$ 79), Desempenho (R$ 149) ou Oportunidades (R$ 299). Nunca um nome só do menu."],
+                ["Ação", "Uma só, com verbo: “Gerenciar plano” por padrão. Leva para a página de planos, nunca para um pagamento direto."],
+                ["Onde usar", "Completo na página da conta ou no menu aberto; compacto no rodapé do menu lateral. Um card de plano por tela."],
+                ["Acessibilidade", "Texto em --primary-foreground sobre a primária, foco visível no botão e ícone de coroa decorativo (aria-hidden)."],
+              ]}
+            />
+          </div>
+          <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { CardDePlano } from "@/app/components/ui/painel-shell";
+
+<CardDePlano plano="Plano Desempenho" preco="R$ 149" descricao="…" onAcao={() => ir("planos")} />
+<CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" onAcao={() => ir("planos")} />`}</code></pre>
+        </div>
+      </section>
+
+      {/* ── CARD DE DICA ── */}
+      <section id="card-dica" className="scroll-mt-32">
+        <SectionHeader
+          title="Card de dica"
+          description="Dicas curtas para a loja vender mais, uma por vez, que a pessoa passa no próprio ritmo e pode fechar."
+        />
+        <div className="space-y-5">
+          <div className="grid gap-5 lg:grid-cols-2 items-start">
+            <div className="min-w-0 space-y-5">
+              <DemoCarrosselDeDicas />
+              <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { CardDoPainel, CarrosselDeDicas }
+  from "@/app/components/ui/painel-dados";
+
+<CardDoPainel icone={<Lightbulb />} titulo="Dicas para vender mais">
+  <CarrosselDeDicas
+    onFechar={() => setDicas(false)}
+    dicas={[{
+      titulo: "Melhore suas fotos", texto: "…",
+      acao: "Ver dicas de foto",
+      midia: <IconeModa nome="cabide" size={40} />,
+    }]}
+  />
+</CardDoPainel>`}</code></pre>
+            </div>
+            <DataTable
+              head={["Regra", "Orientação"]}
+              rows={[
+                ["Ritmo", "Não passa sozinho: a pessoa usa as setas e vê “1 de 3”. Sem rolagem automática."],
+                ["Quantidade", "De duas a cinco dicas, cada uma com título, uma frase e uma ação."],
+                ["Texto", "Conselho prático e verdadeiro. Sem promessas nem números de resultado sem fonte (nada de “+40% de vendas”)."],
+                ["Fechar", "Sempre fechável; ofereça “Mostrar de novo” no mesmo lugar e lembre a escolha da pessoa."],
+                ["Onde usar", "Dentro de um card do painel com título, nunca solto na página."],
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAIXA DE BENEFÍCIOS ── */}
+      <section id="faixa-beneficios" className="scroll-mt-32">
+        <SectionHeader
+          title="Faixa de benefícios"
+          description="Faixa de largura total que resume, em poucas palavras, o que a loja ganha com a FindLook."
+        />
+        <div className="space-y-5">
+          <div className="@container">
+            <FaixaDeBeneficios
+              icone={<Sparkles />}
+              titulo="Mais visibilidade, mais oportunidades."
+              texto="Suas peças aparecem para quem procura o seu estilo."
+              beneficios={[
+                { icone: <Search />, rotulo: "Descoberta de peças" },
+                { icone: <MapPin />, rotulo: "Clientes da sua região" },
+                { icone: <Zap />, rotulo: "Gestão simples" },
+                { icone: <TrendingUp />, rotulo: "Mais oportunidades de venda" },
+              ]}
+            />
+          </div>
+          <div className="grid gap-5 lg:grid-cols-2 items-start">
+            <DataTable
+              head={["Regra", "Orientação"]}
+              rows={[
+                ["Conteúdo", "Um título, uma frase e quatro benefícios de duas a quatro palavras, cada um com ícone."],
+                ["Benefícios", "Descreva o que o produto faz, sem números nem promessas de resultado."],
+                ["Onde usar", "No fim de uma página do painel ou entre seções; uma faixa por página."],
+                ["Layout", "Envolva em @container: 1, 2 ou 4 colunas conforme a largura; texto e ícones ao lado no espaço largo."],
+              ]}
+            />
+            <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { FaixaDeBeneficios }
+  from "@/app/components/ui/painel-dados";
+
+<div className="@container">
+  <FaixaDeBeneficios
+    icone={<Sparkles />}
+    titulo="Mais visibilidade, mais oportunidades."
+    texto="Suas peças aparecem para quem procura o seu estilo."
+    beneficios={[
+      { icone: <Search />, rotulo: "Descoberta de peças" },
+      { icone: <MapPin />, rotulo: "Clientes da sua região" },
+    ]}
+  />
+</div>`}</code></pre>
           </div>
         </div>
       </section>
