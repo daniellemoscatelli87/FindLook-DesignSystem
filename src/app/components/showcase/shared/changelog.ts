@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: { en: "Store panel", pt: "Painel da loja" },
+    desc: { en: "New store panel components and templates.", pt: "Nova seção Componentes › Painel da loja, com menu lateral (seletor de loja, item com contador, card de plano e de ajuda), barra superior (busca, notificações, conta), cabeçalho da página (seletor de período, botão dividido, banner fechável), indicadores, gráfico com legenda que liga e desliga séries, listas (atividade, insights, tendências, checklist e anel de pontuação), tabela de produtos (abas com contagem, seleção e ações em lote, status com motivo, medidor de desempenho) e dicas. Templates novos: Início do painel da loja (no lugar do Dashboard genérico) e Produtos." },
+    page: "painel", anchor: "painel-estrutura",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: { en: "Templates adapted to FindLook", pt: "Templates adaptados ao FindLook" },
+    desc: { en: "Generic templates adapted to FindLook.", pt: "Configurações, Entrar e criar conta, Equipe, Notificações, Suporte e Landing page agora falam da loja parceira FindLook, em português. Nomes do menu traduzidos." },
+    page: "templates", anchor: "template-settings",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: { en: "Pricing template: new texts and calmer dark mode", pt: "Template de preços: textos novos e modo escuro mais sóbrio" },
     desc: { en: "New \"Who it's for\" texts; the box now has a fixed height of four lines. In dark mode, plan name, price, icon and the \"Who it's for\" box are neutral (only the lightbulb stays yellow); the primary colour remains on the Recommended tag, checks, highlighted border and button.", pt: "Textos novos em \"Para quem\"; a caixa agora tem altura fixa de quatro linhas. No modo escuro, nome, preço, ícone e a caixa \"Para quem\" ficaram neutros (só a lâmpada continua amarela); a cor primária fica na etiqueta Recomendado, nos checks, na borda do destaque e no botão." },
     page: "templates", anchor: "template-pricing",

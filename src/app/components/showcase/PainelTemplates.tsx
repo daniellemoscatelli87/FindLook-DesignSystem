@@ -30,6 +30,9 @@ export const produtosExemplo: Produto[] = [
   { id: "bo019", nome: "Bolsa de palha", detalhes: "SKU BO019 · Única · Palha", icone: "bolsa", condicao: "Nova", estoque: 4, preco: 99.9, nivel: 3, visualizacoes: 131, favoritos: 7, status: "publicado" },
 ];
 
+/** Quantidades da loja inteira (a tabela de exemplo mostra só algumas peças). */
+export const contagensExemplo = { publicado: 128, pendente: 6, esgotado: 3, reservado: 2 };
+
 const serieDias = ["2 out", "5 out", "9 out", "12 out", "16 out", "19 out", "23 out", "26 out", "30 out"];
 const visualizacoes = [380, 520, 470, 690, 640, 820, 910, 1040, 1284];
 const favoritos = [6, 9, 8, 12, 11, 15, 17, 20, 24];
@@ -117,7 +120,7 @@ export function EstruturaDoPainel({ ativo, children }: { ativo: string; children
   return (
     <div className="@container bg-background">
       <div className="flex min-h-[720px]">
-        <aside className="hidden w-64 shrink-0 border-r border-border bg-card @5xl:block">
+        <aside className="hidden w-64 shrink-0 border-r border-border bg-card @4xl:block">
           <MenuLateral ativo={ativo} />
         </aside>
         <Sheet open={aberto} onOpenChange={setAberto}>
@@ -128,12 +131,12 @@ export function EstruturaDoPainel({ ativo, children }: { ativo: string; children
           </SheetContent>
         </Sheet>
         <div className="@container min-w-0 flex-1">
-          <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-border bg-background/90 px-3 py-2.5 backdrop-blur @xl:gap-3 @xl:px-5">
-            <button type="button" onClick={() => setAberto(true)} aria-label="Abrir menu" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring @5xl:hidden">
+          <div className="flex items-center gap-2 border-b border-border bg-background px-3 py-2.5 @xl:gap-3 @xl:px-5">
+            <button type="button" onClick={() => setAberto(true)} aria-label="Abrir menu" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring @4xl:hidden">
               <Menu aria-hidden className="h-5 w-5" />
             </button>
-            <CampoDeBuscaGlobal className="max-w-xl" />
-            <div className="ml-auto flex items-center gap-1">
+            <CampoDeBuscaGlobal className="min-w-0 max-w-xl flex-1" />
+            <div className="ml-auto flex shrink-0 items-center gap-1">
               <BotaoDeNotificacoes naoLidas={4} />
               <GatilhoDaConta nome="Ana Oliveira" papel="Proprietária" />
             </div>
@@ -189,16 +192,16 @@ export function InicioDoPainelTemplate() {
         </div>
 
         {/* Indicadores */}
-        <div className="grid grid-cols-1 gap-3 @lg:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-5">
-          <CardIndicador icone={<Shirt />} valor={128} rotulo="Produtos publicados" variacao={12} comparacao="vs. 30 dias antes" />
-          <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias antes" />
-          <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias antes" />
+        <div className="grid grid-cols-1 gap-3 @lg:grid-cols-2 @min-[44rem]:grid-cols-3 @6xl:grid-cols-5">
+          <CardIndicador icone={<Shirt />} valor={128} rotulo="Produtos publicados" variacao={12} comparacao="vs. 30 dias" />
+          <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
+          <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
           <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja, como “calça jeans wide leg”." />
-          <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={50} comparacao="vs. 30 dias antes" />
+          <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={50} comparacao="vs. 30 dias" />
         </div>
 
         {/* Desempenho, inteligência e atividade */}
-        <div className="grid gap-4 @4xl:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.85fr)]">
+        <div className="grid gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.85fr)]">
           <CardDoPainel icone={<LineChart />} titulo="Desempenho da descoberta" descricao="Visualizações, favoritos e contatos da sua loja.">
             <div className="mb-2 flex items-baseline gap-2">
               <span className="font-[family-name:var(--font-display)] text-[1.75rem] font-extrabold leading-none text-foreground">{formatarNumero(1284)}</span>
@@ -216,7 +219,7 @@ export function InicioDoPainelTemplate() {
             </div>
           </CardDoPainel>
 
-          <CardDoPainel icone={<Activity />} titulo="Atividade recente" acao={<LinkVerTudo rotulo="Ver toda a atividade" />} className="@4xl:col-span-2 @6xl:col-span-1">
+          <CardDoPainel icone={<Activity />} titulo="Atividade recente" acao={<LinkVerTudo rotulo="Ver toda a atividade" />} className="@min-[44rem]:col-span-2 @6xl:col-span-1">
             <ul className="-my-3 divide-y divide-border">
               <ItemDeAtividade icone={<Search />} titulo="Sua peça apareceu em buscas" detalhe="“vestido midi de linho” · 8 ocorrências" quando="há 12 min" />
               <ItemDeAtividade icone={<Heart />} titulo="Nova peça favoritada" detalhe="Vestido midi · R$ 249,90" quando="há 26 min" />
@@ -230,9 +233,9 @@ export function InicioDoPainelTemplate() {
         {/* Produtos e oportunidades */}
         <div className="grid gap-4 @6xl:grid-cols-[minmax(0,1fr)_22rem]">
           <CardDoPainel icone={<Shirt />} titulo={`Seus produtos (${formatarNumero(137)})`} descricao="Gerencie, edite e acompanhe o desempenho das suas peças.">
-            <TabelaDeProdutos produtos={produtosExemplo} total={137} limite={4} />
+            <TabelaDeProdutos produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={4} />
           </CardDoPainel>
-          <div className="grid gap-4 @4xl:grid-cols-2 @6xl:grid-cols-1">
+          <div className="grid gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
             <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
               <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
               <a href="#" className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-[10px] border border-primary text-[0.875rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -250,9 +253,10 @@ export function InicioDoPainelTemplate() {
         </div>
 
         {/* Saúde do catálogo e dicas */}
-        <div className="grid gap-4 @4xl:grid-cols-2">
+        <div className="grid gap-4 @min-[44rem]:grid-cols-2">
           <CardDoPainel icone={<ShieldCheck />} titulo="Saúde do catálogo" descricao="Veja o que pode ser melhorado para aumentar a sua visibilidade.">
-            <div className="flex flex-col items-center gap-4 @lg:flex-row @lg:items-center">
+            <div className="@container">
+            <div className="flex flex-col items-center gap-4 @md:flex-row @md:items-center">
               <AnelDePontuacao valor={85} />
               <ul className="w-full min-w-0 flex-1 space-y-1">
                 <ItemDeChecklist estado="ok" texto="Fotos com boa qualidade" />
@@ -260,6 +264,7 @@ export function InicioDoPainelTemplate() {
                 <ItemDeChecklist estado="atencao" texto="3 produtos sem variação de tamanho" />
                 <ItemDeChecklist estado="atencao" texto="2 fotos precisam de melhoria" />
               </ul>
+            </div>
             </div>
           </CardDoPainel>
           {dicas ? (
@@ -322,7 +327,7 @@ export function ProdutosTemplate() {
           <CardIndicador estilo="pilula" icone={<Bell />} valor={2} rotulo="Reservados" />
         </div>
         <CardDoPainel titulo={`Todos os produtos (${formatarNumero(137)})`} descricao="Selecione peças para publicar, marcar como esgotadas ou excluir de uma vez.">
-          <TabelaDeProdutos produtos={produtosExemplo} total={137} estiloAbas="sublinhado" />
+          <TabelaDeProdutos produtos={produtosExemplo} total={137} contagens={contagensExemplo} estiloAbas="sublinhado" />
         </CardDoPainel>
       </EstruturaDoPainel>
     </MolduraDoPainel>

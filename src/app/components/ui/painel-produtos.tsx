@@ -164,6 +164,8 @@ type TabelaDeProdutosProps = {
   /** Seleção com caixas e ações em lote. */
   selecionavel?: boolean;
   estiloAbas?: "pilula" | "sublinhado";
+  /** Quantidade real por status (quando a lista mostra só parte das peças). */
+  contagens?: Partial<Record<StatusProduto, number>>;
   className?: string;
 };
 
@@ -172,13 +174,13 @@ const abasStatus: { valor: "todos" | StatusProduto; rotulo: string }[] = [
   { valor: "esgotado", rotulo: "Esgotados" }, { valor: "reservado", rotulo: "Reservados" },
 ];
 
-function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estiloAbas = "pilula", className }: TabelaDeProdutosProps) {
+function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estiloAbas = "pilula", contagens, className }: TabelaDeProdutosProps) {
   const [aba, setAba] = React.useState("todos");
   const [busca, setBusca] = React.useState("");
   const [selecionados, setSelecionados] = React.useState<string[]>([]);
   const idBusca = React.useId();
 
-  const contagem = (v: string) => (v === "todos" ? (total ?? produtos.length) : produtos.filter(p => p.status === v).length);
+  const contagem = (v: string) => (v === "todos" ? (total ?? produtos.length) : (contagens?.[v as StatusProduto] ?? produtos.filter(p => p.status === v).length));
   const filtrados = produtos.filter(p => (aba === "todos" || p.status === aba) && (!busca || `${p.nome} ${p.detalhes}`.toLowerCase().includes(busca.toLowerCase())));
   const visiveis = limite ? filtrados.slice(0, limite) : filtrados;
   const todosMarcados = visiveis.length > 0 && visiveis.every(p => selecionados.includes(p.id));
@@ -228,7 +230,7 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
       )}
 
       {/* Tabela (telas largas) */}
-      <div className="hidden overflow-x-auto rounded-[12px] border border-border @3xl:block">
+      <div className="relative hidden overflow-x-auto rounded-[12px] border border-border @2xl:block">
         <table className="w-full text-left">
           <caption className="sr-only">Produtos da loja{aba !== "todos" ? `, filtro: ${abasStatus.find(a => a.valor === aba)?.rotulo}` : ""}</caption>
           <thead className="bg-muted/50 text-[0.75rem] font-semibold text-muted-foreground">
@@ -239,10 +241,10 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
                 </th>
               )}
               <th scope="col" className="px-3 py-2.5">Produto</th>
-              <th scope="col" className="px-3 py-2.5">Condição</th>
-              <th scope="col" className="px-3 py-2.5 text-right">Estoque</th>
+              <th scope="col" className="hidden px-3 py-2.5 @4xl:table-cell">Condição</th>
+              <th scope="col" className="hidden px-3 py-2.5 text-right @4xl:table-cell">Estoque</th>
               <th scope="col" className="px-3 py-2.5 text-right">Preço</th>
-              <th scope="col" className="px-3 py-2.5">Desempenho (30 dias)</th>
+              <th scope="col" className="hidden px-3 py-2.5 @4xl:table-cell">Desempenho (30 dias)</th>
               <th scope="col" className="px-3 py-2.5">Status</th>
               <th scope="col" className="px-3 py-2.5"><span className="sr-only">Ações</span></th>
             </tr>
@@ -253,11 +255,11 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
               return (
                 <tr key={p.id} className={cn("transition-colors hover:bg-muted/40", marcado && "bg-[var(--primary-muted)]")}>
                   {selecionavel && <td className="px-3 py-3"><input type="checkbox" className={caixa} aria-label={`Selecionar ${p.nome}`} checked={marcado} onChange={() => alternar(p.id)} /></td>}
-                  <td className="max-w-64 px-3 py-3"><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
-                  <td className="px-3 py-3"><span className="rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[0.75rem] text-foreground">{p.condicao}</span></td>
-                  <td className="px-3 py-3 text-right text-[0.875rem] tabular-nums text-foreground">{p.estoque}</td>
+                  <td className="max-w-64 px-3 py-3"><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /><div className="mt-1 space-y-1 pl-[3.75rem] @4xl:hidden"><p className="text-[0.75rem] text-muted-foreground">{p.condicao} · {p.estoque} em estoque</p><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></div></td>
+                  <td className="hidden px-3 py-3 @4xl:table-cell"><span className="rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[0.75rem] text-foreground">{p.condicao}</span></td>
+                  <td className="hidden px-3 py-3 text-right text-[0.875rem] tabular-nums text-foreground @4xl:table-cell">{p.estoque}</td>
                   <td className="whitespace-nowrap px-3 py-3 text-right text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}</td>
-                  <td className="px-3 py-3"><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></td>
+                  <td className="hidden px-3 py-3 @4xl:table-cell"><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></td>
                   <td className="max-w-44 px-3 py-3"><StatusDePublicacao status={p.status} motivo={p.motivo} /></td>
                   <td className="px-3 py-3 text-right"><MenuDaLinha p={p} /></td>
                 </tr>
@@ -268,7 +270,7 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
       </div>
 
       {/* Lista de cards (telas estreitas) */}
-      <ul className="space-y-2 @3xl:hidden" aria-label="Produtos da loja">
+      <ul className="space-y-2 @2xl:hidden" aria-label="Produtos da loja">
         {visiveis.map(p => {
           const marcado = selecionados.includes(p.id);
           return (

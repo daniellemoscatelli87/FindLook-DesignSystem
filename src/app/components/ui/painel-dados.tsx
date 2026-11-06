@@ -303,15 +303,15 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
 /* ── Faixa de benefícios ─────────────────────────────────────── */
 function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { icone?: React.ReactNode; titulo: string; texto: string; beneficios: { icone: React.ReactNode; rotulo: string }[]; className?: string }) {
   return (
-    <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-[16px] border border-primary/15 bg-[var(--primary-muted)] p-5 @4xl:flex-row @4xl:items-center", className)}>
-      <div className="flex min-w-0 flex-1 gap-3">
+    <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-[16px] border border-primary/15 bg-[var(--primary-muted)] p-5 @5xl:flex-row @5xl:items-center", className)}>
+      <div className="flex min-w-0 gap-3 @5xl:w-80 @5xl:shrink-0">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
           <p className={`${display} text-[1.0625rem] font-bold text-foreground`}>{titulo}</p>
           <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{texto}</p>
         </div>
       </div>
-      <ul className="grid grid-cols-2 gap-2 @2xl:grid-cols-4">
+      <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2 @2xl:grid-cols-4">
         {beneficios.map(b => (
           <li key={b.rotulo} className="flex items-center gap-2.5 rounded-[12px] bg-card px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
             <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{b.icone}</span>

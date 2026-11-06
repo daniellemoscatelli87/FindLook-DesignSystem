@@ -6,7 +6,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, UploadCloud, Milestone, Brush,
+  PanelRight, UploadCloud, Milestone, Brush, LayoutPanelLeft,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -34,6 +34,7 @@ import { TimelineShowcase } from "./components/showcase/TimelineShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
+import { PainelShowcase } from "./components/showcase/PainelShowcase";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -43,7 +44,7 @@ const ptLabels: Record<string, string> = {
   "Concepts": "Conceitos",
   "Guidelines": "Diretrizes",
   "Backgrounds": "Fundos",
-  "Motion": "Motion",
+  "Motion": "Movimento",
   "Templates": "Templates",
   "Components": "Componentes",
   "Home": "Início",
@@ -94,7 +95,7 @@ const ptLabels: Record<string, string> = {
   "Canvas Reveal": "Canvas Reveal",
   "Vortex": "Vórtice",
   "Background Lines": "Linhas de fundo",
-  "Motion Design": "Motion Design",
+  "Motion Design": "Movimento",
   "Enter & Exit Presets": "Presets de entrada e saída",
   "Easing Reference": "Referência de easing",
   "Spring Physics": "Física de mola",
@@ -109,14 +110,14 @@ const ptLabels: Record<string, string> = {
   "Wobble Card": "Card Wobble",
   "Shine Border": "Shine Border",
   "Motion Tokens": "Tokens de movimento",
-  "Dashboard": "Dashboard",
-  "Settings": "Configurações",
-  "Auth": "Autenticação",
-  "Team": "Equipe",
-  "Inbox": "Caixa de entrada",
-  "Pricing": "Preços",
-  "Contact": "Contato",
-  "Landing Page": "Landing page",
+  "Dashboard": "Início do painel",
+  "Settings": "Configurações da loja",
+  "Auth": "Entrar e criar conta",
+  "Team": "Equipe da loja",
+  "Inbox": "Notificações",
+  "Pricing": "Preços e planos",
+  "Contact": "Suporte",
+  "Landing Page": "Landing page para lojistas",
   "Buttons": "Botões",
   "Button Variants": "Variantes de botão",
   "Form Controls": "Controles de formulário",
@@ -158,6 +159,8 @@ const ptLabels: Record<string, string> = {
   "Feedback & Status": "Feedback e status",
   "Labels & Patterns": "Rótulos e padrões",
   "Overlays & Navigation": "Overlays e navegação",
+  "Avatar Circles": "Círculos de avatares",
+  "Movimento: Step Indicator": "Movimento: indicador de etapas",
 };
 
 /* ── Sidebar nav structure ── */
@@ -329,7 +332,8 @@ const navGroups: { group: string; items: NavItem[] }[] = [
     items: [
       { id: "templates", label: "Templates", icon: LayoutTemplate,
         items: [
-          { id: "template-dashboard",  label: "Dashboard",     sectionId: "templates" },
+          { id: "template-dashboard",  label: "Início do painel", sectionId: "templates" },
+          { id: "template-produtos",   label: "Produtos",      sectionId: "templates" },
           { id: "template-settings",   label: "Settings",      sectionId: "templates" },
           { id: "template-auth",       label: "Auth",          sectionId: "templates" },
           { id: "template-team",       label: "Team",          sectionId: "templates" },
@@ -450,6 +454,17 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "upload-tokens",   label: "Tokens",                    sectionId: "upload" },
         ],
       },
+      { id: "painel", label: "Painel da loja", icon: LayoutPanelLeft,
+        items: [
+          { id: "painel-estrutura",    label: "Menu e barra superior", sectionId: "painel" },
+          { id: "painel-cabecalho",    label: "Cabeçalho da página",   sectionId: "painel" },
+          { id: "painel-indicadores",  label: "Indicadores",           sectionId: "painel" },
+          { id: "painel-grafico",      label: "Gráfico de desempenho", sectionId: "painel" },
+          { id: "painel-listas",       label: "Listas",                sectionId: "painel" },
+          { id: "painel-produtos",     label: "Tabela de produtos",    sectionId: "painel" },
+          { id: "painel-engajamento",  label: "Dicas e benefícios",    sectionId: "painel" },
+        ],
+      },
     ],
   },
 ];
@@ -481,6 +496,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   sidepanel: <SidePanelShowcase />,
   timeline:  <TimelineShowcase />,
   upload:    <UploadShowcase />,
+  painel:    <PainelShowcase />,
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
   templates:   <TemplatesShowcase />,
@@ -508,6 +524,7 @@ const sectionLabels: Record<string, string> = {
   sidepanel: "Painel lateral",
   timeline:  "Linha do tempo",
   upload:    "Upload",
+  painel:    "Painel da loja",
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
   templates:   "Templates",
@@ -942,7 +959,7 @@ function AppShell() {
                 >
                   Dani Moscatelli <span aria-hidden className="mx-1 text-muted-foreground/60">•</span> Experience Design Studio
                 </a>
-                . All rights reserved.
+                . Todos os direitos reservados.
               </p>
             </div>
           </footer>

@@ -6,7 +6,7 @@ import { CabecalhoDaPagina, SeletorDePeriodo, BotaoDividido, BannerPromocional }
 import { CardIndicador, GraficoDeDesempenho, ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, CarrosselDeDicas, FaixaDeBeneficios, formatarNumero, formatarPreco, formatarVariacao } from "../ui/painel-dados";
 import { AbasComContador, CelulaDeProduto, MedidorDeDesempenho, StatusDePublicacao, TabelaDeProdutos } from "../ui/painel-produtos";
 import { IconeModa } from "../ui/fashion-icons";
-import { produtosExemplo, dadosDesempenho } from "./PainelTemplates";
+import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemplates";
 
 /**
  * Painel da loja: documentação dos componentes do painel administrativo do FindLook.
@@ -45,7 +45,7 @@ export function PainelShowcase() {
       {/* 1 — Estrutura */}
       <PageSection id="painel-estrutura" label="Estrutura" title="Menu lateral e barra superior" intro={<p>O menu fica fixo à esquerda em telas largas e vira uma gaveta (botão de menu) em telas estreitas. A barra superior traz a busca global, as notificações e a conta.</p>}>
         <Palco>
-          <div className="grid gap-6 @3xl:grid-cols-[16rem_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 gap-6 @3xl:grid-cols-[16rem_minmax(0,1fr)]">
             <div className="space-y-4 rounded-[14px] border border-border bg-card p-4">
               <SeletorDeLoja loja="Ateliê Aurora" />
               <nav aria-label="Exemplo de menu">
@@ -113,10 +113,10 @@ export function PainelShowcase() {
       <PageSection id="painel-indicadores" label="Dados" title="Indicadores" intro={<p>Número grande no formato brasileiro, rótulo e variação com seta. A explicação no “i” abre ao toque, ao clique e pelo teclado.</p>}>
         <Palco className="space-y-4">
           <div className="grid grid-cols-1 gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
-            <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias antes" />
-            <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias antes" />
+            <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
+            <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
             <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
-            <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-12} comparacao="vs. 30 dias antes" />
+            <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-12} comparacao="vs. 30 dias" />
           </div>
           <p className="text-[0.75rem] font-semibold text-muted-foreground">Variação em pílula</p>
           <div className="grid grid-cols-2 gap-3 @4xl:grid-cols-4">
@@ -211,7 +211,7 @@ export function PainelShowcase() {
               <StatusDePublicacao status="rascunho" />
             </div>
           </div>
-          <TabelaDeProdutos produtos={produtosExemplo} total={137} limite={5} />
+          <TabelaDeProdutos produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={5} />
         </Palco>
         <Regras itens={[
           "Status sempre com ícone e texto. “Pendente” mostra o motivo logo abaixo.",
