@@ -24,7 +24,7 @@ export const changelog: ChangeEntry[] = [
   {
     date: "Nov 2026", kind: "New", title: { en: "Store panel", pt: "Painel da loja" },
     desc: { en: "New store panel components and templates.", pt: "Nova seção Componentes › Painel da loja, com menu lateral (seletor de loja, item com contador, card de plano e de ajuda), barra superior (busca, notificações, conta), cabeçalho da página (seletor de período, botão dividido, banner fechável), indicadores, gráfico com legenda que liga e desliga séries, listas (atividade, insights, tendências, checklist e anel de pontuação), tabela de produtos (abas com contagem, seleção e ações em lote, status com motivo, medidor de desempenho) e dicas. Templates novos: Início do painel da loja (no lugar do Dashboard genérico) e Produtos." },
-    page: "painel", anchor: "painel-estrutura",
+    page: "templates", anchor: "template-dashboard",
   },
   {
     date: "Nov 2026", kind: "Updated", title: { en: "Templates adapted to FindLook", pt: "Templates adaptados ao FindLook" },

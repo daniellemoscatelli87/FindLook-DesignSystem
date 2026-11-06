@@ -6,7 +6,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, UploadCloud, Milestone, Brush, LayoutPanelLeft,
+  PanelRight, UploadCloud, Milestone, Brush,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -34,7 +34,6 @@ import { TimelineShowcase } from "./components/showcase/TimelineShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
-import { PainelShowcase } from "./components/showcase/PainelShowcase";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -448,17 +447,6 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "upload-tokens",   label: "Tokens",                    sectionId: "upload" },
         ],
       },
-      { id: "painel", label: "Painel da loja", icon: LayoutPanelLeft,
-        items: [
-          { id: "painel-estrutura",    label: "Menu e barra superior", sectionId: "painel" },
-          { id: "painel-cabecalho",    label: "Cabeçalho da página",   sectionId: "painel" },
-          { id: "painel-indicadores",  label: "Indicadores",           sectionId: "painel" },
-          { id: "painel-grafico",      label: "Gráfico de desempenho", sectionId: "painel" },
-          { id: "painel-listas",       label: "Listas",                sectionId: "painel" },
-          { id: "painel-produtos",     label: "Tabela de produtos",    sectionId: "painel" },
-          { id: "painel-engajamento",  label: "Dicas e benefícios",    sectionId: "painel" },
-        ],
-      },
     ],
   },
 ];
@@ -490,7 +478,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
   sidepanel: <SidePanelShowcase />,
   timeline:  <TimelineShowcase />,
   upload:    <UploadShowcase />,
-  painel:    <PainelShowcase />,
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
   templates:   <TemplatesShowcase />,
@@ -518,7 +505,6 @@ const sectionLabels: Record<string, string> = {
   sidepanel: "Painel lateral",
   timeline:  "Linha do tempo",
   upload:    "Upload",
-  painel:    "Painel da loja",
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
   templates:   "Templates",
