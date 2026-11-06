@@ -22,7 +22,7 @@ import {
   ResponsiveContainer, Tooltip as ReTooltip,
 } from "recharts";
 import { useI18n } from "../../i18n";
-import { InicioDoPainelTemplate, ProdutosTemplate } from "./PainelTemplates";
+import { PrototipoDoPainel, PainelEmbutido } from "./PainelTemplates";
 import { Switch } from "../ui/switch";
 import { IconeModa, type NomeIconeModa } from "../ui/fashion-icons";
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
@@ -54,6 +54,8 @@ function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: 
 
 /* Wraps each template in a browser-chrome frame */
 function TemplateFrame({ children, className = "", url = "Painel da loja · FindLook" }: { children: React.ReactNode; className?: string; url?: string }) {
+  const embutido = React.useContext(PainelEmbutido);
+  if (embutido) return <div className={`overflow-hidden rounded-[16px] border border-border bg-background ${className}`} style={{ boxShadow: "var(--shadow-xs)" }}>{children}</div>;
   return (
     <div className={`rounded-[16px] border border-border overflow-hidden ${className}`} style={{ boxShadow: "var(--shadow-lg)" }}>
       {/* Browser chrome */}
@@ -121,9 +123,10 @@ const avisosLoja = [
 ] as const;
 type ChaveAviso = typeof avisosLoja[number]["chave"];
 
-function SettingsTemplate() {
+function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
+  const embutido = React.useContext(PainelEmbutido);
   const uid = useId();
-  const [activeTab, setActiveTab] = useState("perfil");
+  const [activeTab, setActiveTab] = useState(abaInicial);
   const [salvo, setSalvo] = useState(false);
   const [avisos, setAvisos] = useState<Record<ChaveAviso, boolean>>({ favoritos: true, reservas: true, contatos: true, buscas: false });
   const [canais, setCanais] = useState({ email: true, whatsapp: false });
@@ -168,9 +171,9 @@ function SettingsTemplate() {
 
   return (
     <TemplateFrame url="Painel da loja · Configurações">
-      <div className="flex h-[560px] bg-background overflow-hidden">
+      <div className={`flex bg-background overflow-hidden ${embutido ? "" : "h-[560px]"}`}>
         {/* Menu do painel */}
-        <aside className="hidden md:block w-[196px] shrink-0 border-r border-border bg-card/50 py-3 px-2.5" aria-label="Menu do painel da loja">
+        {!embutido && <aside className="hidden md:block w-[196px] shrink-0 border-r border-border bg-card/50 py-3 px-2.5" aria-label="Menu do painel da loja">
           <div className="px-2 mb-5">
             <MarcaFindLook legenda="Ateliê Aurora" />
           </div>
@@ -197,7 +200,7 @@ function SettingsTemplate() {
               );
             })}
           </nav>
-        </aside>
+        </aside>}
 
         {/* Conteúdo */}
         <div className="flex-1 min-w-0 overflow-y-auto">
@@ -596,6 +599,7 @@ const equipeInicial: Pessoa[] = [
 ];
 
 function TeamTemplate() {
+  const embutido = React.useContext(PainelEmbutido);
   const uid = useId();
   const pre = `eq${uid.replace(/:/g, "")}`;
   const [pessoas, setPessoas] = useState<Pessoa[]>(equipeInicial);
@@ -626,7 +630,7 @@ function TeamTemplate() {
 
   return (
     <TemplateFrame url="Painel da loja · Equipe">
-      <div className="bg-background h-[560px] overflow-hidden flex flex-col">
+      <div className={`bg-background overflow-hidden flex flex-col ${embutido ? "" : "h-[560px]"}`}>
         {/* Cabeçalho */}
         <div className="border-b border-border px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div>
@@ -1381,52 +1385,23 @@ export function TemplatesShowcase() {
         </p>
       </div>
 
-      {/* 1 — Dashboard */}
+      {/* Painel da loja (protótipo) */}
       <section id="template-dashboard">
-        <TemplateLabel icon={LayoutDashboard} label="Início do painel da loja" />
-        <InicioDoPainelTemplate />
+        <TemplateLabel icon={LayoutDashboard} label="Painel da loja: protótipo navegável" />
+        <p className="-mt-2 mb-4 max-w-2xl text-[0.875rem] leading-relaxed text-muted-foreground">Uma janela só, com rolagem própria. Use o menu lateral, a busca, o sino e o menu da conta para trocar de página, como no painel de verdade. Em telas estreitas, o menu abre como gaveta dentro da janela.</p>
+        <PrototipoDoPainel paginas={{
+          perfil: <SettingsTemplate />,
+          configuracoes: <SettingsTemplate abaInicial="notificacoes" />,
+          equipe: <TeamTemplate />,
+          planos: <PricingTemplate />,
+          notificacoes: <InboxTemplate />,
+          ajuda: <ContactTemplate />,
+        }} />
       </section>
 
-      {/* Produtos */}
-      <section id="template-produtos">
-        <TemplateLabel icon={Package} label="Produtos" />
-        <ProdutosTemplate />
-      </section>
-
-      {/* 2 — Configurações da loja */}
-      <section id="template-settings">
-        <TemplateLabel icon={Settings} label="Configurações da loja" />
-        <SettingsTemplate />
-      </section>
-
-      {/* 3 — Entrar e criar conta */}
       <section id="template-auth">
         <TemplateLabel icon={LogIn} label="Entrar e criar conta" />
         <AuthTemplate />
-      </section>
-
-      {/* 4 — Equipe da loja */}
-      <section id="template-team">
-        <TemplateLabel icon={Users} label="Equipe da loja" />
-        <TeamTemplate />
-      </section>
-
-      {/* 5 — Notificações */}
-      <section id="template-inbox">
-        <TemplateLabel icon={Bell} label="Notificações" />
-        <InboxTemplate />
-      </section>
-
-      {/* 6 — Pricing */}
-      <section id="template-pricing">
-        <TemplateLabel icon={CreditCard} label={t("Pricing & Plans", "Preços e planos")} />
-        <PricingTemplate />
-      </section>
-
-      {/* 7 — Suporte */}
-      <section id="template-contact">
-        <TemplateLabel icon={LifeBuoy} label="Suporte" />
-        <ContactTemplate />
       </section>
 
       {/* 8 — Landing page para lojistas */}

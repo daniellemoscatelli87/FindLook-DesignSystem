@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: { en: "Store panel: single navigable prototype", pt: "Painel da loja: protótipo navegável em uma janela só" },
+    desc: { en: "Panel templates merged into one prototype.", pt: "Os templates do painel viraram um protótipo só, com altura fixa e rolagem própria: o menu lateral troca de página (Início, Produtos, Importar, Buscas, Inteligência de vendas, Perfil, Equipe, Planos, Configurações, Ajuda e Notificações), com busca que leva às páginas, menu do sino e da conta. O menu tem rolagem própria e vira gaveta dentro da janela em telas estreitas. Logo sem distorção. Entrar e criar conta e a landing page continuam separadas." },
+    page: "templates", anchor: "template-dashboard",
+  },
+  {
     date: "Nov 2026", kind: "New", title: { en: "Store panel", pt: "Painel da loja" },
     desc: { en: "New store panel components and templates.", pt: "Nova seção Componentes › Painel da loja, com menu lateral (seletor de loja, item com contador, card de plano e de ajuda), barra superior (busca, notificações, conta), cabeçalho da página (seletor de período, botão dividido, banner fechável), indicadores, gráfico com legenda que liga e desliga séries, listas (atividade, insights, tendências, checklist e anel de pontuação), tabela de produtos (abas com contagem, seleção e ações em lote, status com motivo, medidor de desempenho) e dicas. Templates novos: Início do painel da loja (no lugar do Dashboard genérico) e Produtos." },
     page: "painel", anchor: "painel-estrutura",
@@ -24,27 +29,27 @@ export const changelog: ChangeEntry[] = [
   {
     date: "Nov 2026", kind: "Updated", title: { en: "Templates adapted to FindLook", pt: "Templates adaptados ao FindLook" },
     desc: { en: "Generic templates adapted to FindLook.", pt: "Configurações, Entrar e criar conta, Equipe, Notificações, Suporte e Landing page agora falam da loja parceira FindLook, em português. Nomes do menu traduzidos." },
-    page: "templates", anchor: "template-settings",
+    page: "templates", anchor: "template-dashboard",
   },
   {
     date: "Nov 2026", kind: "Updated", title: { en: "Pricing template: new texts and calmer dark mode", pt: "Template de preços: textos novos e modo escuro mais sóbrio" },
     desc: { en: "New \"Who it's for\" texts; the box now has a fixed height of four lines. In dark mode, plan name, price, icon and the \"Who it's for\" box are neutral (only the lightbulb stays yellow); the primary colour remains on the Recommended tag, checks, highlighted border and button.", pt: "Textos novos em \"Para quem\"; a caixa agora tem altura fixa de quatro linhas. No modo escuro, nome, preço, ícone e a caixa \"Para quem\" ficaram neutros (só a lâmpada continua amarela); a cor primária fica na etiqueta Recomendado, nos checks, na borda do destaque e no botão." },
-    page: "templates", anchor: "template-pricing",
+    page: "templates", anchor: "template-dashboard",
   },
   {
     date: "Nov 2026", kind: "Updated", title: { en: "Pricing template: \"Who it's for\" box", pt: "Template de preços: caixa \"Para quem\"" },
     desc: { en: "The \"Who it's for\" box is now light yellow (warning-muted) with a lightbulb icon, has a fixed height of three lines in every card and no ellipsis: the text must fit in three lines. Three columns from 1280 px; one column below.", pt: "A caixa \"Para quem\" ficou amarelo-clara (warning-muted), com ícone de lâmpada, altura fixa de três linhas em todos os cards e sem reticências: o texto deve caber em até três linhas. Três colunas a partir de 1280 px; uma coluna abaixo disso." },
-    page: "templates", anchor: "template-pricing",
+    page: "templates", anchor: "template-dashboard",
   },
   {
     date: "Nov 2026", kind: "Updated", title: { en: "Pricing template: plan names and selected state", pt: "Template de preços: nomes dos planos e estado selecionado" },
     desc: { en: "Plans are now named after what each tag meant (Visibility, Performance, Opportunities) and the tag was removed. The button reads \"Select Plan\" and, once clicked, fills with the primary colour, shows a check and \"Plan selected\"; the chosen card gets the primary border. Under Templates › Pricing.", pt: "Os planos passaram a se chamar pelo que cada tag dizia (Visibilidade, Desempenho, Oportunidades) e a tag saiu do card. O botão agora diz \"Selecionar Plano\" e, ao ser clicado, fica preenchido na primária, com check e \"Plano selecionado\"; o card escolhido ganha a borda na primária. Em Templates › Preços." },
-    page: "templates", anchor: "template-pricing",
+    page: "templates", anchor: "template-dashboard",
   },
   {
     date: "Nov 2026", kind: "Updated", title: { en: "Pricing template", pt: "Template de preços" },
     desc: { en: "Plan cards now have a section seal above the name, name and price in the primary colour with \"/ month\", a \"Who it's for\" box limited to two lines, a description, a divider, included items with a check and not-included items with a dash, a \"Recommended\" tag on the highlighted plan and an outlined \"Select\" button. Equal heights; one column on phones. Under Templates › Pricing.", pt: "Os cards de plano ganharam selo de seção acima do nome, nome e preço na cor primária com \"/ mês\", caixa \"Para quem\" com no máximo duas linhas, descrição, divisor, itens incluídos com check e não incluídos com traço, etiqueta \"Recomendado\" no plano em destaque e botão \"Selecionar\" em contorno. Mesma altura; uma coluna no celular. Em Templates › Preços." },
-    page: "templates", anchor: "template-pricing",
+    page: "templates", anchor: "template-dashboard",
   },
   {
     date: "Nov 2026", kind: "New", title: pt("Campo de senha com confirmação"),

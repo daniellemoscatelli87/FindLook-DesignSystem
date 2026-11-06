@@ -69,13 +69,14 @@ type ItemDoMenuProps = React.ComponentProps<"a"> & {
   rotuloContador?: string;
 };
 
-function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", className, children, ...props }: ItemDoMenuProps) {
+const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", className, children, ...props }, ref) {
   return (
     <a
+      ref={ref}
       data-slot="item-do-menu"
       aria-current={ativo ? "page" : undefined}
       className={cn(
-        "group flex min-h-10 items-center gap-3 rounded-[10px] px-3 py-2 text-[0.875rem] font-medium transition-colors",
+        "group relative flex min-h-10 items-center gap-3 rounded-[10px] px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ativo
           ? "bg-[var(--primary-muted)] font-semibold text-[var(--primary-text,var(--primary))]"
@@ -84,6 +85,7 @@ function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", classNam
       )}
       {...props}
     >
+      {ativo && <span aria-hidden className="absolute inset-y-2 left-0 w-[3px] rounded-r-full bg-primary" />}
       <span aria-hidden className={cn("flex h-5 w-5 shrink-0 items-center justify-center [&>svg]:h-[18px] [&>svg]:w-[18px]", !ativo && "text-muted-foreground group-hover:text-foreground")}>{icone}</span>
       <span className="min-w-0 flex-1 truncate">{children}</span>
       {!!contador && (
@@ -93,7 +95,7 @@ function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", classNam
       )}
     </a>
   );
-}
+});
 
 function GrupoDoMenu({ titulo, children, className }: { titulo?: string; children: React.ReactNode; className?: string }) {
   const id = React.useId();
@@ -107,6 +109,8 @@ function GrupoDoMenu({ titulo, children, className }: { titulo?: string; childre
 
 /* ── Card de plano (rodapé do menu) ──────────────────────────── */
 type CardDePlanoProps = {
+  /** Versão baixa, para o rodapé do menu. */
+  compacto?: boolean;
   plano: string;
   preco?: string;
   descricao?: string;
@@ -115,7 +119,25 @@ type CardDePlanoProps = {
   className?: string;
 };
 
-function CardDePlano({ plano, preco, descricao, acao = "Gerenciar plano", onAcao, className }: CardDePlanoProps) {
+function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plano", onAcao, className }: CardDePlanoProps) {
+  if (compacto) {
+    return (
+      <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-[14px] bg-primary p-3 text-primary-foreground shadow-[var(--shadow-sm)]", className)}>
+        <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10" />
+        <div className="flex items-center gap-2.5">
+          <Crown aria-hidden className="h-5 w-5 shrink-0" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[0.6875rem] font-medium leading-none">Seu plano</p>
+            <p className="mt-1 truncate text-[0.875rem] font-bold leading-tight">{plano}</p>
+            {preco && <p className="text-[0.75rem] font-medium leading-tight">{preco} / mês</p>}
+          </div>
+        </div>
+        <button type="button" onClick={onAcao} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-[9px] bg-card text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+          {acao} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    );
+  }
   return (
     <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-[14px] bg-primary p-4 text-primary-foreground shadow-[var(--shadow-md)]", className)}>
       <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/10" />
@@ -167,7 +189,7 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
       type="button"
       data-slot="busca-global"
       onClick={onAbrir}
-      aria-keyshortcuts="Control+K"
+      aria-keyshortcuts={atalho === "Ctrl + K" ? "Control+K" : undefined}
       className={cn(
         "flex h-10 w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 text-left text-[0.8125rem] text-muted-foreground shadow-[var(--shadow-xs)] transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
@@ -176,14 +198,15 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
     >
       <Search aria-hidden className="h-4 w-4 shrink-0" />
       <span className="min-w-0 flex-1 truncate">{placeholder}</span>
-      <kbd className="hidden shrink-0 rounded-[6px] border border-border bg-muted px-1.5 py-0.5 font-sans text-[0.6875rem] font-medium sm:inline">{atalho}</kbd>
+      {atalho && <kbd className="hidden shrink-0 rounded-[6px] border border-border bg-muted px-1.5 py-0.5 font-sans text-[0.6875rem] font-medium sm:inline">{atalho}</kbd>}
     </button>
   );
 }
 
-function BotaoDeNotificacoes({ naoLidas = 0, className, ...props }: React.ComponentProps<"button"> & { naoLidas?: number }) {
+const BotaoDeNotificacoes = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"> & { naoLidas?: number }>(function BotaoDeNotificacoes({ naoLidas = 0, className, ...props }, ref) {
   return (
     <button
+      ref={ref}
       type="button"
       data-slot="notificacoes"
       aria-label={naoLidas ? `Notificações: ${naoLidas} não lidas` : "Notificações"}
@@ -198,11 +221,12 @@ function BotaoDeNotificacoes({ naoLidas = 0, className, ...props }: React.Compon
       {naoLidas > 0 && <span aria-hidden className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background" />}
     </button>
   );
-}
+});
 
-function GatilhoDaConta({ nome, papel, foto, className, ...props }: React.ComponentProps<"button"> & { nome: string; papel?: string; foto?: string }) {
+const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"> & { nome: string; papel?: string; foto?: string }>(function GatilhoDaConta({ nome, papel, foto, className, ...props }, ref) {
   return (
     <button
+      ref={ref}
       type="button"
       data-slot="gatilho-da-conta"
       aria-label={`Conta de ${nome}${papel ? `, ${papel}` : ""}. Abrir menu da conta`}
@@ -221,6 +245,6 @@ function GatilhoDaConta({ nome, papel, foto, className, ...props }: React.Compon
       <ChevronDown aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
     </button>
   );
-}
+});
 
 export { AvatarPainel, SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CardDeAjuda, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta, iniciais };

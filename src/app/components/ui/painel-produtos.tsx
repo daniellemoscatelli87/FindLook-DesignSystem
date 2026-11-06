@@ -164,6 +164,8 @@ type TabelaDeProdutosProps = {
   /** Seleção com caixas e ações em lote. */
   selecionavel?: boolean;
   estiloAbas?: "pilula" | "sublinhado";
+  /** Ação do link "Ver todos os produtos" (rodapé da prévia). */
+  onVerTodos?: () => void;
   /** Quantidade real por status (quando a lista mostra só parte das peças). */
   contagens?: Partial<Record<StatusProduto, number>>;
   className?: string;
@@ -174,7 +176,7 @@ const abasStatus: { valor: "todos" | StatusProduto; rotulo: string }[] = [
   { valor: "esgotado", rotulo: "Esgotados" }, { valor: "reservado", rotulo: "Reservados" },
 ];
 
-function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estiloAbas = "pilula", contagens, className }: TabelaDeProdutosProps) {
+function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estiloAbas = "pilula", contagens, onVerTodos, className }: TabelaDeProdutosProps) {
   const [aba, setAba] = React.useState("todos");
   const [busca, setBusca] = React.useState("");
   const [selecionados, setSelecionados] = React.useState<string[]>([]);
@@ -301,7 +303,7 @@ function TabelaDeProdutos({ produtos, total, limite, selecionavel = true, estilo
       {limite !== undefined && (
         <div className="flex flex-wrap items-center justify-between gap-2 px-1 pt-1">
           <p className="text-[0.8125rem] text-muted-foreground">Exibindo {visiveis.length} de {formatarNumero(contagem(aba))} produtos</p>
-          <a href="#" className={cn("inline-flex items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
+          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
             Ver todos os produtos <ArrowRight aria-hidden className="h-3.5 w-3.5" />
           </a>
         </div>

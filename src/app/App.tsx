@@ -332,14 +332,8 @@ const navGroups: { group: string; items: NavItem[] }[] = [
     items: [
       { id: "templates", label: "Templates", icon: LayoutTemplate,
         items: [
-          { id: "template-dashboard",  label: "Início do painel", sectionId: "templates" },
-          { id: "template-produtos",   label: "Produtos",      sectionId: "templates" },
-          { id: "template-settings",   label: "Settings",      sectionId: "templates" },
+          { id: "template-dashboard",  label: "Painel da loja (protótipo)", sectionId: "templates" },
           { id: "template-auth",       label: "Auth",          sectionId: "templates" },
-          { id: "template-team",       label: "Team",          sectionId: "templates" },
-          { id: "template-inbox",      label: "Inbox",         sectionId: "templates" },
-          { id: "template-pricing",    label: "Pricing",       sectionId: "templates" },
-          { id: "template-contact",    label: "Contact",       sectionId: "templates" },
           { id: "template-landing",    label: "Landing Page",  sectionId: "templates" },
           { id: "templates-tokens",    label: "Tokens",        sectionId: "templates" },
         ],

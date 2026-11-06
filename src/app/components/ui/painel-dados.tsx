@@ -75,9 +75,9 @@ function CardIndicador({ icone, valor, rotulo, variacao, comparacao, explicacao,
       </div>
       <div className="min-w-0">
         <p className={`${display} text-[1.625rem] font-extrabold leading-none tracking-[-0.02em] text-foreground`}>{formatarNumero(valor)}</p>
-        <p className="mt-1 flex items-center gap-0.5 text-[0.8125rem] text-muted-foreground">
+        <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">
           {rotulo}
-          {explicacao && <Explicacao termo={rotulo}>{explicacao}</Explicacao>}
+          {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
         </p>
         {estilo === "linha" && variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} className="mt-1.5" />}
       </div>
@@ -191,13 +191,13 @@ function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone:
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: () => void; className?: string }) {
+function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
       href={href}
       onClick={onClick}
-      className={cn("group flex items-center gap-3 rounded-[12px] border border-border bg-card p-3 transition-colors hover:border-primary/30 hover:bg-[var(--primary-muted)]", foco, className)}
+      className={cn("group flex items-center gap-3 rounded-[12px] border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
       <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-muted text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{midia}</span>
       <span className="min-w-0 flex-1">
@@ -341,9 +341,9 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id 
   );
 }
 
-function LinkVerTudo({ children = "Ver tudo", href = "#", rotulo }: { children?: React.ReactNode; href?: string; rotulo?: string }) {
+function LinkVerTudo({ children = "Ver tudo", href = "#", rotulo, onClick }: { children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement> }) {
   return (
-    <a href={href} aria-label={rotulo} className={cn("inline-flex shrink-0 items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
+    <a href={href} aria-label={rotulo} onClick={onClick} className={cn("inline-flex shrink-0 items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
       {children} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
     </a>
   );
