@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: { en: "Complete Lucide library", pt: "Biblioteca Lucide completa" },
+    desc: { en: "Icons › Library now shows the whole Lucide library (lucide-react 1.70.0, 2,029 icons in Lucide's official categories, searchable). The 18 brand icons Lucide removed in 1.x (Figma, Github, Instagram, Linkedin, Youtube…) are kept in the DS in their own group. No icon was removed.", pt: "Ícones › Biblioteca agora mostra a Lucide inteira (lucide-react 1.70.0, 2.029 ícones nas categorias oficiais da Lucide, com busca). Os 18 ícones de marca que a Lucide tirou na versão 1.x (Figma, Github, Instagram, Linkedin, Youtube…) continuam no DS, num grupo próprio. Nenhum ícone foi removido." },
+    page: "icons", anchor: "icon-library",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: { en: "Panel components aligned with the DS", pt: "Componentes do painel alinhados ao DS" },
     desc: { en: "Panel components now follow existing DS components and documentation.", pt: "Os componentes do painel passaram a seguir os que já existiam: indicador com a anatomia do Card de KPI, tabela de produtos no desenho da Tabela de dados (com o checkbox do DS), abas com contador iguais às Abas, status no chip dos Estados de informação, botão dividido e seletor de período nas medidas do botão e do select, legenda do gráfico em pontos. O anel de pontuação virou Gráfico de anel, em Gráficos. A documentação das seções novas segue o padrão do DS: título, descrição e exemplos." },
     page: "data", anchor: "grafico-anel",
