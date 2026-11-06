@@ -11,7 +11,10 @@ import * as SwitchPrimitive from "@radix-ui/react-switch";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { SegmentedControl } from "@/app/components/ui/segmented-control";
 import { PasswordConfirm, regrasPadrao, textosPadrao } from "@/app/components/ui/password-field";
-import { LayoutGrid, List, Map as MapIcon } from "lucide-react";
+import { LayoutGrid, List, Map as MapIcon, FileSpreadsheet, Camera } from "lucide-react";
+import { BotaoDividido, SeletorDePeriodo, periodosPadrao } from "@/app/components/ui/painel-cabecalho";
+
+const periodosProprios = [{ valor: "hoje", rotulo: "Hoje" }, { valor: "semana", rotulo: "Esta semana" }, { valor: "mes", rotulo: "Este mês" }, { valor: "ano", rotulo: "Este ano" }];
 
 /* ── Shared helpers ── */
 function SectionHeader({ title, description }: { title: string; description?: string }) {
@@ -131,6 +134,9 @@ export function FormShowcase() {
   const [swB, setSwB] = useState(false);
   const [radio, setRadio] = useState("b");
   const [loading, setLoading] = useState(false);
+  const [ultimaAcao, setUltimaAcao] = useState("Nenhuma ainda");
+  const [periodo, setPeriodo] = useState("30");
+  const [periodoCurto, setPeriodoCurto] = useState("semana");
 
   return (
     <div className="space-y-16">
@@ -440,6 +446,104 @@ const [confirmacao, setConfirmacao] = useState("");
               <li>• {t("Keyboard: arrows move the selection, Tab enters and leaves the group. Minimum height 32 px (sm), 40 px (md) and 44 px (lg).", "Teclado: setas movem a seleção, Tab entra e sai do grupo. Altura mínima de 32 px (sm), 40 px (md) e 44 px (lg).")}</li>
               <li>• {t("The selection is never removed by tapping again: there is always one active option.", "A seleção nunca é removida ao tocar de novo: sempre há uma opção ativa.")}</li>
               <li>• {t("Always give the group a visible label or an aria-label.", "Dê sempre ao grupo um rótulo visível ou um aria-label.")}</li>
+            </ul>
+          </ShowcaseCard>
+        </SubSection>
+
+        <SubSection title="Botão dividido">
+          <div id="botao-dividido" className="scroll-mt-32" />
+          <ShowcaseCard>
+            <p className="text-[0.8125rem] leading-relaxed text-muted-foreground mb-5">
+              Um botão primário com duas áreas de toque: a parte principal faz a ação mais comum e a seta abre variações da mesma ação. Use quando existe uma ação principal e outras formas de fazer a mesma coisa, como cadastrar um produto à mão, por planilha ou com fotos. Ações diferentes entre si ficam em botões separados ou em um menu de ações.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-2">
+                <p className="text-[0.875rem] font-medium text-foreground">Experimente</p>
+                <div>
+                  <BotaoDividido
+                    rotulo="Cadastrar produto"
+                    icone={<Plus />}
+                    onClick={() => setUltimaAcao("Cadastrar produto")}
+                    acoes={[
+                      { rotulo: "Cadastrar produto", icone: <Plus />, onSelect: () => setUltimaAcao("Cadastrar produto (pelo menu)") },
+                      { rotulo: "Importar planilha", icone: <FileSpreadsheet />, onSelect: () => setUltimaAcao("Importar planilha") },
+                      { rotulo: "Cadastrar com fotos", icone: <Camera />, onSelect: () => setUltimaAcao("Cadastrar com fotos") },
+                    ]}
+                  />
+                </div>
+                <p className="text-[0.75rem] text-muted-foreground" aria-live="polite">Última ação escolhida: <span className="font-medium text-foreground">{ultimaAcao}</span></p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-[0.875rem] font-medium text-foreground">Partes</p>
+                <ul className="space-y-1.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+                  <li><span className="font-medium text-foreground">Parte principal:</span> faz a ação mais usada com um toque.</li>
+                  <li><span className="font-medium text-foreground">Seta:</span> abre o menu com as variações; tem rótulo próprio para o leitor de tela ("Mais opções: Cadastrar produto").</li>
+                  <li><span className="font-medium text-foreground">Divisória:</span> separa as duas áreas para que a pessoa saiba onde tocar.</li>
+                </ul>
+              </div>
+            </div>
+            <pre className="mt-5 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { BotaoDividido } from "@/app/components/ui/painel-cabecalho";
+
+<BotaoDividido
+  rotulo="Cadastrar produto"
+  icone={<Plus />}
+  onClick={abrirCadastro}
+  acoes={[
+    { rotulo: "Cadastrar produto", icone: <Plus />, onSelect: abrirCadastro },
+    { rotulo: "Importar planilha", icone: <FileSpreadsheet />, onSelect: importar },
+    { rotulo: "Cadastrar com fotos", icone: <Camera />, onSelect: cadastrarComFotos },
+  ]}
+/>`}</code></pre>
+            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+              <li>• Props: rotulo, icone, onClick, acoes (rotulo, icone, onSelect) e rotuloMenu (padrão "Mais opções").</li>
+              <li>• Só um botão primário por página: o botão dividido conta como o primário.</li>
+              <li>• Repita a ação principal como primeiro item do menu, para quem abre a seta primeiro.</li>
+              <li>• Teclado: Tab passa pelas duas partes; Enter ou espaço abre o menu e as setas percorrem os itens.</li>
+            </ul>
+          </ShowcaseCard>
+        </SubSection>
+
+        <SubSection title="Seletor de período">
+          <div id="seletor-periodo" className="scroll-mt-32" />
+          <ShowcaseCard>
+            <p className="text-[0.8125rem] leading-relaxed text-muted-foreground mb-5">
+              Botão com menu para escolher o período dos números de uma página, como pedidos, visitas e vendas. Já vem com quatro períodos prontos e sempre mostra no próprio botão o período escolhido. Use quando há quatro ou mais períodos; com dois ou três, prefira o controle segmentado.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-2">
+                <p className="text-[0.875rem] font-medium text-foreground">Períodos padrão</p>
+                <div>
+                  <SeletorDePeriodo valor={periodo} onChange={setPeriodo} />
+                </div>
+                <p className="text-[0.75rem] text-muted-foreground" aria-live="polite">Período escolhido: <span className="font-medium text-foreground">{periodosPadrao.find(p => p.valor === periodo)?.rotulo}</span> · valor <code className="font-medium text-foreground">"{periodo}"</code></p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-[0.875rem] font-medium text-foreground">Com períodos próprios <span className="text-muted-foreground font-normal">· periodos</span></p>
+                <div>
+                  <SeletorDePeriodo
+                    valor={periodoCurto}
+                    onChange={setPeriodoCurto}
+                    periodos={periodosProprios}
+                  />
+                </div>
+                <p className="text-[0.75rem] text-muted-foreground" aria-live="polite">Período escolhido: <span className="font-medium text-foreground">{periodosProprios.find(p => p.valor === periodoCurto)?.rotulo}</span> · valor <code className="font-medium text-foreground">"{periodoCurto}"</code></p>
+              </div>
+            </div>
+            <pre className="mt-5 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeletorDePeriodo } from "@/app/components/ui/painel-cabecalho";
+
+const [periodo, setPeriodo] = useState("30");
+
+<SeletorDePeriodo valor={periodo} onChange={setPeriodo} />
+
+// Padrão: "7", "30", "90" e "12m" (Últimos 7 dias … Últimos 12 meses).
+// Períodos próprios:
+<SeletorDePeriodo valor={v} onChange={setV}
+  periodos={[{ valor: "hoje", rotulo: "Hoje" }, …]} />`}</code></pre>
+            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+              <li>• Props: valor, onChange e periodos (valor, rotulo). Sempre controlado: guarde o valor no estado da página.</li>
+              <li>• O botão mostra o período escolhido em texto; no menu, o item marcado tem um ponto, não só cor.</li>
+              <li>• Leitor de tela ouve "Período: Últimos 30 dias. Trocar período". Teclado: Enter abre, setas escolhem, Esc fecha.</li>
+              <li>• Mude todos os números da página juntos ao trocar o período, e diga na página qual período está valendo.</li>
             </ul>
           </ShowcaseCard>
         </SubSection>

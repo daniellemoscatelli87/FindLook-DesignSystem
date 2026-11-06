@@ -348,6 +348,8 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "inputs",         label: "Form Controls",   sectionId: "buttons" },
           { id: "password",       label: "Senha",           sectionId: "buttons" },
           { id: "segmented",      label: "Controle segmentado", sectionId: "buttons" },
+          { id: "botao-dividido", label: "Botão dividido",      sectionId: "buttons" },
+          { id: "seletor-periodo", label: "Seletor de período",  sectionId: "buttons" },
           { id: "buttons-tokens", label: "Tokens",          sectionId: "buttons" },
         ],
       },
@@ -409,6 +411,9 @@ const navGroups: { group: string; items: NavItem[] }[] = [
         items: [
           { id: "breadcrumb",       label: "Breadcrumb", sectionId: "overlays" },
           { id: "pagination",       label: "Pagination", sectionId: "overlays" },
+          { id: "menu-painel",      label: "Menu do painel",       sectionId: "overlays" },
+          { id: "barra-superior",   label: "Barra superior",       sectionId: "overlays" },
+          { id: "cabecalho-pagina", label: "Cabeçalho da página",  sectionId: "overlays" },
           { id: "tooltips",         label: "Tooltips",   sectionId: "overlays" },
           { id: "dropdown",         label: "Dropdown",   sectionId: "overlays" },
           { id: "dialogs",          label: "Dialogs",    sectionId: "overlays" },

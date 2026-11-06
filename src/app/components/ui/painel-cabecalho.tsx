@@ -27,15 +27,18 @@ type CabecalhoDaPaginaProps = {
   titulo: string;
   descricao?: string;
   acoes?: React.ReactNode;
+  /** Nível do título (padrão h1; use 2 ou 3 quando já houver um h1 na página). */
+  nivel?: 1 | 2 | 3;
   className?: string;
 };
 
-function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, className }: CabecalhoDaPaginaProps) {
+function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, nivel = 1, className }: CabecalhoDaPaginaProps) {
+  const Titulo = `h${nivel}` as "h1" | "h2" | "h3";
   return (
     <header data-slot="cabecalho-da-pagina" className={cn("flex flex-col gap-4 @3xl:flex-row @3xl:items-end @3xl:justify-between", className)}>
       <div className="min-w-0 max-w-2xl">
         {saudacao && <p className="mb-1 text-[0.9375rem] font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
-        <h1 className={`${display} text-[1.625rem] @xl:text-[2rem] font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</h1>
+        <Titulo className={`${display} text-[1.625rem] @xl:text-[2rem] font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
         {descricao && <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">{descricao}</p>}
       </div>
       {acoes && <div className="flex flex-wrap items-center gap-2">{acoes}</div>}

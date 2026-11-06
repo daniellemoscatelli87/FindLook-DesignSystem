@@ -132,7 +132,7 @@ function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plan
             {preco && <p className="text-[0.75rem] font-medium leading-tight">{preco} / mês</p>}
           </div>
         </div>
-        <button type="button" onClick={onAcao} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-[9px] bg-card text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+        <button type="button" onClick={onAcao} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-[9px] bg-primary-foreground text-[0.75rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
           {acao} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
         </button>
       </div>
@@ -149,7 +149,7 @@ function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plan
       <button
         type="button"
         onClick={onAcao}
-        className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-[10px] bg-card text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+        className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-[10px] bg-primary-foreground text-[0.8125rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
       >
         {acao} <ArrowRight aria-hidden className="h-4 w-4" />
       </button>
@@ -208,7 +208,6 @@ const BotaoDeNotificacoes = React.forwardRef<HTMLButtonElement, React.ComponentP
     <button
       ref={ref}
       type="button"
-      data-slot="notificacoes"
       aria-label={naoLidas ? `Notificações: ${naoLidas} não lidas` : "Notificações"}
       className={cn(
         "relative flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted",
@@ -216,6 +215,7 @@ const BotaoDeNotificacoes = React.forwardRef<HTMLButtonElement, React.ComponentP
         className,
       )}
       {...props}
+      data-slot="notificacoes"
     >
       <Bell aria-hidden className="h-5 w-5" />
       {naoLidas > 0 && <span aria-hidden className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background" />}
@@ -228,7 +228,6 @@ const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<
     <button
       ref={ref}
       type="button"
-      data-slot="gatilho-da-conta"
       aria-label={`Conta de ${nome}${papel ? `, ${papel}` : ""}. Abrir menu da conta`}
       className={cn(
         "flex items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-muted",
@@ -236,6 +235,7 @@ const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<
         className,
       )}
       {...props}
+      data-slot="gatilho-da-conta"
     >
       <AvatarPainel nome={nome} foto={foto} />
       <span className="hidden min-w-0 sm:block">
