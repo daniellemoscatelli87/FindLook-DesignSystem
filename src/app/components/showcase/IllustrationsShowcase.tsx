@@ -183,7 +183,7 @@ function IllustrationCard({ il }: { il: Illustration }) {
   const nomeArquivo = origem.split("/").pop()!.replace(/\.(webp|svg)$/, "");
   const ext = il.arquivoSvg ? "svg" : "webp";
   return (
-    <section id={il.id} className="scroll-mt-32 space-y-6 rounded-[24px] border border-border bg-card p-5 sm:p-8" style={{ boxShadow: "var(--shadow-sm)" }}>
+    <section id={il.id} className="scroll-mt-32 space-y-6 rounded-[24px] border border-border bg-card p-5 sm:p-8">
       <div>
         <Label>{t("Name", "Nome")}</Label>
         <h3 className={`${display} text-[1.375rem] font-semibold tracking-[-0.02em] text-foreground`}>{il.nome}</h3>

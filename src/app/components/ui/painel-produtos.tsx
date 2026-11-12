@@ -216,7 +216,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
   );
 
   return (
-    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-[16px] border border-border bg-card", className)} style={{ boxShadow: "var(--shadow)" }}>
+    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-[16px] border border-border bg-card", className)}>
       {/* Cabeçalho: título à esquerda, ferramentas à direita (como a Tabela de dados) */}
       <div className="flex flex-col gap-3 border-b border-border px-4 py-4 @2xl:flex-row @2xl:items-center @2xl:justify-between @2xl:px-6">
         <div className="min-w-0">

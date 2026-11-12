@@ -84,7 +84,6 @@ function ShowcaseCard({ children, className = "" }: { children: React.ReactNode;
   return (
     <div
       className={`bg-card rounded-[16px] border border-border p-6 ${className}`}
-      style={{ boxShadow: "var(--shadow)" }}
     >
       {children}
     </div>

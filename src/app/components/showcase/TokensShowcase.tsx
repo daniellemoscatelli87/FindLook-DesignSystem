@@ -123,7 +123,7 @@ export function TokensShowcase() {
         </div>
 
         {/* Visual analogy */}
-        <div className="rounded-[16px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="rounded-[16px] border border-border bg-card overflow-hidden">
           <div className="px-5 py-4 border-b border-border bg-muted/20 flex items-center gap-2">
             <Lightbulb className="h-4 w-4 text-primary shrink-0" />
             <p className="text-[0.8125rem] font-bold text-foreground">{t("The simple analogy", "A analogia simples")}</p>
@@ -186,7 +186,7 @@ export function TokensShowcase() {
             { icon: Layers,     color: "text-violet-400", bg: "bg-violet-500/10", title: { en: "Themes without rework", pt: "Temas sem retrabalho" }, body: { en: "Light mode, dark mode, high contrast — each theme is just a different set of values for the same token names.", pt: "Light mode, dark mode, alto contraste — cada tema é apenas um conjunto diferente de valores para os mesmos nomes de token." } },
             { icon: Code2,      color: "text-blue-400",  bg: "bg-blue-500/10",  title: { en: "Design and code aligned", pt: "Design e código alinhados" }, body: { en: "The designer calls it 'Primary', the dev uses --primary. The same name in both places eliminates manual translation and errors.", pt: "O designer chama de 'Primary', o dev usa --primary. O mesmo nome nos dois lugares elimina tradução manual e erros." } },
           ].map(p => (
-            <div key={p.title.en} className="rounded-[14px] border border-border bg-card p-4 space-y-2.5" style={{ boxShadow: "var(--shadow-xs)" }}>
+            <div key={p.title.en} className="rounded-[14px] border border-border bg-card p-4 space-y-2.5">
               <div className={`h-8 w-8 rounded-[9px] ${p.bg} flex items-center justify-center`}>
                 <p.icon className={`h-4 w-4 ${p.color}`} />
               </div>
@@ -209,7 +209,7 @@ export function TokensShowcase() {
         />
 
         {/* Visual of the three layers */}
-        <div className="rounded-[16px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="rounded-[16px] border border-border bg-card overflow-hidden">
           {/* Flow diagram */}
           <div className="p-5 grid grid-cols-1 md:grid-cols-[1fr_32px_1fr_32px_1fr] gap-0 items-stretch">
 
@@ -375,7 +375,7 @@ export function TokensShowcase() {
               dont: { en: ["Don't add a token only in Figma without telling the dev", "Don't use approximate values — if the token doesn't exist, create it first", "Don't rename tokens without aligning with the whole team"], pt: ["Não adicione um token só no Figma sem avisar o dev", "Não use valores aproximados — se o token não existe, crie-o primeiro", "Não renomeie tokens sem alinhar com o time todo"] },
             },
           ].map(s => (
-            <div key={s.step} className={`rounded-[14px] border border-border bg-card overflow-hidden border-l-[3px] ${s.color}`} style={{ boxShadow: "var(--shadow-xs)" }}>
+            <div key={s.step} className={`rounded-[14px] border border-border bg-card overflow-hidden border-l-[3px] ${s.color}`}>
               <div className="px-5 py-4">
                 <div className="flex items-start gap-3">
                   <span className="text-[0.625rem] font-black text-muted-foreground/40 font-mono mt-0.5 w-6 shrink-0">{s.step}</span>
@@ -421,7 +421,7 @@ export function TokensShowcase() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
           {/* Pitfalls */}
-          <div className="rounded-[14px] border border-destructive/30 bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-destructive/30 bg-card overflow-hidden">
             <div className="px-5 py-3 border-b border-destructive/20 flex items-center gap-2" style={{ background: "rgba(230,32,64,0.05)" }}>
               <AlertTriangle className="h-4 w-4 text-destructive shrink-0" />
               <p className="text-[0.8125rem] font-bold text-foreground">{t("Common pitfalls", "Armadilhas comuns")}</p>
@@ -457,7 +457,7 @@ export function TokensShowcase() {
           </div>
 
           {/* Opportunities */}
-          <div className="rounded-[14px] border border-success/30 bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-success/30 bg-card overflow-hidden">
             <div className="px-5 py-3 border-b border-success/20 flex items-center gap-2" style={{ background: "rgba(79,181,123,0.05)" }}>
               <Sparkles className="h-4 w-4 text-success shrink-0" />
               <p className="text-[0.8125rem] font-bold text-foreground">{t("How to make AI work for you", "Como fazer a IA trabalhar a seu favor")}</p>
@@ -491,7 +491,7 @@ export function TokensShowcase() {
         </div>
 
         {/* Example prompt */}
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/30">
             <div className="flex items-center gap-2">
               <Bot className="h-3.5 w-3.5 text-muted-foreground" />
@@ -524,7 +524,7 @@ export function TokensShowcase() {
           subtitle={t("Each team has clear responsibilities in a token's lifecycle.", "Cada time tem responsabilidades claras no ciclo de vida de um token.")}
         />
 
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-[0.75rem]">
               <thead>
@@ -577,7 +577,7 @@ export function TokensShowcase() {
           ))}
         </div>
 
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-[0.6875rem]">
               <thead>
@@ -639,7 +639,7 @@ export function TokensShowcase() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/30">
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-red-400/60" />
@@ -668,7 +668,7 @@ export function TokensShowcase() {
             </pre>
           </div>
 
-          <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-muted/30">
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-red-400/60" />

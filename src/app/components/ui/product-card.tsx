@@ -80,7 +80,7 @@ export function ProductCard({
       data-slot="product-card"
       data-orientation={orientation}
       className={cn(
-        "group/pc overflow-hidden rounded-[var(--radius)] border border-border bg-card text-card-foreground shadow-[var(--shadow-sm)] transition-shadow duration-200 hover:shadow-[var(--shadow-md)]",
+        "group/pc overflow-hidden rounded-[var(--radius)] border border-border bg-card text-card-foreground transition-shadow duration-200 hover:shadow-[var(--shadow-md)]",
         horizontal ? "flex" : "flex flex-col",
         className,
       )}

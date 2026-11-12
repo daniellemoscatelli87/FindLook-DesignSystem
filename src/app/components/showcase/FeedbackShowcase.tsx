@@ -27,7 +27,7 @@ const DEMO_AVATARS = ["Ana", "Bruno", "Carla", "Diego", "Elisa", "Fábio"].map((
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-card rounded-[16px] border border-border p-6 ${className}`} style={{ boxShadow: "var(--shadow)" }}>
+    <div className={`bg-card rounded-[16px] border border-border p-6 ${className}`}>
       {children}
     </div>
   );

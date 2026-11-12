@@ -1833,8 +1833,7 @@ export function BackgroundsShowcase() {
               ],
             },
           ].map(guide => (
-            <div key={guide.title} className="rounded-[14px] border border-border bg-card overflow-hidden"
-              style={{ boxShadow: "var(--shadow-xs)" }}>
+            <div key={guide.title} className="rounded-[14px] border border-border bg-card overflow-hidden">
               {/* Card header */}
               <div className="px-4 py-3 border-b border-border flex items-center justify-between">
                 <div>
@@ -1872,7 +1871,7 @@ export function BackgroundsShowcase() {
         </div>
 
         {/* Palette × Effect — compatibility table */}
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden">
           <div className="px-4 py-3 border-b border-border">
             <p className="text-[0.8125rem] font-bold text-foreground">{t("Palettes × Usage context", "Paletas × Contexto de uso")}</p>
             <p className="text-[0.6875rem] text-muted-foreground mt-0.5">{t("Quick guide to which palette to use for each section type.", "Guia rápido de qual paleta usar em cada tipo de seção.")}</p>

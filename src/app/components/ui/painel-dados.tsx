@@ -70,7 +70,7 @@ type CardIndicadorProps = {
 /** Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. */
 function CardIndicador({ icone, valor, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
   return (
-    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-[16px] border border-border bg-card p-5", className)} style={{ boxShadow: "var(--shadow)" }}>
+    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-[16px] border border-border bg-card p-5", className)}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
@@ -325,7 +325,7 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-[18px] border border-border bg-card p-4 shadow-[var(--shadow-xs)] @xl:p-5", className)}>
+    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-[18px] border border-border bg-card p-4 @xl:p-5", className)}>
       <div className="mb-4 flex items-start gap-3">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>}
         <div className="min-w-0 flex-1">

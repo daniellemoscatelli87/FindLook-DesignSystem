@@ -17,7 +17,7 @@ function CopyBtn({ text }: { text: string }) {
 
 function CodeBlock({ filename, label, children }: { filename: string; label?: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-[12px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+    <div className="rounded-[12px] border border-border bg-card overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/30">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-red-400/60" />
@@ -89,7 +89,7 @@ export function IntegrationShowcase() {
 
         {/* Two paths */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-[14px] border border-violet-500/30 bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-violet-500/30 bg-card p-5 space-y-3">
             <div className="flex items-center gap-2.5">
               <div className="h-8 w-8 rounded-[9px] bg-violet-500/10 flex items-center justify-center">
                 <Figma className="h-4 w-4 text-violet-400" />
@@ -108,7 +108,7 @@ export function IntegrationShowcase() {
             </div>
           </div>
 
-          <div className="rounded-[14px] border border-blue-500/30 bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-blue-500/30 bg-card p-5 space-y-3">
             <div className="flex items-center gap-2.5">
               <div className="h-8 w-8 rounded-[9px] bg-blue-500/10 flex items-center justify-center">
                 <Code2 className="h-4 w-4 text-blue-400" />
@@ -144,7 +144,7 @@ export function IntegrationShowcase() {
         <div className="space-y-3">
 
           {/* Step 1 */}
-          <div className="rounded-[14px] border border-border bg-card p-5" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5">
             <div className="flex items-start gap-3">
               <StepBadge n={1} />
               <div className="space-y-2 flex-1">
@@ -168,7 +168,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 2 */}
-          <div className="rounded-[14px] border border-border bg-card p-5" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5">
             <div className="flex items-start gap-3">
               <StepBadge n={2} />
               <div className="space-y-2 flex-1">
@@ -192,7 +192,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 3 */}
-          <div className="rounded-[14px] border border-border bg-card p-5" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5">
             <div className="flex items-start gap-3">
               <StepBadge n={3} />
               <div className="space-y-2 flex-1">
@@ -221,7 +221,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 4 */}
-          <div className="rounded-[14px] border border-border bg-card p-5" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5">
             <div className="flex items-start gap-3">
               <StepBadge n={4} />
               <div className="space-y-2 flex-1">
@@ -255,7 +255,7 @@ export function IntegrationShowcase() {
         <div className="space-y-3">
 
           {/* Step 1 */}
-          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3">
             <div className="flex items-start gap-3">
               <StepBadge n={1} />
               <div className="space-y-1">
@@ -276,7 +276,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 2 */}
-          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3">
             <div className="flex items-start gap-3">
               <StepBadge n={2} />
               <div className="space-y-1">
@@ -305,7 +305,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 3 */}
-          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3">
             <div className="flex items-start gap-3">
               <StepBadge n={3} />
               <div className="space-y-1">
@@ -350,7 +350,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 4 */}
-          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3">
             <div className="flex items-start gap-3">
               <StepBadge n={4} />
               <div className="space-y-1">
@@ -382,7 +382,7 @@ export function IntegrationShowcase() {
           </div>
 
           {/* Step 5 */}
-          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[14px] border border-border bg-card p-5 space-y-3">
             <div className="flex items-start gap-3">
               <StepBadge n={5} />
               <div className="space-y-1">
@@ -442,7 +442,7 @@ export function IntegrationShowcase() {
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("How to organize token files in a React project.", "Como organizar os arquivos de tokens em um projeto React.")}</p>
         </div>
 
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden">
           <div className="px-4 py-3 border-b border-border bg-muted/30 flex items-center gap-2">
             <FolderOpen className="h-3.5 w-3.5 text-muted-foreground" />
             <span className="text-[0.625rem] font-mono text-muted-foreground">{t("project structure", "estrutura do projeto")}</span>
@@ -485,7 +485,7 @@ export function IntegrationShowcase() {
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("How a design decision becomes code, step by step.", "Como uma decisão de design vira código, passo a passo.")}</p>
         </div>
 
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden">
           <div className="divide-y divide-border">
             {[
               {
@@ -587,8 +587,7 @@ export function IntegrationShowcase() {
               <button key={item.id} onClick={() => toggle(item.id)}
                 className={`w-full rounded-[10px] border px-4 py-3 flex items-center gap-3 text-left transition-colors ${
                   done ? "border-success/30 bg-success/5" : "border-border bg-card hover:bg-muted/30"
-                }`}
-                style={{ boxShadow: "var(--shadow-xs)" }}>
+                }`}>
                 {done
                   ? <CheckCircle2 className="h-4 w-4 text-success shrink-0" />
                   : <Circle className="h-4 w-4 text-muted-foreground/40 shrink-0" />}

@@ -14,7 +14,7 @@ export function Mono({ children }: { children: React.ReactNode }) {
 
 export function Panel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-card border border-border rounded-[var(--radius)] shadow-[var(--shadow-sm)] ${className}`}>
+    <div className={`bg-card border border-border rounded-[var(--radius)] ${className}`}>
       {children}
     </div>
   );

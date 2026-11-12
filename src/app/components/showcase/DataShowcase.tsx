@@ -18,7 +18,7 @@ import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemp
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-card rounded-[16px] border border-border p-6 ${className}`} style={{ boxShadow: "var(--shadow)" }}>
+    <div className={`bg-card rounded-[16px] border border-border p-6 ${className}`}>
       {children}
     </div>
   );
@@ -216,7 +216,7 @@ export function DataShowcase() {
             const TrendIcon = kpi.trend === "up" ? ArrowUpRight : ArrowDownRight;
             const trendColor = kpi.trend === "up" ? "text-success" : "text-primary";
             return (
-              <div key={kpi.label} className="bg-card rounded-[16px] border border-border p-5 flex flex-col gap-4" style={{ boxShadow: "var(--shadow)" }}>
+              <div key={kpi.label} className="bg-card rounded-[16px] border border-border p-5 flex flex-col gap-4">
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="text-[0.8125rem] font-medium text-muted-foreground mb-1">{t(kpi.label, kpi.pt)}</p>

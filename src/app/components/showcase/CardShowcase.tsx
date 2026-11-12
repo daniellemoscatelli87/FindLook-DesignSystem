@@ -55,7 +55,7 @@ function SpecCard({
   className?: string;
 }) {
   return (
-    <Card className={`gap-5 border-border shadow-[var(--shadow-sm)] ${className}`}>
+    <Card className={`gap-5 border-border ${className}`}>
       <CardHeader className="gap-1.5">
         <CardTitle className={`${display} text-[1rem] font-semibold tracking-[-0.01em]`}>{title}</CardTitle>
         <CardDescription className="text-[0.8125rem] leading-relaxed">{description}</CardDescription>
@@ -327,7 +327,7 @@ export function CardShowcase() {
           <SpecCard title={t("Standard", "Padrão")} description={t("For grouped information with optional actions.", "Para informações agrupadas com ações opcionais.")}>
             <p className="text-[0.875rem] leading-relaxed text-muted-foreground">{t("Keep the content focused and let the surrounding layout define its width.", "Mantenha o conteúdo focado e deixe o layout ao redor definir sua largura.")}</p>
           </SpecCard>
-          <Card className="gap-0 overflow-hidden border-border shadow-[var(--shadow-sm)]">
+          <Card className="gap-0 overflow-hidden border-border">
             <div className="h-32 bg-muted flex items-center justify-center border-b border-border">
               <Image className="h-8 w-8 text-muted-foreground/60" aria-hidden />
             </div>
@@ -347,7 +347,7 @@ export function CardShowcase() {
               {t("The complete surface may be interactive.", "A superfície completa pode ser interativa.")}
             </div>
           </SpecCard>
-          <Card className="gap-3 border-border px-4 py-3 shadow-[var(--shadow-xs)]">
+          <Card className="gap-3 border-border px-4 py-3">
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
                 <CardTitle className={`${display} text-[0.875rem] font-semibold`}>{t("Compact card", "Card compacto")}</CardTitle>
@@ -368,7 +368,7 @@ export function CardShowcase() {
           )}
         />
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-5">
-          <Card className="relative gap-5 overflow-hidden border-border shadow-[var(--shadow-sm)]">
+          <Card className="relative gap-5 overflow-hidden border-border">
             <ShineBorder
               borderWidth={1}
               duration={12}
@@ -548,7 +548,7 @@ export function CardShowcase() {
                 [t("Section gap", "Espaço entre seções"), "24px", t("Use 12–16px in dense layouts", "Use 12–16px em layouts densos")],
                 [t("Radius", "Raio"), "var(--radius)", t("Keep consistent within the same grid", "Mantenha consistente no mesmo grid")],
                 [t("Border", "Borda"), "1px", t("Use border-border", "Use border-border")],
-                [t("Elevation", "Elevação"), "var(--shadow-sm)", t("Increase only for hover or overlays", "Aumente apenas em hover ou overlays")],
+                [t("Elevation", "Elevação"), t("None on a white background (--border)", "Nenhuma sobre fundo branco (--border)"), t("Shadow only for hover, overlays or a non-white background", "Sombra só em hover, sobreposições ou fundo que não é branco")],
               ].map(([label, value, note]) => (
                 <div key={label} className="grid grid-cols-[1fr_auto] gap-3 border-b border-border pb-3 last:border-0 last:pb-0">
                   <div><p className="font-medium text-foreground">{label}</p><p className="text-muted-foreground">{note}</p></div>
@@ -575,7 +575,7 @@ export function CardShowcase() {
           )}
         />
         <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-5">
-          <Card className="gap-5 border-border p-6 shadow-[var(--shadow-sm)]">
+          <Card className="gap-5 border-border p-6">
             <div>
               <CardTitle className={`${display} text-[1rem] font-semibold`}>{t("Project overview", "Visão geral do projeto")}</CardTitle>
               <CardDescription className="mt-1">{t("The parent card owns the visual elevation.", "O card pai é responsável pela elevação visual.")}</CardDescription>
@@ -595,9 +595,8 @@ export function CardShowcase() {
               </div>
             </Card>
             <p className="text-[0.75rem] text-muted-foreground">
-              <Mono>shadow-[var(--shadow-sm)]</Mono>{" "}
-              {t("on the parent", "no card pai")} · <Mono>shadow-none</Mono>{" "}
-              {t("on the child", "no card filho")}
+              <Mono>border-border</Mono>{" "}
+              {t("on the parent and on the child", "no card pai e no filho")} · <Mono>{t("no shadow", "sem sombra")}</Mono>
             </p>
           </Card>
           <div className="space-y-4">
@@ -605,6 +604,10 @@ export function CardShowcase() {
               <p>{t(
                 "Nested surfaces belong to the parent's elevation context. Adding a shadow to the child creates a false layer and makes the hierarchy ambiguous.",
                 "Superfícies aninhadas pertencem ao contexto de elevação do card pai. Adicionar sombra ao filho cria uma camada falsa e torna a hierarquia ambígua.",
+              )}</p>
+              <p className="mt-2">{t(
+                "On a white background, a card has no shadow: it uses a light gray border (--border). Shadows are reserved for hover and overlays.",
+                "Sobre fundo branco, o card não tem sombra: usa borda cinza clara (--border). A sombra fica para o hover e para sobreposições.",
               )}</p>
             </Callout>
             <DataTable
@@ -913,10 +916,12 @@ export function CardShowcase() {
           dos={[
             t("Group content that shares one subject or task.", "Agrupe conteúdos que compartilham um assunto ou tarefa."),
             t("Keep card structures consistent within the same grid.", "Mantenha estruturas consistentes no mesmo grid."),
+            t("On a white background, use a light gray border (--border) and no shadow.", "Sobre fundo branco, use borda cinza clara (--border) e nenhuma sombra."),
             t("Use shadow-none on every card nested inside another card.", "Use shadow-none em todo card aninhado dentro de outro card."),
             t("Use one primary action and move secondary actions to the footer or menu.", "Use uma ação principal e mova ações secundárias para o rodapé ou menu."),
           ]}
           donts={[
+            t("Put a resting shadow on a card that sits on a white background.", "Não coloque sombra em card parado sobre fundo branco."),
             t("Give an inner card its own elevation or hover shadow.", "Não dê ao card interno elevação própria nem sombra no hover."),
             t("Make the whole surface clickable when it contains other interactive controls.", "Não torne toda a superfície clicável quando houver outros controles interativos."),
             t("Use elevation only as decoration or mix multiple shadow levels in one grid.", "Não use elevação apenas como decoração nem misture vários níveis de sombra no mesmo grid."),

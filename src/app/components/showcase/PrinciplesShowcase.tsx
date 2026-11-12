@@ -86,7 +86,7 @@ const anchorId = (p: PrincipleItem) => `principle-${p.n}`;
 
 function PrincipleCard({ p, onGo }: { p: PrincipleItem; onGo: (t: Target) => void }) {
   return (
-    <article className="flex flex-col h-full bg-card border border-border rounded-[var(--radius)] shadow-[var(--shadow-sm)] p-6">
+    <article className="flex flex-col h-full bg-card border border-border rounded-[var(--radius)] p-6">
       <h3 className={`${display} text-[1.25rem] font-bold tracking-[-0.015em] leading-tight text-foreground mb-2`}>{p.title}</h3>
       <p className="text-[0.9375rem] leading-relaxed text-foreground mb-5">{p.statement}</p>
       <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-2">Na prática</p>

@@ -53,8 +53,8 @@ export function PartnerCard({
       data-slot="partner-card"
       className={cn(
         "relative isolate overflow-hidden rounded-[24px] border transition-shadow duration-200 hover:shadow-[var(--shadow-lg)]",
-        surface === "card" && "border-border bg-card text-card-foreground shadow-[var(--shadow-sm)]",
-        surface === "tint" && "border-primary/15 bg-[var(--surface-tint,var(--primary-muted))] text-foreground shadow-[var(--shadow-sm)]",
+        surface === "card" && "border-border bg-card text-card-foreground",
+        surface === "tint" && "border-primary/15 bg-[var(--surface-tint,var(--primary-muted))] text-foreground",
         dark && "border-white/10 bg-[var(--graphite-950)] text-white shadow-[var(--shadow-md)]",
         pad[size],
         horizontal ? "flex flex-col gap-6 sm:flex-row sm:items-center" : "flex flex-col gap-5",

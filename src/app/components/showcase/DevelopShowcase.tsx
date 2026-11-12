@@ -145,7 +145,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
         title={t("The latest in development", "As últimas do desenvolvimento")}
         intro={null}
       >
-        <article className="bg-card border border-border border-l-4 border-l-primary rounded-[var(--radius)] shadow-[var(--shadow-sm)] p-5 max-w-2xl">
+        <article className="bg-card border border-border border-l-4 border-l-primary rounded-[var(--radius)] p-5 max-w-2xl">
           <div className="flex items-center gap-2 mb-2">
             <Megaphone className="h-4 w-4 text-primary" aria-hidden />
             <time className="text-[0.75rem] font-medium text-muted-foreground">{t("October 22, 2026", "22 de outubro de 2026")}</time>
@@ -169,7 +169,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
         intro={<p>{t("Design and code implement the same decisions, using the same names, in different tools.", "Design e código implementam as mesmas decisões, com os mesmos nomes, em ferramentas diferentes.")}</p>}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="flex flex-col bg-card border border-border rounded-[var(--radius)] shadow-[var(--shadow-sm)] p-5">
+          <div className="flex flex-col bg-card border border-border rounded-[var(--radius)] p-5">
             <span className="self-start mb-3 rounded-full bg-primary-muted text-primary text-[0.6875rem] font-semibold uppercase tracking-[0.06em] px-2.5 py-1">
               {t("Recommended", "Recomendado")}
             </span>
@@ -183,7 +183,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
               <TextLink onClick={() => go({ page: "tokens", anchor: "tokens-definition" })}>{t("Implementation in code", "Implementação em código")}</TextLink>
             </div>
           </div>
-          <div className="flex flex-col bg-card border border-border rounded-[var(--radius)] shadow-[var(--shadow-sm)] p-5">
+          <div className="flex flex-col bg-card border border-border rounded-[var(--radius)] p-5">
             <h3 className={`${display} text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground mb-2 md:mt-[2.125rem]`}>
               Figma — Variables
             </h3>
@@ -234,7 +234,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
           </p>
         }
       >
-        <div className="bg-card border border-border rounded-[var(--radius)] shadow-[var(--shadow-sm)] overflow-x-auto">
+        <div className="bg-card border border-border rounded-[var(--radius)] overflow-x-auto">
           <table className="w-full text-left min-w-[560px]">
             <thead>
               <tr className="bg-muted border-b border-border">
@@ -282,7 +282,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
           ].map(col => (
             <div
               key={col.title}
-              className={`bg-card border border-border border-t-2 ${col.border} rounded-[var(--radius)] shadow-[var(--shadow-sm)] p-5`}
+              className={`bg-card border border-border border-t-2 ${col.border} rounded-[var(--radius)] p-5`}
             >
               <p className={`${display} text-[0.8125rem] font-bold uppercase tracking-[0.08em] mb-3 ${col.tone}`}>
                 {col.label}

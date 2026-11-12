@@ -39,7 +39,7 @@ function SeletorDeLoja({ loja, foto, verificada = true, className, ...props }: S
       data-slot="seletor-de-loja"
       aria-label={`Loja atual: ${loja}${verificada ? ", verificada" : ""}. Trocar de loja`}
       className={cn(
-        "flex w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 py-2.5 text-left shadow-[var(--shadow-xs)] transition-colors hover:bg-muted/60",
+        "flex w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 py-2.5 text-left transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -122,7 +122,7 @@ type CardDePlanoProps = {
 function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plano", onAcao, className }: CardDePlanoProps) {
   if (compacto) {
     return (
-      <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-[14px] bg-primary p-3 text-primary-foreground shadow-[var(--shadow-sm)]", className)}>
+      <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-[14px] bg-primary p-3 text-primary-foreground", className)}>
         <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10" />
         <div className="flex items-center gap-2.5">
           <Crown aria-hidden className="h-5 w-5 shrink-0" />
@@ -166,7 +166,7 @@ function CardDeAjuda({ titulo = "Precisa de ajuda?", texto = "Acesse a central d
       target="_blank"
       rel="noreferrer"
       className={cn(
-        "flex items-center gap-3 rounded-[12px] border border-border bg-card p-3 shadow-[var(--shadow-xs)] transition-colors hover:bg-muted/60",
+        "flex items-center gap-3 rounded-[12px] border border-border bg-card p-3 transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -191,7 +191,7 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
       onClick={onAbrir}
       aria-keyshortcuts={atalho === "Ctrl + K" ? "Control+K" : undefined}
       className={cn(
-        "flex h-10 w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 text-left text-[0.8125rem] text-muted-foreground shadow-[var(--shadow-xs)] transition-colors hover:bg-muted/60",
+        "flex h-10 w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 text-left text-[0.8125rem] text-muted-foreground transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}

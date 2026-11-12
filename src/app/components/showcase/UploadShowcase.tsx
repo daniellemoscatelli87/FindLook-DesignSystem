@@ -17,7 +17,7 @@ function SectionHeader({ title, description }: { title: string; description?: st
   );
 }
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-[16px] border border-border bg-card p-6 ${className}`} style={{ boxShadow: "var(--shadow-xs)" }}>{children}</div>;
+  return <div className={`rounded-[16px] border border-border bg-card p-6 ${className}`}>{children}</div>;
 }
 function SubTitle({ children }: { children: React.ReactNode }) {
   return <p className="mb-3 text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;

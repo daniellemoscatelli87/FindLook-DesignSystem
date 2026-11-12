@@ -95,7 +95,7 @@ export function TokenTable({ groups }: { groups: TokenGroup[] }) {
           <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.07em] text-muted-foreground/60 mb-2 px-1">
             {g.group}
           </p>
-          <div className="rounded-[12px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div className="rounded-[12px] border border-border bg-card overflow-hidden">
             {g.tokens.map(tk => (
               <TokenRowItem key={tk.name} token={tk} isDark={isDark} />
             ))}

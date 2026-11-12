@@ -62,7 +62,7 @@ export function VoiceShowcase() {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {pilares.map(p => (
-            <article key={p.id} id={`voice-${p.id}`} className="scroll-mt-32 flex flex-col rounded-[var(--radius)] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
+            <article key={p.id} id={`voice-${p.id}`} className="scroll-mt-32 flex flex-col rounded-[var(--radius)] border border-border bg-card p-5">
               <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-primary-text mb-2">{p.title}</p>
               <p className="text-[0.9375rem] text-foreground leading-relaxed mb-5">{p.rule}</p>
               <div className="mt-auto space-y-3">

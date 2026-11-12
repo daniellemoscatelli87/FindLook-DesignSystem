@@ -55,7 +55,7 @@ function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: 
 /* Wraps each template in a browser-chrome frame */
 function TemplateFrame({ children, className = "", url = "Painel da loja · FindLook" }: { children: React.ReactNode; className?: string; url?: string }) {
   const embutido = React.useContext(PainelEmbutido);
-  if (embutido) return <div className={`overflow-hidden rounded-[16px] border border-border bg-background ${className}`} style={{ boxShadow: "var(--shadow-xs)" }}>{children}</div>;
+  if (embutido) return <div className={`overflow-hidden rounded-[16px] border border-border bg-background ${className}`}>{children}</div>;
   return (
     <div className={`rounded-[16px] border border-border overflow-hidden ${className}`} style={{ boxShadow: "var(--shadow-lg)" }}>
       {/* Browser chrome */}
@@ -1704,7 +1704,7 @@ function LandingTemplate() {
             <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Feito para lojas de rua, ateliês e brechós</h2>
           </div>
           <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="sm:col-span-2 rounded-[14px] border border-border bg-card p-5 relative overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
+            <div className="sm:col-span-2 rounded-[14px] border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary/8 blur-2xl pointer-events-none" />
               <div className="h-8 w-8 rounded-[10px] bg-[var(--primary-muted)] flex items-center justify-center mb-3">
                 <Search aria-hidden className={`h-4 w-4 ${textoMarca}`} />
@@ -1717,21 +1717,21 @@ function LandingTemplate() {
                 ))}
               </div>
             </div>
-            <div className="rounded-[14px] border border-border bg-card p-4 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-xs)" }}>
+            <div className="rounded-[14px] border border-border bg-card p-4 flex flex-col justify-between">
               <MessageCircle aria-hidden className="h-5 w-5 text-success mb-2" />
               <div>
                 <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Contato direto</h3>
                 <p className="text-[0.6875rem] text-muted-foreground">A pessoa chama a loja no WhatsApp. A venda é sua.</p>
               </div>
             </div>
-            <div className="rounded-[14px] border border-border bg-card p-4 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-xs)" }}>
+            <div className="rounded-[14px] border border-border bg-card p-4 flex flex-col justify-between">
               <FileSpreadsheet aria-hidden className="h-5 w-5 text-info mb-2" />
               <div>
                 <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Planilha ou uma a uma</h3>
                 <p className="text-[0.6875rem] text-muted-foreground">Cadastre peças pelo painel ou importe várias de uma vez.</p>
               </div>
             </div>
-            <div className="sm:col-span-2 rounded-[14px] border border-border bg-card p-5 relative overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
+            <div className="sm:col-span-2 rounded-[14px] border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-info/6 blur-2xl pointer-events-none" />
               <div className="h-8 w-8 rounded-[10px] bg-[var(--info-muted)] flex items-center justify-center mb-3">
                 <BarChart aria-hidden className="h-4 w-4 text-info" />
@@ -1759,7 +1759,7 @@ function LandingTemplate() {
                 <span className="flex items-center gap-1"><span aria-hidden className="h-2 w-2 rounded-full bg-primary inline-block" />Buscas compatíveis com as suas peças (exemplo)</span>
               </div>
             </div>
-            <div className="rounded-[14px] border border-border bg-card p-5" style={{ boxShadow: "var(--shadow-sm)" }}>
+            <div className="rounded-[14px] border border-border bg-card p-5">
               <div className="h-[130px]" role="img" aria-label="Gráfico de barras: buscas compatíveis com as peças da loja, de janeiro a dezembro, em crescimento">
                 <ResponsiveContainer width="100%" height="100%">
                   <ReBarChart data={interesseMensal} margin={{ top: 4, right: 0, left: -20, bottom: 0 }} barGap={3}>
@@ -1869,7 +1869,7 @@ function LandingTemplate() {
           <div className="max-w-2xl mx-auto" role="region" aria-roledescription="carrossel" aria-label="Depoimentos de lojas">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4" aria-live="polite">
               {visibleTestimonials.map((tm, i) => (
-                <figure key={`${tm.pessoa}-${slide}-${i}`} className={`p-4 rounded-[12px] border border-border bg-card flex flex-col ${i > 0 ? "hidden sm:flex" : ""}`} style={{ boxShadow: "var(--shadow-xs)" }}>
+                <figure key={`${tm.pessoa}-${slide}-${i}`} className={`p-4 rounded-[12px] border border-border bg-card flex flex-col ${i > 0 ? "hidden sm:flex" : ""}`}>
                   <Store aria-hidden className="h-3.5 w-3.5 text-muted-foreground mb-3" />
                   <blockquote className="text-[0.75rem] text-muted-foreground leading-snug mb-4 italic">“{tm.texto}”</blockquote>
                   <figcaption className="flex items-center gap-2.5 mt-auto">
@@ -1917,7 +1917,7 @@ function LandingTemplate() {
             {duvidasLanding.map((item, i) => {
               const aberto = openFaq === i;
               return (
-                <div key={item.q} className="rounded-[12px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+                <div key={item.q} className="rounded-[12px] border border-border bg-card overflow-hidden">
                   <h3>
                     <button
                       type="button"
@@ -1973,7 +1973,7 @@ function LandingTemplate() {
                 const Icon = ch.icon;
                 return (
                   <li key={ch.label}>
-                    <button type="button" className={`group w-full text-left relative rounded-[14px] border border-border bg-card p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`} style={{ boxShadow: "var(--shadow-xs)" }}>
+                    <button type="button" className={`group w-full text-left relative rounded-[14px] border border-border bg-card p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`}>
                       <div className="flex items-start justify-between w-full">
                         <div className={`h-9 w-9 rounded-[10px] flex items-center justify-center ${ch.iconBg}`}>
                           <Icon aria-hidden style={{ height: 18, width: 18 }} />
@@ -2024,7 +2024,7 @@ function LandingTemplate() {
                     );
                   })}
                 </ul>
-                <div className="rounded-[12px] border border-border bg-card p-3.5" style={{ boxShadow: "var(--shadow-xs)" }}>
+                <div className="rounded-[12px] border border-border bg-card p-3.5">
                   <p className="text-[0.75rem] font-semibold text-foreground mb-0.5">Já tem conta?</p>
                   <p className="text-[0.6875rem] text-muted-foreground mb-2.5">Entre no painel para atualizar peças e ver os avisos da loja.</p>
                   <button type="button" className={`h-7 px-3 rounded-[7px] border border-border bg-background text-[0.6875rem] font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1.5 ${foco}`}>

@@ -24,7 +24,7 @@ function Section({ id, title, sub, children }: { id: string; title: string; sub:
 /* ── Token pill ── */
 function Token({ name, value }: { name: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-[10px] border border-border bg-card px-3.5 py-2.5" style={{ boxShadow: "var(--shadow-xs)" }}>
+    <div className="flex items-center justify-between gap-4 rounded-[10px] border border-border bg-card px-3.5 py-2.5">
       <code className="text-[0.75rem] font-mono text-primary">{name}</code>
       <span className="text-[0.6875rem] text-muted-foreground font-mono">{value}</span>
     </div>
@@ -146,7 +146,7 @@ function EnterPresets() {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {enterPresets.map((preset, i) => (
-          <div key={preset.label} className="rounded-[14px] border border-border bg-card p-4 flex flex-col items-center gap-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+          <div key={preset.label} className="rounded-[14px] border border-border bg-card p-4 flex flex-col items-center gap-3">
             <div className="flex items-center justify-center w-full" style={{ minHeight: 96 }}>
               <motion.div
                 key={keys[i]}
@@ -200,7 +200,7 @@ function EasingReference() {
     <Section id="easing" title={t("Easing Reference", "Referência de easing")} sub={t("Visual comparison of cubic-bezier curves used across the design system.", "Comparação visual das curvas cubic-bezier usadas em todo o design system.")}>
       <div className="grid grid-cols-4 gap-3">
         {easings.map((e, i) => (
-          <div key={e.label} className="rounded-[14px] border border-border bg-card p-4 space-y-3 cursor-pointer hover:border-primary/30 transition-colors group" style={{ boxShadow: "var(--shadow-xs)" }} onClick={() => run(i)}>
+          <div key={e.label} className="rounded-[14px] border border-border bg-card p-4 space-y-3 cursor-pointer hover:border-primary/30 transition-colors group" onClick={() => run(i)}>
             {/* Curve SVG */}
             <div className="flex items-center justify-center">
               <svg width="80" height="80" viewBox="0 0 80 80" className="overflow-visible">
@@ -314,7 +314,7 @@ function SpringPlayground() {
   const run = () => setKey(k => k + 1);
 
   return (
-    <div className="rounded-[16px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-sm)" }}>
+    <div className="rounded-[16px] border border-border bg-card p-5 space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <div className="text-[0.875rem] font-bold text-foreground">{t("Spring Playground", "Playground de spring")}</div>
@@ -403,7 +403,7 @@ function StaggerSection() {
 
   return (
     <Section id="stagger" title={t("Stagger & Sequences", "Stagger e sequências")} sub={t("Cascade children into view with configurable stagger delays.", "Faça os filhos entrarem em cascata com atrasos de stagger configuráveis.")}>
-      <div className="rounded-[16px] border border-border bg-card p-5" style={{ boxShadow: "var(--shadow-sm)" }}>
+      <div className="rounded-[16px] border border-border bg-card p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
             <label className="text-[0.6875rem] font-semibold text-foreground">{t("Stagger delay", "Atraso do stagger")}</label>
@@ -466,14 +466,13 @@ function HoverSection() {
       <div className="grid grid-cols-4 gap-3">
 
         {/* Lift */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Lift", "Elevação")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
               whileHover={{ y: -6, boxShadow: "0 16px 40px -8px rgba(0,0,0,0.35)" }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
               className="h-14 w-24 rounded-[12px] bg-card border border-border flex items-center justify-center cursor-pointer"
-              style={{ boxShadow: "var(--shadow-sm)" }}
             >
               <Layers className="h-5 w-5 text-muted-foreground" />
             </motion.div>
@@ -482,7 +481,7 @@ function HoverSection() {
         </div>
 
         {/* Scale */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Scale", "Escala")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
@@ -498,7 +497,7 @@ function HoverSection() {
         </div>
 
         {/* Glow */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Glow", "Brilho")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.button
@@ -513,7 +512,7 @@ function HoverSection() {
         </div>
 
         {/* 3D Tilt */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("3D Tilt", "Inclinação 3D")}</div>
           <div className="flex items-center justify-center py-2" style={{ perspective: 500 }}>
             <motion.div
@@ -541,7 +540,7 @@ function HoverSection() {
         </div>
 
         {/* Border sweep */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Border Sweep", "Varredura de borda")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
@@ -561,7 +560,7 @@ function HoverSection() {
         <MagneticButton />
 
         {/* Color shift */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Color Shift", "Mudança de cor")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
@@ -576,7 +575,7 @@ function HoverSection() {
         </div>
 
         {/* Reveal */}
-        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3 group overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-4 space-y-3 group overflow-hidden">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Icon Reveal", "Ícone revelado")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
@@ -620,7 +619,7 @@ function MagneticButton() {
   const reset = () => { x.set(0); y.set(0); };
 
   return (
-    <div className="rounded-[14px] border border-border bg-card p-4 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+    <div className="rounded-[14px] border border-border bg-card p-4 space-y-3">
       <div className="text-[0.75rem] font-bold text-foreground">{t("Magnetic", "Magnético")}</div>
       <div className="flex items-center justify-center py-3">
         <div onMouseMove={handleMouse} onMouseLeave={reset} className="flex items-center justify-center w-24 h-14">
@@ -654,7 +653,7 @@ function MicroInteractions() {
       <div className="grid grid-cols-3 gap-3">
 
         {/* Like */}
-        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Like Button", "Botão de curtir")}</div>
           <motion.button onClick={() => setLiked(l => !l)} whileTap={{ scale: 0.85 }} className="relative">
             <motion.div
@@ -679,7 +678,7 @@ function MicroInteractions() {
         </div>
 
         {/* Checkbox */}
-        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Checkbox", "Checkbox")}</div>
           <motion.button
             onClick={() => setChecked(c => !c)}
@@ -705,7 +704,7 @@ function MicroInteractions() {
         </div>
 
         {/* Toggle */}
-        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Toggle Switch", "Toggle switch")}</div>
           <motion.button
             onClick={() => setToggled(v => !v)}
@@ -723,7 +722,7 @@ function MicroInteractions() {
         </div>
 
         {/* Star Rating */}
-        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Star Rating", "Avaliação por estrelas")}</div>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map(n => (
@@ -739,7 +738,7 @@ function MicroInteractions() {
         </div>
 
         {/* Bell notification */}
-        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Notification Bell", "Sino de notificação")}</div>
           <motion.button
             onClick={() => { setNotified(true); setTimeout(() => setNotified(false), 1500); }}
@@ -765,7 +764,7 @@ function MicroInteractions() {
         </div>
 
         {/* Counter */}
-        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 flex flex-col items-center gap-4">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Counter", "Contador")}</div>
           <div className="flex items-center gap-3">
             <motion.button whileTap={{ scale: 0.85 }} onClick={() => setCounter(c => Math.max(0, c - 1))}
@@ -813,7 +812,7 @@ function LoadersSection() {
       <div className="grid grid-cols-3 gap-3">
 
         {/* Spinner variants */}
-        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Spinners", "Spinners")}</div>
           <div className="flex items-center justify-around">
             {/* CSS border spin */}
@@ -841,7 +840,7 @@ function LoadersSection() {
         </div>
 
         {/* Progress bar */}
-        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Progress Bars", "Barras de progresso")}</div>
           <div className="space-y-3">
             <div className="space-y-1">
@@ -869,7 +868,7 @@ function LoadersSection() {
         </div>
 
         {/* Skeleton */}
-        <div className="rounded-[14px] border border-border bg-card p-5 space-y-3" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 space-y-3">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Skeleton", "Skeleton")}</div>
           <div className="flex items-center gap-3">
             <motion.div
@@ -894,13 +893,13 @@ function LoadersSection() {
         </div>
 
         {/* Step indicator */}
-        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Step Indicator", "Indicador de etapas")}</div>
           <StepIndicator />
         </div>
 
         {/* Circular */}
-        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4 flex flex-col items-start" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4 flex flex-col items-start">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Circular Progress", "Progresso circular")}</div>
           <div className="flex-1 flex items-center justify-center w-full">
             <svg width="72" height="72" viewBox="0 0 72 72">
@@ -923,7 +922,7 @@ function LoadersSection() {
         </div>
 
         {/* Typing dots */}
-        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-xs)" }}>
+        <div className="rounded-[14px] border border-border bg-card p-5 space-y-4">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Chat States", "Estados de chat")}</div>
           <div className="space-y-3">
             <div className="flex items-end gap-2">
@@ -1030,7 +1029,7 @@ function LayoutTransitions() {
       <div className="grid grid-cols-2 gap-3">
 
         {/* Grid / List switch */}
-        <div className="rounded-[16px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="rounded-[16px] border border-border bg-card p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="text-[0.75rem] font-bold text-foreground">{t("Grid ↔ List", "Grade ↔ Lista")}</div>
             <div className="flex gap-1 p-0.5 bg-muted rounded-[8px]">
@@ -1057,7 +1056,7 @@ function LayoutTransitions() {
         </div>
 
         {/* Tab underline */}
-        <div className="rounded-[16px] border border-border bg-card p-5 space-y-4" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="rounded-[16px] border border-border bg-card p-5 space-y-4">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Animated Tabs", "Abas animadas")}</div>
           <div className="border-b border-border flex gap-0">
             {tabs.map((tabName, i) => (
@@ -1111,7 +1110,7 @@ function TokensSection() {
       </div>
 
       {/* Duration visual reference */}
-      <div className="rounded-[14px] border border-border bg-card p-5 space-y-3 mt-2" style={{ boxShadow: "var(--shadow-xs)" }}>
+      <div className="rounded-[14px] border border-border bg-card p-5 space-y-3 mt-2">
         <div className="text-[0.75rem] font-bold text-foreground mb-4">{t("Duration Reference", "Referência de duração")}</div>
         <DurationBars />
       </div>
@@ -1209,7 +1208,7 @@ function MarqueeSection() {
   const featureCards = marqueeFeatures.map((f, i) => {
     const Icon = f.icon;
     return (
-      <div key={i} className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] border border-border bg-card" style={{ boxShadow: "var(--shadow-xs)" }}>
+      <div key={i} className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] border border-border bg-card">
         <div className="h-7 w-7 rounded-[8px] bg-primary/10 flex items-center justify-center shrink-0">
           <Icon className="h-3.5 w-3.5 text-primary" />
         </div>
@@ -1222,7 +1221,7 @@ function MarqueeSection() {
   });
 
   const reviewCards = marqueeReviews.map((r, i) => (
-    <div key={i} className="flex flex-col gap-1.5 px-4 py-3 rounded-[12px] border border-border bg-card" style={{ boxShadow: "var(--shadow-xs)", width: 220 }}>
+    <div key={i} className="flex flex-col gap-1.5 px-4 py-3 rounded-[12px] border border-border bg-card" style={{ width: 220 }}>
       <div className="flex gap-0.5">
         {Array.from({ length: r.stars }).map((_, j) => <Star key={j} className="h-2.5 w-2.5 fill-warning text-warning" />)}
       </div>
@@ -1248,7 +1247,6 @@ function MarqueeSection() {
       <div
         className="rounded-[16px] border border-border bg-card overflow-hidden py-5 space-y-3"
         style={{
-          boxShadow: "var(--shadow-sm)",
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
           maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
         }}
@@ -1348,7 +1346,6 @@ function AnimatedListSection() {
                     exit={{ opacity: 0, x: 60, scale: 0.9, transition: { duration: 0.2 } }}
                     transition={{ type: "spring", stiffness: 340, damping: 28 }}
                     className="flex items-center gap-2.5 rounded-[10px] border border-border bg-background/60 px-3 py-2.5 mb-2 last:mb-0"
-                    style={{ boxShadow: "var(--shadow-xs)" }}
                   >
                     <div className={`h-8 w-8 rounded-[9px] flex items-center justify-center shrink-0 ${item.iconCls}`}>
                       <Icon className="h-4 w-4" />
@@ -1701,7 +1698,7 @@ function OrbitingCirclesSection() {
       <div className="grid grid-cols-2 gap-4">
 
         {/* Forward orbit */}
-        <div className="rounded-[16px] border border-border bg-card flex flex-col items-center gap-3 p-6" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="rounded-[16px] border border-border bg-card flex flex-col items-center gap-3 p-6">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Clockwise", "Sentido horário")}</div>
           <OrbitCanvas
             center={
@@ -1718,7 +1715,7 @@ function OrbitingCirclesSection() {
         </div>
 
         {/* Reverse orbit */}
-        <div className="rounded-[16px] border border-border bg-card flex flex-col items-center gap-3 p-6" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="rounded-[16px] border border-border bg-card flex flex-col items-center gap-3 p-6">
           <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Counterclockwise", "Sentido anti-horário")}</div>
           <OrbitCanvas
             reverse
@@ -1736,7 +1733,7 @@ function OrbitingCirclesSection() {
         </div>
 
         {/* Solid variant — full width */}
-        <div className="col-span-2 rounded-[16px] border border-border bg-card flex flex-col items-center gap-1 p-6" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="col-span-2 rounded-[16px] border border-border bg-card flex flex-col items-center gap-1 p-6">
           <div className="flex items-center justify-between w-full mb-1">
             <div className="text-[0.75rem] font-bold text-foreground">{t("Solid icons", "Ícones sólidos")}</div>
             <span className="text-[0.625rem] text-muted-foreground px-2 py-0.5 rounded-full border border-border bg-muted">{t("solid background", "fundo sólido")}</span>
@@ -1757,7 +1754,7 @@ function OrbitingCirclesSection() {
         </div>
 
         {/* Avatar variant — full width */}
-        <div className="col-span-2 rounded-[16px] border border-border bg-card flex flex-col items-center gap-1 p-6" style={{ boxShadow: "var(--shadow-sm)" }}>
+        <div className="col-span-2 rounded-[16px] border border-border bg-card flex flex-col items-center gap-1 p-6">
           <div className="flex items-center justify-between w-full mb-2">
             <div>
               <div className="text-[0.75rem] font-bold text-foreground">{t("Avatars with tooltip", "Avatares com tooltip")}</div>
@@ -2058,7 +2055,7 @@ function ShineBorderSection() {
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {examples.map(example => (
-          <div key={example.label} className="relative overflow-hidden rounded-[16px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
+          <div key={example.label} className="relative overflow-hidden rounded-[16px] border border-border bg-card p-5">
             <ShineBorder duration={example.duration} shineColor={example.colors} />
             <Sparkles className="mb-4 h-5 w-5 text-primary" aria-hidden />
             <p className="text-[0.875rem] font-bold text-foreground">{example.label}</p>
@@ -2085,7 +2082,7 @@ function ShineBorderSection() {
               contraste: t("Primary with the text color: more contrast, less color.", "Pink com a cor do texto: mais contraste, menos cor."),
             };
             return (
-              <div key={name} className="relative overflow-hidden rounded-[16px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
+              <div key={name} className="relative overflow-hidden rounded-[16px] border border-border bg-card p-5">
                 <ShineBorder preset={name} duration={12} borderWidth={name === "dourada" || name === "ouro" ? 2 : 1} />
                 <div className="mb-3 flex gap-1.5">
                   {shinePresets[name].slice(0, 2).map((c, i) => (
