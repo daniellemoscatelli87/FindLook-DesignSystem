@@ -730,7 +730,7 @@ function AppShell() {
             animation: ds-shimmer 5.5s linear infinite;
           }
           html:not(.dark) .ds-shimmer {
-            background-image: linear-gradient(90deg, #888896 0%, #696977 25%, #19191C 50%, #696977 75%, #888896 100%);
+            background-image: linear-gradient(90deg, #696977 0%, #696977 30%, var(--primary) 50%, #696977 70%, #696977 100%);
           }
           @media (prefers-reduced-motion: reduce) { .ds-shimmer { animation: none; } }
         `}</style>
