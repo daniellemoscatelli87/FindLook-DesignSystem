@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Cards de preço no estilo do card com wobble"),
+    desc: pt("Os cards de “Planos e assinatura” passaram a usar o visual do card com wobble: cantos mais arredondados, ícone em círculo, selo “Recomendado” com estrela, nome do plano em destaque, checks em círculo colorido e rodapé com preço e ação. Continuam o seletor Mensal/Anual, o bloco “Para quem”, os recursos incluídos e não incluídos e o estado selecionado. Sobre a página branca, só borda, sem sombra. Dentro do protótipo, as colunas seguem a largura da janela, e o bloco “Para quem” cresce em vez de vazar quando o card fica estreito demais."),
+    page: "templates", anchor: "template-dashboard",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Etapas (Stepper): visual do protótipo"),
     desc: pt("O Stepper passou a usar o visual do protótipo do produto (v8.87): abas numeradas (01, 02…), atual em círculo na primária com sublinhado de 3 px, concluídas em grafite escuro e futuras em cinza claro. No celular continua compacto, com “Etapa X de N”."),
     page: "stepper", anchor: "stepper-anatomy",
