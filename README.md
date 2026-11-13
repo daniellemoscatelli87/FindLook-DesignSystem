@@ -6,7 +6,7 @@ Construído sobre a estrutura do Dani Moscatelli Design System v2 (componentes s
 
 ## Rodar
 
-`pnpm install` e `pnpm dev`. Build com `pnpm build` (publicado no GitHub Pages com `base: '/FindLook-DesignSystem/'`).
+`pnpm install` e `pnpm dev`. Build com `pnpm build` (publicado no GitHub Pages em https://designsystem.findlook.com.br, com `base: '/'`; o endereço antigo daniellemoscatelli87.github.io/FindLook-DesignSystem/ redireciona para ele).
 
 ## Estrutura
 

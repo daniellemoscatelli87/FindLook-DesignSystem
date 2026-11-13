@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/FindLook-DesignSystem/',
+  // Publicado em designsystem.findlook.com.br (subdomínio próprio, 13/11/2026): o site fica na raiz do domínio.
+  base: '/',
   plugins: [
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
