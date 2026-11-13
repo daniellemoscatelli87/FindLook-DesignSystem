@@ -34,8 +34,8 @@ export function StepperShowcase() {
         <SectionHeader
           title={t("Stepper", "Etapas (Stepper)")}
           description={t(
-            "Shows where the person is in a form split into screens: which steps are done, the current one and what comes next.",
-            "Mostra onde a pessoa está num formulário dividido em telas: quais etapas já foram feitas, a atual e o que vem depois.",
+            "Shows where the person is in a form split into screens: which steps are done, the current one and what comes next. Visual from the product prototype (v8.87), as numbered tabs.",
+            "Mostra onde a pessoa está num formulário dividido em telas: quais etapas já foram feitas, a atual e o que vem depois. Visual do protótipo do produto (v8.87), em abas numeradas.",
           )}
         />
         <div className="rounded-[20px] border border-border bg-card p-5 md:p-8">
@@ -65,10 +65,10 @@ export function StepperShowcase() {
         <DataTable
           head={[t("State", "Estado"), t("Marker", "Marcador"), t("Name", "Nome"), t("Interaction", "Interação")]}
           rows={[
-            [t("Done", "Concluída"), t("Primary fill, white check", "Preenchido na primária, check branco"), t("Medium, muted", "Médio, cinza"), t("Reopens the step when onIrPara is given", "Reabre a etapa quando há onIrPara")],
-            [t("Current", "Atual"), t("Primary border, light pink fill (--primary-muted), number in --primary-text", "Borda primária, fundo rosa claro (--primary-muted), número em --primary-text"), t("Bold", "Negrito"), t("aria-current=\"step\"", "aria-current=\"step\"")],
-            [t("Pending", "Pendente"), t("Strong border (--border-strong), number in muted gray", "Borda forte (--border-strong), número em cinza"), t("Medium, muted", "Médio, cinza"), t("Not clickable until the previous steps are done", "Não clicável até as anteriores serem concluídas")],
-            [t("Link", "Ligação"), t("2 px line; primary after a done step", "Linha de 2 px; primária depois de uma etapa concluída"), "—", "—"],
+            [t("Current", "Atual"), t("Number in a primary-filled circle", "Número em círculo preenchido na primária"), t("Bold, dark, with a 3 px primary underline", "Negrito escuro, com sublinhado de 3 px na primária"), t("aria-current=\"step\"", "aria-current=\"step\"")],
+            [t("Done", "Concluída"), t("Number in a dark graphite circle (--foreground)", "Número em círculo grafite escuro (--foreground)"), t("Bold, muted", "Negrito, cinza"), t("Reopens the step when onIrPara is given", "Reabre a etapa quando há onIrPara")],
+            [t("Pending", "Pendente"), t("Number in a light gray circle (--secondary)", "Número em círculo cinza claro (--secondary)"), t("Bold, muted", "Negrito, cinza"), t("Not clickable until the previous steps are done", "Não clicável até as anteriores serem concluídas")],
+            [t("Base line", "Linha de base"), t("1 px line under all steps (--border)", "Linha de 1 px sob todas as etapas (--border)"), "—", "—"],
           ]}
         />
       </section>
@@ -79,7 +79,7 @@ export function StepperShowcase() {
           <ul className="list-disc space-y-1 pl-5">
             <li>{t("A nav with a name (rotulo) and an ordered list: the order is the DOM order.", "Uma navegação com nome (rotulo) e uma lista ordenada: a ordem é a do DOM.")}</li>
             <li>{t("Each marker says its state in text for screen readers (done, current step, pending).", "Cada marcador diz o estado em texto para leitores de tela (concluída, etapa atual, pendente).")}</li>
-            <li>{t("Done has a check, current has a border and bold name: visible without color.", "Concluída tem check e a atual tem borda e nome em negrito: visível sem cor.")}</li>
+            <li>{t("Current has an underline and a dark name; done and pending differ by a dark or light fill: visible without color.", "A atual tem sublinhado e nome escuro; concluída e pendente se diferenciam pelo preenchimento escuro ou claro: visível sem cor.")}</li>
             <li>{t("Reopenable steps are buttons, reachable by keyboard, with a visible focus ring.", "Etapas que podem ser reabertas são botões, alcançáveis pelo teclado, com anel de foco visível.")}</li>
             <li>{t("On phones the other names leave the screen but stay for screen readers.", "No celular, os nomes das outras etapas saem da tela, mas continuam para leitores de tela.")}</li>
           </ul>
@@ -104,11 +104,11 @@ export function StepperShowcase() {
           <TokenTable groups={[{
             group: t("Stepper tokens", "Tokens do Stepper"),
             tokens: [
-              { name: "--primary · --primary-foreground", description: t("Done marker and filled link", "Marcador concluído e ligação preenchida"), light: "var(--primary)", isColor: false },
-              { name: "--primary-muted · --primary-text", description: t("Current marker", "Marcador da etapa atual"), light: "var(--primary-muted)", isColor: false },
-              { name: "--border-strong", description: t("Pending marker and idle link", "Marcador pendente e ligação em repouso"), light: "var(--border-strong)", isColor: false },
+              { name: "--primary · --primary-foreground", description: t("Current marker and underline", "Marcador e sublinhado da etapa atual"), light: "var(--primary)", isColor: false },
+              { name: "--foreground · --background", description: t("Done marker", "Marcador concluído"), light: "var(--foreground)", isColor: false },
+              { name: "--secondary · --border", description: t("Pending marker · base line", "Marcador pendente · linha de base"), light: "var(--secondary)", isColor: false },
               { name: "--ring", description: t("Focus ring", "Anel de foco"), light: "var(--ring)", isColor: false },
-              { name: "marker", description: t("Marker size", "Tamanho do marcador"), light: "32 px" },
+              { name: "marker", description: t("Marker size", "Tamanho do marcador"), light: "38 px · 32 px (< 640 px)" },
             ],
           }]} />
         </div>
