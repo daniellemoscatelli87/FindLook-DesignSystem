@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Etapas (Stepper)"),
+    desc: pt("Novo componente para formulários em várias telas, como o cadastro do lojista: marcador numerado por etapa, atual em rosa claro com aria-current, concluídas com check e reabríveis, futuras bloqueadas. No celular mostra “Etapa X de N” e o nome da etapa atual."),
+    page: "stepper", anchor: "stepper-demo",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: { en: "Cards on white: border, no shadow", pt: "Card sobre fundo branco: borda, sem sombra" },
     desc: { en: "New rule in Cards: on a white background, a card has no shadow and uses a light gray border (--border); shadows are for hover and overlays. All resting cards on the white page now follow it.", pt: "Nova regra em Cards: sobre fundo branco, o card não tem sombra e usa borda cinza clara (--border); a sombra fica para o hover e para sobreposições. Todos os cards parados sobre a página branca passaram a seguir a regra." },
     page: "cards", anchor: "card-guidelines",
