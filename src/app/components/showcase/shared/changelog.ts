@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Header e menus: modelo padrão do site do estúdio"),
+    desc: pt("O padrão agora segue o header atual do site do estúdio Dani Moscatelli: pílula clara flutuando no desktop, faixa que fica grafite no celular e menu em folha inferior. A rolagem virou três chaves independentes (transparente no topo, logo vira ícone ao rolar, some ao descer e volta ao subir). A versão do logo completo é escolhida pelo que está atrás dele (claro, escuro ou foto). O menu fica em um lugar só: header ou barra inferior."),
+    page: "header", anchor: "header-demo",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Header e menus"),
     desc: pt("Nova seção com o padrão de header de site, com os links da landing “Para lojas”. Demonstração em uma janela com rolagem própria: três comportamentos de rolagem (transparente → sólido, some e volta, compacto ao rolar), três menus no celular (gaveta lateral, tela cheia e barra inferior com os itens do painel da loja) e quatro fundos por trás do header (fundo da página, foto escura com véu, gradiente da marca e modo escuro). Inclui checklist de acessibilidade, uso e tokens."),
     page: "header", anchor: "header-demo",

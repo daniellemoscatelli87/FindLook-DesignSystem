@@ -437,6 +437,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       { id: "header", label: "Header e menus", icon: PanelTop,
         items: [
           { id: "header-demo",        label: "Demonstração",                sectionId: "header" },
+          { id: "header-models",      label: "Modelos",                     sectionId: "header" },
           { id: "header-scroll",      label: "Comportamentos de rolagem",   sectionId: "header" },
           { id: "header-mobile",      label: "Menus no celular",            sectionId: "header" },
           { id: "header-backgrounds", label: "Fundos por trás do header",   sectionId: "header" },
