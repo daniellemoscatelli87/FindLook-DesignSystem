@@ -6,7 +6,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, UploadCloud, Milestone, Brush,
+  PanelRight, UploadCloud, Milestone, Brush, ListOrdered,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -31,6 +31,7 @@ import { AccessibilityShowcase } from "./components/showcase/AccessibilityShowca
 import { CardShowcase } from "./components/showcase/CardShowcase";
 import { SidePanelShowcase } from "./components/showcase/SidePanelShowcase";
 import { TimelineShowcase } from "./components/showcase/TimelineShowcase";
+import { StepperShowcase } from "./components/showcase/StepperShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
@@ -450,6 +451,14 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "timeline-usage",   label: "Uso",                      sectionId: "timeline" },
         ],
       },
+      { id: "stepper", label: "Etapas (Stepper)", icon: ListOrdered,
+        items: [
+          { id: "stepper-demo",    label: "Demonstração",        sectionId: "stepper" },
+          { id: "stepper-anatomy", label: "Anatomia e estados",  sectionId: "stepper" },
+          { id: "stepper-a11y",    label: "Acessibilidade",      sectionId: "stepper" },
+          { id: "stepper-usage",   label: "Uso",                 sectionId: "stepper" },
+        ],
+      },
       { id: "upload", label: "Upload", icon: UploadCloud,
         items: [
           { id: "upload-dropzone", label: "Área de soltar",            sectionId: "upload" },
@@ -493,6 +502,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   overlays:  <OverlaysShowcase />,
   sidepanel: <SidePanelShowcase />,
   timeline:  <TimelineShowcase />,
+  stepper:   <StepperShowcase />,
   upload:    <UploadShowcase />,
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
@@ -520,6 +530,7 @@ const sectionLabels: Record<string, string> = {
   overlays:  "Overlays & Navigation",
   sidepanel: "Painel lateral",
   timeline:  "Linha do tempo",
+  stepper:   "Etapas (Stepper)",
   upload:    "Upload",
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
