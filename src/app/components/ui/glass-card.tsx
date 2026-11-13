@@ -11,14 +11,16 @@ import { over, contrastRatio, resolveCssColor, AA, type RGB } from "./contrast";
  * Use para poucos elementos em destaque (hero, resumo, chamada); não para listas longas
  * nem para leitura extensa. Com prefers-reduced-transparency o card vira sólido.
  */
-export type GlassFinish = "padrao" | "translucido" | "fosco" | "luz" | "cristal";
+export type GlassFinish = "padrao" | "translucido" | "fosco" | "luz" | "cristal" | "painel";
 
 export type GlassCardProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Acabamento do vidro (grau de transparência):
    * padrao — vidro equilibrado; translucido — bem transparente, quase sem desfoque, o fundo aparece inteiro;
    * fosco — vidro jateado, muito desfoque e mais opaco, sem reflexo; luz — vidro com um foco de luz no canto;
-   * cristal — vidro nítido com borda brilhante e um reflexo diagonal.
+   * cristal — vidro nítido com borda brilhante e um reflexo diagonal;
+   * painel — vidro escuro do painel conceitual da página de lojistas (grafite-950 a 55%, desfoque de 8 px,
+   *   borda clara e sombra grande); é o card padrão do tema escuro, sobre as Luzes difusas. Use com tone="escura".
    */
   finish?: GlassFinish;
   /** Quantidade de opacidade dentro do acabamento (e de desfoque no acabamento padrão). */
@@ -67,6 +69,14 @@ const finishes: Record<Exclude<GlassFinish, "padrao">, { blur: string; clara: Re
     border: "border-white/90 dark:border-white/30",
     // reflexo diagonal
     extra: "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.45)_45%,rgba(255,255,255,0.08)_52%,transparent_60%)] dark:after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.18)_45%,rgba(255,255,255,0.03)_52%,transparent_60%)] data-[tone=escura]:after:bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.14)_45%,rgba(255,255,255,0.03)_52%,transparent_60%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35),0_8px_32px_rgba(0,0,0,0.10)]",
+  },
+  // Vidro do painel (tema escuro): o mesmo do painel conceitual da página de lojistas (13/11/2026).
+  painel: {
+    blur: "backdrop-blur-[8px]",
+    clara: { leve: "bg-white/40 dark:bg-white/8", media: "bg-white/55 dark:bg-white/12", forte: "bg-white/70 dark:bg-white/16" },
+    escura: { leve: "bg-[var(--graphite-950)]/45", media: "bg-[var(--graphite-950)]/55", forte: "bg-[var(--graphite-950)]/65" },
+    border: "border-white/12",
+    extra: "shadow-[var(--shadow-xl)]",
   },
 };
 
@@ -143,6 +153,7 @@ export const glassOpacityTable: Record<GlassFinish, { clara: [number, number, nu
   fosco:       { clara: [60, 72, 84], claraDark: [14, 18, 22], escura: [80, 90, 90], escuraDark: [60, 72, 84] },
   luz:         { clara: [35, 48, 62], claraDark: [8, 12, 16],  escura: [50, 65, 80], escuraDark: [30, 45, 60] },
   cristal:     { clara: [22, 32, 44], claraDark: [6, 9, 12],   escura: [42, 54, 66], escuraDark: [22, 34, 46] },
+  painel:      { clara: [40, 55, 70], claraDark: [8, 12, 16],  escura: [45, 55, 65], escuraDark: [45, 55, 65] },
 };
 
 export type GlassContrastInput = {

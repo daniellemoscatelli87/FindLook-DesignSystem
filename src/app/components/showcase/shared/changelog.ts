@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Vidro no tema escuro: acabamento painel e Luzes difusas"),
+    desc: pt("O card padrão das páginas escuras passa a ser o vidro do painel conceitual da página de lojistas: GlassCard com o novo acabamento finish=\"painel\" (grafite-950 a 55%, desfoque de 8 px, borda clara e sombra grande), sobre o novo componente Luzes difusas (focos de luz nas cores da marca, que param com menos movimento e podem se dissolver na base). Caixas dentro do vidro são vazadas: só borda clara, sem preenchimento cinza."),
+    page: "cards", anchor: "card-glass-escuro",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Header e menus: modelo padrão do site do estúdio"),
     desc: pt("O padrão agora segue o header atual do site do estúdio Dani Moscatelli: pílula clara flutuando no desktop, faixa que fica grafite no celular e menu em folha inferior. A rolagem virou três chaves independentes (transparente no topo, logo vira ícone ao rolar, some ao descer e volta ao subir). A versão do logo completo é escolhida pelo que está atrás dele (claro, escuro ou foto). O menu fica em um lugar só: header ou barra inferior."),
     page: "header", anchor: "header-demo",
