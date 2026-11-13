@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Cards de preço: recursos recolhíveis e “Para quem” opcional"),
+    desc: pt("Em “Planos e assinatura”, a lista de recursos começa recolhida, com o botão “Ver recursos do plano” e a contagem (por exemplo, 5 de 10). Abrir ou fechar vale para todos os cards, que ficam sempre alinhados; o botão usa aria-expanded. O bloco “Para quem” é opcional: plano sem esse texto não mostra o bloco, e um interruptor acima do protótipo mostra o card com e sem ele."),
+    page: "templates", anchor: "template-dashboard",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Cards de preço no estilo do card com wobble"),
     desc: pt("Os cards de “Planos e assinatura” passaram a usar o visual do card com wobble: cantos mais arredondados, ícone em círculo, selo “Recomendado” com estrela, nome do plano em destaque, checks em círculo colorido e rodapé com preço e ação. Continuam o seletor Mensal/Anual, o bloco “Para quem”, os recursos incluídos e não incluídos e o estado selecionado. Sobre a página branca, só borda, sem sombra. Dentro do protótipo, as colunas seguem a largura da janela, e o bloco “Para quem” cresce em vez de vazar quando o card fica estreito demais."),
     page: "templates", anchor: "template-dashboard",
