@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Etapas (Stepper): visual do protótipo"),
+    desc: pt("O Stepper passou a usar o visual do protótipo do produto (v8.87): abas numeradas (01, 02…), atual em círculo na primária com sublinhado de 3 px, concluídas em grafite escuro e futuras em cinza claro. No celular continua compacto, com “Etapa X de N”."),
+    page: "stepper", anchor: "stepper-anatomy",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Etapas (Stepper)"),
     desc: pt("Novo componente para formulários em várias telas, como o cadastro do lojista: marcador numerado por etapa, atual em rosa claro com aria-current, concluídas com check e reabríveis, futuras bloqueadas. No celular mostra “Etapa X de N” e o nome da etapa atual."),
     page: "stepper", anchor: "stepper-demo",
