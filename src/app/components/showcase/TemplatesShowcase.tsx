@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useId } from "react";
+import React, { useState, useEffect, useId, useRef } from "react";
+import { VoltarAoTopo } from "../ui/voltar-ao-topo";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import {
   LayoutDashboard, Settings, LogIn, Bell, Users,
@@ -1607,10 +1608,11 @@ function LandingTemplate() {
   const prevSlide = () => setSlide(s => (s - 1 + total) % total);
   const nextSlide = () => setSlide(s => (s + 1) % total);
   const visibleTestimonials = [0, 1, 2].map(k => depoimentosLanding[(slide + k) % total]);
+  const rolagemRef = useRef<HTMLDivElement>(null);
 
   return (
     <TemplateFrame url="FindLook · Para lojas">
-      <div className="bg-background overflow-y-auto" style={{ maxHeight: 720 }}>
+      <div ref={rolagemRef} className="bg-background overflow-y-auto" style={{ maxHeight: 720 }}>
 
         {/* ══ NAVBAR ══ */}
         <nav aria-label="Página para lojas" className="sticky top-0 z-20 bg-background/90 backdrop-blur-xl border-b border-border px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
@@ -2241,6 +2243,12 @@ function LandingTemplate() {
             </div>
           </div>
         </footer>
+
+        {/* Voltar ao topo: aparece quando a pessoa chega ao fim da página. Na página real fica fixo no canto da tela;
+            aqui, dentro da janela de demonstração, acompanha a rolagem dela. */}
+        <div className="sticky bottom-4 z-30 flex h-0 items-end justify-end px-4">
+          <VoltarAoTopo rolagem={rolagemRef} focoEm="h1" className="static" />
+        </div>
       </div>
     </TemplateFrame>
   );
