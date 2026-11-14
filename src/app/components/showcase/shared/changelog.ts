@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Voltar ao topo"),
+    desc: pt("Novo componente: botão redondo vermelho com seta para cima, fixo no canto inferior direito, que aparece quando a pessoa chega ao fim da página e a leva de volta ao topo. Com menos movimento, a volta é instantânea; ao voltar, o foco vai para o conteúdo principal. Entrou no template da landing page."),
+    page: "templates", anchor: "template-landing",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Shine Border mais ligeiro"),
     desc: pt("A volta do brilho ficou cerca de 40% mais rápida: padrão do componente de 14 s para 8 s; exemplos lento, padrão e rápido em 11, 8 e 5 s; card de destaque e combinações de cor em 7 s."),
     page: "cards", anchor: "card-shine",
