@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Cards de vidro: fundo de teste"),
+    desc: pt("O seletor de acabamentos ganhou o controle “Fundo de teste”: padrão, textura fechada, textura aberta, textura escura, clara e discreta e cor sólida (cinza claro, cinza médio, grafite ou primária). A conferência de contraste de cada card usa o fundo escolhido (pior caso entre o fundo e um traço da textura). O vidro padrão passou a aparecer também na galeria de acabamentos."),
+    page: "cards", anchor: "card-glass",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Vidro no tema escuro: acabamento painel e Luzes difusas"),
     desc: pt("O card padrão das páginas escuras passa a ser o vidro do painel conceitual da página de lojistas: GlassCard com o novo acabamento finish=\"painel\" (grafite-950 a 55%, desfoque de 8 px, borda clara e sombra grande), sobre o novo componente Luzes difusas (focos de luz nas cores da marca, que param com menos movimento e podem se dissolver na base). Caixas dentro do vidro são vazadas: só borda clara, sem preenchimento cinza."),
     page: "cards", anchor: "card-glass-escuro",
