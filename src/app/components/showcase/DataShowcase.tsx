@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { useI18n } from "../../i18n";
+import { VejaEm } from "./shared/VejaEm";
 import {
   TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight,
   Users, DollarSign, Activity, BarChart2, ChevronUp, ChevronDown,
@@ -210,56 +211,14 @@ export function DataShowcase() {
       {/* ── KPI CARDS ── */}
       <section id="kpi-cards">
         <SectionHeader title={t("KPI Cards", "Cards de KPI")} description={t("Key performance indicators with trend indicators and sparkline charts.", "Indicadores-chave de desempenho com indicadores de tendência e gráficos sparkline.")} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {kpis.map((kpi) => {
-            const Icon = kpi.icon;
-            const TrendIcon = kpi.trend === "up" ? ArrowUpRight : ArrowDownRight;
-            const trendColor = kpi.trend === "up" ? "text-success" : "text-primary";
-            return (
-              <div key={kpi.label} className="bg-card rounded-[16px] border border-border p-5 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-[0.8125rem] font-medium text-muted-foreground mb-1">{t(kpi.label, kpi.pt)}</p>
-                    <p className="text-[1.625rem] font-bold text-foreground tracking-[-0.025em] leading-none">{kpi.value}</p>
-                  </div>
-                  <div className="h-9 w-9 rounded-[10px] bg-muted flex items-center justify-center">
-                    <Icon className="h-4.5 w-4.5 text-muted-foreground" style={{ height: "18px", width: "18px" }} />
-                  </div>
-                </div>
-                <div className="h-12">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={kpi.sparkData.map((v, i) => ({ v, i }))}>
-                      <Line
-                        type="monotone"
-                        dataKey="v"
-                        stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-2)"}
-                        strokeWidth={1.5}
-                        dot={false}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className={`flex items-center gap-1 text-[0.8125rem] font-semibold ${trendColor}`}>
-                  <TrendIcon className="h-3.5 w-3.5" />
-                  {kpi.delta}
-                  <span className="text-muted-foreground font-normal ml-1">{t("vs last month", "vs mês passado")}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <VejaEm secao="cards" ancora="card-ia" titulo={t("KPI cards moved to Cards", "Os cards de KPI agora ficam em Cards")} texto={t("They are a card pattern (metric with chart): see them in Cards › Information architecture.", "São um padrão de card (métrica com gráfico): veja em Cards › Arquitetura de informação.")} />
       </section>
 
 
       {/* ── INDICADOR DO PAINEL ── */}
       <section id="kpi-painel">
         <SectionHeader title="Indicador do painel" description="Card de KPI do painel da loja: mesma anatomia dos Cards de KPI, sem o gráfico, com explicação opcional do termo." />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
-          <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
-          <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
-          <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
-        </div>
+        <VejaEm secao="cards" ancora="card-ia" titulo="O indicador do painel agora fica em Cards" texto="É um padrão de card (métrica com explicação): veja em Cards › Arquitetura de informação." />
       </section>
 
       {/* ── CHARTS ── */}
@@ -545,4 +504,61 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
     ],
   },
 ];
+}
+
+/** Cards de KPI: métrica, ícone, minigráfico e tendência (usados na página Cards). */
+export function CardsDeKpi() {
+  const { t } = useI18n();
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {kpis.map((kpi) => {
+        const Icon = kpi.icon;
+        const TrendIcon = kpi.trend === "up" ? ArrowUpRight : ArrowDownRight;
+        const trendColor = kpi.trend === "up" ? "text-success" : "text-primary";
+        return (
+          <div key={kpi.label} className="bg-card rounded-[16px] border border-border p-5 flex flex-col gap-4">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[0.8125rem] font-medium text-muted-foreground mb-1">{t(kpi.label, kpi.pt)}</p>
+                <p className="text-[1.625rem] font-bold text-foreground tracking-[-0.025em] leading-none">{kpi.value}</p>
+              </div>
+              <div className="h-9 w-9 rounded-[10px] bg-muted flex items-center justify-center">
+                <Icon className="h-4.5 w-4.5 text-muted-foreground" style={{ height: "18px", width: "18px" }} />
+              </div>
+            </div>
+            <div className="h-12">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={kpi.sparkData.map((v, i) => ({ v, i }))}>
+                  <Line
+                    type="monotone"
+                    dataKey="v"
+                    stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-2)"}
+                    strokeWidth={1.5}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div className={`flex items-center gap-1 text-[0.8125rem] font-semibold ${trendColor}`}>
+              <TrendIcon className="h-3.5 w-3.5" />
+              {kpi.delta}
+              <span className="text-muted-foreground font-normal ml-1">{t("vs last month", "vs mês passado")}</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Indicadores do painel da loja (CardIndicador), usados na página Cards. */
+export function IndicadoresDoPainel() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
+      <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
+      <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
+      <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
+    </div>
+  );
 }

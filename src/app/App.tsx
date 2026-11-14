@@ -358,23 +358,31 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       },
       { id: "cards", label: "Cards", icon: Grid3X3,
         items: [
-          { id: "card-anatomy",       label: "Card Anatomy",       sectionId: "cards" },
-          { id: "card-variants",      label: "Variants",           sectionId: "cards" },
-          { id: "card-shine",         label: "Shine Border",       sectionId: "cards" },
-          { id: "card-glass",         label: "Cards glassmorphism", sectionId: "cards" },
-          { id: "card-glass-escuro",  label: "Vidro no tema escuro", sectionId: "cards" },
-          { id: "card-layout",        label: "Layout & Sizing",    sectionId: "cards" },
-          { id: "card-nested",        label: "Nested Cards",       sectionId: "cards" },
-          { id: "card-actions",       label: "Buttons in Cards",   sectionId: "cards" },
-          { id: "card-states",        label: "Interactive States", sectionId: "cards" },
-          { id: "card-partner",       label: "Card de convite ao parceiro", sectionId: "cards" },
-          { id: "card-produto",       label: "Card de peça",       sectionId: "cards" },
-          { id: "card-plano",         label: "Card de plano",       sectionId: "cards" },
-          { id: "card-dica",          label: "Card de dica",        sectionId: "cards" },
-          { id: "faixa-beneficios",   label: "Faixa de benefícios", sectionId: "cards" },
-          { id: "card-guidelines",    label: "Usage Guidelines",   sectionId: "cards" },
-          { id: "card-accessibility", label: "Card Accessibility", sectionId: "cards" },
-          { id: "card-tokens",        label: "Card Tokens",        sectionId: "cards" },
+          { id: "card-escolher",       label: "Como escolher",                  sectionId: "cards" },
+          { id: "card-anatomy",        label: "Card Anatomy",                   sectionId: "cards" },
+          { id: "card-fundos",         label: "Por fundo",                      sectionId: "cards" },
+          { id: "card-layout",         label: "Borda, sombra e raio",           sectionId: "cards" },
+          { id: "card-orientacao",     label: "Vertical e horizontal",          sectionId: "cards" },
+          { id: "card-variants",       label: "Foto e botão",                   sectionId: "cards" },
+          { id: "card-actions",        label: "Buttons in Cards",               sectionId: "cards" },
+          { id: "card-ia",             label: "Arquitetura de informação",      sectionId: "cards" },
+          { id: "card-states",         label: "Estados",                        sectionId: "cards" },
+          { id: "card-animacao",       label: "Animação",                       sectionId: "cards" },
+          { id: "card-shine",          label: "Shine Border",                   sectionId: "cards" },
+          { id: "card-nested",         label: "Nested Cards",                   sectionId: "cards" },
+          { id: "card-partner",        label: "Card de convite ao parceiro",    sectionId: "cards" },
+          { id: "card-produto",        label: "Card de peça",                   sectionId: "cards" },
+          { id: "card-plano",          label: "Card de plano",                  sectionId: "cards" },
+          { id: "card-dica",           label: "Card de dica",                   sectionId: "cards" },
+          { id: "faixa-beneficios",    label: "Faixa de benefícios",            sectionId: "cards" },
+          { id: "card-glass",          label: "Vidro: acabamentos",             sectionId: "cards" },
+          { id: "card-glass-fundos",   label: "Vidro por fundo",                sectionId: "cards" },
+          { id: "card-glass-conteudo", label: "Vidro com conteúdo",             sectionId: "cards" },
+          { id: "card-glass-escuro",   label: "Vidro no tema escuro",           sectionId: "cards" },
+          { id: "card-glass-teste",    label: "Testar o vidro",                 sectionId: "cards" },
+          { id: "card-guidelines",     label: "O que evitar",                   sectionId: "cards" },
+          { id: "card-accessibility",  label: "Card Accessibility",             sectionId: "cards" },
+          { id: "card-tokens",         label: "Card Tokens",                    sectionId: "cards" },
         ],
       },
       { id: "data", label: "Data Display", icon: TableProperties,
@@ -665,6 +673,16 @@ function AppShell() {
     setMobileSidebarOpen(false);
     if (!anchor) window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // Links entre páginas (ex.: "Ver em Cards"): os showcases pedem a navegação por evento
+  useEffect(() => {
+    const ouvir = (e: Event) => {
+      const d = (e as CustomEvent<{ secao: string; ancora?: string }>).detail;
+      if (d?.secao) navigateTo(d.secao, d.ancora);
+    };
+    window.addEventListener("ds:navegar", ouvir);
+    return () => window.removeEventListener("ds:navegar", ouvir);
+  });
 
   const selectSearchResult = (sectionId: string, anchor?: string) => {
     navigateTo(sectionId, anchor);

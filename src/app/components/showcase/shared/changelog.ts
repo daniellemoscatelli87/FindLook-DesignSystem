@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Página Cards reorganizada: tudo sobre cards num só lugar"),
+    desc: pt("A página Cards foi reorganizada e passou a concentrar tudo sobre cards. Começa por “Como escolher” (o fundo define card, borda, sombra e raio) e segue em partes: 1) Card sólido: anatomia, por fundo (branco, cinza claro e escuro no modo claro: card branco sem borda e com sombra forte), borda, sombra e raio, vertical e horizontal, com e sem foto e botão, botões, arquitetura de informação (com os cards de KPI e o indicador do painel), estados (incluindo carregando), animação e onde aplicar (elevação no hover, Wobble, Canvas Reveal), Shine Border, aninhados e componentes prontos (convite, peça, plano, dica e faixa de benefícios); 2) Card de vidro: só combinações aprovadas no contraste, por fundo (claro, escuro e foto), com conteúdo e no tema escuro (painel); o acabamento “Padrão” passou a se chamar “Vidro”; 3) Testar o vidro: a bancada de teste, separada; 4) O que evitar: todos os “não faça” num só lugar. Wobble Card, Shine Border, Canvas Reveal os cards de KPI e o indicador do painel saíram de Motion, Backgrounds e Exibição de dados; lá ficou um link “Ver em Cards”."),
+    page: "cards", anchor: "card-escolher",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Cards de vidro: fundo de teste"),
     desc: pt("O seletor de acabamentos ganhou o controle “Fundo de teste”: padrão, textura fechada, textura aberta, textura escura, clara e discreta e cor sólida (cinza claro, cinza médio, grafite ou primária). A conferência de contraste de cada card usa o fundo escolhido (pior caso entre o fundo e um traço da textura). O vidro padrão passou a aparecer também na galeria de acabamentos."),
     page: "cards", anchor: "card-glass",
