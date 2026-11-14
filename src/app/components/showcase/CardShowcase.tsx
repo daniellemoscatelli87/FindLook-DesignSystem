@@ -15,6 +15,7 @@ import { ShineBorder } from "../ui/shine-border";
 import { PartnerCard } from "../ui/partner-card";
 import { ProductCard } from "../ui/product-card";
 import { GlassCard, GlassScene, glassTextContrast, glassSceneTexture, type GlassFinish, type GlassCardProps } from "../ui/glass-card";
+import { LuzesDifusas } from "../ui/luzes-difusas";
 import { resolveCssColor, formatRatio, AA } from "../ui/contrast";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { SegmentedControl } from "../ui/segmented-control";
@@ -147,6 +148,7 @@ function GlassFinishPicker() {
     { value: "fosco", label: t("Frosted", "Fosco"), desc: t("Sandblasted glass: heavy blur, more opaque, no reflection. The most legible; works over busy photos.", "Vidro jateado: muito desfoque, mais opaco, sem reflexo. O mais legível; funciona sobre fotos movimentadas.") },
     { value: "luz", label: t("Light focus", "Foco de luz"), desc: t("Medium glass with a light spot in the top-left corner and an inner glow. For hero and highlight cards.", "Vidro médio com um foco de luz no canto superior esquerdo e brilho interno. Para cards de hero e destaque.") },
     { value: "cristal", label: t("Crystal", "Cristal"), desc: t("Sharp glass: bright edge and a diagonal reflection. For premium moments, one per screen.", "Vidro nítido: borda brilhante e um reflexo diagonal. Para momentos premium, um por tela.") },
+    { value: "painel", label: t("Panel", "Painel"), desc: t("Dark glass of the merchant page panel (graphite-950 at 55%, 8 px blur, light border, large shadow). The default card of the dark theme, over the Diffuse lights. Use with the dark tone.", "Vidro escuro do painel da página de lojistas (grafite-950 a 55%, desfoque de 8 px, borda clara, sombra grande). O card padrão do tema escuro, sobre as Luzes difusas. Use com o tom escuro.") },
     { value: "padrao", label: t("Default", "Padrão"), desc: t("Balanced glass, the one used in the intensities above.", "Vidro equilibrado, o mesmo das intensidades acima.") },
   ];
   const current = finishes.find(x => x.value === finish)!;
@@ -521,6 +523,7 @@ export function CardShowcase() {
               { name: "finish fosco", description: t("Frosted, matte", "Jateado, sem reflexo"), light: "blur 64 px · white 60/72/84%", dark: "white 14/18/22%" },
               { name: "finish luz", description: t("Light spot top-left", "Foco de luz no canto"), light: "blur 24 px · white 35/48/62% + radial 55%", dark: "radial 28%" },
               { name: "finish cristal", description: t("Bright edge, diagonal sheen", "Borda brilhante, reflexo diagonal"), light: "blur 12 px · white 22/32/44% · border 90%", dark: "border 30%" },
+              { name: "finish painel", description: t("Dark theme card (tone escura)", "Card do tema escuro (tom escuro)"), light: "blur 8 px · graphite-950 45/55/65% · border white 12% · shadow-xl", dark: "graphite-950 45/55/65%" },
               { name: "intensity leve / media / forte", description: t("Backdrop blur (default finish)", "Desfoque do fundo (acabamento padrão)"), light: "blur 12 px · 24 px · 40 px" },
               { name: "opacity / blur", description: t("Free control, overrides the finish", "Controle livre, sobrepõe o acabamento"), light: "opacity 0–100 % · blur 0–80 px" },
               { name: "clara — bg", description: t("Light glass background", "Fundo do vidro claro"), light: "white 40% · 55% · 70%", dark: "white 8% · 12% · 16%" },
@@ -529,6 +532,73 @@ export function CardShowcase() {
               { name: "highlight", description: t("1 px top highlight", "Fio de luz no topo, 1 px"), light: "gradient white 80%", dark: "gradient white 40%" },
               { name: "radius / padding", description: t("Same anatomy as Card", "Mesma anatomia do Card"), light: "20 px / 24 px" },
               { name: "shadow", description: t("Soft elevation", "Elevação suave"), light: "0 8px 32px graphite-950 8% (clara) · 25% (escura)" },
+            ],
+          }]} />
+        </div>
+      </section>
+
+      <section id="card-glass-escuro" className="scroll-mt-32">
+        <SectionHeader
+          title={t("Glass in the dark theme (panel)", "Vidro no tema escuro (painel)")}
+          description={t(
+            "The card pattern of dark pages (merchant page): the same glass as the concept panel of the hero, over diffuse brand lights. Boxes inside the glass are outlined: no gray fill, only a light border.",
+            "O padrão de card das páginas escuras (página de lojistas): o mesmo vidro do painel conceitual do hero, sobre luzes difusas nas cores da marca. As caixas dentro do vidro são vazadas: sem preenchimento cinza, só borda clara.",
+          )}
+        />
+        <div className="space-y-6">
+          <div className="dark relative isolate overflow-x-clip rounded-[24px] bg-[var(--graphite-950)] p-6 text-foreground sm:p-10">
+            <LuzesDifusas variante="esquerda" />
+            <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
+              <GlassCard finish="painel" tone="escura" className="rounded-[24px]">
+                <p className="m-0 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-primary-text">{"Procura"}</p>
+                <p className={`${display} m-0 mt-2 text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-white`}>{"Seu próximo cliente já sabe o que procura."}</p>
+                <p className="m-0 mt-3 text-[0.9375rem] leading-relaxed text-white/70">{"Caixas internas vazadas: só a borda clara, sem fundo cinza."}</p>
+                <div className="mt-5 flex h-12 items-center gap-2.5 rounded-[12px] border border-white/15 px-3.5 text-[0.875rem] text-white">
+                  <Search className="h-4 w-4 text-primary-text" aria-hidden /> {"Vestido midi floral rosa"}
+                </div>
+                <div className="mt-3 flex items-center justify-between gap-3 rounded-[12px] border border-white/12 p-3 text-[0.875rem]">
+                  <span className="text-white">{"Vestido Ana Rosa"}<span className="block text-[0.75rem] text-white/70">{"For Ladies · R$ 329,90"}</span></span>
+                  <ChevronRight className="h-4 w-4 text-white/70" aria-hidden />
+                </div>
+                <p className="m-0 mt-4 text-[0.6875rem] font-mono text-white/60">{'finish="painel" tone="escura"'}</p>
+              </GlassCard>
+              <GlassCard finish="painel" tone="escura" className="flex items-center gap-5 rounded-[24px]">
+                <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[12px] bg-[var(--primary-muted)] text-primary-text"><Store className="h-6 w-6" /></span>
+                <div>
+                  <p className={`${display} m-0 text-[1.25rem] font-bold leading-snug tracking-[-0.015em] text-white`}>{"Uma identidade que representa sua loja."}</p>
+                  <p className="m-0 mt-2 text-[0.875rem] leading-relaxed text-white/70">{"Card de benefício no mesmo vidro, com ícone em base rosa clara."}</p>
+                </div>
+              </GlassCard>
+            </div>
+          </div>
+          <DoDont
+            dos={[
+              t("Use GlassCard finish=\"panel\" tone=\"dark\" as the card of dark pages, the same glass as the hero panel.", "Use GlassCard finish=\"painel\" tone=\"escura\" como card das páginas escuras, o mesmo vidro do painel do hero."),
+              t("Put Diffuse lights behind the section (relative isolate overflow-x-clip), so the glass has color to show.", "Coloque as Luzes difusas atrás da seção (relative isolate overflow-x-clip), para o vidro ter cor para mostrar."),
+              t("Inside the glass, fields, rows, tags and product cards are outlined: transparent with a white 12–15% border.", "Dentro do vidro, campos, linhas, etiquetas e cards de peça são vazados: transparentes, com borda branca de 12 a 15%."),
+              t("Alternate the variants between sections (left, right) and dissolve the base of the hero lights.", "Alterne as variantes entre seções (esquerda, direita) e dissolva a base das luzes do hero."),
+            ]}
+            donts={[
+              t("Do not fill inner boxes with gray (white 5–10%): the glass turns gray.", "Não preencha caixas internas de cinza (branco 5 a 10%): o vidro fica cinza."),
+              t("Do not use the panel glass on a flat black background without lights.", "Não use o vidro do painel sobre fundo preto liso, sem luzes."),
+              t("Do not clip the lights at the section edge (overflow-hidden): it leaves a straight line between sections.", "Não corte as luzes na borda da seção (overflow-hidden): fica uma linha reta entre seções."),
+            ]}
+          />
+          <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
+import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
+
+<section className="relative isolate overflow-x-clip">
+  <LuzesDifusas variante="esquerda" />          {/* "hero" com dissolver no hero; alterne "direita" */}
+  <GlassCard finish="painel" tone="escura">
+    <div className="rounded-[12px] border border-white/15">…</div>   {/* caixa vazada */}
+  </GlassCard>
+</section>`}</code></pre>
+          <TokenTable groups={[{
+            group: t("Dark theme glass", "Vidro do tema escuro"),
+            tokens: [
+              { name: "finish painel", description: t("Card of dark pages", "Card das páginas escuras"), light: "graphite-950 55% · blur 8 px · border white 12% · shadow-xl" },
+              { name: "luzes-difusas", description: t("Lights behind the section", "Luzes atrás da seção"), light: "primary 25% · violet 18% · pink-700 30% · blur-3xl" },
+              { name: "caixa vazada", description: t("Boxes inside the glass", "Caixas dentro do vidro"), light: "transparent · border white 12–15%" },
             ],
           }]} />
         </div>

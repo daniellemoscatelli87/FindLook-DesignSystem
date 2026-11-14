@@ -362,6 +362,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "card-variants",      label: "Variants",           sectionId: "cards" },
           { id: "card-shine",         label: "Shine Border",       sectionId: "cards" },
           { id: "card-glass",         label: "Cards glassmorphism", sectionId: "cards" },
+          { id: "card-glass-escuro",  label: "Vidro no tema escuro", sectionId: "cards" },
           { id: "card-layout",        label: "Layout & Sizing",    sectionId: "cards" },
           { id: "card-nested",        label: "Nested Cards",       sectionId: "cards" },
           { id: "card-actions",       label: "Buttons in Cards",   sectionId: "cards" },
