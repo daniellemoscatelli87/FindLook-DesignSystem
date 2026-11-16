@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logoSimbolo from "../imports/findlook/findlook-simbolo.png";
 import {
+  LayoutGrid,
   Sun, Moon, Palette, Type, Layers, MousePointer2,
   BarChart2, Bell, Grid3X3,
   ChevronRight, Zap,
@@ -31,6 +32,7 @@ import { AccessibilityShowcase } from "./components/showcase/AccessibilityShowca
 import { CardShowcase } from "./components/showcase/CardShowcase";
 import { SidePanelShowcase } from "./components/showcase/SidePanelShowcase";
 import { HeaderShowcase } from "./components/showcase/HeaderShowcase";
+import { GridShowcase } from "./components/showcase/GridShowcase";
 import { TimelineShowcase } from "./components/showcase/TimelineShowcase";
 import { StepperShowcase } from "./components/showcase/StepperShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
@@ -226,6 +228,18 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "radius",          label: "Radius",           sectionId: "colors" },
           { id: "shadows",         label: "Shadows",          sectionId: "colors" },
           { id: "colors-tokens",   label: "Tokens",           sectionId: "colors" },
+        ],
+      },
+      { id: "grid", label: "Grid e espaçamento", icon: LayoutGrid,
+        items: [
+          { id: "grid-visao", label: "Visão geral", sectionId: "grid" },
+          { id: "grid-escala", label: "Escala de espaçamento", sectionId: "grid" },
+          { id: "grid-colunas", label: "Grid de colunas", sectionId: "grid" },
+          { id: "grid-larguras", label: "Larguras máximas", sectionId: "grid" },
+          { id: "grid-ritmo", label: "Ritmo vertical", sectionId: "grid" },
+          { id: "grid-uso", label: "Como usar", sectionId: "grid" },
+          { id: "grid-evitar", label: "O que evitar", sectionId: "grid" },
+          { id: "grid-tokens", label: "Tokens", sectionId: "grid" },
         ],
       },
     ],
@@ -523,6 +537,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   icons:     <IconsShowcase />,
   overlays:  <OverlaysShowcase />,
   header:    <HeaderShowcase />,
+  grid:      <GridShowcase />,
   sidepanel: <SidePanelShowcase />,
   timeline:  <TimelineShowcase />,
   stepper:   <StepperShowcase />,
@@ -552,6 +567,7 @@ const sectionLabels: Record<string, string> = {
   icons:     "Icons",
   overlays:  "Overlays & Navigation",
   header:    "Header e menus",
+  grid:      "Grid e espaçamento",
   sidepanel: "Painel lateral",
   timeline:  "Linha do tempo",
   stepper:   "Etapas (Stepper)",
@@ -584,6 +600,7 @@ function AppShell() {
     icons:     false,
     overlays:  false,
     header:    false,
+    grid:      false,
     sidepanel: false,
     upload:    false,
     motion:      false,
