@@ -1,5 +1,6 @@
 import React from "react";
-import { CheckCircle2, Clock, Ban, Sparkles, AlertTriangle, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
+import { StatusChip, estadosDeInformacao, type InfoState } from "../ui/status-chip";
 import { PageHeader, PageSection, SectionLabel } from "./GetStartedShowcase";
 import { StatusDePublicacao, type StatusProduto } from "../ui/painel-produtos";
 
@@ -8,7 +9,7 @@ const display = "font-[family-name:var(--font-display)]";
 /* Fonte: Brand Book FindLook v1.0 — 18 Conteúdo e estados: "Dizer exatamente o que se sabe."
    Regra: nunca usar apenas cor para comunicar um estado; sempre texto e ícone. */
 
-export type InfoState = "confirmado" | "a-confirmar" | "esgotado" | "sugerido-ia" | "desatualizado";
+export { StatusChip, type InfoState };
 
 type StateSpec = {
   id: InfoState;
@@ -22,56 +23,37 @@ type StateSpec = {
   border: string;
 };
 
-export const states: StateSpec[] = [
-  {
-    id: "confirmado", label: "Confirmado pela loja", icon: CheckCircle2,
+const textosDosEstados: Record<InfoState, { quando: string; oQueDizer: string; acao: string }> = {
+  "confirmado": {
     quando: "A loja validou a informação (preço, tamanho, disponibilidade) no painel do lojista.",
     oQueDizer: "Informação validada pelo lojista, com data da confirmação quando houver.",
     acao: "Nenhuma: o consumidor pode seguir para o contato com a loja.",
-    color: "text-success", bg: "bg-success/10", border: "border-success/30",
   },
-  {
-    id: "a-confirmar", label: "A confirmar", icon: Clock,
+  "a-confirmar": {
     quando: "O dado existe no cadastro, mas a loja ainda não o confirmou ou ele tem mais de um prazo definido pela operação.",
     oQueDizer: "Convide a confirmar a disponibilidade com a loja antes de se deslocar.",
     acao: "Botão ou link para falar com a loja.",
-    color: "text-primary-text", bg: "bg-primary/10", border: "border-primary/30",
   },
-  {
-    id: "esgotado", label: "Esgotado", icon: Ban,
+  "esgotado": {
     quando: "A loja marcou a peça como indisponível.",
     oQueDizer: "Indique que a peça não está disponível. Mantenha o card visível para peças semelhantes.",
     acao: "Sugerir peças parecidas na mesma região.",
-    color: "text-foreground", bg: "bg-muted", border: "border-border",
   },
-  {
-    id: "sugerido-ia", label: "Sugerido por IA", icon: Sparkles,
+  "sugerido-ia": {
     quando: "Um atributo (cor, categoria, estilo, tamanho estimado) foi inferido a partir da foto ou da descrição, não cadastrado pela loja.",
     oQueDizer: "Diferencie a inferência de um dado cadastrado. Diga que é uma sugestão e o que ela se baseia.",
     acao: "Permitir que o lojista confirme ou corrija; para o consumidor, indicar que pode variar.",
-    color: "text-primary-text", bg: "bg-[var(--surface-tint)]", border: "border-primary/30",
   },
-  {
-    id: "desatualizado", label: "Desatualizado", icon: AlertTriangle,
+  "desatualizado": {
     quando: "A informação passou do prazo de revisão definido pela operação ou a loja não atualiza há tempo.",
     oQueDizer: "Mostre quando a informação precisa de revisão e a data da última atualização.",
     acao: "Lojista: pedido de revisão. Consumidor: confirmar com a loja.",
-    color: "text-warning", bg: "bg-warning/10", border: "border-warning/40",
   },
-];
+};
 
-/* ── Componente de status: ícone + texto, sempre juntos ── */
-export function StatusChip({ state, size = "md" }: { state: InfoState; size?: "sm" | "md" }) {
-  const s = states.find(x => x.id === state)!;
-  const Icon = s.icon;
-  const pad = size === "sm" ? "h-6 px-2 text-[0.6875rem] gap-1" : "h-7 px-2.5 text-[0.75rem] gap-1.5";
-  return (
-    <span className={`inline-flex items-center rounded-full border font-semibold ${pad} ${s.bg} ${s.border} ${s.color}`}>
-      <Icon className={size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"} aria-hidden />
-      <span>{s.label}</span>
-    </span>
-  );
-}
+export const states: StateSpec[] = estadosDeInformacao.map(e => ({ ...e, ...textosDosEstados[e.id] }));
+
+/* O StatusChip fica em ui/status-chip.tsx (o produto copia de lá). */
 
 /* ── Status de publicação do produto (painel da loja) ── */
 const statusPublicacao: { status: StatusProduto; motivo?: string; quando: string }[] = [

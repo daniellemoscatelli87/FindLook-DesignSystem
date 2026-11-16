@@ -11,6 +11,7 @@ import {
 import { Search, Heart, CalendarCheck, MessageCircle, Camera, Ruler, TrendingUp } from "lucide-react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { useI18n } from "../../i18n";
+import { Alert as UiAlert, AlertTitle, AlertDescription } from "../ui/alert";
 import { AbasComContador } from "@/app/components/ui/painel-produtos";
 import { BannerPromocional } from "@/app/components/ui/painel-cabecalho";
 import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components/ui/painel-dados";
@@ -86,19 +87,18 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
   const cfg = alertConfig[kind];
   const Icon = cfg.icon;
   if (!visible) return null;
+  // Componente real (ui/alert), o mesmo que o produto copia
   return (
-    <div className={`flex items-start gap-3 rounded-[12px] border px-4 py-3.5 ${cfg.bg} ${cfg.border}`}>
-      <Icon className={`h-5 w-5 shrink-0 mt-0.5 ${cfg.iconColor}`} />
-      <div className="flex-1 min-w-0">
-        <p className={`text-[0.9rem] font-semibold ${cfg.titleColor}`}>{bi(cfg.title)}</p>
-        <p className="text-[0.875rem] text-muted-foreground mt-0.5 leading-relaxed">{bi(cfg.msg)}</p>
-      </div>
+    <UiAlert variant={kind} className={dismissible ? "pr-11" : ""}>
+      <Icon aria-hidden />
+      <AlertTitle>{bi(cfg.title)}</AlertTitle>
+      <AlertDescription>{bi(cfg.msg)}</AlertDescription>
       {dismissible && (
-        <button aria-label={t("Dismiss", "Dispensar")} onClick={() => setVisible(false)} className="text-muted-foreground hover:text-foreground shrink-0 transition-colors">
+        <button aria-label={t("Dismiss", "Dispensar")} onClick={() => setVisible(false)} className="absolute right-3 top-3 rounded-[8px] p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <X className="h-4 w-4" />
         </button>
       )}
-    </div>
+    </UiAlert>
   );
 }
 
