@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Voltar ao topo"),
+    desc: pt("Novo componente: botão redondo vermelho com seta para cima, fixo no canto inferior direito, que aparece quando a pessoa chega ao fim da página e a leva de volta ao topo. Com menos movimento, a volta é instantânea; ao voltar, o foco vai para o conteúdo principal. Entrou no template da landing page."),
+    page: "templates", anchor: "template-landing",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Correções de acessibilidade e consistência"),
     desc: pt("As classes shadow-* passam a usar as sombras do DS (usavam as padrão do Tailwind). A borda dos campos aparece no tema claro (--input = --border-strong). O token de erro (--error e --destructive) passa a ser o pink cereja da marca. Sucesso e informação escurecidos só o necessário para o texto branco (4,5:1) e aviso em laranja queimado (#C2410C, 5,2:1). Título dos alertas em grafite, com ícone e borda coloridos. A página Cards informa o raio real do card padrão: 24 px (rounded-xl)."),
     page: "feedback", anchor: "alerts",
