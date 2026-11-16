@@ -41,7 +41,7 @@ const semanticColors = [
   { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E62040", dark: "#E62040" },
   { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(0,0,0,.10)", dark: "rgba(255,255,255,.07)" },
   { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-white", light: "#4FB57B", dark: "#22C55E" },
-  { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#E5A94E", dark: "#F5B320" },
+  { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#C2410C", dark: "#F5B320" },
   { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#E62040", dark: "#E62040" },
   { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-white", light: "#448ABC", dark: "#3B82F6" },
 ];
@@ -566,7 +566,7 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     group: t("Semantic Colors", "Cores semânticas"),
     tokens: [
       { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#4fb57b", dark: "#22C55E", isColor: true },
-      { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#e5a94e", dark: "#f5b320", isColor: true },
+      { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#C2410C", dark: "#f5b320", isColor: true },
       { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--info",            description: t("Informational", "Informativo"),            light: "#448abc", dark: "#3B82F6", isColor: true },
       { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E62040", dark: "#E62040", isColor: true },

@@ -340,7 +340,7 @@ const iconsTokenGroups: TokenGroup[] = [
       { name: "--foreground-subtle",description: "Decorative / disabled icon", light: "#B3B3BC", dark: "#888896", isColor: true },
       { name: "--primary",          description: "Accent / active icon",       light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--success",          description: "Confirmation / done icon",   light: "#4fb57b", dark: "#22C55E", isColor: true },
-      { name: "--warning",          description: "Caution / alert icon",       light: "#e5a94e", dark: "#f5b320", isColor: true },
+      { name: "--warning",          description: "Caution / alert icon",       light: "#C2410C", dark: "#f5b320", isColor: true },
       { name: "--error",            description: "Error / danger icon",        light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--info",             description: "Informational icon",         light: "#448abc", dark: "#3B82F6", isColor: true },
       { name: "--violet",           description: "Purple accent icon",         light: "#ba69dc", dark: "#eb6cff", isColor: true },
