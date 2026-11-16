@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Padrão único de botão, campo e foco; exemplos de moda"),
+    desc: pt("O ui/button passa a ser igual ao que a documentação mostra: 40 px, texto 15 px seminegrito e cantos de 12 px; campo de texto, seleção e alternador também com 40 px. Um destaque de foco só: anel de 2 px com respiro de 2 px, só pelo teclado. As páginas Controles de formulário e Feedback mostram os componentes reais; o ui/alert ganha as variantes de estado. Novo ui/status-chip (Estados de informação), que o produto pode sincronizar. Tokens de movimento no theme.css, cores *-muted como classes e tabelas de tokens com os valores do theme.css. Menu em português com o termo técnico, componentes em português e exemplos de moda (lojas, peças e buscas fictícias) no lugar dos de software. Campo de senha com caixa de dicas mais clara e checks em pink."),
+    page: "buttons", anchor: "buttons",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Botões flutuantes: Voltar ao topo e barra fixa do celular"),
     desc: pt("Padrão novo em Templates: como o Voltar ao topo convive com a barra de ação fixa do celular (como Encontrar peças) sem cobrir o rodapé. O componente Voltar ao topo ganhou a opção comBarraFixa (no celular, sobe para 96 px da base, acima da barra) e passou a vir pronto para o Next.js (\"use client\"). No celular, a página reserva 160 px no fim quando tem barra fixa e Voltar ao topo."),
     page: "templates", anchor: "template-flutuantes",
