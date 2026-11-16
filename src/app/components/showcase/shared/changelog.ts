@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Correções de acessibilidade e consistência"),
+    desc: pt("As classes shadow-* passam a usar as sombras do DS (usavam as padrão do Tailwind). A borda dos campos aparece no tema claro (--input = --border-strong). O token de erro (--error e --destructive) passa a ser o pink cereja da marca. Sucesso e informação escurecidos só o necessário para o texto branco (4,5:1) e aviso em laranja queimado (#C2410C, 5,2:1). Título dos alertas em grafite, com ícone e borda coloridos. A página Cards informa o raio real do card padrão: 24 px (rounded-xl)."),
+    page: "feedback", anchor: "alerts",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Grid e espaçamento"),
     desc: pt("Nova página em Fundamentos com o sistema de grid: escala de espaçamento de 4 px com tokens reais (--space-1 a --space-24), grid de 4, 8 e 12 colunas (celular, tablet a partir de 640 px e desktop a partir de 1024 px) com margem de 16, 24 e 32 px e calha de 16, 24 e 24 px, larguras máximas de leitura (768 px), padrão (1152 px) e larga (1280 px), ritmo de 64/80 px entre seções e 96 px no hero, exemplos de uso, o que evitar e tokens. Classes prontas: .ds-container, .ds-grid e .ds-section. A antiga seção Espaçamento de Fundamentos leva para a página nova."),
     page: "grid", anchor: "grid-visao",
