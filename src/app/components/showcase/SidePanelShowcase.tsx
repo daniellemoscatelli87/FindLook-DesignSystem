@@ -30,7 +30,7 @@ function ShowcaseCard({ children, className = "" }: { children: React.ReactNode;
 }
 
 const field =
-  "w-full rounded-[12px] border border-border bg-muted/40 px-4 py-2.5 text-[0.8125rem] leading-relaxed text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary focus:bg-card focus:ring-2 focus:ring-ring aria-[invalid=true]:border-error";
+  "w-full rounded-[12px] border border-border bg-muted/40 px-4 py-2.5 text-[0.8125rem] leading-relaxed text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary focus:bg-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring aria-[invalid=true]:border-error";
 
 function maskPhone(v: string) {
   const d = v.replace(/\D/g, "").slice(0, 11);
