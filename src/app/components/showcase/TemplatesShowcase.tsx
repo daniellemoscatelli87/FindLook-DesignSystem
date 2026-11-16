@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useId, useRef } from "react";
 import { VoltarAoTopo } from "../ui/voltar-ao-topo";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
+import { Callout, DoDont } from "./shared/Guidance";
 import {
   LayoutDashboard, Settings, LogIn, Bell, Users,
   TrendingUp, TrendingDown, DollarSign, ShoppingCart, Activity,
@@ -1475,6 +1476,46 @@ export function TemplatesShowcase() {
       <section id="template-landing">
         <TemplateLabel icon={Layout} label="Landing page para lojistas" />
         <LandingTemplate />
+      </section>
+
+      {/* 9 — Botões flutuantes (padrão de 16/11/2026) */}
+      <section id="template-flutuantes" className="space-y-5">
+        <div>
+          <h2 className="text-[1.125rem] font-black text-foreground tracking-[-0.025em]">{t("Floating buttons", "Botões flutuantes")}</h2>
+          <p className="text-[0.8125rem] text-muted-foreground mt-0.5 max-w-2xl">
+            {t(
+              "The landing pages have up to two buttons fixed on the screen: the phone action bar (for example, Find pieces or Register my store) and Back to top. Rules so that one never covers the other or the footer.",
+              "As landing pages têm até dois botões fixos na tela: a barra de ação do celular (por exemplo, Encontrar peças ou Cadastrar minha loja) e o Voltar ao topo. Regras para um nunca cobrir o outro nem o rodapé.",
+            )}
+          </p>
+        </div>
+        <Callout title={t("Back to top", "Voltar ao topo")}>
+          {t(
+            "Component VoltarAoTopo (ui/voltar-ao-topo.tsx): round primary button, 48 px, arrow up, bottom right corner (16 px on the phone, 24 px from 640 px). It only appears at the end of the page and goes back to the top; with reduced motion the return is instant; focus goes to the main content. On pages with a phone action bar, use comBarraFixa: up to 768 px it rises to 96 px from the bottom, above the bar.",
+            "Componente VoltarAoTopo (ui/voltar-ao-topo.tsx): botão redondo primário, 48 px, seta para cima, no canto inferior direito (16 px no celular, 24 px a partir de 640 px). Só aparece no fim da página e volta ao topo; com menos movimento a volta é instantânea; o foco vai para o conteúdo principal. Em páginas com barra de ação no celular, use comBarraFixa: até 768 px ele sobe para 96 px da base, acima da barra.",
+          )}
+        </Callout>
+        <DoDont
+          dos={[
+            t("Use comBarraFixa whenever the page has a fixed action bar on the phone.", "Use comBarraFixa sempre que a página tiver barra de ação fixa no celular."),
+            t("Reserve 160 px at the end of the page on the phone when there is a fixed bar (96 px when there is only the bar).", "Reserve 160 px no fim da página, no celular, quando houver barra fixa (96 px quando houver só a barra)."),
+            t("Keep the layer order: fixed bar and Back to top at z-40, menus and drawers above them.", "Mantenha a ordem das camadas: barra fixa e Voltar ao topo em z-40, menus e gavetas acima deles."),
+          ]}
+          donts={[
+            t("Do not place Back to top over the phone action bar.", "Não coloque o Voltar ao topo por cima da barra de ação do celular."),
+            t("Do not let the last line of the footer end under a floating button.", "Não deixe a última linha do rodapé terminar embaixo de um botão flutuante."),
+            t("Do not show Back to top at the top or in the middle of the page.", "Não mostre o Voltar ao topo no topo ou no meio da página."),
+          ]}
+        />
+        <TokenTable groups={[{
+          group: t("Floating buttons", "Botões flutuantes"),
+          tokens: [
+            { name: "VoltarAoTopo", description: t("Size / corner (phone · 640 px+)", "Tamanho / canto (celular · 640 px+)"), light: "48 px · 16 px · 24 px" },
+            { name: "comBarraFixa", description: t("Distance from the bottom up to 768 px", "Distância da base até 768 px"), light: "96 px (bottom-24)" },
+            { name: t("End of page (phone)", "Fim da página (celular)"), description: t("Space with fixed bar + Back to top / only the bar", "Espaço com barra fixa + Voltar ao topo / só a barra"), light: "160 px (h-40) / 96 px (h-24)" },
+            { name: "z-index", description: t("Fixed bar and Back to top", "Barra fixa e Voltar ao topo"), light: "z-40" },
+          ],
+        }]} />
       </section>
 
       {/* ── Tokens ── */}

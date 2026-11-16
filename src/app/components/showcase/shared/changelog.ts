@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Botões flutuantes: Voltar ao topo e barra fixa do celular"),
+    desc: pt("Padrão novo em Templates: como o Voltar ao topo convive com a barra de ação fixa do celular (como Encontrar peças) sem cobrir o rodapé. O componente Voltar ao topo ganhou a opção comBarraFixa (no celular, sobe para 96 px da base, acima da barra) e passou a vir pronto para o Next.js (\"use client\"). No celular, a página reserva 160 px no fim quando tem barra fixa e Voltar ao topo."),
+    page: "templates", anchor: "template-flutuantes",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Voltar ao topo"),
     desc: pt("Novo componente: botão redondo vermelho com seta para cima, fixo no canto inferior direito, que aparece quando a pessoa chega ao fim da página e a leva de volta ao topo. Com menos movimento, a volta é instantânea; ao voltar, o foco vai para o conteúdo principal. Entrou no template da landing page."),
     page: "templates", anchor: "template-landing",
