@@ -80,18 +80,18 @@
   --border:       rgba(0, 0, 0, 0.10);
   --border-strong: rgba(0, 0, 0, 0.18);
 
-  --success:            #4fb57b;
+  --success:            #388459;   /* texto branco atinge 4,5:1 (decisão de 16/11/2026) */
   --success-foreground: #FFFFFF;
-  --success-muted:      rgba(79, 181, 123, 0.1);
-  --warning:            #e5a94e;
+  --success-muted:      rgba(56, 132, 89, 0.1);
+  --warning:            #C2410C;   /* laranja queimado: texto branco atinge 5,2:1 (decisão de 16/11/2026) */
   --warning-foreground: #FFFFFF;
-  --warning-muted:      rgba(229, 169, 78, 0.1);
-  --error:              #D1322B;
+  --warning-muted:      rgba(194, 65, 12, 0.1);
+  --error:              var(--pink-500);   /* erro em pink cereja, como a marca (decisão de 16/11/2026) */
   --error-foreground:   #FFFFFF;
-  --error-muted:        rgba(209, 50, 43, 0.1);
-  --info:               #448abc;
+  --error-muted:        rgba(230, 32, 64, 0.1);
+  --info:               #3D7CAA;   /* texto branco atinge 4,5:1 (decisão de 16/11/2026) */
   --info-foreground:    #FFFFFF;
-  --info-muted:         rgba(68, 138, 188, 0.1);
+  --info-muted:         rgba(61, 124, 170, 0.1);
   --violet:             #ba69dc;
   --violet-foreground:  #FFFFFF;
   --violet-muted:       rgba(186, 105, 220, 0.1);
@@ -103,7 +103,7 @@
   --card-foreground:  var(--graphite-950);
   --popover:          #FFFFFF;
   --popover-foreground: var(--graphite-950);
-  --input:            transparent;
+  --input:            var(--border-strong);   /* borda clara dos campos (decisão de 16/11/2026) */
   --input-background: #FFFFFF;
   --switch-background: var(--graphite-200);
   --ring:             rgba(230, 32, 64, 0.40);
@@ -123,7 +123,7 @@
   --chart-4: var(--graphite-200);
   --chart-5: var(--graphite-100);
 
-  --destructive:            #D1322B;
+  --destructive:            var(--pink-500);
   --destructive-foreground: #FFFFFF;
 
   --sidebar:                   #FFFFFF;
@@ -169,9 +169,9 @@
   --warning:            #f5b320;
   --warning-foreground: #FFFFFF;
   --warning-muted:      rgba(245, 179, 32, 0.12);
-  --error:              #F0645D;
+  --error:              var(--pink-500);
   --error-foreground:   #000000;
-  --error-muted:        rgba(240, 100, 93, 0.15);
+  --error-muted:        rgba(230, 32, 64, 0.15);
   --info:               #3B82F6;
   --info-foreground:    #FFFFFF;
   --info-muted:         rgba(59, 130, 246, 0.12);
@@ -204,7 +204,7 @@
   --chart-4: var(--graphite-600);
   --chart-5: var(--graphite-700);
 
-  --destructive:            #F0645D;
+  --destructive:            var(--pink-500);
   --destructive-foreground: #000000;
 
   --sidebar:                   rgba(0, 0, 0, 0.97);
@@ -228,6 +228,13 @@
 @theme inline {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+
+  /* Sombras: as classes shadow-* usam os tokens do DS (não as sombras padrão do Tailwind) */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
   --animate-shine: shine var(--duration) infinite linear;
 
   /* Shine Border: o feixe dá uma volta completa pela borda a cada --duration */
@@ -438,3 +445,73 @@
     font-weight: var(--font-weight-normal);
   }
 }
+
+/* ── Grid e espaçamento ──
+   Escala de 4 px (--space-*), grid de colunas que muda por tela, larguras máximas do conteúdo
+   e ritmo vertical entre seções. Pontos de quebra iguais aos do Tailwind: 640 px (sm) e 1024 px (lg). */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* celular: 4 colunas */
+  --grid-columns: 4;
+  --grid-margin: 16px;
+  --grid-gutter: 16px;
+
+  --content-reading: 768px;
+  --content-default: 1152px;
+  --content-wide: 1280px;
+
+  --section-space: 64px;
+  --section-space-hero: 96px;
+}
+/* tablet: 8 colunas */
+@media (min-width: 640px) {
+  :root {
+    --grid-columns: 8;
+    --grid-margin: 24px;
+    --grid-gutter: 24px;
+  }
+}
+/* desktop: 12 colunas */
+@media (min-width: 1024px) {
+  :root {
+    --grid-columns: 12;
+    --grid-margin: 32px;
+    --section-space: 80px;
+  }
+}
+
+/* Container: centraliza o conteúdo na largura máxima, com a margem do grid nas laterais */
+.ds-container,
+.ds-container-reading,
+.ds-container-wide {
+  box-sizing: border-box;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+.ds-container { max-width: calc(var(--content-default) + 2 * var(--grid-margin)); }
+.ds-container-reading { max-width: calc(var(--content-reading) + 2 * var(--grid-margin)); }
+.ds-container-wide { max-width: calc(var(--content-wide) + 2 * var(--grid-margin)); }
+
+/* Grid de colunas: 4, 8 ou 12 conforme a tela; os filhos usam col-span-* */
+.ds-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+
+/* Ritmo vertical entre seções de página */
+.ds-section { padding-block: var(--section-space); }
+.ds-section-hero { padding-block: var(--section-space-hero); }

@@ -3,6 +3,7 @@ import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { Heading } from "@/app/components/ui/heading";
 import { Check, X } from "lucide-react";
 import { useI18n } from "../../i18n";
+import { VejaEm } from "./shared/VejaEm";
 
 const graphiteScale = [
   { name: "50",  var: "--graphite-50",  hex: "#F6F6F7" },
@@ -39,10 +40,10 @@ const semanticColors = [
   { name: "Muted", pt: "Suave (muted)",            token: "--muted-foreground",  swatch: "bg-muted-foreground", text: "text-background", light: "#696977", dark: "#B3B3BC" },
   { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E62040", dark: "#E62040" },
   { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(0,0,0,.10)", dark: "rgba(255,255,255,.07)" },
-  { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-white", light: "#4FB57B", dark: "#22C55E" },
-  { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#E5A94E", dark: "#F5B320" },
+  { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-white", light: "#388459", dark: "#22C55E" },
+  { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#C2410C", dark: "#F5B320" },
   { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#E62040", dark: "#E62040" },
-  { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-white", light: "#448ABC", dark: "#3B82F6" },
+  { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-white", light: "#3D7CAA", dark: "#3B82F6" },
 ];
 
 const typeScaleItems = [
@@ -486,20 +487,7 @@ export function FoundationShowcase() {
 
       {/* ── SPACING ── */}
       <section id="spacing">
-        <SectionHeader title={t("Spacing Scale", "Escala de espaçamento")} description={t("8-point grid system with 4px base unit. Consistent spacing creates rhythm and visual harmony.", "Sistema de grid de 8 pontos com unidade base de 4px. Espaçamento consistente cria ritmo e harmonia visual.")} />
-
-        <div className="space-y-3">
-          {spacingScale.map((sp) => (
-            <div key={sp} className="flex items-center gap-4">
-              <span className="w-12 text-right text-[0.8125rem] font-mono text-muted-foreground shrink-0">{sp}px</span>
-              <div
-                className="bg-primary/80 rounded-[4px] h-5"
-                style={{ width: `${sp * 2}px`, minWidth: "4px" }}
-              />
-              <span className="text-[0.75rem] text-muted-foreground/70">--space-{sp / 4}</span>
-            </div>
-          ))}
-        </div>
+        <VejaEm secao="grid" ancora="grid-escala" rotuloBotao={t("See Grid and spacing", "Ver Grid e espaçamento")} titulo={t("Spacing now lives in Grid and spacing", "O espaçamento agora fica em Grid e espaçamento")} texto={t("The 4 px scale, the column grid, maximum widths and the rhythm between sections are on one page, with tokens and how to use them.", "A escala de 4 px, o grid de colunas, as larguras máximas e o ritmo entre seções ficam numa página só, com tokens e como usar.")} />
       </section>
 
       {/* ── RADIUS ── */}
@@ -577,10 +565,10 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Semantic Colors", "Cores semânticas"),
     tokens: [
-      { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#4fb57b", dark: "#22C55E", isColor: true },
-      { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#e5a94e", dark: "#f5b320", isColor: true },
+      { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#388459", dark: "#22C55E", isColor: true },
+      { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#C2410C", dark: "#f5b320", isColor: true },
       { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--info",            description: t("Informational", "Informativo"),            light: "#448abc", dark: "#3B82F6", isColor: true },
+      { name: "--info",            description: t("Informational", "Informativo"),            light: "#3D7CAA", dark: "#3B82F6", isColor: true },
       { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--violet",          description: t("Accent purple", "Roxo de destaque"),            light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",          description: t("Accent orange", "Laranja de destaque"),            light: "#fa9852", dark: "#ff8833", isColor: true },
