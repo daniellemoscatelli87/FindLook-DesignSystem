@@ -351,6 +351,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "template-dashboard",  label: "Painel da loja (protótipo)", sectionId: "templates" },
           { id: "template-auth",       label: "Auth",          sectionId: "templates" },
           { id: "template-landing",    label: "Landing Page",  sectionId: "templates" },
+          { id: "template-flutuantes", label: "Botões flutuantes", sectionId: "templates" },
           { id: "templates-tokens",    label: "Tokens",        sectionId: "templates" },
         ],
       },

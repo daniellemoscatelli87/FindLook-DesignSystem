@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { ArrowUp } from "lucide-react";
 import { cn } from "./utils";
@@ -10,18 +12,22 @@ import { cn } from "./utils";
  * Com "menos movimento", a volta é instantânea. Ao voltar, o foco vai para o elemento de `focoEm` (por padrão, o
  * <main>), para quem usa teclado ou leitor de tela continuar do começo.
  *
- * rolagem — ref de um contêiner com rolagem própria (por exemplo, uma janela de demonstração); sem ela, usa a página.
- * limiar   — distância, em px, do fim da rolagem a partir da qual o botão aparece.
+ * rolagem      — ref de um contêiner com rolagem própria (por exemplo, uma janela de demonstração); sem ela, usa a página.
+ * limiar       — distância, em px, do fim da rolagem a partir da qual o botão aparece.
+ * comBarraFixa — a página tem uma barra de ação fixa no rodapé do celular (por exemplo, "Encontrar peças"): até 768 px,
+ *                o botão sobe para ficar acima dela (96 px da base). A página reserva 160 px no fim do conteúdo, no
+ *                celular, para nada do rodapé ficar por baixo dos dois (padrão Botões flutuantes, 16/11/2026).
  */
 export type VoltarAoTopoProps = {
   rolagem?: React.RefObject<HTMLElement | null>;
   limiar?: number;
   rotulo?: string;
   focoEm?: string;
+  comBarraFixa?: boolean;
   className?: string;
 };
 
-export function VoltarAoTopo({ rolagem, limiar = 160, rotulo = "Voltar ao topo", focoEm = "main", className }: VoltarAoTopoProps) {
+export function VoltarAoTopo({ rolagem, limiar = 160, rotulo = "Voltar ao topo", focoEm = "main", comBarraFixa = false, className }: VoltarAoTopoProps) {
   const [visivel, setVisivel] = React.useState(false);
 
   React.useEffect(() => {
@@ -65,6 +71,7 @@ export function VoltarAoTopo({ rolagem, limiar = 160, rotulo = "Voltar ao topo",
       onClick={subir}
       className={cn(
         "fixed right-4 bottom-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-lg)] transition-[opacity,translate,background-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 motion-reduce:transition-none sm:right-6 sm:bottom-6",
+        comBarraFixa && "bottom-24 sm:bottom-24 md:bottom-6",
         visivel ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0",
         className,
       )}
