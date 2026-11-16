@@ -4,7 +4,7 @@ import { useI18n } from "../../i18n";
 import { VejaEm } from "./shared/VejaEm";
 import {
   TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight,
-  Users, DollarSign, Activity, BarChart2, ChevronUp, ChevronDown,
+  Store, Shirt, ChevronUp, ChevronDown,
   ChevronsUpDown, ExternalLink, MoreHorizontal, Filter, Download,
   Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch,
 } from "lucide-react";
@@ -46,35 +46,35 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
 /* ── Metric data ── */
 const kpis = [
   {
-    label: "Total Revenue", pt: "Receita total",
-    value: "$1,284,090",
-    delta: "+18.2%",
+    label: "Total Revenue", pt: "Buscas no mês",
+    value: "12.480",
+    delta: "+18,2%",
     trend: "up",
-    icon: DollarSign,
+    icon: Search,
     sparkData: [42, 55, 48, 70, 63, 88, 75, 92, 110, 98, 125, 140],
   },
   {
-    label: "Active Users", pt: "Usuários ativos",
-    value: "42,850",
-    delta: "+12.5%",
+    label: "Active Users", pt: "Lojas participantes",
+    value: "86",
+    delta: "+12,5%",
     trend: "up",
-    icon: Users,
+    icon: Store,
     sparkData: [30, 45, 38, 50, 55, 48, 62, 58, 72, 68, 80, 85],
   },
   {
-    label: "Conversion Rate", pt: "Taxa de conversão",
-    value: "3.87%",
-    delta: "-0.4%",
+    label: "Conversion Rate", pt: "Peças publicadas",
+    value: "3.870",
+    delta: "-0,4%",
     trend: "down",
-    icon: Activity,
+    icon: Shirt,
     sparkData: [5, 4.2, 4.8, 4.5, 3.9, 4.1, 3.8, 4.0, 3.6, 3.8, 3.9, 3.87],
   },
   {
-    label: "Avg. Order Value", pt: "Ticket médio",
-    value: "$298.40",
-    delta: "+6.1%",
+    label: "Avg. Order Value", pt: "Visualizações de peças",
+    value: "42.850",
+    delta: "+6,1%",
     trend: "up",
-    icon: BarChart2,
+    icon: Eye,
     sparkData: [240, 255, 260, 248, 270, 265, 280, 272, 290, 285, 295, 298],
   },
 ];
@@ -113,12 +113,13 @@ const pieData = [
 const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)"];
 
 /* ── Table data ── */
+/* Dados de exemplo (lojas fictícias) */
 const tableData = [
-  { id: "USR-001", name: "Amara Nwosu",     email: "a.nwosu@company.io",    plan: "Enterprise", status: "Active",   mrr: "$2,400", joined: "Jan 12, 2024", joinedPt: "12 jan 2024" },
-  { id: "USR-002", name: "Soren Lindqvist", email: "s.lindqvist@studio.dk", plan: "Pro",        status: "Active",   mrr: "$149",   joined: "Mar 3, 2024", joinedPt: "3 mar 2024" },
-  { id: "USR-003", name: "Yuki Tanaka",     email: "y.tanaka@design.co",    plan: "Team",       status: "Inactive", mrr: "$599",   joined: "Feb 18, 2024", joinedPt: "18 fev 2024" },
-  { id: "USR-004", name: "Lila Okonkwo",    email: "l.okonkwo@fintech.ng",  plan: "Enterprise", status: "Active",   mrr: "$2,400", joined: "Dec 5, 2023", joinedPt: "5 dez 2023" },
-  { id: "USR-005", name: "Marcus Feld",     email: "m.feld@ventures.de",    plan: "Starter",    status: "Trial",    mrr: "$0",     joined: "Apr 22, 2024", joinedPt: "22 abr 2024" },
+  { id: "LOJ-001", name: "Brechó Aurora",  email: "contato@aurora.exemplo.com.br",    plan: "Brechó", status: "Active",   mrr: "214", joined: "12 jan 2026", joinedPt: "12 jan 2026" },
+  { id: "LOJ-002", name: "Ateliê Lume",    email: "ola@lume.exemplo.com.br",          plan: "Ateliê", status: "Active",   mrr: "58",  joined: "3 mar 2026",  joinedPt: "3 mar 2026" },
+  { id: "LOJ-003", name: "Casa Trama",     email: "atendimento@trama.exemplo.com.br", plan: "Loja",   status: "Inactive", mrr: "0",   joined: "18 fev 2026", joinedPt: "18 fev 2026" },
+  { id: "LOJ-004", name: "Garimpo Sol",    email: "garimpo@sol.exemplo.com.br",       plan: "Brechó", status: "Active",   mrr: "391", joined: "5 dez 2025",  joinedPt: "5 dez 2025" },
+  { id: "LOJ-005", name: "Marca Vértice",  email: "loja@vertice.exemplo.com.br",      plan: "Marca",  status: "Trial",    mrr: "12",  joined: "22 abr 2026", joinedPt: "22 abr 2026" },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -128,10 +129,10 @@ const statusStyles: Record<string, string> = {
 };
 
 const planStyles: Record<string, string> = {
-  Enterprise: "bg-primary/10 text-primary border-primary/20",
-  Pro:        "bg-info/10 text-info border-info/20",
-  Team:       "bg-muted text-foreground border-border",
-  Starter:    "bg-muted text-muted-foreground border-border",
+  "Brechó": "bg-primary/10 text-[var(--primary-text)] border-primary/20",
+  "Ateliê": "bg-info/10 text-info border-info/20",
+  "Loja":   "bg-muted text-foreground border-border",
+  "Marca":  "bg-muted text-muted-foreground border-border",
 };
 
 type SortDir = "asc" | "desc" | null;
@@ -143,7 +144,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         <p className="font-medium text-foreground mb-1">{label}</p>
         {payload.map((p: any, i: number) => (
           <p key={i} style={{ color: p.color }} className="font-medium">
-            {p.name}: {typeof p.value === "number" && p.value > 1000 ? `$${(p.value/1000).toFixed(0)}K` : p.value}
+            {p.name}: {typeof p.value === "number" ? p.value.toLocaleString("pt-BR") : p.value}
           </p>
         ))}
       </div>
@@ -182,8 +183,8 @@ export function DataShowcase() {
   const dataTokenGroups = getDataTokenGroups(t);
   const areaData = areaDataBase.map((d, i) => ({ ...d, month: t(d.month, areaMonthsPt[i]) }));
   const barData = barDataBase.map((d, i) => ({ ...d, name: t(d.name, barDaysPt[i]) }));
-  const statusPt: Record<string, string> = { Active: "Ativo", Inactive: "Inativo", Trial: "Teste" };
-  const planPt: Record<string, string> = { Enterprise: "Enterprise", Pro: "Pro", Team: "Equipe", Starter: "Starter" };
+  const statusPt: Record<string, string> = { Active: "Ativa", Inactive: "Inativa", Trial: "Em cadastro" };
+  const planPt: Record<string, string> = { "Brechó": "Brechó", "Ateliê": "Ateliê", "Loja": "Loja", "Marca": "Marca" };
   const [sortCol, setSortCol] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<SortDir>(null);
   const [selecaoExemplo, setSelecaoExemplo] = useState(2);
@@ -230,12 +231,12 @@ export function DataShowcase() {
           <ShowcaseCard className="lg:col-span-2">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-[1rem] font-semibold text-foreground">{t("Revenue Overview", "Visão geral da receita")}</h3>
-                <p className="text-[0.8125rem] text-muted-foreground">{t("Monthly revenue & user growth", "Receita mensal e crescimento de usuários")}</p>
+                <h3 className="text-[1rem] font-semibold text-foreground">{t("Search overview", "Visão geral das buscas")}</h3>
+                <p className="text-[0.8125rem] text-muted-foreground">{t("Monthly item views and searches (example data)", "Visualizações de peças e buscas por mês (dados de exemplo)")}</p>
               </div>
               <div className="flex items-center gap-4 text-[0.75rem] text-muted-foreground">
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-1 inline-block" />{t("Revenue", "Receita")}</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-2 inline-block" />{t("Users", "Usuários")}</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-1 inline-block" />{t("Views", "Visualizações")}</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-2 inline-block" />{t("Searches", "Buscas")}</span>
               </div>
             </div>
             <ResponsiveContainer width="100%" height={220}>
@@ -252,10 +253,10 @@ export function DataShowcase() {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} tickFormatter={v => `$${v/1000}K`} />
+                <YAxis tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} tickFormatter={v => `${v / 1000} mil`} />
                 <RechartTooltip content={<CustomTooltip />} />
-                <Area type="monotone" dataKey="revenue" stroke="var(--chart-1)" strokeWidth={1.5} fill="url(#gradRevenue)" name={t("Revenue", "Receita")} />
-                <Area type="monotone" dataKey="users" stroke="var(--chart-2)" strokeWidth={1.5} fill="url(#gradUsers)" name={t("Users", "Usuários")} />
+                <Area type="monotone" dataKey="revenue" stroke="var(--chart-1)" strokeWidth={1.5} fill="url(#gradRevenue)" name={t("Views", "Visualizações")} />
+                <Area type="monotone" dataKey="users" stroke="var(--chart-2)" strokeWidth={1.5} fill="url(#gradUsers)" name={t("Searches", "Buscas")} />
               </AreaChart>
             </ResponsiveContainer>
           </ShowcaseCard>
@@ -263,8 +264,8 @@ export function DataShowcase() {
           {/* Pie Chart */}
           <ShowcaseCard>
             <div className="mb-4">
-              <h3 className="text-[1rem] font-semibold text-foreground">{t("Traffic Sources", "Fontes de tráfego")}</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">{t("Acquisition breakdown", "Detalhamento da aquisição")}</p>
+              <h3 className="text-[1rem] font-semibold text-foreground">{t("How people arrive", "Como as pessoas chegam")}</h3>
+              <p className="text-[0.8125rem] text-muted-foreground">{t("Share by source", "Participação por origem")}</p>
             </div>
             <div className="flex flex-col items-center gap-4">
               <ResponsiveContainer width="100%" height={160}>
@@ -295,8 +296,8 @@ export function DataShowcase() {
         <ShowcaseCard>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-[1rem] font-semibold text-foreground">{t("Daily Sessions", "Sessões diárias")}</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">{t("User sessions by day of week", "Sessões de usuários por dia da semana")}</p>
+              <h3 className="text-[1rem] font-semibold text-foreground">{t("Searches by weekday", "Buscas por dia da semana")}</h3>
+              <p className="text-[0.8125rem] text-muted-foreground">{t("Average searches per day (example data)", "Média de buscas por dia (dados de exemplo)")}</p>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={180}>
@@ -305,7 +306,7 @@ export function DataShowcase() {
               <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} />
               <RechartTooltip content={<CustomTooltip />} cursor={{ fill: "var(--muted)", radius: 4 }} />
-              <Bar dataKey="value" fill="var(--chart-1)" radius={[4, 4, 0, 0]} name={t("Sessions", "Sessões")} />
+              <Bar dataKey="value" fill="var(--chart-1)" radius={[4, 4, 0, 0]} name={t("Searches", "Buscas")} />
             </BarChart>
           </ResponsiveContainer>
         </ShowcaseCard>
@@ -355,8 +356,8 @@ export function DataShowcase() {
         <ShowcaseCard className="p-0 overflow-hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border">
             <div>
-              <h3 className="text-[1rem] font-semibold text-foreground">{t("Customers", "Clientes")}</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">{tableData.length} {t("total users", "usuários no total")}</p>
+              <h3 className="text-[1rem] font-semibold text-foreground">{t("Stores", "Lojas")}</h3>
+              <p className="text-[0.8125rem] text-muted-foreground">{tableData.length} {t("stores in total (example data)", "lojas no total (dados de exemplo)")}</p>
             </div>
             <div className="flex items-center gap-2">
               <button className="inline-flex items-center gap-1.5 h-9 px-3 text-[0.875rem] font-medium text-muted-foreground rounded-[9px] border border-border bg-card hover:bg-accent transition-colors">
@@ -372,11 +373,11 @@ export function DataShowcase() {
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   {[
-                    { key: "name",   label: t("Customer", "Cliente") },
-                    { key: "plan",   label: t("Plan", "Plano") },
-                    { key: "status", label: "Status" },
-                    { key: "mrr",    label: "MRR" },
-                    { key: "joined", label: t("Joined", "Entrada") },
+                    { key: "name",   label: t("Store", "Loja") },
+                    { key: "plan",   label: t("Type", "Tipo") },
+                    { key: "status", label: t("Status", "Situação") },
+                    { key: "mrr",    label: t("Items", "Peças") },
+                    { key: "joined", label: t("Since", "Desde") },
                   ].map(col => (
                     <th
                       key={col.key}

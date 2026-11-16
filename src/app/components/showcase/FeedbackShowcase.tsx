@@ -73,8 +73,8 @@ const alertConfig: Record<AlertKind, { icon: React.ElementType; title: Bi; msg: 
     border: "border-warning/20", iconColor: "text-warning", titleColor: "text-foreground",
   },
   error: {
-    icon: AlertCircle, title: { en: "Deployment failed", pt: "Falha no deploy" },
-    msg: { en: "Build #1042 failed due to a type error in src/app/App.tsx.", pt: "O build #1042 falhou por um erro de tipo em src/app/App.tsx." },
+    icon: AlertCircle, title: { en: "Photo not sent", pt: "Não foi possível enviar a foto" },
+    msg: { en: "Check your connection and try again.", pt: "Verifique sua conexão e tente de novo." },
     bg: "bg-[var(--error-muted,rgba(140,27,27,0.07))]",
     border: "border-primary/20", iconColor: "text-primary", titleColor: "text-foreground",
   },
@@ -229,11 +229,11 @@ const tagVariants = [
 
 /* ── Timeline ── */
 const timelineItems = [
-  { icon: Check,         color: "bg-success text-white",   title: { en: "Deployment completed", pt: "Deploy concluído" },    desc: { en: "Production build deployed to edge network.", pt: "Build de produção publicado na rede de borda." },    time: { en: "Just now", pt: "Agora mesmo" } },
-  { icon: Loader2,       color: "bg-info text-white",      title: { en: "Running tests", pt: "Executando testes" },           desc: { en: "96 of 112 test suites passing.", pt: "96 de 112 suítes de teste passando." },                time: { en: "2 min ago", pt: "há 2 min" } },
-  { icon: Clock,         color: "bg-muted text-muted-foreground", title: { en: "Build queued", pt: "Build na fila" },  desc: { en: "Waiting for available runner.", pt: "Aguardando um runner disponível." },                  time: { en: "5 min ago", pt: "há 5 min" } },
-  { icon: AlertCircle,   color: "bg-warning text-white",   title: { en: "Warning: API latency", pt: "Aviso: latência da API" },    desc: { en: "P95 latency exceeded 800ms threshold.", pt: "A latência P95 excedeu o limite de 800ms." },         time: { en: "12 min ago", pt: "há 12 min" } },
-  { icon: CheckCircle,   color: "bg-success text-white",   title: { en: "PR #284 merged", pt: "PR #284 mesclado" },          desc: { en: "Feature: enhanced search indexing.", pt: "Funcionalidade: indexação de busca aprimorada." },            time: { en: "1 hr ago", pt: "há 1 h" } },
+  { icon: Check,         color: "bg-success text-white",   title: { en: "Item published", pt: "Peça publicada" },    desc: { en: "The floral midi dress is now visible.", pt: "O vestido midi floral já está visível na loja." },    time: { en: "Just now", pt: "Agora mesmo" } },
+  { icon: Loader2,       color: "bg-info text-white",      title: { en: "Uploading photos", pt: "Enviando fotos" },           desc: { en: "3 of 5 photos sent.", pt: "3 de 5 fotos enviadas." },                time: { en: "2 min ago", pt: "há 2 min" } },
+  { icon: Clock,         color: "bg-muted text-muted-foreground", title: { en: "Item in review", pt: "Peça em revisão" },  desc: { en: "Waiting for you to confirm the size.", pt: "Aguardando você confirmar o tamanho." },                  time: { en: "5 min ago", pt: "há 5 min" } },
+  { icon: AlertCircle,   color: "bg-warning text-white",   title: { en: "Item without size", pt: "Atenção: peça sem tamanho" },    desc: { en: "Add the size of the item.", pt: "Informe o tamanho da peça." },         time: { en: "12 min ago", pt: "há 12 min" } },
+  { icon: CheckCircle,   color: "bg-success text-white",   title: { en: "Store updated", pt: "Loja atualizada" },          desc: { en: "Opening hours changed.", pt: "Horário de funcionamento alterado." },            time: { en: "1 hr ago", pt: "há 1 h" } },
 ];
 
 export function FeedbackShowcase() {

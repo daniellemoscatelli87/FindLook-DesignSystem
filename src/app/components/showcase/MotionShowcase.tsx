@@ -1163,23 +1163,24 @@ function DurationBars() {
 ══════════════════════════════════════ */
 
 const marqueeFeatures = [
-  { icon: Zap,      label: "Lightning Fast", labelPt: "Ultrarrápido",   sub: "< 50ms response", subPt: "resposta em < 50ms"    },
-  { icon: Star,     label: "5-star Rated", labelPt: "Nota 5 estrelas",     sub: "4.9 avg on G2", subPt: "média 4,9 no G2"      },
-  { icon: Check,    label: "SOC 2 Compliant", labelPt: "Em conformidade com SOC 2",  sub: "Enterprise ready", subPt: "Pronto para empresas"   },
-  { icon: Sparkles, label: "AI-powered", labelPt: "Com IA",       sub: "Native LLM support", subPt: "Suporte nativo a LLM" },
-  { icon: Layers,   label: "Multi-tenant", labelPt: "Multi-tenant",     sub: "Team workspaces", subPt: "Workspaces de equipe"    },
-  { icon: Activity, label: "99.99% Uptime", labelPt: "99,99% de uptime",    sub: "SLA guarantee", subPt: "Garantia de SLA"      },
-  { icon: Clock,    label: "24/7 Support", labelPt: "Suporte 24/7",     sub: "Always available", subPt: "Sempre disponível"   },
-  { icon: Wind,     label: "Edge Network", labelPt: "Rede edge",     sub: "Global CDN", subPt: "CDN global"         },
+  { icon: Sparkles, label: "New items",       labelPt: "Peças novas",        sub: "Stores and brands",   subPt: "Lojas e marcas"        },
+  { icon: Layers,   label: "Second hand",     labelPt: "Segunda mão",        sub: "Thrift shops",        subPt: "Brechós da cidade"     },
+  { icon: Wind,     label: "Near you",        labelPt: "Perto de você",      sub: "Search by region",    subPt: "Busca por região"      },
+  { icon: Star,     label: "Reference photo", labelPt: "Foto de referência", sub: "Optional",            subPt: "Opcional"              },
+  { icon: Check,    label: "Local stores",    labelPt: "Lojas locais",       sub: "City commerce",       subPt: "Comércio da cidade"    },
+  { icon: Zap,      label: "Inspiration",     labelPt: "Inspiração",         sub: "Styles to discover",  subPt: "Estilos para descobrir" },
+  { icon: Activity, label: "Item condition",  labelPt: "Condição da peça",   sub: "New or second hand",  subPt: "Nova ou segunda mão"   },
+  { icon: Clock,    label: "Wear your city",  labelPt: "Vista sua cidade.",  sub: "FindLook",            subPt: "FindLook"              },
 ];
 
+/* Exemplos de buscas (não são depoimentos) */
 const marqueeReviews = [
-  { name: "Ana Souza",   role: "CTO @ TechBR",    quote: "Best tool I've used in years.", quotePt: "A melhor ferramenta que usei em anos.",        stars: 5 },
-  { name: "Pedro Lima",  role: "Product @ Scale",  quote: "Setup in 5 minutes. Absolutely incredible.", quotePt: "Configurei em 5 minutos. Simplesmente incrível.",  stars: 5 },
-  { name: "Clara Nunes", role: "Dev @ Startup",    quote: "Support is fast and exceptional.", quotePt: "O suporte é rápido e excepcional.",            stars: 5 },
-  { name: "Rafa Melo",   role: "CEO @ Innova",     quote: "Completely transformed our workflow.", quotePt: "Transformou completamente nosso workflow.",     stars: 5 },
-  { name: "Julia Costa", role: "Design @ Studio",  quote: "Zero learning curve. Perfect.", quotePt: "Zero curva de aprendizado. Perfeito.",         stars: 5 },
-  { name: "Bruno Dias",  role: "Eng @ Fintech",    quote: "API integration in under 1 hour.", quotePt: "Integração da API em menos de 1 hora.",       stars: 5 },
+  { name: "Vestidos",    role: "Exemplo de busca", quote: "Floral midi dress, size M",       quotePt: "Vestido midi floral, tamanho M",       stars: 0 },
+  { name: "Jaquetas",    role: "Exemplo de busca", quote: "Oversized denim jacket, used",    quotePt: "Jaqueta jeans oversized, usada",       stars: 0 },
+  { name: "Calçados",    role: "Exemplo de busca", quote: "White leather sneakers, 38",      quotePt: "Tênis branco de couro, 38",            stars: 0 },
+  { name: "Acessórios",  role: "Exemplo de busca", quote: "Medium straw bag",                quotePt: "Bolsa de palha média",                 stars: 0 },
+  { name: "Alfaiataria", role: "Exemplo de busca", quote: "Black tailored blazer",           quotePt: "Blazer preto de alfaiataria",          stars: 0 },
+  { name: "Infantil",    role: "Exemplo de busca", quote: "Wool kids coat, 6 years",         quotePt: "Casaco infantil de lã, 6 anos",        stars: 0 },
 ];
 
 function MarqueeRow({ items, direction, duration }: {
@@ -1508,23 +1509,23 @@ const avatarRings: AvatarOrbitRingDef[] = [
   {
     radius: 68, duration: 9,
     people: [
-      { name: "Marcos Silva", role: "CTO @ TechBR",    angleOffset: 0,   size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1500648767791-00dcc994a43e?cs=tinysrgb") },
-      { name: "Ana Souza",    role: "Design @ Studio",  angleOffset: 180, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1494790108377-be9c29b29330?cs=tinysrgb") },
+      { name: "Marcos Silva", role: "Lojista · Brechó", angleOffset: 0,   size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1500648767791-00dcc994a43e?cs=tinysrgb") },
+      { name: "Ana Souza",    role: "Cliente",         angleOffset: 180, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1494790108377-be9c29b29330?cs=tinysrgb") },
     ],
   },
   {
     radius: 112, duration: 15,
     people: [
-      { name: "Pedro Lima",   role: "Eng @ Scale",      angleOffset: 0,   size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?cs=tinysrgb") },
-      { name: "Clara Nunes",  role: "CEO @ Innova",     angleOffset: 120, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1506863530036-1efeddceb993?cs=tinysrgb") },
-      { name: "Rafa Melo",    role: "Product @ Start",  angleOffset: 240, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1590086782792-42dd2350140d?cs=tinysrgb") },
+      { name: "Pedro Lima",   role: "Lojista · Ateliê", angleOffset: 0,   size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?cs=tinysrgb") },
+      { name: "Clara Nunes",  role: "Cliente",         angleOffset: 120, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1506863530036-1efeddceb993?cs=tinysrgb") },
+      { name: "Rafa Melo",    role: "Lojista · Marca", angleOffset: 240, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1590086782792-42dd2350140d?cs=tinysrgb") },
     ],
   },
   {
     radius: 158, duration: 22,
     people: [
-      { name: "Julia Costa",  role: "Dev @ Fintech",    angleOffset: 60,  size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1607503873903-c5e95f80d7b9?cs=tinysrgb") },
-      { name: "Bruno Dias",   role: "Design @ Labs",    angleOffset: 240, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1590086782957-93c06ef21604?cs=tinysrgb") },
+      { name: "Julia Costa",  role: "Cliente",         angleOffset: 60,  size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1607503873903-c5e95f80d7b9?cs=tinysrgb") },
+      { name: "Bruno Dias",   role: "Lojista · Loja",  angleOffset: 240, size: 34, photo: AVATAR_PHOTO("https://images.unsplash.com/photo-1590086782957-93c06ef21604?cs=tinysrgb") },
     ],
   },
 ];
@@ -1885,13 +1886,13 @@ function WobbleCardDemo({
       <div style={{ position: "relative", zIndex: 1, padding: "24px 24px 20px" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(230,32,64,0.30)" : "rgba(230,32,64,0.20)"}`, background: dark ? "rgba(230,32,64,0.10)" : "rgba(230,32,64,0.07)", marginBottom: 12 }}>
           <Star style={{ width: 10, height: 10, color: "#E62040" }} />
-          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.06em" }}>Enterprise</span>
+          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.06em" }}>Lojistas</span>
         </div>
         <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
-          {t("Bank-grade", "Segurança")}<br />{t("security.", "nível bancário.")}
+          {t("Your store", "Sua loja")}<br />{t("closer.", "mais perto.")}
         </h3>
         <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC", lineHeight: 1.6, marginBottom: 16 }}>
-          {t("SOC 2 Type II, end-to-end encryption and complete access auditing.", "SOC 2 Tipo II, criptografia de ponta a ponta e auditoria completa de acessos.")}
+          {t("Your items found by people searching in the region.", "Suas peças encontradas por quem procura na região.")}
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
           {[t("SSO & mandatory MFA", "SSO e MFA obrigatório"), t("Real-time audit log", "Log de auditoria em tempo real"), t("RBAC per workspace", "RBAC por workspace")].map(item => (

@@ -475,10 +475,10 @@ export function CardShowcase() {
   const corMono = (c: ConfigVidro | null) => (c?.tone === "escura" ? "text-white/60" : "text-muted-foreground dark:text-white/60");
 
   const exemploParceiroDm = {
-    eyebrow: t("Partner network", "Rede de Parceiros"),
-    title: t("Join the **Partner Network**", "Faça parte da **Rede de Parceiros**"),
-    description: t("The studio is expanding and building a multidisciplinary ecosystem of independent professionals to collaborate on Design, Human Experience, Business, Technology and Innovation projects.", "O estúdio está ampliando sua atuação e construindo um ecossistema multidisciplinar de profissionais independentes (PJ) para colaborar em projetos de Design, Experiência Humana, Negócios, Tecnologia e Inovação."),
-    cta: { label: t("I want to be a partner", "Quero ser parceiro"), href: "#" },
+    eyebrow: t("For stores and brands", "Para lojas e marcas"),
+    title: t("Your store deserves to be **discovered**.", "Sua loja merece ser **descoberta**."),
+    description: t("FindLook connects your items to people looking for fashion in your region.", "A FindLook conecta suas peças a pessoas que procuram moda na sua região."),
+    cta: { label: t("Register my store", "Cadastrar minha loja"), href: "#" },
     secondary: { label: t("How it works", "Como funciona"), href: "#" },
     visual: <Handshake />,
   };
@@ -840,9 +840,9 @@ export function CardShowcase() {
               {[0, 1, 2].map(index => {
                 const isSelected = selected === index;
                 const labels = [
-                  [t("Starter", "Inicial"), t("For personal projects", "Para projetos pessoais")],
-                  [t("Studio", "Studio"), t("For growing teams", "Para equipes em crescimento")],
-                  [t("Enterprise", "Enterprise"), t("For complex organizations", "Para organizações complexas")],
+                  [t("New", "Nova"), t("From stores and brands", "De lojas e marcas")],
+                  [t("Second hand", "Segunda mão"), t("From thrift shops", "De brechós")],
+                  [t("Either", "Tanto faz"), t("Show both", "Mostrar as duas")],
                 ];
                 return (
                   <Card key={index} className={`gap-4 border-2 transition-all ${isSelected ? "border-primary shadow-[var(--shadow-md)]" : "border-border hover:border-[var(--border-strong)]"}`}>
@@ -940,16 +940,16 @@ export function CardShowcase() {
               <ShineBorder borderWidth={1} duration={7} shineColor={["var(--primary)", "var(--chart-2)", "var(--primary)"]} />
               <CardHeader>
                 <span className="mb-2 inline-flex w-fit items-center rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[0.6875rem] font-semibold text-primary">{t("Recommended", "Recomendado")}</span>
-                <CardTitle className={`${display} text-[1.125rem] font-semibold`}>{t("Studio plan", "Plano Studio")}</CardTitle>
+                <CardTitle className={`${display} text-[1.125rem] font-semibold`}>{t("Launch Basic", "Básico de lançamento")}</CardTitle>
                 <CardDescription>{t("Use Shine Border to call attention to one exceptional option.", "Use Shine Border para chamar atenção para uma única opção excepcional.")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex items-baseline gap-1">
-                  <span className={`${display} text-[1.75rem] font-semibold text-foreground`}>$49</span>
+                  <span className={`${display} text-[1.75rem] font-semibold text-foreground`}>R$ 9,99</span>
                   <span className="text-[0.75rem] text-muted-foreground">/{t("month", "mês")}</span>
                 </div>
               </CardContent>
-              <CardFooter><Button className="w-full">{t("Choose Studio", "Escolher Studio")}</Button></CardFooter>
+              <CardFooter><Button className="w-full">{t("Register my store", "Cadastrar minha loja")}</Button></CardFooter>
             </Card>
             <div className="space-y-4">
               <Callout title={t("Opt-in, not a Card default", "Opcional, não padrão do Card")}>

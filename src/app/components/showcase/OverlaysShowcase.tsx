@@ -655,54 +655,54 @@ const flushItems = [
   {
     value: "security",
     icon: ShieldCheck,
-    label: { en: "Security & Compliance", pt: "Segurança e conformidade" },
-    content: { en: "End-to-end encryption, SSO/SAML, granular RBAC and SOC 2 Type II compliance. Complete audit logs for all user actions.", pt: "Criptografia de ponta a ponta, SSO/SAML, RBAC granular e conformidade SOC 2 Tipo II. Logs de auditoria completos para todas as ações dos usuários." },
+    label: { en: "Your data", pt: "Seus dados" },
+    content: { en: "Your choices, your data.", pt: "Suas escolhas, seus dados." },
   },
   {
     value: "billing",
     icon: CreditCard,
-    label: { en: "Billing & Plans", pt: "Cobrança e planos" },
-    content: { en: "Monthly and annual plans with a 20% discount. Upgrade or downgrade at any time, with automatic prorated billing.", pt: "Planos mensais e anuais com 20% de desconto. Faça upgrade ou downgrade quando quiser, com cobrança proporcional automática." },
+    label: { en: "Plan and payment", pt: "Plano e pagamento" },
+    content: { en: "Launch Basic plan, R$ 9.99 per month. No commitment: cancel whenever you want.", pt: "Básico de lançamento, R$ 9,99 por mês. Sem fidelidade: cancele quando quiser." },
   },
   {
     value: "performance",
     icon: Zap,
-    label: { en: "Performance & SLA", pt: "Desempenho e SLA" },
-    content: { en: "Guaranteed 99.9% uptime with enterprise SLA available. Globally distributed CDN with average latency under 50ms.", pt: "Disponibilidade garantida de 99,9% com SLA corporativo disponível. CDN distribuída globalmente com latência média abaixo de 50ms." },
+    label: { en: "Item availability", pt: "Disponibilidade das peças" },
+    content: { en: "Availability must be confirmed with the store.", pt: "A disponibilidade deve ser confirmada com a loja." },
   },
   {
     value: "support",
     icon: MessageSquare,
-    label: { en: "Support & Onboarding", pt: "Suporte & Onboarding" },
-    content: { en: "Real-time chat support, a knowledge base and guided onboarding sessions. Enterprise plans include a dedicated Customer Success Manager.", pt: "Suporte por chat em tempo real, base de conhecimento e sessões de onboarding guiadas. Planos Enterprise incluem um Customer Success Manager dedicado." },
+    label: { en: "Support", pt: "Suporte" },
+    content: { en: "Talk to the FindLook team through the support page.", pt: "Fale com a equipe FindLook pela página de suporte." },
   },
 ];
 
 const faqItems = [
   {
     value: "trial",
-    label: { en: "Is there a free trial period?", pt: "Existe um período de teste gratuito?" },
-    content: { en: "Yes, we offer a full 14-day trial with no credit card required. Access to all Pro plan features during the period.", pt: "Sim, oferecemos 14 dias de teste completo, sem necessidade de cartão de crédito. Acesso a todos os recursos do plano Pro durante o período." },
+    label: { en: "How does the search work?", pt: "Como funciona a busca?" },
+    content: { en: "The search considers items listed by participating stores and thrift shops. Availability must be confirmed with the store.", pt: "A busca considera peças cadastradas por lojas e brechós participantes. A disponibilidade deve ser confirmada com a loja." },
   },
   {
     value: "cancel",
-    label: { en: "Can I cancel at any time?", pt: "Posso cancelar a qualquer momento?" },
-    content: { en: "Yes. No penalties or cancellation fees. When you cancel, you keep access until the end of the paid period.", pt: "Sim. Sem multas ou taxas de cancelamento. Ao cancelar, você mantém o acesso até o fim do período pago." },
+    label: { en: "Can I cancel whenever I want?", pt: "Posso cancelar quando quiser?" },
+    content: { en: "Yes. No commitment: cancel whenever you want.", pt: "Sim. Sem fidelidade: cancele quando quiser." },
   },
   {
     value: "migration",
-    label: { en: "How does data migration work?", pt: "Como funciona a migração de dados?" },
-    content: { en: "Our team offers free migration support. We import your data from any tool with a guided wizard and automatic integrity validation.", pt: "Nossa equipe oferece suporte gratuito à migração. Importamos seus dados de qualquer ferramenta com um assistente guiado e validação automática de integridade." },
+    label: { en: "How do I register my store?", pt: "Como cadastro minha loja?" },
+    content: { en: "Use the Register my store button. Registration has 5 steps.", pt: "Pelo botão Cadastrar minha loja. O cadastro tem 5 etapas." },
   },
   {
     value: "limits",
-    label: { en: "What are the usage limits per plan?", pt: "Quais são os limites de uso por plano?" },
-    content: { en: "The Starter plan includes 5 users and 10 GB of storage. Pro includes unlimited users and 100 GB. Enterprise is fully customizable.", pt: "O plano Starter inclui 5 usuários e 10 GB de armazenamento. O Pro inclui usuários ilimitados e 100 GB. O Enterprise é totalmente personalizável." },
+    label: { en: "How much does it cost for my store?", pt: "Quanto custa para a minha loja?" },
+    content: { en: "The launch Basic plan costs R$ 9.99 per month.", pt: "O plano Básico de lançamento custa R$ 9,99 por mês." },
   },
   {
     value: "api",
-    label: { en: "Is the API available on all plans?", pt: "A API está disponível em todos os planos?" },
-    content: { en: "REST API access available on the Pro plan and above. The Enterprise plan includes custom rate limits, advanced webhooks and GraphQL support.", pt: "Acesso à API REST disponível no plano Pro e superiores. O plano Enterprise inclui limites de taxa personalizados, webhooks avançados e suporte a GraphQL." },
+    label: { en: "Does it show new and used items?", pt: "Aparecem peças novas e usadas?" },
+    content: { en: "Yes. FindLook brings together stores and thrift shops, with new and second-hand items.", pt: "Sim. A FindLook reúne lojas e brechós, com peças novas e de segunda mão." },
   },
 ];
 

@@ -232,7 +232,7 @@ function GradientAnimCard() {
   const useWhen     = [
     t("Product hero with a premium tone and immersive visuals.", "Hero de produto com tom premium e visual imersivo."),
     t("When you want to create energy without decorative elements.", "Quando você quer criar energia sem elementos decorativos."),
-    t("High-value conversion pages (Enterprise, Custom pricing).", "Páginas de conversão de alto valor (Enterprise, preço personalizado)."),
+    t("High-value conversion pages (Enterprise, Custom pricing).", "Páginas de conversão de alto valor (por exemplo, o convite para cadastrar a loja)."),
   ];
   const avoidWhen   = [
     t("Very dense content — the motion competes with reading.", "Conteúdo muito denso — o movimento compete com a leitura."),
