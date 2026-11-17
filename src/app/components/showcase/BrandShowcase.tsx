@@ -373,6 +373,9 @@ export function BrandShowcase() {
           <p className="mt-4 text-[0.75rem] text-muted-foreground border-t border-border pt-3">
             Nunca use o símbolo abaixo de <span className="font-semibold text-foreground">16 px</span> no digital ou <span className="font-semibold text-foreground">5 mm</span> na impressão.
           </p>
+          <p className="mt-2 text-[0.75rem] text-muted-foreground">
+            Ícones de aplicativo (painel instalável no celular): <span className="font-mono text-foreground">/icone-app-512.png</span>, com fundo transparente, e <span className="font-mono text-foreground">/icone-app-maskable-512.png</span>, com fundo branco e o símbolo dentro da área segura, para celulares que recortam o ícone em círculo ou quadrado.
+          </p>
         </div>
       </div>
 

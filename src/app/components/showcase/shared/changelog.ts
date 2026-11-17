@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Ícones de aplicativo em 512 px"),
+    desc: pt("Dois ícones novos, feitos a partir do símbolo oficial, para o painel do lojista instalável no celular (PWA): icone-app-512.png, com fundo transparente, e icone-app-maskable-512.png, com fundo branco e o símbolo dentro da área segura, para celulares que recortam o ícone."),
+    page: "brand",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Padrão único de botão, campo e foco; exemplos de moda"),
     desc: pt("O ui/button passa a ser igual ao que a documentação mostra: 40 px, texto 15 px seminegrito e cantos de 12 px; campo de texto, seleção e alternador também com 40 px. Um destaque de foco só: anel de 2 px com respiro de 2 px, só pelo teclado. As páginas Controles de formulário e Feedback mostram os componentes reais; o ui/alert ganha as variantes de estado. Novo ui/status-chip (Estados de informação), que o produto pode sincronizar. Tokens de movimento no theme.css, cores *-muted como classes e tabelas de tokens com os valores do theme.css. Menu em português com o termo técnico, componentes em português e exemplos de moda (lojas, peças e buscas fictícias) no lugar dos de software. Campo de senha com caixa de dicas mais clara e checks em pink."),
     page: "buttons", anchor: "buttons",
