@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Tom de voz: textos de inteligência e dados"),
+    desc: pt("Quatro seções novas na página Tom de voz: como escrever o que os dados e a IA encontram como uma conversa, e não um relatório. Regras, uma estrutura única para toda descoberta (descoberta, contexto, leitura possível, próximo passo, detalhamento), pares evitar e preferir com exemplos do painel do lojista e perguntas de revisão. Também: trilha de navegação, paginação, dica de contexto e painel lateral da página Overlays passam a usar os componentes reais de ui/; o painel lateral (ui/sheet) prende o foco e fecha com Esc."),
+    page: "voice", anchor: "voice-inteligencia",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Ícones de aplicativo em 512 px"),
     desc: pt("Dois ícones novos, feitos a partir do símbolo oficial, para o painel do lojista instalável no celular (PWA): icone-app-512.png, com fundo transparente, e icone-app-maskable-512.png, com fundo branco e o símbolo dentro da área segura, para celulares que recortam o ícone."),
     page: "brand",
