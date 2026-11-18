@@ -6,7 +6,7 @@ import {
   TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight,
   Store, Shirt, ChevronUp, ChevronDown,
   ChevronsUpDown, ExternalLink, MoreHorizontal, Filter, Download,
-  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch,
+  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch, MapPinned,
 } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line,
@@ -560,6 +560,7 @@ export function IndicadoresDoPainel() {
       <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
       <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
       <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
+      <CardIndicador icone={<MapPinned />} valor={48} total={75} rotulo="Bairros pesquisados" explicacao="Bairros de Curitiba que a busca de lojas já pesquisou. Com a propriedade total, o número aparece com o total de que faz parte." />
       <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
     </div>
   );

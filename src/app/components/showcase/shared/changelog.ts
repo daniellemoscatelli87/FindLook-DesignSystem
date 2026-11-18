@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Indicador do painel com total"),
+    desc: pt("O CardIndicador ganha a propriedade total: o número aparece com o total de que faz parte, menor, ao lado (por exemplo, 48 de 75 bairros pesquisados)."),
+    page: "cards",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Regra: card nunca tem rolagem horizontal"),
     desc: pt("Regra da dona do produto: nenhum card tem rolagem para o lado; o conteúdo se adapta à largura. Tabelas escondem as colunas menos importantes ou viram lista, abas quebram para a linha de baixo, quadros (kanban) empilham as colunas no celular e galerias viram grade. O ui/table deixa de rolar (o texto quebra de linha), o ui/tabs e as Abas com contador quebram de linha e a tabela de produtos do Painel encurta o nome do produto em vez de rolar. A regra está na página Cards, em Comportamento responsivo."),
     page: "cards", anchor: "card-layout",
