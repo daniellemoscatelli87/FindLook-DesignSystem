@@ -164,8 +164,8 @@ function RuleCard({ type, bg, children, label }: { type: "do" | "dont"; bg: stri
   );
 }
 
-const GRAFITE_BG = "bg-[#000000]";
-const ROSA_BG = "bg-[#FFF2F5]";
+const GRAFITE_BG = "bg-[var(--graphite-950)]";
+const ROSA_BG = "bg-[var(--brand-rose)]";
 
 export function BrandShowcase() {
   return (
@@ -335,7 +335,7 @@ export function BrandShowcase() {
             { icon: UserCircle2, label: "Avatar da plataforma", desc: "Perfil oficial e notificações", bg: "bg-card", preview: pngSimbolo, previewSize: "h-10" },
             { icon: Share2, label: "Redes sociais", desc: "Foto de perfil do @findlook.cwb", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-10" },
             { icon: LayoutDashboard, label: "Cabeçalho mobile", desc: "Topo do app em telas estreitas", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
-            { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[#2C2C33]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
+            { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[var(--graphite-800)]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
             { icon: Monitor, label: "Tela de carregamento", desc: "Splash e estados de espera", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-12" },
             { icon: Tablet, label: "Menu lateral recolhido", desc: "Painel do lojista em modo compacto", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
           ].map(({ icon: Icon, label, desc, bg, preview, previewSize }) => (

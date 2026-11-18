@@ -216,8 +216,8 @@ const chipVariants = [
 ];
 
 const tagVariants = [
-  { label: "react", color: "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:text-blue-400" },
-  { label: "typescript", color: "bg-indigo-500/10 text-indigo-600 border-indigo-500/20 dark:text-indigo-400" },
+  { label: "react", color: "bg-info/10 text-info border-info/20 dark:text-info" },
+  { label: "typescript", color: "bg-violet/10 text-violet border-violet/20 dark:text-violet" },
   { label: "ui-design", color: "bg-primary/10 text-primary border-primary/20" },
   { label: "performance", color: "bg-success/10 text-success border-success/20" },
   { label: "api", color: "bg-muted text-muted-foreground border-border" },

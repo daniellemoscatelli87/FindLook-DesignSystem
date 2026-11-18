@@ -1885,20 +1885,20 @@ function WobbleCardDemo({
       <div ref={glowRef} style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", borderRadius: 18 }} />
       <div style={{ position: "relative", zIndex: 1, padding: "24px 24px 20px" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(230,32,64,0.30)" : "rgba(230,32,64,0.20)"}`, background: dark ? "rgba(230,32,64,0.10)" : "rgba(230,32,64,0.07)", marginBottom: 12 }}>
-          <Star style={{ width: 10, height: 10, color: "#E62040" }} />
-          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "#E62040", textTransform: "uppercase", letterSpacing: "0.06em" }}>Lojistas</span>
+          <Star style={{ width: 10, height: 10, color: "var(--primary)" }} />
+          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "var(--primary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Lojistas</span>
         </div>
-        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
+        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--foreground)", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
           {t("Your store", "Sua loja")}<br />{t("closer.", "mais perto.")}
         </h3>
-        <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC", lineHeight: 1.6, marginBottom: 16 }}>
+        <p style={{ fontSize: "0.75rem", color: "var(--muted-foreground)", lineHeight: 1.6, marginBottom: 16 }}>
           {t("Your items found by people searching in the region.", "Suas peças encontradas por quem procura na região.")}
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
           {[t("SSO & mandatory MFA", "SSO e MFA obrigatório"), t("Real-time audit log", "Log de auditoria em tempo real"), t("RBAC per workspace", "RBAC por workspace")].map(item => (
             <div key={item} style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div style={{ width: 16, height: 16, borderRadius: 8, background: "rgba(230,32,64,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Check style={{ width: 9, height: 9, color: "#E62040" }} />
+                <Check style={{ width: 9, height: 9, color: "var(--primary)" }} />
               </div>
               <span style={{ fontSize: "0.6875rem", color: dark ? "#B3B3BC" : "#888896", fontWeight: 500 }}>{item}</span>
             </div>
@@ -1907,10 +1907,10 @@ function WobbleCardDemo({
         <div style={{ height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(25,25,28,0.07)", marginBottom: 16 }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C" }}>R$499</span>
+            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: "var(--foreground)" }}>R$499</span>
             <span style={{ fontSize: "0.625rem", color: dark ? "#696977" : "#B3B3BC" }}>{t("/mo", "/mês")}</span>
           </div>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "#E62040", color: "#fff", fontSize: "0.6875rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "var(--primary)", color: "#fff", fontSize: "0.6875rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
             {t("Subscribe", "Contratar")} <ArrowRight style={{ width: 12, height: 12 }} />
           </button>
         </div>
@@ -1926,16 +1926,16 @@ export function WobbleCardConteudo() {
   const [spotlightId,   setSpotlightId]   = useState("pink");
   const [wobbleEnabled, setWobbleEnabled] = useState(true);
 
-  const ctrl = dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)";
-  const activeStyle = { border: "1.5px solid #E62040", background: "rgba(230,32,64,0.08)", color: "#E62040" };
-  const idleColor   = dark ? "#B3B3BC" : "#888896";
+  const ctrl = "var(--border)";
+  const activeStyle = { border: "1.5px solid #E62040", background: "rgba(230,32,64,0.08)", color: "var(--primary)" };
+  const idleColor   = "var(--muted-foreground)";
 
   return (
       <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
         {/* Preview */}
         <div
           className="flex items-center justify-center p-12"
-          style={{ background: dark ? "#000000" : "#F6F6F7", minHeight: 300 }}
+          style={{ background: "var(--muted)", minHeight: 300 }}
         >
           <WobbleCardDemo dark={dark} spotlightId={spotlightId} wobbleEnabled={wobbleEnabled} />
         </div>
@@ -1999,7 +1999,7 @@ export function WobbleCardConteudo() {
             <ul className="space-y-1">
               {[t("Pricing card for a recommended plan.", "Card de preço para um plano recomendado."), t("Feature card that needs to stand out.", "Card de recurso que precisa se destacar."), t("Premium product or testimonial card.", "Card de produto premium ou depoimento.")].map(w => (
                 <li key={w} className="flex items-start gap-1.5 text-[0.75rem] text-foreground">
-                  <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-green-500" />{w}
+                  <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-success" />{w}
                 </li>
               ))}
             </ul>
