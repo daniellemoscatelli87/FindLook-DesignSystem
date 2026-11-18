@@ -92,7 +92,7 @@ const irPara = (ir: (p: PaginaId) => void, p: PaginaId) => (e: React.MouseEvent)
 ───────────────────────────────────────────── */
 export function MolduraDoPainel({ children, endereco = "Painel da loja · FindLook" }: { children: React.ReactNode; endereco?: string }) {
   return (
-    <div className="overflow-hidden rounded-[16px] border border-border" style={{ boxShadow: "var(--shadow-lg)" }}>
+    <div className="overflow-hidden rounded-lg border border-border" style={{ boxShadow: "var(--shadow-lg)" }}>
       <div className="flex h-9 shrink-0 items-center gap-2 border-b border-border bg-muted/60 px-4" aria-hidden>
         <div className="flex gap-1.5">
           <div className="h-2.5 w-2.5 rounded-full bg-primary/50" />
@@ -100,7 +100,7 @@ export function MolduraDoPainel({ children, endereco = "Painel da loja · FindLo
           <div className="h-2.5 w-2.5 rounded-full bg-success/50" />
         </div>
         <div className="mx-4 flex-1">
-          <div className="mx-auto flex h-5 max-w-[280px] items-center rounded-[6px] bg-background/70 px-3">
+          <div className="mx-auto flex h-5 max-w-[280px] items-center rounded-sm bg-background/70 px-3">
             <span className="truncate text-[0.625rem] text-muted-foreground">{endereco}</span>
           </div>
         </div>
@@ -171,13 +171,13 @@ function MenuDeNotificacoes() {
       <DropdownMenuContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between border-b border-border px-3 py-2.5">
           <DropdownMenuLabel className="p-0 text-[0.875rem]">Notificações</DropdownMenuLabel>
-          <button type="button" onClick={() => setLidas(true)} disabled={lidas} className="inline-flex items-center gap-1 rounded-[6px] text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline disabled:pointer-events-none disabled:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <button type="button" onClick={() => setLidas(true)} disabled={lidas} className="inline-flex items-center gap-1 rounded-sm text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline disabled:pointer-events-none disabled:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             <CheckCheck aria-hidden className="h-3.5 w-3.5" /> {lidas ? "Tudo lido" : "Marcar como lidas"}
           </button>
         </div>
         <div className="max-h-72 overflow-y-auto p-1">
           {notificacoesRecentes.map(n => (
-            <DropdownMenuItem key={n.titulo} onSelect={() => ir("notificacoes")} className="items-start gap-3 rounded-[10px] px-2.5 py-2">
+            <DropdownMenuItem key={n.titulo} onSelect={() => ir("notificacoes")} className="items-start gap-3 rounded-md px-2.5 py-2">
               <span aria-hidden className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-4 [&>svg]:w-4">{n.icone}</span>
               <span className="min-w-0 flex-1">
                 <span className="flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground">
@@ -353,7 +353,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
 ───────────────────────────────────────────── */
 function BotaoContorno({ children, onClick, href = "#", externo }: { children: React.ReactNode; onClick?: React.MouseEventHandler<HTMLAnchorElement>; href?: string; externo?: boolean }) {
   return (
-    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[12px] border border-[var(--border-strong)] bg-transparent px-4 text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-transparent px-4 text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
       {children}
     </a>
   );
@@ -420,7 +420,7 @@ function PaginaInicio() {
         <div className="grid gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
           <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
             <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
-            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-[12px] border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
+            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-md border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
           </CardDoPainel>
           <CardDoPainel icone={<ClipboardList />} titulo="Próximas ações" descricao="O que fazer agora para ser mais encontrada.">
             <div className="space-y-2">
@@ -573,11 +573,11 @@ function PaginaEmBreve({ titulo }: { titulo: string }) {
   return (
     <>
       <CabecalhoDaPagina titulo={titulo} />
-      <div className="flex flex-col items-center rounded-[18px] border border-dashed border-border bg-card px-6 py-14 text-center">
+      <div className="flex flex-col items-center rounded-lg border border-dashed border-border bg-card px-6 py-14 text-center">
         <span aria-hidden className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]"><Construction className="h-6 w-6" /></span>
         <p className="font-[family-name:var(--font-display)] text-[1.125rem] font-bold text-foreground">Esta página ainda não tem template no DS</p>
         <p className="mt-1 max-w-md text-[0.875rem] leading-relaxed text-muted-foreground">O menu já leva até aqui para mostrar a navegação. O conteúdo de “{titulo}” ainda vai ser desenhado com os componentes do painel.</p>
-        <a href="#inicio" onClick={irPara(ir, "inicio")} className="mt-5 inline-flex h-10 items-center rounded-[12px] bg-primary px-4 text-[0.9375rem] font-medium text-primary-foreground shadow-sm hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Voltar ao início</a>
+        <a href="#inicio" onClick={irPara(ir, "inicio")} className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-[0.9375rem] font-medium text-primary-foreground shadow-sm hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Voltar ao início</a>
       </div>
     </>
   );

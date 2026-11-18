@@ -65,7 +65,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
 function CelulaDeProduto({ nome, detalhes, icone, foto, className }: { nome: string; detalhes?: string; icone?: NomeIconeModa; foto?: string; className?: string }) {
   return (
     <div data-slot="celula-de-produto" className={cn("flex min-w-0 items-center gap-3", className)}>
-      <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-border bg-muted text-[var(--primary-text,var(--primary))]">
+      <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-[var(--primary-text,var(--primary))]">
         {foto ? <img src={foto} alt="" className="h-full w-full object-cover" /> : icone ? <IconeModa nome={icone} size={26} /> : null}
       </span>
       <span className="min-w-0">
@@ -126,10 +126,10 @@ function StatusDePublicacao({ status, motivo, className }: { status: StatusProdu
 function BarraDeAcoesEmLote({ selecionados, onLimpar, acoes, className }: { selecionados: number; onLimpar: () => void; acoes: { rotulo: string; icone: React.ReactNode; destrutiva?: boolean; onClick?: () => void }[]; className?: string }) {
   if (!selecionados) return null;
   return (
-    <div data-slot="acoes-em-lote" role="region" aria-label="Ações para os produtos selecionados" className={cn("flex flex-wrap items-center gap-2 rounded-[12px] border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
+    <div data-slot="acoes-em-lote" role="region" aria-label="Ações para os produtos selecionados" className={cn("flex flex-wrap items-center gap-2 rounded-md border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
       <p className="mr-auto text-[0.8125rem] font-semibold text-foreground" aria-live="polite">{selecionados} {selecionados === 1 ? "produto selecionado" : "produtos selecionados"}</p>
       {acoes.map(a => (
-        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-[8px] border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error" : "border-border text-foreground", foco)}>
+        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error" : "border-border text-foreground", foco)}>
           {a.icone}{a.rotulo}
         </button>
       ))}
@@ -182,9 +182,9 @@ const abasStatus: { valor: "todos" | StatusProduto; rotulo: string }[] = [
 ];
 
 /** Botão de ferramenta da tabela: mesmo desenho dos botões Filtrar/Exportar da Tabela de dados. */
-const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1.5 rounded-[9px] border border-border bg-card px-3 text-[0.875rem] font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
+const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1.5 rounded-sm border border-border bg-card px-3 text-[0.875rem] font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
 const th = "px-4 py-3 text-left text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground whitespace-nowrap";
-const etiqueta = "inline-flex items-center rounded-[6px] border border-border bg-muted/40 px-2 py-0.5 text-[0.75rem] font-medium text-foreground";
+const etiqueta = "inline-flex items-center rounded-sm border border-border bg-muted/40 px-2 py-0.5 text-[0.75rem] font-medium text-foreground";
 
 function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecionavel = true, estiloAbas = "sublinhado", contagens, onVerTodos, className }: TabelaDeProdutosProps) {
   const [aba, setAba] = React.useState("todos");
@@ -202,7 +202,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
 
   const MenuDaLinha = ({ p }: { p: Produto }) => (
     <DropdownMenu>
-      <DropdownMenuTrigger aria-label={`Ações de ${p.nome}`} className={cn("flex h-8 w-8 items-center justify-center rounded-[8px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground", foco)}>
+      <DropdownMenuTrigger aria-label={`Ações de ${p.nome}`} className={cn("flex h-8 w-8 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground", foco)}>
         <MoreHorizontal aria-hidden className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-44">
@@ -216,7 +216,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
   );
 
   return (
-    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-[16px] border border-border bg-card", className)}>
+    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-lg border border-border bg-card", className)}>
       {/* Cabeçalho: título à esquerda, ferramentas à direita (como a Tabela de dados) */}
       <div className="flex flex-col gap-3 border-b border-border px-4 py-4 @2xl:flex-row @2xl:items-center @2xl:justify-between @2xl:px-6">
         <div className="min-w-0">
@@ -227,7 +227,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
           <div className="relative min-w-0 flex-1 @2xl:w-60 @2xl:flex-none">
             <label htmlFor={idBusca} className="sr-only">Buscar produto</label>
             <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-[9px] border border-border bg-input-background pl-9 pr-3 text-[0.875rem] text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
+            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-border bg-input-background pl-9 pr-3 text-[0.875rem] text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
           </div>
           <button type="button" className={botaoFerramenta}><SlidersHorizontal aria-hidden className="h-4 w-4" />Filtros</button>
         </div>
@@ -321,7 +321,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 @2xl:px-6">
         <p className="text-[0.8125rem] text-muted-foreground">Exibindo {visiveis.length ? `1–${visiveis.length}` : "0"} de {formatarNumero(contagem(aba))}</p>
         {limite !== undefined && (
-          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
+          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-sm text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
             Ver todos os produtos <ArrowRight aria-hidden className="h-3.5 w-3.5" />
           </a>
         )}

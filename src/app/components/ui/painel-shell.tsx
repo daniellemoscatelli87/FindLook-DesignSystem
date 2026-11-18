@@ -39,7 +39,7 @@ function SeletorDeLoja({ loja, foto, verificada = true, className, ...props }: S
       data-slot="seletor-de-loja"
       aria-label={`Loja atual: ${loja}${verificada ? ", verificada" : ""}. Trocar de loja`}
       className={cn(
-        "flex w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 py-2.5 text-left transition-colors hover:bg-muted/60",
+        "flex w-full items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 text-left transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -76,7 +76,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
       data-slot="item-do-menu"
       aria-current={ativo ? "page" : undefined}
       className={cn(
-        "group relative flex min-h-10 items-center gap-3 rounded-[10px] px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
+        "group relative flex min-h-10 items-center gap-3 rounded-md px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ativo
           ? "bg-[var(--primary-muted)] font-semibold text-[var(--primary-text,var(--primary))]"
@@ -122,7 +122,7 @@ type CardDePlanoProps = {
 function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plano", onAcao, className }: CardDePlanoProps) {
   if (compacto) {
     return (
-      <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-[14px] bg-primary p-3 text-primary-foreground", className)}>
+      <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-lg bg-primary p-3 text-primary-foreground", className)}>
         <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10" />
         <div className="flex items-center gap-2.5">
           <Crown aria-hidden className="h-5 w-5 shrink-0" />
@@ -132,14 +132,14 @@ function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plan
             {preco && <p className="text-[0.75rem] font-medium leading-tight">{preco} / mês</p>}
           </div>
         </div>
-        <button type="button" onClick={onAcao} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-[9px] bg-primary-foreground text-[0.75rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+        <button type="button" onClick={onAcao} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-sm bg-primary-foreground text-[0.75rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
           {acao} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
         </button>
       </div>
     );
   }
   return (
-    <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-[14px] bg-primary p-4 text-primary-foreground shadow-[var(--shadow-md)]", className)}>
+    <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-lg bg-primary p-4 text-primary-foreground shadow-[var(--shadow-md)]", className)}>
       <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/10" />
       <Crown aria-hidden className="mb-2 h-6 w-6" />
       <p className="text-[0.75rem] font-medium">Seu plano</p>
@@ -149,7 +149,7 @@ function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plan
       <button
         type="button"
         onClick={onAcao}
-        className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-[10px] bg-primary-foreground text-[0.8125rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+        className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-md bg-primary-foreground text-[0.8125rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
       >
         {acao} <ArrowRight aria-hidden className="h-4 w-4" />
       </button>
@@ -166,7 +166,7 @@ function CardDeAjuda({ titulo = "Precisa de ajuda?", texto = "Acesse a central d
       target="_blank"
       rel="noreferrer"
       className={cn(
-        "flex items-center gap-3 rounded-[12px] border border-border bg-card p-3 transition-colors hover:bg-muted/60",
+        "flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -191,14 +191,14 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
       onClick={onAbrir}
       aria-keyshortcuts={atalho === "Ctrl + K" ? "Control+K" : undefined}
       className={cn(
-        "flex h-10 w-full items-center gap-3 rounded-[12px] border border-border bg-card px-3 text-left text-[0.8125rem] text-muted-foreground transition-colors hover:bg-muted/60",
+        "flex h-10 w-full items-center gap-3 rounded-md border border-border bg-card px-3 text-left text-[0.8125rem] text-muted-foreground transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
     >
       <Search aria-hidden className="h-4 w-4 shrink-0" />
       <span className="min-w-0 flex-1 truncate">{placeholder}</span>
-      {atalho && <kbd className="hidden shrink-0 rounded-[6px] border border-border bg-muted px-1.5 py-0.5 font-sans text-[0.6875rem] font-medium sm:inline">{atalho}</kbd>}
+      {atalho && <kbd className="hidden shrink-0 rounded-sm border border-border bg-muted px-1.5 py-0.5 font-sans text-[0.6875rem] font-medium sm:inline">{atalho}</kbd>}
     </button>
   );
 }
@@ -230,7 +230,7 @@ const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<
       type="button"
       aria-label={`Conta de ${nome}${papel ? `, ${papel}` : ""}. Abrir menu da conta`}
       className={cn(
-        "flex items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-muted",
+        "flex items-center gap-2.5 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-muted",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}

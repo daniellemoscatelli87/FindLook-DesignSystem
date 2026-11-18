@@ -3,21 +3,13 @@ import { Check, UploadCloud, Camera } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { UploadDropzone, UploadList, ImageUpload, ImageGrid, formatBytes, type UploadFile, type GalleryImage } from "@/app/components/ui/upload";
+import { SectionHeader } from "./shared/SectionHeader";
 
 /* Troque para true no FindLook Design System: muda só os exemplos. */
 const FINDLOOK = true;
 
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="mb-6">
-      <h2 className="text-[1.375rem] font-bold tracking-[-0.02em] text-foreground">{title}</h2>
-      {description && <p className="mt-1 max-w-2xl text-[0.9375rem] leading-relaxed text-muted-foreground">{description}</p>}
-      <div className="mt-4 h-px bg-border" />
-    </div>
-  );
-}
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-[16px] border border-border bg-card p-6 ${className}`}>{children}</div>;
+  return <div className={`rounded-lg border border-border bg-card p-6 ${className}`}>{children}</div>;
 }
 function SubTitle({ children }: { children: React.ReactNode }) {
   return <p className="mb-3 text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
@@ -149,7 +141,7 @@ export function UploadShowcase() {
             {docs.items.length ? (
               <UploadList items={docs.items} onRemove={docs.remove} onRetry={docs.retry} />
             ) : (
-              <p className="rounded-[12px] border border-dashed border-border px-4 py-6 text-center text-[0.8125rem] text-muted-foreground">{t("No files yet. The list appears below the drop area as soon as a file arrives.", "Nenhum arquivo ainda. A lista aparece abaixo da área de soltar assim que um arquivo chega.")}</p>
+              <p className="rounded-md border border-dashed border-border px-4 py-6 text-center text-[0.8125rem] text-muted-foreground">{t("No files yet. The list appears below the drop area as soon as a file arrives.", "Nenhum arquivo ainda. A lista aparece abaixo da área de soltar assim que um arquivo chega.")}</p>
             )}
           </div>
         </ShowcaseCard>
@@ -170,7 +162,7 @@ export function UploadShowcase() {
             />
             {photo && (
               <div className="mt-3 flex items-center gap-3">
-                <img src={photo} alt="" className="h-16 w-16 rounded-[10px] object-cover" />
+                <img src={photo} alt="" className="h-16 w-16 rounded-md object-cover" />
                 <span className="inline-flex items-center gap-1 text-[0.8125rem] text-success"><Check className="h-4 w-4" aria-hidden />{t("Photo ready", "Foto pronta")}</span>
                 <button type="button" onClick={() => setPhoto(null)} className="ml-auto text-[0.75rem] font-semibold text-muted-foreground hover:text-foreground">{t("Remove", "Remover")}</button>
               </div>
@@ -231,7 +223,7 @@ export function UploadShowcase() {
             [t("Disabled", "Desabilitado"), t("60% opacity, no hover, cursor not-allowed; explain why nearby.", "Opacidade 60%, sem hover, cursor de proibido; explique o motivo ao lado.")],
             [t("Messages", "Mensagens"), t("“… não é um formato aceito.” · “… passa de 10 MB.” · “Envie no máximo 8 arquivos.” Always with the file name.", "“… não é um formato aceito.” · “… passa de 10 MB.” · “Envie no máximo 8 arquivos.” Sempre com o nome do arquivo.")],
           ].map(([title, desc]) => (
-            <div key={title} className="rounded-[14px] border border-border bg-card p-4">
+            <div key={title} className="rounded-lg border border-border bg-card p-4">
               <p className="mb-1 text-[0.875rem] font-semibold text-foreground">{title}</p>
               <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{desc}</p>
             </div>

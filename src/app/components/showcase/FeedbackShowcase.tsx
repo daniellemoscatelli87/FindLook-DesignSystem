@@ -16,6 +16,7 @@ import { AbasComContador } from "@/app/components/ui/painel-produtos";
 import { BannerPromocional } from "@/app/components/ui/painel-cabecalho";
 import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components/ui/painel-dados";
 import { IconeModa } from "@/app/components/ui/fashion-icons";
+import { SectionHeader } from "./shared/SectionHeader";
 
 type Bi = { en: string; pt: string };
 type TFn = (en: string, pt: string) => string;
@@ -28,20 +29,12 @@ const DEMO_AVATARS = ["Ana", "Bruno", "Carla", "Diego", "Elisa", "Fábio"].map((
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-card rounded-[16px] border border-border p-6 ${className}`}>
+    <div className={`bg-card rounded-lg border border-border p-6 ${className}`}>
       {children}
     </div>
   );
 }
 
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="mb-8">
-      <h2 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1">{title}</h2>
-      {description && <p className="text-[0.9375rem] text-muted-foreground">{description}</p>}
-    </div>
-  );
-}
 
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -94,7 +87,7 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
       <AlertTitle>{bi(cfg.title)}</AlertTitle>
       <AlertDescription>{bi(cfg.msg)}</AlertDescription>
       {dismissible && (
-        <button aria-label={t("Dismiss", "Dispensar")} onClick={() => setVisible(false)} className="absolute right-3 top-3 rounded-[8px] p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <button aria-label={t("Dismiss", "Dispensar")} onClick={() => setVisible(false)} className="absolute right-3 top-3 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <X className="h-4 w-4" />
         </button>
       )}
@@ -112,7 +105,7 @@ const toastTypes = [
 
 /* ── Skeleton ── */
 function SkeletonPulse({ className = "" }: { className?: string }) {
-  return <div className={`animate-pulse bg-muted rounded-[8px] ${className}`} />;
+  return <div className={`animate-pulse bg-muted rounded-sm ${className}`} />;
 }
 
 /* ── Progress ── */
@@ -148,7 +141,7 @@ function DemoAbasComContador({ estilo }: { estilo: "pilula" | "sublinhado" }) {
         {estilo === "pilula" ? "Pílula" : "Sublinhado"} <span className="font-mono normal-case tracking-normal">· estilo="{estilo}"</span>
       </p>
       <AbasComContador abas={abasContador} valor={aba} onChange={setAba} estilo={estilo} rotulo={`Filtrar produtos por status (${estilo === "pilula" ? "pílula" : "sublinhado"})`} />
-      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-[12px] bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-md bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
         Mostrando <strong className="text-foreground">{atual.leitura}</strong>.
       </div>
     </div>
@@ -178,9 +171,9 @@ function DemoBannerPromocional() {
           onFechar={() => setAberto(false)}
         />
       ) : (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[16px] border border-dashed border-border px-4 py-3.5">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3.5">
           <p className="text-[0.875rem] text-muted-foreground">Você fechou o banner.</p>
-          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
             Mostrar de novo
           </button>
         </div>
@@ -251,12 +244,12 @@ export function FeedbackShowcase() {
         <SubSection title={t("Default Tabs", "Abas padrão")}>
           <ShowcaseCard>
             <TabsPrimitive.Root value={defaultTab} onValueChange={setDefaultTab}>
-              <TabsPrimitive.List className="flex flex-wrap items-center gap-1 p-1 bg-muted rounded-[10px] w-fit max-w-full mb-5">
+              <TabsPrimitive.List className="flex flex-wrap items-center gap-1 p-1 bg-muted rounded-md w-fit max-w-full mb-5">
                 {tabItems.map(tab => (
                   <TabsPrimitive.Trigger
                     key={tab.id}
                     value={tab.id}
-                    className={`whitespace-nowrap px-4 py-2 text-[0.875rem] font-medium rounded-[8px] transition-all duration-150 outline-none
+                    className={`whitespace-nowrap px-4 py-2 text-[0.875rem] font-medium rounded-sm transition-all duration-150 outline-none
                       data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm
                       data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground`}
                     style={{ boxShadow: defaultTab === tab.id ? "var(--shadow-sm)" : undefined }}
@@ -266,7 +259,7 @@ export function FeedbackShowcase() {
                 ))}
               </TabsPrimitive.List>
               <TabsPrimitive.Content value={defaultTab}>
-                <div className="rounded-[12px] bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+                <div className="rounded-md bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
                   {t("Content for", "Conteúdo da aba")} <strong className="text-foreground">{bi(tabItems.find(x => x.id === defaultTab)!.label)}</strong>{lang === "en" ? " tab." : "."}
                 </div>
               </TabsPrimitive.Content>
@@ -345,7 +338,7 @@ export function FeedbackShowcase() {
               {toastTypes.map(toast => {
                 const Icon = toast.icon;
                 return (
-                  <div key={toast.label} className="flex items-center gap-3 rounded-[12px] border border-border bg-card px-4 py-3" style={{ boxShadow: "var(--shadow-md)" }}>
+                  <div key={toast.label} className="flex items-center gap-3 rounded-md border border-border bg-card px-4 py-3" style={{ boxShadow: "var(--shadow-md)" }}>
                     <Icon className={`h-4.5 w-4.5 shrink-0 ${toast.color} ${toast.label === "Loading" ? "animate-spin" : ""}`} style={{ height: "18px", width: "18px" }} />
                     <span className="text-[0.875rem] font-medium text-foreground flex-1">{bi(toast.msg)}</span>
                     <button aria-label={t("Close", "Fechar")} className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
@@ -420,8 +413,8 @@ export function FeedbackShowcase() {
                 <SkeletonPulse className="h-3.5 w-4/6" />
               </div>
               <div className="mt-4 flex gap-2">
-                <SkeletonPulse className="h-8 w-20 rounded-[8px]" />
-                <SkeletonPulse className="h-8 w-16 rounded-[8px]" />
+                <SkeletonPulse className="h-8 w-20 rounded-sm" />
+                <SkeletonPulse className="h-8 w-16 rounded-sm" />
               </div>
             </ShowcaseCard>
 
@@ -437,7 +430,7 @@ export function FeedbackShowcase() {
                     <SkeletonPulse className="h-3.5 w-36" />
                     <SkeletonPulse className="h-3 w-24" />
                   </div>
-                  <SkeletonPulse className="h-6 w-16 rounded-[6px]" />
+                  <SkeletonPulse className="h-6 w-16 rounded-sm" />
                   <SkeletonPulse className="h-3.5 w-16" />
                 </div>
               ))}
@@ -454,11 +447,11 @@ export function FeedbackShowcase() {
           <ShowcaseCard>
             <div className="flex flex-wrap gap-2">
               {badgeVariants.map(b => (
-                <span key={b.label.en} className={`inline-flex items-center px-2.5 py-0.5 rounded-[6px] text-[0.75rem] font-semibold border ${b.cls}`}>
+                <span key={b.label.en} className={`inline-flex items-center px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border ${b.cls}`}>
                   {bi(b.label)}
                 </span>
               ))}
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[6px] text-[0.75rem] font-semibold border bg-primary/10 text-primary border-primary/20">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border bg-primary/10 text-primary border-primary/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 {t("Live", "Ao vivo")}
               </span>
@@ -494,7 +487,7 @@ export function FeedbackShowcase() {
           <ShowcaseCard>
             <div className="flex flex-wrap gap-2">
               {tagVariants.map(tag => (
-                <span key={tag.label} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-[6px] text-[0.75rem] font-medium border ${tag.color}`}>
+                <span key={tag.label} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-sm text-[0.75rem] font-medium border ${tag.color}`}>
                   <span className="opacity-60">#</span>{tag.label}
                 </span>
               ))}
@@ -518,7 +511,7 @@ export function FeedbackShowcase() {
               <Selo size="sm">{t("Section", "Seção")}</Selo>
               <Selo dot={false}>{t("No dot", "Sem ponto")}</Selo>
             </div>
-            <div className="mt-4 rounded-[12px] bg-foreground p-5">
+            <div className="mt-4 rounded-md bg-foreground p-5">
               <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-background/60">{t("On a dark surface", "Sobre superfície escura")}</p>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-white/85"><span aria-hidden className="h-2 w-2 rounded-full bg-primary" />{t("Inverted", "Invertido")}</span>
@@ -530,7 +523,7 @@ export function FeedbackShowcase() {
               <li>• {t("Dot or one icon in the primary color, never both.", "Ponto ou um ícone na cor primária, nunca os dois.")}</li>
               <li>• {t("It is not interactive. For filters use chips; for status use badges or the status chip.", "Não é interativo. Para filtros use chips; para status use badges ou o chip de status.")}</li>
             </ul>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
 <Selo>Moda local em Curitiba</Selo>
 <Selo icon={<MapPin />}>Moda local em Curitiba</Selo>`}</code></pre>
           </ShowcaseCard>
@@ -542,7 +535,7 @@ export function FeedbackShowcase() {
             <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
               {t("From the sections of the studio site's Experience Intelligence 2 page (\"Cenário Atual\", \"O Desafio\", \"Método\"): a filled pill in the light primary tint with a thin primary border and the primary text color, uppercase with wide tracking, no dot. It sits centred above a section title and names the subject of the section. The hero tag stays neutral (card surface, dot); this one is coloured.", "Das seções da página Experience Intelligence 2 do site do estúdio (\"Cenário Atual\", \"O Desafio\", \"Método\"): pílula preenchida com o tom claro da primária, borda fina na primária e texto na cor primária de texto, em caixa alta com espaçamento largo, sem ponto. Fica centralizada acima do título da seção e nomeia o assunto dela. O selo do hero continua neutro (fundo de card, ponto); este é colorido.")}
             </p>
-            <div className="rounded-[16px] border border-border bg-background px-6 py-10 text-center">
+            <div className="rounded-lg border border-border bg-background px-6 py-10 text-center">
               <SeloSecao className="mb-4">{"Para quem procura"}</SeloSecao>
               <h3 className="mx-auto max-w-[32ch] text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{"Encontre peças alinhadas ao seu estilo, tamanho e região."}</h3>
             </div>
@@ -552,7 +545,7 @@ export function FeedbackShowcase() {
               <SeloSecao size="sm">{t("Compact", "Compacto")} · sm</SeloSecao>
               <SeloSecao icon={<Sparkles />}>{t("With icon", "Com ícone")}</SeloSecao>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
 
 <SeloSecao>Cenário atual</SeloSecao>
 <h2>…</h2>`}</code></pre>
@@ -658,7 +651,7 @@ export function FeedbackShowcase() {
                   <span className="text-[0.6875rem] text-muted-foreground">{label}</span>
                 </div>
               ))}
-              <div className="flex flex-wrap items-center gap-4 rounded-[14px] border border-border bg-muted/40 p-4">
+              <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-muted/40 p-4">
                 <AvatarCircles numPeople={120} avatarUrls={DEMO_AVATARS.slice(0, 4)} />
                 <p className="text-[0.8125rem] text-foreground">
                   <span className="font-semibold">{t("124 stores", "124 lojas")}</span>{" "}
@@ -666,7 +659,7 @@ export function FeedbackShowcase() {
                 </p>
               </div>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
 
 <AvatarCircles
   numPeople={99}
@@ -702,7 +695,7 @@ export function FeedbackShowcase() {
                 <h4 className="text-[1rem] font-semibold text-foreground mb-1">{t("No results found", "Nenhum resultado encontrado")}</h4>
                 <p className="text-[0.875rem] text-muted-foreground max-w-[220px]">{t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}</p>
               </div>
-              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] border border-border bg-card hover:bg-accent text-foreground transition-colors">
+              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors">
                 {t("Clear filters", "Limpar filtros")}
               </button>
             </div>
@@ -719,7 +712,7 @@ export function FeedbackShowcase() {
                 <h4 className="text-[1rem] font-semibold text-foreground mb-1">{t("Create your first project", "Crie seu primeiro projeto")}</h4>
                 <p className="text-[0.875rem] text-muted-foreground max-w-[220px]">{t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}</p>
               </div>
-              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] transition-colors">
+              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] transition-colors">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                 {t("New Project", "Novo projeto")}
               </button>

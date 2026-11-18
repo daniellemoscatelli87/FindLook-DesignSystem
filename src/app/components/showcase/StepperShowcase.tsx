@@ -5,15 +5,8 @@ import { Stepper, type StepperEtapa } from "../ui/stepper";
 import { Button } from "../ui/button";
 import { Callout, DataTable, DoDont, display } from "./shared/Guidance";
 import { TokenTable } from "./shared/TokenTable";
+import { SectionHeader } from "./shared/SectionHeader";
 
-function SectionHeader({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="mb-6">
-      <h2 className={`${display} text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1`}>{title}</h2>
-      <p className="text-[0.9375rem] leading-relaxed text-muted-foreground max-w-3xl">{description}</p>
-    </div>
-  );
-}
 
 // Exemplo: cadastro do lojista em 5 etapas (documento "Funcionalidades por perfil", 11/11/2026).
 const CADASTRO: StepperEtapa[] = [
@@ -40,7 +33,7 @@ export function StepperShowcase() {
         />
         <div className="rounded-[20px] border border-border bg-card p-5 md:p-8">
           <Stepper etapas={CADASTRO} atual={atual} onIrPara={setAtual} rotulo="Etapas do cadastro da loja" />
-          <div className="mt-8 rounded-[14px] border border-dashed border-border p-5 text-[0.875rem] text-muted-foreground">
+          <div className="mt-8 rounded-lg border border-dashed border-border p-5 text-[0.875rem] text-muted-foreground">
             {t("Form of the step", "Formulário da etapa")} <strong className="text-foreground">{CADASTRO[atual]!.titulo}</strong>
           </div>
           <div className="mt-5 flex flex-wrap justify-between gap-3">
@@ -112,7 +105,7 @@ export function StepperShowcase() {
             ],
           }]} />
         </div>
-        <pre className="mt-5 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Stepper } from "@/app/components/ui/stepper";
+        <pre className="mt-5 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Stepper } from "@/app/components/ui/stepper";
 
 <Stepper
   rotulo="Etapas do cadastro da loja"

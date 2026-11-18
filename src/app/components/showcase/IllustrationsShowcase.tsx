@@ -3,6 +3,7 @@ import { Download, Check, X } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { DataTable, display } from "./shared/Guidance";
 import { PageHeader } from "./GetStartedShowcase";
+import { SectionHeader } from "./shared/SectionHeader";
 
 /* ══════════════════════════════════════
    MASCOTE & ILUSTRAÇÕES — parte da identidade da marca FindLook
@@ -109,14 +110,6 @@ const expressoes = [
   { nome: "Radiante", uso: "Favoritos, loja seguida, conquista." },
 ];
 
-function SectionHeader({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="mb-6">
-      <h2 className={`${display} text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1`}>{title}</h2>
-      <p className="text-[0.9375rem] leading-relaxed text-muted-foreground max-w-3xl">{description}</p>
-    </div>
-  );
-}
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
@@ -124,7 +117,7 @@ function Label({ children }: { children: React.ReactNode }) {
 
 function Panel({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
   return (
-    <div className={`rounded-[16px] bg-white p-4 sm:p-6 dark:ring-1 dark:ring-white/10 ${className}`}>
+    <div className={`rounded-lg bg-white p-4 sm:p-6 dark:ring-1 dark:ring-white/10 ${className}`}>
       <img src={src} alt={alt} className="mx-auto h-auto w-full" />
     </div>
   );
@@ -161,7 +154,7 @@ function DownloadButton({ url, filename, label }: { url: string; filename: strin
 function EmptyStateMock({ src, alt, mobile = false }: { src: string; alt: string; mobile?: boolean }) {
   const { t } = useI18n();
   return (
-    <div className={mobile ? "mx-auto w-[300px] rounded-[28px] border-[6px] border-[var(--graphite-900)] bg-white p-4 pt-8 shadow-[var(--shadow-md)]" : "rounded-[16px] border border-border bg-white p-8 shadow-[var(--shadow-xs)]"}>
+    <div className={mobile ? "mx-auto w-[300px] rounded-[28px] border-[6px] border-[var(--graphite-900)] bg-white p-4 pt-8 shadow-[var(--shadow-md)]" : "rounded-lg border border-border bg-white p-8 shadow-[var(--shadow-xs)]"}>
       {!mobile && <div className="mb-6 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[var(--graphite-300)]" /><span className="h-2 w-16 rounded-full bg-[var(--graphite-200)]" /><span className="ml-auto h-2 w-10 rounded-full bg-[var(--graphite-200)]" /></div>}
       <div className={`flex flex-col items-center text-center ${mobile ? "gap-3" : "gap-4"}`}>
         <img src={src} alt={alt} className={mobile ? "w-[180px] h-auto" : "w-[300px] h-auto"} />
@@ -183,7 +176,7 @@ function IllustrationCard({ il }: { il: Illustration }) {
   const nomeArquivo = origem.split("/").pop()!.replace(/\.(webp|svg)$/, "");
   const ext = il.arquivoSvg ? "svg" : "webp";
   return (
-    <section id={il.id} className="scroll-mt-32 space-y-6 rounded-[24px] border border-border bg-card p-5 sm:p-8">
+    <section id={il.id} className="scroll-mt-32 space-y-6 rounded-xl border border-border bg-card p-5 sm:p-8">
       <div>
         <Label>{t("Name", "Nome")}</Label>
         <h3 className={`${display} text-[1.375rem] font-semibold tracking-[-0.02em] text-foreground`}>{il.nome}</h3>
@@ -226,7 +219,7 @@ function Bullets({ items }: { items: [string, string][] }) {
   return (
     <ul className="grid gap-3 sm:grid-cols-2">
       {items.map(([a, b]) => (
-        <li key={a} className="rounded-[14px] border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></li>
+        <li key={a} className="rounded-lg border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></li>
       ))}
     </ul>
   );
@@ -290,7 +283,7 @@ export function IllustrationsShowcase() {
               [t("Base shadow", "Sombra da base"), <span key="d" className="font-mono text-[0.75rem]">--graphite-200</span>],
             ]}
           />
-          <div className="rounded-[14px] border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
+          <div className="rounded-lg border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
             <p className="mb-2 font-semibold text-foreground">{t("Download the master sheet", "Baixar a folha de referência")}</p>
             <p className="mb-3">{t("The canonical sheet is the starting point for any new scene: same proportions, same elements, same palette.", "A folha canônica é o ponto de partida de qualquer cena nova: mesmas proporções, mesmos elementos, mesma paleta.")}</p>
             <div className="flex flex-wrap gap-2">
@@ -357,7 +350,7 @@ export function IllustrationsShowcase() {
           [t("Accessibility", "Acessibilidade"), t("Illustrations are never the only way to convey important information; every one has alt text.", "Garantir que as ilustrações não sejam a única forma de transmitir informações importantes; toda ilustração tem texto alternativo.")],
         ]} />
         <div className="mt-6 grid gap-5 md:grid-cols-2">
-          <div className="rounded-[14px] border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
+          <div className="rounded-lg border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
             <Label>{t("Application guidelines", "Diretrizes de aplicação")}</Label>
             <ul className="space-y-2">
               <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span>{t("The mascot may be used in empty states, error pages, onboarding, confirmations and other contextual communications.", "A mascote pode ser utilizada em estados vazios, páginas de erro, onboarding, confirmações e outras comunicações contextuais.")}</span></li>
@@ -365,7 +358,7 @@ export function IllustrationsShowcase() {
               <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span>{t("New scenes start from the official character reference, ensuring aesthetic continuity and brand recognition.", "A criação de novas cenas deve partir da referência visual oficial do personagem, garantindo continuidade estética e reconhecimento da marca.")}</span></li>
             </ul>
           </div>
-          <div className="rounded-[14px] border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
+          <div className="rounded-lg border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
             <Label>{t("Governance", "Governança")}</Label>
             <p>{t("Every new illustration is added to the official library, identified by its usage context and validated for visual consistency, accessibility and fit with the experience.", "Toda nova ilustração deve ser incorporada à biblioteca oficial, identificada pelo contexto de uso e validada quanto à consistência visual, acessibilidade e adequação à experiência.")}</p>
             <p className="mt-3 text-[0.8125rem] text-muted-foreground">{t("In practice: the brand owner supplies the piece; it enters this section with name, context, alt text and rules; the product only uses what is listed here.", "Na prática: a dona da marca fornece a peça; ela entra nesta seção com nome, contexto, texto alternativo e regras; o produto só usa o que está listado aqui.")}</p>
@@ -376,7 +369,7 @@ export function IllustrationsShowcase() {
       {/* ── 7. ATIVOS E NOMENCLATURA ── */}
       <section id="mascote-ativos" className="scroll-mt-32">
         <SectionHeader title={t("Assets and naming", "Ativos e nomenclatura")} description={t("Every file of the library, with its naming rule.", "Todos os arquivos da biblioteca, com a regra de nomes.")} />
-        <div className="mb-5 rounded-[14px] border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
+        <div className="mb-5 rounded-lg border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
           <p className="font-semibold text-foreground">{t("Naming rule", "Regra de nomes")}</p>
           <p className="mt-1"><span className="font-mono text-foreground">findlook-&lt;contexto&gt;-&lt;estado&gt;.webp</span> {t("for scenes (e.g. findlook-favoritos-vazio), and", "para cenas (ex.: findlook-favoritos-vazio), e")} <span className="font-mono text-foreground">nyx-&lt;parte&gt;.webp</span> {t("for the character reference (e.g. nyx-turnaround). Lowercase, no accents, hyphens; scenes and character in WebP (source) and PNG (fallback).", "para a referência do personagem (ex.: nyx-turnaround). Minúsculas, sem acentos, com hífens; cenas e personagem em WebP (origem) e PNG (fallback).")}</p>
         </div>

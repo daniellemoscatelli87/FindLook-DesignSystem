@@ -28,25 +28,18 @@ import { PrototipoDoPainel, PainelEmbutido } from "./PainelTemplates";
 import { Switch } from "../ui/switch";
 import { IconeModa, type NomeIconeModa } from "../ui/fashion-icons";
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
+import { SectionHeader } from "./shared/SectionHeader";
 
 type L = { en: string; pt: string };
 
 /* ─────────────────────────────────────────────
    Shared helpers
 ───────────────────────────────────────────── */
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="mb-10">
-      <h2 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1">{title}</h2>
-      {description && <p className="text-[0.9375rem] text-muted-foreground">{description}</p>}
-    </div>
-  );
-}
 
 function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <div className="h-7 w-7 rounded-[8px] bg-muted flex items-center justify-center">
+      <div className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center">
         <Icon className="h-3.5 w-3.5 text-muted-foreground" />
       </div>
       <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.07em] text-muted-foreground">{label}</span>
@@ -57,9 +50,9 @@ function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: 
 /* Wraps each template in a browser-chrome frame */
 function TemplateFrame({ children, className = "", url = "Painel da loja · FindLook" }: { children: React.ReactNode; className?: string; url?: string }) {
   const embutido = React.useContext(PainelEmbutido);
-  if (embutido) return <div className={`overflow-hidden rounded-[16px] border border-border bg-background ${className}`}>{children}</div>;
+  if (embutido) return <div className={`overflow-hidden rounded-lg border border-border bg-background ${className}`}>{children}</div>;
   return (
-    <div className={`rounded-[16px] border border-border overflow-hidden ${className}`} style={{ boxShadow: "var(--shadow-lg)" }}>
+    <div className={`rounded-lg border border-border overflow-hidden ${className}`} style={{ boxShadow: "var(--shadow-lg)" }}>
       {/* Browser chrome */}
       <div className="h-9 bg-muted/60 border-b border-border flex items-center px-4 gap-2 shrink-0">
         <div className="flex gap-1.5">
@@ -68,7 +61,7 @@ function TemplateFrame({ children, className = "", url = "Painel da loja · Find
           <div className="h-2.5 w-2.5 rounded-full bg-success/50" />
         </div>
         <div className="flex-1 mx-4">
-          <div className="h-5 bg-background/70 rounded-[6px] max-w-[280px] mx-auto flex items-center px-3">
+          <div className="h-5 bg-background/70 rounded-sm max-w-[280px] mx-auto flex items-center px-3">
             <span className="text-[0.625rem] text-muted-foreground/60 truncate">{url}</span>
           </div>
         </div>
@@ -82,7 +75,7 @@ function TemplateFrame({ children, className = "", url = "Painel da loja · Find
    Helpers dos templates FindLook
 ───────────────────────────────────────────── */
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-const campo = "w-full bg-background border border-border rounded-[8px] px-3 py-2 text-[0.8125rem] text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all";
+const campo = "w-full bg-background border border-border rounded-sm px-3 py-2 text-[0.8125rem] text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all";
 const textoMarca = "text-[var(--primary-text,var(--primary))]";
 
 /* Símbolo + wordmark FindLook, com legenda opcional (ex.: nome da loja) */
@@ -155,10 +148,10 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
   const pre = `cfg${uid.replace(/:/g, "")}`;
 
   const linhaSwitch = (id: string, titulo: string, desc: string, marcado: boolean, mudar: (v: boolean) => void, Icon?: React.ElementType, desativado = false) => (
-    <div key={id} className="flex items-center justify-between gap-3 p-3 rounded-[10px] border border-border bg-card">
+    <div key={id} className="flex items-center justify-between gap-3 p-3 rounded-md border border-border bg-card">
       <div className="flex items-start gap-2.5 min-w-0">
         {Icon && (
-          <span className="h-7 w-7 rounded-[8px] bg-muted flex items-center justify-center shrink-0">
+          <span className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center shrink-0">
             <Icon aria-hidden className="h-3.5 w-3.5 text-muted-foreground" />
           </span>
         )}
@@ -194,7 +187,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                   key={item.label}
                   type="button"
                   aria-current={item.active ? "page" : undefined}
-                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-[7px] text-[0.75rem] font-medium mb-0.5 w-full text-left transition-colors ${foco} ${item.active ? `bg-[var(--primary-muted)] ${textoMarca}` : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
+                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-sm text-[0.75rem] font-medium mb-0.5 w-full text-left transition-colors ${foco} ${item.active ? `bg-[var(--primary-muted)] ${textoMarca}` : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
                 >
                   <Icon aria-hidden className="h-3.5 w-3.5 shrink-0" />
                   {item.label}
@@ -287,7 +280,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                   <p role="status" className="text-[0.6875rem] text-muted-foreground flex items-center gap-1.5">
                     {salvo && <><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> Alterações salvas. A vitrine já mostra as novas informações.</>}
                   </p>
-                  <button type="submit" className={`h-8 px-4 rounded-[8px] bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity ${foco}`}>
+                  <button type="submit" className={`h-8 px-4 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity ${foco}`}>
                     Salvar alterações
                   </button>
                 </div>
@@ -333,7 +326,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                           const newDark = th.id === "dark";
                           document.documentElement.classList.toggle("dark", newDark);
                         }}
-                        className={`p-3 rounded-[10px] border-2 flex flex-col items-center gap-2 transition-all ${foco}
+                        className={`p-3 rounded-md border-2 flex flex-col items-center gap-2 transition-all ${foco}
                           ${th.active ? "border-primary bg-[var(--primary-muted)]" : "border-border bg-card"}`}
                       >
                         <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
@@ -350,14 +343,14 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
               <div className="space-y-5 max-w-lg">
                 <section aria-labelledby={`${pre}-t-plano`} className="space-y-2.5">
                   <h2 id={`${pre}-t-plano`} className="text-[0.8125rem] font-semibold text-foreground">Plano</h2>
-                  <div className="p-3 rounded-[10px] border border-primary/30 bg-[var(--primary-muted)] flex items-center justify-between gap-3">
+                  <div className="p-3 rounded-md border border-primary/30 bg-[var(--primary-muted)] flex items-center justify-between gap-3">
                     <div>
                       <div className="text-[0.8125rem] font-semibold text-foreground flex items-center gap-1.5">
                         <Zap aria-hidden className={`h-3.5 w-3.5 ${textoMarca}`} /> Plano Desempenho
                       </div>
                       <div className="text-[0.6875rem] text-muted-foreground">R$ 149,00 por mês · renova em 1º de dez. de 2026</div>
                     </div>
-                    <button type="button" className={`h-7 px-3 rounded-[7px] border border-border bg-card text-[0.6875rem] font-medium text-foreground hover:bg-accent shrink-0 ${foco}`}>Ver planos</button>
+                    <button type="button" className={`h-7 px-3 rounded-sm border border-border bg-card text-[0.6875rem] font-medium text-foreground hover:bg-accent shrink-0 ${foco}`}>Ver planos</button>
                   </div>
                 </section>
 
@@ -365,7 +358,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                   <h2 id={`${pre}-t-priv`} className="text-[0.8125rem] font-semibold text-foreground">Privacidade da vitrine</h2>
                   {linhaSwitch("mostrar-whats", "Mostrar o WhatsApp na vitrine", "Quem encontra suas peças pode chamar a loja direto.", privacidade.whatsapp, v => setPrivacidade(p => ({ ...p, whatsapp: v })), MessageCircle)}
                   {linhaSwitch("mostrar-end", "Mostrar o endereço completo", "Desligado, a vitrine mostra só o bairro.", privacidade.endereco, v => setPrivacidade(p => ({ ...p, endereco: v })), MapPin)}
-                  <div className="flex items-start gap-2.5 p-3 rounded-[10px] bg-muted">
+                  <div className="flex items-start gap-2.5 p-3 rounded-md bg-muted">
                     <ShieldCheck aria-hidden className="h-4 w-4 text-success shrink-0 mt-0.5" />
                     <p className="text-[0.6875rem] text-muted-foreground leading-snug">
                       Os avisos mostram o que as pessoas fizeram, sem nome nem contato. Você só recebe os dados de alguém quando a pessoa escolhe falar com a loja.
@@ -375,7 +368,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
 
                 <section aria-labelledby={`${pre}-t-vitrine`} className="space-y-2.5">
                   <h2 id={`${pre}-t-vitrine`} className="text-[0.8125rem] font-semibold text-foreground">Vitrine e acesso</h2>
-                  <div className="p-3 rounded-[10px] border border-border bg-card flex flex-wrap items-center justify-between gap-3">
+                  <div className="p-3 rounded-md border border-border bg-card flex flex-wrap items-center justify-between gap-3">
                     <div className="min-w-0">
                       <div className="text-[0.8125rem] font-medium text-foreground">{vitrinePausada ? "Vitrine pausada" : "Vitrine no ar"}</div>
                       <p role="status" className="text-[0.6875rem] text-muted-foreground">
@@ -385,7 +378,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                     <button
                       type="button"
                       onClick={() => setVitrinePausada(v => !v)}
-                      className={`h-7 px-3 rounded-[7px] border border-border bg-card text-[0.6875rem] font-medium text-foreground hover:bg-accent shrink-0 ${foco}`}
+                      className={`h-7 px-3 rounded-sm border border-border bg-card text-[0.6875rem] font-medium text-foreground hover:bg-accent shrink-0 ${foco}`}
                     >
                       {vitrinePausada ? "Reativar vitrine" : "Pausar vitrine"}
                     </button>
@@ -446,14 +439,14 @@ function AuthTemplate() {
         <div className="flex-1 flex items-center justify-center p-6 sm:p-8">
           <div className="w-full max-w-[300px]">
             <div className="md:hidden mb-5"><MarcaFindLook legenda="Painel da loja" /></div>
-            <div className="flex rounded-[10px] border border-border bg-muted/40 p-0.5 mb-6" role="group" aria-label="Escolha uma opção">
+            <div className="flex rounded-md border border-border bg-muted/40 p-0.5 mb-6" role="group" aria-label="Escolha uma opção">
               {(["entrar", "criar"] as const).map(tb => (
                 <button
                   key={tb}
                   type="button"
                   aria-pressed={tab === tb}
                   onClick={() => trocar(tb)}
-                  className={`flex-1 py-1.5 rounded-[8px] text-[0.75rem] font-semibold transition-all ${foco}
+                  className={`flex-1 py-1.5 rounded-sm text-[0.75rem] font-semibold transition-all ${foco}
                     ${tab === tb ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
                 >
                   {tb === "entrar" ? "Entrar" : "Criar conta"}
@@ -472,7 +465,7 @@ function AuthTemplate() {
                     ? "Abrindo o painel do Ateliê Aurora."
                     : "Enviamos um e-mail para confirmar o endereço. Depois é só cadastrar as primeiras peças."}
                 </p>
-                <button type="button" onClick={() => setEnviado(false)} className={`h-8 px-4 rounded-[8px] border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>
+                <button type="button" onClick={() => setEnviado(false)} className={`h-8 px-4 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>
                   Voltar
                 </button>
               </div>
@@ -535,7 +528,7 @@ function AuthTemplate() {
                         onClick={() => setShowPass(v => !v)}
                         aria-label={showPass ? "Ocultar senha" : "Mostrar senha"}
                         aria-pressed={showPass}
-                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 h-6 w-6 rounded-[6px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors ${foco}`}
+                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors ${foco}`}
                       >
                         {showPass ? <EyeOff aria-hidden className="h-3.5 w-3.5" /> : <Eye aria-hidden className="h-3.5 w-3.5" />}
                       </button>
@@ -552,7 +545,7 @@ function AuthTemplate() {
                     </div>
                   )}
 
-                  <button type="submit" className={`w-full h-9 rounded-[8px] bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 mt-1 ${foco}`}>
+                  <button type="submit" className={`w-full h-9 rounded-sm bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 mt-1 ${foco}`}>
                     {entrar ? <LogIn aria-hidden className="h-3.5 w-3.5" /> : <Store aria-hidden className="h-3.5 w-3.5" />}
                     {entrar ? "Entrar" : "Cadastrar minha loja"}
                   </button>
@@ -644,7 +637,7 @@ function TeamTemplate() {
             aria-expanded={convidando}
             aria-controls={`${pre}-convite`}
             onClick={() => setConvidando(v => !v)}
-            className={`h-8 px-3 rounded-[8px] bg-primary text-primary-foreground text-[0.75rem] font-semibold flex items-center gap-1.5 hover:opacity-90 transition-opacity ${foco}`}
+            className={`h-8 px-3 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold flex items-center gap-1.5 hover:opacity-90 transition-opacity ${foco}`}
           >
             <UserPlus aria-hidden className="h-3.5 w-3.5" /> Convidar pessoa
           </button>
@@ -659,8 +652,8 @@ function TeamTemplate() {
                 <input id={`${pre}-email`} type="email" required autoComplete="off" value={emailConvite} onChange={e => setEmailConvite(e.target.value)} placeholder="nome@email.com" className={campo} />
               </div>
               <div className="flex gap-2">
-                <button type="button" onClick={() => setConvidando(false)} className={`h-9 px-3 rounded-[8px] border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
-                <button type="submit" className={`h-9 px-3 rounded-[8px] bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 flex items-center gap-1.5 ${foco}`}>
+                <button type="button" onClick={() => setConvidando(false)} className={`h-9 px-3 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
+                <button type="submit" className={`h-9 px-3 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 flex items-center gap-1.5 ${foco}`}>
                   <Send aria-hidden className="h-3.5 w-3.5" /> Enviar convite
                 </button>
               </div>
@@ -669,7 +662,7 @@ function TeamTemplate() {
               <legend className="text-[0.75rem] font-medium text-foreground mb-1.5">O que essa pessoa pode fazer</legend>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {(["atendente", "estoquista"] as const).map(p => (
-                  <label key={p} className={`flex items-start gap-2 p-2.5 rounded-[10px] border cursor-pointer bg-card transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring ${papelConvite === p ? "border-primary" : "border-border"}`}>
+                  <label key={p} className={`flex items-start gap-2 p-2.5 rounded-md border cursor-pointer bg-card transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring ${papelConvite === p ? "border-primary" : "border-border"}`}>
                     <input type="radio" name={`${pre}-papel`} value={p} checked={papelConvite === p} onChange={() => setPapelConvite(p)} className="mt-0.5 accent-[var(--primary)]" />
                     <span>
                       <span className="block text-[0.75rem] font-semibold text-foreground">{papeis[p].rotulo}</span>
@@ -711,9 +704,9 @@ function TeamTemplate() {
 
         <p role="status" className="sr-only">{aviso}</p>
         {aviso && (
-          <div className="mx-4 sm:mx-6 mt-3 flex items-center justify-between gap-2 rounded-[10px] border border-success/30 bg-[var(--success-muted)] px-3 py-2 text-[0.75rem] text-foreground shrink-0">
+          <div className="mx-4 sm:mx-6 mt-3 flex items-center justify-between gap-2 rounded-md border border-success/30 bg-[var(--success-muted)] px-3 py-2 text-[0.75rem] text-foreground shrink-0">
             <span className="flex items-center gap-2"><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> {aviso}</span>
-            <button type="button" onClick={() => setAviso("")} aria-label="Fechar aviso" className={`h-6 w-6 rounded-[6px] flex items-center justify-center text-muted-foreground hover:bg-accent ${foco}`}><X aria-hidden className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => setAviso("")} aria-label="Fechar aviso" className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent ${foco}`}><X aria-hidden className="h-3.5 w-3.5" /></button>
           </div>
         )}
 
@@ -776,11 +769,11 @@ function TeamTemplate() {
                       ) : removendo === m.email ? (
                         <div className="flex items-center gap-1.5 justify-end">
                           <span className="text-[0.6875rem] text-foreground whitespace-nowrap">Remover acesso?</span>
-                          <button type="button" autoFocus onClick={() => setRemovendo(null)} className={`h-6 px-2 rounded-[6px] border border-border bg-card text-[0.6875rem] text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
+                          <button type="button" autoFocus onClick={() => setRemovendo(null)} className={`h-6 px-2 rounded-sm border border-border bg-card text-[0.6875rem] text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
                           <button
                             type="button"
                             onClick={() => { setPessoas(prev => prev.filter(p => p.email !== m.email)); setRemovendo(null); setAviso(`${m.nome} não tem mais acesso ao painel.`); }}
-                            className={`h-6 px-2 rounded-[6px] bg-error text-[var(--error-foreground)] text-[0.6875rem] font-semibold hover:opacity-90 ${foco}`}
+                            className={`h-6 px-2 rounded-sm bg-error text-[var(--error-foreground)] text-[0.6875rem] font-semibold hover:opacity-90 ${foco}`}
                           >
                             Remover
                           </button>
@@ -791,7 +784,7 @@ function TeamTemplate() {
                             type="button"
                             onClick={() => setEditando(editando === m.email ? null : m.email)}
                             aria-label={editando === m.email ? `Concluir edição do papel de ${m.nome}` : `Mudar papel de ${m.nome}`}
-                            className={`h-6 w-6 rounded-[6px] flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors ${foco}`}
+                            className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors ${foco}`}
                           >
                             {editando === m.email ? <Check aria-hidden className="h-3 w-3" /> : <Edit2 aria-hidden className="h-3 w-3" />}
                           </button>
@@ -799,7 +792,7 @@ function TeamTemplate() {
                             type="button"
                             onClick={() => setRemovendo(m.email)}
                             aria-label={`Remover acesso de ${m.nome}`}
-                            className={`h-6 w-6 rounded-[6px] flex items-center justify-center text-muted-foreground hover:bg-[var(--error-muted)] hover:text-error transition-colors ${foco}`}
+                            className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-[var(--error-muted)] hover:text-error transition-colors ${foco}`}
                           >
                             <Trash2 aria-hidden className="h-3 w-3" />
                           </button>
@@ -887,7 +880,7 @@ function InboxTemplate() {
                 disabled={unread === 0}
                 onClick={() => setItems(prev => prev.map(n => ({ ...n, lida: true })))}
                 aria-label="Marcar todas como lidas"
-                className={`h-6 px-2 rounded-[6px] flex items-center gap-1 whitespace-nowrap text-[0.625rem] font-medium text-muted-foreground hover:bg-accent hover:text-foreground disabled:opacity-50 disabled:pointer-events-none ${foco}`}
+                className={`h-6 px-2 rounded-sm flex items-center gap-1 whitespace-nowrap text-[0.625rem] font-medium text-muted-foreground hover:bg-accent hover:text-foreground disabled:opacity-50 disabled:pointer-events-none ${foco}`}
               >
                 <CheckCheck aria-hidden className="h-3 w-3" /> Marcar todas
               </button>
@@ -919,7 +912,7 @@ function InboxTemplate() {
                     className={`w-full text-left px-4 py-3 border-b border-border transition-colors flex gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring
                       ${selected === n.id ? "bg-[var(--primary-muted)] border-l-2 border-l-primary" : "hover:bg-muted/40 border-l-2 border-l-transparent"}`}
                   >
-                    <div className={`h-7 w-7 rounded-[8px] flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
+                    <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-3.5 w-3.5" />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -962,7 +955,7 @@ function InboxTemplate() {
                 </button>
                 <div className="flex items-start justify-between gap-3 mb-5">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className={`h-10 w-10 rounded-[12px] flex items-center justify-center shrink-0 ${tipo.cor}`}>
+                    <div className={`h-10 w-10 rounded-md flex items-center justify-center shrink-0 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">
@@ -974,7 +967,7 @@ function InboxTemplate() {
                     type="button"
                     onClick={() => { setSelected(null); setDetalheMobile(false); }}
                     aria-label="Fechar notificação"
-                    className={`h-7 w-7 rounded-[8px] flex items-center justify-center text-muted-foreground hover:bg-accent transition-colors shrink-0 ${foco}`}
+                    className={`h-7 w-7 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent transition-colors shrink-0 ${foco}`}
                   >
                     <X aria-hidden className="h-4 w-4" />
                   </button>
@@ -985,13 +978,13 @@ function InboxTemplate() {
                   A FindLook mostra o que aconteceu sem nome nem contato de quem fez a busca ou salvou a peça.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" className={`h-8 px-4 rounded-[8px] bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity ${foco}`}>
+                  <button type="button" className={`h-8 px-4 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity ${foco}`}>
                     {atual.acao}
                   </button>
                   <button
                     type="button"
                     onClick={() => marcar(atual.id, !atual.lida)}
-                    className={`h-8 px-4 rounded-[8px] border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors inline-flex items-center gap-1.5 ${foco}`}
+                    className={`h-8 px-4 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors inline-flex items-center gap-1.5 ${foco}`}
                   >
                     {atual.lida ? <><Mail aria-hidden className="h-3.5 w-3.5" /> Marcar como não lida</> : <><MailOpen aria-hidden className="h-3.5 w-3.5" /> Marcar como lida</>}
                   </button>
@@ -1169,7 +1162,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
 
                 {/* "Para quem": no máximo 4 linhas, sem reticências; altura de 4 linhas em todos os cards (só cresce, em vez de vazar, quando o card fica estreito demais). No escuro, caixa neutra e só a lâmpada em amarelo */}
                 {forWhom && (
-                <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-[12px] border border-warning/30 bg-[var(--warning-muted)] dark:border-border dark:bg-muted px-2.5 sm:px-3 py-2.5">
+                <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-md border border-warning/30 bg-[var(--warning-muted)] dark:border-border dark:bg-muted px-2.5 sm:px-3 py-2.5">
                   <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
                   <p className="min-h-[5.5em] text-[0.8125rem] leading-snug text-foreground">
                     <strong className="font-bold">{t("Who it's for:", "Para quem:")}</strong> {forWhom}
@@ -1183,7 +1176,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
                   aria-expanded={recursosAbertos}
                   aria-controls={idLista}
                   onClick={() => setRecursosAbertos(v => !v)}
-                  className="mb-3 -mx-1 flex items-center justify-between gap-2 rounded-[8px] px-1 py-1.5 text-left text-[0.8125rem] font-semibold text-foreground transition-colors hover:text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="mb-3 -mx-1 flex items-center justify-between gap-2 rounded-sm px-1 py-1.5 text-left text-[0.8125rem] font-semibold text-foreground transition-colors hover:text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <span>{recursosAbertos ? t("Hide plan features", "Ocultar recursos do plano") : t("Show plan features", "Ver recursos do plano")}</span>
                   <span className="flex items-center gap-1.5 text-[0.75rem] font-medium text-muted-foreground whitespace-nowrap">
@@ -1230,7 +1223,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
                       ? `${t("Plan selected", "Plano selecionado")}: ${bi(plan.name)}`
                       : `${t("Select Plan", "Selecionar Plano")} ${bi(plan.name)}`}
                     onClick={() => setSelecionado(plan.id)}
-                    className={`h-10 w-full @[19rem]:w-auto px-4 rounded-[10px] border border-primary text-[0.8125rem] font-semibold whitespace-nowrap transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                    className={`h-10 w-full @[19rem]:w-auto px-4 rounded-md border border-primary text-[0.8125rem] font-semibold whitespace-nowrap transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                       ${ativo
                         ? "bg-primary text-primary-foreground"
                         : "bg-card text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)]"}`}
@@ -1296,7 +1289,7 @@ function ContactTemplate() {
           <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-info/6 blur-3xl pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="h-10 w-10 rounded-[12px] bg-[var(--primary-muted)] flex items-center justify-center mb-4">
+            <div className="h-10 w-10 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-4">
               <LifeBuoy aria-hidden className={`h-5 w-5 ${textoMarca}`} />
             </div>
             <h2 className="text-[1rem] font-bold text-foreground mb-1">Fale com o suporte da FindLook</h2>
@@ -1309,8 +1302,8 @@ function ContactTemplate() {
             {canaisSuporte.map(ch => {
               const Icon = ch.icon;
               return (
-                <li key={ch.rotulo} className="flex items-start gap-3 p-3 rounded-[10px] border border-border bg-background/60">
-                  <div className={`h-8 w-8 rounded-[8px] flex items-center justify-center shrink-0 ${ch.cor}`}>
+                <li key={ch.rotulo} className="flex items-start gap-3 p-3 rounded-md border border-border bg-background/60">
+                  <div className={`h-8 w-8 rounded-sm flex items-center justify-center shrink-0 ${ch.cor}`}>
                     <Icon aria-hidden className="h-4 w-4" />
                   </div>
                   <div className="min-w-0">
@@ -1352,7 +1345,7 @@ function ContactTemplate() {
               <button
                 type="button"
                 onClick={() => setSent(false)}
-                className={`h-9 px-5 rounded-[10px] border border-border bg-card text-[0.875rem] font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
+                className={`h-9 px-5 rounded-md border border-border bg-card text-[0.875rem] font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
               >
                 Enviar outra mensagem
               </button>
@@ -1433,7 +1426,7 @@ function ContactTemplate() {
 
               <button
                 type="submit"
-                className={`w-full h-10 rounded-[10px] bg-primary text-primary-foreground text-[0.875rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 ${foco}`}
+                className={`w-full h-10 rounded-md bg-primary text-primary-foreground text-[0.875rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 ${foco}`}
               >
                 <Send aria-hidden className="h-4 w-4" />
                 Enviar mensagem
@@ -1664,8 +1657,8 @@ function LandingTemplate() {
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <button type="button" className={`h-7 px-3 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-[7px] ${foco}`}>Entrar</button>
-            <button type="button" className={`h-7 px-3 rounded-[7px] bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap ${foco}`}>
+            <button type="button" className={`h-7 px-3 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>Entrar</button>
+            <button type="button" className={`h-7 px-3 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap ${foco}`}>
               Cadastrar minha loja
             </button>
           </div>
@@ -1690,7 +1683,7 @@ function LandingTemplate() {
             </p>
             <div className="flex items-center justify-center gap-3 mb-5">
               {subscribed ? (
-                <div role="status" className="flex items-center gap-2 px-4 py-2 rounded-[10px] bg-[var(--success-muted)] border border-success/30 text-foreground text-[0.8125rem] font-medium">
+                <div role="status" className="flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--success-muted)] border border-success/30 text-foreground text-[0.8125rem] font-medium">
                   <CheckCircle aria-hidden className="h-4 w-4 text-success" /> Pronto! Enviamos para o seu e-mail um link para continuar o cadastro.
                 </div>
               ) : (
@@ -1699,9 +1692,9 @@ function LandingTemplate() {
                     <label htmlFor={`${pre}-hero-email`} className="sr-only">E-mail da loja</label>
                     <Mail aria-hidden className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <input id={`${pre}-hero-email`} type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail da loja"
-                      className={`${campo} bg-card rounded-[9px] pl-9 py-2.5`} />
+                      className={`${campo} bg-card rounded-sm pl-9 py-2.5`} />
                   </div>
-                  <button type="submit" className={`h-10 px-4 rounded-[9px] bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap flex items-center justify-center gap-1.5 ${foco}`}>
+                  <button type="submit" className={`h-10 px-4 rounded-sm bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap flex items-center justify-center gap-1.5 ${foco}`}>
                     <Store aria-hidden className="h-3.5 w-3.5" /> Cadastrar minha loja
                   </button>
                 </form>
@@ -1734,7 +1727,7 @@ function LandingTemplate() {
             <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Tudo o que a sua loja precisa, em um só lugar</h2>
             <p className="text-[0.75rem] text-muted-foreground mt-1">Exemplo ilustrativo com dados fictícios.</p>
           </div>
-          <div className="max-w-2xl mx-auto rounded-[16px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xl)" }}>
+          <div className="max-w-2xl mx-auto rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xl)" }}>
             <div className="h-8 bg-muted/60 border-b border-border flex items-center px-4 gap-2 shrink-0" aria-hidden>
               <div className="flex gap-1.5"><div className="h-2 w-2 rounded-full bg-primary/50" /><div className="h-2 w-2 rounded-full bg-warning/50" /><div className="h-2 w-2 rounded-full bg-success/50" /></div>
               <div className="flex-1 mx-6"><div className="h-4 bg-background/60 rounded-[4px] max-w-[200px] mx-auto flex items-center px-2"><span className="text-[0.5rem] text-muted-foreground/70">Painel da loja · FindLook</span></div></div>
@@ -1748,7 +1741,7 @@ function LandingTemplate() {
                   { label: "Contatos",                value: "41",    delta: "+5%"  },
                   { label: "Buscas compatíveis",      value: "318",   delta: "+9%"  },
                 ].map(k => (
-                  <div key={k.label} className="rounded-[9px] border border-border bg-background p-2.5">
+                  <div key={k.label} className="rounded-sm border border-border bg-background p-2.5">
                     <div className="text-[0.5625rem] text-muted-foreground mb-1">{k.label}</div>
                     <div className="text-[0.9375rem] font-black text-foreground leading-none">{k.value}</div>
                     <div className="text-[0.5625rem] flex items-center gap-0.5 mt-1 font-medium text-muted-foreground">
@@ -1759,7 +1752,7 @@ function LandingTemplate() {
                 ))}
               </div>
               {/* Gráfico */}
-              <div className="rounded-[9px] border border-border bg-background p-3 mb-3">
+              <div className="rounded-sm border border-border bg-background p-3 mb-3">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[0.625rem] font-semibold text-foreground">Visualizações das peças — últimos 12 meses</span>
                   <span className="text-[0.5625rem] px-1.5 py-0.5 rounded-full bg-[var(--success-muted)] text-foreground font-semibold">+12%</span>
@@ -1781,7 +1774,7 @@ function LandingTemplate() {
                 </div>
               </div>
               {/* Peças mais vistas */}
-              <div className="rounded-[9px] border border-border bg-background overflow-hidden">
+              <div className="rounded-sm border border-border bg-background overflow-hidden">
                 <div className="px-3 py-1.5 border-b border-border text-[0.625rem] font-semibold text-foreground">Peças mais vistas</div>
                 <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 border-b border-border bg-muted/40 px-3 py-1.5">
                   {["Peça", "Categoria", "Visualizações", "Situação"].map(h => (
@@ -1813,9 +1806,9 @@ function LandingTemplate() {
             <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Feito para lojas de rua, ateliês e brechós</h2>
           </div>
           <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="sm:col-span-2 rounded-[14px] border border-border bg-card p-5 relative overflow-hidden">
+            <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary/8 blur-2xl pointer-events-none" />
-              <div className="h-8 w-8 rounded-[10px] bg-[var(--primary-muted)] flex items-center justify-center mb-3">
+              <div className="h-8 w-8 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-3">
                 <Search aria-hidden className={`h-4 w-4 ${textoMarca}`} />
               </div>
               <h3 className="text-[0.875rem] font-bold text-foreground mb-1">Apareça na busca certa</h3>
@@ -1826,23 +1819,23 @@ function LandingTemplate() {
                 ))}
               </div>
             </div>
-            <div className="rounded-[14px] border border-border bg-card p-4 flex flex-col justify-between">
+            <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between">
               <MessageCircle aria-hidden className="h-5 w-5 text-success mb-2" />
               <div>
                 <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Contato direto</h3>
                 <p className="text-[0.6875rem] text-muted-foreground">A pessoa chama a loja no WhatsApp. A venda é sua.</p>
               </div>
             </div>
-            <div className="rounded-[14px] border border-border bg-card p-4 flex flex-col justify-between">
+            <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between">
               <FileSpreadsheet aria-hidden className="h-5 w-5 text-info mb-2" />
               <div>
                 <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Planilha ou uma a uma</h3>
                 <p className="text-[0.6875rem] text-muted-foreground">Cadastre peças pelo painel ou importe várias de uma vez.</p>
               </div>
             </div>
-            <div className="sm:col-span-2 rounded-[14px] border border-border bg-card p-5 relative overflow-hidden">
+            <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-info/6 blur-2xl pointer-events-none" />
-              <div className="h-8 w-8 rounded-[10px] bg-[var(--info-muted)] flex items-center justify-center mb-3">
+              <div className="h-8 w-8 rounded-md bg-[var(--info-muted)] flex items-center justify-center mb-3">
                 <BarChart aria-hidden className="h-4 w-4 text-info" />
               </div>
               <h3 className="text-[0.875rem] font-bold text-foreground mb-1">Entenda o interesse pelas suas peças</h3>
@@ -1868,7 +1861,7 @@ function LandingTemplate() {
                 <span className="flex items-center gap-1"><span aria-hidden className="h-2 w-2 rounded-full bg-primary inline-block" />Buscas compatíveis com as suas peças (exemplo)</span>
               </div>
             </div>
-            <div className="rounded-[14px] border border-border bg-card p-5">
+            <div className="rounded-lg border border-border bg-card p-5">
               <div className="h-[130px]" role="img" aria-label="Gráfico de barras: buscas compatíveis com as peças da loja, de janeiro a dezembro, em crescimento">
                 <ResponsiveContainer width="100%" height="100%">
                   <ReBarChart data={interesseMensal} margin={{ top: 4, right: 0, left: -20, bottom: 0 }} barGap={3}>
@@ -1918,7 +1911,7 @@ function LandingTemplate() {
           {/* Celular: um card por plano, um embaixo do outro (card nunca tem rolagem horizontal). */}
           <ul className="sm:hidden max-w-md mx-auto space-y-3" aria-label="Planos">
             {plans.map(p => (
-              <li key={p.id} className={`rounded-[14px] border p-4 ${p.highlight ? "border-primary/40 bg-[var(--primary-muted)]" : "border-border bg-card"}`} style={{ boxShadow: "var(--shadow-sm)" }}>
+              <li key={p.id} className={`rounded-lg border p-4 ${p.highlight ? "border-primary/40 bg-[var(--primary-muted)]" : "border-border bg-card"}`} style={{ boxShadow: "var(--shadow-sm)" }}>
                 {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-muted-foreground">Recomendado</span>}
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className={`text-[0.9375rem] font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</h3>
@@ -1938,7 +1931,7 @@ function LandingTemplate() {
                 <button
                   type="button"
                   aria-label={`Escolher o plano ${p.name.pt}`}
-                  className={`mt-4 h-9 w-full rounded-[9px] text-[0.75rem] font-semibold transition-colors ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
+                  className={`mt-4 h-9 w-full rounded-sm text-[0.75rem] font-semibold transition-colors ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
                 >
                   Escolher
                 </button>
@@ -1946,7 +1939,7 @@ function LandingTemplate() {
             ))}
           </ul>
           {/* Do tablet em diante: tabela comparativa, que cabe na largura (sem rolagem horizontal). */}
-          <div className="relative hidden sm:block max-w-2xl mx-auto rounded-[14px] border border-border overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+          <div className="relative hidden sm:block max-w-2xl mx-auto rounded-lg border border-border overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
             <table className="w-full border-collapse">
               <caption className="sr-only">Comparativo dos planos Visibilidade, Desempenho e Oportunidades</caption>
               <thead>
@@ -1987,7 +1980,7 @@ function LandingTemplate() {
                       <button
                         type="button"
                         aria-label={`Escolher o plano ${p.name.pt}`}
-                        className={`h-7 px-3 rounded-[7px] text-[0.6875rem] font-semibold transition-colors whitespace-nowrap ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
+                        className={`h-7 px-3 rounded-sm text-[0.6875rem] font-semibold transition-colors whitespace-nowrap ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
                       >
                         Escolher
                       </button>
@@ -2009,7 +2002,7 @@ function LandingTemplate() {
           <div className="max-w-2xl mx-auto" role="region" aria-roledescription="carrossel" aria-label="Depoimentos de lojas">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4" aria-live="polite">
               {visibleTestimonials.map((tm, i) => (
-                <figure key={`${tm.pessoa}-${slide}-${i}`} className={`p-4 rounded-[12px] border border-border bg-card flex flex-col ${i > 0 ? "hidden sm:flex" : ""}`}>
+                <figure key={`${tm.pessoa}-${slide}-${i}`} className={`p-4 rounded-md border border-border bg-card flex flex-col ${i > 0 ? "hidden sm:flex" : ""}`}>
                   <Store aria-hidden className="h-3.5 w-3.5 text-muted-foreground mb-3" />
                   <blockquote className="text-[0.75rem] text-muted-foreground leading-snug mb-4 italic">“{tm.texto}”</blockquote>
                   <figcaption className="flex items-center gap-2.5 mt-auto">
@@ -2057,7 +2050,7 @@ function LandingTemplate() {
             {duvidasLanding.map((item, i) => {
               const aberto = openFaq === i;
               return (
-                <div key={item.q} className="rounded-[12px] border border-border bg-card overflow-hidden">
+                <div key={item.q} className="rounded-md border border-border bg-card overflow-hidden">
                   <h3>
                     <button
                       type="button"
@@ -2113,9 +2106,9 @@ function LandingTemplate() {
                 const Icon = ch.icon;
                 return (
                   <li key={ch.label}>
-                    <button type="button" className={`group w-full text-left relative rounded-[14px] border border-border bg-card p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`}>
+                    <button type="button" className={`group w-full text-left relative rounded-lg border border-border bg-card p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`}>
                       <div className="flex items-start justify-between w-full">
-                        <div className={`h-9 w-9 rounded-[10px] flex items-center justify-center ${ch.iconBg}`}>
+                        <div className={`h-9 w-9 rounded-md flex items-center justify-center ${ch.iconBg}`}>
                           <Icon aria-hidden style={{ height: 18, width: 18 }} />
                         </div>
                         <span className="text-[0.5625rem] font-bold px-1.5 py-0.5 rounded-full border border-border bg-muted text-foreground">{ch.badge}</span>
@@ -2164,19 +2157,19 @@ function LandingTemplate() {
                     );
                   })}
                 </ul>
-                <div className="rounded-[12px] border border-border bg-card p-3.5">
+                <div className="rounded-md border border-border bg-card p-3.5">
                   <p className="text-[0.75rem] font-semibold text-foreground mb-0.5">Já tem conta?</p>
                   <p className="text-[0.6875rem] text-muted-foreground mb-2.5">Entre no painel para atualizar peças e ver os avisos da loja.</p>
-                  <button type="button" className={`h-7 px-3 rounded-[7px] border border-border bg-background text-[0.6875rem] font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1.5 ${foco}`}>
+                  <button type="button" className={`h-7 px-3 rounded-sm border border-border bg-background text-[0.6875rem] font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1.5 ${foco}`}>
                     <LogIn aria-hidden className="h-3 w-3" /> Entrar no painel
                   </button>
                 </div>
               </div>
 
               {/* Formulário */}
-              <div className="rounded-[16px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+              <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
                 <div className="px-5 py-4 border-b border-border bg-muted/30 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-[9px] bg-[var(--primary-muted)] flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-sm bg-[var(--primary-muted)] flex items-center justify-center">
                     <Send aria-hidden className={`h-4 w-4 ${textoMarca}`} />
                   </div>
                   <div>
@@ -2200,7 +2193,7 @@ function LandingTemplate() {
                       <button
                         type="button"
                         onClick={() => setContactSent(false)}
-                        className={`mt-1 h-8 px-4 rounded-[8px] border border-border bg-muted text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
+                        className={`mt-1 h-8 px-4 rounded-sm border border-border bg-muted text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
                       >
                         Enviar outra mensagem
                       </button>
@@ -2282,7 +2275,7 @@ function LandingTemplate() {
                           </label>
                         </div>
                         <button type="submit"
-                          className={`shrink-0 h-8 px-4 rounded-[8px] bg-primary text-primary-foreground text-[0.75rem] font-bold hover:opacity-90 transition-opacity flex items-center gap-1.5 whitespace-nowrap ${foco}`}>
+                          className={`shrink-0 h-8 px-4 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-bold hover:opacity-90 transition-opacity flex items-center gap-1.5 whitespace-nowrap ${foco}`}>
                           <Send aria-hidden className="h-3 w-3" /> Enviar
                         </button>
                       </div>
