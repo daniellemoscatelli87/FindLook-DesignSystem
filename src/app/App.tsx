@@ -38,6 +38,7 @@ import { StepperShowcase } from "./components/showcase/StepperShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
+import { Toaster } from "./components/ui/sonner";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -1124,6 +1125,7 @@ export default function App() {
   return (
     <I18nProvider>
       <AppShell />
+      <Toaster />
     </I18nProvider>
   );
 }

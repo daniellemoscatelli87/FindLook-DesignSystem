@@ -18,6 +18,8 @@ import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components
 import { IconeModa } from "@/app/components/ui/fashion-icons";
 import { SectionHeader } from "./shared/SectionHeader";
 import { VejaEm } from "./shared/VejaEm";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 type Bi = { en: string; pt: string };
 type TFn = (en: string, pt: string) => string;
@@ -98,10 +100,10 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
 
 /* ── Toast ── */
 const toastTypes = [
-  { label: { en: "Success", pt: "Sucesso" }, icon: CheckCircle, color: "text-success", bg: "bg-card", msg: { en: "Report exported successfully!", pt: "Relatório exportado com sucesso!" } },
-  { label: { en: "Error", pt: "Erro" },   icon: AlertCircle, color: "text-primary", bg: "bg-card", msg: { en: "Failed to connect to server.", pt: "Falha ao conectar ao servidor." } },
-  { label: { en: "Warning", pt: "Aviso" }, icon: AlertTriangle,color: "text-warning",bg: "bg-card", msg: { en: "Low disk space — 2 GB remaining.", pt: "Pouco espaço em disco — restam 2 GB." } },
-  { label: "Loading", icon: Loader2,     color: "text-info",   bg: "bg-card", msg: { en: "Syncing your data...", pt: "Sincronizando seus dados..." } },
+  { label: { en: "Success", pt: "Sucesso" }, tipo: "success", icon: CheckCircle, color: "text-success", bg: "bg-card", msg: { en: "Item saved.", pt: "Peça salva." } },
+  { label: { en: "Error", pt: "Erro" },      tipo: "error",   icon: AlertCircle, color: "text-error",   bg: "bg-card", msg: { en: "Could not save the item. Try again.", pt: "Não foi possível salvar a peça. Tente de novo." } },
+  { label: { en: "Warning", pt: "Aviso" },   tipo: "warning", icon: AlertTriangle, color: "text-warning", bg: "bg-card", msg: { en: "2 items without size.", pt: "2 peças sem tamanho." } },
+  { label: "Loading",                         tipo: "loading", icon: Loader2,     color: "text-info",    bg: "bg-card", msg: { en: "Sending photos…", pt: "Enviando fotos…" } },
 ];
 
 /* ── Skeleton ── */
@@ -338,6 +340,24 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
       {parte === "feedback" && (
       <section id="toasts">
         <SectionHeader title={t("Toasts", "Toasts")} description={t("Floating notification toasts for transient feedback messages.", "Notificações flutuantes (toasts) para mensagens de feedback temporárias.")} />
+        <SubSection title={t("Try it", "Experimente")}>
+          <ShowcaseCard>
+            <p className="mb-3 text-[0.875rem] text-muted-foreground">{t("Each button shows a real notification in the corner of the screen (ui/sonner).", "Cada botão mostra uma notificação de verdade no canto da tela (ui/sonner).")}</p>
+            <div className="flex flex-wrap gap-2">
+              {toastTypes.map(tt => (
+                <Button key={tt.tipo} variant="outline" onClick={() => {
+                  const msg = bi(tt.msg);
+                  if (tt.tipo === "success") toast.success(msg);
+                  else if (tt.tipo === "error") toast.error(msg);
+                  else if (tt.tipo === "warning") toast.warning(msg);
+                  else { const id = toast.loading(msg); setTimeout(() => toast.success(t("Done.", "Pronto."), { id }), 1800); }
+                }}>
+                  {typeof tt.label === "string" ? t("Loading", "Carregando") : bi(tt.label)}
+                </Button>
+              ))}
+            </div>
+          </ShowcaseCard>
+        </SubSection>
         <SubSection title={t("Toast Variants", "Variantes de toast")}>
           <ShowcaseCard>
             <div className="space-y-2 max-w-sm">
