@@ -212,7 +212,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
           </div>
 
           {/* Abas */}
-          <div role="tablist" aria-label="Seções das configurações" className="flex border-b border-border px-4 sm:px-6 overflow-x-auto">
+          <div role="tablist" aria-label="Seções das configurações" className="flex flex-wrap border-b border-border px-4 sm:px-6">
             {tabs.map(tb => (
               <button
                 key={tb.id}
@@ -1915,8 +1915,39 @@ function LandingTemplate() {
             <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Planos</p>
             <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Compare e escolha o plano da sua loja</h2>
           </div>
-          <div className="relative max-w-2xl mx-auto rounded-[14px] border border-border overflow-x-auto" style={{ boxShadow: "var(--shadow-md)" }}>
-            <table className="w-full min-w-[520px] border-collapse">
+          {/* Celular: um card por plano, um embaixo do outro (card nunca tem rolagem horizontal). */}
+          <ul className="sm:hidden max-w-md mx-auto space-y-3" aria-label="Planos">
+            {plans.map(p => (
+              <li key={p.id} className={`rounded-[14px] border p-4 ${p.highlight ? "border-primary/40 bg-[var(--primary-muted)]" : "border-border bg-card"}`} style={{ boxShadow: "var(--shadow-sm)" }}>
+                {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-muted-foreground">Recomendado</span>}
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className={`text-[0.9375rem] font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</h3>
+                  <span className="text-[0.75rem] text-muted-foreground">{reais(p.price)}/mês</span>
+                </div>
+                <ul className="mt-3 space-y-1.5">
+                  {pricingFeatures.map((f, i) => {
+                    const inclui = i < p.included;
+                    return (
+                      <li key={f.pt} className={`flex items-start gap-2 text-[0.75rem] ${inclui ? "text-foreground" : "text-muted-foreground"}`}>
+                        {inclui ? <Check aria-hidden className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${textoMarca}`} /> : <Minus aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
+                        <span>{f.pt}<span className="sr-only">{inclui ? ": incluído" : ": não incluído"}</span></span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <button
+                  type="button"
+                  aria-label={`Escolher o plano ${p.name.pt}`}
+                  className={`mt-4 h-9 w-full rounded-[9px] text-[0.75rem] font-semibold transition-colors ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
+                >
+                  Escolher
+                </button>
+              </li>
+            ))}
+          </ul>
+          {/* Do tablet em diante: tabela comparativa, que cabe na largura (sem rolagem horizontal). */}
+          <div className="relative hidden sm:block max-w-2xl mx-auto rounded-[14px] border border-border overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+            <table className="w-full border-collapse">
               <caption className="sr-only">Comparativo dos planos Visibilidade, Desempenho e Oportunidades</caption>
               <thead>
                 <tr className="border-b border-border bg-muted/40">
