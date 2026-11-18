@@ -254,7 +254,7 @@ export const changelog: ChangeEntry[] = [
   {
     date: "Nov 2026", kind: "Updated", title: pt("Ilustrações: identidade da marca e a mascote Nyx"),
     desc: pt("Seção reconstruída: as ilustrações são parte da identidade da marca, protagonizadas pela Nyx, a gata preta (quem ela é, marca registrada, mundo, estilo, onde aparece e onde não). Títulos das peças revisados e estrutura simples por peça: nome, imagem, visão web, visão mobile, onde/quando usar e como não usar."),
-    page: "ilustracoes", anchor: "ilustracoes-estilo",
+    page: "ilustracoes", anchor: "mascote-estilo",
   },
   {
     date: "Nov 2026", kind: "New", title: pt("Ilustração: contatos com lojas vazios"),
