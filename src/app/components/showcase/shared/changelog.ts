@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Mapa coroplético na escala de calor"),
+    desc: pt("O MapaCoropletico (mapa com os contornos reais, que o produto informa) passa a usar a escala de calor da paleta de gráficos, --chart-seq-1 a --chart-seq-4 (do rosa-300 ao vermelho-700), a mesma do MapaDeCalorPorRegiao, com a legenda em blocos."),
+    page: "data", anchor: "grafico-participacao",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Paleta de gráficos e uma rosca só"),
     desc: pt("Os gráficos passam a usar a paleta escolhida pela dona do produto: vermelho-700, vermelho-500, rosa-400, rosa-300 e cinza-500 (o cinza para \"Outros\" e o que não está em destaque). A escala de calor vai do rosa-300 ao vermelho-700, com a cor do texto definida por token. A rosca da Central de Inteligência passa a ser desenhada como a rosca redesenhada."),
     page: "graficos", anchor: "graficos-cores",
