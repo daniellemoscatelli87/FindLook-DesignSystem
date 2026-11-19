@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./utils";
+import { GraficoDeRosca } from "./graficos-inteligencia";
 
 /**
  * Gráficos de participação e comparação (FindLook)
@@ -32,7 +33,11 @@ function useMontado() {
   return montado;
 }
 
-/* ── Rosca ───────────────────────────────────────────────────── */
+/* ── Rosca ───────────────────────────────────────────────────────
+   Desde 19/11/2026 a rosca do DS é a redesenhada (GraficoDeRosca, em graficos-inteligencia.tsx):
+   anel fino, tons da paleta de gráficos da maior para a menor parte, "Outros" em cinza e por último,
+   percentual escrito junto de cada parte. Esta função mantém a mesma assinatura para quem já usa
+   <Rosca> (a Central de Inteligência do produto); a cor de cada parte agora vem da paleta. */
 function Rosca({
   partes,
   centro,
@@ -49,56 +54,14 @@ function Rosca({
   rotulo: string;
   className?: string;
 }) {
-  const montado = useMontado();
-  const total = partes.reduce((s, p) => s + p.valor, 0) || 1;
-  const r = 42;
-  const c = 2 * Math.PI * r;
-  let acumulado = 0;
   return (
-    <div data-slot="rosca" className={cn("flex flex-wrap items-center gap-5", className)}>
-      <svg
-        viewBox="0 0 120 120"
-        role="img"
-        aria-label={`${rotulo}: ${partes.map((p) => `${p.rotulo} ${pct(p.valor, total)}%`).join(", ")}`}
-        className="h-32 w-32 shrink-0"
-      >
-        <g transform="rotate(-90 60 60)">
-          <circle cx="60" cy="60" r={r} fill="none" stroke="var(--muted)" strokeWidth="16" />
-          {partes.map((p) => {
-            const tam = (p.valor / total) * c;
-            const inicio = acumulado;
-            acumulado += tam;
-            return (
-              <circle
-                key={p.rotulo}
-                cx="60"
-                cy="60"
-                r={r}
-                fill="none"
-                stroke={p.cor}
-                strokeWidth="16"
-                strokeDasharray={`${Math.max(0, tam - (partes.length > 1 ? 2 : 0))} ${c}`}
-                strokeDashoffset={-inicio}
-                className={cn("motion-safe:transition-opacity motion-safe:duration-500", montado ? "opacity-100" : "opacity-0 motion-reduce:opacity-100")}
-              >
-                <title>{`${p.rotulo}: ${fmt.format(p.valor)} (${pct(p.valor, total)}%)`}</title>
-              </circle>
-            );
-          })}
-        </g>
-        <text x="60" y={rotuloCentro ? 60 : 67} textAnchor="middle" className="fill-foreground text-[22px] font-bold">{centro}</text>
-        {rotuloCentro && <text x="60" y="76" textAnchor="middle" className="fill-muted-foreground text-[9px]">{rotuloCentro}</text>}
-      </svg>
-      <ul className="m-0 min-w-[10rem] flex-1 list-none space-y-2 p-0 text-[0.875rem]">
-        {partes.map((p) => (
-          <li key={p.rotulo} className="flex items-start gap-2.5">
-            <span aria-hidden className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: p.cor }} />
-            <span className="min-w-0 flex-1 leading-snug text-foreground">{p.rotulo}</span>
-            <span className="shrink-0 font-semibold tabular-nums text-foreground">{pct(p.valor, total)}%</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <GraficoDeRosca
+      rotulo={rotulo}
+      className={className}
+      centro={{ valor: centro, rotulo: rotuloCentro ?? "" }}
+      partes={partes.map(p => ({ rotulo: p.rotulo, valor: p.valor, neutro: /^outr/i.test(p.rotulo.trim()) }))}
+      tamanho={180}
+    />
   );
 }
 
