@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Celular sem rolagem lateral"),
+    desc: pt("Todas as páginas cabem em 390 px: paginação e abas quebram linha em vez de rolar, os cards de tipografia quebram textos longos e os círculos em órbita ficam um embaixo do outro no celular."),
+    page: "overlays", anchor: "pagination",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Organização e limpeza"),
     desc: pt("Um estilo só de título de seção em todas as páginas (24 px). Raios levados para a escala (8, 12, 16 e 24 px). Cores padrão do Tailwind e hexadecimais que sobravam trocados por tokens. Feedback e Rótulos passam a ter conteúdo próprio; os tokens de Movimento ganham endereço próprio; saem do menu os itens que só levavam a avisos \"Ver em\"; link quebrado do changelog corrigido. As notificações (toast) funcionam (ui/sonner, sem next-themes) e a página Feedback mostra notificações reais, com exemplos de moda. Abas, sanfona, menu suspenso, diálogo, confirmação (ui/alert-dialog), caixa de seleção, opção e chave passam a usar os componentes de ui/, ajustados ao visual documentado. Página nova Catálogo de componentes, com todos os arquivos de ui/."),
     page: "catalogo", anchor: "catalogo-lista",
