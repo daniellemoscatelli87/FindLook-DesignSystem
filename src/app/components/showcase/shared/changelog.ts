@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Paleta de gráficos e uma rosca só"),
+    desc: pt("Os gráficos passam a usar a paleta escolhida pela dona do produto: vermelho-700, vermelho-500, rosa-400, rosa-300 e cinza-500 (o cinza para \"Outros\" e o que não está em destaque). A escala de calor vai do rosa-300 ao vermelho-700, com a cor do texto definida por token. A rosca da Central de Inteligência passa a ser desenhada como a rosca redesenhada."),
+    page: "graficos", anchor: "graficos-cores",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Gráficos e visualizações"),
     desc: pt("Página nova e ui/graficos-inteligencia.tsx: como escolher o gráfico, cores dos gráficos, rosca redesenhada, os gráficos recomendados para o FindLook (barras ordenadas, mapa de calor por região, dumbbell, linhas e área, slope, treemap, barras 100%, bolhas, heatmap matricial, bump, funil), cada um como um card de descoberta (conclusão, gráfico, por que importa, próximo passo), e o princípio do design de inteligência. Os tokens de gráfico passam a ser variações de tom do pink; o grafite fica só para informação sem destaque ou desabilitada."),
     page: "graficos", anchor: "graficos-recomendados",
