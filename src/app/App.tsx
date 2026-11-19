@@ -7,7 +7,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered, LibraryBig,
+  PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered, LibraryBig, Blocks,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -40,6 +40,7 @@ import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
 import { Toaster } from "./components/ui/sonner";
 import { CatalogoShowcase } from "./components/showcase/CatalogoShowcase";
+import { ProdutoShowcase } from "./components/showcase/ProdutoShowcase";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -156,6 +157,11 @@ const ptLabels: Record<string, string> = {
   "Library": "Biblioteca",
   "Component catalog": "Catálogo de componentes",
   "All components": "Todos os componentes",
+  "Product patterns": "Padrões do produto",
+  "Hero search": "Busca do hero",
+  "Store card and map": "Card de loja e mapa",
+  "Store registration": "Cadastro do lojista",
+  "Admin screens": "Telas do admin",
   "Overlays": "Sobreposições (overlays)",
   "Breadcrumb": "Trilha de navegação (breadcrumb)",
   "Pagination": "Paginação",
@@ -369,6 +375,14 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "catalogo-lista", label: "All components", sectionId: "catalogo" },
         ],
       },
+      { id: "produto", label: "Product patterns", icon: Blocks,
+        items: [
+          { id: "produto-busca",     label: "Hero search",        sectionId: "produto" },
+          { id: "produto-loja-mapa", label: "Store card and map", sectionId: "produto" },
+          { id: "produto-cadastro",  label: "Store registration", sectionId: "produto" },
+          { id: "produto-admin",     label: "Admin screens",      sectionId: "produto" },
+        ],
+      },
       { id: "buttons", label: "Buttons", icon: MousePointer2,
         items: [
           { id: "buttons",        label: "Button Variants", sectionId: "buttons" },
@@ -538,6 +552,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   tokens:      <TokensShowcase />,
   integration: <IntegrationShowcase />,
   catalogo:  <CatalogoShowcase />,
+  produto:   <ProdutoShowcase />,
   buttons:   <FormShowcase />,
   cards:     <CardShowcase />,
   data:      <DataShowcase />,
@@ -569,6 +584,7 @@ const sectionLabels: Record<string, string> = {
   ilustracoes: "Mascote & Ilustrações",
   colors:    "Foundation",
   catalogo:  "Component catalog",
+  produto:   "Product patterns",
   buttons:   "Form Controls",
   cards:     "Cards",
   data:      "Data Display",
@@ -613,6 +629,7 @@ function AppShell() {
     grid:      false,
     sidepanel: false,
     upload:    false,
+    produto:   false,
     motion:      false,
     backgrounds: false,
   });

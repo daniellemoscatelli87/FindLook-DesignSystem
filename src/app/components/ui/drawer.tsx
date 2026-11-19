@@ -48,10 +48,14 @@ function DrawerOverlay({
 function DrawerContent({
   className,
   children,
+  container,
   ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+}: React.ComponentProps<typeof DrawerPrimitive.Content> & {
+  /** Elemento onde a gaveta é montada (padrão: body). Útil para demonstrações dentro de uma moldura. */
+  container?: HTMLElement | null;
+}) {
   return (
-    <DrawerPortal data-slot="drawer-portal">
+    <DrawerPortal data-slot="drawer-portal" container={container}>
       <DrawerOverlay />
       <DrawerPrimitive.Content
         data-slot="drawer-content"
