@@ -620,9 +620,16 @@ export function CardShowcase() {
             </Panel>
             <Callout title={t("Responsive behavior", "Comportamento responsivo")}>
               <p>{t(
-                "Let cards fill their grid column. Collapse multi-column content before reducing internal padding, and keep the content inside the card without horizontal scrolling.",
-                "Deixe os cards preencherem sua coluna no grid. Reduza conteúdos em múltiplas colunas antes de diminuir o padding interno e mantenha o conteúdo dentro do card, sem rolagem horizontal.",
+                "Let cards fill their grid column. Collapse multi-column content before reducing internal padding.",
+                "Deixe os cards preencherem sua coluna no grid. Reduza conteúdos em múltiplas colunas antes de diminuir o padding interno.",
               )}</p>
+              <p className="mt-2 font-semibold text-foreground">{t("Rule: a card never scrolls horizontally.", "Regra: um card nunca tem rolagem horizontal.")}</p>
+              <ul className="mt-1 list-disc space-y-1 pl-5">
+                <li>{t("Tables: hide the less important columns when space runs out, shorten long text with an ellipsis or turn rows into a list of cards.", "Tabelas: escondem as colunas menos importantes quando falta espaço, encurtam textos longos com reticências ou viram uma lista de cartões.")}</li>
+                <li>{t("Tabs: wrap to the next line when they do not fit.", "Abas: quebram para a linha de baixo quando não cabem.")}</li>
+                <li>{t("Boards (kanban): columns side by side when they fit; on phones, one below the other.", "Quadros (kanban): colunas lado a lado quando cabem; no celular, uma embaixo da outra.")}</li>
+                <li>{t("Galleries and chips: a grid that wraps, never a row that scrolls.", "Galerias e chips: grade que quebra de linha, nunca uma fila que rola.")}</li>
+              </ul>
             </Callout>
           </div>
         </div>

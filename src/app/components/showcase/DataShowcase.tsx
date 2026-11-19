@@ -6,7 +6,7 @@ import {
   TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight,
   Store, Shirt, ChevronUp, ChevronDown,
   ChevronsUpDown, ExternalLink, MoreHorizontal, Filter, Download,
-  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch,
+  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch, MapPinned,
 } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line,
@@ -368,20 +368,21 @@ export function DataShowcase() {
               </button>
             </div>
           </div>
-          <div className="overflow-x-auto">
+          {/* Sem rolagem horizontal: as colunas menos importantes somem quando falta espaço. */}
+          <div>
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   {[
-                    { key: "name",   label: t("Store", "Loja") },
-                    { key: "plan",   label: t("Type", "Tipo") },
-                    { key: "status", label: t("Status", "Situação") },
-                    { key: "mrr",    label: t("Items", "Peças") },
-                    { key: "joined", label: t("Since", "Desde") },
+                    { key: "name",   label: t("Store", "Loja"), classe: "" },
+                    { key: "plan",   label: t("Type", "Tipo"), classe: "hidden md:table-cell" },
+                    { key: "status", label: t("Status", "Situação"), classe: "" },
+                    { key: "mrr",    label: t("Items", "Peças"), classe: "hidden sm:table-cell" },
+                    { key: "joined", label: t("Since", "Desde"), classe: "hidden lg:table-cell" },
                   ].map(col => (
                     <th
                       key={col.key}
-                      className="px-6 py-3 text-left text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground cursor-pointer select-none"
+                      className={`${col.classe} px-3 sm:px-6 py-3 text-left text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground cursor-pointer select-none`}
                       onClick={() => handleSort(col.key)}
                     >
                       <span className="inline-flex items-center gap-1.5">
@@ -390,7 +391,7 @@ export function DataShowcase() {
                       </span>
                     </th>
                   ))}
-                  <th className="px-6 py-3 w-12" />
+                  <th className="px-3 sm:px-6 py-3 w-12" />
                 </tr>
               </thead>
               <tbody>
@@ -399,31 +400,31 @@ export function DataShowcase() {
                     key={row.id}
                     className={`border-b border-border/50 hover:bg-muted/20 transition-colors ${i === tableData.length - 1 ? "border-b-0" : ""}`}
                   >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
+                    <td className="w-full max-w-0 px-3 sm:px-6 py-4">
+                      <div className="flex min-w-0 items-center gap-3">
                         <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-[0.75rem] font-semibold text-foreground shrink-0">
                           {row.name.split(" ").map(n => n[0]).join("")}
                         </div>
-                        <div>
-                          <div className="text-[0.9rem] font-medium text-foreground">{row.name}</div>
-                          <div className="text-[0.75rem] text-muted-foreground">{row.email}</div>
+                        <div className="min-w-0">
+                          <div className="truncate text-[0.9rem] font-medium text-foreground">{row.name}</div>
+                          <div className="truncate text-[0.75rem] text-muted-foreground">{row.email}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-[6px] text-[0.75rem] font-medium border ${planStyles[row.plan]}`}>
+                    <td className="hidden md:table-cell px-3 sm:px-6 py-4">
+                      <span className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-[6px] text-[0.75rem] font-medium border ${planStyles[row.plan]}`}>
                         {planPt[row.plan] && t(row.plan, planPt[row.plan])}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-[6px] text-[0.75rem] font-medium border ${statusStyles[row.status]}`}>
+                    <td className="px-3 sm:px-6 py-4">
+                      <span className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-[6px] text-[0.75rem] font-medium border ${statusStyles[row.status]}`}>
                         <span className={`h-1.5 w-1.5 rounded-full mr-1.5 ${row.status === "Active" ? "bg-success" : row.status === "Trial" ? "bg-warning" : "bg-muted-foreground"}`} />
                         {t(row.status, statusPt[row.status])}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-[0.9rem] font-semibold text-foreground">{row.mrr}</td>
-                    <td className="px-6 py-4 text-[0.8125rem] text-muted-foreground">{t(row.joined, row.joinedPt)}</td>
-                    <td className="px-6 py-4">
+                    <td className="hidden sm:table-cell px-3 sm:px-6 py-4 text-[0.9rem] font-semibold text-foreground">{row.mrr}</td>
+                    <td className="hidden lg:table-cell whitespace-nowrap px-3 sm:px-6 py-4 text-[0.8125rem] text-muted-foreground">{t(row.joined, row.joinedPt)}</td>
+                    <td className="px-3 sm:px-6 py-4">
                       <button className="h-8 w-8 rounded-[8px] flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors">
                         <MoreHorizontal className="h-4 w-4" />
                       </button>
@@ -559,6 +560,7 @@ export function IndicadoresDoPainel() {
       <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
       <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
       <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
+      <CardIndicador icone={<MapPinned />} valor={48} total={75} rotulo="Bairros pesquisados" explicacao="Bairros de Curitiba que a busca de lojas já pesquisou. Com a propriedade total, o número aparece com o total de que faz parte." />
       <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
     </div>
   );

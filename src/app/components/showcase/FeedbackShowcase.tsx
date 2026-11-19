@@ -251,12 +251,12 @@ export function FeedbackShowcase() {
         <SubSection title={t("Default Tabs", "Abas padrão")}>
           <ShowcaseCard>
             <TabsPrimitive.Root value={defaultTab} onValueChange={setDefaultTab}>
-              <TabsPrimitive.List className="flex items-center gap-1 p-1 bg-muted rounded-[10px] w-fit max-w-full overflow-x-auto mb-5">
+              <TabsPrimitive.List className="flex flex-wrap items-center gap-1 p-1 bg-muted rounded-[10px] w-fit max-w-full mb-5">
                 {tabItems.map(tab => (
                   <TabsPrimitive.Trigger
                     key={tab.id}
                     value={tab.id}
-                    className={`px-4 py-2 text-[0.875rem] font-medium rounded-[8px] transition-all duration-150 outline-none
+                    className={`whitespace-nowrap px-4 py-2 text-[0.875rem] font-medium rounded-[8px] transition-all duration-150 outline-none
                       data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm
                       data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground`}
                     style={{ boxShadow: defaultTab === tab.id ? "var(--shadow-sm)" : undefined }}
@@ -276,12 +276,12 @@ export function FeedbackShowcase() {
 
         <SubSection title={t("Underline Tabs", "Abas sublinhadas")}>
           <ShowcaseCard>
-            <div className="flex items-center border-b border-border gap-1 mb-5 max-w-full overflow-x-auto">
+            <div className="flex flex-wrap items-center border-b border-border gap-1 mb-5 max-w-full">
               {tabItems.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setUnderlineTab(tab.id)}
-                  className={`px-4 py-2.5 text-[0.875rem] font-medium transition-all duration-150 border-b-2 -mb-px outline-none
+                  className={`whitespace-nowrap px-4 py-2.5 text-[0.875rem] font-medium transition-all duration-150 border-b-2 -mb-px outline-none
                     ${underlineTab === tab.id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"}`}
                 >
                   {bi(tab.label)}

@@ -31,7 +31,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
     onChange(abas[n]!.valor);
   };
   return (
-    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full overflow-x-auto", estilo === "pilula" ? "h-9 w-fit items-center rounded-xl bg-muted p-[3px] text-muted-foreground" : "gap-1 border-b border-border", className)}>
+    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full flex-wrap", estilo === "pilula" ? "min-h-9 w-fit items-center gap-y-[3px] rounded-xl bg-muted p-[3px] text-muted-foreground" : "gap-1 border-b border-border", className)}>
       {abas.map((a, i) => {
         const ativa = a.valor === valor;
         return (
@@ -48,7 +48,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
               "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-medium transition-[color,box-shadow]",
               foco,
               estilo === "pilula"
-                ? cn("h-[calc(100%-1px)] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
+                ? cn("h-[29px] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
                 : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
             )}
           >
@@ -249,7 +249,8 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
       )}
 
       {/* Tabela (quadros largos) */}
-      <div className="relative hidden overflow-x-auto border-t border-border @2xl:block">
+      {/* Sem rolagem horizontal (regra do DS): colunas menos importantes somem quando falta espaço e o nome do produto encurta. */}
+      <div className="relative hidden border-t border-border @2xl:block">
         <table className="w-full">
           <caption className="sr-only">Produtos da loja{aba !== "todos" ? `, filtro: ${abasStatus.find(a => a.valor === aba)?.rotulo}` : ""}</caption>
           <thead>
@@ -274,7 +275,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
               return (
                 <tr key={p.id} data-state={marcado ? "selected" : undefined} className={cn("border-b border-border/50 transition-colors hover:bg-muted/20", i === visiveis.length - 1 && "border-b-0", marcado && "bg-[var(--primary-muted)] hover:bg-[var(--primary-muted)]")}>
                   {selecionavel && <td className="py-3 pl-6 pr-2 align-middle"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></td>}
-                  <td className={cn("max-w-72 px-4 py-3 align-middle", !selecionavel && "pl-6")}><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
+                  <td className={cn("w-full max-w-0 px-4 py-3 align-middle", !selecionavel && "pl-6")}><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
                   <td className="hidden px-4 py-3 align-middle @4xl:table-cell"><span className={etiqueta}>{p.condicao}</span></td>
                   <td className="hidden px-4 py-3 text-right align-middle text-[0.875rem] tabular-nums text-foreground @4xl:table-cell">{p.estoque}</td>
                   <td className="whitespace-nowrap px-4 py-3 text-right align-middle text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}</td>

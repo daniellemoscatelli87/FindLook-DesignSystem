@@ -58,6 +58,8 @@ function Explicacao({ termo, children }: { termo: string; children: React.ReactN
 type CardIndicadorProps = {
   icone: React.ReactNode;
   valor: number;
+  /** Total de que o valor faz parte (por exemplo, 48 de 75 bairros): aparece "de 75", menor, ao lado do número. */
+  total?: number;
   rotulo: string;
   variacao?: number;
   comparacao?: string;
@@ -68,7 +70,7 @@ type CardIndicadorProps = {
 };
 
 /** Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. */
-function CardIndicador({ icone, valor, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
+function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
   return (
     <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-[16px] border border-border bg-card p-5", className)}>
       <div className="flex items-start justify-between gap-3">
@@ -77,7 +79,10 @@ function CardIndicador({ icone, valor, rotulo, variacao, comparacao, explicacao,
             {rotulo}
             {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
           </p>
-          <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{formatarNumero(valor)}</p>
+          <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
+            {formatarNumero(valor)}
+            {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
+          </p>
         </div>
         <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
       </div>
