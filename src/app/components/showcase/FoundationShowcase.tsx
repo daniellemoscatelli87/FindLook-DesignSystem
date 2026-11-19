@@ -579,11 +579,13 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Charts", "Gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Series 1 — pink", "Série 1 — pink"),  light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--chart-2", description: t("Series 2 — graphite", "Série 2 — grafite"), light: "#696977", dark: "#888896", isColor: true },
-      { name: "--chart-3", description: t("Series 3", "Série 3"),            light: "#B3B3BC", dark: "#696977", isColor: true },
-      { name: "--chart-4", description: t("Series 4", "Série 4"),            light: "#D4D4D9", dark: "#51515C", isColor: true },
-      { name: "--chart-5", description: t("Series 5", "Série 5"),            light: "#E9E9EC", dark: "#3E3E46", isColor: true },
+      { name: "--chart-1", description: t("Series 1, highlight — primary pink (pink-500)", "Série 1, destaque — pink primário (pink-500)"), light: "#E62040", dark: "#EC5A72", isColor: true },
+      { name: "--chart-2", description: t("Series 2 — dark pink (pink-700)", "Série 2 — pink escuro (pink-700)"), light: "#91162B", dark: "#F8BCC6", isColor: true },
+      { name: "--chart-3", description: t("Series 3 — pink-400", "Série 3 — pink-400"), light: "#EC5A72", dark: "#E62040", isColor: true },
+      { name: "--chart-4", description: t("Series 4 — pink-300", "Série 4 — pink-300"), light: "#F290A0", dark: "#B91B35", isColor: true },
+      { name: "--chart-5", description: t("Series 5 — pink-200", "Série 5 — pink-200"), light: "#F8BCC6", dark: "#91162B", isColor: true },
+      { name: "--chart-neutral", description: t("Not highlighted: Others, context, disabled (graphite)", "Sem destaque: Outros, contexto, desativado (grafite)"), light: "#B3B3BC", dark: "#51515C", isColor: true },
+      { name: "--chart-grid", description: t("Chart grid lines", "Linhas de grade dos gráficos"), light: "#E9E9EC", dark: "#2C2C33", isColor: true },
     ],
   },
   {
