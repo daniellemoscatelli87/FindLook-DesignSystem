@@ -15,13 +15,9 @@ import { FaixaDeParceiros } from "../ui/faixa-parceiros";
 import {
   CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
 } from "../ui/cadastro-lojista";
-import { QuadroDeAtivacao, CartaoDoQuadro, ChipDeEtapa, IconeDeEtapa, ETAPAS_DA_LOJA, type EtapaDaLoja } from "../ui/admin-ativacao";
-import { ItemDaAgenda, GrupoDaAgenda, type StatusDoAgendamento } from "../ui/admin-agenda";
-import { LinhaDeLoja, CabecalhoDaFicha, EtiquetaDaLoja } from "../ui/admin-lojas";
-import { AndamentoDaBusca, ChipDaBusca, SeloAoVivo } from "../ui/admin-busca-ao-vivo";
 
-/* Padrões do produto: componentes trazidos do produto FindLook (busca do hero, loja e mapa, cadastro do lojista e
-   telas do admin), para o produto copiar daqui. Todos os dados desta página são exemplos fictícios. */
+/* Padrões do produto: componentes trazidos do produto FindLook (busca do hero, loja e mapa e cadastro do lojista),
+   para o produto copiar daqui. As telas do admin entram só quando a decisão final for tomada no FindLook. Todos os dados desta página são exemplos fictícios. */
 
 const codigo = "overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground";
 
@@ -106,8 +102,8 @@ export function ProdutoShowcase() {
         eyebrow={t("Components", "Componentes")}
         title={t("Product **patterns**", "Padrões do **produto**")}
         description={t(
-          "Components brought from the FindLook product, so the product can copy them from here: the hero search, store card and map, the store registration and the admin screens. They only present: data, saving and business rules stay in the product. All data on this page is fictitious example data.",
-          "Componentes trazidos do produto FindLook para o produto copiar daqui: a busca do hero, o card de loja e o mapa, o cadastro do lojista e as telas do admin. Eles só apresentam: dados, gravação e regras de negócio ficam no produto. Todos os dados desta página são exemplos fictícios.",
+          "Components brought from the FindLook product, so the product can copy them from here: the hero search, store card and map, and the store registration. They only present: data, saving and business rules stay in the product. All data on this page is fictitious example data.",
+          "Componentes trazidos do produto FindLook para o produto copiar daqui: a busca do hero, o card de loja e o mapa, e o cadastro do lojista. Eles só apresentam: dados, gravação e regras de negócio ficam no produto. Todos os dados desta página são exemplos fictícios.",
         )}
       />
 
@@ -385,159 +381,7 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
 </MolduraDoCadastro>`}</code></pre>
       </section>
 
-      {/* ── Telas do admin ── */}
-      <section id="produto-admin" className="scroll-mt-32 space-y-6">
-        <SectionHeader
-          title={t("Admin screens", "Telas do admin")}
-          description={t(
-            "Pieces of the administrative area, following the panel templates: the store activation board, the schedule, the stores list, the store record header and the live store search.",
-            "Peças da área administrativa, nos padrões dos templates do painel: o quadro da ativação de lojas, a agenda, a lista de lojas, o cabeçalho da ficha da loja e a busca de lojas ao vivo.",
-          )}
-        />
-        <div className="@container min-w-0 space-y-6">
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("Stage chips", "Chips de etapa")}</SubTitle>
-            <div className="flex flex-wrap gap-2">
-              {(Object.keys(ETAPAS_DA_LOJA) as EtapaDaLoja[]).map((e) => <ChipDeEtapa key={e} etapa={e} />)}
-              {(["pedida", "em_andamento", "pausada", "concluida"] as const).map((e) => <ChipDaBusca key={e} estado={e} />)}
-            </div>
-          </div>
 
-          <CardDoPainel
-            icone={<Filter />}
-            titulo="Funil de ativação"
-            descricao="Cada coluna é uma etapa e cada cartão, uma loja. Arraste os cartões entre as etapas (no celular, use o botão de mover do cartão) e use Agendar para marcar contato ou visita."
-          >
-            <QuadroDeAtivacao
-              rotulo="Quadro da ativação das lojas"
-              colunas={COLUNAS_FUNIL.map((e) => ({
-                id: e,
-                titulo: ETAPAS_DA_LOJA[e].rotulo,
-                quantidade: lojasQuadro.filter((l) => l.etapa === e).length,
-                icone: <IconeDeEtapa etapa={e} />,
-                vazio: VAZIO_FUNIL[e]!,
-                subtitulo: e === "a_contatar" ? "Começo do funil" : e === "sem_interesse" ? "Fora do funil; dá para retomar" : undefined,
-              }))}
-              itens={lojasQuadro}
-              chave={(l) => l.id}
-              coluna={(l) => l.etapa}
-              rotuloItem={(l) => l.nome}
-              onMover={(l, para) => setLojasQuadro((ls) => ls.map((x) => (x.id === l.id ? { ...x, etapa: para } : x)))}
-              cartao={(l) => <CartaoDoQuadro nome={l.nome} detalhe={l.detalhe} proximo={l.proximo} href="#produto-admin" onAgendar={() => undefined} />}
-            />
-          </CardDoPainel>
-
-          <div className="grid min-w-0 gap-6 @min-[60rem]:grid-cols-2">
-            <CardDoPainel icone={<CalendarDays />} titulo="Agenda de hoje" descricao="2 agendamentos hoje, 1 atrasado.">
-              <div className="space-y-4">
-                <GrupoDaAgenda titulo="Atrasados" quantidade={1}>
-                  <ItemDaAgenda tipo="contato" quando="ter, 18/11 · 16:00" atrasado status={agenda.a1} loja={{ nome: "Brechó Aurora", bairro: "São Francisco", href: "#produto-admin" }}
-                    onFeito={() => setAgenda((a) => ({ ...a, a1: "feito" }))} onRemarcar={() => undefined} onCancelar={() => setAgenda((a) => ({ ...a, a1: "cancelado" }))} onReabrir={() => setAgenda((a) => ({ ...a, a1: "agendado" }))} />
-                </GrupoDaAgenda>
-                <GrupoDaAgenda titulo="Hoje" quantidade={2} vazio="Nada agendado para hoje.">
-                  <ItemDaAgenda tipo="visita" quando="14:00" status={agenda.a2} loja={{ nome: "Casa Trama", bairro: "Centro", href: "#produto-admin" }} observacao="Levar o material de apresentação."
-                    onFeito={() => setAgenda((a) => ({ ...a, a2: "feito" }))} onRemarcar={() => undefined} onCancelar={() => setAgenda((a) => ({ ...a, a2: "cancelado" }))} onReabrir={() => setAgenda((a) => ({ ...a, a2: "agendado" }))} />
-                  <ItemDaAgenda tipo="treinamento" quando="16:30" status={agenda.a3} loja={{ nome: "Marca Vértice", parceira: true, href: "#produto-admin" }}
-                    onFeito={() => setAgenda((a) => ({ ...a, a3: "feito" }))} onReabrir={() => setAgenda((a) => ({ ...a, a3: "agendado" }))} />
-                </GrupoDaAgenda>
-                <GrupoDaAgenda titulo="Amanhã" quantidade={0} vazio="Nada agendado para amanhã." />
-              </div>
-            </CardDoPainel>
-
-            <CardDoPainel icone={<Store />} titulo="Lojas encontradas nesta busca" descricao="Atualiza sozinha, em tempo real." acao={<SeloAoVivo />}>
-              <AndamentoDaBusca estado="em_andamento" descricao="Manual · começou em 19/11/2026 09:12" pct={42.5} resumo="12 lojas novas até agora · último sinal há 2 min" />
-              <ul className="mt-2 divide-y divide-border">
-                <ItemDeAtividade icone={<Store />} titulo="Garimpo Sol" detalhe="Água Verde · Brechó · nota 4,7 (58), telefone, site" quando="há 2 min" />
-                <ItemDeAtividade icone={<Store />} titulo="Ateliê Lume" detalhe="Batel · Ateliê · Aguardando nota e contato" quando="há 6 min" />
-              </ul>
-            </CardDoPainel>
-          </div>
-
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("Stores list (LinhaDeLoja)", "Lista de lojas (LinhaDeLoja)")}</SubTitle>
-            <ul aria-label="Lojas mapeadas" className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-card">
-              {[
-                { id: "aurora", nome: "Brechó Aurora", detalhe: "Brechó · São Francisco", etapa: "a_contatar" as const, nota: 4.8, avaliacoes: 112, contatos: { whatsapp: "(41) 90000-0001", instagram: "@brechoaurora.exemplo" }, etiquetas: <EtiquetaDaLoja tom="primario" icone={<Sparkles aria-hidden />}>Nova</EtiquetaDaLoja> },
-                { id: "trama", nome: "Casa Trama", detalhe: "Loja de roupas · Centro", etapa: "contato" as const, nota: 4.1, avaliacoes: 23, contatos: { telefone: "(41) 3000-0002", site: "trama.exemplo.com.br" } },
-                { id: "lume", nome: "Ateliê Lume", detalhe: "Ateliê · Batel", etapa: "sem_interesse" as const, nota: null, avaliacoes: null, contatos: {}, etiquetas: <EtiquetaDaLoja tom="atencao" icone={<TriangleAlert aria-hidden />}>Revisar tipo</EtiquetaDaLoja> },
-              ].map((l) => (
-                <LinhaDeLoja
-                  key={l.id}
-                  nome={l.nome}
-                  detalhe={l.detalhe}
-                  href="#produto-admin"
-                  etapa={l.etapa}
-                  etiquetas={l.etiquetas}
-                  contatos={l.contatos}
-                  nota={l.nota}
-                  avaliacoes={l.avaliacoes}
-                  selecionada={marcadas.includes(l.id)}
-                  onSelecionar={(v) => setMarcadas((m) => (v ? [...m, l.id] : m.filter((x) => x !== l.id)))}
-                  acoes={
-                    <DropdownMenu>
-                      <DropdownMenuTrigger aria-label={`Ações de ${l.nome}`} className="flex size-9 items-center justify-center rounded-sm text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                        <MoreHorizontal aria-hidden className="size-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Abrir a ficha</DropdownMenuItem>
-                        <DropdownMenuItem>Arquivar loja</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  }
-                />
-              ))}
-            </ul>
-          </div>
-
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("Store record header (CabecalhoDaFicha)", "Cabeçalho da ficha da loja (CabecalhoDaFicha)")}</SubTitle>
-            <div className="rounded-lg border border-border bg-card p-4 sm:p-6">
-              <CabecalhoDaFicha
-                nivel={3}
-                voltar={{ rotulo: "Lojas mapeadas", href: "#produto-admin" }}
-                nome="Casa Trama"
-                descricao="Loja de roupas · Centro (Regional Matriz)"
-                etapa="contato"
-                etiquetas={<EtiquetaDaLoja tom="primario" icone={<Star aria-hidden />}>Reputação boa</EtiquetaDaLoja>}
-                acoes={
-                  <>
-                    <Button type="button"><CalendarPlus aria-hidden /> Agendar</Button>
-                    <Button type="button" variant="outline" size="icon" aria-label="Mais ações da loja"><MoreHorizontal aria-hidden /></Button>
-                  </>
-                }
-              />
-            </div>
-          </div>
-        </div>
-        <div className="grid gap-4 lg:grid-cols-2">
-          <Callout title={t("When to use", "Quando usar")}>
-            <ul className="list-disc space-y-1 pl-5">
-              <li>{t("The columns come from the product: today, A contatar, Contato, Visita, Cadastro and Sem interesse; Treinamento and Ativa are partner store stages.", "As colunas vêm do produto: hoje, A contatar, Contato, Visita, Cadastro e Sem interesse; Treinamento e Ativa são etapas das lojas parceiras.")}</li>
-              <li>{t("Put the board, the schedule and the live search inside CardDoPainel, as in the panel templates.", "Coloque o quadro, a agenda e a busca ao vivo dentro do CardDoPainel, como nos templates do painel.")}</li>
-              <li>{t("LinhaDeLoja inside a list (ul) with dividers; for many columns, use the data table.", "LinhaDeLoja dentro de uma lista (ul) com divisórias; para muitas colunas, use a tabela de dados.")}</li>
-            </ul>
-          </Callout>
-          <Callout title={t("Accessibility", "Acessibilidade")}>
-            <ul className="list-disc space-y-1 pl-5">
-              <li>{t("No horizontal scroll: columns side by side from 56rem, stacked and collapsible below; Move to does the same as dragging, by keyboard and touch.", "Sem rolagem horizontal: colunas lado a lado a partir de 56rem, empilhadas e recolhíveis abaixo; Mover para faz o mesmo que arrastar, pelo teclado e no toque.")}</li>
-              <li>{t("Stages, overdue, done and live states always have icon and text.", "Etapas, atrasado, feito e ao vivo sempre têm ícone e texto.")}</li>
-              <li>{t("Icon buttons have names that include the store (“Mark as done: Visit with Casa Trama”); the spinning and pulsing icons stop with reduced motion.", "Botões de ícone têm nomes com a loja (“Marcar como feito: Visita com Casa Trama”); os ícones que giram e pulsam param com menos movimento.")}</li>
-            </ul>
-          </Callout>
-        </div>
-        <pre className={codigo}><code>{`import { QuadroDeAtivacao, CartaoDoQuadro, ChipDeEtapa } from "@/app/components/ui/admin-ativacao";
-import { ItemDaAgenda, GrupoDaAgenda } from "@/app/components/ui/admin-agenda";
-import { LinhaDeLoja, CabecalhoDaFicha } from "@/app/components/ui/admin-lojas";
-import { AndamentoDaBusca, SeloAoVivo } from "@/app/components/ui/admin-busca-ao-vivo";
-
-<QuadroDeAtivacao rotulo="Quadro da ativação das lojas" colunas={colunas} itens={lojas}
-  chave={(l) => l.id} coluna={(l) => l.situacao} rotuloItem={(l) => l.nome} onMover={mover}
-  cartao={(l) => <CartaoDoQuadro nome={l.nome} detalhe={\`\${l.tipo} · \${l.bairro}\`} href={fichaDe(l)} onAgendar={() => agendar(l)} />} />
-
-<GrupoDaAgenda titulo="Hoje" quantidade={hoje.length} vazio="Nada agendado para hoje.">
-  {hoje.map((a) => <ItemDaAgenda key={a.id} tipo={a.tipo} quando={hora(a)} loja={lojaDe(a)} onFeito={() => feito(a)} />)}
-</GrupoDaAgenda>`}</code></pre>
-      </section>
     </div>
   );
 }

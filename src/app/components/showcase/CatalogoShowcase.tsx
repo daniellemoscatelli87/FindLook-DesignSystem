@@ -35,10 +35,6 @@ const produto = (ancora: string) => ({ ...P.produto, ancora });
 
 const itens: Item[] = [
   { nome: "accordion", en: "Expandable sections with a title; one or several open at a time.", pt: "Seções que abrem e fecham pelo título; uma ou várias abertas ao mesmo tempo.", pagina: P.overlays },
-  { nome: "admin-agenda", en: "Admin schedule: day group and appointment item with Done, Reschedule and Cancel.", pt: "Agenda do admin: grupo do dia e item de agendamento com Feito, Remarcar e Cancelar.", pagina: produto("produto-admin") },
-  { nome: "admin-ativacao", en: "Store activation board (kanban) without horizontal scroll, board card and stage chip.", pt: "Quadro da ativação de lojas (kanban) sem rolagem horizontal, cartão do quadro e chip de etapa.", pagina: produto("produto-admin") },
-  { nome: "admin-busca-ao-vivo", en: "Live store search: search status chip, Live seal and progress bar.", pt: "Busca de lojas ao vivo: chip de estado da busca, selo Ao vivo e barra de andamento.", pagina: produto("produto-admin") },
-  { nome: "admin-lojas", en: "Admin stores: list row, store record header, tag, contacts and Google rating.", pt: "Lojas do admin: linha da lista, cabeçalho da ficha, etiqueta, contatos e nota no Google.", pagina: produto("produto-admin") },
   { nome: "alert-dialog", en: "Confirmation dialog for important or destructive actions; requires an answer.", pt: "Diálogo de confirmação para ações importantes ou destrutivas; exige uma resposta.", pagina: P.overlays },
   { nome: "alert", en: "Inline message with icon, title and text, in success, info, warning and error variants.", pt: "Mensagem no meio da página com ícone, título e texto, nas variantes sucesso, informação, aviso e erro.", pagina: P.feedback },
   { nome: "aspect-ratio", en: "Keeps an image or video in a fixed proportion (for example 4:5).", pt: "Mantém imagem ou vídeo numa proporção fixa (por exemplo 4:5)." },
