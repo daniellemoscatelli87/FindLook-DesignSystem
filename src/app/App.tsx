@@ -413,6 +413,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
         items: [
           { id: "charts",      label: "Charts",    sectionId: "data" },
           { id: "grafico-desempenho", label: "Gráfico de desempenho", sectionId: "data" },
+          { id: "grafico-participacao", label: "Rosca, barras e mapa", sectionId: "data" },
           { id: "grafico-anel",       label: "Gráfico de anel",       sectionId: "data" },
           { id: "table",       label: "Table",     sectionId: "data" },
           { id: "tabela-produtos", label: "Tabela de produtos", sectionId: "data" },

@@ -14,6 +14,7 @@ import {
   ResponsiveContainer, PieChart, Pie, Cell,
 } from "recharts";
 import { CardIndicador, GraficoDeDesempenho, AnelDePontuacao, ItemDeChecklist } from "../ui/painel-dados";
+import { Rosca, BarrasHorizontais, MapaCoropletico } from "../ui/graficos";
 import { TabelaDeProdutos, CelulaDeProduto, MedidorDeDesempenho, BarraDeAcoesEmLote } from "../ui/painel-produtos";
 import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemplates";
 import { SectionHeader } from "./shared/SectionHeader";
@@ -318,6 +319,58 @@ export function DataShowcase() {
         </ShowcaseCard>
       </section>
 
+      {/* ── PARTICIPAÇÃO E COMPARAÇÃO (19/11/2026) ── */}
+      <section id="grafico-participacao">
+        <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor por token (--chart-1 a --chart-5), fixa por categoria; valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <ShowcaseCard>
+            <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Rosca</h3>
+            <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja de um bairro (exemplo)</p>
+            <Rosca
+              rotulo="Tipos de loja (exemplo)"
+              centro="3"
+              rotuloCentro="tipos de loja"
+              partes={[
+                { rotulo: "Loja multimarcas", valor: 54, cor: "var(--chart-1)" },
+                { rotulo: "Brechó", valor: 27, cor: "var(--chart-2)" },
+                { rotulo: "Ateliê", valor: 17, cor: "var(--chart-3)" },
+                { rotulo: "Outros", valor: 2, cor: "var(--chart-4)" },
+              ]}
+            />
+          </ShowcaseCard>
+          <ShowcaseCard>
+            <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Barras simples</h3>
+            <p className="mb-4 text-[0.8125rem] text-muted-foreground">Comparação de uma medida (exemplo); use maximo=100 para porcentagens</p>
+            <BarrasHorizontais
+              rotulo="Parte das lojas com a característica (exemplo)"
+              maximo={100}
+              linhas={[
+                { rotulo: "Na região", texto: "88%", partes: [{ rotulo: "Na região", valor: 88, cor: "var(--chart-1)" }] },
+                { rotulo: "Na cidade", texto: "18%", partes: [{ rotulo: "Na cidade", valor: 18, cor: "var(--chart-3)" }] },
+              ]}
+            />
+          </ShowcaseCard>
+        </div>
+        <ShowcaseCard className="mt-4">
+          <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Barras empilhadas</h3>
+          <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja por região (exemplo), com legenda</p>
+          <BarrasHorizontais
+            rotulo="Tipos de loja por região (exemplo)"
+            legenda={[{ rotulo: "Loja multimarcas", cor: "var(--chart-1)" }, { rotulo: "Brechó", cor: "var(--chart-2)" }, { rotulo: "Outros", cor: "var(--chart-3)" }]}
+            linhas={[
+              { rotulo: "Região A", texto: "14 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 12, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 2, cor: "var(--chart-2)" }] },
+              { rotulo: "Região B", texto: "12 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 3, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 9, cor: "var(--chart-2)" }] },
+              { rotulo: "Região C", texto: "8 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 1, cor: "var(--chart-1)" }, { rotulo: "Outros", valor: 7, cor: "var(--chart-3)" }] },
+            ]}
+          />
+        </ShowcaseCard>
+        <ShowcaseCard className="mt-4">
+          <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Mapa coroplético</h3>
+          <p className="mb-4 text-[0.8125rem] text-muted-foreground">Regiões pintadas por um valor, do claro ao escuro; toque numa região para escolher. As formas vêm do produto (no FindLook, os bairros de Curitiba). Formas e números de exemplo.</p>
+          <MapaDeExemplo />
+        </ShowcaseCard>
+      </section>
+
       {/* ── GRÁFICO DE ANEL ── */}
       <section id="grafico-anel">
         <SectionHeader title="Gráfico de anel" description="Pontuação de 0 a 100 em anel, com o número e a faixa escritos no centro: Bom, Regular ou Precisa melhorar." />
@@ -555,6 +608,32 @@ export function IndicadoresDoPainel() {
       <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
       <CardIndicador icone={<MapPinned />} valor={48} total={75} rotulo="Bairros pesquisados" explicacao="Bairros de Curitiba que a busca de lojas já pesquisou. Com a propriedade total, o número aparece com o total de que faz parte." />
       <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
+    </div>
+  );
+}
+
+/** Exemplo do MapaCoropletico com uma grade de 3 x 3 regiões fictícias. */
+function MapaDeExemplo() {
+  const [escolhida, setEscolhida] = useState<string | null>(null);
+  const regioes = Array.from({ length: 9 }, (_, i) => {
+    const x = (i % 3) * 200, y = Math.floor(i / 3) * 140;
+    return { nome: `Região ${i + 1}`, d: `M${x + 6} ${y + 6}h188v128h-188z`, cx: x + 40, cy: y + 70 };
+  });
+  const valores = new Map(regioes.map((r, i) => [r.nome, [0, 3, 8, 14, 22, 5, 1, 11, 30][i]!]));
+  return (
+    <div className="mx-auto max-w-md">
+      <MapaCoropletico
+        viewBox="0 0 600 420"
+        regioes={regioes}
+        valores={valores}
+        rotulo="Mapa de exemplo com 9 regiões: quanto mais escuro, maior o valor."
+        rotuloDoValor={(n) => `${n} lojas`}
+        escolhida={escolhida}
+        onEscolher={setEscolhida}
+        marcadores={["Região 9"]}
+        legenda={["Menos lojas", "Mais lojas"]}
+      />
+      <p aria-live="polite" className="mt-2 min-h-5 text-center text-[0.8125rem] text-muted-foreground">{escolhida ? `${escolhida}: ${valores.get(escolhida)} lojas` : "Toque numa região."}</p>
     </div>
   );
 }

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Rosca, barras horizontais e mapa coroplético"),
+    desc: pt("Três gráficos novos em ui/graficos.tsx: Rosca (partes de um todo, com o centro e a legenda com porcentagem), BarrasHorizontais (comparação de grupos, com barra simples ou empilhada e legenda) e MapaCoropletico (regiões pintadas por um valor, com legenda, marcadores e escolha por toque; as formas vêm do produto). Cor por token, valor sempre escrito, 2 px entre as partes, dica ao passar o mouse, rótulos que quebram de linha e respeito a menos movimento. Vieram da Central de Inteligência de Mercado do produto."),
+    page: "data", anchor: "grafico-participacao",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Celular sem rolagem lateral"),
     desc: pt("Todas as páginas cabem em 390 px: paginação e abas quebram linha em vez de rolar, os cards de tipografia quebram textos longos e os círculos em órbita ficam um embaixo do outro no celular."),
     page: "overlays", anchor: "pagination",
