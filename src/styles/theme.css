@@ -117,18 +117,24 @@
   --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.09), 0 24px 64px rgba(0, 0, 0, 0.07);
   --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.10), 0 40px 96px rgba(0, 0, 0, 0.08);
 
-  /* Gráficos (decisão da dona do produto, 19/11/2026): só a primária e variações tonais dela.
-     chart-1 é a série em destaque (a primária); chart-2 é o tom escuro para a segunda série; chart-3 a chart-5 clareiam.
-     Escala sequencial (mapa de calor, do menor ao maior): chart-5, chart-4, chart-1, chart-2.
-     --chart-neutral (grafite) só para o que não está em destaque ("Outros", contexto, desativado), nunca como série par da primária.
-     --chart-grid: linhas de grade. */
-  --chart-1: var(--pink-500);
-  --chart-2: var(--pink-700);
-  --chart-3: var(--pink-400);
-  --chart-4: var(--pink-300);
-  --chart-5: var(--pink-200);
-  --chart-neutral: var(--graphite-300);
+  /* Paleta de gráficos escolhida pela dona do produto (19/11/2026): vermelho-700, vermelho-500, rosa-400, rosa-300 e cinza-500.
+     O cinza (--chart-5 e --chart-neutral) é para "Outros" e informação sem destaque. */
+  --chart-1: #CC3A45; /* vermelho-700 */
+  --chart-2: #DA5963; /* vermelho-500 */
+  --chart-3: #E89AA1; /* rosa-400 */
+  --chart-4: #CDB4B8; /* rosa-300 */
+  --chart-5: #9A99A1; /* cinza-500 */
+  --chart-neutral: #9A99A1; /* cinza-500 */
   --chart-grid:    var(--graphite-100);
+  /* Escala de calor (do menor para o maior) e cor de texto sobre cada tom (todas passam de 4,5:1) */
+  --chart-seq-1: var(--chart-4); --chart-seq-1-texto: var(--foreground);
+  --chart-seq-2: var(--chart-3); --chart-seq-2-texto: var(--foreground);
+  --chart-seq-3: var(--chart-2); --chart-seq-3-texto: var(--foreground);
+  --chart-seq-4: var(--chart-1); --chart-seq-4-texto: var(--background);
+  --chart-1-texto: var(--background);
+  --chart-2-texto: var(--foreground);
+  --chart-4-texto: var(--foreground);
+  --chart-5-texto: var(--foreground);
 
   --destructive:            var(--pink-500);
   --destructive-foreground: #FFFFFF;
@@ -213,6 +219,14 @@
   --chart-5: var(--pink-700);
   --chart-neutral: var(--graphite-600);
   --chart-grid:    var(--graphite-800);
+  --chart-seq-1: var(--chart-5); --chart-seq-1-texto: var(--foreground);
+  --chart-seq-2: var(--chart-4); --chart-seq-2-texto: var(--foreground);
+  --chart-seq-3: var(--chart-1); --chart-seq-3-texto: var(--background);
+  --chart-seq-4: var(--chart-2); --chart-seq-4-texto: var(--background);
+  --chart-1-texto: var(--background);
+  --chart-2-texto: var(--background);
+  --chart-4-texto: var(--foreground);
+  --chart-5-texto: var(--foreground);
 
   --destructive:            var(--pink-500);
   --destructive-foreground: #000000;

@@ -204,12 +204,12 @@ const PASSOS_INTELIGENCIA = [
 ];
 
 const TOKENS_COR = [
-  { token: "--chart-1", passo: "pink-500", uso: "Destaque: a série principal (é a primária)" },
-  { token: "--chart-2", passo: "pink-700", uso: "Segunda série; topo da escala de calor" },
-  { token: "--chart-3", passo: "pink-400", uso: "Terceira série (sem texto por cima)" },
-  { token: "--chart-4", passo: "pink-300", uso: "Quarta série; itens fora do destaque" },
-  { token: "--chart-5", passo: "pink-200", uso: "Quinta série; começo da escala de calor" },
-  { token: "--chart-neutral", passo: "graphite-300", uso: "Sem destaque: \"Outros\", contexto, desativado" },
+  { token: "--chart-1", passo: "vermelho-700 · #CC3A45", uso: "Destaque: a série principal; topo da escala de calor" },
+  { token: "--chart-2", passo: "vermelho-500 · #DA5963", uso: "Segunda série (texto escuro por cima)" },
+  { token: "--chart-3", passo: "rosa-400 · #E89AA1", uso: "Terceira série" },
+  { token: "--chart-4", passo: "rosa-300 · #CDB4B8", uso: "Quarta série; começo da escala de calor" },
+  { token: "--chart-5", passo: "cinza-500 · #9A99A1", uso: "Quinta posição: \"Outros\" e o que não está em destaque" },
+  { token: "--chart-neutral", passo: "cinza-500 · #9A99A1", uso: "Sem destaque: \"Outros\", contexto, desativado" },
   { token: "--chart-grid", passo: "graphite-100", uso: "Linhas de grade" },
 ];
 
@@ -304,11 +304,11 @@ export function GraficosShowcase() {
           <div className="mt-6 border-t border-border pt-5">
             <Rotulo>Escala de calor (do menor para o maior)</Rotulo>
             <div className="flex gap-1">
-              {[["--chart-5", "var(--foreground)"], ["--chart-4", "var(--foreground)"], ["--chart-1", "var(--background)"], ["--chart-2", "var(--background)"]].map(([tk, tx]) => (
+              {[["--chart-seq-1", "var(--chart-seq-1-texto)"], ["--chart-seq-2", "var(--chart-seq-2-texto)"], ["--chart-seq-3", "var(--chart-seq-3-texto)"], ["--chart-seq-4", "var(--chart-seq-4-texto)"]].map(([tk, tx]) => (
                 <span key={tk} className="flex h-10 flex-1 items-center justify-center rounded-sm text-[0.75rem] font-semibold" style={{ background: `var(${tk})`, color: tx }}>{tk}</span>
               ))}
             </div>
-            <p className="mt-2 text-[0.75rem] text-muted-foreground">Texto escuro nos dois tons claros e texto claro nos dois escuros: todos passam de 4,5:1. O chart-3 fica fora da escala de calor porque nenhuma cor de texto atinge 4,5:1 sobre ele nos dois DS.</p>
+            <p className="mt-2 text-[0.75rem] text-muted-foreground">Do rosa-300 ao vermelho-700. Texto escuro nos três primeiros tons e texto claro no vermelho-700: todos passam de 4,5:1. O texto branco não passa sobre o vermelho-500 (3,8:1), por isso ele leva texto escuro. Vermelho-700 e vermelho-500, e rosa-400 e rosa-300, ficam parecidos para quem tem daltonismo: os valores vão sempre escritos junto das partes.</p>
           </div>
         </Cartao>
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
