@@ -1,5 +1,6 @@
 import { CheckCircle, XCircle, MessageCircle, Megaphone, Search, Store, Heart } from "lucide-react";
 import { PageHeader, PageSection, SectionLabel } from "./GetStartedShowcase";
+import { EscritaDeInteligencia, type ExemploDeEscrita, type CardDeDescoberta } from "./EscritaDeInteligencia";
 
 const display = "font-[family-name:var(--font-display)]";
 
@@ -44,6 +45,54 @@ const microcopy: { contexto: string; escrever: string; evitar: string }[] = [
   { contexto: "Dado que depende da loja", escrever: "A confirmar com a loja", evitar: "Indisponível" },
   { contexto: "Erro ao enviar foto", escrever: "A foto não subiu. Confira a conexão e tente de novo.", evitar: "Erro 500" },
 ];
+
+/* Textos de inteligência (painel do lojista e Inteligência da administração). Números fictícios. */
+const exemplosInteligencia: ExemploDeEscrita[] = [
+  {
+    regra: "Jargão estatístico no título",
+    evitar: { titulo: "Variação de +2,3σ nas visualizações de Vestidos (p < 0,05)" },
+    recomendado: { titulo: "Vestidos estão sendo mais vistos do que o normal", texto: "Nas últimas 4 semanas, em comparação com os 3 meses anteriores.", detalhe: "visualizações 2,3 desvios-padrão acima da média de 90 dias · 1.240 visualizações · 86 lojas" },
+  },
+  {
+    regra: "Proporção apresentada como quantidade",
+    evitar: { titulo: "Brechós vendem mais que lojas no Centro" },
+    recomendado: { titulo: "No Centro, uma fatia maior das buscas é por peças de segunda mão", texto: "A proporção é maior que a da cidade como um todo.", detalhe: "38% das buscas do Centro contra 22% na cidade · últimas 4 semanas" },
+  },
+  {
+    regra: "Oportunidade comercial inventada",
+    evitar: { titulo: "Grande oportunidade: abra uma seção infantil na sua loja", texto: "A demanda por roupa infantil está explodindo na região." },
+    recomendado: { titulo: "Buscas por roupa infantil na região encontraram poucas peças", texto: "Isso mostra o que as pessoas procuraram, não quanto comprariam.", detalhe: "62 buscas, 9 com resultado · últimos 30 dias" },
+  },
+  {
+    regra: "Vocação regional inventada",
+    evitar: { titulo: "Este bairro tem vocação para moda sustentável" },
+    recomendado: { titulo: "As buscas por peças usadas cresceram neste bairro", texto: "Em comparação com o mês anterior." },
+  },
+  {
+    regra: "Títulos repetitivos",
+    evitar: { titulo: "Insight de categoria · Insight de região · Insight de preço" },
+    recomendado: { titulo: "Jaquetas voltaram a ser procuradas · O Centro busca mais segunda mão · Peças até R$ 100 são as mais vistas" },
+  },
+  {
+    regra: "Descrição que repete o título",
+    evitar: { titulo: "As visualizações aumentaram", texto: "Houve aumento nas visualizações das suas peças." },
+    recomendado: { titulo: "Suas peças foram mais vistas nesta semana", texto: "O aumento veio principalmente de buscas por vestidos." },
+  },
+];
+
+const cardInteligencia: CardDeDescoberta = {
+  tema: "Categorias",
+  titulo: "Vestidos estão sendo mais vistos do que o normal",
+  contexto: "Nas últimas 4 semanas, em comparação com os 3 meses anteriores.",
+  leitura: "Pode indicar procura de estação; vale acompanhar as próximas semanas.",
+  passo: "Confira se os vestidos da sua loja têm tamanho e fotos completos.",
+  detalhes: [
+    { rotulo: "Visualizações no período", valor: "1.240" },
+    { rotulo: "Média de 90 dias", valor: "780 por mês" },
+    { rotulo: "Variação", valor: "2,3 desvios-padrão acima da média" },
+    { rotulo: "Base", valor: "86 lojas participantes" },
+  ],
+};
 
 export function VoiceShowcase() {
   return (
@@ -126,6 +175,8 @@ export function VoiceShowcase() {
           ))}
         </div>
       </PageSection>
+
+      <EscritaDeInteligencia prefixo="voice" exemplos={exemplosInteligencia} card={cardInteligencia} />
 
       <section>
         <SectionLabel>Resumo</SectionLabel>
