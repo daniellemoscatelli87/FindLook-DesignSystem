@@ -1474,7 +1474,7 @@ export function TemplatesShowcase() {
       {/* 9 — Botões flutuantes (padrão de 16/11/2026) */}
       <section id="template-flutuantes" className="space-y-5">
         <div>
-          <h2 className="text-[1.125rem] font-black text-foreground tracking-[-0.025em]">{t("Floating buttons", "Botões flutuantes")}</h2>
+          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Floating buttons", "Botões flutuantes")}</h2>
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5 max-w-2xl">
             {t(
               "The landing pages have up to two buttons fixed on the screen: the phone action bar (for example, Find pieces or Register my store) and Back to top. Rules so that one never covers the other or the footer.",
@@ -1514,7 +1514,7 @@ export function TemplatesShowcase() {
       {/* ── Tokens ── */}
       <section id="templates-tokens" className="space-y-5">
         <div>
-          <h2 className="text-[1.125rem] font-black text-foreground tracking-[-0.025em]">Tokens</h2>
+          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("Core CSS custom properties shared across all templates.", "Propriedades CSS personalizadas principais compartilhadas por todos os templates.")}</p>
         </div>
         <TokenTable groups={templatesTokenGroups(t)} />

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Organização e limpeza"),
+    desc: pt("Um estilo só de título de seção em todas as páginas (24 px). Raios levados para a escala (8, 12, 16 e 24 px). Cores padrão do Tailwind e hexadecimais que sobravam trocados por tokens. Feedback e Rótulos passam a ter conteúdo próprio; os tokens de Movimento ganham endereço próprio; saem do menu os itens que só levavam a avisos \"Ver em\"; link quebrado do changelog corrigido. As notificações (toast) funcionam (ui/sonner, sem next-themes) e a página Feedback mostra notificações reais, com exemplos de moda. Abas, sanfona, menu suspenso, diálogo, confirmação (ui/alert-dialog), caixa de seleção, opção e chave passam a usar os componentes de ui/, ajustados ao visual documentado. Página nova Catálogo de componentes, com todos os arquivos de ui/."),
+    page: "catalogo", anchor: "catalogo-lista",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Tom de voz: textos de inteligência e dados"),
     desc: pt("Quatro seções novas na página Tom de voz: como escrever o que os dados e a IA encontram como uma conversa, e não um relatório. Regras, uma estrutura única para toda descoberta (descoberta, contexto, leitura possível, próximo passo, detalhamento), pares evitar e preferir com exemplos do painel do lojista e perguntas de revisão. Também: trilha de navegação, paginação, dica de contexto e painel lateral da página Overlays passam a usar os componentes reais de ui/; o painel lateral (ui/sheet) prende o foco e fecha com Esc."),
     page: "voice", anchor: "voice-inteligencia",
