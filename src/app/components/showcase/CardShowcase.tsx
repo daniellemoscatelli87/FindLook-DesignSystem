@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SectionHeader } from "./shared/SectionHeader";
 import { Check, ChevronRight, Image, LayoutPanelTop, MousePointer2, ShieldCheck, Sparkles } from "lucide-react";
 import { useI18n } from "../../i18n";
 import {
@@ -1306,7 +1307,6 @@ export function CardShowcase() {
           </div>
           <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
 import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
-import { SectionHeader } from "./shared/SectionHeader";
 
 <section className="relative isolate overflow-x-clip">
   <LuzesDifusas variante="esquerda" />          {/* "hero" com dissolver no hero; alterne "direita" */}
