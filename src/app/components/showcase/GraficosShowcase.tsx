@@ -210,7 +210,7 @@ const PASSOS_INTELIGENCIA = [
 
 const TOKENS_COR = [
   { token: "--chart-1", passo: "vermelho-700 · #CC3A45", uso: "Destaque: a série principal; topo da escala de calor" },
-  { token: "--chart-2", passo: "vermelho-500 · #DA5963", uso: "Segunda série (texto escuro por cima)" },
+  { token: "--chart-2", passo: "vermelho-500 · #DA5963", uso: "Segunda série" },
   { token: "--chart-3", passo: "rosa-400 · #E89AA1", uso: "Terceira série" },
   { token: "--chart-4", passo: "rosa-300 · #CDB4B8", uso: "Quarta série; começo da escala de calor" },
   { token: "--chart-5", passo: "cinza-500 · #9A99A1", uso: "Quinta posição: \"Outros\" e o que não está em destaque" },
@@ -676,7 +676,7 @@ function SecaoCatalogo() {
             <MapaDePontos rotulo="Lojas participantes por região (dados de exemplo)" regioes={REGIOES_ESQ} colunas={3} linhas={3} pontos={PONTOS_LOJAS} tipos={["Loja", "Brechó"]} />
           </CartaoDoCatalogo>
           <CartaoDoCatalogo nome="Mapa de bolhas" componente="MapaDeBolhas" quando="Para comparar quantidades por lugar sem pintar regiões inteiras."
-            cuidado="Áreas são difíceis de comparar com precisão: por isso o valor vai escrito em cada bolha."
+            cuidado="Áreas são difíceis de comparar com precisão: por isso o valor vai escrito junto de cada bolha."
             dados={{ colunas: ["Região", "Buscas"], linhas: [...BOLHAS_MAPA].sort((a, b) => b.valor - a.valor).map(b => [b.rotulo, n(b.valor)]) }}>
             <MapaDeBolhas rotulo="Buscas por região (dados de exemplo)" regioes={REGIOES_ESQ} colunas={3} linhas={3} bolhas={BOLHAS_MAPA} nomesDasRegioes={false} rotuloTamanho="Tamanho da bolha: buscas nas últimas 4 semanas" />
           </CartaoDoCatalogo>
@@ -746,12 +746,20 @@ export function GraficosShowcase() {
           </ul>
           <div className="mt-6 border-t border-border pt-5">
             <Rotulo>Escala de calor (do menor para o maior)</Rotulo>
-            <div className="flex gap-1">
-              {[["--chart-seq-1", "var(--chart-seq-1-texto)"], ["--chart-seq-2", "var(--chart-seq-2-texto)"], ["--chart-seq-3", "var(--chart-seq-3-texto)"], ["--chart-seq-4", "var(--chart-seq-4-texto)"]].map(([tk, tx]) => (
-                <span key={tk} className="flex h-10 flex-1 items-center justify-center rounded-sm text-[0.75rem] font-semibold" style={{ background: `var(${tk})`, color: tx }}>{tk}</span>
+            <ul className="m-0 grid list-none grid-cols-4 gap-1 p-0">
+              {["--chart-seq-1", "--chart-seq-2", "--chart-seq-3", "--chart-seq-4"].map(tk => (
+                <li key={tk} className="min-w-0">
+                  <span aria-hidden className="block h-10 rounded-sm" style={{ background: `var(${tk})` }} />
+                  <span className="mt-1 block font-mono text-[0.6875rem] text-foreground [overflow-wrap:anywhere]">{tk}</span>
+                </li>
               ))}
-            </div>
-            <p className="mt-2 text-[0.75rem] text-muted-foreground">Do rosa-300 ao vermelho-700. Texto escuro nos três primeiros tons e texto claro no vermelho-700: todos passam de 4,5:1. O texto branco não passa sobre o vermelho-500 (3,8:1), por isso ele leva texto escuro. Vermelho-700 e vermelho-500, e rosa-400 e rosa-300, ficam parecidos para quem tem daltonismo: os valores vão sempre escritos junto das partes.</p>
+            </ul>
+            <p className="mt-2 text-[0.75rem] text-muted-foreground">Do rosa-300 ao vermelho-700. As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Vermelho-700 e vermelho-500, e rosa-400 e rosa-300, ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
+          </div>
+          <div className="mt-6 border-t border-border pt-5">
+            <Rotulo>Texto nos gráficos</Rotulo>
+            <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
+            <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">Nenhuma cor de texto passa de 4,5:1 sobre todos os tons da paleta, e trocar a cor do texto de uma parte para outra confunde a leitura. Por isso barras, fatias, células, blocos e bolhas não levam número nem nome. Valores e nomes em --foreground; --muted-foreground só no texto secundário, como os eixos. Quando o valor precisa ser ligado a uma parte (barras empilhadas, mosaico, rosca), ele vem depois de um ponto na cor dela, na mesma ordem das partes. Decisão da dona do produto, 19/11/2026.</p>
           </div>
         </Cartao>
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -775,14 +783,14 @@ export function GraficosShowcase() {
             dos={[
               "Destaque na --chart-1; outras séries em --chart-2 a --chart-5.",
               "Escreva valores e nomes junto das marcas; a legenda é só apoio.",
-              "Texto sobre uma cor só nos tons que passam de 4,5:1 (escala de calor e mosaico já fazem isso).",
+              "Valores e nomes fora das marcas, sempre na mesma cor de texto, com um ponto na cor da parte quando for preciso ligá-los a ela.",
               "Grafite (--chart-neutral) para Outros, contexto e linha de base.",
             ]}
             donts={[
               "Usar grafite e primária como duas séries de mesmo peso.",
               "Criar cores fora da escala (verde, azul, laranja) para separar séries.",
               "Depender só da legenda para dizer o que é cada cor.",
-              "Escrever texto pequeno sobre o chart-3 ou sobre o --chart-neutral escuro.",
+              "Escrever número ou nome sobre uma barra, fatia, célula, bloco ou bolha, ou trocar a cor do texto conforme o tom.",
             ]}
           />
         </div>
@@ -1122,7 +1130,7 @@ export function GraficosShowcase() {
               <li>Ver dados abre uma tabela com os números: é o detalhamento e a alternativa para leitores de tela.</li>
               <li>Valores e nomes escritos junto das marcas; a legenda é apoio, nunca a única forma de leitura.</li>
               <li>Destaque também pela espessura, pelo peso do texto ou por um contorno, não só pela cor.</li>
-              <li>Texto sobre cor só em tons com 4,5:1 ou mais; os demais rótulos ficam fora das marcas.</li>
+              <li>Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto. Nos mapas de calor, o destaque vai contornado e dito numa frase.</li>
             </ul>
           </Callout>
           <Callout title="Movimento e tamanho">
