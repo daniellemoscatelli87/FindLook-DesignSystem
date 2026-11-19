@@ -120,7 +120,7 @@ export function StatesShowcase() {
           <div>
             <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">No card de produto</p>
             <div className="max-w-sm rounded-[var(--radius)] border border-border bg-background p-4 flex gap-4">
-              <div className="h-20 w-20 shrink-0 rounded-[10px] bg-muted" aria-hidden />
+              <div className="h-20 w-20 shrink-0 rounded-md bg-muted" aria-hidden />
               <div className="min-w-0">
                 <p className={`${display} text-[1rem] font-bold tracking-[-0.01em] text-foreground`}>Jaqueta preta</p>
                 <p className="text-[0.8125rem] text-muted-foreground mb-2">Loja no Centro · Tam. M</p>
@@ -129,7 +129,7 @@ export function StatesShowcase() {
               </div>
             </div>
           </div>
-          <div className="rounded-[10px] bg-muted/60 border border-border p-4 text-[0.8125rem] text-muted-foreground font-mono leading-relaxed overflow-x-auto">
+          <div className="rounded-md bg-muted/60 border border-border p-4 text-[0.8125rem] text-muted-foreground font-mono leading-relaxed overflow-x-auto">
             {'<StatusChip state="confirmado" />  // confirmado | a-confirmar | esgotado | sugerido-ia | desatualizado'}
           </div>
         </div>
@@ -152,7 +152,7 @@ export function StatesShowcase() {
             <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">Com motivo</p>
             <StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />
           </div>
-          <div className="rounded-[10px] bg-muted/60 border border-border p-4 text-[0.8125rem] text-muted-foreground font-mono leading-relaxed overflow-x-auto">
+          <div className="rounded-md bg-muted/60 border border-border p-4 text-[0.8125rem] text-muted-foreground font-mono leading-relaxed overflow-x-auto">
             {'<StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />  // publicado | pendente | esgotado | reservado | rascunho'}
           </div>
         </div>

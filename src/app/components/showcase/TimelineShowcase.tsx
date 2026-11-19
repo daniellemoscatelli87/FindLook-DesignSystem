@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SectionHeader } from "./shared/SectionHeader";
 import { Target, Search, Layers, Lightbulb, Wand2, CalendarCheck, LineChart, MapPin, Heart, MessageCircle, Store, Star, ShoppingBag } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { Timeline, type TimelineStep } from "../ui/timeline";
@@ -8,14 +9,6 @@ import { TokenTable } from "./shared/TokenTable";
 
 const FINDLOOK = true;
 
-function SectionHeader({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="mb-6">
-      <h2 className={`${display} text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1`}>{title}</h2>
-      <p className="text-[0.9375rem] leading-relaxed text-muted-foreground max-w-3xl">{description}</p>
-    </div>
-  );
-}
 
 export function TimelineShowcase() {
   const { t } = useI18n();
@@ -58,7 +51,7 @@ export function TimelineShowcase() {
           <div className="flex flex-col gap-1.5"><span className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Done steps", "Etapas feitas")}</span><SegmentedControl size="sm" aria-label={t("Done steps", "Etapas feitas")} value={check} onValueChange={setCheck} options={[{ value: "icone", label: t("Keep icon", "Mantêm o ícone") }, { value: "check", label: "Check" }]} /></div>
           <div className="flex flex-col gap-1.5"><span className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Animation", "Animação")}</span><SegmentedControl size="sm" aria-label={t("Animation", "Animação")} value={animar} onValueChange={setAnimar} options={[{ value: "sim", label: t("On scroll", "Na rolagem") }, { value: "nao", label: t("Off", "Desligada") }]} /></div>
         </div>
-        <div className="rounded-[24px] border border-border bg-background p-4 sm:p-8">
+        <div className="rounded-xl border border-border bg-background p-4 sm:p-8">
           <Timeline key={`${alternar}-${check}-${animar}`} etapas={etapas} alternar={alternar === "sim"} checkNasFeitas={check === "check"} animar={animar === "sim"} />
         </div>
       </section>
@@ -78,7 +71,7 @@ export function TimelineShowcase() {
 
       <section id="timeline-motion" className="scroll-mt-32">
         <SectionHeader title={t("Motion: Step Indicator", "Movimento: Step Indicator")} description={t("The same scroll-driven logic as the site, in React.", "A mesma lógica de rolagem do site, em React.")} />
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-5 lg:grid-cols-2 [&>*]:min-w-0">
           <DataTable
             head={[t("Moment", "Momento"), t("What happens", "O que acontece")]}
             rows={[
@@ -93,7 +86,7 @@ export function TimelineShowcase() {
             <Callout title={t("Inner scroll containers", "Contêineres com rolagem própria")}>
               <p>{t("The component listens to scroll in capture mode, so it also works inside a panel that scrolls on its own, like this design system. The threshold is measured against the window height.", "O componente escuta a rolagem em modo de captura, então funciona também dentro de um painel com rolagem própria, como este design system. O limite é medido contra a altura da janela.")}</p>
             </Callout>
-            <pre className="overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Timeline } from "@/app/components/ui/timeline";
+            <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Timeline } from "@/app/components/ui/timeline";
 import { Target, Search } from "lucide-react";
 
 <Timeline
@@ -111,7 +104,7 @@ import { Target, Search } from "lucide-react";
 
       <section id="timeline-usage" className="scroll-mt-32">
         <SectionHeader title={t("Usage", "Uso")} description={t("For sequences the person reads top to bottom: how a product works, a journey, a process.", "Para sequências que a pessoa lê de cima para baixo: como um produto funciona, uma jornada, um processo.")} />
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-5 lg:grid-cols-2 [&>*]:min-w-0">
           <DoDont
             dos={[
               t("Three to eight steps, each with one short title and one or two sentences.", "De três a oito etapas, cada uma com um título curto e uma ou duas frases."),

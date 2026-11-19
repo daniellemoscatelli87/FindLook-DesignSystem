@@ -7,7 +7,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered,
+  PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered, LibraryBig,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -38,6 +38,8 @@ import { StepperShowcase } from "./components/showcase/StepperShowcase";
 import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
+import { Toaster } from "./components/ui/sonner";
+import { CatalogoShowcase } from "./components/showcase/CatalogoShowcase";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -152,6 +154,8 @@ const ptLabels: Record<string, string> = {
   "Icons": "Ícones",
   "Sizes & Colors": "Tamanhos e cores",
   "Library": "Biblioteca",
+  "Component catalog": "Catálogo de componentes",
+  "All components": "Todos os componentes",
   "Overlays": "Sobreposições (overlays)",
   "Breadcrumb": "Trilha de navegação (breadcrumb)",
   "Pagination": "Paginação",
@@ -224,7 +228,6 @@ const navGroups: { group: string; items: NavItem[] }[] = [
         items: [
           { id: "colors",          label: "Color Palette",   sectionId: "colors" },
           { id: "typography",      label: "Typography",       sectionId: "colors" },
-          { id: "spacing",         label: "Spacing",          sectionId: "colors" },
           { id: "radius",          label: "Radius",           sectionId: "colors" },
           { id: "shadows",         label: "Shadows",          sectionId: "colors" },
           { id: "colors-tokens",   label: "Tokens",           sectionId: "colors" },
@@ -315,7 +318,6 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       { id: "backgrounds", label: "Backgrounds", icon: Image,
         items: [
           { id: "gradient-anim-bg",  label: "Gradient Animation", sectionId: "backgrounds" },
-          { id: "canvas-reveal-bg",  label: "Canvas Reveal",      sectionId: "backgrounds" },
           { id: "vortex-bg",         label: "Vortex",             sectionId: "backgrounds" },
           { id: "bg-lines-bg",       label: "Background Lines",   sectionId: "backgrounds" },
           { id: "doodle-bg",         label: "Textura doodle",     sectionId: "backgrounds" },
@@ -340,9 +342,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "marquee",         label: "Marquee",              sectionId: "motion" },
           { id: "animated-list",   label: "Animated List",        sectionId: "motion" },
           { id: "orbiting-circles",label: "Orbiting Circles",     sectionId: "motion" },
-          { id: "wobble-card",     label: "Wobble Card",          sectionId: "motion" },
-          { id: "shine-border",    label: "Shine Border",         sectionId: "motion" },
-          { id: "tokens",          label: "Motion Tokens",        sectionId: "motion" },
+          { id: "motion-tokens",   label: "Motion Tokens",        sectionId: "motion" },
         ],
       },
     ],
@@ -364,6 +364,11 @@ const navGroups: { group: string; items: NavItem[] }[] = [
   {
     group: "Components",
     items: [
+      { id: "catalogo", label: "Component catalog", icon: LibraryBig,
+        items: [
+          { id: "catalogo-lista", label: "All components", sectionId: "catalogo" },
+        ],
+      },
       { id: "buttons", label: "Buttons", icon: MousePointer2,
         items: [
           { id: "buttons",        label: "Button Variants", sectionId: "buttons" },
@@ -406,8 +411,6 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       },
       { id: "data", label: "Data Display", icon: TableProperties,
         items: [
-          { id: "kpi-cards",   label: "KPI Cards", sectionId: "data" },
-          { id: "kpi-painel",  label: "Indicador do painel", sectionId: "data" },
           { id: "charts",      label: "Charts",    sectionId: "data" },
           { id: "grafico-desempenho", label: "Gráfico de desempenho", sectionId: "data" },
           { id: "grafico-anel",       label: "Gráfico de anel",       sectionId: "data" },
@@ -437,7 +440,6 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "avatar-circles", label: "Avatar Circles", sectionId: "badges" },
           { id: "empty-states",  label: "Empty States",  sectionId: "badges" },
           { id: "listas-painel", label: "Listas de atividade e ações", sectionId: "badges" },
-          { id: "timeline",      label: "Timeline",      sectionId: "badges" },
           { id: "badges-tokens", label: "Tokens",        sectionId: "badges" },
         ],
       },
@@ -534,11 +536,12 @@ const sectionComponents: Record<string, React.ReactNode> = {
   colors:    <FoundationShowcase />,
   tokens:      <TokensShowcase />,
   integration: <IntegrationShowcase />,
+  catalogo:  <CatalogoShowcase />,
   buttons:   <FormShowcase />,
   cards:     <CardShowcase />,
   data:      <DataShowcase />,
-  feedback:  <FeedbackShowcase />,
-  badges:    <FeedbackShowcase />,
+  feedback:  <FeedbackShowcase parte="feedback" />,
+  badges:    <FeedbackShowcase parte="rotulos" />,
   icons:     <IconsShowcase />,
   overlays:  <OverlaysShowcase />,
   header:    <HeaderShowcase />,
@@ -564,6 +567,7 @@ const sectionLabels: Record<string, string> = {
   brand:     "Brand Identity",
   ilustracoes: "Mascote & Ilustrações",
   colors:    "Foundation",
+  catalogo:  "Component catalog",
   buttons:   "Form Controls",
   cards:     "Cards",
   data:      "Data Display",
@@ -761,7 +765,7 @@ function AppShell() {
         {/* Menu toggle: collapses the sidebar on desktop, opens the drawer on mobile */}
         <button
           type="button"
-          className="lg:hidden h-9 w-9 rounded-[8px] flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors shrink-0"
+          className="lg:hidden h-9 w-9 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors shrink-0"
           onClick={() => setMobileSidebarOpen(v => !v)}
           aria-label={t("Toggle menu", "Abrir/fechar menu")}
           title={t("Toggle menu", "Abrir/fechar menu")}
@@ -833,7 +837,7 @@ function AppShell() {
           type="button"
           onClick={() => setSearchOpen(true)}
           aria-label={t("Search the design system", "Buscar no design system")}
-          className="hidden md:flex items-center gap-2 h-7 px-3 rounded-[8px] border border-border bg-background/60 text-muted-foreground text-[0.75rem] hover:border-[var(--border-strong)] hover:bg-background transition-colors"
+          className="hidden md:flex items-center gap-2 h-7 px-3 rounded-sm border border-border bg-background/60 text-muted-foreground text-[0.75rem] hover:border-[var(--border-strong)] hover:bg-background transition-colors"
         >
           <Search className="h-3 w-3" />
           <span>{t("Search", "Buscar")}</span>
@@ -842,10 +846,10 @@ function AppShell() {
 
 
         {/* Dark/Light segmented pill */}
-        <div className="flex items-center h-8 p-0.5 rounded-[10px] bg-muted border border-border gap-0.5">
+        <div className="flex items-center h-8 p-0.5 rounded-md bg-muted border border-border gap-0.5">
           <button
             onClick={() => setDark(false)}
-            className={`flex items-center gap-1.5 h-7 px-2.5 rounded-[8px] text-[0.75rem] font-medium transition-all duration-150 ${
+            className={`flex items-center gap-1.5 h-7 px-2.5 rounded-sm text-[0.75rem] font-medium transition-all duration-150 ${
               !dark
                 ? "bg-card text-foreground shadow-sm border border-border"
                 : "text-muted-foreground hover:text-foreground"
@@ -856,7 +860,7 @@ function AppShell() {
           </button>
           <button
             onClick={() => setDark(true)}
-            className={`flex items-center gap-1.5 h-7 px-2.5 rounded-[8px] text-[0.75rem] font-medium transition-all duration-150 ${
+            className={`flex items-center gap-1.5 h-7 px-2.5 rounded-sm text-[0.75rem] font-medium transition-all duration-150 ${
               dark
                 ? "bg-card text-foreground shadow-sm border border-border"
                 : "text-muted-foreground hover:text-foreground"
@@ -917,7 +921,7 @@ function AppShell() {
                         title={collapsed ? tl(label) : undefined}
                         aria-label={tl(label)}
                         aria-expanded={item.items ? !!isExpanded : undefined}
-                        className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-[9px] text-[0.875rem] font-medium transition-all duration-150 mb-0.5
+                        className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-sm text-[0.875rem] font-medium transition-all duration-150 mb-0.5
                           ${collapsed ? "lg:justify-center lg:px-0" : ""}
                           ${isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
                       >
@@ -940,7 +944,7 @@ function AppShell() {
                               <button
                                 key={sub.id}
                                 onClick={() => handleSubItemClick(sub.sectionId, sub.id)}
-                                className={`w-full text-left px-3 py-1.5 rounded-[7px] text-[0.8125rem] transition-colors
+                                className={`w-full text-left px-3 py-1.5 rounded-sm text-[0.8125rem] transition-colors
                                   ${isSubActive
                                     ? "text-primary font-medium bg-primary/8"
                                     : "text-muted-foreground hover:text-foreground hover:bg-accent font-normal"
@@ -970,7 +974,7 @@ function AppShell() {
                       title={collapsed ? tl(group.group) : undefined}
                       aria-label={tl(group.group)}
                       aria-expanded={groupOpen}
-                      className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-[9px] text-[0.875rem] font-medium transition-all duration-150 mb-0.5
+                      className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-sm text-[0.875rem] font-medium transition-all duration-150 mb-0.5
                         ${collapsed ? "lg:justify-center lg:px-0" : ""}
                         ${groupActive && !groupOpen ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
                     >
@@ -1067,7 +1071,7 @@ function AppShell() {
                 type="button"
                 onClick={() => setSearchOpen(false)}
                 aria-label={t("Close search", "Fechar busca")}
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1087,9 +1091,9 @@ function AppShell() {
                       key={`${result.sectionId}-${result.key}`}
                       type="button"
                       onClick={() => selectSearchResult(result.sectionId, result.anchor)}
-                      className="flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-left transition-colors hover:bg-accent focus-visible:bg-accent focus-visible:outline-none"
+                      className="flex w-full items-center gap-3 rounded-sm px-3 py-2.5 text-left transition-colors hover:bg-accent focus-visible:bg-accent focus-visible:outline-none"
                     >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] bg-muted text-muted-foreground">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-muted text-muted-foreground">
                         <ResultIcon className="h-4 w-4" aria-hidden />
                       </span>
                       <span className="min-w-0 flex-1">
@@ -1131,6 +1135,7 @@ export default function App() {
   return (
     <I18nProvider>
       <AppShell />
+      <Toaster />
     </I18nProvider>
   );
 }

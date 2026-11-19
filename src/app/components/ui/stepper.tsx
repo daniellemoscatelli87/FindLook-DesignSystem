@@ -94,7 +94,7 @@ export function Stepper({ etapas, atual, concluidas, onIrPara, rotulo = "Etapas"
                 <button
                   type="button"
                   onClick={() => onIrPara!(i)}
-                  className={cn(classe, "rounded-t-[10px] outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background")}
+                  className={cn(classe, "rounded-t-md outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background")}
                 >
                   {conteudo}
                 </button>

@@ -6,27 +6,20 @@ import {
   Loader2, Trash2, Edit3, Copy, Share, MoreHorizontal,
   ArrowRight, Check, X, AlertCircle, Zap, Star,
 } from "lucide-react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import * as SwitchPrimitive from "@radix-ui/react-switch";
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { SegmentedControl } from "@/app/components/ui/segmented-control";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
+import { Checkbox } from "@/app/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group";
+import { Switch } from "@/app/components/ui/switch";
 import { PasswordConfirm, regrasPadrao, textosPadrao } from "@/app/components/ui/password-field";
 import { LayoutGrid, List, Map as MapIcon, FileSpreadsheet, Camera } from "lucide-react";
 import { BotaoDividido, SeletorDePeriodo, periodosPadrao } from "@/app/components/ui/painel-cabecalho";
+import { SectionHeader } from "./shared/SectionHeader";
 
 const periodosProprios = [{ valor: "hoje", rotulo: "Hoje" }, { valor: "semana", rotulo: "Esta semana" }, { valor: "mes", rotulo: "Este mês" }, { valor: "ano", rotulo: "Este ano" }];
 
 /* ── Shared helpers ── */
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="mb-8">
-      <h2 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1">{title}</h2>
-      {description && <p className="text-[0.9375rem] text-muted-foreground">{description}</p>}
-    </div>
-  );
-}
 
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -40,7 +33,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div
-      className={`bg-card rounded-[16px] border border-border p-6 ${className}`}
+      className={`bg-card rounded-lg border border-border p-6 ${className}`}
     >
       {children}
     </div>
@@ -53,7 +46,7 @@ const variantesUi: Record<string, "default" | "outline" | "ghost" | "link" | "se
   primary: "default", outline: "outline", ghost: "ghost", link: "link", secondary: "secondary", destructive: "destructive", "pink-outline": "outline",
 };
 const tamanhosUi: Record<string, "sm" | "default" | "lg" | "icon"> = { sm: "sm", md: "default", lg: "lg", xl: "lg", "icon-sm": "icon", icon: "icon", "icon-lg": "icon" };
-const tamanhoExtra: Record<string, string> = { xl: "h-13 px-7 rounded-[16px]", "icon-sm": "size-8 rounded-sm", "icon-lg": "size-11" };
+const tamanhoExtra: Record<string, string> = { xl: "h-13 px-7 rounded-lg", "icon-sm": "size-8 rounded-sm", "icon-lg": "size-11" };
 
 function Btn({ variant = "primary", size = "md", children, loading = false, disabled = false, icon, iconOnly = false, className = "" }:
   { variant?: "primary"|"outline"|"ghost"|"link"|"secondary"|"destructive"|"pink-outline"; size?: "sm"|"md"|"lg"|"xl"|"icon-sm"|"icon"|"icon-lg"; children?: React.ReactNode; loading?: boolean; disabled?: boolean; icon?: React.ReactNode; iconOnly?: boolean; className?: string }) {
@@ -248,7 +241,7 @@ export function FormShowcase() {
                 <PasswordConfirm semConfirmacao senha={senhaUnica} confirmacao="" onSenhaChange={setSenhaUnica} onConfirmacaoChange={() => {}} />
               </div>
             </div>
-            <pre className="mt-6 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { PasswordConfirm } from "@/app/components/ui/password-field";
+            <pre className="mt-6 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { PasswordConfirm } from "@/app/components/ui/password-field";
 
 const [senha, setSenha] = useState("");
 const [confirmacao, setConfirmacao] = useState("");
@@ -277,7 +270,7 @@ const [confirmacao, setConfirmacao] = useState("");
                 <textarea
                   placeholder={t("Write your message here...", "Escreva sua mensagem aqui...")}
                   rows={4}
-                  className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-[10px] px-3 py-2.5 text-[0.9375rem] outline-none transition-all duration-150 resize-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 hover:border-[var(--border-strong)]"
+                  className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-md px-3 py-2.5 text-[0.9375rem] outline-none transition-all duration-150 resize-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 hover:border-[var(--border-strong)]"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -285,7 +278,7 @@ const [confirmacao, setConfirmacao] = useState("");
                 <textarea
                   placeholder={t("Add notes...", "Adicione notas...")}
                   rows={4}
-                  className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-[10px] px-3 py-2.5 text-[0.9375rem] outline-none transition-all duration-150 resize-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 hover:border-[var(--border-strong)] opacity-50 cursor-not-allowed"
+                  className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-md px-3 py-2.5 text-[0.9375rem] outline-none transition-all duration-150 resize-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 hover:border-[var(--border-strong)] opacity-50 cursor-not-allowed"
                   disabled
                 />
               </div>
@@ -300,7 +293,7 @@ const [confirmacao, setConfirmacao] = useState("");
                 <div key={i} className="flex flex-col gap-1.5">
                   <label className="text-[0.875rem] font-medium text-foreground">{lbl}</label>
                   <div className="relative">
-                    <select className="w-full appearance-none bg-card border border-border text-foreground rounded-[10px] px-3 py-2.5 text-[0.9375rem] outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 hover:border-[var(--border-strong)] pr-9 cursor-pointer transition-all duration-150">
+                    <select className="w-full appearance-none bg-card border border-border text-foreground rounded-md px-3 py-2.5 text-[0.9375rem] outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 hover:border-[var(--border-strong)] pr-9 cursor-pointer transition-all duration-150">
                       <option>{t("Select an option...", "Selecione uma opção...")}</option>
                       <option>{t("Option Alpha", "Opção Alfa")}</option>
                       <option>{t("Option Beta", "Opção Beta")}</option>
@@ -323,24 +316,12 @@ const [confirmacao, setConfirmacao] = useState("");
                 { id: "indeterminate", label: t("Indeterminate", "Indeterminado"), state: checkC, setter: setCheckC },
               ].map(({ id, label, state, setter }) => (
                 <label key={id} className="flex items-center gap-2.5 cursor-pointer select-none group">
-                  <CheckboxPrimitive.Root
-                    checked={state}
-                    onCheckedChange={setter}
-                    className={`h-5 w-5 rounded-[5px] border transition-all duration-150 flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring
-                      ${state === true ? "bg-primary border-primary" : state === "indeterminate" ? "bg-primary border-primary" : "bg-card border-border hover:border-[var(--border-strong)]"}`}
-                  >
-                    <CheckboxPrimitive.Indicator className="text-primary-foreground">
-                      {state === "indeterminate"
-                        ? <div className="w-2 h-0.5 bg-primary-foreground rounded-full" />
-                        : <Check className="h-3 w-3" strokeWidth={3} />
-                      }
-                    </CheckboxPrimitive.Indicator>
-                  </CheckboxPrimitive.Root>
+                  <Checkbox checked={state} onCheckedChange={setter} />
                   <span className="text-[0.9375rem] text-foreground group-hover:text-foreground transition-colors">{label}</span>
                 </label>
               ))}
               <label className="flex items-center gap-2.5 cursor-not-allowed select-none opacity-40">
-                <div className="h-5 w-5 rounded-[5px] border border-border bg-card" />
+                <Checkbox disabled />
                 <span className="text-[0.9375rem] text-foreground">{t("Disabled", "Desabilitado")}</span>
               </label>
             </div>
@@ -349,26 +330,18 @@ const [confirmacao, setConfirmacao] = useState("");
 
         <SubSection title="Radio">
           <ShowcaseCard>
-            <RadioGroupPrimitive.Root value={radio} onValueChange={setRadio}>
-              <div className="flex flex-wrap gap-6">
-                {["a", "b", "c"].map((val) => (
-                  <RadioGroupPrimitive.Item key={val} value={val} asChild>
-                    <label className="flex items-center gap-2.5 cursor-pointer select-none group">
-                      <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center transition-all duration-150
-                        ${radio === val ? "border-primary" : "border-border group-hover:border-[var(--border-strong)]"}`}
-                      >
-                        {radio === val && <div className="h-2 w-2 rounded-full bg-primary" />}
-                      </div>
-                      <span className="text-[0.9375rem] text-foreground">{t("Option", "Opção")} {val.toUpperCase()}</span>
-                    </label>
-                  </RadioGroupPrimitive.Item>
-                ))}
-                <label className="flex items-center gap-2.5 cursor-not-allowed select-none opacity-40">
-                  <div className="h-5 w-5 rounded-full border-2 border-border" />
-                  <span className="text-[0.9375rem] text-foreground">{t("Disabled", "Desabilitado")}</span>
+            <RadioGroup value={radio} onValueChange={setRadio} className="flex flex-wrap gap-6">
+              {["a", "b", "c"].map((val) => (
+                <label key={val} className="flex items-center gap-2.5 cursor-pointer select-none">
+                  <RadioGroupItem value={val} />
+                  <span className="text-[0.9375rem] text-foreground">{t("Option", "Opção")} {val.toUpperCase()}</span>
                 </label>
-              </div>
-            </RadioGroupPrimitive.Root>
+              ))}
+              <label className="flex items-center gap-2.5 cursor-not-allowed select-none opacity-40">
+                <RadioGroupItem value="d" disabled />
+                <span className="text-[0.9375rem] text-foreground">{t("Disabled", "Desabilitado")}</span>
+              </label>
+            </RadioGroup>
           </ShowcaseCard>
         </SubSection>
 
@@ -409,7 +382,7 @@ const [confirmacao, setConfirmacao] = useState("");
                 <SegmentedControl aria-label={t("Delivery", "Entrega")} options={[{ value: "retirar", label: "Retirar na loja" }, { value: "entrega", label: "Entrega", disabled: true }]} />
               </div>
             </div>
-            <pre className="mt-5 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SegmentedControl } from "@/app/components/ui/segmented-control";
+            <pre className="mt-5 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SegmentedControl } from "@/app/components/ui/segmented-control";
 
 <SegmentedControl
   aria-label="Condição"
@@ -470,21 +443,11 @@ const [confirmacao, setConfirmacao] = useState("");
             <div className="flex flex-wrap gap-8">
               {[
                 { id: "notifications", label: t("Notifications", "Notificações"), state: swA, setter: setSwA },
-                { id: "dark", label: t("Dark Mode", "Dark Mode"), state: swB, setter: setSwB },
+                { id: "dark", label: t("Dark mode", "Modo escuro"), state: swB, setter: setSwB },
               ].map(({ id, label, state, setter }) => (
                 <div key={id} className="flex items-center gap-3">
-                  <SwitchPrimitive.Root
-                    checked={state}
-                    onCheckedChange={setter}
-                    className={`relative h-6 w-11 rounded-full transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer
-                      ${state ? "bg-primary" : "bg-switch-background"}`}
-                  >
-                    <SwitchPrimitive.Thumb
-                      className="block h-4.5 w-4.5 rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0.5 data-[state=checked]:translate-x-[22px]"
-                      style={{ height: "18px", width: "18px", marginTop: "3px", marginLeft: "3px" }}
-                    />
-                  </SwitchPrimitive.Root>
-                  <span className="text-[0.9375rem] text-foreground">{label}</span>
+                  <Switch id={`sw-${id}`} checked={state} onCheckedChange={setter} />
+                  <label htmlFor={`sw-${id}`} className="text-[0.9375rem] text-foreground cursor-pointer">{label}</label>
                 </div>
               ))}
               <div className="flex items-center gap-3 opacity-40 cursor-not-allowed">
@@ -502,7 +465,7 @@ const [confirmacao, setConfirmacao] = useState("");
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   placeholder={t("Search anything...", "Busque qualquer coisa...")}
-                  className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-[12px] pl-10 pr-4 py-3 text-[0.9375rem] outline-none transition-all duration-150 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60"
+                  className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-md pl-10 pr-4 py-3 text-[0.9375rem] outline-none transition-all duration-150 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60"
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
                   <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-[4px] bg-muted text-muted-foreground text-[0.625rem] font-medium border border-border">⌘K</kbd>
@@ -516,7 +479,7 @@ const [confirmacao, setConfirmacao] = useState("");
       {/* ── Tokens ── */}
       <section id="buttons-tokens" className="space-y-5">
         <div>
-          <h2 className="text-[1.125rem] font-black text-foreground tracking-[-0.025em]">Tokens</h2>
+          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties used by buttons and form controls.", "CSS custom properties usadas por botões e controles de formulário.")}</p>
         </div>
         <TokenTable groups={formTokenGroups} />

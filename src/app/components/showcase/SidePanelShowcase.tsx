@@ -4,6 +4,7 @@ import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import {
   SidePanel, SidePanelTrigger, SidePanelContent, SidePanelHeader, SidePanelBody, SidePanelActions, SidePanelFooter,
 } from "@/app/components/ui/side-panel";
+import { SectionHeader } from "./shared/SectionHeader";
 
 /* ─────────────────────────────────────────────────────────────
    Painel lateral (gaveta)
@@ -11,26 +12,17 @@ import {
    Dani Moscatelli, aqui com um exemplo da FindLook.
    ───────────────────────────────────────────────────────────── */
 
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="mb-6">
-      <h2 className="text-[1.375rem] font-bold tracking-[-0.02em] text-foreground">{title}</h2>
-      {description && <p className="mt-1 max-w-2xl text-[0.9375rem] leading-relaxed text-muted-foreground">{description}</p>}
-      <div className="mt-4 h-px bg-border" />
-    </div>
-  );
-}
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-[16px] border border-border bg-card p-6 ${className}`}>
+    <div className={`rounded-lg border border-border bg-card p-6 ${className}`}>
       {children}
     </div>
   );
 }
 
 const field =
-  "w-full rounded-[12px] border border-border bg-muted/40 px-4 py-2.5 text-[0.8125rem] leading-relaxed text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary focus:bg-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring aria-[invalid=true]:border-error";
+  "w-full rounded-md border border-border bg-muted/40 px-4 py-2.5 text-[0.8125rem] leading-relaxed text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary focus:bg-card focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring aria-[invalid=true]:border-error";
 
 function maskPhone(v: string) {
   const d = v.replace(/\D/g, "").slice(0, 11);
@@ -73,7 +65,7 @@ function StorePanelDemo({ triggerLabel = "Cadastrar minha loja", outline = false
     <SidePanel open={open} onOpenChange={o => { setOpen(o); if (!o) setTimeout(reset, 300); }}>
       <SidePanelTrigger asChild>
         <button className={outline
-          ? "inline-flex h-10 items-center gap-2 rounded-[12px] border border-border bg-card px-4 text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          ? "inline-flex h-10 items-center gap-2 rounded-md border border-border bg-card px-4 text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           : "inline-flex h-10 items-center gap-2 rounded-full bg-primary px-5 text-[0.875rem] font-semibold text-primary-foreground transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"}>
           <Store className="h-4 w-4" aria-hidden /> {triggerLabel}
         </button>
@@ -98,15 +90,15 @@ function StorePanelDemo({ triggerLabel = "Cadastrar minha loja", outline = false
             </div>
           ) : (
             <form id="fl-store-form" noValidate onSubmit={submit} className="flex flex-col gap-2.5">
-              <p className="rounded-[10px] bg-[var(--surface-tint)] px-3 py-2 text-[0.75rem] text-muted-foreground">Demonstração: campos de exemplo, nada é enviado.</p>
+              <p className="rounded-md bg-[var(--surface-tint)] px-3 py-2 text-[0.75rem] text-muted-foreground">Demonstração: campos de exemplo, nada é enviado.</p>
               <input className={field} aria-invalid={!!invalid.loja} placeholder="Nome da loja ou brechó *" aria-label="Nome da loja ou brechó" autoComplete="organization" value={values.loja} onChange={set("loja")} />
               <input className={field} aria-invalid={!!invalid.whatsapp} type="tel" placeholder="WhatsApp da loja *" aria-label="WhatsApp da loja" autoComplete="tel" value={values.whatsapp} onChange={set("whatsapp")} />
               <input className={field} aria-invalid={!!invalid.bairro} placeholder="Bairro e cidade *" aria-label="Bairro e cidade" autoComplete="address-level2" value={values.bairro} onChange={set("bairro")} />
-              <fieldset className={`rounded-[12px] border bg-muted/40 p-3 ${invalid.tipo ? "border-error" : "border-border"}`}>
+              <fieldset className={`rounded-md border bg-muted/40 p-3 ${invalid.tipo ? "border-error" : "border-border"}`}>
                 <legend className="px-1 text-[0.75rem] font-semibold text-foreground">Tipo *</legend>
                 <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
                   {["Loja", "Brechó", "Loja e brechó"].map(op => (
-                    <label key={op} className="flex cursor-pointer items-center gap-2.5 rounded-[10px] border border-border/60 bg-card/70 p-2 text-[0.8125rem] font-medium text-foreground transition-colors hover:bg-card">
+                    <label key={op} className="flex cursor-pointer items-center gap-2.5 rounded-md border border-border/60 bg-card/70 p-2 text-[0.8125rem] font-medium text-foreground transition-colors hover:bg-card">
                       <input type="radio" name="fl-tipo" className="h-4 w-4 accent-[var(--primary)]" checked={values.tipo === op} onChange={() => setValues(v => ({ ...v, tipo: op }))} />
                       {op}
                     </label>
@@ -214,7 +206,7 @@ export function SidePanelShowcase() {
                 const I = Icon as React.ElementType;
                 return (
                   <li key={i} className="flex items-start gap-3 text-[0.875rem] leading-relaxed text-muted-foreground">
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-[8px] bg-[var(--primary-muted)] text-primary-text"><I className="h-3.5 w-3.5" aria-hidden /></span>
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-sm bg-[var(--primary-muted)] text-primary-text"><I className="h-3.5 w-3.5" aria-hidden /></span>
                     <span>{text as string}</span>
                   </li>
                 );
@@ -240,7 +232,7 @@ export function SidePanelShowcase() {
               ["Validação", "Todos obrigatórios; WhatsApp com pelo menos 10 dígitos. Uma mensagem abaixo do formulário e os campos inválidos destacados; revalida ao digitar depois da primeira tentativa."],
               ["Estados", "Parado → “Enviando…” (botão desabilitado) → sucesso substitui cabeçalho, formulário e barra de ação, com o próximo passo e um botão Fechar."],
             ].map(([title, desc]) => (
-              <div key={title} className="rounded-[12px] border border-border bg-muted/30 p-4">
+              <div key={title} className="rounded-md border border-border bg-muted/30 p-4">
                 <p className="mb-1 text-[0.8125rem] font-semibold text-foreground">{title}</p>
                 <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{desc}</p>
               </div>

@@ -9,13 +9,17 @@ import {
   Loader2, Clock, Check,
 } from "lucide-react";
 import { Search, Heart, CalendarCheck, MessageCircle, Camera, Ruler, TrendingUp } from "lucide-react";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { useI18n } from "../../i18n";
 import { Alert as UiAlert, AlertTitle, AlertDescription } from "../ui/alert";
 import { AbasComContador } from "@/app/components/ui/painel-produtos";
 import { BannerPromocional } from "@/app/components/ui/painel-cabecalho";
 import { ItemDeAtividade, ItemDeAcao, ListaDeTendencias } from "@/app/components/ui/painel-dados";
 import { IconeModa } from "@/app/components/ui/fashion-icons";
+import { SectionHeader } from "./shared/SectionHeader";
+import { VejaEm } from "./shared/VejaEm";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 
 type Bi = { en: string; pt: string };
 type TFn = (en: string, pt: string) => string;
@@ -28,20 +32,12 @@ const DEMO_AVATARS = ["Ana", "Bruno", "Carla", "Diego", "Elisa", "Fábio"].map((
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-card rounded-[16px] border border-border p-6 ${className}`}>
+    <div className={`bg-card rounded-lg border border-border p-6 ${className}`}>
       {children}
     </div>
   );
 }
 
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="mb-8">
-      <h2 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1">{title}</h2>
-      {description && <p className="text-[0.9375rem] text-muted-foreground">{description}</p>}
-    </div>
-  );
-}
 
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -94,7 +90,7 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
       <AlertTitle>{bi(cfg.title)}</AlertTitle>
       <AlertDescription>{bi(cfg.msg)}</AlertDescription>
       {dismissible && (
-        <button aria-label={t("Dismiss", "Dispensar")} onClick={() => setVisible(false)} className="absolute right-3 top-3 rounded-[8px] p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <button aria-label={t("Dismiss", "Dispensar")} onClick={() => setVisible(false)} className="absolute right-3 top-3 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <X className="h-4 w-4" />
         </button>
       )}
@@ -104,15 +100,15 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
 
 /* ── Toast ── */
 const toastTypes = [
-  { label: { en: "Success", pt: "Sucesso" }, icon: CheckCircle, color: "text-success", bg: "bg-card", msg: { en: "Report exported successfully!", pt: "Relatório exportado com sucesso!" } },
-  { label: { en: "Error", pt: "Erro" },   icon: AlertCircle, color: "text-primary", bg: "bg-card", msg: { en: "Failed to connect to server.", pt: "Falha ao conectar ao servidor." } },
-  { label: { en: "Warning", pt: "Aviso" }, icon: AlertTriangle,color: "text-warning",bg: "bg-card", msg: { en: "Low disk space — 2 GB remaining.", pt: "Pouco espaço em disco — restam 2 GB." } },
-  { label: "Loading", icon: Loader2,     color: "text-info",   bg: "bg-card", msg: { en: "Syncing your data...", pt: "Sincronizando seus dados..." } },
+  { label: { en: "Success", pt: "Sucesso" }, tipo: "success", icon: CheckCircle, color: "text-success", bg: "bg-card", msg: { en: "Item saved.", pt: "Peça salva." } },
+  { label: { en: "Error", pt: "Erro" },      tipo: "error",   icon: AlertCircle, color: "text-error",   bg: "bg-card", msg: { en: "Could not save the item. Try again.", pt: "Não foi possível salvar a peça. Tente de novo." } },
+  { label: { en: "Warning", pt: "Aviso" },   tipo: "warning", icon: AlertTriangle, color: "text-warning", bg: "bg-card", msg: { en: "2 items without size.", pt: "2 peças sem tamanho." } },
+  { label: "Loading",                         tipo: "loading", icon: Loader2,     color: "text-info",    bg: "bg-card", msg: { en: "Sending photos…", pt: "Enviando fotos…" } },
 ];
 
 /* ── Skeleton ── */
 function SkeletonPulse({ className = "" }: { className?: string }) {
-  return <div className={`animate-pulse bg-muted rounded-[8px] ${className}`} />;
+  return <div className={`animate-pulse bg-muted rounded-sm ${className}`} />;
 }
 
 /* ── Progress ── */
@@ -148,7 +144,7 @@ function DemoAbasComContador({ estilo }: { estilo: "pilula" | "sublinhado" }) {
         {estilo === "pilula" ? "Pílula" : "Sublinhado"} <span className="font-mono normal-case tracking-normal">· estilo="{estilo}"</span>
       </p>
       <AbasComContador abas={abasContador} valor={aba} onChange={setAba} estilo={estilo} rotulo={`Filtrar produtos por status (${estilo === "pilula" ? "pílula" : "sublinhado"})`} />
-      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-[12px] bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-md bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
         Mostrando <strong className="text-foreground">{atual.leitura}</strong>.
       </div>
     </div>
@@ -178,9 +174,9 @@ function DemoBannerPromocional() {
           onFechar={() => setAberto(false)}
         />
       ) : (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[16px] border border-dashed border-border px-4 py-3.5">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3.5">
           <p className="text-[0.875rem] text-muted-foreground">Você fechou o banner.</p>
-          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
             Mostrar de novo
           </button>
         </div>
@@ -220,8 +216,8 @@ const chipVariants = [
 ];
 
 const tagVariants = [
-  { label: "react", color: "bg-blue-500/10 text-blue-600 border-blue-500/20 dark:text-blue-400" },
-  { label: "typescript", color: "bg-indigo-500/10 text-indigo-600 border-indigo-500/20 dark:text-indigo-400" },
+  { label: "react", color: "bg-info/10 text-info border-info/20 dark:text-info" },
+  { label: "typescript", color: "bg-violet/10 text-violet border-violet/20 dark:text-violet" },
   { label: "ui-design", color: "bg-primary/10 text-primary border-primary/20" },
   { label: "performance", color: "bg-success/10 text-success border-success/20" },
   { label: "api", color: "bg-muted text-muted-foreground border-border" },
@@ -236,7 +232,7 @@ const timelineItems = [
   { icon: CheckCircle,   color: "bg-success text-white",   title: { en: "Store updated", pt: "Loja atualizada" },          desc: { en: "Opening hours changed.", pt: "Horário de funcionamento alterado." },            time: { en: "1 hr ago", pt: "há 1 h" } },
 ];
 
-export function FeedbackShowcase() {
+export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | "rotulos" }) {
   const { t, bi, lang } = useI18n();
   const [defaultTab,   setDefaultTab]   = useState("overview");
   const [underlineTab, setUnderlineTab] = useState("overview");
@@ -246,31 +242,23 @@ export function FeedbackShowcase() {
     <div className="space-y-16">
 
       {/* ── TABS ── */}
+      {parte === "feedback" && (
       <section id="tabs">
         <SectionHeader title={t("Tabs", "Abas")} description={t("Clean tab navigation for switching between content panels.", "Navegação limpa por abas para alternar entre painéis de conteúdo.")} />
         <SubSection title={t("Default Tabs", "Abas padrão")}>
           <ShowcaseCard>
-            <TabsPrimitive.Root value={defaultTab} onValueChange={setDefaultTab}>
-              <TabsPrimitive.List className="flex flex-wrap items-center gap-1 p-1 bg-muted rounded-[10px] w-fit max-w-full mb-5">
+            <Tabs value={defaultTab} onValueChange={setDefaultTab}>
+              <TabsList className="mb-5">
                 {tabItems.map(tab => (
-                  <TabsPrimitive.Trigger
-                    key={tab.id}
-                    value={tab.id}
-                    className={`whitespace-nowrap px-4 py-2 text-[0.875rem] font-medium rounded-[8px] transition-all duration-150 outline-none
-                      data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm
-                      data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground`}
-                    style={{ boxShadow: defaultTab === tab.id ? "var(--shadow-sm)" : undefined }}
-                  >
-                    {bi(tab.label)}
-                  </TabsPrimitive.Trigger>
+                  <TabsTrigger key={tab.id} value={tab.id}>{bi(tab.label)}</TabsTrigger>
                 ))}
-              </TabsPrimitive.List>
-              <TabsPrimitive.Content value={defaultTab}>
-                <div className="rounded-[12px] bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+              </TabsList>
+              <TabsContent value={defaultTab}>
+                <div className="rounded-md bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
                   {t("Content for", "Conteúdo da aba")} <strong className="text-foreground">{bi(tabItems.find(x => x.id === defaultTab)!.label)}</strong>{lang === "en" ? " tab." : "."}
                 </div>
-              </TabsPrimitive.Content>
-            </TabsPrimitive.Root>
+              </TabsContent>
+            </Tabs>
           </ShowcaseCard>
         </SubSection>
 
@@ -304,8 +292,10 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── ALERTS ── */}
+      {parte === "feedback" && (
       <section id="alerts">
         <SectionHeader title={t("Alerts", "Alertas")} description={t("Status messages for feedback, warnings, and errors. Inline and dismissible variants.", "Mensagens de status para feedback, avisos e erros. Variantes inline e dispensáveis.")} />
         <SubSection title={t("Alert Variants", "Variantes de alerta")}>
@@ -335,17 +325,37 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── TOASTS ── */}
+      {parte === "feedback" && (
       <section id="toasts">
         <SectionHeader title={t("Toasts", "Toasts")} description={t("Floating notification toasts for transient feedback messages.", "Notificações flutuantes (toasts) para mensagens de feedback temporárias.")} />
+        <SubSection title={t("Try it", "Experimente")}>
+          <ShowcaseCard>
+            <p className="mb-3 text-[0.875rem] text-muted-foreground">{t("Each button shows a real notification in the corner of the screen (ui/sonner).", "Cada botão mostra uma notificação de verdade no canto da tela (ui/sonner).")}</p>
+            <div className="flex flex-wrap gap-2">
+              {toastTypes.map(tt => (
+                <Button key={tt.tipo} variant="outline" onClick={() => {
+                  const msg = bi(tt.msg);
+                  if (tt.tipo === "success") toast.success(msg);
+                  else if (tt.tipo === "error") toast.error(msg);
+                  else if (tt.tipo === "warning") toast.warning(msg);
+                  else { const id = toast.loading(msg); setTimeout(() => toast.success(t("Done.", "Pronto."), { id }), 1800); }
+                }}>
+                  {typeof tt.label === "string" ? t("Loading", "Carregando") : bi(tt.label)}
+                </Button>
+              ))}
+            </div>
+          </ShowcaseCard>
+        </SubSection>
         <SubSection title={t("Toast Variants", "Variantes de toast")}>
           <ShowcaseCard>
             <div className="space-y-2 max-w-sm">
               {toastTypes.map(toast => {
                 const Icon = toast.icon;
                 return (
-                  <div key={toast.label} className="flex items-center gap-3 rounded-[12px] border border-border bg-card px-4 py-3" style={{ boxShadow: "var(--shadow-md)" }}>
+                  <div key={toast.label} className="flex items-center gap-3 rounded-md border border-border bg-card px-4 py-3" style={{ boxShadow: "var(--shadow-md)" }}>
                     <Icon className={`h-4.5 w-4.5 shrink-0 ${toast.color} ${toast.label === "Loading" ? "animate-spin" : ""}`} style={{ height: "18px", width: "18px" }} />
                     <span className="text-[0.875rem] font-medium text-foreground flex-1">{bi(toast.msg)}</span>
                     <button aria-label={t("Close", "Fechar")} className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
@@ -358,8 +368,10 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── PROGRESS ── */}
+      {parte === "feedback" && (
       <section id="progress">
         <SectionHeader title={t("Progress Bars", "Barras de progresso")} description={t("Visual feedback for task completion and resource utilization.", "Feedback visual para conclusão de tarefas e uso de recursos.")} />
         <SubSection title={t("Progress Variants", "Variantes de progresso")}>
@@ -399,8 +411,10 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── SKELETON ── */}
+      {parte === "feedback" && (
       <section id="skeleton">
         <SectionHeader title={t("Skeleton Loading", "Skeleton loading")} description={t("Placeholder content while data loads. Matches the shape of the actual content.", "Conteúdo provisório enquanto os dados carregam. Segue a forma do conteúdo real.")} />
         <SubSection title={t("Skeleton States", "Estados de skeleton")}>
@@ -420,8 +434,8 @@ export function FeedbackShowcase() {
                 <SkeletonPulse className="h-3.5 w-4/6" />
               </div>
               <div className="mt-4 flex gap-2">
-                <SkeletonPulse className="h-8 w-20 rounded-[8px]" />
-                <SkeletonPulse className="h-8 w-16 rounded-[8px]" />
+                <SkeletonPulse className="h-8 w-20 rounded-sm" />
+                <SkeletonPulse className="h-8 w-16 rounded-sm" />
               </div>
             </ShowcaseCard>
 
@@ -437,7 +451,7 @@ export function FeedbackShowcase() {
                     <SkeletonPulse className="h-3.5 w-36" />
                     <SkeletonPulse className="h-3 w-24" />
                   </div>
-                  <SkeletonPulse className="h-6 w-16 rounded-[6px]" />
+                  <SkeletonPulse className="h-6 w-16 rounded-sm" />
                   <SkeletonPulse className="h-3.5 w-16" />
                 </div>
               ))}
@@ -445,8 +459,10 @@ export function FeedbackShowcase() {
           </div>
         </SubSection>
       </section>
+      )}
 
       {/* ── BADGES CHIPS TAGS ── */}
+      {parte === "rotulos" && (
       <section id="badges">
         <SectionHeader title={t("Badges, Chips & Tags", "Badges, chips e tags")} description={t("Compact informational labels for categorization and status indication.", "Rótulos informativos compactos para categorização e indicação de status.")} />
 
@@ -454,11 +470,11 @@ export function FeedbackShowcase() {
           <ShowcaseCard>
             <div className="flex flex-wrap gap-2">
               {badgeVariants.map(b => (
-                <span key={b.label.en} className={`inline-flex items-center px-2.5 py-0.5 rounded-[6px] text-[0.75rem] font-semibold border ${b.cls}`}>
+                <span key={b.label.en} className={`inline-flex items-center px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border ${b.cls}`}>
                   {bi(b.label)}
                 </span>
               ))}
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[6px] text-[0.75rem] font-semibold border bg-primary/10 text-primary border-primary/20">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border bg-primary/10 text-primary border-primary/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 {t("Live", "Ao vivo")}
               </span>
@@ -494,7 +510,7 @@ export function FeedbackShowcase() {
           <ShowcaseCard>
             <div className="flex flex-wrap gap-2">
               {tagVariants.map(tag => (
-                <span key={tag.label} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-[6px] text-[0.75rem] font-medium border ${tag.color}`}>
+                <span key={tag.label} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-sm text-[0.75rem] font-medium border ${tag.color}`}>
                   <span className="opacity-60">#</span>{tag.label}
                 </span>
               ))}
@@ -518,7 +534,7 @@ export function FeedbackShowcase() {
               <Selo size="sm">{t("Section", "Seção")}</Selo>
               <Selo dot={false}>{t("No dot", "Sem ponto")}</Selo>
             </div>
-            <div className="mt-4 rounded-[12px] bg-foreground p-5">
+            <div className="mt-4 rounded-md bg-foreground p-5">
               <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-background/60">{t("On a dark surface", "Sobre superfície escura")}</p>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-white/85"><span aria-hidden className="h-2 w-2 rounded-full bg-primary" />{t("Inverted", "Invertido")}</span>
@@ -530,7 +546,7 @@ export function FeedbackShowcase() {
               <li>• {t("Dot or one icon in the primary color, never both.", "Ponto ou um ícone na cor primária, nunca os dois.")}</li>
               <li>• {t("It is not interactive. For filters use chips; for status use badges or the status chip.", "Não é interativo. Para filtros use chips; para status use badges ou o chip de status.")}</li>
             </ul>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
 <Selo>Moda local em Curitiba</Selo>
 <Selo icon={<MapPin />}>Moda local em Curitiba</Selo>`}</code></pre>
           </ShowcaseCard>
@@ -542,7 +558,7 @@ export function FeedbackShowcase() {
             <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
               {t("From the sections of the studio site's Experience Intelligence 2 page (\"Cenário Atual\", \"O Desafio\", \"Método\"): a filled pill in the light primary tint with a thin primary border and the primary text color, uppercase with wide tracking, no dot. It sits centred above a section title and names the subject of the section. The hero tag stays neutral (card surface, dot); this one is coloured.", "Das seções da página Experience Intelligence 2 do site do estúdio (\"Cenário Atual\", \"O Desafio\", \"Método\"): pílula preenchida com o tom claro da primária, borda fina na primária e texto na cor primária de texto, em caixa alta com espaçamento largo, sem ponto. Fica centralizada acima do título da seção e nomeia o assunto dela. O selo do hero continua neutro (fundo de card, ponto); este é colorido.")}
             </p>
-            <div className="rounded-[16px] border border-border bg-background px-6 py-10 text-center">
+            <div className="rounded-lg border border-border bg-background px-6 py-10 text-center">
               <SeloSecao className="mb-4">{"Para quem procura"}</SeloSecao>
               <h3 className="mx-auto max-w-[32ch] text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{"Encontre peças alinhadas ao seu estilo, tamanho e região."}</h3>
             </div>
@@ -552,7 +568,7 @@ export function FeedbackShowcase() {
               <SeloSecao size="sm">{t("Compact", "Compacto")} · sm</SeloSecao>
               <SeloSecao icon={<Sparkles />}>{t("With icon", "Com ícone")}</SeloSecao>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
 
 <SeloSecao>Cenário atual</SeloSecao>
 <h2>…</h2>`}</code></pre>
@@ -565,39 +581,17 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── TIMELINE ── */}
-      <section id="timeline">
-        <SectionHeader title={t("Timeline", "Linha do tempo")} description={t("Activity feed and event history with status indicators.", "Feed de atividades e histórico de eventos com indicadores de status.")} />
-        <SubSection title={t("Activity Timeline", "Linha do tempo de atividades")}>
-          <ShowcaseCard>
-            <div className="relative">
-              <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
-              <div className="space-y-5">
-                {timelineItems.map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={i} className="relative flex gap-4 pl-12">
-                      <div className={`absolute left-5 -translate-x-1/2 h-6 w-6 rounded-full flex items-center justify-center shrink-0 ${item.color}`}>
-                        <Icon className="h-3.5 w-3.5" style={{ height: "14px", width: "14px" }} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-2 mb-0.5">
-                          <p className="text-[0.9rem] font-semibold text-foreground">{bi(item.title)}</p>
-                          <span className="text-[0.75rem] text-muted-foreground shrink-0">{bi(item.time)}</span>
-                        </div>
-                        <p className="text-[0.8125rem] text-muted-foreground">{bi(item.desc)}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </ShowcaseCard>
-        </SubSection>
+      {parte === "rotulos" && (
+      <section id="rotulos-timeline">
+        <VejaEm secao="timeline" titulo={t("The timeline has its own page", "A linha do tempo tem página própria")} texto={t("Steps, states and accessibility of the timeline are in Components > Timeline.", "Etapas, estados e acessibilidade da linha do tempo ficam em Componentes > Linha do tempo.")} rotuloBotao={t("See Timeline", "Ver Linha do tempo")} />
       </section>
+      )}
 
       {/* ── AVATAR ── */}
+      {parte === "rotulos" && (
       <section id="avatar">
         <SectionHeader title={t("Avatar", "Avatar")} description={t("User identity representation in various sizes with presence indicators.", "Representação da identidade do usuário em vários tamanhos, com indicadores de presença.")} />
         <SubSection title={t("Avatar Sizes & States", "Tamanhos e estados de avatar")}>
@@ -658,7 +652,7 @@ export function FeedbackShowcase() {
                   <span className="text-[0.6875rem] text-muted-foreground">{label}</span>
                 </div>
               ))}
-              <div className="flex flex-wrap items-center gap-4 rounded-[14px] border border-border bg-muted/40 p-4">
+              <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-muted/40 p-4">
                 <AvatarCircles numPeople={120} avatarUrls={DEMO_AVATARS.slice(0, 4)} />
                 <p className="text-[0.8125rem] text-foreground">
                   <span className="font-semibold">{t("124 stores", "124 lojas")}</span>{" "}
@@ -666,7 +660,7 @@ export function FeedbackShowcase() {
                 </p>
               </div>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-[10px] bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
 
 <AvatarCircles
   numPeople={99}
@@ -685,8 +679,10 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── EMPTY STATE ── */}
+      {parte === "rotulos" && (
       <section id="empty-states">
         <SectionHeader title={t("Empty States", "Estados vazios")} description={t("Clear, actionable empty states that guide users forward.", "Estados vazios claros e acionáveis que orientam o usuário.")} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -702,7 +698,7 @@ export function FeedbackShowcase() {
                 <h4 className="text-[1rem] font-semibold text-foreground mb-1">{t("No results found", "Nenhum resultado encontrado")}</h4>
                 <p className="text-[0.875rem] text-muted-foreground max-w-[220px]">{t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}</p>
               </div>
-              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] border border-border bg-card hover:bg-accent text-foreground transition-colors">
+              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors">
                 {t("Clear filters", "Limpar filtros")}
               </button>
             </div>
@@ -719,7 +715,7 @@ export function FeedbackShowcase() {
                 <h4 className="text-[1rem] font-semibold text-foreground mb-1">{t("Create your first project", "Crie seu primeiro projeto")}</h4>
                 <p className="text-[0.875rem] text-muted-foreground max-w-[220px]">{t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}</p>
               </div>
-              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-[10px] bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] transition-colors">
+              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] transition-colors">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                 {t("New Project", "Novo projeto")}
               </button>
@@ -727,8 +723,10 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </div>
       </section>
+      )}
 
       {/* ── LISTAS DO PAINEL ── */}
+      {parte === "rotulos" && (
       <section id="listas-painel">
         <SectionHeader title="Listas de atividade e ações" description="Três listas do painel da loja: o que aconteceu, o que fazer agora e o que está em alta nas buscas." />
         <SubSection title="Atividade, ações e tendências">
@@ -759,24 +757,29 @@ export function FeedbackShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+      )}
 
       {/* ── Feedback Tokens ── */}
+      {parte === "feedback" && (
       <section id="feedback-tokens" className="space-y-5">
         <div>
-          <h2 className="text-[1.125rem] font-black text-foreground tracking-[-0.025em]">{t("Tokens — Feedback", "Tokens — Feedback")}</h2>
+          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Tokens — Feedback", "Tokens — Feedback")}</h2>
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties used by alerts, toasts, and status components.", "Propriedades CSS customizadas usadas por alertas, toasts e componentes de status.")}</p>
         </div>
         <TokenTable groups={feedbackTokenGroups(t)} />
       </section>
+      )}
 
       {/* ── Labels / Badges Tokens ── */}
+      {parte === "rotulos" && (
       <section id="badges-tokens" className="space-y-5">
         <div>
-          <h2 className="text-[1.125rem] font-black text-foreground tracking-[-0.025em]">{t("Tokens — Labels & Badges", "Tokens — Rótulos e badges")}</h2>
+          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Tokens — Labels & Badges", "Tokens — Rótulos e badges")}</h2>
           <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties used by badges, tags, avatars, and status pills.", "Propriedades CSS customizadas usadas por badges, tags, avatares e pílulas de status.")}</p>
         </div>
         <TokenTable groups={badgesTokenGroups(t)} />
       </section>
+      )}
     </div>
   );
 }

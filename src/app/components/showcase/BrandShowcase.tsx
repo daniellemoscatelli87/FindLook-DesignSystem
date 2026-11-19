@@ -78,8 +78,8 @@ function DownloadButtons({ asset }: { asset: DownloadAsset }) {
 function SectionBlock({ id, title, subtitle }: { id: string; title: string; subtitle?: string }) {
   return (
     <div id={id} className="mb-8 scroll-mt-32">
-      <h2 className="text-[1.375rem] font-bold tracking-[-0.02em] text-foreground">{title}</h2>
-      {subtitle && <p className="mt-1 text-[0.9375rem] text-muted-foreground">{subtitle}</p>}
+      <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{title}</h2>
+      {subtitle && <p className="mt-1 max-w-3xl text-[0.9375rem] leading-relaxed text-muted-foreground">{subtitle}</p>}
       <div className="mt-4 h-px bg-border" />
     </div>
   );
@@ -164,8 +164,8 @@ function RuleCard({ type, bg, children, label }: { type: "do" | "dont"; bg: stri
   );
 }
 
-const GRAFITE_BG = "bg-[#000000]";
-const ROSA_BG = "bg-[#FFF2F5]";
+const GRAFITE_BG = "bg-[var(--graphite-950)]";
+const ROSA_BG = "bg-[var(--brand-rose)]";
 
 export function BrandShowcase() {
   return (
@@ -335,7 +335,7 @@ export function BrandShowcase() {
             { icon: UserCircle2, label: "Avatar da plataforma", desc: "Perfil oficial e notificações", bg: "bg-card", preview: pngSimbolo, previewSize: "h-10" },
             { icon: Share2, label: "Redes sociais", desc: "Foto de perfil do @findlook.cwb", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-10" },
             { icon: LayoutDashboard, label: "Cabeçalho mobile", desc: "Topo do app em telas estreitas", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
-            { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[#2C2C33]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
+            { icon: ImageIcon, label: "Marca d’água", desc: "Fotos de peças e lojas", bg: "bg-[var(--graphite-800)]", preview: pngSimboloMonoBranco, previewSize: "h-8" },
             { icon: Monitor, label: "Tela de carregamento", desc: "Splash e estados de espera", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-12" },
             { icon: Tablet, label: "Menu lateral recolhido", desc: "Painel do lojista em modo compacto", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
           ].map(({ icon: Icon, label, desc, bg, preview, previewSize }) => (

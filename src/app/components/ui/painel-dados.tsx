@@ -72,7 +72,7 @@ type CardIndicadorProps = {
 /** Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. */
 function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
   return (
-    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-[16px] border border-border bg-card p-5", className)}>
+    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-lg border border-border bg-card p-5", className)}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
@@ -84,7 +84,7 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
             {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
           </p>
         </div>
-        <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
+        <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
       </div>
       {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
     </div>
@@ -121,7 +121,7 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
           {series.map(s => {
             const ativa = visiveis.includes(s.chave);
             return (
-              <button key={s.chave} type="button" aria-pressed={ativa} onClick={() => alternar(s.chave)} className={cn("inline-flex items-center gap-1.5 rounded-[6px] py-0.5 text-[0.75rem] transition-opacity", ativa ? "text-foreground" : "text-muted-foreground opacity-60 hover:opacity-100", foco)}>
+              <button key={s.chave} type="button" aria-pressed={ativa} onClick={() => alternar(s.chave)} className={cn("inline-flex items-center gap-1.5 rounded-sm py-0.5 text-[0.75rem] transition-opacity", ativa ? "text-foreground" : "text-muted-foreground opacity-60 hover:opacity-100", foco)}>
                 <span aria-hidden className="inline-block h-2 w-2 rounded-full" style={{ background: s.cor }} />
                 {s.rotulo}
               </button>
@@ -199,9 +199,9 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }
       data-slot="item-de-acao"
       href={href}
       onClick={onClick}
-      className={cn("group flex items-center gap-3 rounded-[12px] border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
+      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
-      <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] bg-muted text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{midia}</span>
+      <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-muted text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{midia}</span>
       <span className="min-w-0 flex-1">
         <span className="block text-[0.875rem] font-semibold text-foreground">{titulo}</span>
         {descricao && <span className="block text-[0.8125rem] text-muted-foreground">{descricao}</span>}
@@ -214,7 +214,7 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }
 /* ── Lista de tendências ─────────────────────────────────────── */
 function ListaDeTendencias({ itens, className }: { itens: { termo: string; variacao: number }[]; className?: string }) {
   return (
-    <ol data-slot="lista-de-tendencias" className={cn("divide-y divide-border rounded-[12px] border border-border", className)}>
+    <ol data-slot="lista-de-tendencias" className={cn("divide-y divide-border rounded-md border border-border", className)}>
       {itens.map((it, i) => (
         <li key={it.termo} className="flex items-center gap-3 px-3 py-2.5">
           <span aria-hidden className="w-5 shrink-0 text-[0.75rem] font-bold text-muted-foreground">{i + 1}</span>
@@ -231,7 +231,7 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   const ok = estado === "ok";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-[10px] px-3 py-2.5 transition-colors hover:bg-muted", foco, className)}>
+      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-muted", foco, className)}>
         {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
         <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
@@ -290,12 +290,12 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
         <button type="button" className={btn} onClick={() => setI(v => Math.min(dicas.length - 1, v + 1))} aria-disabled={i === dicas.length - 1} aria-label="Próxima dica"><ChevronRight aria-hidden className="h-4 w-4" /></button>
         {onFechar && <button type="button" className={cn(btn, "border-transparent")} onClick={onFechar} aria-label="Fechar dicas"><X aria-hidden className="h-4 w-4" /></button>}
       </div>
-      <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className="flex gap-4 rounded-[14px] border border-border bg-card p-3">
-        {dica.midia && <div aria-hidden className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[10px] bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]">{dica.midia}</div>}
+      <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className="flex gap-4 rounded-lg border border-border bg-card p-3">
+        {dica.midia && <div aria-hidden className="flex h-24 w-24 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]">{dica.midia}</div>}
         <div className="min-w-0 flex-1">
           <p className="text-[0.9375rem] font-bold text-foreground">{dica.titulo}</p>
           <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">{dica.texto}</p>
-          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-[8px] border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)]", foco)}>{dica.acao}</a>
+          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-sm border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)]", foco)}>{dica.acao}</a>
         </div>
       </div>
     </div>
@@ -305,7 +305,7 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
 /* ── Faixa de benefícios ─────────────────────────────────────── */
 function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { icone?: React.ReactNode; titulo: string; texto: string; beneficios: { icone: React.ReactNode; rotulo: string }[]; className?: string }) {
   return (
-    <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-[16px] border border-primary/15 bg-[var(--primary-muted)] p-5 @5xl:flex-row @5xl:items-center", className)}>
+    <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-lg border border-primary/15 bg-[var(--primary-muted)] p-5 @5xl:flex-row @5xl:items-center", className)}>
       <div className="flex min-w-0 gap-3 @5xl:w-80 @5xl:shrink-0">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
@@ -315,7 +315,7 @@ function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { ic
       </div>
       <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2 @2xl:grid-cols-4">
         {beneficios.map(b => (
-          <li key={b.rotulo} className="flex items-center gap-2.5 rounded-[12px] bg-card px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
+          <li key={b.rotulo} className="flex items-center gap-2.5 rounded-md bg-card px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
             <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{b.icone}</span>
             {b.rotulo}
           </li>
@@ -330,7 +330,7 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-[18px] border border-border bg-card p-4 @xl:p-5", className)}>
+    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-lg border border-border bg-card p-4 @xl:p-5", className)}>
       <div className="mb-4 flex items-start gap-3">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>}
         <div className="min-w-0 flex-1">
@@ -346,7 +346,7 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
 
 function LinkVerTudo({ children = "Ver tudo", href = "#", rotulo, onClick }: { children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement> }) {
   return (
-    <a href={href} aria-label={rotulo} onClick={onClick} className={cn("inline-flex shrink-0 items-center gap-1 rounded-[6px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
+    <a href={href} aria-label={rotulo} onClick={onClick} className={cn("inline-flex shrink-0 items-center gap-1 rounded-sm text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
       {children} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
     </a>
   );
