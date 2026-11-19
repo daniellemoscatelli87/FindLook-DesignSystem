@@ -102,15 +102,19 @@ function FaixaDeParceiros({
         </div>
       </div>
       {botaoPausar && (
-        <button
-          type="button"
-          onClick={() => setPausada((v) => !v)}
-          aria-pressed={pausada}
-          aria-label={pausada ? "Continuar a faixa de parceiros" : "Pausar a faixa de parceiros"}
-          className="absolute right-2 bottom-1 flex size-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hidden"
-        >
-          {pausada ? <Play className="size-3.5" aria-hidden /> : <Pause className="size-3.5" aria-hidden />}
-        </button>
+        // Fica numa linha própria, abaixo dos logos: não cobre a faixa e não flutua (WCAG 2.2.2)
+        <div className="mt-2 flex justify-end px-4 motion-reduce:hidden">
+          <button
+            type="button"
+            onClick={() => setPausada((v) => !v)}
+            aria-pressed={pausada}
+            className="inline-flex h-8 items-center gap-1.5 rounded-full px-2.5 text-[0.75rem] font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            {pausada ? <Play className="size-3.5" aria-hidden /> : <Pause className="size-3.5" aria-hidden />}
+            {pausada ? "Continuar movimento" : "Pausar movimento"}
+            <span className="sr-only"> da faixa de parceiros</span>
+          </button>
+        </div>
       )}
     </section>
   );
