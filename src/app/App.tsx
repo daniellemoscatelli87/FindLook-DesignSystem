@@ -7,7 +7,7 @@ import {
   ChevronRight, Zap,
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
-  PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered, LibraryBig, Blocks,
+  PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered, LibraryBig, Blocks, ChartNoAxesCombined,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -41,6 +41,7 @@ import { StatesShowcase } from "./components/showcase/StatesShowcase";
 import { Toaster } from "./components/ui/sonner";
 import { CatalogoShowcase } from "./components/showcase/CatalogoShowcase";
 import { ProdutoShowcase } from "./components/showcase/ProdutoShowcase";
+import { GraficosShowcase } from "./components/showcase/GraficosShowcase";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -161,6 +162,14 @@ const ptLabels: Record<string, string> = {
   "Hero search": "Busca do hero",
   "Store card and map": "Card de loja e mapa",
   "Store registration": "Cadastro do lojista",
+  "Charts and visualizations": "Gráficos e visualizações",
+  "Choosing a chart": "Como escolher",
+  "Chart colors": "Cores dos gráficos",
+  "Donut chart": "Rosca",
+  "Recommended charts": "Gráficos recomendados",
+  "Intelligence design": "Design de inteligência",
+  "Chart components": "Componentes e props",
+  "Chart accessibility": "Acessibilidade dos gráficos",
   "Overlays": "Sobreposições (overlays)",
   "Breadcrumb": "Trilha de navegação (breadcrumb)",
   "Pagination": "Paginação",
@@ -421,6 +430,17 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "card-tokens",         label: "Card Tokens",                    sectionId: "cards" },
         ],
       },
+      { id: "graficos", label: "Charts", icon: ChartNoAxesCombined,
+        items: [
+          { id: "graficos-escolher",       label: "Choosing a chart",    sectionId: "graficos" },
+          { id: "graficos-cores",          label: "Chart colors",        sectionId: "graficos" },
+          { id: "graficos-rosca",          label: "Donut chart",         sectionId: "graficos" },
+          { id: "graficos-recomendados",   label: "Recommended charts",  sectionId: "graficos" },
+          { id: "graficos-inteligencia",   label: "Intelligence design", sectionId: "graficos" },
+          { id: "graficos-componentes",    label: "Chart components",    sectionId: "graficos" },
+          { id: "graficos-acessibilidade", label: "Chart accessibility", sectionId: "graficos" },
+        ],
+      },
       { id: "data", label: "Data Display", icon: TableProperties,
         items: [
           { id: "charts",      label: "Charts",    sectionId: "data" },
@@ -554,6 +574,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   buttons:   <FormShowcase />,
   cards:     <CardShowcase />,
   data:      <DataShowcase />,
+  graficos:  <GraficosShowcase />,
   feedback:  <FeedbackShowcase parte="feedback" />,
   badges:    <FeedbackShowcase parte="rotulos" />,
   icons:     <IconsShowcase />,
@@ -586,6 +607,7 @@ const sectionLabels: Record<string, string> = {
   buttons:   "Form Controls",
   cards:     "Cards",
   data:      "Data Display",
+  graficos:  "Charts and visualizations",
   feedback:  "Feedback & Status",
   badges:    "Labels & Patterns",
   icons:     "Icons",
@@ -619,6 +641,7 @@ function AppShell() {
     buttons:   false,
     cards:     false,
     data:      false,
+    graficos:  false,
     feedback:  false,
     badges:    false,
     icons:     false,

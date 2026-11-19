@@ -218,7 +218,10 @@ export function DataShowcase() {
 
       {/* ── CHARTS ── */}
       <section id="charts">
-        <SectionHeader title={t("Charts", "Gráficos")} description={t("Minimal analytics charts using thin strokes and grayscale with pink highlights.", "Gráficos de analytics minimalistas, com traços finos e escala de cinza com destaques em pink.")} />
+        <SectionHeader title={t("Charts", "Gráficos")} description={t("Minimal analytics charts using thin strokes and tones of the primary pink.", "Gráficos de analytics minimalistas, com traços finos e tons do pink primário.")} />
+        <div className="mb-4">
+          <VejaEm secao="graficos" titulo="Mais gráficos, cores e o card de descoberta" texto="A rosca redesenhada, os 10 gráficos recomendados para a inteligência e a regra de cor ficam em Gráficos e visualizações." rotuloBotao="Ver em Gráficos" />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
           {/* Area Chart */}
@@ -517,11 +520,13 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Chart Palette", "Paleta de gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Series 1 — primary pink", "Série 1 — pink primário"),    light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--chart-2", description: t("Series 2 — graphite mid", "Série 2 — grafite médio"),       light: "#696977", dark: "#888896", isColor: true },
-      { name: "--chart-3", description: t("Series 3 — graphite light", "Série 3 — grafite claro"),     light: "#B3B3BC", dark: "#696977", isColor: true },
-      { name: "--chart-4", description: t("Series 4 — graphite lighter", "Série 4 — grafite mais claro"),   light: "#D4D4D9", dark: "#51515C", isColor: true },
-      { name: "--chart-5", description: t("Series 5 — graphite pale", "Série 5 — grafite pálido"),      light: "#E9E9EC", dark: "#3E3E46", isColor: true },
+      { name: "--chart-1", description: t("Series 1, highlight — primary pink (pink-500)", "Série 1, destaque — pink primário (pink-500)"), light: "#E62040", dark: "#EC5A72", isColor: true },
+      { name: "--chart-2", description: t("Series 2 — dark pink (pink-700)", "Série 2 — pink escuro (pink-700)"), light: "#91162B", dark: "#F8BCC6", isColor: true },
+      { name: "--chart-3", description: t("Series 3 — pink-400", "Série 3 — pink-400"), light: "#EC5A72", dark: "#E62040", isColor: true },
+      { name: "--chart-4", description: t("Series 4 — pink-300", "Série 4 — pink-300"), light: "#F290A0", dark: "#B91B35", isColor: true },
+      { name: "--chart-5", description: t("Series 5 — pink-200", "Série 5 — pink-200"), light: "#F8BCC6", dark: "#91162B", isColor: true },
+      { name: "--chart-neutral", description: t("Not highlighted: Others, context, disabled (graphite)", "Sem destaque: Outros, contexto, desativado (grafite)"), light: "#B3B3BC", dark: "#51515C", isColor: true },
+      { name: "--chart-grid", description: t("Chart grid lines", "Linhas de grade dos gráficos"), light: "#E9E9EC", dark: "#2C2C33", isColor: true },
     ],
   },
   {
