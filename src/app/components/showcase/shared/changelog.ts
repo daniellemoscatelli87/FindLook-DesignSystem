@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Gráficos e visualizações"),
+    desc: pt("Página nova e ui/graficos-inteligencia.tsx: como escolher o gráfico, cores dos gráficos, rosca redesenhada, os gráficos recomendados para o FindLook (barras ordenadas, mapa de calor por região, dumbbell, linhas e área, slope, treemap, barras 100%, bolhas, heatmap matricial, bump, funil), cada um como um card de descoberta (conclusão, gráfico, por que importa, próximo passo), e o princípio do design de inteligência. Os tokens de gráfico passam a ser variações de tom do pink; o grafite fica só para informação sem destaque ou desabilitada."),
+    page: "graficos", anchor: "graficos-recomendados",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Padrões do produto"),
+    desc: pt("Página nova com padrões trazidos do produto como componentes: busca do hero (com botão fixo e gaveta no celular), card de loja, mapa de lojas (mapa ilustrativo ou o mapa real como slot), convite \"Sua loja não está no mapa?\", faixa de parceiros (com Pausar movimento) e as peças do cadastro do lojista. As telas do admin entram só depois da decisão final no produto."),
+    page: "produto", anchor: "produto-busca",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Rosca, barras horizontais e mapa coroplético"),
     desc: pt("Três gráficos novos em ui/graficos.tsx: Rosca (partes de um todo, com o centro e a legenda com porcentagem), BarrasHorizontais (comparação de grupos, com barra simples ou empilhada e legenda) e MapaCoropletico (regiões pintadas por um valor, com legenda, marcadores e escolha por toque; as formas vêm do produto). Cor por token, valor sempre escrito, 2 px entre as partes, dica ao passar o mouse, rótulos que quebram de linha e respeito a menos movimento. Vieram da Central de Inteligência de Mercado do produto."),
     page: "data", anchor: "grafico-participacao",
