@@ -480,6 +480,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       { id: "icons", label: "Icons", icon: Shapes,
         items: [
           { id: "icon-sizes",   label: "Sizes & Colors", sectionId: "icons" },
+          { id: "icon-base",    label: "Base do ícone",  sectionId: "icons" },
           { id: "icon-library", label: "Library",       sectionId: "icons" },
           { id: "icons-tokens", label: "Tokens",           sectionId: "icons" },
         ],

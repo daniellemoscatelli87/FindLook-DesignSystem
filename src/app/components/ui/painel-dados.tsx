@@ -17,6 +17,35 @@ import { Progress } from "./progress";
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
+/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/**
+ * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
+ *        próxima ação, atividade, algo ativo ou em andamento).
+ * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
+ *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * Ícone sem base (inline, ao lado do texto) não usa este componente.
+ */
+type TomDoIcone = "marca" | "neutro";
+const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
+function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
+  return (
+    <span
+      aria-hidden
+      data-slot="icone-com-base"
+      data-tom={tom}
+      className={cn(
+        "flex shrink-0 items-center justify-center",
+        redonda ? "rounded-full" : "rounded-md",
+        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        TAMANHO_DA_BASE[tamanho],
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
 /* ── Formatação pt-BR ────────────────────────────────────────── */
 const fmtNumero = new Intl.NumberFormat("pt-BR");
 const fmtPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -86,7 +115,7 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
             {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
           </p>
         </div>
-        <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
+        <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
       {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
     </div>
@@ -184,7 +213,7 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
 function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone: React.ReactNode; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-4 [&>svg]:w-4">{icone}</span>
+      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">{icone}</IconeComBase>
       <div className="min-w-0 flex-1">
         <p className="text-[0.8125rem] font-semibold text-foreground">{titulo}</p>
         {detalhe && <p className="truncate text-[0.75rem] text-muted-foreground">{detalhe}</p>}
@@ -195,7 +224,8 @@ function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone:
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; className?: string }) {
+/** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
+function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
@@ -203,7 +233,7 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }
       onClick={onClick}
       className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
-      <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-muted text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{midia}</span>
+      <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
         <span className="block text-[0.875rem] font-semibold text-foreground">{titulo}</span>
         {descricao && <span className="block text-[0.8125rem] text-muted-foreground">{descricao}</span>}
@@ -376,7 +406,13 @@ type PainelDeUsoProps = {
   className?: string;
 };
 
-/** Destaque do uso do mês: o que é medido, a porcentagem grande com a barra e o estado do limite. */
+/** Barra do uso: trilho cinza e preenchimento na cor primária. */
+function BarraDeUso({ pct, rotulo, className }: { pct: number; rotulo: string; className?: string }) {
+  return <Progress value={pct} aria-label={rotulo} className={cn("h-1.5 bg-muted", className)} />;
+}
+
+/** Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a
+ *  barra e o estado do limite numa linha discreta (neutra) ou em alerta. */
 function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, unidade, selo, className }: PainelDeUsoProps) {
   const pct = pctDoUso(usado, limite) ?? 0;
   const alerta = selo?.tom === "alerta";
@@ -384,37 +420,31 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
     <section
       data-slot="painel-de-uso"
       aria-label={`${titulo}: ${pctTexto(pct)} do limite`}
-      className={cn("grid gap-5 rounded-lg border border-primary/20 bg-[var(--primary-muted)] p-5 @3xl:grid-cols-[minmax(0,auto)_minmax(0,1fr)] @5xl:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,17rem)] @5xl:items-center", className)}
+      className={cn("grid gap-5 rounded-lg border border-border bg-card p-5 @3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
-      <div className="flex min-w-0 items-center gap-4 @3xl:border-r @3xl:border-primary/20 @3xl:pr-6">
-        <span aria-hidden className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-[var(--primary-text,var(--primary))] shadow-[var(--shadow-xs)] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>
+      <div className="flex min-w-0 items-start gap-3.5">
+        <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
         <div className="min-w-0">
-          {sobretitulo && <p className="text-[0.75rem] font-semibold uppercase tracking-[0.04em] text-muted-foreground">{sobretitulo}</p>}
-          <p className={`${display} text-[1.25rem] font-bold leading-tight tracking-[-0.015em] text-foreground`}>{titulo}</p>
+          {sobretitulo && <p className="text-[0.75rem] font-medium text-muted-foreground">{sobretitulo}</p>}
+          <p className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
           {descricao && <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{descricao}</p>}
         </div>
       </div>
       <div className="min-w-0">
-        <p className={`${display} text-[2rem] font-extrabold leading-none tracking-[-0.025em] text-foreground tabular-nums`}>{pctTexto(pct)}</p>
-        <p className="mt-1.5 text-[0.875rem] text-muted-foreground tabular-nums">
-          <span className="font-semibold text-foreground">{formatarNumero(usado)}</span> de {formatarNumero(limite)} {unidade}
-        </p>
-        <Progress value={pct} aria-label={`${titulo}: ${formatarNumero(usado)} de ${formatarNumero(limite)} ${unidade}`} className="mt-3 h-2.5" />
-      </div>
-      {selo && (
-        <div
-          data-tom={alerta ? "alerta" : "neutro"}
-          className={cn("flex items-start gap-3 rounded-md border bg-card/70 p-3.5 @3xl:col-span-2 @5xl:col-span-1", alerta ? "border-destructive/40" : "border-primary/25")}
-        >
-          <span aria-hidden className={cn("mt-0.5 shrink-0 [&>svg]:h-5 [&>svg]:w-5", alerta ? "text-destructive" : "text-[var(--primary-text,var(--primary))]")}>
-            {selo.icone ?? (alerta ? <TriangleAlert /> : <Info />)}
-          </span>
-          <div className="min-w-0">
-            <p className="text-[0.9375rem] font-semibold text-foreground">{selo.titulo}</p>
-            {selo.texto && <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{selo.texto}</p>}
-          </div>
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
+          <p className="tabular-nums">
+            <span className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{pctTexto(pct)}</span>
+            <span className="ml-2 text-[0.875rem] text-muted-foreground">{formatarNumero(usado)} de {formatarNumero(limite)} {unidade}</span>
+          </p>
+          {selo && (
+            <p data-tom={alerta ? "alerta" : "neutro"} className={cn("inline-flex items-center gap-1.5 text-[0.8125rem]", alerta ? "font-semibold text-destructive" : "text-muted-foreground")}>
+              <span aria-hidden className="shrink-0 [&>svg]:h-4 [&>svg]:w-4">{selo.icone ?? (alerta ? <TriangleAlert /> : <CheckCircle2 className="text-success" />)}</span>
+              <span><span className={alerta ? "" : "font-medium text-foreground"}>{selo.titulo}</span>{selo.texto ? ` · ${selo.texto}` : ""}</span>
+            </p>
+          )}
         </div>
-      )}
+        <BarraDeUso pct={pct} rotulo={`${titulo}: ${formatarNumero(usado)} de ${formatarNumero(limite)} ${unidade}`} className="mt-3 h-2" />
+      </div>
     </section>
   );
 }
@@ -429,25 +459,30 @@ type CardDeUsoProps = {
   className?: string;
 };
 
-/** Um tipo de uso do mês: ícone, rótulo, quanto foi usado do limite, a porcentagem e a barra. */
+/** Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a
+ *  porcentagem do limite. */
 function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", className }: CardDeUsoProps) {
   const pct = pctDoUso(usado, limite);
   return (
     <div data-slot="card-de-uso" className={cn("flex h-full min-w-0 flex-col gap-4 rounded-lg border border-border bg-card p-5", className)}>
-      <div className="flex min-w-0 items-start gap-3.5">
-        <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>
-        <div className="min-w-0 flex-1">
-          <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">{rotulo}</p>
-          <div className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3">
-            <p className="tabular-nums">
-              <span className="text-[1.375rem] font-bold leading-none tracking-[-0.02em] text-foreground">{formatarNumero(usado)}</span>
-              {limite ? <span className="text-[0.9375rem] text-muted-foreground"> / {formatarNumero(limite)}</span> : <span className="ml-1.5 text-[0.8125rem] text-muted-foreground">{semLimite}</span>}
-            </p>
-            {pct !== null && <p className="text-[0.9375rem] font-semibold tabular-nums text-foreground">{pctTexto(pct)}</p>}
-          </div>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">{rotulo}</p>
+          <p className="tabular-nums">
+            <span className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{formatarNumero(usado)}</span>
+            {limite ? <span className="ml-1.5 text-[0.9375rem] font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
+          </p>
         </div>
+        <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
-      {pct !== null && <Progress value={pct} aria-label={`${rotulo}: ${formatarNumero(usado)} de ${formatarNumero(limite!)}`} className="mt-auto h-2" />}
+      {pct !== null ? (
+        <div className="mt-auto">
+          <BarraDeUso pct={pct} rotulo={`${rotulo}: ${formatarNumero(usado)} de ${formatarNumero(limite!)}`} />
+          <p className="mt-1.5 text-[0.75rem] tabular-nums text-muted-foreground">{pctTexto(pct)} do limite</p>
+        </div>
+      ) : (
+        <p className="mt-auto text-[0.75rem] text-muted-foreground">{semLimite}</p>
+      )}
     </div>
   );
 }
@@ -455,6 +490,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
 };
+export type { TomDoIcone };
 export type { Serie, Dica };
