@@ -39,7 +39,7 @@ function MapaDeLojas({ mapa, lojas, selecionada = null, onSelecionar, rotuloList
     <div data-slot="mapa-de-lojas" className={cn("min-w-0", className)}>
       {aviso && (
         <p className="mb-4 flex items-start gap-2 rounded-md border border-warning/30 bg-warning-muted px-3 py-2 text-[0.8125rem] text-foreground">
-          <Info className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
+          <Info className="mt-0.5 size-4 shrink-0 text-warning-text" aria-hidden />
           <span>{aviso}</span>
         </p>
       )}

@@ -448,7 +448,7 @@ export function BrandShowcase() {
           ))}
         </div>
         <div className="mt-4 flex items-start gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-[0.8125rem] text-muted-foreground">
-          <AlertTriangle className="h-4 w-4 text-warning shrink-0 mt-0.5" aria-hidden />
+          <AlertTriangle className="h-4 w-4 text-warning-text shrink-0 mt-0.5" aria-hidden />
           <p>Sobre o pink, o símbolo pink some. Use a versão monocromática branca. Em fotografia, aplique uma faixa grafite ou branca atrás da marca.</p>
         </div>
       </div>

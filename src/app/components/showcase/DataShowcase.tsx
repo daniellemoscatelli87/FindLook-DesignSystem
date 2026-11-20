@@ -119,7 +119,7 @@ const tableData = [
 const statusStyles: Record<string, string> = {
   Active:   "bg-success/10 text-success border-success/20",
   Inactive: "bg-muted text-muted-foreground border-border",
-  Trial:    "bg-[var(--warning-muted)] text-warning border-warning/20",
+  Trial:    "bg-[var(--warning-muted)] text-warning-text border-warning/20",
 };
 
 const planStyles: Record<string, string> = {
@@ -542,9 +542,9 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("KPI Semantic", "Semântica de KPI"),
     tokens: [
-      { name: "--success",  description: t("Positive delta / up trend", "Variação positiva / tendência de alta"),  light: "#388459", dark: "#22C55E", isColor: true },
+      { name: "--success",  description: t("Positive delta / up trend", "Variação positiva / tendência de alta"),  light: "#31835D", dark: "#41B47F", isColor: true },
       { name: "--error",    description: t("Negative delta / down trend", "Variação negativa / tendência de queda"), light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--warning",  description: t("Caution / neutral trend", "Atenção / tendência neutra"),    light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--warning",  description: t("Caution / neutral trend", "Atenção / tendência neutra"),    light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--primary",  description: t("Highlighted KPI accent", "Acento de KPI em destaque"),     light: "#E62040", dark: "#E62040", isColor: true },
     ],
   },

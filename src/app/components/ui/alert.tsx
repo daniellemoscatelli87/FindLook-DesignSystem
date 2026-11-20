@@ -14,7 +14,7 @@ const alertVariants = cva(
         // Estados (padrão do DS): fundo suave, borda e ícone na cor do estado; título em grafite (contraste)
         success: "bg-[var(--success-muted)] border-success/20 text-foreground [&>svg]:text-success",
         info: "bg-[var(--info-muted)] border-info/20 text-foreground [&>svg]:text-info",
-        warning: "bg-[var(--warning-muted)] border-warning/20 text-foreground [&>svg]:text-warning",
+        warning: "bg-[var(--warning-muted)] border-warning/20 text-foreground [&>svg]:text-warning-text",
         error: "bg-[var(--error-muted)] border-error/20 text-foreground [&>svg]:text-error",
       },
     },

@@ -67,7 +67,7 @@ const alertConfig: Record<AlertKind, { icon: React.ElementType; title: Bi; msg: 
     icon: AlertTriangle, title: { en: "Subscription expiring", pt: "Assinatura prestes a expirar" },
     msg: { en: "Your plan renews in 3 days. Update billing to avoid interruptions.", pt: "Seu plano renova em 3 dias. Atualize o pagamento para evitar interrupções." },
     bg: "bg-[var(--warning-muted,rgba(180,83,9,0.07))]",
-    border: "border-warning/20", iconColor: "text-warning", titleColor: "text-foreground",
+    border: "border-warning/20", iconColor: "text-warning-text", titleColor: "text-foreground",
   },
   error: {
     icon: AlertCircle, title: { en: "Photo not sent", pt: "Não foi possível enviar a foto" },
@@ -102,7 +102,7 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
 const toastTypes = [
   { label: { en: "Success", pt: "Sucesso" }, tipo: "success", icon: CheckCircle, color: "text-success", bg: "bg-card", msg: { en: "Item saved.", pt: "Peça salva." } },
   { label: { en: "Error", pt: "Erro" },      tipo: "error",   icon: AlertCircle, color: "text-error",   bg: "bg-card", msg: { en: "Could not save the item. Try again.", pt: "Não foi possível salvar a peça. Tente de novo." } },
-  { label: { en: "Warning", pt: "Aviso" },   tipo: "warning", icon: AlertTriangle, color: "text-warning", bg: "bg-card", msg: { en: "2 items without size.", pt: "2 peças sem tamanho." } },
+  { label: { en: "Warning", pt: "Aviso" },   tipo: "warning", icon: AlertTriangle, color: "text-warning-text", bg: "bg-card", msg: { en: "2 items without size.", pt: "2 peças sem tamanho." } },
   { label: "Loading",                         tipo: "loading", icon: Loader2,     color: "text-info",    bg: "bg-card", msg: { en: "Sending photos…", pt: "Enviando fotos…" } },
 ];
 
@@ -202,7 +202,7 @@ const badgeVariants = [
   { label: { en: "Default", pt: "Padrão" },  cls: "bg-muted text-foreground border-border" },
   { label: { en: "Primary", pt: "Primário" },  cls: "bg-primary/10 text-primary border-primary/20" },
   { label: { en: "Success", pt: "Sucesso" },  cls: "bg-success/10 text-success border-success/20" },
-  { label: { en: "Warning", pt: "Aviso" },  cls: "bg-warning/10 text-warning border-warning/20" },
+  { label: { en: "Warning", pt: "Aviso" },  cls: "bg-warning/10 text-warning-text border-warning/20" },
   { label: { en: "Error", pt: "Erro" },    cls: "bg-primary/10 text-primary border-primary/20" },
   { label: { en: "Info", pt: "Info" },     cls: "bg-info/10 text-info border-info/20" },
 ];
@@ -225,11 +225,11 @@ const tagVariants = [
 
 /* ── Timeline ── */
 const timelineItems = [
-  { icon: Check,         color: "bg-success text-white",   title: { en: "Item published", pt: "Peça publicada" },    desc: { en: "The floral midi dress is now visible.", pt: "O vestido midi floral já está visível na loja." },    time: { en: "Just now", pt: "Agora mesmo" } },
-  { icon: Loader2,       color: "bg-info text-white",      title: { en: "Uploading photos", pt: "Enviando fotos" },           desc: { en: "3 of 5 photos sent.", pt: "3 de 5 fotos enviadas." },                time: { en: "2 min ago", pt: "há 2 min" } },
+  { icon: Check,         color: "bg-success text-success-foreground",   title: { en: "Item published", pt: "Peça publicada" },    desc: { en: "The floral midi dress is now visible.", pt: "O vestido midi floral já está visível na loja." },    time: { en: "Just now", pt: "Agora mesmo" } },
+  { icon: Loader2,       color: "bg-info text-info-foreground",      title: { en: "Uploading photos", pt: "Enviando fotos" },           desc: { en: "3 of 5 photos sent.", pt: "3 de 5 fotos enviadas." },                time: { en: "2 min ago", pt: "há 2 min" } },
   { icon: Clock,         color: "bg-muted text-muted-foreground", title: { en: "Item in review", pt: "Peça em revisão" },  desc: { en: "Waiting for you to confirm the size.", pt: "Aguardando você confirmar o tamanho." },                  time: { en: "5 min ago", pt: "há 5 min" } },
-  { icon: AlertCircle,   color: "bg-warning text-white",   title: { en: "Item without size", pt: "Atenção: peça sem tamanho" },    desc: { en: "Add the size of the item.", pt: "Informe o tamanho da peça." },         time: { en: "12 min ago", pt: "há 12 min" } },
-  { icon: CheckCircle,   color: "bg-success text-white",   title: { en: "Store updated", pt: "Loja atualizada" },          desc: { en: "Opening hours changed.", pt: "Horário de funcionamento alterado." },            time: { en: "1 hr ago", pt: "há 1 h" } },
+  { icon: AlertCircle,   color: "bg-warning text-warning-foreground",   title: { en: "Item without size", pt: "Atenção: peça sem tamanho" },    desc: { en: "Add the size of the item.", pt: "Informe o tamanho da peça." },         time: { en: "12 min ago", pt: "há 12 min" } },
+  { icon: CheckCircle,   color: "bg-success text-success-foreground",   title: { en: "Store updated", pt: "Loja atualizada" },          desc: { en: "Opening hours changed.", pt: "Horário de funcionamento alterado." },            time: { en: "1 hr ago", pt: "há 1 h" } },
 ];
 
 export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | "rotulos" }) {
@@ -788,16 +788,16 @@ const feedbackTokenGroups = (t: TFn): TokenGroup[] => [
   {
     group: t("Status Colors", "Cores de status"),
     tokens: [
-      { name: "--success",              description: t("Positive / confirmed action", "Ação positiva / confirmada"),    light: "#388459", dark: "#22C55E", isColor: true },
+      { name: "--success",              description: t("Positive / confirmed action", "Ação positiva / confirmada"),    light: "#31835D", dark: "#41B47F", isColor: true },
       { name: "--success-foreground",   description: t("Text on success", "Texto sobre sucesso"),               light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--success-muted",        description: t("Success tinted background", "Fundo com tom de sucesso"),      light: "rgba(79,181,123,0.10)", dark: "rgba(34,197,94,0.12)", isColor: true },
-      { name: "--warning",              description: t("Caution / pending action", "Atenção / ação pendente"),       light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--warning",              description: t("Caution / pending action", "Atenção / ação pendente"),       light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--warning-foreground",   description: t("Text on warning", "Texto sobre aviso"),               light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--warning-muted",        description: t("Warning tinted background", "Fundo com tom de aviso"),      light: "rgba(229,169,78,0.10)", dark: "rgba(245,179,32,0.12)", isColor: true },
       { name: "--error",                description: t("Error / failure state", "Estado de erro / falha"),          light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--error-foreground",     description: t("Text on error", "Texto sobre erro"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--error-muted",          description: t("Error tinted background", "Fundo com tom de erro"),        light: "rgba(230,32,64,0.10)",  dark: "rgba(230,32,64,0.15)",  isColor: true },
-      { name: "--info",                 description: t("Informational notice", "Aviso informativo"),           light: "#3D7CAA", dark: "#3B82F6", isColor: true },
+      { name: "--info",                 description: t("Informational notice", "Aviso informativo"),           light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--info-foreground",      description: t("Text on info", "Texto sobre info"),                  light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--info-muted",           description: t("Info tinted background", "Fundo com tom de info"),         light: "rgba(68,138,188,0.10)", dark: "rgba(59,130,246,0.12)", isColor: true },
       { name: "--destructive",          description: t("Destructive / irreversible", "Destrutivo / irreversível"),     light: "#E62040", dark: "#E62040", isColor: true },
@@ -821,11 +821,11 @@ const badgesTokenGroups = (t: TFn): TokenGroup[] => [
     tokens: [
       { name: "--primary",      description: t("Primary badge fill", "Preenchimento do badge primário"),   light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--primary-muted",description: t("Primary badge tinted", "Badge primário com tom"), light: "rgba(230,32,64,0.10)", dark: "rgba(230,32,64,0.15)", isColor: true },
-      { name: "--success",      description: t("Success badge", "Badge de sucesso"),        light: "#388459", dark: "#22C55E", isColor: true },
+      { name: "--success",      description: t("Success badge", "Badge de sucesso"),        light: "#31835D", dark: "#41B47F", isColor: true },
       { name: "--success-muted",description: t("Success badge tinted", "Badge de sucesso com tom"), light: "rgba(79,181,123,0.10)", dark: "rgba(34,197,94,0.12)", isColor: true },
-      { name: "--warning",      description: t("Warning badge", "Badge de aviso"),        light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--warning",      description: t("Warning badge", "Badge de aviso"),        light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--warning-muted",description: t("Warning badge tinted", "Badge de aviso com tom"), light: "rgba(229,169,78,0.10)", dark: "rgba(245,179,32,0.12)", isColor: true },
-      { name: "--info",         description: t("Info badge", "Badge de info"),           light: "#3D7CAA", dark: "#3B82F6", isColor: true },
+      { name: "--info",         description: t("Info badge", "Badge de info"),           light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--info-muted",   description: t("Info badge tinted", "Badge de info com tom"),    light: "rgba(68,138,188,0.10)", dark: "rgba(59,130,246,0.12)", isColor: true },
       { name: "--violet",       description: t("Violet accent badge", "Badge de destaque violeta"),  light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--violet-muted", description: t("Violet badge tinted", "Badge violeta com tom"),  light: "rgba(186,105,220,0.10)", dark: "rgba(235,108,255,0.12)", isColor: true },

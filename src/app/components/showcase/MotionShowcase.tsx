@@ -243,7 +243,7 @@ function EasingReference() {
 const springPresets = [
   { label: "Gentle", labelPt: "Suave",   stiffness: 120,  damping: 14,  mass: 1,   color: "bg-info/15 border-info/25 text-info" },
   { label: "Default", labelPt: "Padrão",  stiffness: 260,  damping: 20,  mass: 1,   color: "bg-primary/15 border-primary/25 text-primary" },
-  { label: "Snappy", labelPt: "Ágil",   stiffness: 400,  damping: 25,  mass: 1,   color: "bg-warning/15 border-warning/25 text-warning" },
+  { label: "Snappy", labelPt: "Ágil",   stiffness: 400,  damping: 25,  mass: 1,   color: "bg-warning/15 border-warning/25 text-warning-text" },
   { label: "Bouncy", labelPt: "Elástica",   stiffness: 600,  damping: 8,   mass: 1,   color: "bg-success/15 border-success/25 text-success" },
   { label: "Stiff", labelPt: "Rígida",    stiffness: 900,  damping: 40,  mass: 1,   color: "bg-destructive/15 border-destructive/25 text-destructive" },
   { label: "Wobbly", labelPt: "Oscilante",   stiffness: 180,  damping: 6,   mass: 1.2, color: "bg-chart-4/15 border-chart-4/25 text-chart-4" },
@@ -732,7 +732,7 @@ function MicroInteractions() {
                 whileTap={{ scale: 0.75 }}
                 animate={{ scale: n <= rating ? 1.1 : 1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}>
-                <Star className={`h-6 w-6 transition-colors duration-150 ${n <= rating ? "fill-warning text-warning" : "text-muted-foreground"}`} />
+                <Star className={`h-6 w-6 transition-colors duration-150 ${n <= rating ? "fill-warning text-warning-text" : "text-muted-foreground"}`} />
               </motion.button>
             ))}
           </div>
@@ -748,7 +748,7 @@ function MicroInteractions() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <Bell className={`h-8 w-8 transition-colors duration-200 ${notified ? "text-warning" : "text-muted-foreground"}`} />
+            <Bell className={`h-8 w-8 transition-colors duration-200 ${notified ? "text-warning-text" : "text-muted-foreground"}`} />
             <AnimatePresence>
               {notified && (
                 <motion.div
@@ -855,7 +855,7 @@ function LoadersSection() {
             </div>
             <div className="space-y-1">
               <div className="flex justify-between text-[0.6rem] text-muted-foreground">
-                <span>{t("Processing", "Processando")}</span><span className="text-warning">75%</span>
+                <span>{t("Processing", "Processando")}</span><span className="text-warning-text">75%</span>
               </div>
               <div className="h-1.5 bg-muted rounded-full overflow-hidden relative">
                 <div className="absolute inset-0 h-full w-3/4 bg-warning rounded-full" />
@@ -1226,7 +1226,7 @@ function MarqueeSection() {
   const reviewCards = marqueeReviews.map((r, i) => (
     <div key={i} className="flex flex-col gap-1.5 px-4 py-3 rounded-md border border-border bg-card" style={{ width: 220 }}>
       <div className="flex gap-0.5">
-        {Array.from({ length: r.stars }).map((_, j) => <Star key={j} className="h-2.5 w-2.5 fill-warning text-warning" />)}
+        {Array.from({ length: r.stars }).map((_, j) => <Star key={j} className="h-2.5 w-2.5 fill-warning text-warning-text" />)}
       </div>
       <p className="text-[0.6875rem] text-foreground italic leading-snug">"{t(r.quote, r.quotePt)}"</p>
       <div className="flex items-center gap-1.5 mt-0.5">
@@ -1280,14 +1280,14 @@ type NotifItem = {
 };
 
 const notifPool: Omit<NotifItem, "id">[] = [
-  { icon: Star,       iconCls: "bg-warning/12 text-warning",     title: "New review",     desc: "Ana Souza gave the project 5 stars.", titlePt: "Nova avaliação", descPt: "Ana Souza deu 5 estrelas ao projeto.",    time: "now",  action: "View", actionPt: "Ver"      },
+  { icon: Star,       iconCls: "bg-warning/12 text-warning-text",     title: "New review",     desc: "Ana Souza gave the project 5 stars.", titlePt: "Nova avaliação", descPt: "Ana Souza deu 5 estrelas ao projeto.",    time: "now",  action: "View", actionPt: "Ver"      },
   { icon: Check,      iconCls: "bg-success/12 text-success",     title: "Deploy complete",   desc: "v2.4.1 in production with no errors.", titlePt: "Deploy concluído", descPt: "v2.4.1 em produção sem erros.",         time: "2s"                        },
   { icon: Bell,       iconCls: "bg-primary/12 text-primary",     title: "Payment received", desc: "$1,290 from Company X confirmed.", titlePt: "Pagamento recebido", descPt: "US$ 1.290 da Empresa X confirmados.",           time: "5s",     action: "View", actionPt: "Ver"      },
   { icon: ArrowRight, iconCls: "bg-info/12 text-info",           title: "New user",       desc: "Pedro Lima joined the Pro plan.", titlePt: "Novo usuário", descPt: "Pedro Lima entrou no plano Pro.",             time: "8s"                        },
   { icon: Activity,   iconCls: "bg-chart-4/12 text-chart-4",     title: "Goal reached",      desc: "100 conversions today — monthly record!", titlePt: "Meta atingida", descPt: "100 conversões hoje — recorde do mês!",       time: "12s",    action: "Celebrate", actionPt: "Comemorar" },
   { icon: Zap,        iconCls: "bg-destructive/12 text-destructive", title: "Usage alert",  desc: "API rate limit at 80% — check now.", titlePt: "Alerta de uso", descPt: "Limite de requisições da API em 80% — confira agora.",   time: "16s"                       },
   { icon: Layers,     iconCls: "bg-primary/12 text-primary",     title: "Integration active",   desc: "Slack connected successfully.", titlePt: "Integração ativa", descPt: "Slack conectado com sucesso.",                time: "20s"                       },
-  { icon: Sparkles,   iconCls: "bg-warning/12 text-warning",     title: "Report ready",   desc: "Q4 analysis available for download.", titlePt: "Relatório pronto", descPt: "Análise do T4 disponível para download.",     time: "25s",    action: "Download", actionPt: "Baixar"   },
+  { icon: Sparkles,   iconCls: "bg-warning/12 text-warning-text",     title: "Report ready",   desc: "Q4 analysis available for download.", titlePt: "Relatório pronto", descPt: "Análise do T4 disponível para download.",     time: "25s",    action: "Download", actionPt: "Baixar"   },
 ];
 
 function AnimatedListSection() {
@@ -1401,7 +1401,7 @@ const orbitRings: OrbitRingDef[] = [
   {
     radius: 68, duration: 8,
     icons: [
-      { icon: Zap,  bg: "bg-warning/15", border: "border-warning/40", color: "text-warning", angleOffset: 0,   size: 32 },
+      { icon: Zap,  bg: "bg-warning/15", border: "border-warning/40", color: "text-warning-text", angleOffset: 0,   size: 32 },
       { icon: Star, bg: "bg-primary/15", border: "border-primary/40", color: "text-primary", angleOffset: 180, size: 32 },
     ],
   },

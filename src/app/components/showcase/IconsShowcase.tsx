@@ -59,7 +59,7 @@ const colorVariants = [
   { label: "Muted",       cls: "text-muted-foreground" },
   { label: "Primary",     cls: "text-primary" },
   { label: "Success",     cls: "text-success" },
-  { label: "Warning",     cls: "text-warning" },
+  { label: "Warning",     cls: "text-warning-text" },
   { label: "Info",        cls: "text-info" },
 ];
 
@@ -232,7 +232,7 @@ export function IconsShowcase() {
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-primary/10 text-primary border border-primary/20">
                 <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} /> {t("Alert", "Alerta")}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-warning/10 text-warning border border-warning/20">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-warning/10 text-warning-text border border-warning/20">
                 <Clock className="w-3.5 h-3.5" strokeWidth={2} /> {t("Pending", "Pendente")}
               </span>
             </div>
@@ -332,10 +332,10 @@ const iconsTokenGroups: TokenGroup[] = [
       { name: "--muted-foreground", description: "Secondary / subdued icon",   light: "#888896", dark: "#B3B3BC", isColor: true },
       { name: "--foreground-subtle",description: "Decorative / disabled icon", light: "#B3B3BC", dark: "#888896", isColor: true },
       { name: "--primary",          description: "Accent / active icon",       light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--success",          description: "Confirmation / done icon",   light: "#388459", dark: "#22C55E", isColor: true },
-      { name: "--warning",          description: "Caution / alert icon",       light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--success",          description: "Confirmation / done icon",   light: "#31835D", dark: "#41B47F", isColor: true },
+      { name: "--warning",          description: "Caution / alert icon",       light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--error",            description: "Error / danger icon",        light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--info",             description: "Informational icon",         light: "#3D7CAA", dark: "#3B82F6", isColor: true },
+      { name: "--info",             description: "Informational icon",         light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--violet",           description: "Purple accent icon",         light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",           description: "Orange accent icon",         light: "#fa9852", dark: "#ff8833", isColor: true },
     ],

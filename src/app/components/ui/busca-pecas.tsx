@@ -163,7 +163,7 @@ function BuscaDePecas({
           className="min-h-24 resize-y bg-card text-[0.9375rem]"
         />
         <div className="flex items-start gap-3 rounded-md border border-warning/20 bg-warning-muted px-4 py-3">
-          <Lightbulb className="mt-0.5 size-5 shrink-0 text-warning" aria-hidden />
+          <Lightbulb className="mt-0.5 size-5 shrink-0 text-warning-text" aria-hidden />
           <p id={idDica} className="flex-1 text-sm leading-relaxed text-foreground">{tx.dica}</p>
         </div>
         {erroDescricao && (

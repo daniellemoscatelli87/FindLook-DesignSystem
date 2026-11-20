@@ -834,7 +834,7 @@ type TipoAviso = "favorito" | "busca" | "reserva" | "contato" | "planilha";
 const tiposAviso: Record<TipoAviso, { icon: React.ElementType; cor: string; rotulo: string }> = {
   favorito: { icon: Heart,           cor: `bg-[var(--primary-muted)] ${textoMarca}`,  rotulo: "Favorito" },
   busca:    { icon: Search,          cor: "bg-[var(--info-muted)] text-info",          rotulo: "Busca" },
-  reserva:  { icon: CalendarCheck,   cor: "bg-[var(--warning-muted)] text-warning",    rotulo: "Reserva" },
+  reserva:  { icon: CalendarCheck,   cor: "bg-[var(--warning-muted)] text-warning-text",    rotulo: "Reserva" },
   contato:  { icon: MessageCircle,   cor: "bg-[var(--success-muted)] text-success",    rotulo: "Contato" },
   planilha: { icon: FileSpreadsheet, cor: "bg-muted text-muted-foreground",            rotulo: "Planilha" },
 };
