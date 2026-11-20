@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Uso com limite"),
+    desc: pt("Dois componentes novos em ui/painel-dados.tsx para mostrar quanto de um limite foi usado: PainelDeUso, o destaque do topo (ícone, o que é medido, a porcentagem grande, \"usado de limite\" com a barra e uma caixa com o estado do limite, neutra ou de alerta), e CardDeUso, um card por tipo de uso (ícone em base rosa clara, rótulo, usado / limite, porcentagem e barra; sem limite, só o número). Cards da mesma linha têm a mesma altura."),
+    page: "cards", anchor: "card-uso",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Mapa coroplético na escala de calor"),
     desc: pt("O MapaCoropletico (mapa com os contornos reais, que o produto informa) passa a usar a escala de calor da paleta de gráficos, --chart-seq-1 a --chart-seq-4 (do rosa-300 ao vermelho-700), a mesma do MapaDeCalorPorRegiao, com a legenda em blocos."),
     page: "data", anchor: "grafico-participacao",

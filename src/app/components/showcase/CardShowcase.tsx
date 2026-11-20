@@ -34,7 +34,7 @@ import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { cn } from "../ui/utils";
 import { Skeleton } from "../ui/skeleton";
 import { X } from "lucide-react";
-import { CardsDeKpi, IndicadoresDoPainel } from "./DataShowcase";
+import { CardsDeKpi, IndicadoresDoPainel, UsoComLimite } from "./DataShowcase";
 import { WobbleCardConteudo, ShineBorderConteudo, evitarWobble } from "./MotionShowcase";
 import { CanvasRevealCard, evitarCanvasReveal } from "./BackgroundsShowcase";
 
@@ -797,6 +797,10 @@ export function CardShowcase() {
           <div>
             <Rotulo>{t("Panel indicator: icon → value → label → change or explanation", "Indicador do painel: ícone → valor → rótulo → variação ou explicação")}</Rotulo>
             <IndicadoresDoPainel />
+          </div>
+          <div id="card-uso">
+            <Rotulo>{t("Usage with a limit: highlight (what is measured → percentage → bar → limit state) and one card per type (icon → label → used / limit → bar)", "Uso com limite: destaque (o que é medido → porcentagem → barra → estado do limite) e um card por tipo (ícone → rótulo → usado / limite → barra)")}</Rotulo>
+            <UsoComLimite />
           </div>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <div>
