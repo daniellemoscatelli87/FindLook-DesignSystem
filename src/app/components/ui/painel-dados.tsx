@@ -446,17 +446,17 @@ function ResumoEmLinha({ itens, className }: { itens: ItemDoResumo[]; className?
   const colunas = { 2: "@lg:grid-cols-2", 3: "@lg:grid-cols-3", 4: "@lg:grid-cols-2 @3xl:grid-cols-4" }[Math.min(4, Math.max(2, itens.length)) as 2 | 3 | 4];
   return (
     <div className={cn("@container", className)}>
-      <dl data-slot="resumo-em-linha" className={cn("grid grid-cols-1 divide-y divide-border @lg:divide-x @lg:divide-y-0", colunas)}>
+      <ul data-slot="resumo-em-linha" className={cn("m-0 grid list-none grid-cols-1 divide-y divide-border p-0 @lg:divide-x @lg:divide-y-0", colunas)}>
         {itens.map((i) => (
-          <div key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:px-4 @lg:py-1 @lg:first:pl-0">
+          <li key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:gap-2.5 @lg:px-3 @lg:py-1 @lg:first:pl-0">
             <IconeComBase tom="neutro">{i.icone}</IconeComBase>
-            <div className="min-w-0">
-              <dd className={`${display} text-[1.25rem] font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</dd>
-              <dt className="text-[0.8125rem] text-muted-foreground">{i.rotulo}</dt>
-            </div>
-          </div>
+            <p className="m-0 min-w-0">
+              <span className={`${display} block text-[1.25rem] font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</span>
+              <span className="block text-[0.8125rem] text-muted-foreground">{i.rotulo}</span>
+            </p>
+          </li>
         ))}
-      </dl>
+      </ul>
     </div>
   );
 }
