@@ -760,6 +760,7 @@ export function GraficosShowcase() {
             <Rotulo>Texto nos gráficos</Rotulo>
             <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
             <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">Nenhuma cor de texto passa de 4,5:1 sobre todos os tons da paleta, e trocar a cor do texto de uma parte para outra confunde a leitura. Por isso barras, fatias, células, blocos e bolhas não levam número nem nome. Valores e nomes em --foreground; --muted-foreground só no texto secundário, como os eixos. Quando o valor precisa ser ligado a uma parte (barras empilhadas, mosaico, rosca), ele vem depois de um ponto na cor dela, na mesma ordem das partes. Decisão da dona do produto, 19/11/2026.</p>
+            <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Áreas:</span> linha fina na cor da série e preenchimento em degradê transparente.</p>
           </div>
         </Cartao>
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
