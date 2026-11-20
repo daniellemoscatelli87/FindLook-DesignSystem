@@ -80,18 +80,20 @@
   --border:       rgba(0, 0, 0, 0.10);
   --border-strong: rgba(0, 0, 0, 0.18);
 
-  --success:            #388459;   /* texto branco atinge 4,5:1 (decisão de 16/11/2026) */
+  /* Cores de estado na mesma luz e intensidade (decisão de 20/11/2026) */
+  --success:            #31835D;   /* texto branco 4,6:1 */
   --success-foreground: #FFFFFF;
-  --success-muted:      rgba(56, 132, 89, 0.1);
-  --warning:            #C2410C;   /* laranja queimado: texto branco atinge 5,2:1 (decisão de 16/11/2026) */
-  --warning-foreground: #FFFFFF;
-  --warning-muted:      rgba(194, 65, 12, 0.1);
+  --success-muted:      rgba(49, 131, 93, 0.1);
+  --warning:            #F0B135;   /* âmbar de sinalização: texto grafite 11:1 (nenhum âmbar aceita texto branco) */
+  --warning-foreground: var(--graphite-900);
+  --warning-muted:      rgba(240, 177, 53, 0.14);
+  --warning-text:       #A66200;   /* âmbar escuro só para texto e ícone sobre fundo claro: 4,8:1 no branco, 4,5:1 no warning-muted */
   --error:              var(--pink-500);   /* erro em pink cereja, como a marca (decisão de 16/11/2026) */
   --error-foreground:   #FFFFFF;
   --error-muted:        rgba(230, 32, 64, 0.1);
-  --info:               #3D7CAA;   /* texto branco atinge 4,5:1 (decisão de 16/11/2026) */
+  --info:               #347BA9;   /* texto branco 4,6:1 */
   --info-foreground:    #FFFFFF;
-  --info-muted:         rgba(61, 124, 170, 0.1);
+  --info-muted:         rgba(52, 123, 169, 0.1);
   --violet:             #ba69dc;
   --violet-foreground:  #FFFFFF;
   --violet-muted:       rgba(186, 105, 220, 0.1);
@@ -176,18 +178,20 @@
   --border:       rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.12);
 
-  --success:            #22C55E;
-  --success-foreground: #FFFFFF;
-  --success-muted:      rgba(34, 197, 94, 0.12);
-  --warning:            #f5b320;
-  --warning-foreground: #FFFFFF;
-  --warning-muted:      rgba(245, 179, 32, 0.12);
+  /* Escuro: mesma família, mais clara; texto escuro sobre as cores (todas acima de 8:1) */
+  --success:            #41B47F;
+  --success-foreground: #000000;
+  --success-muted:      rgba(65, 180, 127, 0.14);
+  --warning:            #F0B135;
+  --warning-foreground: #000000;
+  --warning-muted:      rgba(240, 177, 53, 0.14);
+  --warning-text:       var(--warning);
   --error:              var(--pink-500);
   --error-foreground:   #000000;
   --error-muted:        rgba(230, 32, 64, 0.15);
-  --info:               #3B82F6;
-  --info-foreground:    #FFFFFF;
-  --info-muted:         rgba(59, 130, 246, 0.12);
+  --info:               #59A8DC;
+  --info-foreground:    #000000;
+  --info-muted:         rgba(89, 168, 220, 0.14);
   --violet:             #eb6cff;
   --violet-foreground:  #FFFFFF;
   --violet-muted:       rgba(235, 108, 255, 0.12);
@@ -306,6 +310,11 @@
   --color-chart-grid: var(--chart-grid);
   --color-success: var(--success);
   --color-warning: var(--warning);
+  --color-warning-text: var(--warning-text);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info-foreground: var(--info-foreground);
+  --color-error-foreground: var(--error-foreground);
   --color-error: var(--error);
   --color-info: var(--info);
   --color-violet: var(--violet);

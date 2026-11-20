@@ -50,7 +50,7 @@ function CardDeLoja({ nome, estilo, bairro, exemplo = false, rotuloExemplo = "Ex
       )}
       {exemplo && (
         <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-warning/40 bg-warning-muted px-2 py-0.5 text-[0.6875rem] font-semibold text-foreground">
-          <Info className="size-3 text-warning" aria-hidden /> {rotuloExemplo}
+          <Info className="size-3 text-warning-text" aria-hidden /> {rotuloExemplo}
         </span>
       )}
       {acao && (

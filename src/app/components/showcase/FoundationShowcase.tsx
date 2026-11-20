@@ -42,10 +42,10 @@ const semanticColors = [
   { name: "Muted", pt: "Suave (muted)",            token: "--muted-foreground",  swatch: "bg-muted-foreground", text: "text-background", light: "#696977", dark: "#B3B3BC" },
   { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E62040", dark: "#E62040" },
   { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(0,0,0,.10)", dark: "rgba(255,255,255,.07)" },
-  { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-white", light: "#388459", dark: "#22C55E" },
-  { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-white", light: "#C2410C", dark: "#F5B320" },
+  { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-success-foreground", light: "#31835D", dark: "#41B47F" },
+  { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-warning-foreground", light: "#F0B135", dark: "#F0B135" },
   { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#E62040", dark: "#E62040" },
-  { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-white", light: "#3D7CAA", dark: "#3B82F6" },
+  { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-info-foreground", light: "#347BA9", dark: "#59A8DC" },
 ];
 
 const typeScaleItems = [
@@ -238,16 +238,15 @@ export function FoundationShowcase() {
                   <span className={`inline-block px-2 py-0.5 rounded-sm border text-[0.5625rem] font-bold tracking-[0.08em] ${f.pillColor}`}>{f.roleLabel}</span>
                   <p className="mt-1.5 text-[0.9375rem] font-bold text-foreground leading-tight break-words">{f.family}</p>
                   <p className="text-[0.625rem] font-mono text-muted-foreground mt-0.5">{f.token}</p>
+                  {/* Os pesos de cada papel (uma fonte só: o que muda é o peso) */}
+                  <p className="mt-2 text-[0.8125rem] font-semibold text-foreground">{f.proportion}</p>
                 </div>
-                <div className="text-right shrink-0">
-                  <p className="text-[1.5rem] font-black text-foreground leading-none">{f.proportion}</p>
-                  <p className="text-[0.5625rem] text-muted-foreground mt-0.5">{t("of usage", "de uso")}</p>
-                </div>
+
               </div>
 
               {/* Proportion bar */}
               <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
-                <div className={`h-full rounded-full ${f.barColor}`} style={{ width: f.proportion }} />
+                <div className={`h-full w-full rounded-full ${f.barColor}`} />
               </div>
 
               {/* Traits */}
@@ -559,10 +558,10 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Semantic Colors", "Cores semânticas"),
     tokens: [
-      { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#388459", dark: "#22C55E", isColor: true },
-      { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#31835D", dark: "#41B47F", isColor: true },
+      { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--info",            description: t("Informational", "Informativo"),            light: "#3D7CAA", dark: "#3B82F6", isColor: true },
+      { name: "--info",            description: t("Informational", "Informativo"),            light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--violet",          description: t("Accent purple", "Roxo de destaque"),            light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",          description: t("Accent orange", "Laranja de destaque"),            light: "#fa9852", dark: "#ff8833", isColor: true },

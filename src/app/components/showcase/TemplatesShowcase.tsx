@@ -834,7 +834,7 @@ type TipoAviso = "favorito" | "busca" | "reserva" | "contato" | "planilha";
 const tiposAviso: Record<TipoAviso, { icon: React.ElementType; cor: string; rotulo: string }> = {
   favorito: { icon: Heart,           cor: `bg-[var(--primary-muted)] ${textoMarca}`,  rotulo: "Favorito" },
   busca:    { icon: Search,          cor: "bg-[var(--info-muted)] text-info",          rotulo: "Busca" },
-  reserva:  { icon: CalendarCheck,   cor: "bg-[var(--warning-muted)] text-warning",    rotulo: "Reserva" },
+  reserva:  { icon: CalendarCheck,   cor: "bg-[var(--warning-muted)] text-warning-text",    rotulo: "Reserva" },
   contato:  { icon: MessageCircle,   cor: "bg-[var(--success-muted)] text-success",    rotulo: "Contato" },
   planilha: { icon: FileSpreadsheet, cor: "bg-muted text-muted-foreground",            rotulo: "Planilha" },
 };
@@ -1160,10 +1160,10 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
                 <h3 className="mb-2 text-[1.5rem] font-black leading-tight tracking-[-0.03em] text-foreground">{bi(plan.name)}</h3>
                 <p className="mb-4 text-[0.8125rem] leading-relaxed text-muted-foreground">{bi(plan.desc)}</p>
 
-                {/* "Para quem": no máximo 4 linhas, sem reticências; altura de 4 linhas em todos os cards (só cresce, em vez de vazar, quando o card fica estreito demais). No escuro, caixa neutra e só a lâmpada em amarelo */}
+                {/* "Para quem": no máximo 4 linhas, sem reticências; altura de 4 linhas em todos os cards (só cresce, em vez de vazar, quando o card fica estreito demais). Caixa neutra em cinza, nos dois temas: é uma dica, não um aviso (decisão da dona do produto, 20/11/2026) */}
                 {forWhom && (
-                <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-md border border-warning/30 bg-[var(--warning-muted)] dark:border-border dark:bg-muted px-2.5 sm:px-3 py-2.5">
-                  <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
+                <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-md border border-border bg-muted px-2.5 sm:px-3 py-2.5">
+                  <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
                   <p className="min-h-[5.5em] text-[0.8125rem] leading-snug text-foreground">
                     <strong className="font-bold">{t("Who it's for:", "Para quem:")}</strong> {forWhom}
                   </p>

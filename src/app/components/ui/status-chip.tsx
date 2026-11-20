@@ -23,7 +23,7 @@ export const estadosDeInformacao: EstadoVisual[] = [
   { id: "a-confirmar", label: "A confirmar", icon: Clock, color: "text-primary-text", bg: "bg-primary/10", border: "border-primary/30" },
   { id: "esgotado", label: "Esgotado", icon: Ban, color: "text-foreground", bg: "bg-muted", border: "border-border" },
   { id: "sugerido-ia", label: "Sugerido por IA", icon: Sparkles, color: "text-primary-text", bg: "bg-[var(--surface-tint)]", border: "border-primary/30" },
-  { id: "desatualizado", label: "Desatualizado", icon: AlertTriangle, color: "text-warning", bg: "bg-warning/10", border: "border-warning/40" },
+  { id: "desatualizado", label: "Desatualizado", icon: AlertTriangle, color: "text-warning-text", bg: "bg-warning/10", border: "border-warning/40" },
 ];
 
 /** Selo de estado de informação: ícone + texto, sempre juntos. */

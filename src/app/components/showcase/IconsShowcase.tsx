@@ -7,6 +7,7 @@ import { useI18n } from "../../i18n";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { IconeModa, iconesModa, nomesIconesModa } from "../ui/fashion-icons";
 import { SectionHeader } from "./shared/SectionHeader";
+import { IconeComBase } from "../ui/painel-dados";
 
 const {
   Zap, Bell, Settings, Search, Check, Plus, Download, Filter,
@@ -59,7 +60,7 @@ const colorVariants = [
   { label: "Muted",       cls: "text-muted-foreground" },
   { label: "Primary",     cls: "text-primary" },
   { label: "Success",     cls: "text-success" },
-  { label: "Warning",     cls: "text-warning" },
+  { label: "Warning",     cls: "text-warning-text" },
   { label: "Info",        cls: "text-info" },
 ];
 
@@ -232,12 +233,70 @@ export function IconsShowcase() {
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-primary/10 text-primary border border-primary/20">
                 <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} /> {t("Alert", "Alerta")}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-warning/10 text-warning border border-warning/20">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-warning/10 text-warning-text border border-warning/20">
                 <Clock className="w-3.5 h-3.5" strokeWidth={2} /> {t("Pending", "Pendente")}
               </span>
             </div>
           </ShowcaseCard>
         </SubSection>
+      </section>
+
+      {/* ── BASE DO ÍCONE (regra da dona do produto, 20/11/2026) ── */}
+      <section id="icon-base">
+        <SectionHeader
+          title={t("Icon base: when to use", "Base do ícone: quando usar")}
+          description={t(
+            "There are only three ways to show an icon. Pick by what the icon does on the screen, not by taste. Component: IconeComBase (ui/painel-dados).",
+            "Existem só três jeitos de mostrar um ícone. A escolha depende do que o ícone faz na tela, não de gosto. Componente: IconeComBase (ui/painel-dados).",
+          )}
+        />
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            {
+              exemplo: <IconeComBase tom="marca" tamanho="lg"><LucideIcons.MapPin /></IconeComBase>,
+              titulo: t("Pink base + red icon", "Base rosa + ícone vermelho"),
+              tokens: "--primary-muted + --primary-text",
+              quando: t(
+                "Brand and focus: the main icon of what is the focus of the screen or invites an action. Examples: the top highlight (PainelDeUso), insights and next actions (ItemDeAcao), recent activity (ItemDeAtividade), something active or in progress. Use sparingly: if everything has a pink base, nothing stands out.",
+                "Marca e foco: o ícone principal do que é o foco da tela ou convida a agir. Exemplos: o destaque do topo (PainelDeUso), insights e próximas ações (ItemDeAcao), atividade recente (ItemDeAtividade), algo ativo ou em andamento. Use com moderação: se tudo tiver base rosa, nada se destaca.",
+              ),
+            },
+            {
+              exemplo: <IconeComBase tom="neutro" tamanho="lg"><LucideIcons.PauseCircle /></IconeComBase>,
+              titulo: t("Gray base + gray icon", "Base cinza + ícone cinza"),
+              tokens: "--muted + --muted-foreground",
+              quando: t(
+                "Neutral: the icon only identifies the kind of information and does not ask for attention. Examples: indicator and usage cards (CardIndicador, CardDeUso), paused, finished or inactive items, settings and metadata. It is the default in grids of equal cards.",
+                "Neutro: o ícone só identifica o tipo de informação e não pede atenção. Exemplos: cards de indicador e de uso (CardIndicador, CardDeUso), itens pausados, encerrados ou inativos, configurações e metadados. É o padrão em grades de cards iguais.",
+              ),
+            },
+            {
+              exemplo: <span className="flex h-11 items-center gap-1.5 text-[0.875rem] font-semibold text-foreground"><LucideIcons.History className="h-5 w-5 text-[var(--primary-text)]" aria-hidden /> {t("Search history", "Histórico de buscas")}</span>,
+              titulo: t("No base (inline)", "Sem base (inline)"),
+              tokens: t("color of the context", "cor do contexto"),
+              quando: t(
+                "Inline: a small icon (16 to 20 px) next to text, following the reading. Examples: card title (CardDoPainel, red), buttons and links (text color), detail lines (gray), states with text (semantic color: green, yellow, red, always with the text).",
+                "Inline: ícone pequeno (16 a 20 px) ao lado do texto, acompanhando a leitura. Exemplos: título do card (CardDoPainel, vermelho), botões e links (cor do texto), linhas de detalhe (cinza), estados com texto (cor semântica: verde, amarelo, vermelho, sempre com o texto).",
+              ),
+            },
+          ].map((o) => (
+            <ShowcaseCard key={o.titulo}>
+              <div className="flex h-12 items-center">{o.exemplo}</div>
+              <p className="mt-3 text-[0.9375rem] font-bold text-foreground">{o.titulo}</p>
+              <code className="text-[0.6875rem] text-muted-foreground">{o.tokens}</code>
+              <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">{o.quando}</p>
+            </ShowcaseCard>
+          ))}
+        </div>
+        <ShowcaseCard className="mt-4">
+          <p className="text-[0.875rem] font-bold text-foreground">{t("Rules", "Regras")}</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+            <li>{t("Never mix: no gray base with a red icon, no pink base with a gray icon.", "Nunca misturar: nada de base cinza com ícone vermelho nem base rosa com ícone cinza.")}</li>
+            <li>{t("In a list, the tone follows the item state: active or in progress = brand; paused, finished or only a record = neutral (ItemDeAcao tom=\"neutro\").", "Numa lista, o tom acompanha o estado do item: ativo ou em andamento = marca; pausado, encerrado ou só registro = neutro (ItemDeAcao tom=\"neutro\").")}</li>
+            <li>{t("Color is never the only signal: the state is always written too.", "A cor nunca é o único sinal: o estado vem sempre escrito também.")}</li>
+            <li>{t("Base sizes: 32 px (compact list), 36 px (cards), 44 px (action items and highlight). Rounded corners md; round only in activity items.", "Tamanhos da base: 32 px (lista compacta), 36 px (cards), 44 px (itens de ação e destaque). Cantos md; redonda só nos itens de atividade.")}</li>
+          </ul>
+        </ShowcaseCard>
       </section>
 
       {/* ── LIBRARY ── */}
@@ -332,10 +391,10 @@ const iconsTokenGroups: TokenGroup[] = [
       { name: "--muted-foreground", description: "Secondary / subdued icon",   light: "#888896", dark: "#B3B3BC", isColor: true },
       { name: "--foreground-subtle",description: "Decorative / disabled icon", light: "#B3B3BC", dark: "#888896", isColor: true },
       { name: "--primary",          description: "Accent / active icon",       light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--success",          description: "Confirmation / done icon",   light: "#388459", dark: "#22C55E", isColor: true },
-      { name: "--warning",          description: "Caution / alert icon",       light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--success",          description: "Confirmation / done icon",   light: "#31835D", dark: "#41B47F", isColor: true },
+      { name: "--warning",          description: "Caution / alert icon",       light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--error",            description: "Error / danger icon",        light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--info",             description: "Informational icon",         light: "#3D7CAA", dark: "#3B82F6", isColor: true },
+      { name: "--info",             description: "Informational icon",         light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--violet",           description: "Purple accent icon",         light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",           description: "Orange accent icon",         light: "#fa9852", dark: "#ff8833", isColor: true },
     ],

@@ -295,7 +295,7 @@ function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carr
 const TONS_LATERAL = {
   info: { caixa: "border-info/25 bg-info-muted", icone: "text-info" },
   marca: { caixa: "border-primary/20 bg-primary-muted", icone: "text-primary-text" },
-  aviso: { caixa: "border-warning/30 bg-warning-muted", icone: "text-warning" },
+  aviso: { caixa: "border-warning/30 bg-warning-muted", icone: "text-warning-text" },
 } as const;
 
 type LateralDaEtapaProps = {

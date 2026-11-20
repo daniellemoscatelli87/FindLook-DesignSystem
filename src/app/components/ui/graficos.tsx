@@ -9,8 +9,8 @@ import { GraficoDeRosca } from "./graficos-inteligencia";
  *
  * Rosca: partes de um todo (até 5 partes), com o total ou o número de partes no centro e legenda com a porcentagem.
  * BarrasHorizontais: compara grupos numa medida; cada linha pode ter uma parte (barra simples) ou várias (barra empilhada).
- * MapaCoropletico: regiões de um mapa (bairros, por exemplo) pintadas por um valor, do tom mais claro ao mais escuro de
- * uma cor só, com legenda, marcadores opcionais e escolha de uma região por clique ou toque. As formas vêm de quem usa.
+ * MapaCoropletico: regiões de um mapa (bairros, por exemplo) pintadas por um valor, na escala de calor da paleta de
+ * gráficos (--chart-seq-1 a 4), com legenda, marcadores opcionais e escolha de uma região por clique ou toque. As formas vêm de quem usa.
  *
  * Regras (método de dataviz do DS): cor por token (--chart-1 a --chart-5), fixa por categoria e nunca pela posição;
  * 2 px de espaço entre as partes; valor sempre escrito (legenda ou fim da barra), então a cor nunca é a única pista;
@@ -137,8 +137,8 @@ function BarrasHorizontais({
 /* ── Mapa coroplético ────────────────────────────────────────── */
 type RegiaoDoMapa = { nome: string; d: string; cx?: number; cy?: number };
 
-/** Escala de uma cor só (pink do DS), do mais claro ao mais escuro. */
-const ESCALA_DO_MAPA = ["var(--pink-100)", "var(--pink-200)", "var(--pink-300)", "var(--pink-400)", "var(--pink-600)"];
+/** Escala de calor da paleta de gráficos (--chart-seq-1 a 4, do menor para o maior; a mesma do MapaDeCalorPorRegiao). */
+const ESCALA_DO_MAPA = ["var(--chart-seq-1)", "var(--chart-seq-2)", "var(--chart-seq-3)", "var(--chart-seq-4)"];
 const corDoMapa = (n: number, maximo: number) =>
   n <= 0 ? "var(--card)" : ESCALA_DO_MAPA[Math.min(ESCALA_DO_MAPA.length - 1, Math.floor((n / Math.max(1, maximo)) * ESCALA_DO_MAPA.length))]!;
 
@@ -211,8 +211,8 @@ function MapaCoropletico({
       </svg>
       <figcaption className="mt-3 flex flex-wrap items-center justify-end gap-x-2 gap-y-1 text-[0.75rem] text-muted-foreground">
         <span className="whitespace-nowrap">{legenda[0]}</span>
-        <span aria-hidden className="flex h-2.5 w-24 overflow-hidden rounded-full">
-          {ESCALA_DO_MAPA.map((c) => <span key={c} className="flex-1" style={{ background: c }} />)}
+        <span aria-hidden className="flex gap-0.5">
+          {ESCALA_DO_MAPA.map((c) => <span key={c} className="h-2.5 w-6 rounded-[3px]" style={{ background: c }} />)}
         </span>
         <span className="whitespace-nowrap">{legenda[1]}</span>
       </figcaption>

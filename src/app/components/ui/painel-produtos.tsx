@@ -65,7 +65,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
 function CelulaDeProduto({ nome, detalhes, icone, foto, className }: { nome: string; detalhes?: string; icone?: NomeIconeModa; foto?: string; className?: string }) {
   return (
     <div data-slot="celula-de-produto" className={cn("flex min-w-0 items-center gap-3", className)}>
-      <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-[var(--primary-text,var(--primary))]">
+      <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-muted-foreground">
         {foto ? <img src={foto} alt="" className="h-full w-full object-cover" /> : icone ? <IconeModa nome={icone} size={26} /> : null}
       </span>
       <span className="min-w-0">
@@ -103,7 +103,7 @@ type StatusProduto = "publicado" | "pendente" | "esgotado" | "reservado" | "rasc
 /** Mesmas cores e formato do Chip de status (Estados de informação). */
 const statusInfo: Record<StatusProduto, { rotulo: string; Icone: React.ElementType; cor: string; fundo: string }> = {
   publicado: { rotulo: "Publicado", Icone: CheckCircle2, cor: "text-success", fundo: "bg-success/10 border-success/30" },
-  pendente:  { rotulo: "Pendente",  Icone: Clock,        cor: "text-warning", fundo: "bg-warning/10 border-warning/40" },
+  pendente:  { rotulo: "Pendente",  Icone: Clock,        cor: "text-warning-text", fundo: "bg-warning/10 border-warning/40" },
   esgotado:  { rotulo: "Esgotado",  Icone: Ban,          cor: "text-foreground", fundo: "bg-muted border-border" },
   reservado: { rotulo: "Reservado", Icone: Bookmark,     cor: "text-primary-text", fundo: "bg-primary/10 border-primary/30" },
   rascunho:  { rotulo: "Rascunho",  Icone: FilePen,      cor: "text-muted-foreground", fundo: "bg-card border-border" },

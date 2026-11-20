@@ -3,17 +3,48 @@ import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tool
 import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { Progress } from "./progress";
 
 /**
  * Dados do painel da loja (FindLook)
  *
  * Formatação pt-BR, card de indicador (KPI), gráfico de desempenho com legenda que liga e desliga
  * séries, item de atividade, item de ação (insight / próxima ação), lista de tendências,
- * item de checklist, anel de pontuação, carrossel de dicas e faixa de benefícios.
+ * item de checklist, anel de pontuação, carrossel de dicas, faixa de benefícios e uso com limite
+ * (PainelDeUso, o destaque do topo, e CardDeUso, um card por tipo de uso).
  */
 
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+
+/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/**
+ * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
+ *        próxima ação, atividade, algo ativo ou em andamento).
+ * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
+ *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * Ícone sem base (inline, ao lado do texto) não usa este componente.
+ */
+type TomDoIcone = "marca" | "neutro";
+const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
+function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
+  return (
+    <span
+      aria-hidden
+      data-slot="icone-com-base"
+      data-tom={tom}
+      className={cn(
+        "flex shrink-0 items-center justify-center",
+        redonda ? "rounded-full" : "rounded-md",
+        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        TAMANHO_DA_BASE[tamanho],
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
 
 /* ── Formatação pt-BR ────────────────────────────────────────── */
 const fmtNumero = new Intl.NumberFormat("pt-BR");
@@ -84,7 +115,7 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
             {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
           </p>
         </div>
-        <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
+        <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
       {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
     </div>
@@ -182,7 +213,7 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
 function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone: React.ReactNode; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-4 [&>svg]:w-4">{icone}</span>
+      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">{icone}</IconeComBase>
       <div className="min-w-0 flex-1">
         <p className="text-[0.8125rem] font-semibold text-foreground">{titulo}</p>
         {detalhe && <p className="truncate text-[0.75rem] text-muted-foreground">{detalhe}</p>}
@@ -193,7 +224,8 @@ function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone:
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; className?: string }) {
+/** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
+function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
@@ -201,7 +233,7 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }
       onClick={onClick}
       className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
-      <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-muted text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{midia}</span>
+      <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
         <span className="block text-[0.875rem] font-semibold text-foreground">{titulo}</span>
         {descricao && <span className="block text-[0.8125rem] text-muted-foreground">{descricao}</span>}
@@ -232,7 +264,7 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   return (
     <li>
       <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-muted", foco, className)}>
-        {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning" />}
+        {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
         <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
         <ChevronRight aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -352,9 +384,113 @@ function LinkVerTudo({ children = "Ver tudo", href = "#", rotulo, onClick }: { c
   );
 }
 
+/* ── Uso com limite ──────────────────────────────────────────── */
+/** Porcentagem inteira do uso (0 a 100), ou null sem limite. */
+const pctDoUso = (usado: number, limite?: number | null) => (limite ? Math.min(100, Math.round((usado / limite) * 100)) : null);
+const pctTexto = (pct: number) => `${pct}%`;
+
+type SeloDoUso = { titulo: string; texto?: string; icone?: React.ReactNode; tom?: "neutro" | "alerta" };
+
+type PainelDeUsoProps = {
+  icone: React.ReactNode;
+  /** Linha pequena em caixa alta acima do título (ex.: o serviço medido). */
+  sobretitulo?: string;
+  titulo: string;
+  descricao?: string;
+  usado: number;
+  limite: number;
+  /** Unidade no plural, para "7.153 de 10.000 consultas". */
+  unidade: string;
+  /** Caixa à direita com o estado do limite (ex.: dentro do limite gratuito ou passou dele). */
+  selo?: SeloDoUso;
+  className?: string;
+};
+
+/** Barra do uso: trilho cinza e preenchimento na cor primária. */
+function BarraDeUso({ pct, rotulo, className }: { pct: number; rotulo: string; className?: string }) {
+  return <Progress value={pct} aria-label={rotulo} className={cn("h-1.5 bg-muted", className)} />;
+}
+
+/** Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a
+ *  barra e o estado do limite numa linha discreta (neutra) ou em alerta. */
+function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, unidade, selo, className }: PainelDeUsoProps) {
+  const pct = pctDoUso(usado, limite) ?? 0;
+  const alerta = selo?.tom === "alerta";
+  return (
+    <section
+      data-slot="painel-de-uso"
+      aria-label={`${titulo}: ${pctTexto(pct)} do limite`}
+      className={cn("grid gap-5 rounded-lg border border-border bg-card p-5 @3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
+    >
+      <div className="flex min-w-0 items-start gap-3.5">
+        <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
+        <div className="min-w-0">
+          {sobretitulo && <p className="text-[0.75rem] font-medium text-muted-foreground">{sobretitulo}</p>}
+          <p className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
+          {descricao && <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{descricao}</p>}
+        </div>
+      </div>
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
+          <p className="tabular-nums">
+            <span className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{pctTexto(pct)}</span>
+            <span className="ml-2 text-[0.875rem] text-muted-foreground">{formatarNumero(usado)} de {formatarNumero(limite)} {unidade}</span>
+          </p>
+          {selo && (
+            <p data-tom={alerta ? "alerta" : "neutro"} className={cn("inline-flex items-center gap-1.5 text-[0.8125rem]", alerta ? "font-semibold text-destructive" : "text-muted-foreground")}>
+              <span aria-hidden className="shrink-0 [&>svg]:h-4 [&>svg]:w-4">{selo.icone ?? (alerta ? <TriangleAlert /> : <CheckCircle2 className="text-success" />)}</span>
+              <span><span className={alerta ? "" : "font-medium text-foreground"}>{selo.titulo}</span>{selo.texto ? ` · ${selo.texto}` : ""}</span>
+            </p>
+          )}
+        </div>
+        <BarraDeUso pct={pct} rotulo={`${titulo}: ${formatarNumero(usado)} de ${formatarNumero(limite)} ${unidade}`} className="mt-3 h-2" />
+      </div>
+    </section>
+  );
+}
+
+type CardDeUsoProps = {
+  icone: React.ReactNode;
+  rotulo: string;
+  usado: number;
+  /** Sem limite (null), o card mostra só o número e o texto de semLimite. */
+  limite?: number | null;
+  semLimite?: string;
+  className?: string;
+};
+
+/** Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a
+ *  porcentagem do limite. */
+function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", className }: CardDeUsoProps) {
+  const pct = pctDoUso(usado, limite);
+  return (
+    <div data-slot="card-de-uso" className={cn("flex h-full min-w-0 flex-col gap-4 rounded-lg border border-border bg-card p-5", className)}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">{rotulo}</p>
+          <p className="tabular-nums">
+            <span className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{formatarNumero(usado)}</span>
+            {limite ? <span className="ml-1.5 text-[0.9375rem] font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
+          </p>
+        </div>
+        <IconeComBase tom="neutro">{icone}</IconeComBase>
+      </div>
+      {pct !== null ? (
+        <div className="mt-auto">
+          <BarraDeUso pct={pct} rotulo={`${rotulo}: ${formatarNumero(usado)} de ${formatarNumero(limite!)}`} />
+          <p className="mt-1.5 text-[0.75rem] tabular-nums text-muted-foreground">{pctTexto(pct)} do limite</p>
+        </div>
+      ) : (
+        <p className="mt-auto text-[0.75rem] text-muted-foreground">{semLimite}</p>
+      )}
+    </div>
+  );
+}
+
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
 };
+export type { TomDoIcone };
 export type { Serie, Dica };

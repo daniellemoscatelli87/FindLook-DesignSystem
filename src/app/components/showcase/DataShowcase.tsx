@@ -6,14 +6,14 @@ import {
   TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight,
   Store, Shirt, ChevronUp, ChevronDown,
   ChevronsUpDown, ExternalLink, MoreHorizontal, Filter, Download,
-  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch, MapPinned,
+  Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch, MapPinned, FileText, PhoneCall, Sparkle,
 } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip as RechartTooltip,
   ResponsiveContainer, PieChart, Pie, Cell,
 } from "recharts";
-import { CardIndicador, GraficoDeDesempenho, AnelDePontuacao, ItemDeChecklist } from "../ui/painel-dados";
+import { CardIndicador, GraficoDeDesempenho, AnelDePontuacao, ItemDeChecklist, PainelDeUso, CardDeUso } from "../ui/painel-dados";
 import { Rosca, BarrasHorizontais, MapaCoropletico } from "../ui/graficos";
 import { TabelaDeProdutos, CelulaDeProduto, MedidorDeDesempenho, BarraDeAcoesEmLote } from "../ui/painel-produtos";
 import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemplates";
@@ -119,7 +119,7 @@ const tableData = [
 const statusStyles: Record<string, string> = {
   Active:   "bg-success/10 text-success border-success/20",
   Inactive: "bg-muted text-muted-foreground border-border",
-  Trial:    "bg-[var(--warning-muted)] text-warning border-warning/20",
+  Trial:    "bg-[var(--warning-muted)] text-warning-text border-warning/20",
 };
 
 const planStyles: Record<string, string> = {
@@ -542,9 +542,9 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("KPI Semantic", "Semântica de KPI"),
     tokens: [
-      { name: "--success",  description: t("Positive delta / up trend", "Variação positiva / tendência de alta"),  light: "#388459", dark: "#22C55E", isColor: true },
+      { name: "--success",  description: t("Positive delta / up trend", "Variação positiva / tendência de alta"),  light: "#31835D", dark: "#41B47F", isColor: true },
       { name: "--error",    description: t("Negative delta / down trend", "Variação negativa / tendência de queda"), light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--warning",  description: t("Caution / neutral trend", "Atenção / tendência neutra"),    light: "#C2410C", dark: "#f5b320", isColor: true },
+      { name: "--warning",  description: t("Caution / neutral trend", "Atenção / tendência neutra"),    light: "#F0B135", dark: "#F0B135", isColor: true },
       { name: "--primary",  description: t("Highlighted KPI accent", "Acento de KPI em destaque"),     light: "#E62040", dark: "#E62040", isColor: true },
     ],
   },
@@ -613,6 +613,39 @@ export function IndicadoresDoPainel() {
       <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
       <CardIndicador icone={<MapPinned />} valor={48} total={75} rotulo="Bairros pesquisados" explicacao="Bairros de Curitiba que a busca de lojas já pesquisou. Com a propriedade total, o número aparece com o total de que faz parte." />
       <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
+    </div>
+  );
+}
+
+/** Uso com limite (PainelDeUso + CardDeUso), usado na página Cards. Números de exemplo. */
+export function UsoComLimite() {
+  return (
+    <div className="@container space-y-4">
+      <PainelDeUso
+        icone={<MapPinned />}
+        sobretitulo="Uso da API do Google Places"
+        titulo="Consulta de lugares"
+        descricao="Limites mensais do plano atual."
+        usado={7153}
+        limite={10000}
+        unidade="consultas"
+        selo={{ titulo: "Limite gratuito", texto: "Incluído no plano atual" }}
+      />
+      <div className="grid grid-cols-1 gap-4 @2xl:grid-cols-2 @6xl:grid-cols-4">
+        <CardDeUso icone={<MapPinned />} rotulo="Endereço e localização" usado={7153} limite={10000} />
+        <CardDeUso icone={<FileText />} rotulo="Nome e situação do lugar" usado={4726} limite={5000} />
+        <CardDeUso icone={<PhoneCall />} rotulo="Nota, telefone, site e horário" usado={939} limite={1000} />
+        <CardDeUso icone={<Sparkle />} rotulo="Classificação pela IA" usado={1014} limite={3000} />
+      </div>
+      <PainelDeUso
+        icone={<MapPinned />}
+        sobretitulo="Uso da API do Google Places"
+        titulo="Consulta de lugares"
+        usado={10000}
+        limite={10000}
+        unidade="consultas"
+        selo={{ titulo: "Passou do limite gratuito", texto: "Pode haver cobrança neste mês.", tom: "alerta" }}
+      />
     </div>
   );
 }

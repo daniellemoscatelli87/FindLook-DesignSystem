@@ -48,7 +48,9 @@ const lightPairs: Pair[] = [
   { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
   { name: "primary / card", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#FFFFFF" },
   { name: "pink-600 / card", usage: { en: "Small primary text", pt: "Texto primário pequeno (primary-text)" }, fg: "#B91B35", bg: "#FFFFFF" },
-  { name: "success / card", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#388459", bg: "#FFFFFF" },
+  { name: "success / card", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#31835D", bg: "#FFFFFF" },
+  { name: "warning-foreground / warning", usage: { en: "Text on the warning amber", pt: "Texto sobre o âmbar de aviso" }, fg: "#2C2C33", bg: "#F0B135" },
+  { name: "warning-text / card", usage: { en: "Warning as text or icon", pt: "Aviso como texto ou ícone" }, fg: "#A66200", bg: "#FFFFFF" },
 ];
 const darkPairs: Pair[] = [
   { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#F6F6F7", bg: "#000000" },
@@ -56,7 +58,7 @@ const darkPairs: Pair[] = [
   { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
   { name: "primary / background", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#000000" },
   { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#F290A0", bg: "#000000" },
-  { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#22C55E", bg: "#000000" },
+  { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#41B47F", bg: "#000000" },
 ];
 
 function ContrastTable() {

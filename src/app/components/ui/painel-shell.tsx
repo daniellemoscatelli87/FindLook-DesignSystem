@@ -76,7 +76,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
       data-slot="item-do-menu"
       aria-current={ativo ? "page" : undefined}
       className={cn(
-        "group relative flex min-h-10 items-center gap-3 rounded-md px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
+        "group relative flex min-h-10 items-center gap-3 rounded-l-none rounded-r-md px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ativo
           ? "bg-[var(--primary-muted)] font-semibold text-[var(--primary-text,var(--primary))]"
@@ -85,7 +85,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
       )}
       {...props}
     >
-      {ativo && <span aria-hidden className="absolute inset-y-2 left-0 w-[3px] rounded-r-full bg-primary" />}
+      {ativo && <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-primary" />}
       <span aria-hidden className={cn("flex h-5 w-5 shrink-0 items-center justify-center [&>svg]:h-[18px] [&>svg]:w-[18px]", !ativo && "text-muted-foreground group-hover:text-foreground")}>{icone}</span>
       <span className="min-w-0 flex-1 truncate">{children}</span>
       {!!contador && (
