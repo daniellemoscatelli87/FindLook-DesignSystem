@@ -211,10 +211,25 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
 }
 
 /* ── Item de atividade ───────────────────────────────────────── */
-function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone: React.ReactNode; titulo: string; detalhe?: string; quando: string; className?: string }) {
+/** Até duas iniciais do nome, sem palavras de ligação ("Loja da Ana" → "LA"; "Brechó" → "BR"). */
+function iniciais(nome: string): string {
+  const palavras = nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\p{L}\p{N} ]/gu, " ").split(/\s+/)
+    .filter((p) => p && !/^(d[aeo]s?|e|&)$/i.test(p));
+  if (palavras.length === 0) return "?";
+  if (palavras.length === 1) return palavras[0]!.slice(0, 2).toUpperCase();
+  return (palavras[0]![0]! + palavras[1]![0]!).toUpperCase();
+}
+
+/**
+ * Item de atividade. icone: o ícone do tipo de evento; ou iniciais (o nome de quem aparece na lista), quando o título do
+ * card já diz o tipo e o ícone repetido não ajuda a diferenciar os itens (pedido da dona do produto, 20/11/2026).
+ */
+function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className }: { icone?: React.ReactNode; iniciaisDe?: string; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">{icone}</IconeComBase>
+      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">
+        {iniciaisDe !== undefined ? <span className={`${display} text-[0.75rem] font-bold leading-none tracking-[0.02em]`}>{iniciais(iniciaisDe)}</span> : icone}
+      </IconeComBase>
       <div className="min-w-0 flex-1">
         <p className="text-[0.8125rem] font-semibold text-foreground">{titulo}</p>
         {detalhe && <p className="truncate text-[0.75rem] text-muted-foreground">{detalhe}</p>}
@@ -404,14 +419,15 @@ function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marc
 
 /**
  * Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o
- * que vem depois. Fundo neutro: informa, não chama a ação. No celular, o texto desce para baixo do chip.
+ * que vem depois. tom="marca" (padrão, rosa claro: o estado é o foco do card, pedido da dona do produto em 20/11/2026) ou
+ * tom="neutro" (cinza, quando o estado é só registro). No celular, o texto desce para baixo do chip.
  */
-function FaixaDeEstado({ estado, titulo, texto, className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
+function FaixaDeEstado({ estado, titulo, texto, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; tom?: TomDoIcone; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div data-slot="faixa-de-estado" className={cn("@container rounded-lg border border-border bg-muted/40 p-4", className)} {...props}>
+    <div data-slot="faixa-de-estado" data-tom={tom} className={cn("@container rounded-lg border p-4", tom === "marca" ? "border-primary/20 bg-[var(--primary-muted)]" : "border-border bg-muted/40", className)} {...props}>
       <div className="flex flex-col gap-3 @md:flex-row @md:items-center @md:gap-4">
         <div className="shrink-0">{estado}</div>
-        <span aria-hidden className="hidden h-10 w-px shrink-0 bg-border @md:block" />
+        <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
         <div className="min-w-0">
           <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
           {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
@@ -568,7 +584,7 @@ export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
   CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
-  FaixaDeEstado, ProgressoRotulado, ResumoEmLinha,
+  FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone };
 export type { Serie, Dica };
