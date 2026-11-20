@@ -7,13 +7,15 @@ import {
   Store, Shirt, ChevronUp, ChevronDown,
   ChevronsUpDown, ExternalLink, MoreHorizontal, Filter, Download,
   Eye, Heart, MessageCircle, Search, Send, Ban, Trash2, ScanSearch, MapPinned, FileText, PhoneCall, Sparkle,
+  PauseCircle, RefreshCw, MapPin, CircleDashed, ListTree,
 } from "lucide-react";
+import { Button } from "../ui/button";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip as RechartTooltip,
   ResponsiveContainer, PieChart, Pie, Cell,
 } from "recharts";
-import { CardIndicador, GraficoDeDesempenho, AnelDePontuacao, ItemDeChecklist, PainelDeUso, CardDeUso } from "../ui/painel-dados";
+import { CardIndicador, GraficoDeDesempenho, AnelDePontuacao, ItemDeChecklist, PainelDeUso, CardDeUso, CardDoPainel, FaixaDeEstado, LinkVerTudo, ProgressoRotulado, ResumoEmLinha } from "../ui/painel-dados";
 import { Rosca, BarrasHorizontais, MapaCoropletico } from "../ui/graficos";
 import { TabelaDeProdutos, CelulaDeProduto, MedidorDeDesempenho, BarraDeAcoesEmLote } from "../ui/painel-produtos";
 import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemplates";
@@ -646,6 +648,44 @@ export function UsoComLimite() {
         unidade="consultas"
         selo={{ titulo: "Passou do limite gratuito", texto: "Pode haver cobrança neste mês.", tom: "alerta" }}
       />
+    </div>
+  );
+}
+
+/** Andamento de uma tarefa longa (FaixaDeEstado + ProgressoRotulado + ResumoEmLinha), usado na página Cards. Números de exemplo. */
+export function AndamentoDeTarefa() {
+  return (
+    <div className="@container max-w-3xl">
+      <CardDoPainel
+        icone={<Search />}
+        titulo="Busca de lojas"
+        descricao="Coleta de lojas no Google por todos os bairros."
+        acao={<Button size="sm" disabled><RefreshCw aria-hidden /> Buscar lojas agora</Button>}
+      >
+        <div className="space-y-5">
+          <FaixaDeEstado
+            estado={
+              <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-border bg-muted px-2.5 text-[0.75rem] font-semibold text-foreground">
+                <PauseCircle aria-hidden className="h-3.5 w-3.5 text-muted-foreground" /> Pausada
+              </span>
+            }
+            titulo="Pausa por limite do Google"
+            texto="A busca continua sozinha em 01/12/2026, de onde parou."
+          />
+          <ProgressoRotulado rotulo="Progresso da busca" pct={41.7} />
+          <ResumoEmLinha
+            itens={[
+              { icone: <MapPin />, valor: "48 de 75", rotulo: "bairros pesquisados" },
+              { icone: <Store />, valor: "3.329", rotulo: "lojas encontradas" },
+              { icone: <CircleDashed />, valor: "27", rotulo: "bairros restantes" },
+            ]}
+          />
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-border pt-4">
+            <LinkVerTudo icone={<ListTree />} onClick={() => {}}>Ver resultados por bairro</LinkVerTudo>
+            <LinkVerTudo tom="neutro" href="#card-andamento">Ver todas as buscas</LinkVerTudo>
+          </div>
+        </div>
+      </CardDoPainel>
     </div>
   );
 }

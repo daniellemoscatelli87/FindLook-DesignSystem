@@ -10,8 +10,9 @@ import { Progress } from "./progress";
  *
  * Formatação pt-BR, card de indicador (KPI), gráfico de desempenho com legenda que liga e desliga
  * séries, item de atividade, item de ação (insight / próxima ação), lista de tendências,
- * item de checklist, anel de pontuação, carrossel de dicas, faixa de benefícios e uso com limite
- * (PainelDeUso, o destaque do topo, e CardDeUso, um card por tipo de uso).
+ * item de checklist, anel de pontuação, carrossel de dicas, faixa de benefícios, uso com limite
+ * (PainelDeUso, o destaque do topo, e CardDeUso, um card por tipo de uso) e andamento de uma tarefa
+ * (FaixaDeEstado, ProgressoRotulado e ResumoEmLinha).
  */
 
 const display = "font-[family-name:var(--font-display)]";
@@ -376,11 +377,87 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   );
 }
 
-function LinkVerTudo({ children = "Ver tudo", href = "#", rotulo, onClick }: { children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement> }) {
+/**
+ * Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois
+ * lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo). icone: ícone
+ * pequeno antes do texto (inline, sem base).
+ */
+function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marca", icone }: { children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLElement>; tom?: TomDoIcone; icone?: React.ReactNode }) {
+  const classe = cn(
+    "group inline-flex shrink-0 items-center gap-1 rounded-sm text-[0.8125rem] font-semibold hover:underline [&>svg]:h-3.5 [&>svg]:w-3.5",
+    tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:text-foreground",
+    foco,
+  );
+  const conteudo = (
+    <>
+      {icone && <span aria-hidden className="mr-0.5 inline-flex [&>svg]:h-3.5 [&>svg]:w-3.5">{icone}</span>}
+      {children} <ArrowRight aria-hidden className="transition-transform motion-safe:group-hover:translate-x-0.5" />
+    </>
+  );
+  if (href === undefined && onClick) {
+    return <button type="button" aria-label={rotulo} onClick={onClick} className={classe}>{conteudo}</button>;
+  }
+  return <a href={href ?? "#"} aria-label={rotulo} onClick={onClick} className={classe}>{conteudo}</a>;
+}
+
+/* ── Andamento de uma tarefa (20/11/2026): estado → progresso → números → ações ── */
+
+/**
+ * Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o
+ * que vem depois. Fundo neutro: informa, não chama a ação. No celular, o texto desce para baixo do chip.
+ */
+function FaixaDeEstado({ estado, titulo, texto, className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <a href={href} aria-label={rotulo} onClick={onClick} className={cn("inline-flex shrink-0 items-center gap-1 rounded-sm text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
-      {children} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
-    </a>
+    <div data-slot="faixa-de-estado" className={cn("@container rounded-lg border border-border bg-muted/40 p-4", className)} {...props}>
+      <div className="flex flex-col gap-3 @md:flex-row @md:items-center @md:gap-4">
+        <div className="shrink-0">{estado}</div>
+        <span aria-hidden className="hidden h-10 w-px shrink-0 bg-border @md:block" />
+        <div className="min-w-0">
+          <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
+          {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária). */
+function ProgressoRotulado({ rotulo, pct, texto, className }: { rotulo: string; pct: number | null; texto?: string; className?: string }) {
+  const valor = pct === null ? "—" : texto ?? `${String(Math.round(pct * 10) / 10).replace(".", ",")}%`;
+  return (
+    <div data-slot="progresso-rotulado" className={className}>
+      <div className="mb-2 flex items-baseline justify-between gap-3">
+        <span className="text-[0.875rem] font-semibold text-foreground">{rotulo}</span>
+        <span className={`${display} text-[1.0625rem] font-bold tabular-nums text-foreground`}>{valor}</span>
+      </div>
+      <BarraDeUso pct={pct ?? 0} rotulo={pct === null ? `${rotulo}: calculando` : `${rotulo}: ${valor}`} className="h-2" />
+    </div>
+  );
+}
+
+type ItemDoResumo = { icone: React.ReactNode; valor: React.ReactNode; rotulo: string };
+
+/**
+ * Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o
+ * rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;
+ * números que são o foco da página usam CardIndicador.
+ */
+function ResumoEmLinha({ itens, className }: { itens: ItemDoResumo[]; className?: string }) {
+  const colunas = { 2: "@lg:grid-cols-2", 3: "@lg:grid-cols-3", 4: "@lg:grid-cols-2 @3xl:grid-cols-4" }[Math.min(4, Math.max(2, itens.length)) as 2 | 3 | 4];
+  return (
+    <div className={cn("@container", className)}>
+      <dl data-slot="resumo-em-linha" className={cn("grid grid-cols-1 divide-y divide-border @lg:divide-x @lg:divide-y-0", colunas)}>
+        {itens.map((i) => (
+          <div key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:px-4 @lg:py-1 @lg:first:pl-0">
+            <IconeComBase tom="neutro">{i.icone}</IconeComBase>
+            <div className="min-w-0">
+              <dd className={`${display} text-[1.25rem] font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</dd>
+              <dt className="text-[0.8125rem] text-muted-foreground">{i.rotulo}</dt>
+            </div>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
 
@@ -491,6 +568,7 @@ export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
   CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  FaixaDeEstado, ProgressoRotulado, ResumoEmLinha,
 };
 export type { TomDoIcone };
 export type { Serie, Dica };
