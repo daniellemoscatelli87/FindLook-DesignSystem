@@ -238,16 +238,15 @@ export function FoundationShowcase() {
                   <span className={`inline-block px-2 py-0.5 rounded-sm border text-[0.5625rem] font-bold tracking-[0.08em] ${f.pillColor}`}>{f.roleLabel}</span>
                   <p className="mt-1.5 text-[0.9375rem] font-bold text-foreground leading-tight break-words">{f.family}</p>
                   <p className="text-[0.625rem] font-mono text-muted-foreground mt-0.5">{f.token}</p>
+                  {/* Os pesos de cada papel (uma fonte só: o que muda é o peso) */}
+                  <p className="mt-2 text-[0.8125rem] font-semibold text-foreground">{f.proportion}</p>
                 </div>
-                <div className="text-right shrink-0">
-                  <p className="text-[1.5rem] font-black text-foreground leading-none">{f.proportion}</p>
-                  <p className="text-[0.5625rem] text-muted-foreground mt-0.5">{t("of usage", "de uso")}</p>
-                </div>
+
               </div>
 
               {/* Proportion bar */}
               <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
-                <div className={`h-full rounded-full ${f.barColor}`} style={{ width: f.proportion }} />
+                <div className={`h-full w-full rounded-full ${f.barColor}`} />
               </div>
 
               {/* Traits */}
