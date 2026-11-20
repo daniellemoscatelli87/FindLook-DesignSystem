@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Base do ícone: quando usar"),
+    desc: pt("Regra nova (dona do produto, 20/11/2026) com só três jeitos de mostrar um ícone: base rosa + ícone vermelho (marca e foco, o que convida a agir ou está ativo), base cinza + ícone cinza (neutro, só identifica; itens pausados ou encerrados) e sem base (inline, ao lado do texto). Nunca misturar base cinza com ícone vermelho. Componente IconeComBase (tom marca ou neutro), usado por CardIndicador, CardDeUso, PainelDeUso (agora marca), ItemDeAtividade e ItemDeAcao, que ganha tom (padrão marca; neutro para o que está pausado ou é só registro) e deixa a base cinza com ícone vermelho."),
+    page: "icons", anchor: "icon-base",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Uso com limite no padrão dos templates"),
     desc: pt("PainelDeUso e CardDeUso ficam mais limpos, como o CardIndicador dos templates do painel: card branco com borda, ícone em base cinza, número grande, barra fina com trilho cinza e \"x% do limite\". O estado do limite vira uma linha discreta com ícone (verde quando está dentro do limite gratuito, vermelha no alerta), sem o fundo rosa."),
     page: "cards", anchor: "card-uso",

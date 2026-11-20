@@ -17,6 +17,35 @@ import { Progress } from "./progress";
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
+/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/**
+ * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
+ *        próxima ação, atividade, algo ativo ou em andamento).
+ * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
+ *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * Ícone sem base (inline, ao lado do texto) não usa este componente.
+ */
+type TomDoIcone = "marca" | "neutro";
+const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
+function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
+  return (
+    <span
+      aria-hidden
+      data-slot="icone-com-base"
+      data-tom={tom}
+      className={cn(
+        "flex shrink-0 items-center justify-center",
+        redonda ? "rounded-full" : "rounded-md",
+        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        TAMANHO_DA_BASE[tamanho],
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
 /* ── Formatação pt-BR ────────────────────────────────────────── */
 const fmtNumero = new Intl.NumberFormat("pt-BR");
 const fmtPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -86,7 +115,7 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
             {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
           </p>
         </div>
-        <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&>svg]:h-[18px] [&>svg]:w-[18px]">{icone}</span>
+        <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
       {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
     </div>
@@ -184,7 +213,7 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
 function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone: React.ReactNode; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-4 [&>svg]:w-4">{icone}</span>
+      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">{icone}</IconeComBase>
       <div className="min-w-0 flex-1">
         <p className="text-[0.8125rem] font-semibold text-foreground">{titulo}</p>
         {detalhe && <p className="truncate text-[0.75rem] text-muted-foreground">{detalhe}</p>}
@@ -195,7 +224,8 @@ function ItemDeAtividade({ icone, titulo, detalhe, quando, className }: { icone:
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; className?: string }) {
+/** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
+function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
@@ -203,7 +233,7 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, className }
       onClick={onClick}
       className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
-      <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-muted text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{midia}</span>
+      <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
         <span className="block text-[0.875rem] font-semibold text-foreground">{titulo}</span>
         {descricao && <span className="block text-[0.8125rem] text-muted-foreground">{descricao}</span>}
@@ -376,21 +406,12 @@ type PainelDeUsoProps = {
   className?: string;
 };
 
-/** Ícone do painel em base cinza, como no CardIndicador (padrão dos templates). */
-function IconeDoPainel({ children, grande = false }: { children: React.ReactNode; grande?: boolean }) {
-  return (
-    <span aria-hidden className={cn("flex shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground", grande ? "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" : "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]")}>
-      {children}
-    </span>
-  );
-}
-
 /** Barra do uso: trilho cinza e preenchimento na cor primária. */
 function BarraDeUso({ pct, rotulo, className }: { pct: number; rotulo: string; className?: string }) {
   return <Progress value={pct} aria-label={rotulo} className={cn("h-1.5 bg-muted", className)} />;
 }
 
-/** Destaque do uso do mês, no padrão clean dos templates: card branco, ícone em base cinza, a porcentagem grande com a
+/** Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a
  *  barra e o estado do limite numa linha discreta (neutra) ou em alerta. */
 function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, unidade, selo, className }: PainelDeUsoProps) {
   const pct = pctDoUso(usado, limite) ?? 0;
@@ -402,7 +423,7 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
       className={cn("grid gap-5 rounded-lg border border-border bg-card p-5 @3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
       <div className="flex min-w-0 items-start gap-3.5">
-        <IconeDoPainel grande>{icone}</IconeDoPainel>
+        <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
         <div className="min-w-0">
           {sobretitulo && <p className="text-[0.75rem] font-medium text-muted-foreground">{sobretitulo}</p>}
           <p className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
@@ -452,7 +473,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
             {limite ? <span className="ml-1.5 text-[0.9375rem] font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
           </p>
         </div>
-        <IconeDoPainel>{icone}</IconeDoPainel>
+        <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
       {pct !== null ? (
         <div className="mt-auto">
@@ -469,6 +490,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
 };
+export type { TomDoIcone };
 export type { Serie, Dica };
