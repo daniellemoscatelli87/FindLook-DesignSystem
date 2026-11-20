@@ -10,7 +10,7 @@ import {
 } from "../ui/graficos-inteligencia";
 import {
   BarrasAgrupadas, BarrasEmpilhadas, Pirulito, AreaEmpilhada, Streamgraph, LinhaDoTempo, CalendarioDeCalor, GraficoDeVelas,
-  Pizza, Sunburst, Waffle, Piramide, Cascata, Dispersao, MatrizDeCorrelacao, Radar, CoordenadasParalelas, Sankey, RedeDeConexoes,
+  Pizza, Waffle, Piramide, Dispersao, MatrizDeCorrelacao, Radar, CoordenadasParalelas, Sankey, RedeDeConexoes,
   Histograma, BoxPlot, Violino, Densidade, MapaDePontos, MapaDeBolhas, resumoDaDistribuicao,
 } from "../ui/graficos-catalogo";
 
@@ -175,7 +175,7 @@ const JORNADA = [
 const FAMILIAS = [
   { icone: ChartColumnBig, nome: "Comparação", quando: "Comparar valores entre itens: o que é maior, o que mudou de lugar, qual a distância entre duas medidas.", tipos: ["Barras verticais e horizontais", "Agrupadas", "Empilhadas e 100%", "Lollipop", "Dumbbell (halteres)", "Slope (inclinação)"], ds: "BarrasOrdenadas, GraficoDeHalteres, GraficoDeInclinacao, BarrasEmpilhadas100; no catálogo: BarrasAgrupadas, BarrasEmpilhadas, Pirulito" },
   { icone: ChartLine, nome: "Tempo", quando: "Mostrar como algo evolui: tendência, sazonalidade, antes e depois.", tipos: ["Linhas", "Múltiplas linhas", "Área e área empilhada", "Streamgraph", "Linha do tempo", "Calendário de calor", "Candlestick"], ds: "GraficoDeLinhas, GraficoDeRanking; no catálogo: AreaEmpilhada, Streamgraph, LinhaDoTempo, CalendarioDeCalor, GraficoDeVelas" },
-  { icone: ChartPie, nome: "Composição", quando: "Mostrar as partes de um todo: participação, etapas que se reduzem, contribuição de cada parte.", tipos: ["Pizza e rosca", "Treemap (mosaico)", "Sunburst", "Waffle", "Funil", "Pirâmide", "Waterfall"], ds: "GraficoDeRosca, Mosaico, BarrasEmpilhadas100, Funil; no catálogo: Pizza, Sunburst, Waffle, Piramide, Cascata" },
+  { icone: ChartPie, nome: "Composição", quando: "Mostrar as partes de um todo: participação, etapas que se reduzem, contribuição de cada parte.", tipos: ["Pizza e rosca", "Treemap (mosaico)", "Waffle", "Funil", "Pirâmide"], ds: "GraficoDeRosca, Mosaico, BarrasEmpilhadas100, Funil; no catálogo: Pizza, Waffle, Piramide" },
   { icone: ChartScatter, nome: "Relações", quando: "Ver como duas ou mais medidas andam juntas, ou como as coisas se conectam.", tipos: ["Dispersão", "Bolhas", "Mapa de calor", "Matriz de correlação", "Radar", "Coordenadas paralelas", "Sankey", "Rede"], ds: "GraficoDeBolhas, MapaDeCalorMatricial; no catálogo: Dispersao, MatrizDeCorrelacao, Radar, CoordenadasParalelas, Sankey, RedeDeConexoes" },
   { icone: ChartSpline, nome: "Distribuição", quando: "Ver como os valores se espalham: onde se concentram, o que foge do padrão.", tipos: ["Histograma", "Box plot", "Violino", "Densidade"], ds: "No catálogo: Histograma, BoxPlot, Violino, Densidade" },
   { icone: MapPinned, nome: "Geografia", quando: "Quando o lugar faz parte da resposta: onde há mais procura, onde há menos lojas.", tipos: ["Coroplético", "Pontos", "Bolhas no mapa", "Calor geográfico"], ds: "MapaDeCalorPorRegiao (esquemático); no catálogo: MapaDePontos, MapaDeBolhas (esquemáticos)" },
@@ -208,15 +208,176 @@ const PASSOS_INTELIGENCIA = [
   { n: "04", t: "Ação recomendada", d: "Um próximo passo concreto, ao alcance da pessoa, sem prometer resultado." },
 ];
 
-const TOKENS_COR = [
-  { token: "--chart-1", passo: "vermelho-700 · #CC3A45", uso: "Destaque: a série principal; topo da escala de calor" },
-  { token: "--chart-2", passo: "vermelho-500 · #DA5963", uso: "Segunda série" },
-  { token: "--chart-3", passo: "rosa-400 · #E89AA1", uso: "Terceira série" },
-  { token: "--chart-4", passo: "rosa-300 · #CDB4B8", uso: "Quarta série; começo da escala de calor" },
-  { token: "--chart-5", passo: "cinza-500 · #9A99A1", uso: "Quinta posição: \"Outros\" e o que não está em destaque" },
-  { token: "--chart-neutral", passo: "cinza-500 · #9A99A1", uso: "Sem destaque: \"Outros\", contexto, desativado" },
-  { token: "--chart-grid", passo: "graphite-100", uso: "Linhas de grade" },
+const PALETA = ["#E62040", "#E24A60", "#D96A79", "#CB8590", "#B89AA3", "#A7A8B0", "#9999A5", "#888896"];
+
+const FAIXAS_DA_PALETA = [
+  { tons: [1, 2], nome: "Destaque", d: "O dado principal ou o ponto de atenção." },
+  { tons: [3, 4, 5], nome: "Apoio e transição", d: "Séries de apoio, na ordem de importância." },
+  { tons: [6, 7, 8], nome: "Contexto", d: "Referências, histórico, metas, comparações secundárias e Outros." },
 ];
+
+const REGRAS_DE_COR = [
+  { t: "1 gráfico = 1 foco", d: "Use o tom 1, forte, para o dado principal ou o ponto de atenção." },
+  { t: "Importância em ordem", d: "Ordene as séries da mais importante (rosa/vermelho) para a mais contextual (cinza)." },
+  { t: "Contexto em cinza", d: "Benchmarks, histórico, metas e comparações secundárias usam os tons finais (6 a 8)." },
+  { t: "Evite excesso de destaque", d: "Nunca use mais de 2 tons intensos (1 e 2) no mesmo gráfico." },
+  { t: "Escalas contínuas", d: "Mapas de calor, degradês e intensidades começam no cinza e vão ao rosa/vermelho conforme o valor aumenta." },
+];
+
+const EX_BARRAS = [
+  { rotulo: "A", valor: 82 }, { rotulo: "B", valor: 64 }, { rotulo: "C", valor: 51 }, { rotulo: "D", valor: 38 }, { rotulo: "E", valor: 24 },
+];
+const EX_MESES = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"];
+const EX_LINHAS = [
+  { rotulo: "Principal", valores: [42, 48, 55, 61, 70, 78], destaque: true },
+  { rotulo: "Secundária", valores: [36, 38, 41, 40, 44, 47], tom: 5 },
+  { rotulo: "Benchmark", valores: [50, 50, 50, 50, 50, 50], neutro: true },
+];
+const EX_ROSCA = [
+  { rotulo: "Principal", valor: 140 },
+  { rotulo: "Apoio", valor: 50 },
+  { rotulo: "Secundária", valor: 35 },
+  { rotulo: "Contexto", valor: 25, neutro: true },
+];
+const EX_ESCALA = {
+  linhas: ["Manhã", "Tarde", "Noite"],
+  colunas: ["Seg", "Ter", "Qua", "Qui", "Sex"],
+  valores: [[12, 18, 22, 30, 41], [20, 26, 35, 44, 58], [8, 14, 19, 27, 36]],
+};
+
+/** Área "Cores dos gráficos": paleta de transição, faixas, as 5 regras e exemplos aplicados com os componentes reais. */
+function SecaoCores() {
+  return (
+    <section id="graficos-cores" className="scroll-mt-32">
+      <SectionHeader
+        title="Cores dos gráficos"
+        description="Paleta de transição: 8 tons, do vermelho/rosa da marca ao cinza, os mesmos no tema claro e no escuro. Quanto mais à esquerda, mais ênfase visual; quanto mais à direita, mais neutro e contextual. Decisão da dona do produto, 20/11/2026."
+      />
+      <Cartao>
+        <Rotulo>Paleta de transição</Rotulo>
+        <ol className="m-0 grid list-none grid-cols-4 gap-x-2 gap-y-4 p-0 sm:grid-cols-8">
+          {PALETA.map((hex, i) => (
+            <li key={hex} className="min-w-0">
+              <span aria-hidden className="block h-14 rounded-md" style={{ background: `var(--chart-${i + 1})` }} />
+              <p className="mt-1.5 text-[0.875rem] font-bold tabular-nums text-foreground">{i + 1}</p>
+              <p className="font-mono text-[0.6875rem] text-muted-foreground [overflow-wrap:anywhere]">{hex}</p>
+              <p className="font-mono text-[0.6875rem] text-muted-foreground [overflow-wrap:anywhere]">--chart-{i + 1}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[0.75rem] font-semibold text-muted-foreground">
+          <span>← Mais ênfase visual</span>
+          <span>Mais neutro e contextual →</span>
+        </p>
+        <ul className="m-0 mt-5 grid list-none grid-cols-1 gap-3 border-t border-border p-0 pt-5 sm:grid-cols-3">
+          {FAIXAS_DA_PALETA.map(f => (
+            <li key={f.nome} className="min-w-0 rounded-md border border-border p-3">
+              <span aria-hidden className="mb-2 flex h-2.5 gap-[2px] overflow-hidden rounded-sm">
+                {f.tons.map(t => <span key={t} className="flex-1" style={{ background: `var(--chart-${t})` }} />)}
+              </span>
+              <p className="text-[0.875rem] font-bold text-foreground">{f.nome} <span className="font-semibold tabular-nums text-muted-foreground">· tons {f.tons[0]}–{f.tons[f.tons.length - 1]}</span></p>
+              <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{f.d}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-[0.75rem] leading-relaxed text-muted-foreground"><span className="font-mono">--chart-neutral</span> é o tom 8: "Outros" e informação sem destaque, sempre por último. <span className="font-mono">--chart-grid</span>: linhas de grade. Os componentes escolhem os tons com <span className="font-mono">coresPorImportancia(n)</span>: 1 série → 1 · 2 → 1, 6 · 3 → 1, 4, 7 · 4 → 1, 4, 6, 8 · 5 → 1, 3, 5, 6, 8 · 6 → 1, 3, 4, 5, 6, 8 · 7 → 1, 3, 4, 5, 6, 7, 8 · 8 → todos.</p>
+      </Cartao>
+
+      <div className="mt-6">
+        <Rotulo>Regras de uso</Rotulo>
+        <ol className="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 xl:grid-cols-5">
+          {REGRAS_DE_COR.map((r, i) => (
+            <li key={r.t} className="flex min-w-0 gap-3 rounded-lg border border-border bg-card p-4 xl:flex-col">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[0.75rem] font-bold text-[var(--primary-text)]">{i + 1}</span>
+              <div className="min-w-0">
+                <p className="text-[0.875rem] font-semibold leading-snug text-foreground">{r.t}</p>
+                <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{r.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="mt-6">
+        <Rotulo>Exemplos aplicados</Rotulo>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <Cartao>
+            <p className="text-[0.875rem] font-semibold text-foreground">Barras por importância</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">A a E nos tons 1, 3, 5, 6 e 8 (dados de exemplo).</p>
+            <BarrasOrdenadas rotulo="Barras por importância (dados de exemplo)" itens={EX_BARRAS} destaques={1} posicao={false} cores="importancia" />
+          </Cartao>
+          <Cartao>
+            <p className="text-[0.875rem] font-semibold text-foreground">Linhas: principal, secundária e benchmark</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1, secundária no 5, benchmark no 8 e tracejado (dados de exemplo).</p>
+            <GraficoDeLinhas rotulo="Linhas principal, secundária e benchmark (dados de exemplo)" series={EX_LINHAS} rotulosX={EX_MESES} altura={200} zero={false} />
+          </Cartao>
+          <Cartao>
+            <p className="text-[0.875rem] font-semibold text-foreground">Rosca com um foco</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1 (56%), apoio no 4, secundária no 6 e contexto no 8 (dados de exemplo).</p>
+            <GraficoDeRosca rotulo="Rosca com um foco (dados de exemplo)" partes={EX_ROSCA} centro={{ valor: "250", rotulo: "respostas" }} tamanho={180} />
+          </Cartao>
+          <Cartao>
+            <p className="text-[0.875rem] font-semibold text-foreground">Escala contínua</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">Do cinza (valor baixo) ao rosa/vermelho (valor alto) (dados de exemplo).</p>
+            <MapaDeCalorMatricial rotulo="Escala contínua (dados de exemplo)" {...EX_ESCALA} rotuloLinhas="Período" rotulos={{ menos: "Baixo", mais: "Alto" }} />
+          </Cartao>
+        </div>
+      </div>
+
+      <Cartao className="mt-6">
+        <Rotulo>Escala de calor (do menor para o maior)</Rotulo>
+        <ul className="m-0 grid list-none grid-cols-4 gap-1 p-0">
+          {[["--chart-seq-1", 6], ["--chart-seq-2", 5], ["--chart-seq-3", 3], ["--chart-seq-4", 1]].map(([tk, tom]) => (
+            <li key={tk} className="min-w-0">
+              <span aria-hidden className="block h-10 rounded-sm" style={{ background: `var(${tk})` }} />
+              <span className="mt-1 block font-mono text-[0.6875rem] text-foreground [overflow-wrap:anywhere]">{tk}</span>
+              <span className="block text-[0.6875rem] text-muted-foreground">tom {tom}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground">Do cinza (tom 6) ao vermelho (tom 1). As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Tons vizinhos ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
+        <div className="mt-6 border-t border-border pt-5">
+          <Rotulo>Texto nos gráficos</Rotulo>
+          <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
+          <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">Nenhuma cor de texto passa de 4,5:1 sobre todos os tons da paleta, e trocar a cor do texto de uma parte para outra confunde a leitura. Por isso barras, fatias, células, blocos e bolhas não levam número nem nome. Valores e nomes em --foreground; --muted-foreground só no texto secundário, como os eixos. Quando o valor precisa ser ligado a uma parte (barras empilhadas, mosaico, rosca), ele vem depois de um ponto na cor dela, na mesma ordem das partes. Decisão da dona do produto, 19/11/2026.</p>
+          <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Áreas:</span> linha fina na cor da série e preenchimento em degradê transparente.</p>
+        </div>
+      </Cartao>
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <Cartao>
+          <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><Check aria-hidden className="h-4 w-4 text-success" />Assim: importância em ordem, Outros em cinza</p>
+          <BarrasEmpilhadas100 rotulo="Exemplo correto" categorias={[{ rotulo: "Vestidos" }, { rotulo: "Calças" }, { rotulo: "Camisas" }, { rotulo: "Outras", neutro: true }]} linhas={[{ rotulo: "Peças buscadas", valores: [34, 26, 16, 24] }]} />
+        </Cartao>
+        <Cartao>
+          <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><X aria-hidden className="h-4 w-4 text-error" />Não assim: destaque em todas as partes</p>
+          <div aria-hidden className="flex h-3 gap-[2px] overflow-hidden rounded-sm">
+            <span style={{ flex: "34 1 0", background: "var(--chart-1)" }} />
+            <span style={{ flex: "26 1 0", background: "var(--chart-2)" }} />
+            <span style={{ flex: "16 1 0", background: "var(--chart-1)" }} />
+            <span style={{ flex: "24 1 0", background: "var(--chart-2)" }} />
+          </div>
+          <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted-foreground">Com tons intensos em todas as partes, nada se destaca e o olho não sabe por onde começar; "Outros" parece tão importante quanto o resto. Sem rótulos, a cor carrega o significado sozinha.</p>
+        </Cartao>
+      </div>
+      <div className="mt-4">
+        <DoDont
+          dos={[
+            "Tom 1 só no dado principal ou no ponto de atenção.",
+            "Séries em ordem de importância, do rosa/vermelho ao cinza (coresPorImportancia).",
+            "Referências, histórico e metas nos tons 6 a 8; Outros em --chart-neutral, por último.",
+            "Valores e nomes fora das marcas, sempre na mesma cor de texto, com um ponto na cor da parte quando for preciso ligá-los a ela.",
+          ]}
+          donts={[
+            "Usar mais de 2 tons intensos (1 e 2) no mesmo gráfico.",
+            "Criar cores fora da paleta (verde, azul, laranja) para separar séries.",
+            "Começar uma escala contínua pelo vermelho ou embaralhar a ordem dos tons.",
+            "Escrever número ou nome sobre uma barra, fatia, célula, bloco ou bolha, ou depender só da legenda para dizer o que é cada cor.",
+          ]}
+        />
+      </div>
+    </section>
+  );
+}
 
 /** Tabela que vira lista no celular (card nunca rola na horizontal). */
 function TabelaQueQuebra({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
@@ -352,13 +513,6 @@ const POR_CONDICAO_PIZZA = [
   { rotulo: "Sem condição informada", valor: 8, neutro: true },
 ];
 
-const SUNBURST = [
-  { rotulo: "Roupas", filhos: [{ rotulo: "Vestidos", valor: 120 }, { rotulo: "Calças", valor: 95 }, { rotulo: "Camisas", valor: 60 }] },
-  { rotulo: "Calçados", filhos: [{ rotulo: "Tênis", valor: 70 }, { rotulo: "Sandálias", valor: 40 }] },
-  { rotulo: "Acessórios", filhos: [{ rotulo: "Bolsas", valor: 45 }, { rotulo: "Bijuterias", valor: 25 }] },
-  { rotulo: "Outros", neutro: true, filhos: [{ rotulo: "Outras peças", valor: 30 }] },
-];
-
 const TIPOS_DE_LOJA = [
   { rotulo: "Lojas multimarcas", valor: 41 },
   { rotulo: "Brechós", valor: 27 },
@@ -368,17 +522,6 @@ const TIPOS_DE_LOJA = [
 
 const FAIXAS_PRECO = ["R$ 300 ou mais", "R$ 200–299", "R$ 100–199", "R$ 50–99", "Até R$ 49"];
 const PIRAMIDE = { esquerda: { rotulo: "Novas", valores: [64, 118, 186, 142, 40] }, direita: { rotulo: "Segunda mão", valores: [12, 38, 96, 170, 124] } };
-
-const CASCATA = {
-  inicio: { rotulo: "Peças ativas no início do mês", valor: 1240 },
-  passos: [
-    { rotulo: "Novas peças publicadas", valor: 380 },
-    { rotulo: "Vendidas", valor: -210 },
-    { rotulo: "Pausadas pela loja", valor: -95 },
-    { rotulo: "Reativadas", valor: 45 },
-  ],
-  fim: { rotulo: "Peças ativas no fim do mês" },
-};
 
 const DISPERSAO = (() => {
   const r = sorteador(11);
@@ -499,7 +642,7 @@ function CartaoDoCatalogo({ nome, componente, quando, cuidado, dados, children }
       <div className="mt-5 min-w-0 flex-1">{children}</div>
       {cuidado && (
         <p className="mt-4 flex gap-2 rounded-md bg-[var(--warning-muted)] px-3 py-2 text-[0.8125rem] leading-relaxed text-foreground">
-          <AlertTriangle aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
+          <AlertTriangle aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-warning-text" />
           <span><span className="font-semibold">Cuidado: </span>{cuidado}</span>
         </p>
       )}
@@ -591,11 +734,6 @@ function SecaoCatalogo() {
             dados={{ colunas: ["Condição", "Fatia"], linhas: POR_CONDICAO_PIZZA.map(p => [p.rotulo, pct(p.valor)]) }}>
             <Pizza rotulo="Peças publicadas por condição (dados de exemplo)" partes={POR_CONDICAO_PIZZA} />
           </CartaoDoCatalogo>
-          <CartaoDoCatalogo nome="Sunburst" componente="Sunburst" quando="Para uma hierarquia em dois níveis: os grupos e as partes de cada grupo."
-            cuidado="O anel de fora parece maior que o de dentro para a mesma fatia: compare pelos percentuais escritos, nunca pelo tamanho."
-            dados={{ colunas: ["Grupo", "Parte", "Peças"], linhas: SUNBURST.flatMap(g => g.filhos.map(f => [g.rotulo, f.rotulo, n(f.valor)])) }}>
-            <Sunburst rotulo="Peças publicadas por grupo e categoria (dados de exemplo)" grupos={SUNBURST} centro={{ valor: "485", rotulo: "peças" }} />
-          </CartaoDoCatalogo>
           <CartaoDoCatalogo nome="Waffle" componente="Waffle" quando="Para mostrar uma proporção de um jeito concreto, como 27 em cada 100."
             dados={{ colunas: ["Tipo", "Fatia"], linhas: TIPOS_DE_LOJA.map(p => [p.rotulo, pct(p.valor)]) }}>
             <Waffle rotulo="Lojas participantes por tipo (dados de exemplo)" partes={TIPOS_DE_LOJA} />
@@ -603,10 +741,6 @@ function SecaoCatalogo() {
           <CartaoDoCatalogo nome="Pirâmide" componente="Piramide" quando="Para comparar como dois grupos se distribuem pelas mesmas faixas, lado a lado."
             dados={{ colunas: ["Faixa de preço", PIRAMIDE.esquerda.rotulo, PIRAMIDE.direita.rotulo], linhas: FAIXAS_PRECO.map((f, i) => [f, n(PIRAMIDE.esquerda.valores[i]!), n(PIRAMIDE.direita.valores[i]!)]) }}>
             <Piramide rotulo="Peças publicadas por faixa de preço e condição (dados de exemplo)" faixas={FAIXAS_PRECO} {...PIRAMIDE} />
-          </CartaoDoCatalogo>
-          <CartaoDoCatalogo nome="Cascata (waterfall)" componente="Cascata" quando="Para explicar como se chega de um valor a outro, passo a passo, com o que somou e o que tirou."
-            dados={{ colunas: ["Passo", "Peças"], linhas: [[CASCATA.inicio.rotulo, n(CASCATA.inicio.valor)], ...CASCATA.passos.map(p => [p.rotulo, `${p.valor > 0 ? "+" : "−"}${n(Math.abs(p.valor))}`]), [CASCATA.fim.rotulo, n(CASCATA.inicio.valor + CASCATA.passos.reduce((s, p) => s + p.valor, 0))]] }}>
-            <Cascata rotulo="Peças ativas ao longo do mês (dados de exemplo)" {...CASCATA} />
           </CartaoDoCatalogo>
         </Familia>
 
@@ -728,80 +862,13 @@ export function GraficosShowcase() {
       </section>
 
       {/* ── CORES ── */}
-      <section id="graficos-cores" className="scroll-mt-32">
-        <SectionHeader
-          title="Cores dos gráficos"
-          description="Gráficos usam só a cor primária e variações tonais dela. O grafite aparece apenas no que não está em destaque (Outros, contexto, linha de base, desativado), nunca como série par da primária. Decisão da dona do produto, 19/11/2026."
-        />
-        <Cartao>
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
-            {TOKENS_COR.map(c => (
-              <li key={c.token} className="min-w-0">
-                <span aria-hidden className="mb-2 block h-14 rounded-md border border-border" style={{ background: `var(${c.token})` }} />
-                <p className="font-mono text-[0.75rem] font-semibold text-foreground [overflow-wrap:anywhere]">{c.token}</p>
-                <p className="text-[0.75rem] text-muted-foreground">{c.passo}</p>
-                <p className="mt-1 text-[0.75rem] leading-snug text-muted-foreground">{c.uso}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 border-t border-border pt-5">
-            <Rotulo>Escala de calor (do menor para o maior)</Rotulo>
-            <ul className="m-0 grid list-none grid-cols-4 gap-1 p-0">
-              {["--chart-seq-1", "--chart-seq-2", "--chart-seq-3", "--chart-seq-4"].map(tk => (
-                <li key={tk} className="min-w-0">
-                  <span aria-hidden className="block h-10 rounded-sm" style={{ background: `var(${tk})` }} />
-                  <span className="mt-1 block font-mono text-[0.6875rem] text-foreground [overflow-wrap:anywhere]">{tk}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2 text-[0.75rem] text-muted-foreground">Do rosa-300 ao vermelho-700. As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Vermelho-700 e vermelho-500, e rosa-400 e rosa-300, ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
-          </div>
-          <div className="mt-6 border-t border-border pt-5">
-            <Rotulo>Texto nos gráficos</Rotulo>
-            <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
-            <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">Nenhuma cor de texto passa de 4,5:1 sobre todos os tons da paleta, e trocar a cor do texto de uma parte para outra confunde a leitura. Por isso barras, fatias, células, blocos e bolhas não levam número nem nome. Valores e nomes em --foreground; --muted-foreground só no texto secundário, como os eixos. Quando o valor precisa ser ligado a uma parte (barras empilhadas, mosaico, rosca), ele vem depois de um ponto na cor dela, na mesma ordem das partes. Decisão da dona do produto, 19/11/2026.</p>
-            <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Áreas:</span> linha fina na cor da série e preenchimento em degradê transparente.</p>
-          </div>
-        </Cartao>
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Cartao>
-            <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><Check aria-hidden className="h-4 w-4 text-success" />Assim: tons da primária, Outros em grafite</p>
-            <BarrasEmpilhadas100 rotulo="Exemplo correto" categorias={[{ rotulo: "Vestidos" }, { rotulo: "Calças" }, { rotulo: "Camisas" }, { rotulo: "Outras", neutro: true }]} linhas={[{ rotulo: "Peças buscadas", valores: [34, 26, 16, 24] }]} />
-          </Cartao>
-          <Cartao>
-            <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><X aria-hidden className="h-4 w-4 text-error" />Não assim: grafite como série par da primária</p>
-            <div aria-hidden className="flex h-3 gap-[2px] overflow-hidden rounded-sm">
-              <span style={{ flex: "34 1 0", background: "var(--pink-500)" }} />
-              <span style={{ flex: "26 1 0", background: "var(--graphite-700)" }} />
-              <span style={{ flex: "16 1 0", background: "var(--graphite-400)" }} />
-              <span style={{ flex: "24 1 0", background: "var(--graphite-200)" }} />
-            </div>
-            <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted-foreground">Com grafite ao lado da primária, a leitura sugere que só o rosa importa e o cinza parece desativado. Sem rótulos, a cor carrega o significado sozinha.</p>
-          </Cartao>
-        </div>
-        <div className="mt-4">
-          <DoDont
-            dos={[
-              "Destaque na --chart-1; outras séries em --chart-2 a --chart-5.",
-              "Escreva valores e nomes junto das marcas; a legenda é só apoio.",
-              "Valores e nomes fora das marcas, sempre na mesma cor de texto, com um ponto na cor da parte quando for preciso ligá-los a ela.",
-              "Grafite (--chart-neutral) para Outros, contexto e linha de base.",
-            ]}
-            donts={[
-              "Usar grafite e primária como duas séries de mesmo peso.",
-              "Criar cores fora da escala (verde, azul, laranja) para separar séries.",
-              "Depender só da legenda para dizer o que é cada cor.",
-              "Escrever número ou nome sobre uma barra, fatia, célula, bloco ou bolha, ou trocar a cor do texto conforme o tom.",
-            ]}
-          />
-        </div>
-      </section>
+      <SecaoCores />
 
       {/* ── ROSCA ── */}
       <section id="graficos-rosca" className="scroll-mt-32">
         <SectionHeader
           title="Rosca"
-          description="A rosca continua, redesenhada no traço do DS: anel fino, partes em tons da primária da maior para a menor, Outros em grafite no fim, percentual escrito junto de cada parte e o total no centro. Exemplo com os mesmos números da Composição do comércio de moda do admin (dados de exemplo)."
+          description="A rosca continua, redesenhada no traço do DS: anel fino, partes nos tons por importância da maior para a menor (a maior no tom 1), Outros em cinza no fim, percentual escrito junto de cada parte e o total no centro. Exemplo com os mesmos números da Composição do comércio de moda do admin (dados de exemplo)."
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <Cartao>
@@ -833,7 +900,7 @@ export function GraficosShowcase() {
               {[
                 "Anel fino (10 px), sem trilho, com 2 px de respiro entre as partes.",
                 "Centro com o total (quantidade de lojas); ao passar o cursor na lista, mostra a parte.",
-                "Tons da primária da maior para a menor; Outros em grafite e por último.",
+                "Tons por importância da maior para a menor; Outros em cinza de contexto e por último.",
                 "Percentual escrito junto de cada parte; a lista traz quantidade e percentual.",
                 "Título diz a descoberta, em linguagem natural.",
               ].map(p => <li key={p} className="flex gap-2"><Check aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success" />{p}</li>)}
@@ -1074,12 +1141,13 @@ export function GraficosShowcase() {
         <TabelaQueQuebra
           head={["Componente", "Para quê", "Props principais"]}
           rows={[
+            ["coresPorImportancia", "Tons das séries por importância", "n (número de séries): devolve os tons de 1 a 8, do mais importante ao mais contextual; com coresDasSeries, coresDeFoco e coresDeContexto"],
             ["DescobertaVisual", "Card com os 4 passos e Ver dados", "tema, conclusao, contexto, porQueImporta, acao, dados, selo, numerar"],
             ["GraficoDeRosca", "Participação de até 5 partes", "partes (rotulo, valor, neutro), centro, formatarQuantidade, tamanho"],
-            ["BarrasOrdenadas", "Ranking de valores", "itens, destaques, ordenar, posicao"],
+            ["BarrasOrdenadas", "Ranking de valores", "itens, destaques, ordenar, posicao, cores (\"foco\" ou \"importancia\")"],
             ["MapaDeCalorPorRegiao", "Calor por região (esquemático)", "regioes (id, rotulo, valor, coluna, linha), colunas, linhas, destaque"],
             ["GraficoDeHalteres", "Duas medidas por item", "itens (rotulo, a, b), series, maximo, formatarDiferenca"],
-            ["GraficoDeLinhas", "Tendência no tempo", "series (rotulo, valores, destaque), rotulosX, area, altura, zero"],
+            ["GraficoDeLinhas", "Tendência no tempo", "series (rotulo, valores, destaque, neutro, tom), rotulosX, area, altura, zero"],
             ["GraficoDeInclinacao", "Antes e depois", "itens (rotulo, inicio, fim), periodos, destaques"],
             ["Mosaico", "Participação de muitas partes", "itens (rotulo, valor, neutro), altura"],
             ["BarrasEmpilhadas100", "Proporções entre grupos", "categorias, linhas (rotulo, valores), minimoParaRotulo"],
@@ -1096,10 +1164,8 @@ export function GraficosShowcase() {
             ["CalendarioDeCalor", "Valor por dia", "dias (data AAAA-MM-DD, valor), rotulosDias, rotulosMeses, formatarData"],
             ["GraficoDeVelas", "Abertura, máxima, mínima, fechamento", "velas (rotulo, abertura, maxima, minima, fechamento), rotulos"],
             ["Pizza", "Até 4 partes de um todo", "partes (rotulo, valor, neutro), formatarQuantidade, tamanho"],
-            ["Sunburst", "Hierarquia em dois níveis", "grupos (rotulo, neutro, filhos), centro, tamanho"],
             ["Waffle", "Proporção em 100 quadrados", "partes (rotulo, valor, neutro), nota"],
             ["Piramide", "Dois grupos por faixa", "faixas, esquerda (rotulo, valores), direita, maximo"],
-            ["Cascata", "Do início ao fim, passo a passo", "inicio (rotulo, valor), passos (rotulo, valor), fim (rotulo), rotulos"],
             ["Dispersao", "Duas medidas por item", "pontos (x, y, rotulo, destaque), eixoX, eixoY, tendencia"],
             ["MatrizDeCorrelacao", "Quais medidas andam juntas", "variaveis, valores (−1 a 1), destaque"],
             ["Radar", "Perfil em várias medidas", "eixos, series (rotulo, valores, destaque), maximo, niveis"],

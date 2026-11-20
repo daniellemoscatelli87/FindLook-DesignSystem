@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Paleta de transição nos gráficos"),
+    desc: pt("Decisão da dona do produto (20/11/2026): 8 tons, do vermelho/rosa da marca ao cinza (--chart-1 a --chart-8), os mesmos no tema claro e no escuro. Faixas: 1–2 destaque, 3–5 apoio e transição, 6–8 contexto. Cinco regras de uso: 1 gráfico = 1 foco, importância em ordem, contexto em cinza, no máximo 2 tons intensos e escalas contínuas do cinza ao vermelho (--chart-seq-1 a 4 = tons 6, 5, 3 e 1). --chart-neutral passa a ser o tom 8. Os componentes escolhem os tons com coresPorImportancia(n); BarrasOrdenadas ganha cores=\"importancia\" e GraficoDeLinhas aceita séries neutro (tracejadas) e tom. Rosca, BarrasHorizontais e MapaCoropletico seguem as mesmas regras, com a mesma API."),
+    page: "graficos", anchor: "graficos-cores",
+  },
+  {
+    date: "Nov 2026", kind: "Removed", title: pt("Sunburst e Cascata"),
+    desc: pt("Decisão da dona do produto (20/11/2026): os gráficos Sunburst e Cascata (waterfall) saem do catálogo de gráficos."),
+    page: "graficos", anchor: "graficos-catalogo-composicao",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Base do ícone: quando usar"),
     desc: pt("Regra nova (dona do produto, 20/11/2026) com só três jeitos de mostrar um ícone: base rosa + ícone vermelho (marca e foco, o que convida a agir ou está ativo), base cinza + ícone cinza (neutro, só identifica; itens pausados ou encerrados) e sem base (inline, ao lado do texto). Nunca misturar base cinza com ícone vermelho. Componente IconeComBase (tom marca ou neutro), usado por CardIndicador, CardDeUso, PainelDeUso (agora marca), ItemDeAtividade e ItemDeAcao, que ganha tom (padrão marca; neutro para o que está pausado ou é só registro) e deixa a base cinza com ícone vermelho."),
     page: "icons", anchor: "icon-base",

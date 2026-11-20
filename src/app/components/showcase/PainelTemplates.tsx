@@ -43,8 +43,8 @@ export const dadosDesempenho = serieDias.map((dia, i) => ({ dia, visualizacoes: 
 
 const seriesGrafico = [
   { chave: "visualizacoes", rotulo: "Visualizações", cor: "var(--chart-1)" },
-  { chave: "favoritos", rotulo: "Favoritos", cor: "var(--chart-2)" },
-  { chave: "contatos", rotulo: "Contatos", cor: "var(--chart-3)" },
+  { chave: "favoritos", rotulo: "Favoritos", cor: "var(--chart-4)" },
+  { chave: "contatos", rotulo: "Contatos", cor: "var(--chart-7)" },
 ];
 
 /** Avisa aos templates reaproveitados que estão dentro do protótipo (sem moldura nem menu próprio). */
