@@ -101,24 +101,34 @@ type CardIndicadorProps = {
   className?: string;
 };
 
-/** Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. */
+/**
+ * Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo.
+ * Diagramação (21/11/2026, pedido da dona do produto): o ícone de explicação fica sempre colado à última palavra do rótulo
+ * (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam
+ * alinhados mesmo quando um rótulo ocupa duas linhas.
+ */
 function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
+  const palavras = rotulo.split(" ");
+  const ultima = palavras.pop() ?? "";
   return (
     <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-lg border border-border bg-card p-5", className)}>
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
-            {rotulo}
+        <p className="min-w-0 pt-0.5 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
+          {palavras.length > 0 && `${palavras.join(" ")} `}
+          <span className="whitespace-nowrap">
+            {ultima}
             {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
-          </p>
-          <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
-            {formatarNumero(valor)}
-            {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
-          </p>
-        </div>
+          </span>
+        </p>
         <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
-      {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
+      <div className="mt-auto">
+        <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
+          {formatarNumero(valor)}
+          {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
+        </p>
+        {variacao !== undefined && <div className="mt-3"><Variacao valor={variacao} comparacao={comparacao} /></div>}
+      </div>
     </div>
   );
 }
@@ -422,16 +432,19 @@ function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marc
  * que vem depois. tom="marca" (padrão, rosa claro: o estado é o foco do card, pedido da dona do produto em 20/11/2026) ou
  * tom="neutro" (cinza, quando o estado é só registro). No celular, o texto desce para baixo do chip.
  */
-function FaixaDeEstado({ estado, titulo, texto, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; tom?: TomDoIcone; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
+function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; /** À direita (embaixo, em telas estreitas): progresso, botão ou link. Uso: cabeçalho de uma tarefa longa (21/11/2026). */ complemento?: React.ReactNode; tom?: TomDoIcone; className?: string } & Omit<React.HTMLAttributes<HTMLDivElement>, "title">) {
   return (
     <div data-slot="faixa-de-estado" data-tom={tom} className={cn("@container rounded-lg border p-4", tom === "marca" ? "border-primary/20 bg-[var(--primary-muted)]" : "border-border bg-muted/40", className)} {...props}>
-      <div className="flex flex-col gap-3 @md:flex-row @md:items-center @md:gap-4">
-        <div className="shrink-0">{estado}</div>
-        <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
-        <div className="min-w-0">
-          <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
-          {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
+      <div className="flex flex-col gap-3 @3xl:flex-row @3xl:items-center @3xl:gap-6">
+        <div className="flex min-w-0 flex-1 flex-col gap-3 @md:flex-row @md:items-center @md:gap-4">
+          <div className="shrink-0">{estado}</div>
+          <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
+          <div className="min-w-0">
+            <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
+            {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
+          </div>
         </div>
+        {complemento && <div className="flex shrink-0 flex-wrap items-center gap-3 @3xl:max-w-[50%]">{complemento}</div>}
       </div>
     </div>
   );
