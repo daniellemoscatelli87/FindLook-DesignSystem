@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Carregamento de página"),
+    desc: pt("Componente Carregando (pedido da dona do produto, 21/11/2026: \"crie um loading melhor para a plataforma\"): o símbolo da FindLook quica e pousa como um pin, com a sombra e uma onda rosa a cada pouso, a mensagem do que está carregando e uma barra indeterminada. Aparece depois de 200 ms, para não piscar; depois de 10 s avisa que está demorando e oferece Tentar de novo. Variantes pagina (tela inteira) e secao. Com \"menos movimento\", fica parado. Animações em theme.css (fl-carregando-*). O Skeleton continua para listas e cards de forma conhecida."),
+    page: "motion", anchor: "loaders",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("CardIndicador: números alinhados; FaixaDeEstado com complemento"),
     desc: pt("Diagramação do CardIndicador (pedido da dona do produto, 21/11/2026): o ícone de explicação fica colado à última palavra do rótulo (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam alinhados mesmo quando um rótulo ocupa duas linhas. FaixaDeEstado ganha complemento (à direita; embaixo em telas estreitas), para o cabeçalho de uma tarefa longa com o progresso e o botão."),
     page: "cards", anchor: "card-ia",

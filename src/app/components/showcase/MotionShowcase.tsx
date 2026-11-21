@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { VejaEm } from "./shared/VejaEm";
+import { Carregando } from "../ui/carregando";
+import { Button } from "../ui/button";
 import { ShineBorder, shinePresets, type ShinePreset } from "../ui/shine-border";
 
 /* ── Section wrapper ── */
@@ -951,7 +953,32 @@ function LoadersSection() {
           </div>
         </div>
       </div>
+      <DemoCarregando />
     </Section>
+  );
+}
+
+/** Carregamento de página (componente Carregando, 21/11/2026): como aparece e o aviso de demora, sem esperar 10 s. */
+function DemoCarregando() {
+  const [vez, setVez] = useState(0);
+  const [demora, setDemora] = useState(false);
+  return (
+    <div id="carregando" className="mt-3 rounded-lg border border-border bg-card p-5">
+      <div className="text-[0.75rem] font-bold text-foreground">Carregamento de página</div>
+      <p className="mt-1 text-[0.8125rem] text-muted-foreground">
+        <code>{"<Carregando mensagem=\"Carregando o painel da loja\" />"}</code> enquanto a página inteira carrega (variante <code>pagina</code>: a tela toda, sobre o fundo cinza) ou <code>variante="secao"</code> dentro de uma área.
+        O símbolo quica e pousa como um pin, com a sombra e a onda do pulse ring; a mensagem diz o que está carregando e a barra corre por baixo.
+        Aparece depois de 200 ms (não pisca em carregamento rápido); depois de 10 s avisa a demora e oferece <strong>Tentar de novo</strong>. Com “menos movimento”, fica parado.
+        Para listas e cards de forma conhecida, continue usando o Skeleton.
+      </p>
+      <div className="mt-4 rounded-lg border border-border bg-muted">
+        <Carregando key={vez} variante="secao" mensagem="Carregando o painel da loja" demoraMs={demora ? 1500 : 0} onTentarDeNovo={() => setVez((v) => v + 1)} />
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Button type="button" variant="outline" onClick={() => { setDemora(false); setVez((v) => v + 1); }}>Reiniciar</Button>
+        <Button type="button" variant="outline" onClick={() => { setDemora(true); setVez((v) => v + 1); }}>Ver o aviso de demora</Button>
+      </div>
+    </div>
   );
 }
 
