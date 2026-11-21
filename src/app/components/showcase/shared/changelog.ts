@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Carregamento de página"),
+    desc: pt("Componente Carregando (pedido da dona do produto, 21/11/2026: \"crie um loading melhor para a plataforma\"): o símbolo da FindLook quica e pousa como um pin, com a sombra e uma onda rosa a cada pouso, a mensagem do que está carregando e uma barra indeterminada. Aparece depois de 200 ms, para não piscar; depois de 10 s avisa que está demorando e oferece Tentar de novo. Variantes pagina (tela inteira) e secao. Com \"menos movimento\", fica parado. Animações em theme.css (fl-carregando-*). O Skeleton continua para listas e cards de forma conhecida."),
+    page: "motion", anchor: "loaders",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Paleta de 7 tons nos gráficos"),
     desc: pt("Decisão da dona do produto (21/11/2026): 7 tons em ordem de importância, do vermelho da marca ao cinza (--chart-1 a --chart-7: #E62040, #FF6E85, #F9B5BF, #E2919E, #C29AA0, #D4D4D4, #EBEBEB), os mesmos no tema claro e no escuro. Faixas: 1–2 destaque, 3–5 apoio e transição, 6–7 contexto. Cinco regras de uso: 1 gráfico = 1 foco, importância em ordem, contexto em cinza, no máximo 2 tons intensos e escalas contínuas do cinza ao rosa (--chart-seq-1 a 4 = tons 6, 4, 2 e 1). As séries usam os tons em sequência; \"Outros\" fica no tom 6 quando as partes param antes dele e no tom 7 nos demais casos. --chart-neutral passa a ser o tom 7; --chart-8 fica só por compatibilidade e aponta para o tom 7. Os componentes escolhem os tons com coresPorImportancia(n), configurada em graficos-paleta.ts; BarrasOrdenadas ganha cores=\"importancia\" e GraficoDeLinhas aceita séries neutro (tracejadas) e tom. Rosca, BarrasHorizontais e MapaCoropletico seguem as mesmas regras, com a mesma API."),
     page: "graficos", anchor: "graficos-cores",
