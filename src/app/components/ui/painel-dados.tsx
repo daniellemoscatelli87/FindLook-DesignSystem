@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
 
 /**
  * Dados do painel da loja (FindLook)
@@ -402,6 +403,92 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   );
 }
 
+/* ── Conteúdo com limite de altura ("Mostrar mais") ──────────── */
+/**
+ * Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a
+ * roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê. "Mostrar mais" não estica o
+ * card (decisão da dona do produto, 21/11/2026): abre uma janela (modal) com tudo, rolando dentro dela; ou, com
+ * onMostrarMais, leva para outra tela quando o conteúdo é muito grande. O botão só aparece quando sobra conteúdo.
+ * Se o conteúdo cresce enquanto a pessoa age dentro do card (um formulário que mostra o resultado), o card cresce junto
+ * (aberto), para o que ela acabou de pedir não ficar escondido.
+ * altura: altura máxima (classe). preencher: dentro de um card de altura fixa (flex coluna), ocupa o espaço que sobra.
+ * titulo: título da janela. aberto/onAbertoChange: o card cresce junto (perde a altura fixa).
+ */
+function ConteudoRecolhivel({
+  children, titulo = "Detalhes", descricao, altura = "max-h-[20rem]", preencher = false, aberto: abertoControlado, onAbertoChange,
+  onMostrarMais, rotuloMais = "Mostrar mais", className,
+}: {
+  children: React.ReactNode; titulo?: string; descricao?: string; altura?: string; preencher?: boolean; aberto?: boolean;
+  onAbertoChange?: (aberto: boolean) => void; onMostrarMais?: () => void; rotuloMais?: string; className?: string;
+}) {
+  const [abertoInterno, setAbertoInterno] = React.useState(false);
+  const aberto = abertoControlado ?? abertoInterno;
+  const mudar = (v: boolean) => {
+    onAbertoChange?.(v);
+    if (abertoControlado === undefined) setAbertoInterno(v);
+  };
+  const mudarRef = React.useRef(mudar);
+  mudarRef.current = mudar;
+  const area = React.useRef<HTMLDivElement>(null);
+  const conteudo = React.useRef<HTMLDivElement>(null);
+  const [sobra, setSobra] = React.useState(false);
+  const [janela, setJanela] = React.useState(false);
+  const ultimaAcao = React.useRef(0);
+
+  // Mede se o conteúdo passa da área visível.
+  React.useEffect(() => {
+    const el = area.current, dentro = conteudo.current;
+    if (!el || !dentro || aberto) return;
+    const medir = () => {
+      const passa = el.scrollHeight > el.clientHeight + 1;
+      setSobra(passa);
+      // Cresceu logo depois de um toque ou tecla dentro do card (até 15 s, o tempo de uma consulta): o card cresce junto.
+      if (passa && Date.now() - ultimaAcao.current < 15_000) mudarRef.current(true);
+    };
+    medir();
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    ro.observe(dentro);
+    return () => ro.disconnect();
+  }, [aberto]);
+
+  return (
+    <div data-slot="conteudo-recolhivel" className={cn("flex min-h-0 flex-col", preencher && !aberto && "flex-1", className)}>
+      <div
+        ref={area}
+        onPointerDownCapture={() => { ultimaAcao.current = Date.now(); }}
+        onKeyDownCapture={() => { ultimaAcao.current = Date.now(); }}
+        className={cn("relative min-h-0", !aberto && "overflow-hidden", !aberto && (preencher ? "flex-1" : altura))}>
+        {/* Altura mínima total: um filho com h-full (por exemplo, um gráfico centralizado com justify-center) ocupa o card. */}
+        <div ref={conteudo} className="flex min-h-full flex-col [&>.h-full]:h-auto [&>.h-full]:flex-1">{children}</div>
+        {!aberto && sobra && <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-card via-card/80 to-transparent" />}
+      </div>
+      {!aberto && sobra && (
+        <button
+          type="button"
+          aria-haspopup={onMostrarMais ? undefined : "dialog"}
+          onClick={() => (onMostrarMais ? onMostrarMais() : setJanela(true))}
+          className="mt-2 inline-flex min-h-9 items-center gap-1 self-start rounded-[4px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {rotuloMais}
+          {onMostrarMais ? <ArrowRight aria-hidden className="h-4 w-4" /> : <ChevronRight aria-hidden className="h-4 w-4" />}
+        </button>
+      )}
+      {!onMostrarMais && (
+        <Dialog open={janela} onOpenChange={setJanela}>
+          <DialogContent className="flex max-h-[85dvh] flex-col gap-0 p-0 sm:max-w-2xl">
+            <DialogHeader className="border-b border-border px-5 py-4 pr-12 text-left">
+              <DialogTitle className={`${display} text-[1.0625rem] font-bold tracking-[-0.01em]`}>{titulo}</DialogTitle>
+              {descricao ? <DialogDescription>{descricao}</DialogDescription> : <DialogDescription className="sr-only">Tudo o que não coube no card.</DialogDescription>}
+            </DialogHeader>
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 [scrollbar-width:thin]">{janela && children}</div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </div>
+  );
+}
+
 /**
  * Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois
  * lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo). icone: ícone
@@ -596,7 +683,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone };

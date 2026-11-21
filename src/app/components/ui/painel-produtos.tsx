@@ -49,7 +49,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
               foco,
               estilo === "pilula"
                 ? cn("h-[29px] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
-                : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
+                : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
             )}
           >
             {a.rotulo}
