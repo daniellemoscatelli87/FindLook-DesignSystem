@@ -101,24 +101,34 @@ type CardIndicadorProps = {
   className?: string;
 };
 
-/** Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. */
+/**
+ * Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo.
+ * Diagramação (21/11/2026, pedido da dona do produto): o ícone de explicação fica sempre colado à última palavra do rótulo
+ * (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam
+ * alinhados mesmo quando um rótulo ocupa duas linhas.
+ */
 function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
+  const palavras = rotulo.split(" ");
+  const ultima = palavras.pop() ?? "";
   return (
     <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-lg border border-border bg-card p-5", className)}>
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
-            {rotulo}
+        <p className="min-w-0 pt-0.5 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
+          {palavras.length > 0 && `${palavras.join(" ")} `}
+          <span className="whitespace-nowrap">
+            {ultima}
             {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
-          </p>
-          <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
-            {formatarNumero(valor)}
-            {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
-          </p>
-        </div>
+          </span>
+        </p>
         <IconeComBase tom="neutro">{icone}</IconeComBase>
       </div>
-      {variacao !== undefined && <Variacao valor={variacao} comparacao={comparacao} />}
+      <div className="mt-auto">
+        <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
+          {formatarNumero(valor)}
+          {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
+        </p>
+        {variacao !== undefined && <div className="mt-3"><Variacao valor={variacao} comparacao={comparacao} /></div>}
+      </div>
     </div>
   );
 }
