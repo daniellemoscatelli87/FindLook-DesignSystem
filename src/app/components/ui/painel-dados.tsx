@@ -432,16 +432,19 @@ function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marc
  * que vem depois. tom="marca" (padrão, rosa claro: o estado é o foco do card, pedido da dona do produto em 20/11/2026) ou
  * tom="neutro" (cinza, quando o estado é só registro). No celular, o texto desce para baixo do chip.
  */
-function FaixaDeEstado({ estado, titulo, texto, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; tom?: TomDoIcone; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
+function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; /** À direita (embaixo, em telas estreitas): progresso, botão ou link. Uso: cabeçalho de uma tarefa longa (21/11/2026). */ complemento?: React.ReactNode; tom?: TomDoIcone; className?: string } & Omit<React.HTMLAttributes<HTMLDivElement>, "title">) {
   return (
     <div data-slot="faixa-de-estado" data-tom={tom} className={cn("@container rounded-lg border p-4", tom === "marca" ? "border-primary/20 bg-[var(--primary-muted)]" : "border-border bg-muted/40", className)} {...props}>
-      <div className="flex flex-col gap-3 @md:flex-row @md:items-center @md:gap-4">
-        <div className="shrink-0">{estado}</div>
-        <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
-        <div className="min-w-0">
-          <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
-          {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
+      <div className="flex flex-col gap-3 @3xl:flex-row @3xl:items-center @3xl:gap-6">
+        <div className="flex min-w-0 flex-1 flex-col gap-3 @md:flex-row @md:items-center @md:gap-4">
+          <div className="shrink-0">{estado}</div>
+          <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
+          <div className="min-w-0">
+            <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
+            {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
+          </div>
         </div>
+        {complemento && <div className="flex shrink-0 flex-wrap items-center gap-3 @3xl:max-w-[50%]">{complemento}</div>}
       </div>
     </div>
   );
