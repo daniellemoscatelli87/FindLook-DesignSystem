@@ -407,7 +407,8 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
  * Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a
  * roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê, com "Mostrar mais" para abrir
  * tudo e "Mostrar menos" para voltar. O botão só aparece quando sobra conteúdo. Se o foco do teclado entra numa parte
- * escondida, o conteúdo abre sozinho. Ao recolher, o card volta para a tela se tiver saído dela.
+ * escondida, ou se o conteúdo cresce enquanto a pessoa age dentro dele, o conteúdo abre sozinho. Ao recolher, o card volta
+ * para a tela se tiver saído dela.
  * altura: altura máxima quando fechado (classe). preencher: dentro de um card de altura fixa (flex coluna), ocupa o espaço
  * que sobra no card em vez de uma altura própria. aberto/onAbertoChange: para o card mudar junto (perder a altura fixa).
  */
@@ -424,6 +425,8 @@ function ConteudoRecolhivel({
     onAbertoChange?.(v);
     if (abertoControlado === undefined) setAbertoInterno(v);
   };
+  const mudarRef = React.useRef(mudar);
+  mudarRef.current = mudar;
   const area = React.useRef<HTMLDivElement>(null);
   const conteudo = React.useRef<HTMLDivElement>(null);
   const [sobra, setSobra] = React.useState(false);
@@ -433,7 +436,13 @@ function ConteudoRecolhivel({
   React.useEffect(() => {
     const el = area.current, dentro = conteudo.current;
     if (!el || !dentro || aberto) return;
-    const medir = () => setSobra(dentro.scrollHeight > el.clientHeight + 1);
+    const medir = () => {
+      const passa = el.scrollHeight > el.clientHeight + 1;
+      setSobra(passa);
+      // Conteúdo que cresce enquanto a pessoa age dentro do card (um formulário que mostra o resultado, por exemplo): abre
+      // sozinho, para o que ela acabou de pedir não ficar escondido.
+      if (passa && el.contains(document.activeElement) && document.activeElement !== el) mudarRef.current(true);
+    };
     medir();
     const ro = new ResizeObserver(medir);
     ro.observe(el);
@@ -460,8 +469,8 @@ function ConteudoRecolhivel({
         }}
         className={cn("relative min-h-0", !aberto && "overflow-hidden", !aberto && (preencher ? "flex-1" : altura))}
       >
-        {/* Grade com altura mínima total: um filho com h-full e justify-center continua centralizado no card. */}
-        <div ref={conteudo} className="grid min-h-full">{children}</div>
+        {/* Altura mínima total: um filho com h-full (por exemplo, um gráfico centralizado com justify-center) ocupa o card. */}
+        <div ref={conteudo} className="flex min-h-full flex-col [&>.h-full]:h-auto [&>.h-full]:flex-1">{children}</div>
         {!aberto && sobra && <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-card via-card/80 to-transparent" />}
       </div>
       {(sobra || aberto) && (
