@@ -22,6 +22,16 @@ export const changelog: ChangeEntry[] = [
     page: "motion", anchor: "loaders",
   },
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Paleta de 7 tons nos gráficos"),
+    desc: pt("Decisão da dona do produto (21/11/2026): 7 tons em ordem de importância, do vermelho da marca ao cinza (--chart-1 a --chart-7: #E62040, #FF6E85, #F9B5BF, #E2919E, #C29AA0, #D4D4D4, #EBEBEB), os mesmos no tema claro e no escuro. Faixas: 1–2 destaque, 3–5 apoio e transição, 6–7 contexto. Cinco regras de uso: 1 gráfico = 1 foco, importância em ordem, contexto em cinza, no máximo 2 tons intensos e escalas contínuas do cinza ao rosa (--chart-seq-1 a 4 = tons 6, 4, 2 e 1). As séries usam os tons em sequência; \"Outros\" fica no tom 6 quando as partes param antes dele e no tom 7 nos demais casos. --chart-neutral passa a ser o tom 7; --chart-8 fica só por compatibilidade e aponta para o tom 7. Os componentes escolhem os tons com coresPorImportancia(n), configurada em graficos-paleta.ts; BarrasOrdenadas ganha cores=\"importancia\" e GraficoDeLinhas aceita séries neutro (tracejadas) e tom. Rosca, BarrasHorizontais e MapaCoropletico seguem as mesmas regras, com a mesma API."),
+    page: "graficos", anchor: "graficos-cores",
+  },
+  {
+    date: "Nov 2026", kind: "Removed", title: pt("Sunburst e Cascata"),
+    desc: pt("Decisão da dona do produto (20/11/2026): os gráficos Sunburst e Cascata (waterfall) saem do catálogo de gráficos."),
+    page: "graficos", anchor: "graficos-catalogo-composicao",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("CardIndicador: números alinhados; FaixaDeEstado com complemento"),
     desc: pt("Diagramação do CardIndicador (pedido da dona do produto, 21/11/2026): o ícone de explicação fica colado à última palavra do rótulo (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam alinhados mesmo quando um rótulo ocupa duas linhas. FaixaDeEstado ganha complemento (à direita; embaixo em telas estreitas), para o cabeçalho de uma tarefa longa com o progresso e o botão."),
     page: "cards", anchor: "card-ia",

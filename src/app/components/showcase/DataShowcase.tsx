@@ -235,7 +235,7 @@ export function DataShowcase() {
               </div>
               <div className="flex items-center gap-4 text-[0.75rem] text-muted-foreground">
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-1 inline-block" />{t("Views", "Visualizações")}</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-2 inline-block" />{t("Searches", "Buscas")}</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-6 inline-block" />{t("Searches", "Buscas")}</span>
               </div>
             </div>
             <ResponsiveContainer width="100%" height={220}>
@@ -246,8 +246,8 @@ export function DataShowcase() {
                     <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="gradUsers" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--chart-2)" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--chart-6)" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="var(--chart-6)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
@@ -255,7 +255,7 @@ export function DataShowcase() {
                 <YAxis tick={{ fontSize: 11, fill: "var(--muted-foreground)" }} axisLine={false} tickLine={false} tickFormatter={v => `${v / 1000} mil`} />
                 <RechartTooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="revenue" stroke="var(--chart-1)" strokeWidth={1.5} fill="url(#gradRevenue)" name={t("Views", "Visualizações")} />
-                <Area type="monotone" dataKey="users" stroke="var(--chart-2)" strokeWidth={1.5} fill="url(#gradUsers)" name={t("Searches", "Buscas")} />
+                <Area type="monotone" dataKey="users" stroke="var(--chart-6)" strokeWidth={1.5} fill="url(#gradUsers)" name={t("Searches", "Buscas")} />
               </AreaChart>
             </ResponsiveContainer>
           </ShowcaseCard>
@@ -326,7 +326,7 @@ export function DataShowcase() {
 
       {/* ── PARTICIPAÇÃO E COMPARAÇÃO (19/11/2026) ── */}
       <section id="grafico-participacao">
-        <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor por token (--chart-1 a --chart-5), fixa por categoria; valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
+        <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor pela paleta de gráficos (--chart-1 a --chart-7), fixa por categoria e em ordem de importância (o principal no tom 1, Outros em --chart-neutral); valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <ShowcaseCard>
             <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Rosca</h3>
@@ -339,7 +339,7 @@ export function DataShowcase() {
                 { rotulo: "Loja multimarcas", valor: 54, cor: "var(--chart-1)" },
                 { rotulo: "Brechó", valor: 27, cor: "var(--chart-2)" },
                 { rotulo: "Ateliê", valor: 17, cor: "var(--chart-3)" },
-                { rotulo: "Outros", valor: 2, cor: "var(--chart-4)" },
+                { rotulo: "Outros", valor: 2, cor: "var(--chart-neutral)" },
               ]}
             />
           </ShowcaseCard>
@@ -351,7 +351,7 @@ export function DataShowcase() {
               maximo={100}
               linhas={[
                 { rotulo: "Na região", texto: "88%", partes: [{ rotulo: "Na região", valor: 88, cor: "var(--chart-1)" }] },
-                { rotulo: "Na cidade", texto: "18%", partes: [{ rotulo: "Na cidade", valor: 18, cor: "var(--chart-3)" }] },
+                { rotulo: "Na cidade", texto: "18%", partes: [{ rotulo: "Na cidade", valor: 18, cor: "var(--chart-6)" }] },
               ]}
             />
           </ShowcaseCard>
@@ -361,11 +361,11 @@ export function DataShowcase() {
           <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja por região (exemplo), com legenda</p>
           <BarrasHorizontais
             rotulo="Tipos de loja por região (exemplo)"
-            legenda={[{ rotulo: "Loja multimarcas", cor: "var(--chart-1)" }, { rotulo: "Brechó", cor: "var(--chart-2)" }, { rotulo: "Outros", cor: "var(--chart-3)" }]}
+            legenda={[{ rotulo: "Loja multimarcas", cor: "var(--chart-1)" }, { rotulo: "Brechó", cor: "var(--chart-2)" }, { rotulo: "Outros", cor: "var(--chart-6)" }]}
             linhas={[
               { rotulo: "Região A", texto: "14 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 12, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 2, cor: "var(--chart-2)" }] },
               { rotulo: "Região B", texto: "12 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 3, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 9, cor: "var(--chart-2)" }] },
-              { rotulo: "Região C", texto: "8 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 1, cor: "var(--chart-1)" }, { rotulo: "Outros", valor: 7, cor: "var(--chart-3)" }] },
+              { rotulo: "Região C", texto: "8 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 1, cor: "var(--chart-1)" }, { rotulo: "Outros", valor: 7, cor: "var(--chart-6)" }] },
             ]}
           />
         </ShowcaseCard>
@@ -522,12 +522,14 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Chart Palette", "Paleta de gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Series 1, highlight — primary pink (pink-500)", "Série 1, destaque — pink primário (pink-500)"), light: "#E62040", dark: "#EC5A72", isColor: true },
-      { name: "--chart-2", description: t("Series 2 — dark pink (pink-700)", "Série 2 — pink escuro (pink-700)"), light: "#91162B", dark: "#F8BCC6", isColor: true },
-      { name: "--chart-3", description: t("Series 3 — pink-400", "Série 3 — pink-400"), light: "#EC5A72", dark: "#E62040", isColor: true },
-      { name: "--chart-4", description: t("Series 4 — pink-300", "Série 4 — pink-300"), light: "#F290A0", dark: "#B91B35", isColor: true },
-      { name: "--chart-5", description: t("Series 5 — pink-200", "Série 5 — pink-200"), light: "#F8BCC6", dark: "#91162B", isColor: true },
-      { name: "--chart-neutral", description: t("Not highlighted: Others, context, disabled (graphite)", "Sem destaque: Outros, contexto, desativado (grafite)"), light: "#B3B3BC", dark: "#51515C", isColor: true },
+      { name: "--chart-1", description: t("Tone 1 of the FindLook chart palette — highlight: the main data point", "Tom 1 da paleta de gráficos da FindLook — destaque: o dado principal"), light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--chart-2", description: t("Tone 2 of the FindLook chart palette — highlight", "Tom 2 da paleta de gráficos da FindLook — destaque"), light: "#FF6E85", dark: "#FF6E85", isColor: true },
+      { name: "--chart-3", description: t("Tone 3 of the FindLook chart palette — support and transition", "Tom 3 da paleta de gráficos da FindLook — apoio e transição"), light: "#F9B5BF", dark: "#F9B5BF", isColor: true },
+      { name: "--chart-4", description: t("Tone 4 of the FindLook chart palette — support and transition", "Tom 4 da paleta de gráficos da FindLook — apoio e transição"), light: "#E2919E", dark: "#E2919E", isColor: true },
+      { name: "--chart-5", description: t("Tone 5 of the FindLook chart palette — support and transition", "Tom 5 da paleta de gráficos da FindLook — apoio e transição"), light: "#C29AA0", dark: "#C29AA0", isColor: true },
+      { name: "--chart-6", description: t("Tone 6 of the FindLook chart palette — context", "Tom 6 da paleta de gráficos da FindLook — contexto"), light: "#D4D4D4", dark: "#D4D4D4", isColor: true },
+      { name: "--chart-7", description: t("Tone 7 of the FindLook chart palette — context; same as --chart-neutral", "Tom 7 da paleta de gráficos da FindLook — contexto; igual a --chart-neutral"), light: "#EBEBEB", dark: "#EBEBEB", isColor: true },
+      { name: "--chart-neutral", description: t("Other and information with no highlight (tone 7)", "Outros e informação sem destaque (tom 7)"), light: "#EBEBEB", dark: "#EBEBEB", isColor: true },
       { name: "--chart-grid", description: t("Chart grid lines", "Linhas de grade dos gráficos"), light: "#E9E9EC", dark: "#2C2C33", isColor: true },
     ],
   },
@@ -587,7 +589,7 @@ export function CardsDeKpi() {
                   <Line
                     type="monotone"
                     dataKey="v"
-                    stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-2)"}
+                    stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-6)"}
                     strokeWidth={1.5}
                     dot={false}
                   />

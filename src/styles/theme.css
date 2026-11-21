@@ -122,21 +122,31 @@
   --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.09), 0 24px 64px rgba(0, 0, 0, 0.07);
   --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.10), 0 40px 96px rgba(0, 0, 0, 0.08);
 
-  /* Paleta de gráficos escolhida pela dona do produto (19/11/2026): vermelho-700, vermelho-500, rosa-400, rosa-300 e cinza-500.
-     O cinza (--chart-5 e --chart-neutral) é para "Outros" e informação sem destaque. */
-  --chart-1: #CC3A45; /* vermelho-700 */
-  --chart-2: #DA5963; /* vermelho-500 */
-  --chart-3: #E89AA1; /* rosa-400 */
-  --chart-4: #CDB4B8; /* rosa-300 */
-  --chart-5: #9A99A1; /* cinza-500 */
-  --chart-neutral: #9A99A1; /* cinza-500 */
+  /* Paleta dos gráficos da FindLook (decisão da dona do produto, 21/11/2026): 7 tons em ordem de importância, do vermelho
+     da marca ao cinza, os mesmos no tema claro e no escuro. Faixas: 1–2 destaque · 3–5 apoio e transição · 6–7 contexto.
+     As séries usam os tons em sequência (graficos-paleta.ts). Os dois cinzas são próximos e o tom 7 quase some sobre o
+     branco: a dona do produto aceitou (os gráficos sempre escrevem rótulos e valores; a cor nunca é a única pista).
+     Regras: 1 gráfico = 1 foco (tom 1) · importância em ordem · contexto em cinza (6–7) · no máximo 2 tons intensos (1 e 2)
+     · escalas contínuas do cinza ao rosa. --chart-neutral (= tom 7): "Outros" e informação sem destaque. */
+  --chart-1: #E62040;
+  --chart-2: #FF6E85;
+  --chart-3: #F9B5BF;
+  --chart-4: #E2919E;
+  --chart-5: #C29AA0;
+  --chart-6: #D4D4D4;
+  --chart-7: #EBEBEB;
+  /* A paleta da FindLook tem 7 tons. --chart-8 continua só por compatibilidade (o token já foi publicado) e aponta
+     para o tom 7; nenhum componente usa o tom 8. */
+  --chart-8: var(--chart-7);
+  --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-100);
-  /* Escala de calor (do menor para o maior) e cor de texto sobre cada tom (todas passam de 4,5:1) */
-  --chart-seq-1: var(--chart-4); --chart-seq-1-texto: var(--foreground);
-  --chart-seq-2: var(--chart-3); --chart-seq-2-texto: var(--foreground);
+  /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
+     os componentes não escrevem texto sobre a cor do gráfico. */
+  --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--foreground);
+  --chart-seq-2: var(--chart-4); --chart-seq-2-texto: var(--foreground);
   --chart-seq-3: var(--chart-2); --chart-seq-3-texto: var(--foreground);
-  --chart-seq-4: var(--chart-1); --chart-seq-4-texto: var(--background);
-  --chart-1-texto: var(--background);
+  --chart-seq-4: var(--chart-1); --chart-seq-4-texto: var(--foreground);
+  --chart-1-texto: var(--foreground);
   --chart-2-texto: var(--foreground);
   --chart-4-texto: var(--foreground);
   --chart-5-texto: var(--foreground);
@@ -221,22 +231,29 @@
   --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.50), 0 32px 80px rgba(0, 0, 0, 0.35);
   --shadow-xl:  0 16px 64px rgba(0, 0, 0, 0.55), 0 48px 100px rgba(0, 0, 0, 0.40);
 
-  /* Gráficos no escuro: a escala se inverte (os tons claros ganham destaque sobre o fundo escuro). */
-  --chart-1: var(--pink-400);
-  --chart-2: var(--pink-200);
-  --chart-3: var(--pink-500);
-  --chart-4: var(--pink-600);
-  --chart-5: var(--pink-700);
-  --chart-neutral: var(--graphite-600);
+  /* Gráficos no escuro: a mesma paleta do tema claro (decisão de 21/11/2026). */
+  --chart-1: #E62040;
+  --chart-2: #FF6E85;
+  --chart-3: #F9B5BF;
+  --chart-4: #E2919E;
+  --chart-5: #C29AA0;
+  --chart-6: #D4D4D4;
+  --chart-7: #EBEBEB;
+  /* A paleta da FindLook tem 7 tons. --chart-8 continua só por compatibilidade (o token já foi publicado) e aponta
+     para o tom 7; nenhum componente usa o tom 8. */
+  --chart-8: var(--chart-7);
+  --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-800);
-  --chart-seq-1: var(--chart-5); --chart-seq-1-texto: var(--foreground);
-  --chart-seq-2: var(--chart-4); --chart-seq-2-texto: var(--foreground);
-  --chart-seq-3: var(--chart-1); --chart-seq-3-texto: var(--background);
-  --chart-seq-4: var(--chart-2); --chart-seq-4-texto: var(--background);
+  /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
+     os componentes não escrevem texto sobre a cor do gráfico. */
+  --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--background);
+  --chart-seq-2: var(--chart-4); --chart-seq-2-texto: var(--background);
+  --chart-seq-3: var(--chart-2); --chart-seq-3-texto: var(--background);
+  --chart-seq-4: var(--chart-1); --chart-seq-4-texto: var(--background);
   --chart-1-texto: var(--background);
   --chart-2-texto: var(--background);
-  --chart-4-texto: var(--foreground);
-  --chart-5-texto: var(--foreground);
+  --chart-4-texto: var(--background);
+  --chart-5-texto: var(--background);
 
   --destructive:            var(--pink-500);
   --destructive-foreground: #000000;
@@ -314,6 +331,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
   --color-chart-neutral: var(--chart-neutral);
   --color-chart-grid: var(--chart-grid);
   --color-success: var(--success);
