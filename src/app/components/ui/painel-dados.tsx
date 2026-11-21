@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
@@ -402,6 +402,84 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   );
 }
 
+/* ── Conteúdo com limite de altura ("Mostrar mais") ──────────── */
+/**
+ * Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a
+ * roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê, com "Mostrar mais" para abrir
+ * tudo e "Mostrar menos" para voltar. O botão só aparece quando sobra conteúdo. Se o foco do teclado entra numa parte
+ * escondida, o conteúdo abre sozinho. Ao recolher, o card volta para a tela se tiver saído dela.
+ * altura: altura máxima quando fechado (classe). preencher: dentro de um card de altura fixa (flex coluna), ocupa o espaço
+ * que sobra no card em vez de uma altura própria. aberto/onAbertoChange: para o card mudar junto (perder a altura fixa).
+ */
+function ConteudoRecolhivel({
+  children, altura = "max-h-[20rem]", preencher = false, aberto: abertoControlado, onAbertoChange,
+  rotuloMais = "Mostrar mais", rotuloMenos = "Mostrar menos", className,
+}: {
+  children: React.ReactNode; altura?: string; preencher?: boolean; aberto?: boolean; onAbertoChange?: (aberto: boolean) => void;
+  rotuloMais?: string; rotuloMenos?: string; className?: string;
+}) {
+  const [abertoInterno, setAbertoInterno] = React.useState(false);
+  const aberto = abertoControlado ?? abertoInterno;
+  const mudar = (v: boolean) => {
+    onAbertoChange?.(v);
+    if (abertoControlado === undefined) setAbertoInterno(v);
+  };
+  const area = React.useRef<HTMLDivElement>(null);
+  const conteudo = React.useRef<HTMLDivElement>(null);
+  const [sobra, setSobra] = React.useState(false);
+  const id = React.useId();
+
+  // Mede se o conteúdo passa da área visível (só fechado; aberto, guarda a última medida para oferecer "Mostrar menos").
+  React.useEffect(() => {
+    const el = area.current, dentro = conteudo.current;
+    if (!el || !dentro || aberto) return;
+    const medir = () => setSobra(dentro.scrollHeight > el.clientHeight + 1);
+    medir();
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    ro.observe(dentro);
+    return () => ro.disconnect();
+  }, [aberto]);
+
+  const recolher = () => {
+    mudar(false);
+    requestAnimationFrame(() => {
+      const r = area.current?.closest("section, [data-slot]")?.getBoundingClientRect() ?? area.current?.getBoundingClientRect();
+      if (r && r.top < 0) area.current?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    });
+  };
+
+  return (
+    <div data-slot="conteudo-recolhivel" className={cn("flex min-h-0 flex-col", preencher && !aberto && "flex-1", className)}>
+      <div
+        ref={area}
+        id={id}
+        onFocusCapture={(e) => {
+          if (aberto || !sobra || !area.current) return;
+          if ((e.target as HTMLElement).getBoundingClientRect().bottom > area.current.getBoundingClientRect().bottom) mudar(true);
+        }}
+        className={cn("relative min-h-0", !aberto && "overflow-hidden", !aberto && (preencher ? "flex-1" : altura))}
+      >
+        {/* Grade com altura mínima total: um filho com h-full e justify-center continua centralizado no card. */}
+        <div ref={conteudo} className="grid min-h-full">{children}</div>
+        {!aberto && sobra && <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-card via-card/80 to-transparent" />}
+      </div>
+      {(sobra || aberto) && (
+        <button
+          type="button"
+          aria-expanded={aberto}
+          aria-controls={id}
+          onClick={() => (aberto ? recolher() : mudar(true))}
+          className="mt-2 inline-flex min-h-9 items-center gap-1 self-start rounded-[4px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {aberto ? rotuloMenos : rotuloMais}
+          <ChevronDown aria-hidden className={cn("h-4 w-4 transition-transform duration-[var(--duration-fast)] motion-reduce:transition-none", aberto && "rotate-180")} />
+        </button>
+      )}
+    </div>
+  );
+}
+
 /**
  * Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois
  * lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo). icone: ícone
@@ -596,7 +674,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone };

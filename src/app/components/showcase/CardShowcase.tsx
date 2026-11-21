@@ -27,7 +27,7 @@ import { ArrowUpRight, MapPin, Heart } from "lucide-react";
 import { Handshake, Store } from "lucide-react";
 import { Lightbulb, MessageCircle, Ruler, Search, TrendingUp, Zap } from "lucide-react";
 import { CardDePlano } from "../ui/painel-shell";
-import { CarrosselDeDicas, CardDoPainel, FaixaDeBeneficios } from "../ui/painel-dados";
+import { CarrosselDeDicas, CardDoPainel, ConteudoRecolhivel, FaixaDeBeneficios } from "../ui/painel-dados";
 import { IconeModa } from "../ui/fashion-icons";
 import { Callout, DataTable, DoDont, Mono, Panel, PrincipleGrid, SubTitle, display } from "./shared/Guidance";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
@@ -1146,6 +1146,31 @@ export function CardShowcase() {
               <DemoCarrosselDeDicas />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="card-mostrar-mais" className="scroll-mt-32">
+        <SectionHeader
+          title="Card com Mostrar mais"
+          description="Card com muitos itens não tem rolagem por dentro (prende a roda do mouse e dificulta rolar a página). Mostra o que cabe, com um degradê, e Mostrar mais abre tudo; Mostrar menos volta. O botão só aparece quando sobra conteúdo, e o foco do teclado numa parte escondida abre o card."
+        />
+        <div className="grid max-w-4xl items-start gap-4 @container md:grid-cols-2">
+          <CardDoPainel icone={<Lightbulb />} titulo="Atividade recente" descricao="Exemplo com 12 itens.">
+            <ConteudoRecolhivel altura="max-h-[14rem]">
+              <ul className="divide-y divide-border">
+                {Array.from({ length: 12 }, (_, i) => (
+                  <li key={i} className="py-2.5 text-[0.8125rem] text-foreground">Peça {i + 1} atualizada <span className="text-muted-foreground">· há {i + 1} h</span></li>
+                ))}
+              </ul>
+            </ConteudoRecolhivel>
+          </CardDoPainel>
+          <CardDoPainel icone={<Lightbulb />} titulo="Poucos itens" descricao="Tudo cabe: sem botão.">
+            <ConteudoRecolhivel altura="max-h-[14rem]">
+              <ul className="divide-y divide-border">
+                {["Peça 1 atualizada", "Peça 2 atualizada"].map((t) => <li key={t} className="py-2.5 text-[0.8125rem] text-foreground">{t}</li>)}
+              </ul>
+            </ConteudoRecolhivel>
+          </CardDoPainel>
         </div>
       </section>
 

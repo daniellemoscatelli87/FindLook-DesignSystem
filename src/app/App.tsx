@@ -422,6 +422,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "card-produto",        label: "Card de peça",                   sectionId: "cards" },
           { id: "card-plano",          label: "Card de plano",                  sectionId: "cards" },
           { id: "card-dica",           label: "Card de dica",                   sectionId: "cards" },
+          { id: "card-mostrar-mais",   label: "Card com Mostrar mais",          sectionId: "cards" },
           { id: "faixa-beneficios",    label: "Faixa de benefícios",            sectionId: "cards" },
           { id: "card-glass",          label: "Vidro: acabamentos",             sectionId: "cards" },
           { id: "card-glass-fundos",   label: "Vidro por fundo",                sectionId: "cards" },
