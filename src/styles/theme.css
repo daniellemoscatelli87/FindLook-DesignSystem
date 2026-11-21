@@ -72,6 +72,9 @@
   --secondary-hover:      var(--graphite-200);
   --secondary-foreground: var(--graphite-950);
 
+  /* Desabilitado: cinza médio, com forma de botão e texto apagado mas legível (3,2:1); decisão da dona do produto, 20/11/2026 */
+  --disabled:            color-mix(in srgb, var(--graphite-200) 60%, var(--graphite-100));
+  --disabled-foreground: color-mix(in srgb, var(--graphite-500) 55%, var(--graphite-400));
   --muted:            var(--graphite-50);
   --muted-foreground: var(--graphite-500);
   --accent:           var(--graphite-100);
@@ -170,6 +173,9 @@
   --secondary-hover:      rgba(44, 44, 51, 1);
   --secondary-foreground: #F6F6F7;
 
+  /* Desabilitado: cinza médio, com forma de botão e texto apagado mas legível (4,7:1); decisão da dona do produto, 20/11/2026 */
+  --disabled:            color-mix(in srgb, var(--graphite-700) 60%, var(--graphite-800));
+  --disabled-foreground: color-mix(in srgb, var(--graphite-300) 60%, var(--graphite-400));
   --muted:            rgba(44, 44, 51, 0.6);
   --muted-foreground: var(--graphite-300);
   --accent:           rgba(44, 44, 51, 0.6);
@@ -290,6 +296,8 @@
   --color-info-muted: var(--info-muted);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
