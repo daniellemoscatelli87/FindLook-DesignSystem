@@ -1152,11 +1152,11 @@ export function CardShowcase() {
       <section id="card-mostrar-mais" className="scroll-mt-32">
         <SectionHeader
           title="Card com Mostrar mais"
-          description="Card com muitos itens não tem rolagem por dentro (prende a roda do mouse e dificulta rolar a página). Mostra o que cabe, com um degradê, e Mostrar mais abre tudo; Mostrar menos volta. O botão só aparece quando sobra conteúdo, e o foco do teclado numa parte escondida abre o card."
+          description="Card com muitos itens não tem rolagem por dentro (prende a roda do mouse e dificulta rolar a página). Mostra o que cabe, com um degradê, e Mostrar mais abre uma janela com tudo; quando o conteúdo é muito grande, leva para outra tela (onMostrarMais). O botão só aparece quando sobra conteúdo."
         />
         <div className="grid max-w-4xl items-start gap-4 @container md:grid-cols-2">
           <CardDoPainel icone={<Lightbulb />} titulo="Atividade recente" descricao="Exemplo com 12 itens.">
-            <ConteudoRecolhivel altura="max-h-[14rem]">
+            <ConteudoRecolhivel altura="max-h-[14rem]" titulo="Atividade recente">
               <ul className="divide-y divide-border">
                 {Array.from({ length: 12 }, (_, i) => (
                   <li key={i} className="py-2.5 text-[0.8125rem] text-foreground">Peça {i + 1} atualizada <span className="text-muted-foreground">· há {i + 1} h</span></li>

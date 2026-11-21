@@ -18,7 +18,7 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 export const changelog: ChangeEntry[] = [
   {
     date: "Nov 2026", kind: "New", title: pt("Card com Mostrar mais (sem rolagem por dentro)"),
-    desc: pt("Pedido da dona do produto (21/11/2026): cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página. ConteudoRecolhivel mostra o que cabe, com um degradê, e Mostrar mais abre tudo (Mostrar menos volta). O botão só aparece quando sobra conteúdo; o foco do teclado numa parte escondida abre o card; ao recolher, o card volta para a tela. preencher: ocupa o espaço de um card de altura fixa."),
+    desc: pt("Pedido da dona do produto (21/11/2026): cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página. ConteudoRecolhivel mostra o que cabe, com um degradê, e Mostrar mais abre uma janela (modal) com tudo, ou leva para outra tela quando o conteúdo é muito grande (onMostrarMais); o card não estica. O botão só aparece quando sobra conteúdo. Se o conteúdo cresce por uma ação dentro do card, o card cresce junto. preencher: ocupa o espaço de um card de altura fixa. O fundo do conteúdo do painel passa a ser cinza claro (graphite-50), com os cards brancos; para manter o contraste sobre ele, --primary-muted ficou opaco (mesma cor sobre o branco) e a aba sublinhada ativa usa o pink de texto (pink-600)."),
     page: "cards", anchor: "card-mostrar-mais",
   },
   {

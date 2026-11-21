@@ -333,8 +333,9 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
               </div>
             </div>
 
-            {/* Conteúdo com rolagem própria */}
-            <div ref={conteudoRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain [scrollbar-width:thin]">
+            {/* Conteúdo com rolagem própria, sobre o fundo cinza claro (graphite-50; pedido da dona do produto, 21/11/2026):
+                os cards brancos se destacam do fundo. */}
+            <div ref={conteudoRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-muted [scrollbar-width:thin]">
               <main key={pagina} className="@container space-y-5 p-4 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 motion-reduce:animate-none @xl:p-6">
                 <h1 ref={tituloRef} tabIndex={-1} className="sr-only">{titulos[pagina]}</h1>
                 {conteudo}

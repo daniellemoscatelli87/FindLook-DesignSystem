@@ -63,7 +63,7 @@
   --primary:                  var(--pink-500);   /* CTA pink: texto branco atinge 4,5:1 (AA para texto normal) */
   --primary-hover:             var(--pink-600);
   --primary-foreground:        #FFFFFF;
-  --primary-muted:             rgba(230, 32, 64, 0.10);
+  --primary-muted:             color-mix(in srgb, var(--pink-500) 10%, #FFFFFF); /* opaco (21/11/2026): mesma cor sobre o branco e não escurece sobre o fundo cinza do painel */
   --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 6,4:1 sobre branco */
   --primary-text:              var(--pink-600);
   --surface-tint:              var(--brand-rose); /* Rosa Claro: cards e faixas de apoio */
