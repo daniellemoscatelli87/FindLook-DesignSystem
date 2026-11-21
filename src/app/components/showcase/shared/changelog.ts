@@ -17,8 +17,8 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
-    date: "Nov 2026", kind: "Updated", title: pt("Paleta de transição nos gráficos"),
-    desc: pt("Decisão da dona do produto (20/11/2026): 8 tons, do vermelho/rosa da marca ao cinza (--chart-1 a --chart-8), os mesmos no tema claro e no escuro. Faixas: 1–2 destaque, 3–5 apoio e transição, 6–8 contexto. Cinco regras de uso: 1 gráfico = 1 foco, importância em ordem, contexto em cinza, no máximo 2 tons intensos e escalas contínuas do cinza ao vermelho (--chart-seq-1 a 4 = tons 6, 5, 3 e 1). --chart-neutral passa a ser o tom 8. Os componentes escolhem os tons com coresPorImportancia(n); BarrasOrdenadas ganha cores=\"importancia\" e GraficoDeLinhas aceita séries neutro (tracejadas) e tom. Rosca, BarrasHorizontais e MapaCoropletico seguem as mesmas regras, com a mesma API."),
+    date: "Nov 2026", kind: "Updated", title: pt("Paleta de 7 tons nos gráficos"),
+    desc: pt("Decisão da dona do produto (21/11/2026): 7 tons em ordem de importância, do vermelho da marca ao cinza (--chart-1 a --chart-7: #E62040, #FF6E85, #F9B5BF, #E2919E, #C29AA0, #D4D4D4, #EBEBEB), os mesmos no tema claro e no escuro. Faixas: 1–2 destaque, 3–5 apoio e transição, 6–7 contexto. Cinco regras de uso: 1 gráfico = 1 foco, importância em ordem, contexto em cinza, no máximo 2 tons intensos e escalas contínuas do cinza ao rosa (--chart-seq-1 a 4 = tons 6, 4, 2 e 1). As séries usam os tons em sequência; \"Outros\" fica no tom 6 quando as partes param antes dele e no tom 7 nos demais casos. --chart-neutral passa a ser o tom 7; --chart-8 fica só por compatibilidade e aponta para o tom 7. Os componentes escolhem os tons com coresPorImportancia(n), configurada em graficos-paleta.ts; BarrasOrdenadas ganha cores=\"importancia\" e GraficoDeLinhas aceita séries neutro (tracejadas) e tom. Rosca, BarrasHorizontais e MapaCoropletico seguem as mesmas regras, com a mesma API."),
     page: "graficos", anchor: "graficos-cores",
   },
   {

@@ -6,7 +6,7 @@ import { Callout, DoDont } from "./shared/Guidance";
 import {
   DescobertaVisual, GraficoDeRosca, BarrasOrdenadas, MapaDeCalorPorRegiao, GraficoDeHalteres, GraficoDeLinhas,
   GraficoDeInclinacao, Mosaico, BarrasEmpilhadas100, GraficoDeBolhas, MapaDeCalorMatricial, GraficoDeRanking, Funil,
-  formatarNumero, TabelaDeDados, type RegiaoDoMapa, type DadosDaTabela,
+  formatarNumero, TabelaDeDados, TONS_DA_ESCALA, type RegiaoDoMapa, type DadosDaTabela,
 } from "../ui/graficos-inteligencia";
 import {
   BarrasAgrupadas, BarrasEmpilhadas, Pirulito, AreaEmpilhada, Streamgraph, LinhaDoTempo, CalendarioDeCalor, GraficoDeVelas,
@@ -208,18 +208,19 @@ const PASSOS_INTELIGENCIA = [
   { n: "04", t: "Ação recomendada", d: "Um próximo passo concreto, ao alcance da pessoa, sem prometer resultado." },
 ];
 
-const PALETA = ["#E62040", "#E24A60", "#D96A79", "#CB8590", "#B89AA3", "#A7A8B0", "#9999A5", "#888896"];
+/** Paleta da FindLook (decisão da dona do produto, 21/11/2026), em ordem de importância. */
+const PALETA = ["#E62040", "#FF6E85", "#F9B5BF", "#E2919E", "#C29AA0", "#D4D4D4", "#EBEBEB"];
 
 const FAIXAS_DA_PALETA = [
   { tons: [1, 2], nome: "Destaque", d: "O dado principal ou o ponto de atenção." },
   { tons: [3, 4, 5], nome: "Apoio e transição", d: "Séries de apoio, na ordem de importância." },
-  { tons: [6, 7, 8], nome: "Contexto", d: "Referências, histórico, metas, comparações secundárias e Outros." },
+  { tons: [6, 7], nome: "Contexto", d: "Referências, histórico, metas, comparações secundárias e Outros." },
 ];
 
 const REGRAS_DE_COR = [
   { t: "1 gráfico = 1 foco", d: "Use o tom 1, forte, para o dado principal ou o ponto de atenção." },
   { t: "Importância em ordem", d: "Ordene as séries da mais importante (rosa/vermelho) para a mais contextual (cinza)." },
-  { t: "Contexto em cinza", d: "Benchmarks, histórico, metas e comparações secundárias usam os tons finais (6 a 8)." },
+  { t: "Contexto em cinza", d: "Benchmarks, histórico, metas e comparações secundárias usam os tons finais (6 e 7)." },
   { t: "Evite excesso de destaque", d: "Nunca use mais de 2 tons intensos (1 e 2) no mesmo gráfico." },
   { t: "Escalas contínuas", d: "Mapas de calor, degradês e intensidades começam no cinza e vão ao rosa/vermelho conforme o valor aumenta." },
 ];
@@ -230,8 +231,8 @@ const EX_BARRAS = [
 const EX_MESES = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"];
 const EX_LINHAS = [
   { rotulo: "Principal", valores: [42, 48, 55, 61, 70, 78], destaque: true },
-  { rotulo: "Secundária", valores: [36, 38, 41, 40, 44, 47], tom: 5 },
-  { rotulo: "Benchmark", valores: [50, 50, 50, 50, 50, 50], neutro: true },
+  { rotulo: "Secundária", valores: [36, 38, 41, 40, 44, 47], tom: 2 },
+  { rotulo: "Benchmark", valores: [50, 50, 50, 50, 50, 50], neutro: true, tom: 6 },
 ];
 const EX_ROSCA = [
   { rotulo: "Principal", valor: 140 },
@@ -245,20 +246,20 @@ const EX_ESCALA = {
   valores: [[12, 18, 22, 30, 41], [20, 26, 35, 44, 58], [8, 14, 19, 27, 36]],
 };
 
-/** Área "Cores dos gráficos": paleta de transição, faixas, as 5 regras e exemplos aplicados com os componentes reais. */
+/** Área "Cores dos gráficos": paleta de 7 tons, faixas, as 5 regras e exemplos aplicados com os componentes reais. */
 function SecaoCores() {
   return (
     <section id="graficos-cores" className="scroll-mt-32">
       <SectionHeader
         title="Cores dos gráficos"
-        description="Paleta de transição: 8 tons, do vermelho/rosa da marca ao cinza, os mesmos no tema claro e no escuro. Quanto mais à esquerda, mais ênfase visual; quanto mais à direita, mais neutro e contextual. Decisão da dona do produto, 20/11/2026."
+        description="Paleta da FindLook: 7 tons em ordem de importância, do vermelho da marca ao cinza, os mesmos no tema claro e no escuro. Quanto mais à esquerda, mais ênfase visual; quanto mais à direita, mais neutro e contextual. Decisão da dona do produto, 21/11/2026."
       />
       <Cartao>
-        <Rotulo>Paleta de transição</Rotulo>
-        <ol className="m-0 grid list-none grid-cols-4 gap-x-2 gap-y-4 p-0 sm:grid-cols-8">
+        <Rotulo>Paleta em ordem de importância</Rotulo>
+        <ol className="m-0 grid list-none grid-cols-4 gap-x-2 gap-y-4 p-0 sm:grid-cols-7">
           {PALETA.map((hex, i) => (
             <li key={hex} className="min-w-0">
-              <span aria-hidden className="block h-14 rounded-md" style={{ background: `var(--chart-${i + 1})` }} />
+              <span aria-hidden className="block h-14 rounded-md border border-border" style={{ background: `var(--chart-${i + 1})` }} />
               <p className="mt-1.5 text-[0.875rem] font-bold tabular-nums text-foreground">{i + 1}</p>
               <p className="font-mono text-[0.6875rem] text-muted-foreground [overflow-wrap:anywhere]">{hex}</p>
               <p className="font-mono text-[0.6875rem] text-muted-foreground [overflow-wrap:anywhere]">--chart-{i + 1}</p>
@@ -280,7 +281,7 @@ function SecaoCores() {
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-[0.75rem] leading-relaxed text-muted-foreground"><span className="font-mono">--chart-neutral</span> é o tom 8: "Outros" e informação sem destaque, sempre por último. <span className="font-mono">--chart-grid</span>: linhas de grade. Os componentes escolhem os tons com <span className="font-mono">coresPorImportancia(n)</span>: 1 série → 1 · 2 → 1, 6 · 3 → 1, 4, 7 · 4 → 1, 4, 6, 8 · 5 → 1, 3, 5, 6, 8 · 6 → 1, 3, 4, 5, 6, 8 · 7 → 1, 3, 4, 5, 6, 7, 8 · 8 → todos.</p>
+        <p className="mt-4 text-[0.75rem] leading-relaxed text-muted-foreground">As séries usam os tons em sequência, com <span className="font-mono">coresPorImportancia(n)</span>: 1 série → 1 · 2 → 1, 2 · 3 → 1, 2, 3 · … · 7 → 1 a 7 (um mosaico de 7 partes usa os 7 tons, na ordem). <span className="font-mono">--chart-neutral</span> é o tom 7: "Outros" e informação sem destaque, sempre por último. "Outros" fica no tom 6 quando as partes param antes dele (pizza com 2 partes e Outros: 1, 2 e 6) e no tom 7 nos demais casos. <span className="font-mono">--chart-grid</span>: linhas de grade. Os dois cinzas são próximos entre si (1,24:1) e o tom 7 quase some sobre o branco (1,2:1): por isso todo gráfico escreve rótulos e valores, e a cor nunca é a única pista.</p>
       </Cartao>
 
       <div className="mt-6">
@@ -303,22 +304,22 @@ function SecaoCores() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <Cartao>
             <p className="text-[0.875rem] font-semibold text-foreground">Barras por importância</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">A a E nos tons 1, 3, 5, 6 e 8 (dados de exemplo).</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">A a E nos tons 1, 2, 3, 4 e 5, em sequência (dados de exemplo).</p>
             <BarrasOrdenadas rotulo="Barras por importância (dados de exemplo)" itens={EX_BARRAS} destaques={1} posicao={false} cores="importancia" />
           </Cartao>
           <Cartao>
             <p className="text-[0.875rem] font-semibold text-foreground">Linhas: principal, secundária e benchmark</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1, secundária no 5, benchmark no 8 e tracejado (dados de exemplo).</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1, secundária no 2 e benchmark no cinza de contexto (tom 6), tracejado (dados de exemplo).</p>
             <GraficoDeLinhas rotulo="Linhas principal, secundária e benchmark (dados de exemplo)" series={EX_LINHAS} rotulosX={EX_MESES} altura={200} zero={false} />
           </Cartao>
           <Cartao>
             <p className="text-[0.875rem] font-semibold text-foreground">Rosca com um foco</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1 (56%), apoio no 4, secundária no 6 e contexto no 8 (dados de exemplo).</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1 (56%), apoio no 2, secundária no 3 e contexto no 6 (dados de exemplo).</p>
             <GraficoDeRosca rotulo="Rosca com um foco (dados de exemplo)" partes={EX_ROSCA} centro={{ valor: "250", rotulo: "respostas" }} tamanho={180} />
           </Cartao>
           <Cartao>
             <p className="text-[0.875rem] font-semibold text-foreground">Escala contínua</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">Do cinza (valor baixo) ao rosa/vermelho (valor alto) (dados de exemplo).</p>
+            <p className="mb-4 text-[0.75rem] text-muted-foreground">Do cinza (valor baixo) ao rosa (valor alto), nos tons 6, 4, 2 e 1 (dados de exemplo).</p>
             <MapaDeCalorMatricial rotulo="Escala contínua (dados de exemplo)" {...EX_ESCALA} rotuloLinhas="Período" rotulos={{ menos: "Baixo", mais: "Alto" }} />
           </Cartao>
         </div>
@@ -327,7 +328,7 @@ function SecaoCores() {
       <Cartao className="mt-6">
         <Rotulo>Escala de calor (do menor para o maior)</Rotulo>
         <ul className="m-0 grid list-none grid-cols-4 gap-1 p-0">
-          {[["--chart-seq-1", 6], ["--chart-seq-2", 5], ["--chart-seq-3", 3], ["--chart-seq-4", 1]].map(([tk, tom]) => (
+          {TONS_DA_ESCALA.map((tom, i) => [`--chart-seq-${i + 1}`, tom] as const).map(([tk, tom]) => (
             <li key={tk} className="min-w-0">
               <span aria-hidden className="block h-10 rounded-sm" style={{ background: `var(${tk})` }} />
               <span className="mt-1 block font-mono text-[0.6875rem] text-foreground [overflow-wrap:anywhere]">{tk}</span>
@@ -335,7 +336,7 @@ function SecaoCores() {
             </li>
           ))}
         </ul>
-        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground">Do cinza (tom 6) ao vermelho (tom 1). As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Tons vizinhos ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
+        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground">Do cinza (tom 6) ao rosa (tom 1), passando pelos tons 4 e 2. As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Tons vizinhos ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
         <div className="mt-6 border-t border-border pt-5">
           <Rotulo>Texto nos gráficos</Rotulo>
           <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
@@ -364,7 +365,7 @@ function SecaoCores() {
           dos={[
             "Tom 1 só no dado principal ou no ponto de atenção.",
             "Séries em ordem de importância, do rosa/vermelho ao cinza (coresPorImportancia).",
-            "Referências, histórico e metas nos tons 6 a 8; Outros em --chart-neutral, por último.",
+            "Referências, histórico e metas nos tons 6 e 7; Outros em --chart-neutral, por último.",
             "Valores e nomes fora das marcas, sempre na mesma cor de texto, com um ponto na cor da parte quando for preciso ligá-los a ela.",
           ]}
           donts={[
@@ -1141,7 +1142,7 @@ export function GraficosShowcase() {
         <TabelaQueQuebra
           head={["Componente", "Para quê", "Props principais"]}
           rows={[
-            ["coresPorImportancia", "Tons das séries por importância", "n (número de séries): devolve os tons de 1 a 8, do mais importante ao mais contextual; com coresDasSeries, coresDeFoco e coresDeContexto"],
+            ["coresPorImportancia", "Tons das séries por importância", "n (número de séries): devolve os tons de 1 a 7 em sequência, do mais importante ao mais contextual; com coresDasSeries, coresDeFoco e coresDeContexto"],
             ["DescobertaVisual", "Card com os 4 passos e Ver dados", "tema, conclusao, contexto, porQueImporta, acao, dados, selo, numerar"],
             ["GraficoDeRosca", "Participação de até 5 partes", "partes (rotulo, valor, neutro), centro, formatarQuantidade, tamanho"],
             ["BarrasOrdenadas", "Ranking de valores", "itens, destaques, ordenar, posicao, cores (\"foco\" ou \"importancia\")"],

@@ -104,7 +104,7 @@ const pieData = [
   { name: "Email", pt: "E-mail", value: 12 },
 ];
 
-const COLORS = ["var(--chart-1)", "var(--chart-4)", "var(--chart-6)", "var(--chart-8)"];
+const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)"];
 
 /* ── Table data ── */
 /* Dados de exemplo (lojas fictícias) */
@@ -155,8 +155,8 @@ function DemoLabel({ children }: { children: React.ReactNode }) {
 
 const seriesDesempenho = [
   { chave: "visualizacoes", rotulo: "Visualizações", cor: "var(--chart-1)" },
-  { chave: "favoritos", rotulo: "Favoritos", cor: "var(--chart-4)" },
-  { chave: "contatos", rotulo: "Contatos", cor: "var(--chart-7)" },
+  { chave: "favoritos", rotulo: "Favoritos", cor: "var(--chart-2)" },
+  { chave: "contatos", rotulo: "Contatos", cor: "var(--chart-3)" },
 ];
 
 
@@ -324,7 +324,7 @@ export function DataShowcase() {
 
       {/* ── PARTICIPAÇÃO E COMPARAÇÃO (19/11/2026) ── */}
       <section id="grafico-participacao">
-        <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor pela paleta de transição (--chart-1 a --chart-8), fixa por categoria e em ordem de importância (o principal no tom 1, Outros em --chart-neutral); valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
+        <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor pela paleta de gráficos (--chart-1 a --chart-7), fixa por categoria e em ordem de importância (o principal no tom 1, Outros em --chart-neutral); valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <ShowcaseCard>
             <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Rosca</h3>
@@ -335,8 +335,8 @@ export function DataShowcase() {
               rotuloCentro="tipos de loja"
               partes={[
                 { rotulo: "Loja multimarcas", valor: 54, cor: "var(--chart-1)" },
-                { rotulo: "Brechó", valor: 27, cor: "var(--chart-4)" },
-                { rotulo: "Ateliê", valor: 17, cor: "var(--chart-6)" },
+                { rotulo: "Brechó", valor: 27, cor: "var(--chart-2)" },
+                { rotulo: "Ateliê", valor: 17, cor: "var(--chart-3)" },
                 { rotulo: "Outros", valor: 2, cor: "var(--chart-neutral)" },
               ]}
             />
@@ -359,11 +359,11 @@ export function DataShowcase() {
           <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja por região (exemplo), com legenda</p>
           <BarrasHorizontais
             rotulo="Tipos de loja por região (exemplo)"
-            legenda={[{ rotulo: "Loja multimarcas", cor: "var(--chart-1)" }, { rotulo: "Brechó", cor: "var(--chart-6)" }, { rotulo: "Outros", cor: "var(--chart-neutral)" }]}
+            legenda={[{ rotulo: "Loja multimarcas", cor: "var(--chart-1)" }, { rotulo: "Brechó", cor: "var(--chart-2)" }, { rotulo: "Outros", cor: "var(--chart-6)" }]}
             linhas={[
-              { rotulo: "Região A", texto: "14 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 12, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 2, cor: "var(--chart-6)" }] },
-              { rotulo: "Região B", texto: "12 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 3, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 9, cor: "var(--chart-6)" }] },
-              { rotulo: "Região C", texto: "8 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 1, cor: "var(--chart-1)" }, { rotulo: "Outros", valor: 7, cor: "var(--chart-neutral)" }] },
+              { rotulo: "Região A", texto: "14 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 12, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 2, cor: "var(--chart-2)" }] },
+              { rotulo: "Região B", texto: "12 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 3, cor: "var(--chart-1)" }, { rotulo: "Brechó", valor: 9, cor: "var(--chart-2)" }] },
+              { rotulo: "Região C", texto: "8 lojas", partes: [{ rotulo: "Loja multimarcas", valor: 1, cor: "var(--chart-1)" }, { rotulo: "Outros", valor: 7, cor: "var(--chart-6)" }] },
             ]}
           />
         </ShowcaseCard>
@@ -520,15 +520,14 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Chart Palette", "Paleta de gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Tone 1 of the transition palette — highlight: the main data point", "Tom 1 da paleta de transição — destaque: o dado principal"), light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--chart-2", description: t("Tone 2 of the transition palette — highlight", "Tom 2 da paleta de transição — destaque"), light: "#E24A60", dark: "#E24A60", isColor: true },
-      { name: "--chart-3", description: t("Tone 3 of the transition palette — support and transition", "Tom 3 da paleta de transição — apoio e transição"), light: "#D96A79", dark: "#D96A79", isColor: true },
-      { name: "--chart-4", description: t("Tone 4 of the transition palette — support and transition", "Tom 4 da paleta de transição — apoio e transição"), light: "#CB8590", dark: "#CB8590", isColor: true },
-      { name: "--chart-5", description: t("Tone 5 of the transition palette — support and transition", "Tom 5 da paleta de transição — apoio e transição"), light: "#B89AA3", dark: "#B89AA3", isColor: true },
-      { name: "--chart-6", description: t("Tone 6 of the transition palette — context", "Tom 6 da paleta de transição — contexto"), light: "#A7A8B0", dark: "#A7A8B0", isColor: true },
-      { name: "--chart-7", description: t("Tone 7 of the transition palette — context", "Tom 7 da paleta de transição — contexto"), light: "#9999A5", dark: "#9999A5", isColor: true },
-      { name: "--chart-8", description: t("Tone 8 of the transition palette — context; same as --chart-neutral", "Tom 8 da paleta de transição — contexto; igual a --chart-neutral"), light: "#888896", dark: "#888896", isColor: true },
-      { name: "--chart-neutral", description: t("Other and information with no highlight (tone 8)", "Outros e informação sem destaque (tom 8)"), light: "#888896", dark: "#888896", isColor: true },
+      { name: "--chart-1", description: t("Tone 1 of the FindLook chart palette — highlight: the main data point", "Tom 1 da paleta de gráficos da FindLook — destaque: o dado principal"), light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--chart-2", description: t("Tone 2 of the FindLook chart palette — highlight", "Tom 2 da paleta de gráficos da FindLook — destaque"), light: "#FF6E85", dark: "#FF6E85", isColor: true },
+      { name: "--chart-3", description: t("Tone 3 of the FindLook chart palette — support and transition", "Tom 3 da paleta de gráficos da FindLook — apoio e transição"), light: "#F9B5BF", dark: "#F9B5BF", isColor: true },
+      { name: "--chart-4", description: t("Tone 4 of the FindLook chart palette — support and transition", "Tom 4 da paleta de gráficos da FindLook — apoio e transição"), light: "#E2919E", dark: "#E2919E", isColor: true },
+      { name: "--chart-5", description: t("Tone 5 of the FindLook chart palette — support and transition", "Tom 5 da paleta de gráficos da FindLook — apoio e transição"), light: "#C29AA0", dark: "#C29AA0", isColor: true },
+      { name: "--chart-6", description: t("Tone 6 of the FindLook chart palette — context", "Tom 6 da paleta de gráficos da FindLook — contexto"), light: "#D4D4D4", dark: "#D4D4D4", isColor: true },
+      { name: "--chart-7", description: t("Tone 7 of the FindLook chart palette — context; same as --chart-neutral", "Tom 7 da paleta de gráficos da FindLook — contexto; igual a --chart-neutral"), light: "#EBEBEB", dark: "#EBEBEB", isColor: true },
+      { name: "--chart-neutral", description: t("Other and information with no highlight (tone 7)", "Outros e informação sem destaque (tom 7)"), light: "#EBEBEB", dark: "#EBEBEB", isColor: true },
       { name: "--chart-grid", description: t("Chart grid lines", "Linhas de grade dos gráficos"), light: "#E9E9EC", dark: "#2C2C33", isColor: true },
     ],
   },

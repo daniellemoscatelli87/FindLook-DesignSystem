@@ -10,11 +10,11 @@ import { GraficoDeRosca } from "./graficos-inteligencia";
  * Rosca: partes de um todo (até 5 partes), com o total ou o número de partes no centro e legenda com a porcentagem.
  * BarrasHorizontais: compara grupos numa medida; cada linha pode ter uma parte (barra simples) ou várias (barra empilhada).
  * MapaCoropletico: regiões de um mapa (bairros, por exemplo) pintadas por um valor, na escala de calor da paleta de
- * gráficos (--chart-seq-1 a 4, do cinza ao vermelho), com legenda, marcadores opcionais e escolha de uma região por clique ou toque. As formas vêm de quem usa.
+ * gráficos (--chart-seq-1 a 4 = tons 6, 4, 2 e 1, do cinza ao rosa), com legenda, marcadores opcionais e escolha de uma região por clique ou toque. As formas vêm de quem usa.
  *
- * Regras (método de dataviz do DS): cor por token da paleta de transição (--chart-1 a --chart-8; decisão da dona do
- * produto, 20/11/2026), fixa por categoria e em ordem de importância: o principal no tom 1, as outras séries pelos tons
- * de coresPorImportancia (graficos-inteligencia.tsx), contexto (referência, comparação secundária) nos tons 6 a 8 e
+ * Regras (método de dataviz do DS): cor por token da paleta da FindLook (--chart-1 a --chart-7; decisão da dona do
+ * produto, 21/11/2026), fixa por categoria e em ordem de importância: o principal no tom 1, as outras séries pelos tons
+ * de coresPorImportancia (graficos-paleta.ts: em sequência), contexto (referência, comparação secundária) nos tons 6 e 7 e
  * "Outros" em --chart-neutral; nunca mais de 2 tons intensos (1 e 2) no mesmo gráfico;
  * 2 px de espaço entre as partes; valor sempre escrito (legenda ou fim da barra), então a cor nunca é a única pista;
  * dica com o valor ao passar o mouse; nunca rolagem para o lado (o rótulo quebra de linha).
@@ -143,7 +143,7 @@ function BarrasHorizontais({
 /* ── Mapa coroplético ────────────────────────────────────────── */
 type RegiaoDoMapa = { nome: string; d: string; cx?: number; cy?: number };
 
-/** Escala contínua da paleta de gráficos (--chart-seq-1 a 4, do cinza ao vermelho conforme o valor sobe; a mesma do MapaDeCalorPorRegiao). */
+/** Escala contínua da paleta de gráficos (--chart-seq-1 a 4, do cinza ao rosa conforme o valor sobe; a mesma do MapaDeCalorPorRegiao). */
 const ESCALA_DO_MAPA = ["var(--chart-seq-1)", "var(--chart-seq-2)", "var(--chart-seq-3)", "var(--chart-seq-4)"];
 const corDoMapa = (n: number, maximo: number) =>
   n <= 0 ? "var(--card)" : ESCALA_DO_MAPA[Math.min(ESCALA_DO_MAPA.length - 1, Math.floor((n / Math.max(1, maximo)) * ESCALA_DO_MAPA.length))]!;
