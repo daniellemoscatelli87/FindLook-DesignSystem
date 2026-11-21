@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Item de atividade com iniciais"),
+    desc: pt("ItemDeAtividade aceita iniciaisDe (pedido da dona do produto, 20/11/2026): o avatar mostra até duas iniciais do nome, na base rosa, quando o título do card já diz o tipo e o ícone repetido não diferencia os itens. Função iniciais exportada. FaixaDeEstado passa a ter fundo rosa claro por padrão (tom neutro para cinza)."),
+    page: "badges", anchor: "listas-painel",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Andamento de uma tarefa"),
+    desc: pt("Padrão novo (dona do produto, 20/11/2026) para tarefas longas, como a busca de lojas: FaixaDeEstado (o chip do estado, uma divisória, o que está acontecendo e o que vem depois; fundo rosa claro por padrão, ou cinza com tom neutro), ProgressoRotulado (rótulo, porcentagem e a barra fina) e ResumoEmLinha (2 a 4 números lado a lado, com o ícone em base cinza e divisórias; um embaixo do outro em telas estreitas). LinkVerTudo ganha tom neutro (o link secundário não compete com o principal), ícone antes do texto e vira botão quando não tem endereço."),
+    page: "cards", anchor: "card-andamento",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Base do ícone: quando usar"),
     desc: pt("Regra nova (dona do produto, 20/11/2026) com só três jeitos de mostrar um ícone: base rosa + ícone vermelho (marca e foco, o que convida a agir ou está ativo), base cinza + ícone cinza (neutro, só identifica; itens pausados ou encerrados) e sem base (inline, ao lado do texto). Nunca misturar base cinza com ícone vermelho. Componente IconeComBase (tom marca ou neutro), usado por CardIndicador, CardDeUso, PainelDeUso (agora marca), ItemDeAtividade e ItemDeAcao, que ganha tom (padrão marca; neutro para o que está pausado ou é só registro) e deixa a base cinza com ícone vermelho."),
     page: "icons", anchor: "icon-base",

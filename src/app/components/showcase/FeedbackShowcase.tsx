@@ -756,6 +756,22 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
           <ShowcaseCard className="mt-4">
           </ShowcaseCard>
         </SubSection>
+        <SubSection title="Atividade com iniciais">
+          <p className="mb-3 max-w-2xl text-[0.8125rem] text-muted-foreground">
+            Quando o título do card já diz o tipo (por exemplo, "Lojas encontradas até agora"), o mesmo ícone em todos os itens não ajuda a diferenciar.
+            Use iniciaisDe: o avatar mostra até duas iniciais do nome, na mesma base rosa.
+          </p>
+          <div className="max-w-md">
+            <ShowcaseCard>
+              <TituloDaLista titulo="Lojas encontradas até agora" componente="ItemDeAtividade (iniciaisDe)" />
+              <ul className="-my-3 divide-y divide-border" aria-label="Lojas encontradas até agora">
+                <ItemDeAtividade iniciaisDe="Outlet São Braz" titulo="Outlet São Braz" detalhe="São Braz · Outlet" quando="há 8 dias" />
+                <ItemDeAtividade iniciaisDe="Moda Ortiz Fashion" titulo="Moda Ortiz Fashion" detalhe="CIC · Loja multimarcas" quando="há 8 dias" />
+                <ItemDeAtividade iniciaisDe="Clube da Biju" titulo="Clube da Biju" detalhe="Campo Comprido · Loja de acessórios" quando="há 8 dias" />
+              </ul>
+            </ShowcaseCard>
+          </div>
+        </SubSection>
       </section>
       )}
 
