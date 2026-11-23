@@ -98,6 +98,7 @@
   --error:              var(--pink-500);   /* erro em pink cereja, como a marca (decisão de 16/11/2026) */
   --error-foreground:   #FFFFFF;
   --error-muted:        rgba(230, 32, 64, 0.1);
+  --error-text:         var(--primary-text);   /* erro como texto e ícone sobre fundo claro (pink-600): 5,7:1 no fundo do Alerta com ação */
   --info:               #347BA9;   /* texto branco 4,6:1 */
   --info-foreground:    #FFFFFF;
   --info-muted:         rgba(52, 123, 169, 0.1);
@@ -212,6 +213,7 @@
   --error:              var(--pink-500);
   --error-foreground:   #000000;
   --error-muted:        rgba(230, 32, 64, 0.15);
+  --error-text:         var(--primary-text);
   --info:               #59A8DC;
   --info-foreground:    #000000;
   --info-muted:         rgba(89, 168, 220, 0.14);
@@ -349,6 +351,7 @@
   --color-warning-text: var(--warning-text);
   --color-success-text: var(--success-text);
   --color-info-text: var(--info-text);
+  --color-error-text: var(--error-text);
   --color-success-foreground: var(--success-foreground);
   --color-warning-foreground: var(--warning-foreground);
   --color-info-foreground: var(--info-foreground);

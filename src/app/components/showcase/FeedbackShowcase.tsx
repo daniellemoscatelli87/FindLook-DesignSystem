@@ -820,6 +820,7 @@ const feedbackTokenGroups = (t: TFn): TokenGroup[] => [
       { name: "--error",                description: t("Error / failure state", "Estado de erro / falha"),          light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--error-foreground",     description: t("Text on error", "Texto sobre erro"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--error-muted",          description: t("Error tinted background", "Fundo com tom de erro"),        light: "rgba(230,32,64,0.10)",  dark: "rgba(230,32,64,0.15)",  isColor: true },
+      { name: "--error-text",           description: "Texto e ícone de erro (= --primary-text; ícone e botão dos alertas)", light: "#B91B35", dark: "#F290A0", isColor: true },
       { name: "--info",                 description: t("Informational notice", "Aviso informativo"),           light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--info-foreground",      description: t("Text on info", "Texto sobre info"),                  light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--info-muted",           description: t("Info tinted background", "Fundo com tom de info"),         light: "rgba(68,138,188,0.10)", dark: "rgba(59,130,246,0.12)", isColor: true },

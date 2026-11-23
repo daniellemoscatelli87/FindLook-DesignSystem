@@ -99,7 +99,7 @@ const CONTRASTES: { tom: TomDoAlerta; nome: string; token: string; valor: string
   { tom: "info", nome: "Info", token: "--info-text", valor: "#2E6E98", contraste: "5,1:1" },
   { tom: "sucesso", nome: "Sucesso", token: "--success-text", valor: "#2B7553", contraste: "5,1:1" },
   { tom: "aviso", nome: "Aviso", token: "--warning-text", valor: "#A66200", contraste: "4,5:1" },
-  { tom: "erro", nome: "Erro", token: "--primary-text", valor: "#B91B35 (pink-600)", contraste: "5,7:1" },
+  { tom: "erro", nome: "Erro", token: "--error-text", valor: "#B91B35 (= --primary-text)", contraste: "5,7:1" },
 ];
 
 const BORDA_DO_TOM: Record<TomDoAlerta, string> = {
@@ -186,7 +186,7 @@ export function AlertaComAcaoDoc() {
           ))}
         </Panel>
         <p className="mt-3 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">
-          <Mono>--info-text</Mono> e <Mono>--success-text</Mono> são novos (23/11/2026): servem só para texto e ícone sobre fundo claro. No tema escuro, apontam para <Mono>--info</Mono> e <Mono>--success</Mono>, como o <Mono>--warning-text</Mono>. O link usa <Mono>--foreground</Mono>, com sublinhado a 35% que fica inteiro no hover.
+          <Mono>--info-text</Mono>, <Mono>--success-text</Mono> e <Mono>--error-text</Mono> são novos (23/11/2026): servem só para texto e ícone sobre fundo claro. No tema escuro, <Mono>--info-text</Mono> e <Mono>--success-text</Mono> apontam para <Mono>--info</Mono> e <Mono>--success</Mono>, como o <Mono>--warning-text</Mono>; o <Mono>--error-text</Mono> aponta para o <Mono>--primary-text</Mono> nos dois temas. O link usa <Mono>--foreground</Mono>, com sublinhado a 35% que fica inteiro no hover.
         </p>
       </div>
 

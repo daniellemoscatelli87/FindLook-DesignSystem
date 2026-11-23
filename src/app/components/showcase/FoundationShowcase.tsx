@@ -565,6 +565,7 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
       { name: "--success-text",    description: "Sucesso como texto ou ícone sobre fundo claro (Alerta com ação): 5,1:1",   light: "#2B7553", dark: "#41B47F", isColor: true },
       { name: "--info-text",       description: "Info como texto ou ícone sobre fundo claro (Alerta com ação): 5,1:1",      light: "#2E6E98", dark: "#59A8DC", isColor: true },
       { name: "--warning-text",    description: "Aviso como texto ou ícone sobre fundo claro: 4,5:1 no fundo do alerta",  light: "#A66200", dark: "#F0B135", isColor: true },
+      { name: "--error-text",      description: "Erro como texto ou ícone (= --primary-text): 5,7:1 no fundo do alerta",  light: "#B91B35", dark: "#F290A0", isColor: true },
       { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E62040", dark: "#E62040", isColor: true },
       { name: "--violet",          description: t("Accent purple", "Roxo de destaque"),            light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",          description: t("Accent orange", "Laranja de destaque"),            light: "#fa9852", dark: "#ff8833", isColor: true },
