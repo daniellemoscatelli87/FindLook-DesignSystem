@@ -373,8 +373,9 @@ type FundoSolido = "branco" | "cinza" | "escuro";
 function CardPorFundo({ fundo }: { fundo: FundoSolido }) {
   const { t } = useI18n();
   const regras: Record<FundoSolido, { painel: string; card: string; sombra?: string; regra: string }> = {
-    branco: { painel: "bg-white", card: "border border-[var(--graphite-100)]", regra: t("Border, no shadow", "Borda, sem sombra") },
-    cinza: { painel: "bg-[var(--graphite-50)]", card: "border border-[var(--graphite-100)]", sombra: "var(--shadow-sm)", regra: t("Border and soft shadow", "Borda e sombra suave") },
+    // Cards brancos sem borda e com sombra (decisão da dona do produto, 23/11/2026).
+    branco: { painel: "bg-white", card: "", sombra: "var(--shadow-sm)", regra: t("No border, soft shadow", "Sem borda, sombra suave") },
+    cinza: { painel: "bg-[var(--graphite-50)]", card: "", sombra: "var(--shadow-sm)", regra: t("No border, soft shadow", "Sem borda, sombra suave") },
     escuro: { painel: "bg-[var(--graphite-950)]", card: "", sombra: "var(--shadow-lg)", regra: t("No border, strong shadow", "Sem borda, sombra forte") },
   };
   const r = regras[fundo];
@@ -383,7 +384,7 @@ function CardPorFundo({ fundo }: { fundo: FundoSolido }) {
       <div className={cn("rounded-xl bg-white p-5 text-[var(--graphite-900)]", r.card)} style={{ boxShadow: r.sombra }}>
         <p className={`${display} text-[1rem] font-semibold`}>{t("Card title", "Título do card")}</p>
         <p className="mt-1 text-[0.8125rem] leading-relaxed text-[var(--graphite-500)]">{t("Short description of the content.", "Descrição curta do conteúdo.")}</p>
-        <Button size="sm" className="mt-4">{t("Action", "Ação")}</Button>
+        <Button size="sm" variant="secondary" className="mt-4">{t("Action", "Ação")}</Button>
       </div>
       <p className={cn("mt-3 text-[0.75rem] font-semibold", fundo === "escuro" ? "text-white/80" : "text-[var(--graphite-700)]")}>{r.regra}</p>
     </div>
@@ -570,9 +571,9 @@ export function CardShowcase() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { nome: t("Border only", "Só borda"), quando: t("Resting card on a white background.", "Card parado sobre fundo branco."), cls: "border border-border", sombra: undefined },
-              { nome: t("Border and soft shadow", "Borda e sombra suave"), quando: t("Resting card on a light grey background.", "Card parado sobre fundo cinza claro."), cls: "border border-border", sombra: "var(--shadow-sm)" },
-              { nome: t("Medium shadow", "Sombra média"), quando: t("Hover on a clickable card.", "Hover de card clicável."), cls: "border border-[var(--border-strong)]", sombra: "var(--shadow-md)" },
+              { nome: t("No border, soft shadow (default)", "Sem borda, sombra suave (padrão)"), quando: t("Resting card on a white or light grey background.", "Card parado sobre fundo branco ou cinza claro."), cls: "", sombra: "var(--shadow-sm)" },
+              { nome: t("Medium shadow", "Sombra média"), quando: t("Hover on a clickable card.", "Hover de card clicável."), cls: "", sombra: "var(--shadow-md)" },
+              { nome: t("Subtle border, dark theme only", "Borda sutil, só no tema escuro"), quando: t("On black the shadow almost disappears: the card keeps it and gains a subtle border.", "Sobre o preto a sombra quase some: o card mantém a sombra e ganha uma borda sutil."), cls: "border border-border", sombra: "var(--shadow-sm)" },
               { nome: t("Strong shadow, no border", "Sombra forte, sem borda"), quando: t("Light card on a dark background.", "Card claro sobre fundo escuro."), cls: "", sombra: "var(--shadow-lg)" },
             ].map(x => (
               <div key={x.nome} className={cn("rounded-xl bg-card p-5", x.cls)} style={{ boxShadow: x.sombra }}>
@@ -587,7 +588,7 @@ export function CardShowcase() {
               { raio: "rounded-lg", valor: "16 px", uso: t("Media, highlight and partner cards.", "Cards com mídia, de destaque e de convite.") },
               { raio: "rounded-[20px]", valor: "20 px", uso: t("Glass cards.", "Cards de vidro.") },
             ].map(x => (
-              <div key={x.valor} className={cn("border border-border bg-card p-5", x.raio)}>
+              <div key={x.valor} className={cn("border border-transparent bg-card p-5 shadow-[var(--shadow-sm)] dark:border-border", x.raio)}>
                 <p className="font-mono text-[0.8125rem] text-foreground">{x.valor}</p>
                 <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted-foreground">{x.uso}</p>
               </div>
@@ -601,7 +602,7 @@ export function CardShowcase() {
                   [t("Padding", "Padding"), "24px", t("16px for compact cards", "16px para cards compactos")],
                   [t("Section gap", "Espaço entre seções"), "24px", t("Use 12–16px in dense layouts", "Use 12–16px em layouts densos")],
                   [t("Radius", "Raio"), "24px · rounded-xl", t("Keep consistent within the same grid", "Mantenha consistente no mesmo grid")],
-                  [t("Border", "Borda"), "1px", t("Use border-border", "Use border-border")],
+                  [t("Border", "Borda"), t("None", "Nenhuma"), t("Shadow --shadow-sm; subtle border only in the dark theme", "Sombra --shadow-sm; borda sutil só no tema escuro")],
                   [t("Elevation", "Elevação"), t("By background", "Pelo fundo"), t("See the table at the top of the page", "Veja a tabela no topo da página")],
                 ].map(([label, value, note]) => (
                   <div key={label} className="grid grid-cols-[1fr_auto] gap-3 border-b border-border pb-3 last:border-0 last:pb-0">
@@ -611,6 +612,9 @@ export function CardShowcase() {
                 ))}
               </div>
             </Panel>
+            <Callout title="Cards brancos sem borda e com sombra">
+              <p>Cards brancos sem borda e com sombra; tudo que abre por cima da tela tem sombra (decisão da dona do produto, 23/11/2026). Em repouso, --shadow-sm; no hover de card clicável, --shadow-md. Janelas, gavetas e painéis laterais usam --shadow-xl; menus, popovers, listas de seleção, busca, tooltips e avisos usam --shadow-md (submenus, --shadow-lg). No tema escuro, a sombra continua e o card ganha uma borda sutil, porque a sombra some sobre o preto.</p>
+            </Callout>
             <Callout title={t("Responsive behavior", "Comportamento responsivo")}>
               <p>{t(
                 "Let cards fill their grid column. Collapse multi-column content before reducing internal padding.",

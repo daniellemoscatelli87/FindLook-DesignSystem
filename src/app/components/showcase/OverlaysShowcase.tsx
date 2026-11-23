@@ -29,6 +29,7 @@ import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
 } from "../ui/dropdown-menu";
 import { SectionHeader } from "./shared/SectionHeader";
+import { Callout } from "./shared/Guidance";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "../ui/dropdown-menu";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from "../ui/dialog";
@@ -240,10 +241,10 @@ function ExemploMenuRecolhivel() {
             <GatilhoDaConta nome="Ana Oliveira" papel="Proprietária" className="shrink-0" />
           </div>
           <div className="min-h-0 flex-1 space-y-3 p-4" aria-hidden>
-            <div className="h-20 rounded-lg border border-border bg-card" />
+            <div className="h-20 rounded-lg bg-card shadow-[var(--shadow-sm)]" />
             <div className="grid grid-cols-2 gap-3">
-              <div className="h-24 rounded-lg border border-border bg-card" />
-              <div className="h-24 rounded-lg border border-border bg-card" />
+              <div className="h-24 rounded-lg bg-card shadow-[var(--shadow-sm)]" />
+              <div className="h-24 rounded-lg bg-card shadow-[var(--shadow-sm)]" />
             </div>
           </div>
         </div>
@@ -593,6 +594,11 @@ export function OverlaysShowcase() {
       {/* ── DIALOGS ── */}
       <section id="dialogs">
         <SectionHeader title={t("Dialogs & Modals", "Diálogos e modais")} description={t("Focused overlay panels for forms, confirmations, and contextual actions.", "Painéis sobrepostos e focados para formulários, confirmações e ações contextuais.")} />
+        <div className="mb-6">
+          <Callout title="Tudo que abre por cima da tela tem sombra">
+            <p>Cards brancos sem borda e com sombra; tudo que abre por cima da tela tem sombra (decisão da dona do produto, 23/11/2026). Diálogos, gavetas (sheet e drawer) e painéis laterais: --shadow-xl. Menus, popovers, listas de seleção, busca (Ctrl + K), cards de passar o mouse, tooltips e avisos (toast): --shadow-md; submenus, --shadow-lg. Os componentes de ui/ já trazem a sombra; não é preciso acrescentar.</p>
+          </Callout>
+        </div>
         <SubSection title={t("Dialog Variants", "Variantes de diálogo")}>
           <ShowcaseCard>
             <div className="flex flex-wrap gap-3">

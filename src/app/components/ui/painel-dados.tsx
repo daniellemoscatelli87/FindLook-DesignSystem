@@ -48,6 +48,11 @@ function IconeComBase({ tom, tamanho = "md", redonda = false, children, classNam
   );
 }
 
+/* ── Superfície dos cards (decisão da dona do produto, 23/11/2026) ──
+   Cards brancos sem borda e com sombra (--shadow-sm), para se destacarem do fundo cinza do painel. No tema escuro a
+   sombra quase some sobre o preto: fica uma borda sutil só lá (border-transparent no claro mantém o mesmo tamanho). */
+const superficieDoCard = "border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border";
+
 /* ── Formatação pt-BR ────────────────────────────────────────── */
 const fmtNumero = new Intl.NumberFormat("pt-BR");
 const fmtPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -112,7 +117,7 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
   const palavras = rotulo.split(" ");
   const ultima = palavras.pop() ?? "";
   return (
-    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-lg border border-border bg-card p-5", className)}>
+    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-lg p-5", superficieDoCard, className)}>
       <div className="flex items-start justify-between gap-3">
         <p className="min-w-0 pt-0.5 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
           {palavras.length > 0 && `${palavras.join(" ")} `}
@@ -389,7 +394,7 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-lg border border-border bg-card p-4 @xl:p-5", className)}>
+    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
       <div className="mb-4 flex items-start gap-3">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>}
         <div className="min-w-0 flex-1">
@@ -405,7 +410,7 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
 
 /* ── Card com cabeçalho de ícone (Opção A, 23/11/2026) ──────── */
 /**
- * Card branco das páginas do painel: ícone de 40 px na base rosa clara (--primary-muted) com ícone vermelho
+ * Card branco das páginas do painel (sem borda, com sombra): ícone na base rosa clara (a mesma do CardIndicador) (--primary-muted) com ícone vermelho
  * (--primary-text), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
  * Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
  * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
@@ -423,7 +428,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
   const temConteudo = children !== undefined && children !== null && children !== false;
   const raio = temConteudo ? "rounded-t-[calc(var(--radius-lg)-1px)]" : "rounded-[calc(var(--radius-lg)-1px)]";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg border border-border bg-card", !faixa && "p-4 @xl:p-5", className)}>
+    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg", superficieDoCard, !faixa && "p-4 @xl:p-5", className)}>
       <div
         data-slot="cabecalho-do-card"
         className={cn(
@@ -431,10 +436,9 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
           faixa ? cn("px-4 py-3.5 @xl:px-5", raio, cabecalho === "faixa-marca" ? "bg-[var(--primary-muted)]" : "bg-muted") : temConteudo && "mb-5",
         )}
       >
-        <IconeComBase
-          tom={tom}
-          className={cn("h-10 w-10 rounded-lg [&>svg]:h-5 [&>svg]:w-5", cabecalho === "faixa-marca" && "bg-card", cabecalho === "faixa-neutra" && tom === "neutro" && "bg-card")}
-        >
+        {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão (36 px, cantos
+            --radius-md). Na faixa da marca, a base fica branca para continuar visível. */}
+        <IconeComBase tom={tom} className={cn(cabecalho === "faixa-marca" && "bg-card", cabecalho === "faixa-neutra" && tom === "neutro" && "bg-card")}>
           {icone}
         </IconeComBase>
         <div className="min-w-[12rem] flex-1 self-center">
@@ -658,7 +662,7 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
     <section
       data-slot="painel-de-uso"
       aria-label={`${titulo}: ${pctTexto(pct)} do limite`}
-      className={cn("grid gap-5 rounded-lg border border-border bg-card p-5 @3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
+      className={cn("grid gap-5 rounded-lg p-5", superficieDoCard, "@3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
       <div className="flex min-w-0 items-start gap-3.5">
         <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
@@ -702,7 +706,7 @@ type CardDeUsoProps = {
 function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", className }: CardDeUsoProps) {
   const pct = pctDoUso(usado, limite);
   return (
-    <div data-slot="card-de-uso" className={cn("flex h-full min-w-0 flex-col gap-4 rounded-lg border border-border bg-card p-5", className)}>
+    <div data-slot="card-de-uso" className={cn("flex h-full min-w-0 flex-col gap-4 rounded-lg p-5", superficieDoCard, className)}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">{rotulo}</p>
@@ -732,4 +736,5 @@ export {
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };
+export { superficieDoCard };
 export type { Serie, Dica };

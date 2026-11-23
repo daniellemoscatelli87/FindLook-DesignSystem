@@ -149,7 +149,9 @@ function BannerPromocional({ titulo, texto, acao, onAcao, onFechar, imagem, clas
         <button
           type="button"
           onClick={onAcao}
-          className="mt-3 inline-flex h-10 items-center gap-1.5 rounded-md bg-primary px-4 text-[0.9375rem] font-medium text-primary-foreground shadow-sm transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          // "Um botão principal por área visível" (decisão da dona do produto, 23/11/2026): o banner usa o botão
+          // secundário (contorno, fundo branco); o botão principal fica com a ação da página.
+          className="mt-3 inline-flex h-10 items-center gap-1.5 rounded-md border border-[var(--border-strong)] bg-card px-4 text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {acao} <ArrowRight aria-hidden className="h-4 w-4" />
         </button>

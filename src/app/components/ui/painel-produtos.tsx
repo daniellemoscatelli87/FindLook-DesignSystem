@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2, Clock, Ban, Bookmark, FilePen, Heart, MoreHor
 import { cn } from "./utils";
 import { IconeModa, type NomeIconeModa } from "./fashion-icons";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./dropdown-menu";
-import { formatarNumero, formatarPreco } from "./painel-dados";
+import { formatarNumero, formatarPreco, superficieDoCard } from "./painel-dados";
 import { Checkbox } from "./checkbox";
 
 /**
@@ -228,7 +228,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
   );
 
   return (
-    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-lg border border-border bg-card", className)}>
+    <div data-slot="tabela-de-produtos" className={cn("@container min-w-0 overflow-hidden rounded-lg", superficieDoCard, className)}>
       {/* Cabeçalho: título à esquerda, ferramentas à direita (como a Tabela de dados) */}
       <div className="flex flex-col gap-3 border-b border-border px-4 py-4 @2xl:flex-row @2xl:items-center @2xl:justify-between @2xl:px-6">
         <div className="min-w-0">

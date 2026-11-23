@@ -394,6 +394,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
       { id: "buttons", label: "Buttons", icon: MousePointer2,
         items: [
           { id: "buttons",        label: "Button Variants", sectionId: "buttons" },
+          { id: "botao-principal", label: "Um botão principal", sectionId: "buttons" },
           { id: "inputs",         label: "Form Controls",   sectionId: "buttons" },
           { id: "password",       label: "Senha",           sectionId: "buttons" },
           { id: "segmented",      label: "Controle segmentado", sectionId: "buttons" },

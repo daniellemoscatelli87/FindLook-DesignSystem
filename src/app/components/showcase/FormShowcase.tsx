@@ -16,6 +16,7 @@ import { PasswordConfirm, regrasPadrao, textosPadrao } from "@/app/components/ui
 import { LayoutGrid, List, Map as MapIcon, FileSpreadsheet, Camera } from "lucide-react";
 import { BotaoDividido, SeletorDePeriodo, periodosPadrao } from "@/app/components/ui/painel-cabecalho";
 import { SectionHeader } from "./shared/SectionHeader";
+import { DoDont } from "./shared/Guidance";
 
 const periodosProprios = [{ valor: "hoje", rotulo: "Hoje" }, { valor: "semana", rotulo: "Esta semana" }, { valor: "mes", rotulo: "Este mês" }, { valor: "ano", rotulo: "Este ano" }];
 
@@ -193,10 +194,53 @@ export function FormShowcase() {
               <Btn variant="outline" icon={<Upload className="h-4 w-4" />}>{t("Upload File", "Enviar arquivo")}</Btn>
               <Btn variant="ghost" icon={<Star className="h-4 w-4" />}>{t("Favorite", "Favoritar")}</Btn>
               <Btn variant="outline" size="lg" icon={<Plus className="h-4 w-4" />}>{t("New Project", "Novo projeto")}</Btn>
-              <Btn variant="primary" size="lg" icon={<Check className="h-4 w-4" />}>{t("Confirm", "Confirmar")}</Btn>
+              <Btn variant="outline" size="lg" icon={<Check className="h-4 w-4" />}>{t("Confirm", "Confirmar")}</Btn>
             </div>
           </ShowcaseCard>
         </SubSection>
+      </section>
+
+      {/* ── UM BOTÃO PRINCIPAL POR ÁREA VISÍVEL ── */}
+      <section id="botao-principal">
+        <SectionHeader title="Um botão principal por área visível" description="Regra da dona do produto (23/11/2026): numa tela ou região visível, no máximo um botão principal preenchido. A ação principal da página fica com ele; o resto usa o botão secundário (contorno) ou um botão link, para ações de pouca ênfase. Banners e cards promocionais usam o secundário ou um link com seta." />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {[
+            { certo: true, rotulo: "Faça: um principal, banner com secundário" },
+            { certo: false, rotulo: "Não faça: dois principais disputando" },
+          ].map(ex => (
+            <ShowcaseCard key={ex.rotulo}>
+              <p className={`mb-3 text-[0.75rem] font-semibold uppercase tracking-[0.08em] ${ex.certo ? "text-success" : "text-[var(--primary-text,var(--primary))]"}`}>{ex.certo ? <Check aria-hidden className="mr-1 inline h-3.5 w-3.5" /> : <X aria-hidden className="mr-1 inline h-3.5 w-3.5" />}{ex.rotulo}</p>
+              <div aria-hidden className="space-y-3 rounded-lg bg-muted p-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-[0.9375rem] font-bold text-foreground">Sua loja</span>
+                  <span className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-[0.8125rem] font-semibold text-primary-foreground"><Plus className="h-3.5 w-3.5" /> Cadastrar produto</span>
+                </div>
+                <div className="rounded-lg bg-[var(--primary-muted)] p-3">
+                  <p className="text-[0.8125rem] font-bold text-foreground">Destaque sua coleção</p>
+                  <p className="text-[0.75rem] text-muted-foreground">Fotos de alta qualidade atraem mais visitas.</p>
+                  {ex.certo
+                    ? <span className="mt-2 inline-flex h-9 items-center gap-1.5 rounded-md border border-[var(--border-strong)] bg-card px-3 text-[0.8125rem] font-semibold text-foreground">Ver dicas de foto <ArrowRight className="h-3.5 w-3.5" /></span>
+                    : <span className="mt-2 inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-[0.8125rem] font-semibold text-primary-foreground">Ver dicas de foto <ArrowRight className="h-3.5 w-3.5" /></span>}
+                </div>
+              </div>
+            </ShowcaseCard>
+          ))}
+        </div>
+        <div className="mt-4">
+          <DoDont
+            dos={[
+              "No máximo um botão principal (preenchido) por tela ou região visível.",
+              "A ação principal da página fica com o botão principal.",
+              "Banners e cards promocionais: botão secundário (contorno) ou link com seta.",
+              "Ações de pouca ênfase: botão link ou ghost.",
+            ]}
+            donts={[
+              "Dois botões vermelhos preenchidos perto um do outro.",
+              "Usar o principal num banner quando a página já tem uma ação principal.",
+              "Trocar a hierarquia só para chamar atenção: use texto e posição, não outro botão principal.",
+            ]}
+          />
+        </div>
       </section>
 
       {/* ── INPUTS ── */}
