@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ChevronDown, Info, Lightbulb } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Database, Info, Lightbulb, Minus, Sparkles, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "./utils";
 import { TOTAL_DE_TONS, TOM_NEUTRO, tonsPorImportancia, tomDosOutros, tonsDeContexto } from "./graficos-paleta";
 
@@ -342,6 +342,198 @@ export function DescobertaVisual({ tema, conclusao, contexto, children, porQueIm
         </div>
       )}
     </article>
+  );
+}
+
+/* ── Card de insight (camada 1) e blocos do insight aberto (camada 2) ─────────────────────────────────── */
+
+/**
+ * Inteligência em duas camadas (decisão da dona do produto, 23/11/2026):
+ *   Camada 1, CardDeInsight: entendido em uns 5 segundos. Etiqueta do tema, destaque opcional à direita, título
+ *     conclusivo, um indicador principal, uma visualização simples (até 3 barras), a interpretação curta e o próximo
+ *     passo; o rodapé leva ao insight aberto ("Explorar insight").
+ *   Camada 2, BlocoDoInsight: o insight aberto separa o que é fato observado (números do sistema), hipótese (leitura da
+ *     IA, nunca certeza) e recomendação, além das evidências e da metodologia.
+ * Um insight comunica uma descoberta, não só uma estatística: o gráfico sustenta a mensagem, a interpretação dá o
+ * contexto e o próximo passo transforma a informação em ação. Sem texto sobre as barras: valores ficam ao lado.
+ */
+export type TomDoDestaqueDoInsight = "alta" | "baixa" | "neutro";
+export type BarraDoInsight = { rotulo: string; /** 0 a 100, relativo ao maior do card. */ valor: number; texto: string; destaque?: boolean };
+export type CardDeInsightProps = {
+  /** Etiqueta do tema (ex.: "Oportunidade identificada"). */
+  tema: string;
+  /** Destaque à direita, sempre com ícone e texto (ex.: "Acima da média"). */
+  destaque?: { texto: string; tom?: TomDoDestaqueDoInsight };
+  /** Título conclusivo: a descoberta em linguagem natural. */
+  titulo: string;
+  /** Frase de contexto, opcional. */
+  contexto?: string;
+  /** Linha acima dos números: a base (esquerda) e o período (direita). */
+  base?: string;
+  periodo?: string;
+  /** O indicador principal; um segundo é opcional. */
+  indicadores: { valor: string; rotulo: string }[];
+  /** Visualização simples: até 3 barras comparando grandezas da mesma escala. */
+  barras?: BarraDoInsight[];
+  /** Nota sobre a visualização (ex.: "Barras em proporção ao maior valor"). */
+  notaDasBarras?: string;
+  /** "O que isso significa?": interpretação curta. */
+  interpretacao: string;
+  /** "Próximo passo sugerido". */
+  proximoPasso?: string;
+  /** Abre o insight aberto (camada 2). Com href, o rodapé é um link; com onClick, um botão. */
+  href?: string;
+  onClick?: (e: React.MouseEvent) => void;
+  rotulos?: Partial<{ significado: string; passo: string; explorar: string }>;
+  className?: string;
+};
+
+const ICONE_DO_DESTAQUE = { alta: TrendingUp, baixa: TrendingDown, neutro: Minus } as const;
+const COR_DO_DESTAQUE = { alta: "text-[var(--success-text,var(--success))]", baixa: "text-[var(--warning-text,var(--warning))]", neutro: "text-muted-foreground" } as const;
+
+export function CardDeInsight({ tema, destaque, titulo, contexto, base, periodo, indicadores, barras, notaDasBarras, interpretacao, proximoPasso, href, onClick, rotulos, className }: CardDeInsightProps) {
+  const r = { significado: "O que isso significa?", passo: "Próximo passo sugerido", explorar: "Explorar insight", ...rotulos };
+  const tid = React.useId();
+  const reduzir = useReducedMotion();
+  const IconeDestaque = destaque ? ICONE_DO_DESTAQUE[destaque.tom ?? "neutro"] : null;
+  const maior = Math.max(1, ...(barras ?? []).map((b) => b.valor));
+  const Rodape = href ? "a" : "button";
+  const clicavel = Boolean(href || onClick);
+  return (
+    <article
+      aria-labelledby={tid}
+      data-slot="card-de-insight"
+      className={cn(
+        "group/insight relative flex min-w-0 flex-col rounded-lg border border-border bg-card p-5 transition-[border-color,box-shadow,transform] duration-[var(--duration-normal,200ms)] sm:p-6",
+        clicavel && "hover:border-primary/30 hover:shadow-[var(--shadow-sm)] motion-safe:hover:-translate-y-0.5 focus-within:border-primary/30",
+        className,
+      )}
+    >
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <span data-slot="tema-do-insight" className="inline-flex h-6 items-center rounded-full bg-muted px-2.5 text-[0.6875rem] font-semibold text-foreground">{tema}</span>
+        {destaque && IconeDestaque && (
+          <span data-slot="destaque-do-insight" data-tom={destaque.tom ?? "neutro"} className={cn("inline-flex items-center gap-1 text-[0.75rem] font-semibold", COR_DO_DESTAQUE[destaque.tom ?? "neutro"])}>
+            <IconeDestaque aria-hidden className="h-3.5 w-3.5" />
+            {destaque.texto}
+          </span>
+        )}
+      </div>
+      <h3 id={tid} className="text-[1.125rem] font-bold leading-snug tracking-[-0.015em] text-foreground" style={{ fontFamily: "var(--font-display, var(--font-sans))" }}>{titulo}</h3>
+      {contexto && <p className="mt-1.5 text-[0.875rem] leading-relaxed text-muted-foreground">{contexto}</p>}
+
+      <div data-slot="numeros-do-insight" className="mt-4 rounded-md bg-muted/50 p-4">
+        {(base || periodo) && (
+          <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 text-[0.75rem]">
+            {base && <span className="text-muted-foreground">{base}</span>}
+            {periodo && <span className="font-semibold text-foreground">{periodo}</span>}
+          </div>
+        )}
+        <dl className={cn("grid gap-3", indicadores.length > 1 && "grid-cols-2")}>
+          {indicadores.slice(0, 2).map((i) => (
+            <div key={i.rotulo} className="flex min-w-0 flex-col-reverse justify-end">
+              <dt className="mt-1 text-[0.75rem] leading-snug text-muted-foreground">{i.rotulo}</dt>
+              <dd className="text-[1.75rem] font-bold leading-none tracking-[-0.02em] tabular-nums text-foreground" style={{ fontFamily: "var(--font-display, var(--font-sans))" }}>{i.valor}</dd>
+            </div>
+          ))}
+        </dl>
+        {barras && barras.length > 0 && (
+          <ul className="mt-4 space-y-2.5" aria-label={`Comparação: ${titulo}`}>
+            {barras.slice(0, 3).map((b, i) => (
+              <li key={b.rotulo}>
+                <div className="mb-1 flex items-baseline justify-between gap-3 text-[0.8125rem]">
+                  <span className="min-w-0 truncate text-foreground">{b.rotulo}</span>
+                  <span className="shrink-0 font-semibold tabular-nums text-foreground">{b.texto}</span>
+                </div>
+                <span aria-hidden className="block h-2 overflow-hidden rounded-full bg-card">
+                  <motion.span
+                    className="block h-full rounded-full"
+                    style={{ background: b.destaque ? corDoTom(1) : corDoTom(TOTAL_DE_TONS - 1) }}
+                    initial={reduzir ? false : { width: 0 }}
+                    whileInView={{ width: `${Math.max(2, (b.valor / maior) * 100)}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {notaDasBarras && <p className="mt-3 text-[0.75rem] text-muted-foreground">{notaDasBarras}</p>}
+      </div>
+
+      <div className="mt-4 flex gap-2.5">
+        <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[var(--primary-text,var(--primary))]" />
+        <div className="min-w-0">
+          <p className="text-[0.875rem] font-semibold text-foreground">{r.significado}</p>
+          <p className="mt-0.5 text-[0.875rem] leading-relaxed text-muted-foreground">{interpretacao}</p>
+        </div>
+      </div>
+
+      {(proximoPasso || clicavel) && (
+        <div className="mt-auto pt-4">
+          <div className="border-t border-border pt-4">
+            <Rodape
+              {...(href ? { href } : { type: "button" as const })}
+              onClick={onClick}
+              aria-label={clicavel ? `${r.explorar}: ${titulo}` : undefined}
+              className={cn(
+                "flex w-full items-start justify-between gap-3 rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                clicavel && "after:absolute after:inset-0 after:rounded-lg after:content-['']",
+                !clicavel && "pointer-events-none",
+              )}
+            >
+              <span className="min-w-0">
+                <span className="block text-[0.875rem] font-semibold text-foreground">{proximoPasso ? r.passo : r.explorar}</span>
+                {proximoPasso && <span className="mt-0.5 block text-[0.8125rem] leading-relaxed text-muted-foreground">{proximoPasso}</span>}
+              </span>
+              {clicavel && (
+                <span className="inline-flex shrink-0 items-center gap-1 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))]">
+                  <span className="hidden sm:inline">{r.explorar}</span>
+                  <ArrowUpRight aria-hidden className="h-4 w-4 transition-transform motion-safe:group-hover/insight:-translate-y-0.5 motion-safe:group-hover/insight:translate-x-0.5" />
+                </span>
+              )}
+            </Rodape>
+          </div>
+        </div>
+      )}
+    </article>
+  );
+}
+
+/** Natureza de cada parte do insight aberto (camada 2): fato observado, hipótese ou recomendação. */
+export type NaturezaDoInsight = "fato" | "hipotese" | "recomendacao";
+const NATUREZAS: Record<NaturezaDoInsight, { rotulo: string; Icone: typeof Database; classe: string }> = {
+  fato: { rotulo: "Fato observado", Icone: Database, classe: "bg-muted text-foreground [&_svg]:text-muted-foreground" },
+  hipotese: { rotulo: "Hipótese", Icone: Sparkles, classe: "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" },
+  recomendacao: { rotulo: "Recomendação", Icone: Lightbulb, classe: "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" },
+};
+
+/** Etiqueta da natureza (sempre ícone + texto). */
+export function EtiquetaDeNatureza({ natureza, rotulo, className }: { natureza: NaturezaDoInsight; rotulo?: string; className?: string }) {
+  const n = NATUREZAS[natureza];
+  return (
+    <span data-slot="etiqueta-de-natureza" data-natureza={natureza} className={cn("inline-flex h-6 items-center gap-1 rounded-full px-2.5 text-[0.6875rem] font-semibold", n.classe, className)}>
+      <n.Icone aria-hidden className="h-3.5 w-3.5" />
+      {rotulo ?? n.rotulo}
+    </span>
+  );
+}
+
+/**
+ * Bloco do insight aberto (camada 2): etiqueta da natureza, título e conteúdo. Fato = números calculados pelo sistema;
+ * hipótese = leitura que precisa ser conferida (a IA nunca afirma causa); recomendação = o que fazer com isso.
+ */
+export function BlocoDoInsight({ natureza, titulo, rotulo, aviso, children, className }: { natureza: NaturezaDoInsight; titulo: string; rotulo?: string; aviso?: string; children: React.ReactNode; className?: string }) {
+  const tid = React.useId();
+  return (
+    <section aria-labelledby={tid} data-slot="bloco-do-insight" data-natureza={natureza} className={cn("min-w-0 rounded-lg border border-border bg-card p-4 sm:p-5", className)}>
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <EtiquetaDeNatureza natureza={natureza} rotulo={rotulo} />
+      </div>
+      <h4 id={tid} className="text-[0.9375rem] font-bold text-foreground">{titulo}</h4>
+      <div className="mt-1.5 text-[0.875rem] leading-relaxed text-foreground">{children}</div>
+      {aviso && <p className="mt-2 text-[0.75rem] leading-snug text-muted-foreground">{aviso}</p>}
+    </section>
   );
 }
 

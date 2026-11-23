@@ -440,6 +440,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "graficos-escolher",       label: "Choosing a chart",    sectionId: "graficos" },
           { id: "graficos-cores",          label: "Chart colors",        sectionId: "graficos" },
           { id: "graficos-rosca",          label: "Donut chart",         sectionId: "graficos" },
+          { id: "graficos-insight",        label: "Insight card",        sectionId: "graficos" },
           { id: "graficos-recomendados",   label: "Recommended charts",  sectionId: "graficos" },
           { id: "graficos-catalogo",       label: "Full catalog",        sectionId: "graficos" },
           { id: "graficos-inteligencia",   label: "Intelligence design", sectionId: "graficos" },
