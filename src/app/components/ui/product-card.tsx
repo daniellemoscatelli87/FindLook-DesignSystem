@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heart, Flame, PackageCheck, RefreshCw, Bell, ChevronRight } from "lucide-react";
+import { Heart, Flame, PackageCheck, RefreshCw, Bell, ChevronRight, Check, Clock } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Selo } from "./selo";
@@ -21,11 +21,19 @@ import { IconeModa, type NomeIconeModa } from "./fashion-icons";
  * `orientation="horizontal"`: imagem à esquerda, conteúdo à direita (listas e resultados em linha).
  * Desconto: `precoAntigo` mostra o preço anterior riscado, na primária, acima do atual; o percentual "-N%" fica ao lado do atual.
  * Ações: "Ver peça" (primária, com chevron) ou, esgotada, "Avise-me" (contorno na primária, com sino).
+ * Vitrine da loja (23/11/2026): mostrarFavorito={false} esconde o coração; estoque.texto troca "N disponíveis" (por
+ * exemplo, pelos tamanhos) e estoque.legenda troca "Atualizado há …" (por exemplo, "Publicada há 3 dias"); cta.icone troca
+ * o chevron; selecao mostra o botão "Marcar" (alternância com aria-pressed e check), para juntar várias peças numa
+ * mensagem só (BarraDeSelecao). Com poucasAte={0} a tag de escassez não aparece.
  */
 export type ProductStock = {
   quantidade: number;
   /** Texto relativo, já formatado pelo produto: "há 2 h", "ontem", "há 3 dias". */
   atualizadoHa: string;
+  /** Troca "N disponíveis" (por exemplo, "Tamanhos P, M e G"). */
+  texto?: string;
+  /** Troca "Atualizado há …" (por exemplo, "Publicada há 3 dias"). */
+  legenda?: string;
   /** Limite para a tag de escassez (inclusive). Padrão: 3. */
   poucasAte?: number;
 };
@@ -45,7 +53,11 @@ export type ProductCardProps = Omit<React.HTMLAttributes<HTMLElement>, "title"> 
   favorito?: boolean;
   onFavoritar?: (favorito: boolean) => void;
   estoque: ProductStock;
-  cta?: { label?: string; href?: string; onClick?: () => void };
+  cta?: { label?: string; href?: string; onClick?: () => void; /** Troca o chevron (por exemplo, o ícone de conversa). */ icone?: React.ReactNode };
+  /** Mostra o coração de favorito. Padrão: true. */
+  mostrarFavorito?: boolean;
+  /** Botão "Marcar" (alternância), para escolher várias peças. */
+  selecao?: { marcada: boolean; onMarcar: (marcada: boolean) => void; rotulo?: string };
   /** Densidade compacta para listas em telas estreitas. */
   compacto?: boolean;
   orientation?: "vertical" | "horizontal";
@@ -55,7 +67,7 @@ const formatarPreco = (v: number | string) =>
   typeof v === "number" ? v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : v;
 
 export function ProductCard({
-  nome, loja, estilo, preco, precoAntigo, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, compacto = false, orientation = "vertical", className, ...props
+  nome, loja, estilo, preco, precoAntigo, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, mostrarFavorito = true, selecao, compacto = false, orientation = "vertical", className, ...props
 }: ProductCardProps) {
   const [fav, setFav] = React.useState(favorito);
   React.useEffect(() => setFav(favorito), [favorito]);
@@ -97,7 +109,7 @@ export function ProductCard({
           {!horizontal && tagEstoque && <span className="absolute left-3 top-3">{tagEstoque}</span>}
           {novo && <span className="absolute bottom-3 left-3"><Selo size="sm" tone="primary" dot={false} className="bg-card shadow-[var(--shadow-sm)]">Novo</Selo></span>}
         </div>
-        <button
+        {mostrarFavorito && <button
           type="button"
           aria-pressed={fav}
           aria-label={fav ? `Remover ${nome} dos favoritos` : `Salvar ${nome} nos favoritos`}
@@ -109,7 +121,7 @@ export function ProductCard({
           )}
         >
           <Heart className={horizontal && compacto ? "h-4 w-4" : "h-5 w-5"} fill={fav ? "currentColor" : "none"} aria-hidden />
-        </button>
+        </button>}
       </div>
 
       {/* Conteúdo */}
@@ -134,17 +146,34 @@ export function ProductCard({
           <div className="mt-auto flex flex-col gap-0.5 text-[0.75rem] text-muted-foreground">
             <span className={cn("inline-flex items-center gap-1 font-semibold", esgotado ? "text-muted-foreground" : escasso ? "text-[var(--primary-text,var(--primary))]" : "text-foreground")}>
               <PackageCheck className={cn("h-3.5 w-3.5", !esgotado && !escasso && "text-[var(--success)]")} aria-hidden />
-              {esgotado ? "Sem peças no momento" : estoque.quantidade === 1 ? "1 disponível" : `${estoque.quantidade} disponíveis`}
+              {esgotado ? "Sem peças no momento" : estoque.texto ?? (estoque.quantidade === 1 ? "1 disponível" : `${estoque.quantidade} disponíveis`)}
             </span>
-            <span className="inline-flex items-center gap-1"><RefreshCw className="h-3 w-3" aria-hidden />Atualizado {estoque.atualizadoHa}</span>
+            <span className="inline-flex items-center gap-1">{estoque.legenda ? <Clock className="h-3 w-3" aria-hidden /> : <RefreshCw className="h-3 w-3" aria-hidden />}{estoque.legenda ?? `Atualizado ${estoque.atualizadoHa}`}</span>
           </div>
         </div>
-        <div className={cn("flex items-center border-t border-border", horizontal ? "pt-3" : "pt-4")}>
-          <Button asChild={!!cta?.href} size={compacto || horizontal ? "sm" : "default"} variant={esgotado ? "outline" : "default"} className={cn("rounded-full px-5", esgotado && "border-primary text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)] hover:text-[var(--primary-text,var(--primary))]")}>
+        <div className={cn("flex flex-wrap items-center gap-2 border-t border-border", selecao && "justify-between", horizontal ? "pt-3" : "pt-4")}>
+          <Button asChild size={compacto || horizontal ? "sm" : "default"} variant={esgotado ? "outline" : "default"} className={cn("whitespace-nowrap rounded-full px-5", esgotado && "border-primary text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)] hover:text-[var(--primary-text,var(--primary))]")}>
             <Cta {...(cta?.href ? { href: cta.href } : { type: "button", onClick: cta?.onClick })}>
-              {esgotado && <Bell aria-hidden />}{ctaLabel}{!esgotado && <ChevronRight aria-hidden />}
+              {esgotado && <Bell aria-hidden />}{!esgotado && cta?.icone}{ctaLabel}{!esgotado && !cta?.icone && <ChevronRight aria-hidden />}
             </Cta>
           </Button>
+          {selecao && !esgotado && (
+            <button
+              type="button"
+              aria-pressed={selecao.marcada}
+              aria-label={`${selecao.marcada ? "Desmarcar" : "Marcar"} ${nome}`}
+              onClick={() => selecao.onMarcar(!selecao.marcada)}
+              className={cn(
+                "inline-flex h-9 items-center gap-1.5 rounded-full border px-3 text-[0.8125rem] font-semibold transition-colors duration-[var(--duration-fast,150ms)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                selecao.marcada ? "border-primary bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "border-[var(--border-strong,var(--border))] text-foreground hover:bg-muted",
+              )}
+            >
+              <span aria-hidden className={cn("flex h-4 w-4 items-center justify-center rounded-[4px] border", selecao.marcada ? "border-primary bg-primary text-primary-foreground" : "border-[var(--border-strong,var(--border))]")}>
+                {selecao.marcada && <Check className="h-3 w-3" strokeWidth={3} />}
+              </span>
+              {selecao.rotulo ?? (selecao.marcada ? "Marcada" : "Marcar")}
+            </button>
+          )}
         </div>
       </div>
     </article>

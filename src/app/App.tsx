@@ -389,6 +389,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "produto-busca",     label: "Hero search",        sectionId: "produto" },
           { id: "produto-loja-mapa", label: "Store card and map", sectionId: "produto" },
           { id: "produto-cadastro",  label: "Store registration", sectionId: "produto" },
+          { id: "produto-vitrine",   label: "Store showcase",     sectionId: "produto" },
         ],
       },
       { id: "buttons", label: "Buttons", icon: MousePointer2,

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Vitrine da loja"),
+    desc: pt("Pedido da dona do produto (23/11/2026, E5): a página pública da loja, com link próprio. CabecalhoDaVitrine (capa ou degradê da marca, logo ou iniciais, nome, descrição, etiquetas, bairro ou endereço, horário e Instagram) e BarraDeSelecao (sobe da base quando há peças marcadas: quantas, Limpar e Tenho interesse), em ui/vitrine-da-loja.tsx. ProductCard ganhou mostrarFavorito, estoque.texto, estoque.legenda, cta.icone e selecao (botão Marcar)."),
+    page: "produto", anchor: "produto-vitrine",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Site do DS com a estrutura do DS Dani Moscatelli"),
     desc: pt("Pedido da dona do produto (23/11/2026): os dois sites de documentação têm a mesma estrutura; só as cores mudam. O fundo da página e a faixa da trilha passam ao cinza da página (--graphite-50, #F6F6F7), com os cards brancos por cima, como o DM faz com o --background #EDF0F5. O --background da FindLook continua branco (fundo de campos e botões de contorno). Menu: mesma curva do DM (--ease-snappy) e item ativo com --primary-text. Medidas conferidas lado a lado: cabeçalho de 64 px com sombra e linha, menu de 240/64 px, itens de 36 px, trilha de 46 px, conteúdo de 960 px com 40 px de respiro. No celular, \"Design System\" some do cabeçalho como previsto (antes aparecia colado ao logo)."),
     page: "overview",
