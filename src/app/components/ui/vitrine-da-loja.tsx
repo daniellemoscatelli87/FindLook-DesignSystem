@@ -30,13 +30,16 @@ export type CabecalhoDaVitrineProps = {
   instagram?: string | null;
   /** Ações à direita do nome (por exemplo, um selo de prévia). */
   acoes?: React.ReactNode;
+  /** Nível do título com o nome da loja: 1 na página da vitrine; 2 ou 3 quando o cabeçalho é uma prévia dentro de outra página. */
+  nivel?: 1 | 2 | 3;
   className?: string;
 };
 
 const iniciais = (nome: string) =>
   nome.trim().split(/\s+/).filter((p) => p.length > 2 || /^[A-ZÀ-Ú]/.test(p)).slice(0, 2).map((p) => p[0]!.toUpperCase()).join("") || nome.slice(0, 1).toUpperCase();
 
-export function CabecalhoDaVitrine({ nome, descricao, capa, logo, etiquetas = [], bairro, endereco, horario, instagram, acoes, className }: CabecalhoDaVitrineProps) {
+export function CabecalhoDaVitrine({ nome, descricao, capa, logo, etiquetas = [], bairro, endereco, horario, instagram, acoes, nivel = 1, className }: CabecalhoDaVitrineProps) {
+  const Titulo = `h${nivel}` as "h1" | "h2" | "h3";
   const onde = endereco ? [endereco, bairro].filter(Boolean).join(" · ") : bairro;
   return (
     <header data-slot="cabecalho-da-vitrine" className={cn("overflow-hidden rounded-lg border border-border bg-card", className)}>
@@ -54,7 +57,7 @@ export function CabecalhoDaVitrine({ nome, descricao, capa, logo, etiquetas = []
           </span>
           {acoes && <div className="flex flex-wrap items-center gap-2 pb-1">{acoes}</div>}
         </div>
-        <h1 className="mt-3 text-[1.5rem] font-extrabold leading-tight tracking-[-0.02em] text-foreground sm:text-[1.875rem]" style={{ fontFamily: "var(--font-display, var(--font-sans))" }}>{nome}</h1>
+        <Titulo className="mt-3 text-[1.5rem] font-extrabold leading-tight tracking-[-0.02em] text-foreground sm:text-[1.875rem]" style={{ fontFamily: "var(--font-display, var(--font-sans))" }}>{nome}</Titulo>
         {descricao && <p className="mt-1.5 max-w-2xl text-[0.9375rem] leading-relaxed text-muted-foreground">{descricao}</p>}
         {etiquetas.length > 0 && (
           <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Sobre a loja">
