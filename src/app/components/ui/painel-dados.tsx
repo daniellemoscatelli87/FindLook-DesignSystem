@@ -405,26 +405,45 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
 
 /* ── Card com cabeçalho de ícone (Opção A, 23/11/2026) ──────── */
 /**
- * Card branco das páginas do painel: ícone na base rosa clara (--primary-muted) com ícone vermelho (--primary-text),
- * título e uma linha opcional de descrição; depois, o conteúdo. Fica embaixo do cabeçalho da página (título, descrição
- * e abas, fora de qualquer card). Agrupe o conteúdo de cada aba por assunto, um card por assunto.
+ * Card branco das páginas do painel: ícone de 40 px na base rosa clara (--primary-muted) com ícone vermelho
+ * (--primary-text), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
+ * Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
  * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
+ *
+ * cabecalho (pedido da dona do produto, 23/11/2026: "pode ter sim uma divisória, mas não necessariamente uma linha;
+ * pode ser algo com cor"): o cabeçalho fica numa faixa de cor de ponta a ponta, sem linha embaixo, e o conteúdo, no
+ * branco. "faixa-neutra" (padrão): cinza claro (--muted). "faixa-marca": rosa claro (--primary-muted); a base do ícone
+ * vira branca para continuar visível. "simples": sem faixa, só o espaçamento separa.
  */
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+type EstiloDoCabecalhoDoCard = "faixa-neutra" | "faixa-marca" | "simples";
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "faixa-neutra", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
+  const faixa = cabecalho !== "simples";
+  const temConteudo = children !== undefined && children !== null && children !== false;
+  const raio = temConteudo ? "rounded-t-[calc(var(--radius-lg)-1px)]" : "rounded-[calc(var(--radius-lg)-1px)]";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" className={cn("@container min-w-0 rounded-lg border border-border bg-card p-4 @xl:p-5", className)}>
-      {/* Sem linha entre o cabeçalho e o conteúdo (pedido da dona do produto, 23/11/2026): só o espaçamento separa. */}
-      <div className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", children !== undefined && "mb-5")}>
-        <IconeComBase tom={tom} className="h-10 w-10 rounded-lg [&>svg]:h-5 [&>svg]:w-5">{icone}</IconeComBase>
+    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg border border-border bg-card", !faixa && "p-4 @xl:p-5", className)}>
+      <div
+        data-slot="cabecalho-do-card"
+        className={cn(
+          "flex flex-wrap items-start gap-x-3 gap-y-3",
+          faixa ? cn("px-4 py-3.5 @xl:px-5", raio, cabecalho === "faixa-marca" ? "bg-[var(--primary-muted)]" : "bg-muted") : temConteudo && "mb-5",
+        )}
+      >
+        <IconeComBase
+          tom={tom}
+          className={cn("h-10 w-10 rounded-lg [&>svg]:h-5 [&>svg]:w-5", cabecalho === "faixa-marca" && "bg-card", cabecalho === "faixa-neutra" && tom === "neutro" && "bg-card")}
+        >
+          {icone}
+        </IconeComBase>
         <div className="min-w-[12rem] flex-1 self-center">
           <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
           {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
         </div>
         {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
       </div>
-      {children}
+      {temConteudo && (faixa ? <div className="p-4 @xl:p-5">{children}</div> : children)}
     </section>
   );
 }
@@ -712,5 +731,5 @@ export {
   CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
-export type { TomDoIcone };
+export type { TomDoIcone, EstiloDoCabecalhoDoCard };
 export type { Serie, Dica };

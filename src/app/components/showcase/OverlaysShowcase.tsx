@@ -14,7 +14,8 @@ import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { House, ShoppingBag, Package, ChartColumn, Store, Users, Plus as PlusIcon, FileSpreadsheet, Camera, UserRound, ArrowLeftRight, LogOut, CalendarCheck, Star, Send, Mail, Smartphone } from "lucide-react";
-import { CardComCabecalho } from "../ui/painel-dados";
+import { CardComCabecalho, type EstiloDoCabecalhoDoCard } from "../ui/painel-dados";
+import { SegmentedControl } from "../ui/segmented-control";
 import { AbasComContador } from "../ui/painel-produtos";
 import { Switch } from "../ui/switch";
 import {
@@ -264,6 +265,7 @@ const regrasMenuRecolhivel: { titulo: string; texto: string }[] = [
    conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. */
 function ExemploOpcaoA() {
   const [aba, setAba] = useState("notificacoes");
+  const [cab, setCab] = useState<EstiloDoCabecalhoDoCard>("faixa-neutra");
   const [avisos, setAvisos] = useState({ reservas: true, buscas: false, email: true, whatsapp: false });
   const linha = (id: keyof typeof avisos, titulo: string, texto: string) => (
     <div key={id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
@@ -275,6 +277,11 @@ function ExemploOpcaoA() {
     </div>
   );
   return (
+    <div className="space-y-3">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <span id="rotulo-cab-exemplo" className="text-[0.8125rem] font-medium text-foreground">Cabeçalho dos cards</span>
+      <SegmentedControl size="sm" aria-labelledby="rotulo-cab-exemplo" value={cab} onValueChange={setCab} options={[{ value: "faixa-neutra", label: "Faixa neutra" }, { value: "faixa-marca", label: "Faixa da marca" }]} />
+    </div>
     <div className="@container space-y-5 rounded-lg border border-border bg-muted p-4 sm:p-6">
       <CabecalhoDaPagina
         nivel={3}
@@ -285,13 +292,13 @@ function ExemploOpcaoA() {
       <div id="exemplo-opcao-a-painel" role="tabpanel" aria-labelledby={`exemplo-opcao-a-aba-${aba}`} className="space-y-4">
         {aba === "notificacoes" ? (
           <>
-            <CardComCabecalho nivel={4} icone={<Bell />} titulo="O que avisar" descricao="Escolha quais movimentos da sua vitrine geram aviso.">
+            <CardComCabecalho cabecalho={cab} nivel={4} icone={<Bell />} titulo="O que avisar" descricao="Escolha quais movimentos da sua vitrine geram aviso.">
               <div className="divide-y divide-border">
                 {linha("reservas", "Pedido de reserva", "Quando alguém pede para a loja separar uma peça.")}
                 {linha("buscas", "Busca compatível", "Quando alguém da região procura uma peça parecida.")}
               </div>
             </CardComCabecalho>
-            <CardComCabecalho nivel={4} icone={<Send />} titulo="Onde avisar" descricao="Os avisos ficam sempre no painel; e-mail e WhatsApp são opcionais.">
+            <CardComCabecalho cabecalho={cab} nivel={4} icone={<Send />} titulo="Onde avisar" descricao="Os avisos ficam sempre no painel; e-mail e WhatsApp são opcionais.">
               <div className="divide-y divide-border">
                 {linha("email", "Por e-mail", "ana@atelieaurora.com.br")}
                 {linha("whatsapp", "Pelo WhatsApp", "(11) 98765-4321")}
@@ -299,9 +306,10 @@ function ExemploOpcaoA() {
             </CardComCabecalho>
           </>
         ) : (
-          <CardComCabecalho nivel={4} icone={aba === "perfil" ? <Store /> : <UserRound />} titulo={aba === "perfil" ? "Identidade da loja" : "Sua conta"} descricao="Exemplo: troque de aba para ver o conteúdo mudar embaixo do cabeçalho." />
+          <CardComCabecalho cabecalho={cab} nivel={4} icone={aba === "perfil" ? <Store /> : <UserRound />} titulo={aba === "perfil" ? "Identidade da loja" : "Sua conta"} descricao="Exemplo: troque de aba para ver o conteúdo mudar embaixo do cabeçalho." />
         )}
       </div>
+    </div>
     </div>
   );
 }
@@ -310,7 +318,9 @@ const regrasOpcaoA: { titulo: string; texto: string }[] = [
   { titulo: "Cabeçalho da página fora do card", texto: "Título, descrição e abas ficam no fundo da página, sem card em volta e sem linha embaixo. Ações da página (um botão) ficam à direita do título." },
   { titulo: "Abas da página", texto: "Logo abaixo do título (AbasComContador estilo=\"pagina\" com idBase). Sem linha de base de ponta a ponta: só a aba ativa tem o sublinhado. No celular, quebram de linha; nunca rolam para o lado." },
   { titulo: "Conteúdo em cards com cabeçalho de ícone", texto: "CardComCabecalho: ícone de 40 px na base rosa clara (--primary-muted) com ícone vermelho (--primary-text), título no estilo de título de card e uma linha de descrição; ação opcional à direita, alinhada ao topo. Um card por assunto (ex.: “O que avisar” e “Onde avisar”)." },
-  { titulo: "Sem linhas desnecessárias", texto: "Nada de linha entre o cabeçalho do card e o conteúdo, nem entre grupos dentro do card: o espaçamento separa. A linha fica só onde tem sentido, entre as linhas de uma lista ou tabela." },
+  { titulo: "Cabeçalho do card numa faixa de cor", texto: "O cabeçalho do card fica numa faixa de ponta a ponta, para não se confundir com o conteúdo, que fica no branco. cabecalho=\"faixa-neutra\" (padrão, cinza claro) ou \"faixa-marca\" (rosa claro; a base do ícone vira branca). Sem linha entre a faixa e o conteúdo." },
+  { titulo: "Sem linhas desnecessárias", texto: "Nada de linha embaixo do título da página, nas abas ou entre grupos dentro do card: o espaçamento separa. A linha fica só onde tem sentido, entre as linhas de uma lista ou tabela." },
+  { titulo: "Título com espaço", texto: "O título e a descrição usam a largura disponível (descrição até cerca de 65 caracteres por linha). As ações ficam no alto, à direita, quando cabem; quando não cabem, descem juntas para baixo do texto, sem apertar o título." },
   { titulo: "O modelo antigo sai", texto: "Título e abas dentro do cabeçalho de um card grande não são mais usados." },
 ];
 

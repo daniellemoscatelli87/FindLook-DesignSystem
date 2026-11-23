@@ -37,7 +37,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
     onChange(abas[n]!.valor);
   };
   return (
-    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full flex-wrap", estilo === "pilula" ? "min-h-9 w-fit items-center gap-y-[3px] rounded-xl bg-muted p-[3px] text-muted-foreground" : estilo === "pagina" ? "gap-x-1 gap-y-1" : "gap-1 border-b border-border", className)}>
+    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full flex-wrap", estilo === "pilula" ? "min-h-9 w-fit items-center gap-y-[3px] rounded-xl bg-muted p-[3px] text-muted-foreground" : estilo === "pagina" ? "-ml-3 gap-x-1 gap-y-1" : "gap-1 border-b border-border", className)}>
       {abas.map((a, i) => {
         const ativa = a.valor === valor;
         return (
@@ -58,7 +58,9 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
               estilo === "pilula"
                 ? cn("h-[29px] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
                 : estilo === "pagina"
-                  ? cn("rounded-t-sm border-b-2 px-3 py-2 text-[0.9375rem] first:pl-0.5", ativa ? "border-primary font-semibold text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:text-foreground")
+                  // Aba ativa: só o sublinhado e a cor do texto, sem caixa. Foco só pelo teclado (:focus-visible), com o anel
+                  // sutil do DS colado ao rótulo (sem afastamento), nunca depois de um clique (pedido de 23/11/2026).
+                  ? cn("border-b-2 px-3 py-2 text-[0.9375rem] focus-visible:rounded-sm focus-visible:ring-offset-0", ativa ? "border-primary font-semibold text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:text-foreground")
                   : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
             )}
           >

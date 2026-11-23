@@ -44,13 +44,15 @@ type CabecalhoDaPaginaProps = {
 function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, abas, nivel = 1, className }: CabecalhoDaPaginaProps) {
   const Titulo = `h${nivel}` as "h1" | "h2" | "h3";
   const topo = (
-    <header data-slot="cabecalho-da-pagina" className={cn("flex flex-col gap-4 @4xl:flex-row @4xl:items-end @4xl:justify-between @4xl:gap-8", !abas && className)}>
-      <div className="min-w-0 max-w-2xl">
+    // Texto primeiro, com largura garantida (base de 36rem): as ações ficam no alto, à direita, quando cabem na mesma
+    // linha; quando não cabem, descem juntas para baixo do texto, sem apertar o título (pedido da dona do produto, 23/11/2026).
+    <header data-slot="cabecalho-da-pagina" className={cn("flex flex-wrap items-start justify-between gap-x-8 gap-y-4", !abas && className)}>
+      <div className="min-w-0 flex-[1_1_36rem]">
         {saudacao && <p className="mb-1 text-[0.9375rem] font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
         <Titulo className={`${display} text-[1.625rem] @xl:text-[2rem] font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
-        {descricao && <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">{descricao}</p>}
+        {descricao && <p className="mt-2 max-w-[65ch] text-[0.9375rem] leading-relaxed text-muted-foreground">{descricao}</p>}
       </div>
-      {acoes && <div className="flex shrink-0 flex-wrap items-center gap-2 @4xl:flex-nowrap">{acoes}</div>}
+      {acoes && <div data-slot="acoes-da-pagina" className="flex max-w-full flex-wrap items-center gap-2">{acoes}</div>}
     </header>
   );
   if (!abas) return topo;
