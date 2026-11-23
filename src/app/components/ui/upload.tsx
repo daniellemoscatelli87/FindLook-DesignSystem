@@ -161,8 +161,8 @@ export function UploadDropzone({
             <Camera className="h-4 w-4" aria-hidden /> {actionLabel ?? "Tirar foto"}
           </button>
         )}
-        <input ref={inputRef} type="file" className="sr-only" tabIndex={-1} multiple={multiple} accept={accept?.join(",")} disabled={disabled} onChange={e => { handle(e.target.files); e.target.value = ""; }} />
-        {capture && <input ref={captureRef} type="file" className="sr-only" tabIndex={-1} accept="image/*" capture={capture} disabled={disabled} onChange={e => { handle(e.target.files); e.target.value = ""; }} />}
+        <input ref={inputRef} type="file" hidden aria-hidden tabIndex={-1} multiple={multiple} accept={accept?.join(",")} disabled={disabled} onChange={e => { handle(e.target.files); e.target.value = ""; }} />
+        {capture && <input ref={captureRef} type="file" hidden aria-hidden tabIndex={-1} accept="image/*" capture={capture} disabled={disabled} onChange={e => { handle(e.target.files); e.target.value = ""; }} />}
       </div>
       {error && (
         <p role="alert" className="mt-2 flex items-start gap-1.5 text-[0.8125rem] text-error">
@@ -276,8 +276,9 @@ export function ImageUpload({
             {maxSize && <span className="text-[0.6875rem]">até {formatBytes(maxSize)}</span>}
           </span>
         )}
-        <input ref={inputRef} type="file" className="sr-only" tabIndex={-1} accept={accept.join(",")} capture={capture} onChange={e => { pick(e.target.files); e.target.value = ""; }} />
       </div>
+      {/* Fora do botão (sem controle dentro de controle) e escondido: o botão acima é quem recebe o foco e abre a escolha. */}
+      <input ref={inputRef} type="file" hidden aria-hidden tabIndex={-1} accept={accept.join(",")} capture={capture} onChange={e => { pick(e.target.files); e.target.value = ""; }} />
       {value && (
         <button type="button" onClick={() => onChange(null, null)} className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-muted-foreground transition-colors hover:text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
           <Trash2 className="h-3.5 w-3.5" aria-hidden /> Remover
@@ -347,7 +348,7 @@ export function ImageGrid({
               <span className="px-2 text-center text-[0.6875rem] font-semibold leading-tight text-foreground">{addLabel}</span>
               <span className="text-[0.625rem]">{images.length}/{max}</span>
             </button>
-            <input ref={inputRef} type="file" multiple className="sr-only" tabIndex={-1} accept={accept.join(",")} onChange={e => { pick(e.target.files); e.target.value = ""; }} />
+            <input ref={inputRef} type="file" multiple hidden aria-hidden tabIndex={-1} accept={accept.join(",")} onChange={e => { pick(e.target.files); e.target.value = ""; }} />
           </li>
         )}
       </ul>
