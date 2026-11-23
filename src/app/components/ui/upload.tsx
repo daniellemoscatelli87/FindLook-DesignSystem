@@ -34,7 +34,7 @@ export function formatBytes(bytes: number) {
   const units = ["B", "KB", "MB", "GB"];
   const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
   const v = bytes / Math.pow(1024, i);
-  return `${v < 10 && i > 0 ? v.toFixed(1) : Math.round(v)} ${units[i]}`;
+  return `${v < 10 && i > 0 ? v.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) : Math.round(v)} ${units[i]}`;
 }
 
 const primaryText = "text-[var(--primary-text,var(--primary))]";
