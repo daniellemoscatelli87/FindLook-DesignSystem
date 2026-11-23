@@ -108,16 +108,17 @@ export function BarraDeSelecao({ quantidade, rotulo = (n) => (n === 1 ? "1 peça
           className={cn("fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3", className)}
         >
           <div className="mx-auto flex max-w-2xl items-center gap-2 rounded-full border border-border bg-card p-2 pl-4 shadow-[var(--shadow-lg)]">
-            <p className="min-w-0 flex-1 truncate text-[0.875rem] font-semibold text-foreground" aria-live="polite">{rotulo(quantidade)}</p>
-            <button type="button" onClick={onLimpar} className={cn("inline-flex h-10 items-center gap-1 rounded-full px-3 text-[0.8125rem] font-semibold text-muted-foreground hover:bg-muted hover:text-foreground", foco)}>
-              <X aria-hidden className="h-4 w-4" /> Limpar
+            <p className="min-w-0 flex-1 text-[0.8125rem] font-semibold leading-tight text-foreground sm:text-[0.875rem]" aria-live="polite">{rotulo(quantidade)}</p>
+            {/* No celular, "Limpar" fica só com o ícone (o nome continua para leitores de tela), para a contagem caber inteira. */}
+            <button type="button" onClick={onLimpar} className={cn("inline-flex h-10 min-w-10 shrink-0 items-center justify-center gap-1 rounded-full px-2.5 text-[0.8125rem] font-semibold text-muted-foreground hover:bg-muted hover:text-foreground sm:px-3", foco)}>
+              <X aria-hidden className="h-4 w-4" /> <span className="sr-only sm:not-sr-only">Limpar</span>
             </button>
             <button
               type="button"
               onClick={acao.onClick}
               disabled={acao.carregando}
               aria-busy={acao.carregando || undefined}
-              className={cn("inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-[0.9375rem] font-semibold text-primary-foreground transition-colors hover:bg-[var(--primary-hover)] disabled:opacity-70", foco)}
+              className={cn("inline-flex h-11 shrink-0 items-center gap-2 rounded-full bg-primary px-4 text-[0.9375rem] font-semibold text-primary-foreground transition-colors hover:bg-[var(--primary-hover)] disabled:opacity-70 sm:px-5", foco)}
             >
               {acao.icone ?? <MessageCircle aria-hidden className="h-4 w-4" />} {acao.rotulo}
             </button>
