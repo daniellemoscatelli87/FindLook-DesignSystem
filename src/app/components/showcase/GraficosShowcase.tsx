@@ -4,7 +4,7 @@ import { SectionHeader } from "./shared/SectionHeader";
 import { VejaEm } from "./shared/VejaEm";
 import { Callout, DoDont } from "./shared/Guidance";
 import {
-  DescobertaVisual, GraficoDeRosca, BarrasOrdenadas, MapaDeCalorPorRegiao, GraficoDeHalteres, GraficoDeLinhas,
+  DescobertaVisual, CardDeInsight, BlocoDoInsight, GraficoDeRosca, BarrasOrdenadas, MapaDeCalorPorRegiao, GraficoDeHalteres, GraficoDeLinhas,
   GraficoDeInclinacao, Mosaico, BarrasEmpilhadas100, GraficoDeBolhas, MapaDeCalorMatricial, GraficoDeRanking, Funil,
   formatarNumero, TabelaDeDados, TONS_DA_ESCALA, type RegiaoDoMapa, type DadosDaTabela,
 } from "../ui/graficos-inteligencia";
@@ -913,6 +913,67 @@ export function GraficosShowcase() {
             <p>Para mostrar a participação de poucas partes (até 5) num todo, quando uma delas é a descoberta. Para comparar muitas partes ou várias regiões, prefira barras 100% ou o mosaico. Proporção não é quantidade: diga fatia, parte ou participação.</p>
           </Callout>
         </div>
+      </section>
+
+      {/* ── CARD DE INSIGHT (duas camadas, 23/11/2026) ── */}
+      <section id="graficos-insight" className="scroll-mt-32">
+        <SectionHeader
+          title="Card de insight"
+          description="Inteligência em duas camadas. Na primeira, o card de insight é entendido em uns 5 segundos: título conclusivo, um indicador principal, uma visualização simples, a interpretação curta e o próximo passo. Na segunda, o insight aberto separa fato observado, hipótese e recomendação. Textos e números são dados de exemplo."
+        />
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+          <CardDeInsight
+            tema="Oportunidade identificada"
+            destaque={{ texto: "Demanda em destaque", tom: "alta" }}
+            titulo="Vestidos pretos estão entre as peças mais procuradas no Batel"
+            contexto="As buscas crescem, mas há poucas opções cadastradas pelas lojas do bairro."
+            base={SELO}
+            periodo="Últimos 30 dias"
+            indicadores={[{ valor: "+38%", rotulo: "Crescimento das buscas" }, { valor: "8", rotulo: "Peças disponíveis" }]}
+            barras={[{ rotulo: "Buscas no bairro", valor: 86, texto: "86", destaque: true }, { rotulo: "Peças publicadas", valor: 8, texto: "8" }]}
+            interpretacao="Pode haver espaço para lojas que trabalham com esse tipo de peça aparecerem mais nas buscas do bairro."
+            proximoPasso="Ver quais modelos são mais procurados e como está a oferta na região."
+            href="#graficos-insight-aberto"
+          />
+          <CardDeInsight
+            tema="Concentração regional"
+            destaque={{ texto: "Acima da média", tom: "neutro" }}
+            titulo="Brechós aparecem mais na regional Matriz"
+            base={SELO}
+            periodo="Base de novembro"
+            indicadores={[{ valor: "2,1x", rotulo: "a média da cidade" }]}
+            barras={[{ rotulo: "Na regional Matriz", valor: 18, texto: "18%", destaque: true }, { rotulo: "No restante da cidade", valor: 9, texto: "9%" }]}
+            interpretacao="A região reúne uma parte maior de brechós do que o resto da cidade."
+            proximoPasso="Ver as lojas da região com essa característica."
+            href="#graficos-insight-aberto"
+          />
+        </div>
+        <div id="graficos-insight-aberto" className="mt-6 scroll-mt-32">
+          <h3 className="mb-1 text-[1rem] font-bold text-foreground">Insight aberto (camada 2)</h3>
+          <p className="mb-4 text-[0.875rem] text-muted-foreground">Quem abre o insight vê, separado, o que é fato, o que é hipótese e o que é recomendação, além das evidências e da metodologia.</p>
+          <div className="grid grid-cols-1 gap-6 rounded-lg border border-border bg-card p-5 sm:p-6 lg:grid-cols-2">
+            <div className="min-w-0 space-y-5">
+              <div>
+                <p className="mb-3 text-[0.75rem] font-bold uppercase tracking-[0.06em] text-muted-foreground">Evidências</p>
+                <BarrasOrdenadas rotulo="Buscas por peça no Batel (dados de exemplo)" itens={BUSCAS.slice(0, 4)} destaques={1} />
+              </div>
+              <BlocoDoInsight contorno={false} natureza="fato" titulo="O que os números mostram">86 buscas por vestido preto no Batel nos últimos 30 dias, 38% a mais que nos 30 dias anteriores; 8 peças publicadas no bairro.</BlocoDoInsight>
+            </div>
+            <div className="min-w-0 space-y-5 lg:border-l lg:border-border lg:pl-6">
+              <BlocoDoInsight contorno={false} natureza="hipotese" titulo="O que pode significar" rotulo="Hipótese da IA" aviso="Leitura feita pela IA a partir dos números. Confira antes de decidir.">Pode haver mais procura do que opções no bairro. Poucas peças publicadas não provam que as lojas não têm a peça em estoque.</BlocoDoInsight>
+              <BlocoDoInsight contorno={false} className="border-t border-border pt-5" natureza="recomendacao" titulo="O que fazer">Perguntar às lojas do bairro se têm vestidos pretos em estoque que ainda não foram publicados.</BlocoDoInsight>
+            </div>
+          </div>
+        </div>
+        <ul className="mt-5 space-y-1.5 text-[0.8125rem] text-muted-foreground">
+          {[
+            "Um card, uma descoberta: o título diz a conclusão em linguagem natural; o gráfico sustenta a mensagem.",
+            "Um indicador principal (um segundo, no máximo) e até 3 barras na mesma escala; valores escritos ao lado das barras, nunca sobre a cor.",
+            "Destaque à direita sempre com ícone e texto, nunca só com cor.",
+            "O card inteiro abre o insight (camada 2); o rodapé diz o próximo passo.",
+            "Fato, hipótese e recomendação nunca se misturam: a hipótese é marcada como tal e nunca aparece como certeza.",
+          ].map(p => <li key={p} className="flex gap-2"><Check aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success" />{p}</li>)}
+        </ul>
       </section>
 
       {/* ── 10 RECOMENDADOS ── */}
