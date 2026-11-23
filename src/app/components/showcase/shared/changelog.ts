@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Menu que empurra, divisor suave, hover de linha e desabilitado"),
+    desc: pt("Pedidos da dona do produto (23/11/2026). O menu lateral empurra o conteúdo, nunca o cobre: no site do DS, o botão ≡ Menu recolhe e expande (a escolha fica guardada) e o conteúdo acompanha a largura do menu, com os tokens de movimento; só no celular o menu é gaveta por cima. O painel (MenuLateral) já empurrava. CardComCabecalho: sem faixa cinza; o cabeçalho é separado do conteúdo por um divisor suave, que desaparece nas laterais (DivisorSuave, novo; cabecalho=\"divisor\" é o padrão, \"simples\" fica como opção; as faixas saíram). Hover de linha ou item dentro de card no cinza mais claro, pelo token --row-hover (--graphite-50; classe hover:bg-row-hover): tabela, tabela de produtos, checklist e as listas dos templates. Botão desabilitado com fundo --graphite-100 (#E9E9EC) e texto a 3,6:1. Página Cards: card direto sobre o fundo da página é sempre Só borda, no branco ou no cinza."),
+    page: "cards", anchor: "card-layout",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Painel com a moldura do site do design system"),
     desc: pt("Pedido da dona do produto (23/11/2026): o painel funciona e se parece com o próprio site do DS. BarraSuperiorDoPainel: faixa branca de ponta a ponta no alto, com linha embaixo; logo à esquerda, busca e sino à direita e o perfil na ponta direita. Embaixo dela, o menu lateral branco com linha à direita; no topo do menu, o botão ≡ Menu (TopoDoMenu + BotaoRecolherMenu) recolhe e expande (240 px / 64 px, como o site do DS). ItemDoMenu no estilo do site do DS (ícone de 16 px, nome; o ativo com fundo rosa claro e texto vermelho, sem a barra à esquerda) e GrupoDoMenu expansivel (ícone, nome, seta e os itens numa linha-guia). Conteúdo sobre --graphite-50. Faixa neutra do CardComCabecalho em --graphite-100, com a descrição em --graphite-600 (contraste 6,5:1). Os cards voltam ao padrão Só borda (borda de 1 px, sem sombra em repouso); a sombra fica no que abre por cima da tela."),
     page: "overlays", anchor: "menu-painel",

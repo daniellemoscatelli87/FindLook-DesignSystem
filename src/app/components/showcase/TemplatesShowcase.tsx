@@ -30,8 +30,7 @@ import { IconeModa, type NomeIconeModa } from "../ui/fashion-icons";
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
 import { SectionHeader } from "./shared/SectionHeader";
 import { CabecalhoDaPagina } from "../ui/painel-cabecalho";
-import { CardComCabecalho, type EstiloDoCabecalhoDoCard } from "../ui/painel-dados";
-import { SegmentedControl } from "../ui/segmented-control";
+import { CardComCabecalho } from "../ui/painel-dados";
 import { AbasComContador } from "../ui/painel-produtos";
 
 type L = { en: string; pt: string };
@@ -97,14 +96,6 @@ function MarcaFindLook({ legenda, tamanho = "sm" }: { legenda?: string; tamanho?
       </div>
     </div>
   );
-}
-
-/* Cabeçalho dos cards das páginas (pedido da dona do produto, 23/11/2026): faixa neutra ou faixa da marca.
-   Só a demonstração escolhe a variante; no produto, use o padrão do CardComCabecalho ou a prop cabecalho. */
-const EstiloDosCards = React.createContext<EstiloDoCabecalhoDoCard>("faixa-neutra");
-function CardDaPagina(props: React.ComponentProps<typeof CardComCabecalho>) {
-  const cabecalho = React.useContext(EstiloDosCards);
-  return <CardComCabecalho cabecalho={cabecalho} {...props} />;
 }
 
 /* ─────────────────────────────────────────────
@@ -188,7 +179,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
         <div id={`${pre}-painel`} role="tabpanel" aria-labelledby={`${pre}-aba-${activeTab}`} className="space-y-4">
           {activeTab === "perfil" && (
             <form onSubmit={e => { e.preventDefault(); setSalvo(true); }} className="space-y-4">
-              <CardDaPagina nivel={3} icone={<Store />} titulo="Identidade da loja" descricao="Nome, logo e a frase que apresenta a loja na vitrine.">
+              <CardComCabecalho nivel={3} icone={<Store />} titulo="Identidade da loja" descricao="Nome, logo e a frase que apresenta a loja na vitrine.">
                 <div className="space-y-4 max-w-lg">
                   <div className="flex items-center gap-4">
                     <div className="h-14 w-14 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0">
@@ -217,9 +208,9 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                     <p id={`${pre}-desc-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Conte em poucas palavras o que a sua loja vende e para quem.</p>
                   </div>
                 </div>
-              </CardDaPagina>
+              </CardComCabecalho>
 
-              <CardDaPagina nivel={3} icone={<MapPin />} titulo="Endereço e contato" descricao="Onde a loja fica, quando abre e como falar com ela.">
+              <CardComCabecalho nivel={3} icone={<MapPin />} titulo="Endereço e contato" descricao="Onde a loja fica, quando abre e como falar com ela.">
                 <div className="grid grid-cols-1 @lg:grid-cols-2 gap-3 max-w-2xl">
                   <div>
                     {rotulo("endereco", "Endereço")}
@@ -238,7 +229,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                     <input id={`${pre}-whats`} type="tel" autoComplete="tel" defaultValue="(11) 98765-4321" onChange={() => setSalvo(false)} className={campo} />
                   </div>
                 </div>
-              </CardDaPagina>
+              </CardComCabecalho>
 
               <div className="flex flex-wrap items-center justify-end gap-3">
                 <p role="status" className="text-[0.75rem] text-muted-foreground flex items-center gap-1.5">
@@ -253,26 +244,26 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
 
           {activeTab === "notificacoes" && (
             <>
-              <CardDaPagina nivel={3} icone={<Bell />} titulo="O que avisar" descricao="Escolha quais movimentos da sua vitrine geram aviso.">
+              <CardComCabecalho nivel={3} icone={<Bell />} titulo="O que avisar" descricao="Escolha quais movimentos da sua vitrine geram aviso.">
                 {/* Linha entre as opções: separa itens de uma lista (a única linha mantida dentro dos cards). */}
                 <div className="divide-y divide-border max-w-2xl">
                   {avisosLoja.map(a =>
                     linhaSwitch(a.chave, a.titulo, a.desc, avisos[a.chave], v => setAvisos(prev => ({ ...prev, [a.chave]: v })), a.icon)
                   )}
                 </div>
-              </CardDaPagina>
-              <CardDaPagina nivel={3} icone={<Send />} titulo="Onde avisar" descricao="Os avisos ficam sempre no painel; e-mail e WhatsApp são opcionais.">
+              </CardComCabecalho>
+              <CardComCabecalho nivel={3} icone={<Send />} titulo="Onde avisar" descricao="Os avisos ficam sempre no painel; e-mail e WhatsApp são opcionais.">
                 <div className="divide-y divide-border max-w-2xl">
                   {linhaSwitch("no-painel", "No painel da loja", "Sempre ativo. Os avisos ficam em Notificações.", true, () => {}, Bell, true)}
                   {linhaSwitch("email", "Por e-mail", "ana@atelieaurora.com.br", canais.email, v => setCanais(p => ({ ...p, email: v })), Mail)}
                   {linhaSwitch("whatsapp", "Pelo WhatsApp", "(11) 98765-4321", canais.whatsapp, v => setCanais(p => ({ ...p, whatsapp: v })), Smartphone)}
                 </div>
-              </CardDaPagina>
+              </CardComCabecalho>
             </>
           )}
 
           {activeTab === "aparencia" && (
-            <CardDaPagina nivel={3} icone={<Sun />} titulo="Tema do painel" descricao="Escolha como o painel aparece para você.">
+            <CardComCabecalho nivel={3} icone={<Sun />} titulo="Tema do painel" descricao="Escolha como o painel aparece para você.">
               <div className="grid grid-cols-2 gap-3 max-w-md">
                 {[
                   { id: "light", label: "Modo claro",  icon: Sun,  active: !darkToggle },
@@ -298,12 +289,12 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                   );
                 })}
               </div>
-            </CardDaPagina>
+            </CardComCabecalho>
           )}
 
           {activeTab === "conta" && (
             <>
-              <CardDaPagina
+              <CardComCabecalho
                 nivel={3}
                 icone={<Zap />}
                 titulo="Plano"
@@ -311,7 +302,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                 acao={<button type="button" className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-[0.8125rem] font-medium text-foreground hover:bg-accent ${foco}`}>Ver planos</button>}
               />
 
-              <CardDaPagina nivel={3} icone={<ShieldCheck />} titulo="Privacidade da vitrine" descricao="O que quem encontra suas peças pode ver da loja.">
+              <CardComCabecalho nivel={3} icone={<ShieldCheck />} titulo="Privacidade da vitrine" descricao="O que quem encontra suas peças pode ver da loja.">
                 <div className="max-w-2xl">
                   <div className="divide-y divide-border">
                   {linhaSwitch("mostrar-whats", "Mostrar o WhatsApp na vitrine", "Quem encontra suas peças pode chamar a loja direto.", privacidade.whatsapp, v => setPrivacidade(p => ({ ...p, whatsapp: v })), MessageCircle)}
@@ -324,9 +315,9 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                     </p>
                   </div>
                 </div>
-              </CardDaPagina>
+              </CardComCabecalho>
 
-              <CardDaPagina
+              <CardComCabecalho
                 nivel={3}
                 icone={<Store />}
                 tom={vitrinePausada ? "neutro" : "marca"}
@@ -345,7 +336,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                 <button type="button" className={`inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}>
                   <LogOut aria-hidden className="h-3.5 w-3.5" /> Sair da conta
                 </button>
-              </CardDaPagina>
+              </CardComCabecalho>
             </>
           )}
         </div>
@@ -604,7 +595,7 @@ function TeamTemplate() {
         />
 
         {convidando && (
-          <CardDaPagina nivel={3} icone={<UserPlus />} titulo="Convidar pessoa" descricao="A pessoa recebe um e-mail para criar a senha e entrar no painel.">
+          <CardComCabecalho nivel={3} icone={<UserPlus />} titulo="Convidar pessoa" descricao="A pessoa recebe um e-mail para criar a senha e entrar no painel.">
           <form id={`${pre}-convite`} onSubmit={enviarConvite} className="space-y-4">
             <div className="grid grid-cols-1 @xl:grid-cols-[minmax(0,1fr)_auto] gap-3 items-end">
               <div>
@@ -633,10 +624,10 @@ function TeamTemplate() {
               </div>
             </fieldset>
           </form>
-          </CardDaPagina>
+          </CardComCabecalho>
         )}
 
-        <CardDaPagina nivel={3} icone={<Users />} titulo="Pessoas com acesso" descricao={`Mostrando ${filtered.length} de ${pessoas.length} pessoas. Só a pessoa responsável muda plano e equipe.`}>
+        <CardComCabecalho nivel={3} icone={<Users />} titulo="Pessoas com acesso" descricao={`Mostrando ${filtered.length} de ${pessoas.length} pessoas. Só a pessoa responsável muda plano e equipe.`}>
           <div className="mb-4 flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[180px] max-w-xs">
             <Search aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
@@ -688,7 +679,7 @@ function TeamTemplate() {
               {filtered.map(m => {
                 const dono = m.papel === "responsavel";
                 return (
-                  <tr key={m.email} className="border-t border-border hover:bg-muted/30 transition-colors">
+                  <tr key={m.email} className="border-t border-border hover:bg-row-hover transition-colors">
                     <td className="px-2 py-3 first:pl-0 last:pr-0">
                       <div className="flex items-center gap-3">
                         <div className="h-7 w-7 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0" aria-hidden>
@@ -793,7 +784,7 @@ function TeamTemplate() {
           )}
           <p className="mt-3 text-[0.6875rem] text-muted-foreground @2xl:hidden">Nesta largura, a situação e o último acesso ficam de fora. Abra numa tela maior para ver tudo.</p>
           <p className="mt-3 hidden text-[0.6875rem] text-muted-foreground @2xl:block @3xl:hidden">Nesta largura, o último acesso fica de fora. Abra numa tela maior para ver tudo.</p>
-        </CardDaPagina>
+        </CardComCabecalho>
       </div>
     </TemplateFrame>
   );
@@ -863,7 +854,7 @@ function InboxTemplate() {
           }
         />
         <div id={`${pre}-painel`} role="tabpanel" aria-labelledby={`${pre}-aba-${soNaoLidas ? "nao-lidas" : "todas"}`}>
-        <CardDaPagina nivel={3} icone={<Bell />} titulo="Avisos da vitrine" descricao="Escolha um aviso para ver os detalhes e o que fazer.">
+        <CardComCabecalho nivel={3} icone={<Bell />} titulo="Avisos da vitrine" descricao="Escolha um aviso para ver os detalhes e o que fazer.">
       {/* A linha entre a lista e o detalhe fica: separa as duas colunas; a das linhas separa os avisos da lista. */}
       <div className="flex h-[480px] overflow-hidden rounded-md border border-border">
         {/* Lista */}
@@ -879,7 +870,7 @@ function InboxTemplate() {
                     aria-current={selected === n.id ? "true" : undefined}
                     onClick={() => { setSelected(n.id); marcar(n.id, true); setDetalheMobile(true); }}
                     className={`w-full text-left px-4 py-3 border-b border-border transition-colors flex gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring
-                      ${selected === n.id ? "bg-[var(--primary-muted)] border-l-2 border-l-primary" : "hover:bg-muted/40 border-l-2 border-l-transparent"}`}
+                      ${selected === n.id ? "bg-[var(--primary-muted)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
                   >
                     <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-3.5 w-3.5" />
@@ -968,7 +959,7 @@ function InboxTemplate() {
           )}
         </div>
       </div>
-        </CardDaPagina>
+        </CardComCabecalho>
         </div>
       </div>
     </TemplateFrame>
@@ -1051,20 +1042,9 @@ function ChaveParaQuem({ ligado, onChange }: { ligado: boolean; onChange: (v: bo
 
 function PrototipoComControles() {
   const [mostrarParaQuem, setMostrarParaQuem] = useState(true);
-  const [estiloCards, setEstiloCards] = useState<EstiloDoCabecalhoDoCard>("faixa-neutra");
   return (
-    <EstiloDosCards.Provider value={estiloCards}>
+    <>
       <ChaveParaQuem ligado={mostrarParaQuem} onChange={setMostrarParaQuem} />
-      <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span id="rotulo-estilo-cards" className="text-[0.8125rem] font-medium text-foreground">Cabeçalho dos cards (Configurações, Equipe, Notificações, Suporte)</span>
-        <SegmentedControl
-          size="sm"
-          aria-labelledby="rotulo-estilo-cards"
-          value={estiloCards}
-          onValueChange={setEstiloCards}
-          options={[{ value: "faixa-neutra", label: "Faixa neutra" }, { value: "faixa-marca", label: "Faixa da marca" }]}
-        />
-      </div>
       <PrototipoDoPainel paginas={{
         perfil: <SettingsTemplate />,
         configuracoes: <SettingsTemplate abaInicial="notificacoes" />,
@@ -1073,7 +1053,7 @@ function PrototipoComControles() {
         notificacoes: <InboxTemplate />,
         ajuda: <ContactTemplate />,
       }} />
-    </EstiloDosCards.Provider>
+    </>
   );
 }
 
@@ -1278,7 +1258,7 @@ function ContactTemplate() {
         />
         <div className="@container">
           <div className="grid items-start gap-4 @4xl:grid-cols-[minmax(0,1fr)_20rem]">
-            <CardDaPagina nivel={3} icone={<Send />} titulo="Nova mensagem para o suporte" descricao="Conte o que aconteceu. Quanto mais detalhes, mais rápido conseguimos ajudar.">
+            <CardComCabecalho nivel={3} icone={<Send />} titulo="Nova mensagem para o suporte" descricao="Conte o que aconteceu. Quanto mais detalhes, mais rápido conseguimos ajudar.">
           {sent ? (
             <div role="status" className="flex flex-col items-center justify-center py-10 text-center">
               <div className="h-16 w-16 rounded-full bg-success/10 flex items-center justify-center mb-4">
@@ -1375,9 +1355,9 @@ function ContactTemplate() {
               </button>
             </form>
           )}
-            </CardDaPagina>
+            </CardComCabecalho>
             <div className="space-y-4">
-              <CardDaPagina nivel={3} icone={<LifeBuoy />} titulo="Canais de atendimento" descricao="Escolha o jeito mais fácil para você.">
+              <CardComCabecalho nivel={3} icone={<LifeBuoy />} titulo="Canais de atendimento" descricao="Escolha o jeito mais fácil para você.">
           <ul className="divide-y divide-border">
             {canaisSuporte.map(ch => {
               const Icon = ch.icon;
@@ -1395,8 +1375,8 @@ function ContactTemplate() {
               );
             })}
           </ul>
-              </CardDaPagina>
-              <CardDaPagina nivel={3} icone={<BookOpen />} titulo="Antes de escrever" descricao="Veja se um destes guias resolve.">
+              </CardComCabecalho>
+              <CardComCabecalho nivel={3} icone={<BookOpen />} titulo="Antes de escrever" descricao="Veja se um destes guias resolve.">
             <ul className="space-y-1">
               {guiasRapidos.map(g => (
                 <li key={g}>
@@ -1406,7 +1386,7 @@ function ContactTemplate() {
                 </li>
               ))}
             </ul>
-              </CardDaPagina>
+              </CardComCabecalho>
             </div>
           </div>
         </div>
@@ -2034,7 +2014,7 @@ function LandingTemplate() {
                       aria-expanded={aberto}
                       aria-controls={`${pre}-faq-painel-${i}`}
                       onClick={() => setOpenFaq(aberto ? null : i)}
-                      className="w-full flex items-center justify-between px-4 py-3.5 text-left hover:bg-muted/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+                      className="w-full flex items-center justify-between px-4 py-3.5 text-left hover:bg-row-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                     >
                       <span className="text-[0.875rem] font-semibold text-foreground pr-4">{item.q}</span>
                       <ChevronRight aria-hidden className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${aberto ? "rotate-90" : ""}`} />

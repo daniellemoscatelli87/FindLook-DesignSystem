@@ -295,7 +295,7 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   const ok = estado === "ok";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-muted", foco, className)}>
+      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-row-hover", foco, className)}>
         {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
         <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
@@ -408,47 +408,49 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   );
 }
 
+/* ── Divisor suave (23/11/2026) ──────────────────────────────── */
+/**
+ * Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos
+ * últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).
+ */
+function DivisorSuave({ className }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      data-slot="divisor-suave"
+      className={cn("h-px w-full bg-[linear-gradient(to_right,transparent,var(--border-strong)_18%,var(--border-strong)_82%,transparent)]", className)}
+    />
+  );
+}
+
 /* ── Card com cabeçalho de ícone (Opção A, 23/11/2026) ──────── */
 /**
- * Card branco das páginas do painel (sem borda, com sombra): ícone na base rosa clara (a mesma do CardIndicador) (--primary-muted) com ícone vermelho
- * (--primary-text), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
+ * Card branco das páginas do painel (padrão "Só borda": 1 px, sem sombra): ícone na base rosa clara (a mesma do
+ * CardIndicador), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
  * Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
  * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
  *
- * cabecalho (pedido da dona do produto, 23/11/2026: "pode ter sim uma divisória, mas não necessariamente uma linha;
- * pode ser algo com cor"): o cabeçalho fica numa faixa de cor de ponta a ponta, sem linha embaixo, e o conteúdo, no
- * branco. "faixa-neutra" (padrão): cinza --graphite-100 (#E9E9EC), sobre a página --graphite-50 (#F6F6F7). "faixa-marca": rosa claro (--primary-muted); a base do ícone
- * vira branca para continuar visível. "simples": sem faixa, só o espaçamento separa.
+ * cabecalho: "divisor" (padrão, decisão da dona do produto de 23/11/2026): o cabeçalho é separado do conteúdo por um
+ * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
  */
-type EstiloDoCabecalhoDoCard = "faixa-neutra" | "faixa-marca" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "faixa-neutra", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+type EstiloDoCabecalhoDoCard = "divisor" | "simples";
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
-  const faixa = cabecalho !== "simples";
   const temConteudo = children !== undefined && children !== null && children !== false;
-  const raio = temConteudo ? "rounded-t-[calc(var(--radius-lg)-1px)]" : "rounded-[calc(var(--radius-lg)-1px)]";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg", superficieDoCard, !faixa && "p-4 @xl:p-5", className)}>
-      <div
-        data-slot="cabecalho-do-card"
-        className={cn(
-          "flex flex-wrap items-start gap-x-3 gap-y-3",
-          faixa ? cn("px-4 py-3.5 @xl:px-5", raio, cabecalho === "faixa-marca" ? "bg-[var(--primary-muted)]" : "bg-[var(--graphite-100)] dark:bg-muted") : temConteudo && "mb-5",
-        )}
-      >
-        {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão (36 px, cantos
-            --radius-md). Na faixa da marca, a base fica branca para continuar visível. */}
-        <IconeComBase tom={tom} className={cn(cabecalho === "faixa-marca" && "bg-card", cabecalho === "faixa-neutra" && tom === "neutro" && "bg-card")}>
-          {icone}
-        </IconeComBase>
+    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
+      <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && cabecalho === "simples" && "mb-5")}>
+        {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
+        <IconeComBase tom={tom}>{icone}</IconeComBase>
         <div className="min-w-[12rem] flex-1 self-center">
           <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
-          {/* Na faixa neutra (graphite-100) o cinza padrão (graphite-500) fica abaixo de 4,5:1; usa graphite-600. */}
-          {descricao && <p className={cn("mt-0.5 text-[0.8125rem] leading-snug", cabecalho === "faixa-neutra" ? "text-[var(--graphite-600)] dark:text-muted-foreground" : "text-muted-foreground")}>{descricao}</p>}
+          {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
         </div>
         {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
       </div>
-      {temConteudo && (faixa ? <div className="p-4 @xl:p-5">{children}</div> : children)}
+      {temConteudo && cabecalho === "divisor" && <DivisorSuave className="my-4 @xl:my-5" />}
+      {children}
     </section>
   );
 }
@@ -733,7 +735,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };

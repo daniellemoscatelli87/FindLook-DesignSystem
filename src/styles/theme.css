@@ -72,10 +72,13 @@
   --secondary-hover:      var(--graphite-200);
   --secondary-foreground: var(--graphite-950);
 
-  /* Desabilitado: cinza médio, com forma de botão e texto apagado mas legível (3,2:1); decisão da dona do produto, 20/11/2026 */
-  --disabled:            color-mix(in srgb, var(--graphite-200) 60%, var(--graphite-100));
+  /* Desabilitado: fundo --graphite-100 (#E9E9EC, decisão da dona do produto, 23/11/2026), com forma de botão e texto
+     apagado mas legível (3,6:1); decisão anterior de 20/11/2026 */
+  --disabled:            var(--graphite-100);
   --disabled-foreground: color-mix(in srgb, var(--graphite-500) 55%, var(--graphite-400));
   --muted:            var(--graphite-50);
+  /* Hover de linha ou item dentro de um card (listas, tabelas, avisos): o cinza mais claro (23/11/2026) */
+  --row-hover:        var(--graphite-50);
   --muted-foreground: var(--graphite-500);
   --accent:           var(--graphite-100);
   --accent-foreground: var(--graphite-950);
@@ -187,6 +190,7 @@
   --disabled:            color-mix(in srgb, var(--graphite-700) 60%, var(--graphite-800));
   --disabled-foreground: color-mix(in srgb, var(--graphite-300) 60%, var(--graphite-400));
   --muted:            rgba(44, 44, 51, 0.6);
+  --row-hover:        rgba(255, 255, 255, 0.04);
   --muted-foreground: var(--graphite-300);
   --accent:           rgba(44, 44, 51, 0.6);
   --accent-foreground: #F6F6F7;
@@ -353,6 +357,7 @@
   --color-orange-muted: var(--orange-muted);
   --color-primary-text: var(--primary-text);
   --color-surface-tint: var(--surface-tint);
+  --color-row-hover: var(--row-hover);
   --color-brand-rose: var(--brand-rose);
 
   --color-graphite-50:  var(--graphite-50);

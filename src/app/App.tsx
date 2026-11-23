@@ -665,9 +665,17 @@ function AppShell() {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [hovered, setHovered] = useState(false);
+  // Menu lateral do site (pedido da dona do produto, 23/11/2026): o botão "≡ Menu" recolhe e expande; expandido, o
+  // menu empurra o conteúdo (nunca fica por cima dele). A escolha fica guardada neste navegador.
+  const [menuRecolhido, setMenuRecolhidoState] = useState<boolean>(() => {
+    try { return window.localStorage.getItem("findlook-ds:site:menu-recolhido") === "1"; } catch { return false; }
+  });
+  const setMenuRecolhido = (v: boolean) => {
+    setMenuRecolhidoState(v);
+    try { window.localStorage.setItem("findlook-ds:site:menu-recolhido", v ? "1" : "0"); } catch { /* sem armazenamento: vale só nesta visita */ }
+  };
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const collapsed = !hovered;
+  const collapsed = menuRecolhido;
   // Anchor to scroll to after a section switch
   const [pendingAnchor, setPendingAnchor] = useState<string | null>(null);
 
@@ -930,25 +938,25 @@ function AppShell() {
           )}
 
           <aside
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onFocus={() => setHovered(true)}
-            onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHovered(false); }}
-            className={`fixed top-16 bottom-0 z-40 w-60 ${collapsed ? "lg:w-16" : ""} border-r border-border bg-sidebar ${collapsed ? "" : "lg:shadow-[8px_0_24px_-12px_rgba(0,0,0,0.25)]"} flex flex-col transition-[transform,width] duration-200
+            id="ds-menu-lateral"
+            className={`fixed top-16 bottom-0 z-40 w-60 ${collapsed ? "lg:w-16" : ""} border-r border-border bg-sidebar flex flex-col transition-[transform,width] duration-[var(--duration-normal)] ease-[var(--ease-in-out)] motion-reduce:transition-none
               ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
           >
             <div className={`hidden lg:flex h-12 shrink-0 items-center px-3 ${collapsed ? "lg:justify-center lg:px-0" : ""}`}>
-              <div
-                className={`flex items-center gap-2 text-muted-foreground ${collapsed ? "" : "w-full"}`}
-                title={t("Menu", "Menu")}
-                role="img"
-                aria-label={t("Menu", "Menu")}
+              <button
+                type="button"
+                onClick={() => setMenuRecolhido(!menuRecolhido)}
+                aria-expanded={!collapsed}
+                aria-controls="ds-menu-lateral"
+                aria-label={collapsed ? t("Expand menu", "Expandir menu") : t("Collapse menu", "Recolher menu")}
+                title={collapsed ? t("Expand menu", "Expandir menu") : undefined}
+                className={`flex items-center gap-2 rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${collapsed ? "" : "w-full pr-2"}`}
               >
                 <span className="h-9 w-9 flex items-center justify-center shrink-0">
-                  <svg style={{ height: "18px", width: "18px" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                  <svg aria-hidden style={{ height: "18px", width: "18px" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                 </span>
-                <span className={`text-xs font-medium uppercase tracking-wider whitespace-nowrap ${collapsed ? "lg:hidden" : ""}`}>{t("Menu", "Menu")}</span>
-              </div>
+                <span aria-hidden className={`text-xs font-medium uppercase tracking-wider whitespace-nowrap ${collapsed ? "lg:hidden" : ""}`}>{t("Menu", "Menu")}</span>
+              </button>
             </div>
             <div className={`flex-1 overflow-y-auto overflow-x-hidden py-4 px-3 ${collapsed ? "lg:px-2" : ""}`}>
               {navGroups.map(group => {
@@ -1014,6 +1022,13 @@ function AppShell() {
                   <div key={group.group} className="mb-1">
                     <button
                       onClick={() => {
+                        // Recolhido: o grupo expande o menu (empurrando o conteúdo) e abre.
+                        if (collapsed && window.matchMedia("(min-width: 1024px)").matches) {
+                          setMenuRecolhido(false);
+                          setOpenGroups({ [group.group]: true });
+                          setSidebarExpanded({});
+                          return;
+                        }
                         setOpenGroups(prev => ({ [group.group]: !prev[group.group] }));
                         setSidebarExpanded({});
                       }}
@@ -1044,7 +1059,8 @@ function AppShell() {
         </>
 
         {/* ── MAIN CONTENT ── */}
-        <main className={`flex-1 lg:ml-16 min-w-0 flex flex-col transition-[margin] duration-200`}>
+        {/* O conteúdo acompanha a largura do menu: expandido, o menu empurra o conteúdo (nunca o cobre). */}
+        <main className={`flex-1 ${collapsed ? "lg:ml-16" : "lg:ml-60"} min-w-0 flex flex-col transition-[margin] duration-[var(--duration-normal)] ease-[var(--ease-in-out)] motion-reduce:transition-none`}>
           {/* Section header bar */}
           <div className="sticky top-16 z-20 bg-background/80 backdrop-blur-xl border-b border-border px-6 md:px-10 py-3">
             <nav className="max-w-5xl mx-auto w-full flex items-center gap-1.5 text-[0.8125rem]">
