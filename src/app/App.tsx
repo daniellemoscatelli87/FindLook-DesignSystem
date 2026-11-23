@@ -813,7 +813,10 @@ function AppShell() {
   const currentLabel = tl(sectionLabels[activeSection]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-graphite-50 dark:bg-background flex flex-col">
+      {/* Estrutura igual à do DS Dani Moscatelli (pedido da dona do produto, 23/11/2026): o fundo da página e a faixa da
+          trilha ficam no cinza da página (--graphite-50, #F6F6F7; no DM, o --background #EDF0F5), com os cards brancos
+          por cima. O --background da FindLook continua branco (é o fundo dos campos e dos botões de contorno). */}
       {/* ── TOP NAV ── */}
       <header className="fixed top-0 inset-x-0 z-40 h-16 bg-card/80 backdrop-blur-xl border-b border-border flex items-center px-4 gap-3" style={{ boxShadow: "var(--shadow-sm)" }}>
         {/* Menu toggle: collapses the sidebar on desktop, opens the drawer on mobile */}
@@ -875,11 +878,14 @@ function AppShell() {
             >
               |
             </span>
-            <span
-              className="text-[1.0625rem] font-normal tracking-tight whitespace-nowrap ds-shimmer hidden sm:inline-block"
-              style={{ fontFamily: "var(--font-sans)" }}
-            >
-              Design System
+            {/* O .ds-shimmer define display: inline-block e venceria o "hidden"; o invólucro esconde no celular. */}
+            <span className="hidden sm:inline">
+              <span
+                className="text-[1.0625rem] font-normal tracking-tight whitespace-nowrap ds-shimmer"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                Design System
+              </span>
             </span>
           </div>
         </button>
@@ -939,7 +945,7 @@ function AppShell() {
 
           <aside
             id="ds-menu-lateral"
-            className={`fixed top-16 bottom-0 z-40 w-60 ${collapsed ? "lg:w-16" : ""} border-r border-border bg-sidebar flex flex-col transition-[transform,width] duration-[var(--duration-normal)] ease-[var(--ease-in-out)] motion-reduce:transition-none
+            className={`fixed top-16 bottom-0 z-40 w-60 ${collapsed ? "lg:w-16" : ""} border-r border-border bg-sidebar flex flex-col transition-[transform,width] duration-[var(--duration-normal)] ease-[var(--ease-snappy)] motion-reduce:transition-none
               ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
           >
             <div className={`hidden lg:flex h-12 shrink-0 items-center px-3 ${collapsed ? "lg:justify-center lg:px-0" : ""}`}>
@@ -977,7 +983,7 @@ function AppShell() {
                         aria-expanded={item.items ? !!isExpanded : undefined}
                         className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-sm text-[0.875rem] font-medium transition-all duration-150 mb-0.5
                           ${collapsed ? "lg:justify-center lg:px-0" : ""}
-                          ${isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
+                          ${isActive ? "bg-primary/10 text-primary-text" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
                       >
                         <span className="flex items-center gap-2.5 min-w-0">
                           <Icon className="h-4 w-4 shrink-0" />
@@ -1000,7 +1006,7 @@ function AppShell() {
                                 onClick={() => handleSubItemClick(sub.sectionId, sub.id)}
                                 className={`w-full text-left px-3 py-1.5 rounded-sm text-[0.8125rem] transition-colors
                                   ${isSubActive
-                                    ? "text-primary font-medium bg-primary/8"
+                                    ? "text-primary-text font-medium bg-primary/8"
                                     : "text-muted-foreground hover:text-foreground hover:bg-accent font-normal"
                                   }`}
                               >
@@ -1037,7 +1043,7 @@ function AppShell() {
                       aria-expanded={groupOpen}
                       className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-sm text-[0.875rem] font-medium transition-all duration-150 mb-0.5
                         ${collapsed ? "lg:justify-center lg:px-0" : ""}
-                        ${groupActive && !groupOpen ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
+                        ${groupActive && !groupOpen ? "bg-primary/10 text-primary-text" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
                         <GroupIcon className="h-4 w-4 shrink-0" />
@@ -1060,9 +1066,9 @@ function AppShell() {
 
         {/* ── MAIN CONTENT ── */}
         {/* O conteúdo acompanha a largura do menu: expandido, o menu empurra o conteúdo (nunca o cobre). */}
-        <main className={`flex-1 ${collapsed ? "lg:ml-16" : "lg:ml-60"} min-w-0 flex flex-col transition-[margin] duration-[var(--duration-normal)] ease-[var(--ease-in-out)] motion-reduce:transition-none`}>
+        <main className={`flex-1 ${collapsed ? "lg:ml-16" : "lg:ml-60"} min-w-0 flex flex-col transition-[margin] duration-[var(--duration-normal)] ease-[var(--ease-snappy)] motion-reduce:transition-none`}>
           {/* Section header bar */}
-          <div className="sticky top-16 z-20 bg-background/80 backdrop-blur-xl border-b border-border px-6 md:px-10 py-3">
+          <div className="sticky top-16 z-20 bg-graphite-50/80 dark:bg-background/80 backdrop-blur-xl border-b border-border px-6 md:px-10 py-3">
             <nav className="max-w-5xl mx-auto w-full flex items-center gap-1.5 text-[0.8125rem]">
               <img src={logoSimbolo} alt="" className="h-4 w-auto object-contain" />
               <span className="text-muted-foreground">FindLook</span>
@@ -1085,7 +1091,7 @@ function AppShell() {
                   href="https://www.danimoscatelli.com.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-foreground underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+                  className="font-medium text-foreground underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary-text hover:decoration-primary"
                 >
                   Dani Moscatelli <span aria-hidden className="mx-1 text-muted-foreground/60">•</span> Experience Design Studio
                 </a>

@@ -137,7 +137,7 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
             const Tag = e.page ? "button" : "div";
             return (
               <li key={e.title.pt} className="relative pl-6">
-                <span aria-hidden className={`absolute -left-[5px] top-5 h-2.5 w-2.5 rounded-full border-2 border-background ${i === 0 ? "bg-primary" : "bg-border"}`} />
+                <span aria-hidden className={`absolute -left-[5px] top-5 h-2.5 w-2.5 rounded-full border-2 border-graphite-50 dark:border-background ${i === 0 ? "bg-primary" : "bg-border"}`} />
                 <Tag
                   {...(e.page ? { type: "button" as const, onClick: () => onNavigate(e.page!, e.anchor) } : {})}
                   className={`group w-full text-left flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 p-4 rounded-[var(--radius)] bg-card border border-border shadow-[var(--shadow-xs)] ${

@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Site do DS com a estrutura do DS Dani Moscatelli"),
+    desc: pt("Pedido da dona do produto (23/11/2026): os dois sites de documentação têm a mesma estrutura; só as cores mudam. O fundo da página e a faixa da trilha passam ao cinza da página (--graphite-50, #F6F6F7), com os cards brancos por cima, como o DM faz com o --background #EDF0F5. O --background da FindLook continua branco (fundo de campos e botões de contorno). Menu: mesma curva do DM (--ease-snappy) e item ativo com --primary-text. Medidas conferidas lado a lado: cabeçalho de 64 px com sombra e linha, menu de 240/64 px, itens de 36 px, trilha de 46 px, conteúdo de 960 px com 40 px de respiro. No celular, \"Design System\" some do cabeçalho como previsto (antes aparecia colado ao logo)."),
+    page: "overview",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Menu que empurra, divisor suave, hover de linha e desabilitado"),
     desc: pt("Pedidos da dona do produto (23/11/2026). O menu lateral empurra o conteúdo, nunca o cobre: no site do DS, o botão ≡ Menu recolhe e expande (a escolha fica guardada) e o conteúdo acompanha a largura do menu, com os tokens de movimento; só no celular o menu é gaveta por cima. O painel (MenuLateral) já empurrava. CardComCabecalho: sem faixa cinza; o cabeçalho é separado do conteúdo por um divisor suave, que desaparece nas laterais (DivisorSuave, novo; cabecalho=\"divisor\" é o padrão, \"simples\" fica como opção; as faixas saíram). Hover de linha ou item dentro de card no cinza mais claro, pelo token --row-hover (--graphite-50; classe hover:bg-row-hover): tabela, tabela de produtos, checklist e as listas dos templates. Botão desabilitado com fundo --graphite-100 (#E9E9EC) e texto a 3,6:1. Página Cards: card direto sobre o fundo da página é sempre Só borda, no branco ou no cinza."),
     page: "cards", anchor: "card-layout",
