@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { CalendarDays, CalendarPlus, Filter, Info, Lock, MoreHorizontal, Sparkles, Star, Store, TriangleAlert, UserRoundCog, ListChecks } from "lucide-react";
+import { CalendarDays, CalendarPlus, MessageCircle, Filter, Info, Lock, MoreHorizontal, Sparkles, Star, Store, TriangleAlert, UserRoundCog, ListChecks } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { PageHeader } from "./GetStartedShowcase";
 import { SectionHeader } from "./shared/SectionHeader";
@@ -10,6 +10,8 @@ import { CardDoPainel, ItemDeAtividade } from "../ui/painel-dados";
 import { BarraFixaDoCelular } from "../ui/barra-fixa-celular";
 import { BuscaDePecas, BuscaNoCelular, type ValoresDaBusca } from "../ui/busca-pecas";
 import { CardDeLoja } from "../ui/card-loja";
+import { ProductCard } from "../ui/product-card";
+import { CabecalhoDaVitrine, BarraDeSelecao } from "../ui/vitrine-da-loja";
 import { MapaDeLojas, MapaIlustrativo, ConviteAoMapa, type PinoIlustrativo } from "../ui/mapa-lojas";
 import { FaixaDeParceiros } from "../ui/faixa-parceiros";
 import {
@@ -382,6 +384,57 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
       </section>
 
 
+
+      <section id="produto-vitrine" className="scroll-mt-32 space-y-6">
+        <SectionHeader
+          title="Vitrine da loja"
+          description="A página pública da loja, com link próprio para a loja divulgar no Instagram e no status do WhatsApp: cabeçalho com capa e logo, as peças publicadas (cada uma com Falar com a loja e Marcar) e a barra que junta as peças marcadas numa mensagem só. Loja, peças e preços são dados de exemplo."
+        />
+        <VitrineDeExemplo />
+      </section>
+    </div>
+  );
+}
+
+/* Vitrine de exemplo (23/11/2026): dados fictícios só para mostrar os componentes. */
+const PECAS_DA_VITRINE = [
+  { id: "p1", nome: "Vestido midi preto", preco: 289.9, tamanhos: "Tamanhos P, M e G", dias: "Publicada há 2 dias", icone: "vestido" as const },
+  { id: "p2", nome: "Blazer alfaiataria areia", preco: 349.9, precoAntigo: 399.9, tamanhos: "Tamanho M", dias: "Publicada hoje", icone: "jaqueta" as const },
+  { id: "p3", nome: "Calça wide leg jeans", preco: 219.9, tamanhos: "Tamanhos 38 e 40", dias: "Publicada há 5 dias", icone: "calca" as const },
+];
+
+function VitrineDeExemplo() {
+  const [marcadas, setMarcadas] = useState<string[]>([]);
+  return (
+    <div className="relative space-y-5 rounded-lg border border-dashed border-border p-3 sm:p-5">
+      <CabecalhoDaVitrine
+        nome="Ateliê Aurora"
+        descricao="Moda feminina autoral e peças de brechó selecionadas. Do PP ao GG."
+        etiquetas={["Loja multimarcas", "Peças novas", "Segunda mão"]}
+        bairro="Batel"
+        horario="Seg. a sáb., das 10h às 19h"
+        instagram="atelie.ficticio"
+        acoes={<span className="inline-flex h-7 items-center rounded-full border border-border px-2.5 text-[0.6875rem] font-semibold text-muted-foreground">Exemplo fictício</span>}
+      />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {PECAS_DA_VITRINE.map((p) => (
+          <ProductCard
+            key={p.id}
+            nome={p.nome}
+            loja="Ateliê Aurora"
+            preco={p.preco}
+            precoAntigo={p.precoAntigo}
+            icone={p.icone}
+            mostrarFavorito={false}
+            estoque={{ quantidade: 1, atualizadoHa: "", poucasAte: 0, texto: p.tamanhos, legenda: p.dias }}
+            cta={{ label: "Falar com a loja", onClick: () => {}, icone: <MessageCircle aria-hidden /> }}
+            selecao={{ marcada: marcadas.includes(p.id), onMarcar: (v) => setMarcadas((m) => (v ? [...m, p.id] : m.filter((x) => x !== p.id))) }}
+          />
+        ))}
+      </div>
+      <p className="text-[0.8125rem] text-muted-foreground">Marque duas peças para ver a barra de seleção.</p>
+      <BarraDeSelecao className="absolute bottom-2 left-0 right-0" quantidade={marcadas.length} acao={{ rotulo: "Tenho interesse", onClick: () => {} }} onLimpar={() => setMarcadas([])} />
+      <div className="h-16" aria-hidden />
     </div>
   );
 }
