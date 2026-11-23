@@ -23,6 +23,11 @@ function destacar(texto: string) {
 }
 
 type CabecalhoDaPaginaProps = {
+  /**
+   * Abas da página (Opção A, decisão da dona do produto, 23/11/2026): logo abaixo do título, fora de qualquer card,
+   * sublinhadas, com a linha divisória. Use AbasComContador estilo="sublinhado" com idBase.
+   */
+  abas?: React.ReactNode;
   saudacao?: string;
   titulo: string;
   descricao?: string;
@@ -32,10 +37,14 @@ type CabecalhoDaPaginaProps = {
   className?: string;
 };
 
-function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, nivel = 1, className }: CabecalhoDaPaginaProps) {
+/**
+ * Cabeçalho da página fora do card (Opção A): título, descrição, ações e, opcionalmente, as abas da página.
+ * O conteúdo vem embaixo, em cards com cabeçalho de ícone (CardComCabecalho).
+ */
+function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, abas, nivel = 1, className }: CabecalhoDaPaginaProps) {
   const Titulo = `h${nivel}` as "h1" | "h2" | "h3";
-  return (
-    <header data-slot="cabecalho-da-pagina" className={cn("flex flex-col gap-4 @4xl:flex-row @4xl:items-end @4xl:justify-between @4xl:gap-8", className)}>
+  const topo = (
+    <header data-slot="cabecalho-da-pagina" className={cn("flex flex-col gap-4 @4xl:flex-row @4xl:items-end @4xl:justify-between @4xl:gap-8", !abas && className)}>
       <div className="min-w-0 max-w-2xl">
         {saudacao && <p className="mb-1 text-[0.9375rem] font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
         <Titulo className={`${display} text-[1.625rem] @xl:text-[2rem] font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
@@ -43,6 +52,13 @@ function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, nivel = 1, clas
       </div>
       {acoes && <div className="flex shrink-0 flex-wrap items-center gap-2 @4xl:flex-nowrap">{acoes}</div>}
     </header>
+  );
+  if (!abas) return topo;
+  return (
+    <div data-slot="cabecalho-da-pagina-com-abas" className={cn("space-y-4", className)}>
+      {topo}
+      {abas}
+    </div>
   );
 }
 

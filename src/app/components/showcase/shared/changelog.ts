@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Páginas do painel: Opção A"),
+    desc: pt("Decisão da dona do produto (23/11/2026): cabeçalho da página fora do card (título, descrição e abas, no fundo da página); conteúdo em cards com cabeçalho de ícone, um card por assunto. O modelo antigo, com título e abas dentro do cabeçalho de um card grande, sai. Sem linhas desnecessárias: nada de linha entre o cabeçalho do card e o conteúdo, nem embaixo do título da página, nem linha de base nas abas (só a aba ativa tem o sublinhado); a linha fica só entre as linhas de listas e tabelas. Novos: CardComCabecalho (painel-dados: ícone de 40 px na base rosa clara, título, descrição e ação à direita, alinhada ao topo), AbasComContador estilo=\"pagina\" e idBase (liga cada aba ao painel) e CabecalhoDaPagina abas. Templates Configurações, Equipe, Notificações, Planos e assinatura e Ajuda e suporte refeitos assim; a tabela da Equipe não rola mais para o lado (colunas menos importantes ficam de fora em cards estreitos, com aviso)."),
+    page: "overlays", anchor: "cabecalho-pagina",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Menu lateral recolhível"),
+    desc: pt("Decisão da dona do produto (23/11/2026): nos painéis, o menu lateral pode ficar expandido (ícone + nome, 256 px) ou recolhido (só ícones, 72 px). O botão Recolher menu / Expandir menu fica no pé do menu, com aria-expanded e aria-controls. Recolhido: títulos dos grupos viram uma linha fina, cada item mostra um tooltip no mouse e no foco do teclado (e mantém o nome para leitores de tela), o item ativo mantém a barra à esquerda, o contador vira um ponto no ícone (o tooltip diz o número) e o logo mostra só o símbolo. A largura anima com os tokens de movimento; com \"menos movimento\", é instantânea. A escolha fica guardada no navegador, uma chave por painel. Abaixo de 1024 px, o menu continua gaveta, sem recolher. Perfil sempre no cabeçalho, à direita; cabeçalho branco, igual ao menu lateral, com linha fina embaixo. Novos em painel-shell: MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, useMenuLateral e useMenuRecolhido; ItemDoMenu, GrupoDoMenu, SeletorDeLoja, CardDePlano e CardDeAjuda se adaptam sozinhos, sem mudar a API."),
+    page: "overlays", anchor: "menu-painel",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Card com Mostrar mais (sem rolagem por dentro)"),
     desc: pt("Pedido da dona do produto (21/11/2026): cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página. ConteudoRecolhivel mostra o que cabe, com um degradê, e Mostrar mais abre uma janela (modal) com tudo, ou leva para outra tela quando o conteúdo é muito grande (onMostrarMais); o card não estica. O botão só aparece quando sobra conteúdo. Se o conteúdo cresce por uma ação dentro do card, o card cresce junto. preencher: ocupa o espaço de um card de altura fixa. O fundo do conteúdo do painel passa a ser cinza claro (graphite-50), com os cards brancos; para manter o contraste sobre ele, --primary-muted ficou opaco (mesma cor sobre o branco) e a aba sublinhada ativa usa o pink de texto (pink-600)."),
     page: "cards", anchor: "card-mostrar-mais",

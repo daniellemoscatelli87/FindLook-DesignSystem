@@ -29,6 +29,9 @@ import { Switch } from "../ui/switch";
 import { IconeModa, type NomeIconeModa } from "../ui/fashion-icons";
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
 import { SectionHeader } from "./shared/SectionHeader";
+import { CabecalhoDaPagina } from "../ui/painel-cabecalho";
+import { CardComCabecalho } from "../ui/painel-dados";
+import { AbasComContador } from "../ui/painel-produtos";
 
 type L = { en: string; pt: string };
 
@@ -50,7 +53,9 @@ function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: 
 /* Wraps each template in a browser-chrome frame */
 function TemplateFrame({ children, className = "", url = "Painel da loja · FindLook" }: { children: React.ReactNode; className?: string; url?: string }) {
   const embutido = React.useContext(PainelEmbutido);
-  if (embutido) return <div className={`overflow-hidden rounded-lg border border-border bg-background ${className}`}>{children}</div>;
+  // Dentro do protótipo do painel (Opção A, 23/11/2026): sem moldura nem card em volta; a página monta o próprio
+  // cabeçalho (fora de card) e os cards com cabeçalho de ícone.
+  if (embutido) return <div className={className}>{children}</div>;
   return (
     <div className={`rounded-lg border border-border overflow-hidden ${className}`} style={{ boxShadow: "var(--shadow-lg)" }}>
       {/* Browser chrome */}
@@ -93,20 +98,6 @@ function MarcaFindLook({ legenda, tamanho = "sm" }: { legenda?: string; tamanho?
   );
 }
 
-/* Navegação por setas entre abas (padrão ARIA de tabs) */
-function moverAba(e: React.KeyboardEvent, ids: string[], atual: string, definir: (id: string) => void, prefixo: string) {
-  const i = ids.indexOf(atual);
-  let proximo = -1;
-  if (e.key === "ArrowRight") proximo = (i + 1) % ids.length;
-  if (e.key === "ArrowLeft") proximo = (i - 1 + ids.length) % ids.length;
-  if (e.key === "Home") proximo = 0;
-  if (e.key === "End") proximo = ids.length - 1;
-  if (proximo < 0) return;
-  e.preventDefault();
-  definir(ids[proximo]);
-  document.getElementById(`${prefixo}-aba-${ids[proximo]}`)?.focus();
-}
-
 /* ─────────────────────────────────────────────
    2. Configurações da loja
 ───────────────────────────────────────────── */
@@ -144,11 +135,10 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
     { id: "aparencia",    label: "Aparência" },
     { id: "conta",        label: "Conta e privacidade" },
   ];
-  const ids = tabs.map(tb => tb.id);
   const pre = `cfg${uid.replace(/:/g, "")}`;
 
   const linhaSwitch = (id: string, titulo: string, desc: string, marcado: boolean, mudar: (v: boolean) => void, Icon?: React.ElementType, desativado = false) => (
-    <div key={id} className="flex items-center justify-between gap-3 p-3 rounded-md border border-border bg-card">
+    <div key={id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
       <div className="flex items-start gap-2.5 min-w-0">
         {Icon && (
           <span className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center shrink-0">
@@ -164,232 +154,191 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
     </div>
   );
 
+  // Opção A (decisão da dona do produto, 23/11/2026): título, descrição e abas fora de qualquer card, no fundo da
+  // página; embaixo, o conteúdo da aba em cards brancos com cabeçalho de ícone, um card por assunto.
+  const rotulo = (id: string, texto: string) => <label htmlFor={`${pre}-${id}`} className="block text-[0.75rem] font-medium text-foreground mb-1">{texto}</label>;
   return (
     <TemplateFrame url="Painel da loja · Configurações">
-      <div className={`flex bg-background overflow-hidden ${embutido ? "" : "h-[560px]"}`}>
-        {/* Menu do painel */}
-        {!embutido && <aside className="hidden md:block w-[196px] shrink-0 border-r border-border bg-card/50 py-3 px-2.5" aria-label="Menu do painel da loja">
-          <div className="px-2 mb-5">
-            <MarcaFindLook legenda="Ateliê Aurora" />
-          </div>
-          <nav>
-            {[
-              { icon: Home,       label: "Início",        active: false },
-              { icon: Shirt,      label: "Peças",         active: false },
-              { icon: Bell,       label: "Notificações",  active: false },
-              { icon: Users,      label: "Equipe",        active: false },
-              { icon: Settings,   label: "Configurações", active: true  },
-              { icon: HelpCircle, label: "Ajuda",         active: false },
-            ].map(item => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.label}
-                  type="button"
-                  aria-current={item.active ? "page" : undefined}
-                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-sm text-[0.75rem] font-medium mb-0.5 w-full text-left transition-colors ${foco} ${item.active ? `bg-[var(--primary-muted)] ${textoMarca}` : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
-                >
-                  <Icon aria-hidden className="h-3.5 w-3.5 shrink-0" />
-                  {item.label}
-                </button>
-              );
-            })}
-          </nav>
-        </aside>}
+      <div className={`space-y-5 ${embutido ? "" : "bg-muted p-4 sm:p-6"}`}>
+        <CabecalhoDaPagina
+          nivel={2}
+          titulo="Configurações da loja"
+          descricao="Essas informações aparecem na vitrine da sua loja na FindLook."
+          abas={
+            <AbasComContador
+              estilo="pagina"
+              idBase={pre}
+              rotulo="Seções das configurações"
+              abas={tabs.map(tb => ({ valor: tb.id, rotulo: tb.label }))}
+              valor={activeTab}
+              onChange={setActiveTab}
+            />
+          }
+        />
 
-        {/* Conteúdo */}
-        <div className="flex-1 min-w-0 overflow-y-auto">
-          <div className="border-b border-border px-4 sm:px-6 py-3">
-            <h1 className="text-[0.9375rem] font-bold text-foreground">Configurações da loja</h1>
-            <p className="text-[0.6875rem] text-muted-foreground">Essas informações aparecem na vitrine da sua loja na FindLook.</p>
-          </div>
-
-          {/* Abas */}
-          <div role="tablist" aria-label="Seções das configurações" className="flex flex-wrap border-b border-border px-4 sm:px-6">
-            {tabs.map(tb => (
-              <button
-                key={tb.id}
-                id={`${pre}-aba-${tb.id}`}
-                type="button"
-                role="tab"
-                aria-selected={activeTab === tb.id}
-                aria-controls={`${pre}-painel`}
-                tabIndex={activeTab === tb.id ? 0 : -1}
-                onClick={() => setActiveTab(tb.id)}
-                onKeyDown={e => moverAba(e, ids, activeTab, setActiveTab, pre)}
-                className={`px-3 py-2.5 text-[0.75rem] font-medium border-b-2 transition-colors -mb-px whitespace-nowrap ${foco}
-                  ${activeTab === tb.id
-                    ? `border-primary ${textoMarca}`
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-                  }`}
-              >
-                {tb.label}
-              </button>
-            ))}
-          </div>
-
-          <div id={`${pre}-painel`} role="tabpanel" aria-labelledby={`${pre}-aba-${activeTab}`} className="p-4 sm:p-6">
-            {activeTab === "perfil" && (
-              <form onSubmit={e => { e.preventDefault(); setSalvo(true); }} className="space-y-4 max-w-lg">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="h-14 w-14 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0">
-                    <Store aria-hidden className={`h-7 w-7 ${textoMarca}`} />
+        <div id={`${pre}-painel`} role="tabpanel" aria-labelledby={`${pre}-aba-${activeTab}`} className="space-y-4">
+          {activeTab === "perfil" && (
+            <form onSubmit={e => { e.preventDefault(); setSalvo(true); }} className="space-y-4">
+              <CardComCabecalho nivel={3} icone={<Store />} titulo="Identidade da loja" descricao="Nome, logo e a frase que apresenta a loja na vitrine.">
+                <div className="space-y-4 max-w-lg">
+                  <div className="flex items-center gap-4">
+                    <div className="h-14 w-14 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0">
+                      <Store aria-hidden className={`h-7 w-7 ${textoMarca}`} />
+                    </div>
+                    <div>
+                      <div className="text-[0.875rem] font-semibold text-foreground">Ateliê Aurora</div>
+                      <div className="text-[0.75rem] text-muted-foreground">Loja parceira desde mar. de 2026</div>
+                      <button type="button" className={`mt-1 text-[0.6875rem] font-medium hover:underline rounded-[4px] ${textoMarca} ${foco}`}>Trocar logo da loja</button>
+                    </div>
                   </div>
                   <div>
-                    <div className="text-[0.875rem] font-semibold text-foreground">Ateliê Aurora</div>
-                    <div className="text-[0.75rem] text-muted-foreground">Loja parceira desde mar. de 2026</div>
-                    <button type="button" className={`mt-1 text-[0.6875rem] font-medium hover:underline rounded-[4px] ${textoMarca} ${foco}`}>Trocar logo da loja</button>
+                    {rotulo("nome", "Nome da loja")}
+                    <input id={`${pre}-nome`} type="text" autoComplete="organization" defaultValue="Ateliê Aurora" onChange={() => setSalvo(false)} className={campo} />
+                  </div>
+                  <div>
+                    {rotulo("desc", "Descrição")}
+                    <textarea
+                      id={`${pre}-desc`}
+                      rows={3}
+                      aria-describedby={`${pre}-desc-dica`}
+                      onChange={() => setSalvo(false)}
+                      defaultValue="Moda feminina autoral e peças de brechó selecionadas. Tamanhos do PP ao GG."
+                      className={`${campo} resize-none`}
+                    />
+                    <p id={`${pre}-desc-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Conte em poucas palavras o que a sua loja vende e para quem.</p>
                   </div>
                 </div>
+              </CardComCabecalho>
 
-                <div>
-                  <label htmlFor={`${pre}-nome`} className="block text-[0.75rem] font-medium text-foreground mb-1">Nome da loja</label>
-                  <input id={`${pre}-nome`} type="text" autoComplete="organization" defaultValue="Ateliê Aurora" onChange={() => setSalvo(false)} className={campo} />
-                </div>
-                <div>
-                  <label htmlFor={`${pre}-desc`} className="block text-[0.75rem] font-medium text-foreground mb-1">Descrição</label>
-                  <textarea
-                    id={`${pre}-desc`}
-                    rows={3}
-                    aria-describedby={`${pre}-desc-dica`}
-                    onChange={() => setSalvo(false)}
-                    defaultValue="Moda feminina autoral e peças de brechó selecionadas. Tamanhos do PP ao GG."
-                    className={`${campo} resize-none`}
-                  />
-                  <p id={`${pre}-desc-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Conte em poucas palavras o que a sua loja vende e para quem.</p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <CardComCabecalho nivel={3} icone={<MapPin />} titulo="Endereço e contato" descricao="Onde a loja fica, quando abre e como falar com ela.">
+                <div className="grid grid-cols-1 @lg:grid-cols-2 gap-3 max-w-2xl">
                   <div>
-                    <label htmlFor={`${pre}-endereco`} className="block text-[0.75rem] font-medium text-foreground mb-1">Endereço</label>
+                    {rotulo("endereco", "Endereço")}
                     <input id={`${pre}-endereco`} type="text" autoComplete="street-address" defaultValue="Rua dos Pinheiros, 820" onChange={() => setSalvo(false)} className={campo} />
                   </div>
                   <div>
-                    <label htmlFor={`${pre}-bairro`} className="block text-[0.75rem] font-medium text-foreground mb-1">Bairro e cidade</label>
+                    {rotulo("bairro", "Bairro e cidade")}
                     <input id={`${pre}-bairro`} type="text" autoComplete="address-level2" defaultValue="Pinheiros, São Paulo – SP" onChange={() => setSalvo(false)} className={campo} />
                   </div>
                   <div>
-                    <label htmlFor={`${pre}-horario`} className="block text-[0.75rem] font-medium text-foreground mb-1">Horário de funcionamento</label>
+                    {rotulo("horario", "Horário de funcionamento")}
                     <input id={`${pre}-horario`} type="text" defaultValue="Seg. a sáb., das 10h às 19h" onChange={() => setSalvo(false)} className={campo} />
                   </div>
                   <div>
-                    <label htmlFor={`${pre}-whats`} className="block text-[0.75rem] font-medium text-foreground mb-1">WhatsApp da loja</label>
+                    {rotulo("whats", "WhatsApp da loja")}
                     <input id={`${pre}-whats`} type="tel" autoComplete="tel" defaultValue="(11) 98765-4321" onChange={() => setSalvo(false)} className={campo} />
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-end gap-3 pt-1">
-                  <p role="status" className="text-[0.6875rem] text-muted-foreground flex items-center gap-1.5">
-                    {salvo && <><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> Alterações salvas. A vitrine já mostra as novas informações.</>}
-                  </p>
-                  <button type="submit" className={`h-8 px-4 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity ${foco}`}>
-                    Salvar alterações
-                  </button>
-                </div>
-              </form>
-            )}
+              </CardComCabecalho>
 
-            {activeTab === "notificacoes" && (
-              <div className="space-y-5 max-w-lg">
-                <section aria-labelledby={`${pre}-t-avisos`} className="space-y-2.5">
-                  <div>
-                    <h2 id={`${pre}-t-avisos`} className="text-[0.8125rem] font-semibold text-foreground">O que avisar</h2>
-                    <p className="text-[0.6875rem] text-muted-foreground">Escolha quais movimentos da sua vitrine geram aviso.</p>
-                  </div>
+              <div className="flex flex-wrap items-center justify-end gap-3">
+                <p role="status" className="text-[0.75rem] text-muted-foreground flex items-center gap-1.5">
+                  {salvo && <><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> Alterações salvas. A vitrine já mostra as novas informações.</>}
+                </p>
+                <button type="submit" className={`h-10 px-4 rounded-md bg-primary text-primary-foreground text-[0.875rem] font-semibold hover:bg-[var(--primary-hover)] transition-colors ${foco}`}>
+                  Salvar alterações
+                </button>
+              </div>
+            </form>
+          )}
+
+          {activeTab === "notificacoes" && (
+            <>
+              <CardComCabecalho nivel={3} icone={<Bell />} titulo="O que avisar" descricao="Escolha quais movimentos da sua vitrine geram aviso.">
+                {/* Linha entre as opções: separa itens de uma lista (a única linha mantida dentro dos cards). */}
+                <div className="divide-y divide-border max-w-2xl">
                   {avisosLoja.map(a =>
                     linhaSwitch(a.chave, a.titulo, a.desc, avisos[a.chave], v => setAvisos(prev => ({ ...prev, [a.chave]: v })), a.icon)
                   )}
-                </section>
-                <section aria-labelledby={`${pre}-t-canais`} className="space-y-2.5">
-                  <h2 id={`${pre}-t-canais`} className="text-[0.8125rem] font-semibold text-foreground">Onde avisar</h2>
-                  {linhaSwitch("painel", "No painel da loja", "Sempre ativo. Os avisos ficam em Notificações.", true, () => {}, Bell, true)}
+                </div>
+              </CardComCabecalho>
+              <CardComCabecalho nivel={3} icone={<Send />} titulo="Onde avisar" descricao="Os avisos ficam sempre no painel; e-mail e WhatsApp são opcionais.">
+                <div className="divide-y divide-border max-w-2xl">
+                  {linhaSwitch("no-painel", "No painel da loja", "Sempre ativo. Os avisos ficam em Notificações.", true, () => {}, Bell, true)}
                   {linhaSwitch("email", "Por e-mail", "ana@atelieaurora.com.br", canais.email, v => setCanais(p => ({ ...p, email: v })), Mail)}
                   {linhaSwitch("whatsapp", "Pelo WhatsApp", "(11) 98765-4321", canais.whatsapp, v => setCanais(p => ({ ...p, whatsapp: v })), Smartphone)}
-                </section>
-              </div>
-            )}
-
-            {activeTab === "aparencia" && (
-              <div className="space-y-3 max-w-md">
-                <h2 className="text-[0.8125rem] font-medium text-foreground">Tema do painel</h2>
-                <p className="text-[0.6875rem] text-muted-foreground -mt-2">Escolha como o painel aparece para você.</p>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { id: "light", label: "Modo claro",  icon: Sun,  active: !darkToggle },
-                    { id: "dark",  label: "Modo escuro", icon: Moon, active: darkToggle },
-                  ].map(th => {
-                    const Icon = th.icon;
-                    return (
-                      <button
-                        key={th.id}
-                        type="button"
-                        aria-pressed={th.active}
-                        onClick={() => {
-                          const newDark = th.id === "dark";
-                          document.documentElement.classList.toggle("dark", newDark);
-                        }}
-                        className={`p-3 rounded-md border-2 flex flex-col items-center gap-2 transition-all ${foco}
-                          ${th.active ? "border-primary bg-[var(--primary-muted)]" : "border-border bg-card"}`}
-                      >
-                        <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
-                        <span className={`text-[0.75rem] font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
-                        {th.active && <span className={`flex items-center gap-1 text-[0.625rem] font-semibold ${textoMarca}`}><Check aria-hidden className="h-3 w-3" /> Em uso</span>}
-                      </button>
-                    );
-                  })}
                 </div>
+              </CardComCabecalho>
+            </>
+          )}
+
+          {activeTab === "aparencia" && (
+            <CardComCabecalho nivel={3} icone={<Sun />} titulo="Tema do painel" descricao="Escolha como o painel aparece para você.">
+              <div className="grid grid-cols-2 gap-3 max-w-md">
+                {[
+                  { id: "light", label: "Modo claro",  icon: Sun,  active: !darkToggle },
+                  { id: "dark",  label: "Modo escuro", icon: Moon, active: darkToggle },
+                ].map(th => {
+                  const Icon = th.icon;
+                  return (
+                    <button
+                      key={th.id}
+                      type="button"
+                      aria-pressed={th.active}
+                      onClick={() => {
+                        const newDark = th.id === "dark";
+                        document.documentElement.classList.toggle("dark", newDark);
+                      }}
+                      className={`p-3 rounded-md border-2 flex flex-col items-center gap-2 transition-all ${foco}
+                        ${th.active ? "border-primary bg-[var(--primary-muted)]" : "border-border bg-card"}`}
+                    >
+                      <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
+                      <span className={`text-[0.75rem] font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
+                      {th.active && <span className={`flex items-center gap-1 text-[0.625rem] font-semibold ${textoMarca}`}><Check aria-hidden className="h-3 w-3" /> Em uso</span>}
+                    </button>
+                  );
+                })}
               </div>
-            )}
+            </CardComCabecalho>
+          )}
 
-            {activeTab === "conta" && (
-              <div className="space-y-5 max-w-lg">
-                <section aria-labelledby={`${pre}-t-plano`} className="space-y-2.5">
-                  <h2 id={`${pre}-t-plano`} className="text-[0.8125rem] font-semibold text-foreground">Plano</h2>
-                  <div className="p-3 rounded-md border border-primary/30 bg-[var(--primary-muted)] flex items-center justify-between gap-3">
-                    <div>
-                      <div className="text-[0.8125rem] font-semibold text-foreground flex items-center gap-1.5">
-                        <Zap aria-hidden className={`h-3.5 w-3.5 ${textoMarca}`} /> Plano Desempenho
-                      </div>
-                      <div className="text-[0.6875rem] text-muted-foreground">R$ 149,00 por mês · renova em 1º de dez. de 2026</div>
-                    </div>
-                    <button type="button" className={`h-7 px-3 rounded-sm border border-border bg-card text-[0.6875rem] font-medium text-foreground hover:bg-accent shrink-0 ${foco}`}>Ver planos</button>
-                  </div>
-                </section>
+          {activeTab === "conta" && (
+            <>
+              <CardComCabecalho
+                nivel={3}
+                icone={<Zap />}
+                titulo="Plano"
+                descricao="Plano Desempenho · R$ 149,00 por mês · renova em 1º de dez. de 2026"
+                acao={<button type="button" className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-[0.8125rem] font-medium text-foreground hover:bg-accent ${foco}`}>Ver planos</button>}
+              />
 
-                <section aria-labelledby={`${pre}-t-priv`} className="space-y-2.5">
-                  <h2 id={`${pre}-t-priv`} className="text-[0.8125rem] font-semibold text-foreground">Privacidade da vitrine</h2>
+              <CardComCabecalho nivel={3} icone={<ShieldCheck />} titulo="Privacidade da vitrine" descricao="O que quem encontra suas peças pode ver da loja.">
+                <div className="max-w-2xl">
+                  <div className="divide-y divide-border">
                   {linhaSwitch("mostrar-whats", "Mostrar o WhatsApp na vitrine", "Quem encontra suas peças pode chamar a loja direto.", privacidade.whatsapp, v => setPrivacidade(p => ({ ...p, whatsapp: v })), MessageCircle)}
                   {linhaSwitch("mostrar-end", "Mostrar o endereço completo", "Desligado, a vitrine mostra só o bairro.", privacidade.endereco, v => setPrivacidade(p => ({ ...p, endereco: v })), MapPin)}
-                  <div className="flex items-start gap-2.5 p-3 rounded-md bg-muted">
+                  </div>
+                  <div className="mt-4 flex items-start gap-2.5 p-3 rounded-md bg-muted">
                     <ShieldCheck aria-hidden className="h-4 w-4 text-success shrink-0 mt-0.5" />
                     <p className="text-[0.6875rem] text-muted-foreground leading-snug">
                       Os avisos mostram o que as pessoas fizeram, sem nome nem contato. Você só recebe os dados de alguém quando a pessoa escolhe falar com a loja.
                     </p>
                   </div>
-                </section>
+                </div>
+              </CardComCabecalho>
 
-                <section aria-labelledby={`${pre}-t-vitrine`} className="space-y-2.5">
-                  <h2 id={`${pre}-t-vitrine`} className="text-[0.8125rem] font-semibold text-foreground">Vitrine e acesso</h2>
-                  <div className="p-3 rounded-md border border-border bg-card flex flex-wrap items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="text-[0.8125rem] font-medium text-foreground">{vitrinePausada ? "Vitrine pausada" : "Vitrine no ar"}</div>
-                      <p role="status" className="text-[0.6875rem] text-muted-foreground">
-                        {vitrinePausada ? "Sua loja não aparece nas buscas até você reativar." : "Sua loja aparece nas buscas da região."}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setVitrinePausada(v => !v)}
-                      className={`h-7 px-3 rounded-sm border border-border bg-card text-[0.6875rem] font-medium text-foreground hover:bg-accent shrink-0 ${foco}`}
-                    >
-                      {vitrinePausada ? "Reativar vitrine" : "Pausar vitrine"}
-                    </button>
-                  </div>
-                  <button type="button" className={`inline-flex items-center gap-1.5 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}>
-                    <LogOut aria-hidden className="h-3.5 w-3.5" /> Sair da conta
+              <CardComCabecalho
+                nivel={3}
+                icone={<Store />}
+                tom={vitrinePausada ? "neutro" : "marca"}
+                titulo={vitrinePausada ? "Vitrine pausada" : "Vitrine no ar"}
+                descricao={<span role="status">{vitrinePausada ? "Sua loja não aparece nas buscas até você reativar." : "Sua loja aparece nas buscas da região."}</span>}
+                acao={
+                  <button
+                    type="button"
+                    onClick={() => setVitrinePausada(v => !v)}
+                    className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-[0.8125rem] font-medium text-foreground hover:bg-accent ${foco}`}
+                  >
+                    {vitrinePausada ? "Reativar vitrine" : "Pausar vitrine"}
                   </button>
-                </section>
-              </div>
-            )}
-          </div>
+                }
+              >
+                <button type="button" className={`inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}>
+                  <LogOut aria-hidden className="h-3.5 w-3.5" /> Sair da conta
+                </button>
+              </CardComCabecalho>
+            </>
+          )}
         </div>
       </div>
     </TemplateFrame>
@@ -623,30 +572,31 @@ function TeamTemplate() {
     setConvidando(false);
   };
 
+  // Opção A (23/11/2026): cabeçalho da página fora do card; convite e lista em cards com cabeçalho de ícone.
   return (
     <TemplateFrame url="Painel da loja · Equipe">
-      <div className={`bg-background overflow-hidden flex flex-col ${embutido ? "" : "h-[560px]"}`}>
-        {/* Cabeçalho */}
-        <div className="border-b border-border px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3 shrink-0">
-          <div>
-            <h1 className="text-[0.9375rem] font-bold text-foreground">Equipe da loja</h1>
-            <p className="text-[0.6875rem] text-muted-foreground">{pessoas.length} pessoas com acesso ao painel do Ateliê Aurora</p>
-          </div>
-          <button
-            type="button"
-            aria-expanded={convidando}
-            aria-controls={`${pre}-convite`}
-            onClick={() => setConvidando(v => !v)}
-            className={`h-8 px-3 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold flex items-center gap-1.5 hover:opacity-90 transition-opacity ${foco}`}
-          >
-            <UserPlus aria-hidden className="h-3.5 w-3.5" /> Convidar pessoa
-          </button>
-        </div>
+      <div className={`space-y-5 ${embutido ? "" : "bg-muted p-4 sm:p-6"}`}>
+        <CabecalhoDaPagina
+          nivel={2}
+          titulo="Equipe da loja"
+          descricao={`${pessoas.length} pessoas com acesso ao painel do Ateliê Aurora.`}
+          acoes={
+            <button
+              type="button"
+              aria-expanded={convidando}
+              aria-controls={`${pre}-convite`}
+              onClick={() => setConvidando(v => !v)}
+              className={`h-10 px-4 rounded-md bg-primary text-primary-foreground text-[0.875rem] font-semibold flex items-center gap-2 hover:bg-[var(--primary-hover)] transition-colors ${foco}`}
+            >
+              <UserPlus aria-hidden className="h-4 w-4" /> Convidar pessoa
+            </button>
+          }
+        />
 
-        {/* Convite */}
         {convidando && (
-          <form id={`${pre}-convite`} onSubmit={enviarConvite} className="border-b border-border bg-muted/40 px-4 sm:px-6 py-4 space-y-3 shrink-0">
-            <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] gap-3 items-end">
+          <CardComCabecalho nivel={3} icone={<UserPlus />} titulo="Convidar pessoa" descricao="A pessoa recebe um e-mail para criar a senha e entrar no painel.">
+          <form id={`${pre}-convite`} onSubmit={enviarConvite} className="space-y-4">
+            <div className="grid grid-cols-1 @xl:grid-cols-[minmax(0,1fr)_auto] gap-3 items-end">
               <div>
                 <label htmlFor={`${pre}-email`} className="block text-[0.75rem] font-medium text-foreground mb-1">E-mail da pessoa</label>
                 <input id={`${pre}-email`} type="email" required autoComplete="off" value={emailConvite} onChange={e => setEmailConvite(e.target.value)} placeholder="nome@email.com" className={campo} />
@@ -660,7 +610,7 @@ function TeamTemplate() {
             </div>
             <fieldset>
               <legend className="text-[0.75rem] font-medium text-foreground mb-1.5">O que essa pessoa pode fazer</legend>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 @xl:grid-cols-2 gap-2">
                 {(["atendente", "estoquista"] as const).map(p => (
                   <label key={p} className={`flex items-start gap-2 p-2.5 rounded-md border cursor-pointer bg-card transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring ${papelConvite === p ? "border-primary" : "border-border"}`}>
                     <input type="radio" name={`${pre}-papel`} value={p} checked={papelConvite === p} onChange={() => setPapelConvite(p)} className="mt-0.5 accent-[var(--primary)]" />
@@ -673,10 +623,11 @@ function TeamTemplate() {
               </div>
             </fieldset>
           </form>
+          </CardComCabecalho>
         )}
 
-        {/* Busca e filtros */}
-        <div className="px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3 border-b border-border shrink-0">
+        <CardComCabecalho nivel={3} icone={<Users />} titulo="Pessoas com acesso" descricao={`Mostrando ${filtered.length} de ${pessoas.length} pessoas. Só a pessoa responsável muda plano e equipe.`}>
+          <div className="mb-4 flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[180px] max-w-xs">
             <Search aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
             <input
@@ -700,45 +651,63 @@ function TeamTemplate() {
               </button>
             ))}
           </div>
-        </div>
+          </div>
 
-        <p role="status" className="sr-only">{aviso}</p>
+          <p role="status" className="sr-only">{aviso}</p>
         {aviso && (
-          <div className="mx-4 sm:mx-6 mt-3 flex items-center justify-between gap-2 rounded-md border border-success/30 bg-[var(--success-muted)] px-3 py-2 text-[0.75rem] text-foreground shrink-0">
+          <div className="mb-4 flex items-center justify-between gap-2 rounded-md border border-success/30 bg-[var(--success-muted)] px-3 py-2 text-[0.75rem] text-foreground shrink-0">
             <span className="flex items-center gap-2"><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> {aviso}</span>
             <button type="button" onClick={() => setAviso("")} aria-label="Fechar aviso" className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent ${foco}`}><X aria-hidden className="h-3.5 w-3.5" /></button>
           </div>
         )}
 
-        {/* Tabela */}
-        <div className="flex-1 overflow-auto">
-          <table className="w-full min-w-[640px]">
+          {/* Tabela sem rolagem lateral: em cards estreitos, Situação e Último acesso ficam de fora (aviso abaixo).
+              A linha entre as pessoas fica: separa as linhas da tabela. */}
+          <table className="w-full">
             <caption className="sr-only">Pessoas com acesso ao painel da loja</caption>
-            <thead className="sticky top-0 bg-muted/40 border-b border-border">
+            <thead>
               <tr>
-                {["Pessoa", "Papel", "Situação", "Último acesso"].map(h => (
-                  <th key={h} scope="col" className="text-left px-4 sm:px-6 py-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{h}</th>
-                ))}
-                <th scope="col" className="px-4 sm:px-6 py-2.5"><span className="sr-only">Ações</span></th>
+                <th scope="col" className="text-left pr-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Pessoa</th>
+                <th scope="col" className="hidden @md:table-cell text-left px-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Papel</th>
+                <th scope="col" className="hidden @2xl:table-cell text-left px-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Situação</th>
+                <th scope="col" className="hidden @3xl:table-cell text-left px-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Último acesso</th>
+                <th scope="col" className="pl-2 pb-2"><span className="sr-only">Ações</span></th>
               </tr>
             </thead>
             <tbody>
               {filtered.map(m => {
                 const dono = m.papel === "responsavel";
                 return (
-                  <tr key={m.email} className="border-b border-border hover:bg-muted/30 transition-colors">
-                    <td className="px-4 sm:px-6 py-3">
+                  <tr key={m.email} className="border-t border-border hover:bg-muted/30 transition-colors">
+                    <td className="px-2 py-3 first:pl-0 last:pr-0">
                       <div className="flex items-center gap-3">
                         <div className="h-7 w-7 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0" aria-hidden>
                           <span className={`text-[0.5625rem] font-bold ${textoMarca}`}>{m.iniciais}</span>
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[0.8125rem] font-medium text-foreground truncate">{m.nome}</div>
-                          <div className="text-[0.6875rem] text-muted-foreground truncate">{m.email}</div>
+                          <div className="text-[0.8125rem] font-medium text-foreground break-words">{m.nome}</div>
+                          <div className="text-[0.6875rem] text-muted-foreground break-all">{m.email}</div>
+                          {/* Card estreito: o papel vem embaixo do e-mail, em vez de uma coluna. */}
+                          <div className="@md:hidden mt-1">
+                            {editando === m.email ? (
+                              <select
+                                autoFocus
+                                aria-label={`Papel de ${m.nome}`}
+                                value={m.papel}
+                                onChange={e => setPessoas(prev => prev.map(p => p.email === m.email ? { ...p, papel: e.target.value as Papel } : p))}
+                                className={`${campo} py-1 text-[0.75rem] w-auto`}
+                              >
+                                <option value="atendente">Atendente</option>
+                                <option value="estoquista">Estoquista</option>
+                              </select>
+                            ) : (
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[0.625rem] font-semibold ${papeis[m.papel].cor}`}>{papeis[m.papel].rotulo}</span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 sm:px-6 py-3">
+                    <td className="hidden @md:table-cell px-2 py-3">
                       {editando === m.email ? (
                         <select
                           autoFocus
@@ -756,18 +725,18 @@ function TeamTemplate() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 sm:px-6 py-3">
+                    <td className="hidden @2xl:table-cell px-2 py-3">
                       <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[0.625rem] font-medium border border-border bg-card text-foreground">
                         <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${situacoes[m.situacao].ponto}`} />
                         {situacoes[m.situacao].rotulo}
                       </span>
                     </td>
-                    <td className="px-4 sm:px-6 py-3 text-[0.75rem] text-muted-foreground whitespace-nowrap">{m.acesso}</td>
-                    <td className="px-4 sm:px-6 py-3">
+                    <td className="hidden @3xl:table-cell px-2 py-3 text-[0.75rem] text-muted-foreground whitespace-nowrap">{m.acesso}</td>
+                    <td className="px-2 py-3 first:pl-0 last:pr-0">
                       {dono ? (
                         <span className="block text-right text-[0.6875rem] text-muted-foreground">Você</span>
                       ) : removendo === m.email ? (
-                        <div className="flex items-center gap-1.5 justify-end">
+                        <div className="flex flex-wrap items-center gap-1.5 justify-end">
                           <span className="text-[0.6875rem] text-foreground whitespace-nowrap">Remover acesso?</span>
                           <button type="button" autoFocus onClick={() => setRemovendo(null)} className={`h-6 px-2 rounded-sm border border-border bg-card text-[0.6875rem] text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
                           <button
@@ -804,7 +773,6 @@ function TeamTemplate() {
               })}
             </tbody>
           </table>
-
           {filtered.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 text-muted-foreground px-6 text-center">
               <Search aria-hidden className="h-6 w-6 mb-2 opacity-30" />
@@ -813,15 +781,9 @@ function TeamTemplate() {
               </p>
             </div>
           )}
-        </div>
-
-        {/* Rodapé */}
-        <div className="border-t border-border px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 shrink-0 bg-background">
-          <span className="text-[0.6875rem] text-muted-foreground">Mostrando {filtered.length} de {pessoas.length} pessoas</span>
-          <span className="text-[0.6875rem] text-muted-foreground flex items-center gap-1.5">
-            <ShieldCheck aria-hidden className="h-3 w-3" /> Só a pessoa responsável muda plano e equipe.
-          </span>
-        </div>
+          <p className="mt-3 text-[0.6875rem] text-muted-foreground @2xl:hidden">Nesta largura, a situação e o último acesso ficam de fora. Abra numa tela maior para ver tudo.</p>
+          <p className="mt-3 hidden text-[0.6875rem] text-muted-foreground @2xl:block @3xl:hidden">Nesta largura, o último acesso fica de fora. Abra numa tela maior para ver tudo.</p>
+        </CardComCabecalho>
       </div>
     </TemplateFrame>
   );
@@ -850,6 +812,8 @@ const avisosIniciais: { tipo: TipoAviso; titulo: string; texto: string; quando: 
 ];
 
 function InboxTemplate() {
+  const embutido = React.useContext(PainelEmbutido);
+  const pre = `av${useId().replace(/:/g, "")}`;
   const [items, setItems] = useState(avisosIniciais.map((n, i) => ({ ...n, id: i })));
   const [selected, setSelected] = useState<number | null>(3);
   const [soNaoLidas, setSoNaoLidas] = useState(false);
@@ -862,43 +826,38 @@ function InboxTemplate() {
 
   return (
     <TemplateFrame url="Painel da loja · Notificações">
-      <div className="flex h-[560px] bg-background overflow-hidden">
+      <div className={`space-y-5 ${embutido ? "" : "bg-muted p-4 @xl:p-6"}`}>
+        <CabecalhoDaPagina
+          nivel={2}
+          titulo="Notificações"
+          descricao={unread > 0 ? `${unread} ${unread === 1 ? "aviso não lido" : "avisos não lidos"} sobre a sua vitrine.` : "Tudo em dia. Nenhum aviso não lido."}
+          acoes={
+            <button
+              type="button"
+              disabled={unread === 0}
+              onClick={() => setItems(prev => prev.map(n => ({ ...n, lida: true })))}
+              className={`h-10 px-4 rounded-md border border-[var(--border-strong)] bg-card flex items-center gap-2 whitespace-nowrap text-[0.875rem] font-medium text-foreground hover:bg-accent disabled:opacity-50 disabled:pointer-events-none ${foco}`}
+            >
+              <CheckCheck aria-hidden className="h-4 w-4" /> Marcar todas como lidas
+            </button>
+          }
+          abas={
+            <AbasComContador
+              estilo="pagina"
+              idBase={pre}
+              rotulo="Mostrar"
+              abas={[{ valor: "todas", rotulo: "Todas", quantidade: items.length }, { valor: "nao-lidas", rotulo: "Não lidas", quantidade: unread }]}
+              valor={soNaoLidas ? "nao-lidas" : "todas"}
+              onChange={v => setSoNaoLidas(v === "nao-lidas")}
+            />
+          }
+        />
+        <div id={`${pre}-painel`} role="tabpanel" aria-labelledby={`${pre}-aba-${soNaoLidas ? "nao-lidas" : "todas"}`}>
+        <CardComCabecalho nivel={3} icone={<Bell />} titulo="Avisos da vitrine" descricao="Escolha um aviso para ver os detalhes e o que fazer.">
+      {/* A linha entre a lista e o detalhe fica: separa as duas colunas; a das linhas separa os avisos da lista. */}
+      <div className="flex h-[480px] overflow-hidden rounded-md border border-border">
         {/* Lista */}
-        <div className={`${detalheMobile ? "hidden sm:flex" : "flex"} w-full sm:w-[290px] shrink-0 border-r border-border flex-col`}>
-          <div className="px-4 pt-3 pb-2 border-b border-border shrink-0 space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="text-[0.875rem] font-bold text-foreground flex items-center gap-2">
-                Notificações
-                {unread > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground text-[0.5625rem] font-bold">
-                    {unread}<span className="sr-only"> não lidas</span>
-                  </span>
-                )}
-              </h1>
-              <button
-                type="button"
-                disabled={unread === 0}
-                onClick={() => setItems(prev => prev.map(n => ({ ...n, lida: true })))}
-                aria-label="Marcar todas como lidas"
-                className={`h-6 px-2 rounded-sm flex items-center gap-1 whitespace-nowrap text-[0.625rem] font-medium text-muted-foreground hover:bg-accent hover:text-foreground disabled:opacity-50 disabled:pointer-events-none ${foco}`}
-              >
-                <CheckCheck aria-hidden className="h-3 w-3" /> Marcar todas
-              </button>
-            </div>
-            <div className="flex gap-1" role="group" aria-label="Mostrar">
-              {[{ v: false, l: "Todas" }, { v: true, l: "Não lidas" }].map(f => (
-                <button
-                  key={f.l}
-                  type="button"
-                  aria-pressed={soNaoLidas === f.v}
-                  onClick={() => setSoNaoLidas(f.v)}
-                  className={`h-6 px-2.5 rounded-full text-[0.625rem] font-medium border transition-colors ${foco} ${soNaoLidas === f.v ? `border-primary bg-[var(--primary-muted)] ${textoMarca}` : "border-border text-muted-foreground hover:bg-accent"}`}
-                >
-                  {f.l}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div className={`${detalheMobile ? "hidden @xl:flex" : "flex"} w-full @xl:w-[290px] shrink-0 border-r border-border flex-col`}>
           <ul className="flex-1 overflow-y-auto">
             {lista.map(n => {
               const tipo = tiposAviso[n.tipo];
@@ -940,16 +899,16 @@ function InboxTemplate() {
         </div>
 
         {/* Detalhe */}
-        <div className={`${detalheMobile ? "block" : "hidden sm:block"} flex-1 min-w-0 overflow-y-auto`}>
+        <div className={`${detalheMobile ? "block" : "hidden @xl:block"} flex-1 min-w-0 overflow-y-auto`}>
           {atual ? (() => {
             const tipo = tiposAviso[atual.tipo];
             const Icon = tipo.icon;
             return (
-              <div className="p-5 sm:p-6">
+              <div className="p-5 @xl:p-6">
                 <button
                   type="button"
                   onClick={() => setDetalheMobile(false)}
-                  className={`sm:hidden mb-4 inline-flex items-center gap-1 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}
+                  className={`@xl:hidden mb-4 inline-flex items-center gap-1 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}
                 >
                   <ChevronRight aria-hidden className="h-3.5 w-3.5 rotate-180" /> Voltar para a lista
                 </button>
@@ -997,6 +956,9 @@ function InboxTemplate() {
               <p className="text-[0.875rem]">Escolha uma notificação para ver os detalhes.</p>
             </div>
           )}
+        </div>
+      </div>
+        </CardComCabecalho>
         </div>
       </div>
     </TemplateFrame>
@@ -1096,6 +1058,7 @@ function PrototipoComControles() {
 
 function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean }) {
   const { t, bi } = useI18n();
+  const embutido = React.useContext(PainelEmbutido);
   const [annual, setAnnual] = useState(false);
   const [selecionado, setSelecionado] = useState<string | null>(null);
   // Lista de recursos começa recolhida; abrir ou fechar vale para todos os cards, que ficam sempre alinhados
@@ -1103,11 +1066,13 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
 
   return (
     <TemplateFrame>
-      <div className="bg-background min-h-[480px] p-4 sm:p-6">
-        <div className="text-center mb-8">
-          <h2 className="text-[1.25rem] font-bold text-foreground mb-1">{t("Plans & Pricing", "Planos e preços")}</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mb-4">{t("Choose the plan that fits your store. Change whenever you need.", "Escolha o plano que combina com a sua loja. Troque quando precisar.")}</p>
-          {/* Toggle */}
+      {/* Opção A (23/11/2026): título, descrição e a escolha mensal/anual fora de card; os planos são os cards. */}
+      <div className={`space-y-5 ${embutido ? "" : "bg-muted p-4 sm:p-6"}`}>
+        <CabecalhoDaPagina
+          nivel={2}
+          titulo={t("Plans & Pricing", "Planos e assinatura")}
+          descricao={t("Choose the plan that fits your store. Change whenever you need.", "Escolha o plano que combina com a sua loja. Troque quando precisar.")}
+          acoes={
           <div className="inline-flex items-center gap-3">
             <span className={`text-[0.75rem] font-medium ${!annual ? "text-foreground" : "text-muted-foreground"}`}>{t("Monthly", "Mensal")}</span>
             <button
@@ -1126,11 +1091,12 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
               <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-success/10 text-success text-[0.5625rem] font-bold">-20%</span>
             </span>
           </div>
-        </div>
+          }
+        />
 
         {/* Colunas pela largura disponível (não pela tela): dentro do protótipo do painel, os 3 cards só ficam lado a lado se couberem */}
         <div className="@container/precos">
-        <div className="grid grid-cols-1 @4xl/precos:grid-cols-3 gap-5 max-w-md @4xl/precos:max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 @4xl/precos:grid-cols-3 gap-5 max-w-md @4xl/precos:max-w-none">
           {plans.map(plan => {
             const Icon = plan.icon;
             const valor = annual ? Math.round(plan.price * 0.8) : plan.price;
@@ -1269,6 +1235,7 @@ const assuntosSuporte = [
 ];
 
 function ContactTemplate() {
+  const embutido = React.useContext(PainelEmbutido);
   const uid = useId();
   const pre = `sup${uid.replace(/:/g, "")}`;
   const [sent, setSent] = useState(false);
@@ -1279,62 +1246,20 @@ function ContactTemplate() {
     setSent(true);
   };
 
+  // Opção A (23/11/2026): cabeçalho fora do card; mensagem, canais e guias em cards com cabeçalho de ícone.
   return (
     <TemplateFrame url="Painel da loja · Suporte">
-      <div className="bg-background min-h-[560px] flex flex-col md:flex-row overflow-hidden">
-
-        {/* Painel de informações */}
-        <div className="w-full md:w-[290px] shrink-0 bg-card border-b md:border-b-0 md:border-r border-border p-6 flex flex-col gap-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-primary/8 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-info/6 blur-3xl pointer-events-none" />
-
-          <div className="relative z-10">
-            <div className="h-10 w-10 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-4">
-              <LifeBuoy aria-hidden className={`h-5 w-5 ${textoMarca}`} />
-            </div>
-            <h2 className="text-[1rem] font-bold text-foreground mb-1">Fale com o suporte da FindLook</h2>
-            <p className="text-[0.8125rem] text-muted-foreground leading-relaxed">
-              Ajuda para lojas parceiras: cadastro de peças, planilhas, fotos, equipe, plano e pagamento.
-            </p>
-          </div>
-
-          <ul className="relative z-10 space-y-3">
-            {canaisSuporte.map(ch => {
-              const Icon = ch.icon;
-              return (
-                <li key={ch.rotulo} className="flex items-start gap-3 p-3 rounded-md border border-border bg-background/60">
-                  <div className={`h-8 w-8 rounded-sm flex items-center justify-center shrink-0 ${ch.cor}`}>
-                    <Icon aria-hidden className="h-4 w-4" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-[0.6875rem] text-muted-foreground">{ch.rotulo}</div>
-                    <div className="text-[0.75rem] font-semibold text-foreground truncate">{ch.valor}</div>
-                    <div className="text-[0.6875rem] text-muted-foreground">{ch.desc}</div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Guias rápidos */}
-          <nav aria-labelledby={`${pre}-guias`} className="relative z-10 mt-auto pt-4 border-t border-border">
-            <p id={`${pre}-guias`} className="text-[0.6875rem] font-semibold text-foreground mb-2">Antes de escrever, veja se ajuda</p>
-            <ul className="space-y-1">
-              {guiasRapidos.map(g => (
-                <li key={g}>
-                  <button type="button" className={`w-full flex items-center justify-between gap-2 text-left text-[0.6875rem] text-muted-foreground hover:text-foreground py-1 rounded-[4px] ${foco}`}>
-                    {g} <ChevronRight aria-hidden className="h-3 w-3 shrink-0" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
-        {/* Formulário */}
-        <div className="flex-1 p-6 overflow-y-auto">
+      <div className={`space-y-5 ${embutido ? "" : "bg-muted p-4 sm:p-6"}`}>
+        <CabecalhoDaPagina
+          nivel={2}
+          titulo="Ajuda e suporte"
+          descricao="Ajuda para lojas parceiras: cadastro de peças, planilhas, fotos, equipe, plano e pagamento."
+        />
+        <div className="@container">
+          <div className="grid items-start gap-4 @4xl:grid-cols-[minmax(0,1fr)_20rem]">
+            <CardComCabecalho nivel={3} icone={<Send />} titulo="Nova mensagem para o suporte" descricao="Conte o que aconteceu. Quanto mais detalhes, mais rápido conseguimos ajudar.">
           {sent ? (
-            <div role="status" className="flex flex-col items-center justify-center h-full py-12 text-center">
+            <div role="status" className="flex flex-col items-center justify-center py-10 text-center">
               <div className="h-16 w-16 rounded-full bg-success/10 flex items-center justify-center mb-4">
                 <CheckCircle aria-hidden className="h-8 w-8 text-success" />
               </div>
@@ -1351,13 +1276,9 @@ function ContactTemplate() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSend} className="space-y-4 max-w-md">
-              <div>
-                <h3 className="text-[0.9375rem] font-bold text-foreground mb-0.5">Nova mensagem para o suporte</h3>
-                <p className="text-[0.75rem] text-muted-foreground">Conte o que aconteceu. Quanto mais detalhes, mais rápido conseguimos ajudar.</p>
-              </div>
+            <form onSubmit={handleSend} className="space-y-4 max-w-xl">
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 @lg:grid-cols-2 gap-3">
                 <div>
                   <label htmlFor={`${pre}-nome`} className="block text-[0.75rem] font-medium text-foreground mb-1">Seu nome</label>
                   <div className="relative">
@@ -1433,6 +1354,40 @@ function ContactTemplate() {
               </button>
             </form>
           )}
+            </CardComCabecalho>
+            <div className="space-y-4">
+              <CardComCabecalho nivel={3} icone={<LifeBuoy />} titulo="Canais de atendimento" descricao="Escolha o jeito mais fácil para você.">
+          <ul className="divide-y divide-border">
+            {canaisSuporte.map(ch => {
+              const Icon = ch.icon;
+              return (
+                <li key={ch.rotulo} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className={`h-8 w-8 rounded-sm flex items-center justify-center shrink-0 ${ch.cor}`}>
+                    <Icon aria-hidden className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[0.6875rem] text-muted-foreground">{ch.rotulo}</div>
+                    <div className="text-[0.75rem] font-semibold text-foreground truncate">{ch.valor}</div>
+                    <div className="text-[0.6875rem] text-muted-foreground">{ch.desc}</div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+              </CardComCabecalho>
+              <CardComCabecalho nivel={3} icone={<BookOpen />} titulo="Antes de escrever" descricao="Veja se um destes guias resolve.">
+            <ul className="space-y-1">
+              {guiasRapidos.map(g => (
+                <li key={g}>
+                  <button type="button" className={`w-full flex items-center justify-between gap-2 text-left text-[0.8125rem] text-muted-foreground hover:text-foreground py-1.5 rounded-[4px] ${foco}`}>
+                    {g} <ChevronRight aria-hidden className="h-3 w-3 shrink-0" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+              </CardComCabecalho>
+            </div>
+          </div>
         </div>
       </div>
     </TemplateFrame>
@@ -1456,7 +1411,7 @@ export function TemplatesShowcase() {
       {/* Painel da loja (protótipo) */}
       <section id="template-dashboard">
         <TemplateLabel icon={LayoutDashboard} label="Painel da loja: protótipo navegável" />
-        <p className="-mt-2 mb-4 max-w-2xl text-[0.875rem] leading-relaxed text-muted-foreground">Uma janela só, com rolagem própria. Use o menu lateral, a busca, o sino e o menu da conta para trocar de página, como no painel de verdade. Em telas estreitas, o menu abre como gaveta dentro da janela.</p>
+        <p className="-mt-2 mb-4 max-w-2xl text-[0.875rem] leading-relaxed text-muted-foreground">Uma janela só, com rolagem própria. Use o menu lateral, a busca, o sino e o menu da conta para trocar de página, como no painel de verdade. Em telas largas, o botão Recolher menu, no pé do menu, deixa só os ícones (com tooltip) e a escolha fica guardada. O cabeçalho é branco, igual ao menu, com linha fina embaixo, e o perfil fica sempre nele, à direita. Em telas estreitas, o menu abre como gaveta dentro da janela, sempre expandido.</p>
         <PrototipoComControles />
       </section>
 

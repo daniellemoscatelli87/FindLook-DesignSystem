@@ -403,6 +403,32 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   );
 }
 
+/* ── Card com cabeçalho de ícone (Opção A, 23/11/2026) ──────── */
+/**
+ * Card branco das páginas do painel: ícone na base rosa clara (--primary-muted) com ícone vermelho (--primary-text),
+ * título e uma linha opcional de descrição; depois, o conteúdo. Fica embaixo do cabeçalho da página (título, descrição
+ * e abas, fora de qualquer card). Agrupe o conteúdo de cada aba por assunto, um card por assunto.
+ * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
+ */
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+  const tid = React.useId();
+  const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
+  return (
+    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" className={cn("@container min-w-0 rounded-lg border border-border bg-card p-4 @xl:p-5", className)}>
+      {/* Sem linha entre o cabeçalho e o conteúdo (pedido da dona do produto, 23/11/2026): só o espaçamento separa. */}
+      <div className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", children !== undefined && "mb-5")}>
+        <IconeComBase tom={tom} className="h-10 w-10 rounded-lg [&>svg]:h-5 [&>svg]:w-5">{icone}</IconeComBase>
+        <div className="min-w-[12rem] flex-1 self-center">
+          <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
+          {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
+        </div>
+        {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
+      </div>
+      {children}
+    </section>
+  );
+}
+
 /* ── Conteúdo com limite de altura ("Mostrar mais") ──────────── */
 /**
  * Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a
@@ -683,7 +709,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone };

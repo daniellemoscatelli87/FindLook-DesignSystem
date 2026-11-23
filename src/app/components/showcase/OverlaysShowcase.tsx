@@ -13,8 +13,16 @@ import { Pagination as UiPagination, PaginationContent, PaginationItem, Paginati
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { House, ShoppingBag, Package, ChartColumn, Store, Users, Plus as PlusIcon, FileSpreadsheet, Camera, UserRound, ArrowLeftRight, LogOut, CalendarCheck, Star } from "lucide-react";
-import { SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta } from "../ui/painel-shell";
+import { House, ShoppingBag, Package, ChartColumn, Store, Users, Plus as PlusIcon, FileSpreadsheet, Camera, UserRound, ArrowLeftRight, LogOut, CalendarCheck, Star, Send, Mail, Smartphone } from "lucide-react";
+import { CardComCabecalho } from "../ui/painel-dados";
+import { AbasComContador } from "../ui/painel-produtos";
+import { Switch } from "../ui/switch";
+import {
+  SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta,
+  MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, useMenuRecolhido,
+} from "../ui/painel-shell";
+import simboloFindLook from "../../../imports/findlook/findlook-simbolo.png";
+import logoFindLook from "../../../imports/findlook/findlook-horizontal-sobre-claro.png";
 import { CabecalhoDaPagina, SeletorDePeriodo, BotaoDividido } from "../ui/painel-cabecalho";
 import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
@@ -183,6 +191,129 @@ const itensDaLoja = [
   { id: "equipe", rotulo: "Equipe", icone: <Users /> },
 ];
 
+/* Logo do menu: inteiro quando expandido, só o símbolo quando recolhido. */
+function LogoDoMenuExemplo() {
+  return useMenuRecolhido()
+    ? <span className="flex h-9 items-center justify-center"><img src={simboloFindLook} alt="FindLook" className="h-8 w-8 object-contain" /></span>
+    : <span className="flex h-9 items-center"><img src={logoFindLook} alt="FindLook" className="h-8 w-auto max-w-none object-contain" /></span>;
+}
+
+/* Exemplo do menu recolhível: menu lateral + cabeçalho branco com o perfil à direita + conteúdo no fundo cinza. */
+function ExemploMenuRecolhivel() {
+  const [ativo, setAtivo] = useState("inicio");
+  return (
+    <MenuLateralProvider chave="findlook-ds:exemplo-menu:menu-recolhido">
+      <div className="flex h-[500px] overflow-hidden rounded-lg border border-border bg-muted">
+        <MenuLateral>
+          <div className="flex h-full min-h-0 flex-col">
+            <div className="shrink-0 space-y-3 px-4 pb-3 pt-4">
+              <LogoDoMenuExemplo />
+              <SeletorDeLoja loja="Ateliê Aurora" />
+            </div>
+            <NavDoMenu aria-label="Menu do painel (exemplo recolhível)">
+              <GrupoDoMenu>
+                {itensDoMenu.map(item => (
+                  <ItemDoMenu key={item.id} href="#" icone={item.icone} ativo={ativo === item.id} contador={item.contador} rotuloContador="pedidos novos" onClick={e => { e.preventDefault(); setAtivo(item.id); }}>
+                    {item.rotulo}
+                  </ItemDoMenu>
+                ))}
+              </GrupoDoMenu>
+              <DivisorDoMenu />
+              <GrupoDoMenu titulo="Minha loja">
+                {itensDaLoja.map(item => (
+                  <ItemDoMenu key={item.id} href="#" icone={item.icone} ativo={ativo === item.id} onClick={e => { e.preventDefault(); setAtivo(item.id); }}>
+                    {item.rotulo}
+                  </ItemDoMenu>
+                ))}
+              </GrupoDoMenu>
+            </NavDoMenu>
+            {/* Abaixo de 1024 px o botão não aparece; o pé vazio some junto (empty:hidden). */}
+            <div className="shrink-0 border-t border-border p-4 empty:hidden">
+              <BotaoRecolherMenu />
+            </div>
+          </div>
+        </MenuLateral>
+        <div className="hidden min-w-0 flex-1 flex-col sm:flex">
+          <div className="flex shrink-0 items-center gap-2 border-b border-border bg-card px-3 py-2.5">
+            <span className="min-w-0 flex-1 truncate text-[0.875rem] font-semibold text-foreground">{[...itensDoMenu, ...itensDaLoja].find(i => i.id === ativo)?.rotulo}</span>
+            <GatilhoDaConta nome="Ana Oliveira" papel="Proprietária" className="shrink-0" />
+          </div>
+          <div className="min-h-0 flex-1 space-y-3 p-4" aria-hidden>
+            <div className="h-20 rounded-lg border border-border bg-card" />
+            <div className="grid grid-cols-2 gap-3">
+              <div className="h-24 rounded-lg border border-border bg-card" />
+              <div className="h-24 rounded-lg border border-border bg-card" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </MenuLateralProvider>
+  );
+}
+
+const regrasMenuRecolhivel: { titulo: string; texto: string }[] = [
+  { titulo: "Expandido ou recolhido", texto: "Expandido, o menu mostra ícone e nome (256 px). Recolhido, só os ícones (72 px), centralizados. A largura muda com os tokens de movimento (--duration-normal, --ease-in-out); com “menos movimento”, a troca é instantânea." },
+  { titulo: "Botão no pé do menu", texto: "“Recolher menu” vira “Expandir menu”. Tem aria-expanded e aria-controls (aponta para o menu) e anel de foco visível. Recolhido, fica só com o ícone e mantém o nome para leitores de tela." },
+  { titulo: "Recolhido", texto: "Os títulos dos grupos viram uma linha fina. Cada item mostra um tooltip com o nome ao passar o mouse e ao chegar pelo teclado, e continua com o nome para leitores de tela. O item ativo mantém o fundo e a barra à esquerda, na altura toda. O contador vira um ponto no ícone, e o tooltip diz o número (“Pedidos, 3 pedidos novos”). O logo mostra só o símbolo." },
+  { titulo: "Escolha guardada", texto: "A escolha fica salva no navegador (localStorage, uma chave por painel) e volta ao abrir de novo, sem piscar e sem animar na abertura." },
+  { titulo: "Celular e tablet", texto: "Abaixo de 1024 px, o menu não recolhe: continua a gaveta de hoje, sempre expandida, sem o botão." },
+  { titulo: "Cabeçalho e perfil", texto: "Cabeçalho branco, igual ao menu lateral, com linha fina embaixo; perfil sempre no cabeçalho, à direita. O conteúdo fica no fundo cinza claro. O perfil nunca vai para o menu lateral." },
+];
+
+/* Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas);
+   conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. */
+function ExemploOpcaoA() {
+  const [aba, setAba] = useState("notificacoes");
+  const [avisos, setAvisos] = useState({ reservas: true, buscas: false, email: true, whatsapp: false });
+  const linha = (id: keyof typeof avisos, titulo: string, texto: string) => (
+    <div key={id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+      <div className="min-w-0">
+        <label htmlFor={`exa-${id}`} className="block cursor-pointer text-[0.875rem] font-medium text-foreground">{titulo}</label>
+        <p id={`exa-${id}-d`} className="text-[0.75rem] text-muted-foreground">{texto}</p>
+      </div>
+      <Switch id={`exa-${id}`} checked={avisos[id]} onCheckedChange={v => setAvisos(a => ({ ...a, [id]: v }))} aria-describedby={`exa-${id}-d`} />
+    </div>
+  );
+  return (
+    <div className="@container space-y-5 rounded-lg border border-border bg-muted p-4 sm:p-6">
+      <CabecalhoDaPagina
+        nivel={3}
+        titulo="Configurações da loja"
+        descricao="Essas informações aparecem na vitrine da sua loja na FindLook."
+        abas={<AbasComContador estilo="pagina" idBase="exemplo-opcao-a" rotulo="Seções das configurações (exemplo)" valor={aba} onChange={setAba} abas={[{ valor: "perfil", rotulo: "Perfil da loja" }, { valor: "notificacoes", rotulo: "Notificações" }, { valor: "conta", rotulo: "Conta e privacidade" }]} />}
+      />
+      <div id="exemplo-opcao-a-painel" role="tabpanel" aria-labelledby={`exemplo-opcao-a-aba-${aba}`} className="space-y-4">
+        {aba === "notificacoes" ? (
+          <>
+            <CardComCabecalho nivel={4} icone={<Bell />} titulo="O que avisar" descricao="Escolha quais movimentos da sua vitrine geram aviso.">
+              <div className="divide-y divide-border">
+                {linha("reservas", "Pedido de reserva", "Quando alguém pede para a loja separar uma peça.")}
+                {linha("buscas", "Busca compatível", "Quando alguém da região procura uma peça parecida.")}
+              </div>
+            </CardComCabecalho>
+            <CardComCabecalho nivel={4} icone={<Send />} titulo="Onde avisar" descricao="Os avisos ficam sempre no painel; e-mail e WhatsApp são opcionais.">
+              <div className="divide-y divide-border">
+                {linha("email", "Por e-mail", "ana@atelieaurora.com.br")}
+                {linha("whatsapp", "Pelo WhatsApp", "(11) 98765-4321")}
+              </div>
+            </CardComCabecalho>
+          </>
+        ) : (
+          <CardComCabecalho nivel={4} icone={aba === "perfil" ? <Store /> : <UserRound />} titulo={aba === "perfil" ? "Identidade da loja" : "Sua conta"} descricao="Exemplo: troque de aba para ver o conteúdo mudar embaixo do cabeçalho." />
+        )}
+      </div>
+    </div>
+  );
+}
+
+const regrasOpcaoA: { titulo: string; texto: string }[] = [
+  { titulo: "Cabeçalho da página fora do card", texto: "Título, descrição e abas ficam no fundo da página, sem card em volta e sem linha embaixo. Ações da página (um botão) ficam à direita do título." },
+  { titulo: "Abas da página", texto: "Logo abaixo do título (AbasComContador estilo=\"pagina\" com idBase). Sem linha de base de ponta a ponta: só a aba ativa tem o sublinhado. No celular, quebram de linha; nunca rolam para o lado." },
+  { titulo: "Conteúdo em cards com cabeçalho de ícone", texto: "CardComCabecalho: ícone de 40 px na base rosa clara (--primary-muted) com ícone vermelho (--primary-text), título no estilo de título de card e uma linha de descrição; ação opcional à direita, alinhada ao topo. Um card por assunto (ex.: “O que avisar” e “Onde avisar”)." },
+  { titulo: "Sem linhas desnecessárias", texto: "Nada de linha entre o cabeçalho do card e o conteúdo, nem entre grupos dentro do card: o espaçamento separa. A linha fica só onde tem sentido, entre as linhas de uma lista ou tabela." },
+  { titulo: "O modelo antigo sai", texto: "Título e abas dentro do cabeçalho de um card grande não são mais usados." },
+];
+
 /* Classes do conteúdo dos menus do exemplo (mesmas do Dropdown de ações). */
 const menuConteudo = "z-50 min-w-[220px] bg-card border border-border rounded-md p-1.5";
 const menuItem = "gap-2 px-3 py-2 text-[0.875rem] font-medium text-foreground rounded-sm cursor-pointer";
@@ -246,7 +377,7 @@ export function OverlaysShowcase() {
 
       {/* ── MENU DO PAINEL ── */}
       <section id="menu-painel">
-        <SectionHeader title="Menu do painel" description="Menu lateral do painel da loja: troca de loja, páginas agrupadas por assunto e o plano atual no rodapé." />
+        <SectionHeader title="Menu do painel" description="Menu lateral do painel da loja: troca de loja, páginas agrupadas por assunto e o plano atual no rodapé. Nas telas a partir de 1024 px, pode ficar expandido ou recolhido (só ícones)." />
         <SubSection title="Anatomia do menu">
           <ShowcaseCard>
             <div>
@@ -273,14 +404,37 @@ export function OverlaysShowcase() {
             </div>
           </ShowcaseCard>
         </SubSection>
+        <SubSection title="Menu recolhível">
+          <ShowcaseCard>
+            <div id="menu-recolhivel" className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-start">
+              <ExemploMenuRecolhivel />
+              <ul className="space-y-3">
+                {regrasMenuRecolhivel.map(r => (
+                  <li key={r.titulo} className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+                    <span className="block text-[0.875rem] font-semibold text-foreground">{r.titulo}</span>
+                    {r.texto}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="mt-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+              No código: <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">MenuLateralProvider</code> (guarda a escolha) envolve o painel;{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">MenuLateral</code> é a coluna que muda de largura;{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">NavDoMenu</code>,{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">DivisorDoMenu</code> e{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">BotaoRecolherMenu</code> completam o menu. Item, grupo, seletor de loja e cards do rodapé se adaptam sozinhos;{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">useMenuRecolhido()</code> troca o logo pelo símbolo. Na gaveta do celular, os mesmos itens aparecem expandidos.
+            </p>
+          </ShowcaseCard>
+        </SubSection>
       </section>
 
       {/* ── BARRA SUPERIOR ── */}
       <section id="barra-superior">
-        <SectionHeader title="Barra superior" description="Barra no topo do painel com a busca global, as notificações e o menu da conta." />
+        <SectionHeader title="Barra superior" description="Barra no topo do painel com a busca global, as notificações e o menu da conta. Branca, igual ao menu lateral, com linha fina embaixo; o perfil fica sempre aqui, à direita." />
         <SubSection title="Barra do painel">
           <ShowcaseCard>
-            <div className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2.5 sm:gap-3">
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2.5 sm:gap-3">
               <div className="min-w-0 flex-1">
                 <CampoDeBuscaGlobal onAbrir={() => setAvisoBusca("No painel, este campo abre a busca global, a mesma que abre com Ctrl + K.")} />
               </div>
@@ -322,7 +476,7 @@ export function OverlaysShowcase() {
 
       {/* ── CABEÇALHO DA PÁGINA ── */}
       <section id="cabecalho-pagina">
-        <SectionHeader title="Cabeçalho da página" description="Abertura de cada página do painel: saudação, título, uma frase de contexto e as ações da página." />
+        <SectionHeader title="Cabeçalho da página" description="Abertura de cada página do painel: saudação, título, uma frase de contexto e as ações da página. Cabeçalho da página fora do card: título, descrição e abas; conteúdo em cards com cabeçalho de ícone." />
         <SubSection title="Cabeçalho com ações">
           <ShowcaseCard>
             <div className="@container rounded-lg border border-border bg-background p-5">
@@ -343,6 +497,21 @@ export function OverlaysShowcase() {
                   />
                 </>}
               />
+            </div>
+          </ShowcaseCard>
+        </SubSection>
+        <SubSection title="Página com abas e cards (Opção A)">
+          <ShowcaseCard>
+            <div id="pagina-opcao-a" className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:items-start">
+              <ExemploOpcaoA />
+              <ul className="space-y-3">
+                {regrasOpcaoA.map(r => (
+                  <li key={r.titulo} className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+                    <span className="block text-[0.875rem] font-semibold text-foreground">{r.titulo}</span>
+                    {r.texto}
+                  </li>
+                ))}
+              </ul>
             </div>
           </ShowcaseCard>
         </SubSection>

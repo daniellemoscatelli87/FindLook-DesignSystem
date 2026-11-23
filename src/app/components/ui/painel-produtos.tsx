@@ -20,7 +20,13 @@ const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring
 /* ── Abas com contador ───────────────────────────────────────── */
 type Aba = { valor: string; rotulo: string; quantidade?: number };
 
-function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "Filtrar por status", className }: { abas: Aba[]; valor: string; onChange: (v: string) => void; estilo?: "pilula" | "sublinhado"; rotulo?: string; className?: string }) {
+/**
+ * estilo "pagina" (Opção A, 23/11/2026): abas da página, logo abaixo do título, sem linha de base de ponta a ponta;
+ * só a aba ativa tem o sublinhado. "sublinhado" mantém a linha de base (abas dentro de um card, como na tabela).
+ * idBase (opcional): liga cada aba ao seu painel (id = `${idBase}-aba-${valor}`, aria-controls = `${idBase}-painel`).
+ * O painel usa id `${idBase}-painel`, role="tabpanel" e aria-labelledby da aba ativa. Uso nas abas da página (Opção A).
+ */
+function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "Filtrar por status", idBase, className }: { abas: Aba[]; valor: string; onChange: (v: string) => void; estilo?: "pilula" | "sublinhado" | "pagina"; rotulo?: string; idBase?: string; className?: string }) {
   const refs = React.useRef<(HTMLButtonElement | null)[]>([]);
   const mover = (e: React.KeyboardEvent, i: number) => {
     const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
@@ -31,7 +37,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
     onChange(abas[n]!.valor);
   };
   return (
-    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full flex-wrap", estilo === "pilula" ? "min-h-9 w-fit items-center gap-y-[3px] rounded-xl bg-muted p-[3px] text-muted-foreground" : "gap-1 border-b border-border", className)}>
+    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full flex-wrap", estilo === "pilula" ? "min-h-9 w-fit items-center gap-y-[3px] rounded-xl bg-muted p-[3px] text-muted-foreground" : estilo === "pagina" ? "gap-x-1 gap-y-1" : "gap-1 border-b border-border", className)}>
       {abas.map((a, i) => {
         const ativa = a.valor === valor;
         return (
@@ -40,6 +46,8 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
             ref={el => { refs.current[i] = el; }}
             type="button"
             role="tab"
+            id={idBase ? `${idBase}-aba-${a.valor}` : undefined}
+            aria-controls={idBase ? `${idBase}-painel` : undefined}
             aria-selected={ativa}
             tabIndex={ativa ? 0 : -1}
             onClick={() => onChange(a.valor)}
@@ -49,7 +57,9 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
               foco,
               estilo === "pilula"
                 ? cn("h-[29px] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
-                : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
+                : estilo === "pagina"
+                  ? cn("rounded-t-sm border-b-2 px-3 py-2 text-[0.9375rem] first:pl-0.5", ativa ? "border-primary font-semibold text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:text-foreground")
+                  : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
             )}
           >
             {a.rotulo}

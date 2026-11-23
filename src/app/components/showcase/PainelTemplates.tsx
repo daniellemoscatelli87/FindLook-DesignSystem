@@ -6,7 +6,11 @@ import {
 } from "lucide-react";
 import logoClaro from "../../../imports/findlook/findlook-horizontal-sobre-claro.png";
 import logoEscuro from "../../../imports/findlook/findlook-horizontal-sobre-grafite.png";
-import { SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta } from "../ui/painel-shell";
+import simbolo from "../../../imports/findlook/findlook-simbolo.png";
+import {
+  SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta,
+  MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, useMenuRecolhido,
+} from "../ui/painel-shell";
 import { CabecalhoDaPagina, SeletorDePeriodo, BotaoDividido, BannerPromocional } from "../ui/painel-cabecalho";
 import {
   CardIndicador, GraficoDeDesempenho, ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao,
@@ -111,6 +115,14 @@ export function MolduraDoPainel({ children, endereco = "Painel da loja · FindLo
 }
 
 function Logo() {
+  // Menu recolhido: só o símbolo, centralizado na coluna de 72 px.
+  if (useMenuRecolhido()) {
+    return (
+      <span className="flex h-9 items-center justify-center">
+        <img src={simbolo} alt="FindLook" className="h-8 w-8 object-contain" />
+      </span>
+    );
+  }
   return (
     <span className="flex h-9 items-center self-start">
       <img src={logoClaro} alt="FindLook" className="h-8 w-auto max-w-none object-contain dark:hidden" />
@@ -119,7 +131,7 @@ function Logo() {
   );
 }
 
-function MenuLateral({ ativo, onIr, primeiroRef }: { ativo: PaginaId; onIr: (p: PaginaId) => void; primeiroRef?: React.Ref<HTMLAnchorElement> }) {
+function ConteudoDoMenu({ ativo, onIr, primeiroRef }: { ativo: PaginaId; onIr: (p: PaginaId) => void; primeiroRef?: React.Ref<HTMLAnchorElement> }) {
   const item = (i: ItemMenu, idx: number) => (
     <ItemDoMenu
       key={i.id}
@@ -140,13 +152,15 @@ function MenuLateral({ ativo, onIr, primeiroRef }: { ativo: PaginaId; onIr: (p: 
         <Logo />
         <SeletorDeLoja loja="Ateliê Aurora" />
       </div>
-      <nav aria-label="Menu do painel" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-3 [scrollbar-width:thin]">
+      <NavDoMenu aria-label="Menu do painel">
         <GrupoDoMenu>{menuPrincipal.map(item)}</GrupoDoMenu>
-        <div className="my-2 border-t border-border" />
+        <DivisorDoMenu />
         <GrupoDoMenu titulo="Minha loja">{menuMinhaLoja.map((i, n) => item(i, n + 1))}</GrupoDoMenu>
-      </nav>
-      <div className="shrink-0 border-t border-border p-4">
+      </NavDoMenu>
+      <div className="shrink-0 space-y-2 border-t border-border p-4">
         <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" onAcao={() => onIr("planos")} />
+        {/* Recolher / expandir: só aparece no menu fixo das telas largas (na gaveta, não). */}
+        <BotaoRecolherMenu />
       </div>
     </div>
   );
@@ -296,12 +310,13 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
 
   return (
     <Navegar.Provider value={ir}>
+      <MenuLateralProvider chave="findlook-ds:painel-da-loja:menu-recolhido">
       <MolduraDoPainel endereco={`Painel da loja · ${titulos[pagina]}`}>
         <div className="@container/painel relative flex h-[min(780px,85vh)] min-h-[560px] overflow-hidden bg-background">
-          {/* Menu fixo (telas largas) */}
-          <aside aria-label="Menu lateral" className="hidden h-full w-64 shrink-0 border-r border-border bg-card @4xl/painel:block">
-            <MenuLateral ativo={pagina} onIr={ir} />
-          </aside>
+          {/* Menu fixo (telas largas): expandido (256 px) ou recolhido (72 px, só ícones); a escolha fica guardada */}
+          <MenuLateral className="hidden @4xl/painel:block">
+            <ConteudoDoMenu ativo={pagina} onIr={ir} />
+          </MenuLateral>
 
           {/* Gaveta (telas estreitas), dentro da janela do protótipo */}
           <div className={`absolute inset-0 z-30 @4xl/painel:hidden ${gaveta ? "" : "pointer-events-none"}`} aria-hidden={!gaveta}>
@@ -316,13 +331,13 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
               <button type="button" onClick={() => setGaveta(false)} aria-label="Fechar menu" className="absolute right-3 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 <X aria-hidden className="h-5 w-5" />
               </button>
-              <MenuLateral ativo={pagina} onIr={ir} primeiroRef={primeiroItemRef} />
+              <ConteudoDoMenu ativo={pagina} onIr={ir} primeiroRef={primeiroItemRef} />
             </div>
           </div>
 
           <div className="@container flex min-w-0 flex-1 flex-col">
-            {/* Barra superior */}
-            <div className="flex shrink-0 items-center gap-2 border-b border-border bg-background px-3 py-2.5 @xl:gap-3 @xl:px-5">
+            {/* Barra superior: branca, igual ao menu lateral, com linha fina embaixo; perfil sempre aqui, à direita */}
+            <div className="flex shrink-0 items-center gap-2 border-b border-border bg-card px-3 py-2.5 @xl:gap-3 @xl:px-5">
               <button ref={botaoMenuRef} type="button" onClick={() => setGaveta(true)} aria-label="Abrir menu" aria-expanded={gaveta} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring @4xl/painel:hidden">
                 <Menu aria-hidden className="h-5 w-5" />
               </button>
@@ -345,6 +360,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
           <BuscaDoPainel aberta={busca} onAberta={setBusca} />
         </div>
       </MolduraDoPainel>
+      </MenuLateralProvider>
     </Navegar.Provider>
   );
 }
