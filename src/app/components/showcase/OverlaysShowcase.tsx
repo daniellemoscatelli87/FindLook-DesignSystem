@@ -20,9 +20,8 @@ import { AbasComContador } from "../ui/painel-produtos";
 import { Switch } from "../ui/switch";
 import {
   SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta,
-  MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, useMenuRecolhido,
+  MenuLateralProvider, MenuLateral, NavDoMenu, TopoDoMenu, BarraSuperiorDoPainel,
 } from "../ui/painel-shell";
-import simboloFindLook from "../../../imports/findlook/findlook-simbolo.png";
 import logoFindLook from "../../../imports/findlook/findlook-horizontal-sobre-claro.png";
 import { CabecalhoDaPagina, SeletorDePeriodo, BotaoDividido } from "../ui/painel-cabecalho";
 import {
@@ -193,58 +192,37 @@ const itensDaLoja = [
   { id: "equipe", rotulo: "Equipe", icone: <Users /> },
 ];
 
-/* Logo do menu: inteiro quando expandido, só o símbolo quando recolhido. */
-function LogoDoMenuExemplo() {
-  return useMenuRecolhido()
-    ? <span className="flex h-9 items-center justify-center"><img src={simboloFindLook} alt="FindLook" className="h-8 w-8 object-contain" /></span>
-    : <span className="flex h-9 items-center"><img src={logoFindLook} alt="FindLook" className="h-8 w-auto max-w-none object-contain" /></span>;
-}
-
-/* Exemplo do menu recolhível: menu lateral + cabeçalho branco com o perfil à direita + conteúdo no fundo cinza. */
+/* Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta
+   (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. */
 function ExemploMenuRecolhivel() {
   const [ativo, setAtivo] = useState("inicio");
+  const item = (i: { id: string; rotulo: string; icone: React.ReactNode; contador?: number }) => (
+    <ItemDoMenu key={i.id} href="#" icone={i.icone} ativo={ativo === i.id} contador={i.contador} rotuloContador="pedidos novos" onClick={e => { e.preventDefault(); setAtivo(i.id); }}>
+      {i.rotulo}
+    </ItemDoMenu>
+  );
   return (
     <MenuLateralProvider chave="findlook-ds:exemplo-menu:menu-recolhido">
-      <div className="flex h-[500px] overflow-hidden rounded-lg border border-border bg-muted">
-        <MenuLateral>
-          <div className="flex h-full min-h-0 flex-col">
-            <div className="shrink-0 space-y-3 px-4 pb-3 pt-4">
-              <LogoDoMenuExemplo />
-              <SeletorDeLoja loja="Ateliê Aurora" />
+      <div className="@container flex h-[500px] flex-col overflow-hidden rounded-lg border border-border bg-muted">
+        <BarraSuperiorDoPainel>
+          <img src={logoFindLook} alt="FindLook" className="h-7 w-auto max-w-none object-contain" />
+          <div className="ml-auto"><GatilhoDaConta nome="Ana Oliveira" papel="Proprietária" /></div>
+        </BarraSuperiorDoPainel>
+        <div className="flex min-h-0 flex-1">
+          <MenuLateral>
+            <div className="flex h-full min-h-0 flex-col">
+              <TopoDoMenu />
+              <NavDoMenu aria-label="Menu do painel (exemplo recolhível)">
+                <GrupoDoMenu>{itensDoMenu.map(item)}</GrupoDoMenu>
+                <GrupoDoMenu expansivel padraoAberto titulo="Minha loja" icone={<Store />} className="mt-0.5">{itensDaLoja.map(item)}</GrupoDoMenu>
+              </NavDoMenu>
             </div>
-            <NavDoMenu aria-label="Menu do painel (exemplo recolhível)">
-              <GrupoDoMenu>
-                {itensDoMenu.map(item => (
-                  <ItemDoMenu key={item.id} href="#" icone={item.icone} ativo={ativo === item.id} contador={item.contador} rotuloContador="pedidos novos" onClick={e => { e.preventDefault(); setAtivo(item.id); }}>
-                    {item.rotulo}
-                  </ItemDoMenu>
-                ))}
-              </GrupoDoMenu>
-              <DivisorDoMenu />
-              <GrupoDoMenu titulo="Minha loja">
-                {itensDaLoja.map(item => (
-                  <ItemDoMenu key={item.id} href="#" icone={item.icone} ativo={ativo === item.id} onClick={e => { e.preventDefault(); setAtivo(item.id); }}>
-                    {item.rotulo}
-                  </ItemDoMenu>
-                ))}
-              </GrupoDoMenu>
-            </NavDoMenu>
-            {/* Abaixo de 1024 px o botão não aparece; o pé vazio some junto (empty:hidden). */}
-            <div className="shrink-0 border-t border-border p-4 empty:hidden">
-              <BotaoRecolherMenu />
-            </div>
-          </div>
-        </MenuLateral>
-        <div className="hidden min-w-0 flex-1 flex-col sm:flex">
-          <div className="flex shrink-0 items-center gap-2 border-b border-border bg-card px-3 py-2.5">
-            <span className="min-w-0 flex-1 truncate text-[0.875rem] font-semibold text-foreground">{[...itensDoMenu, ...itensDaLoja].find(i => i.id === ativo)?.rotulo}</span>
-            <GatilhoDaConta nome="Ana Oliveira" papel="Proprietária" className="shrink-0" />
-          </div>
-          <div className="min-h-0 flex-1 space-y-3 p-4" aria-hidden>
-            <div className="h-20 rounded-lg bg-card shadow-[var(--shadow-sm)]" />
+          </MenuLateral>
+          <div className="hidden min-w-0 flex-1 space-y-3 p-4 sm:block" aria-hidden>
+            <div className="h-20 rounded-lg border border-border bg-card" />
             <div className="grid grid-cols-2 gap-3">
-              <div className="h-24 rounded-lg bg-card shadow-[var(--shadow-sm)]" />
-              <div className="h-24 rounded-lg bg-card shadow-[var(--shadow-sm)]" />
+              <div className="h-24 rounded-lg border border-border bg-card" />
+              <div className="h-24 rounded-lg border border-border bg-card" />
             </div>
           </div>
         </div>
@@ -254,12 +232,13 @@ function ExemploMenuRecolhivel() {
 }
 
 const regrasMenuRecolhivel: { titulo: string; texto: string }[] = [
-  { titulo: "Expandido ou recolhido", texto: "Expandido, o menu mostra ícone e nome (256 px). Recolhido, só os ícones (72 px), centralizados. A largura muda com os tokens de movimento (--duration-normal, --ease-in-out); com “menos movimento”, a troca é instantânea." },
-  { titulo: "Botão no pé do menu", texto: "“Recolher menu” vira “Expandir menu”. Tem aria-expanded e aria-controls (aponta para o menu) e anel de foco visível. Recolhido, fica só com o ícone e mantém o nome para leitores de tela." },
-  { titulo: "Recolhido", texto: "Os títulos dos grupos viram uma linha fina. Cada item mostra um tooltip com o nome ao passar o mouse e ao chegar pelo teclado, e continua com o nome para leitores de tela. O item ativo mantém o fundo e a barra à esquerda, na altura toda. O contador vira um ponto no ícone, e o tooltip diz o número (“Pedidos, 3 pedidos novos”). O logo mostra só o símbolo." },
+  { titulo: "Igual ao site do design system", texto: "Barra superior branca de ponta a ponta, com linha fina embaixo: logo à esquerda; busca, notificações e perfil à direita. Embaixo dela, o menu lateral branco com linha à direita, e o conteúdo sobre o fundo cinza (--graphite-50)." },
+  { titulo: "Expandido ou recolhido", texto: "Expandido, o menu mostra ícone e nome (240 px). Recolhido, só os ícones (64 px), centralizados, como no site do DS. A largura muda com os tokens de movimento (--duration-normal, --ease-in-out); com “menos movimento”, a troca é instantânea." },
+  { titulo: "Botão ≡ Menu no topo", texto: "No alto do menu, como no site do DS. Recolhe e expande; tem aria-expanded, aria-controls (aponta para o menu), nome acessível “Recolher menu” / “Expandir menu” e anel de foco visível. Recolhido, fica só o ícone, com tooltip." },
+  { titulo: "Itens e grupos", texto: "Ícone, nome e, nos grupos, uma seta; o grupo abre e mostra os itens numa linha-guia à esquerda. O item ativo tem o fundo rosa claro e o texto vermelho. Recolhido: tooltip no mouse e no foco do teclado, o nome continua para leitores de tela, o contador vira um ponto no ícone e o tooltip diz o número; o grupo mostra só o ícone e, ao ser clicado, expande o menu e abre." },
   { titulo: "Escolha guardada", texto: "A escolha fica salva no navegador (localStorage, uma chave por painel) e volta ao abrir de novo, sem piscar e sem animar na abertura." },
-  { titulo: "Celular e tablet", texto: "Abaixo de 1024 px, o menu não recolhe: continua a gaveta de hoje, sempre expandida, sem o botão." },
-  { titulo: "Cabeçalho e perfil", texto: "Cabeçalho branco, igual ao menu lateral, com linha fina embaixo; perfil sempre no cabeçalho, à direita. O conteúdo fica no fundo cinza claro. O perfil nunca vai para o menu lateral." },
+  { titulo: "Celular e tablet", texto: "Abaixo de 1024 px, o menu não recolhe: abre como gaveta pelo botão ≡ da barra superior, sempre expandido." },
+  { titulo: "Cabeçalho e perfil", texto: "Cabeçalho branco, igual ao menu lateral, com linha fina embaixo; perfil sempre no cabeçalho, à direita. O perfil nunca vai para o menu lateral." },
 ];
 
 /* Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas);
@@ -429,12 +408,12 @@ export function OverlaysShowcase() {
               </ul>
             </div>
             <p className="mt-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
-              No código: <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">MenuLateralProvider</code> (guarda a escolha) envolve o painel;{" "}
+              No código: <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">BarraSuperiorDoPainel</code> (logo, busca, sino e perfil);{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">MenuLateralProvider</code> (guarda a escolha) envolve o painel;{" "}
               <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">MenuLateral</code> é a coluna que muda de largura;{" "}
-              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">NavDoMenu</code>,{" "}
-              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">DivisorDoMenu</code> e{" "}
-              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">BotaoRecolherMenu</code> completam o menu. Item, grupo, seletor de loja e cards do rodapé se adaptam sozinhos;{" "}
-              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">useMenuRecolhido()</code> troca o logo pelo símbolo. Na gaveta do celular, os mesmos itens aparecem expandidos.
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">TopoDoMenu</code> traz o botão ≡ Menu;{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">NavDoMenu</code>, <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">ItemDoMenu</code> e{" "}
+              <code className="rounded-sm bg-muted px-1 py-0.5 text-[0.75rem] text-foreground">GrupoDoMenu expansivel</code> montam o menu. Seletor de loja e cards do rodapé se adaptam sozinhos. Na gaveta do celular, os mesmos itens aparecem expandidos.
             </p>
           </ShowcaseCard>
         </SubSection>
@@ -596,7 +575,7 @@ export function OverlaysShowcase() {
         <SectionHeader title={t("Dialogs & Modals", "Diálogos e modais")} description={t("Focused overlay panels for forms, confirmations, and contextual actions.", "Painéis sobrepostos e focados para formulários, confirmações e ações contextuais.")} />
         <div className="mb-6">
           <Callout title="Tudo que abre por cima da tela tem sombra">
-            <p>Cards brancos sem borda e com sombra; tudo que abre por cima da tela tem sombra (decisão da dona do produto, 23/11/2026). Diálogos, gavetas (sheet e drawer) e painéis laterais: --shadow-xl. Menus, popovers, listas de seleção, busca (Ctrl + K), cards de passar o mouse, tooltips e avisos (toast): --shadow-md; submenus, --shadow-lg. Os componentes de ui/ já trazem a sombra; não é preciso acrescentar.</p>
+            <p>Tudo que abre por cima da tela tem sombra (decisão da dona do produto, 23/11/2026). Diálogos, gavetas (sheet e drawer) e painéis laterais: --shadow-xl. Menus, popovers, listas de seleção, busca (Ctrl + K), cards de passar o mouse, tooltips e avisos (toast): --shadow-md; submenus, --shadow-lg. Os componentes de ui/ já trazem a sombra; não é preciso acrescentar.</p>
           </Callout>
         </div>
         <SubSection title={t("Dialog Variants", "Variantes de diálogo")}>

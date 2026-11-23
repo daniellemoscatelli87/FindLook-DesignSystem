@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { BadgeCheck, Bell, ChevronDown, ChevronsUpDown, ExternalLink, HelpCircle, Search, ArrowRight, Crown, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { BadgeCheck, Bell, ChevronDown, ChevronRight, ChevronsUpDown, ExternalLink, HelpCircle, Menu, Search, ArrowRight, Crown } from "lucide-react";
 import { cn } from "./utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 
@@ -12,16 +12,19 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
  * grupo do menu, card de plano, card de ajuda, campo de busca que abre a busca global (Ctrl + K),
  * botão de notificações e gatilho do menu da conta. Todas usam só tokens do DS.
  *
- * Menu lateral recolhível (decisão da dona do produto, 23/11/2026): nas telas a partir de 1024 px, o menu pode ficar
- * expandido (ícone + nome, 256 px) ou recolhido (só ícones, 72 px, com tooltip). MenuLateralProvider guarda a escolha
- * (localStorage, uma chave por painel); MenuLateral é a coluna que muda de largura; BotaoRecolherMenu fica no pé do menu.
- * Item, grupo, seletor de loja e cards do rodapé se adaptam sozinhos quando estão dentro de um MenuLateral recolhido.
- * Fora dele (por exemplo, na gaveta do celular) aparecem sempre expandidos. O perfil fica sempre no cabeçalho, à direita.
+ * Moldura igual à do site do design system (decisão da dona do produto, 23/11/2026): BarraSuperiorDoPainel branca de
+ * ponta a ponta no alto (logo à esquerda; busca, notificações e perfil à direita) e, embaixo dela, o menu lateral branco
+ * com linha à direita. No topo do menu, o botão "≡ Menu" (BotaoRecolherMenu, dentro de TopoDoMenu) recolhe e expande:
+ * expandido (ícone + nome, 240 px) ou recolhido (só ícones, 64 px, com tooltip), a partir de 1024 px. Itens no estilo do
+ * site do DS; grupos que abrem e fecham (GrupoDoMenu expansivel) com os itens numa linha-guia. MenuLateralProvider
+ * guarda a escolha (localStorage, uma chave por painel). Fora do MenuLateral (gaveta do celular), tudo aparece expandido.
+ * O perfil fica sempre no cabeçalho, à direita.
  */
 
 /* ── Menu lateral recolhível ─────────────────────────────────── */
-const LARGURA_EXPANDIDO = 256;
-const LARGURA_RECOLHIDO = 72;
+// Mesmas larguras do menu do site do design system (w-60 / w-16), pedido da dona do produto em 23/11/2026.
+const LARGURA_EXPANDIDO = 240;
+const LARGURA_RECOLHIDO = 64;
 const MIDIA_RECOLHIVEL = "(min-width: 1024px)";
 
 const useLayoutSeguro = typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
@@ -168,13 +171,13 @@ const MenuLateral = React.forwardRef<HTMLElement, MenuLateralProps>(function Men
 /** <nav> do menu lateral, com o id que o BotaoRecolherMenu controla e a rolagem própria. */
 const NavDoMenu = React.forwardRef<HTMLElement, React.ComponentProps<"nav">>(function NavDoMenu({ className, ...props }, ref) {
   const { idDoMenu } = useMenuLateral();
-  const { dentro } = React.useContext(ContextoDoRecolhido);
+  const { dentro, recolhido } = React.useContext(ContextoDoRecolhido);
   return (
     <nav
       ref={ref}
       id={dentro && idDoMenu ? idDoMenu : undefined}
       data-slot="nav-do-menu"
-      className={cn("min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-4 pb-3 [scrollbar-width:thin]", className)}
+      className={cn("min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain py-2 [scrollbar-width:thin]", recolhido ? "px-2" : "px-3", className)}
       {...props}
     />
   );
@@ -200,15 +203,15 @@ function DicaDoMenu({ texto, ativa = true, children }: { texto: React.ReactNode;
 }
 
 /**
- * Botão do pé do menu: "Recolher menu" / "Expandir menu". Só aparece dentro do MenuLateral e em tela larga;
- * na gaveta do celular, não aparece.
+ * Botão "≡ Menu" do topo do menu lateral, no estilo do site do design system: recolhe e expande o menu.
+ * Só aparece dentro do MenuLateral e em tela larga; na gaveta do celular, não aparece.
+ * O nome acessível diz a ação ("Recolher menu" / "Expandir menu") e contém o texto visível "Menu".
  */
 const BotaoRecolherMenu = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button">>(function BotaoRecolherMenu({ className, onClick, ...props }, ref) {
   const { recolhido: escolha, alternar, idDoMenu } = useMenuLateral();
   const { recolhido, dentro, podeRecolher } = React.useContext(ContextoDoRecolhido);
   if (!dentro || !podeRecolher) return null;
   const rotulo = escolha ? "Expandir menu" : "Recolher menu";
-  const Icone = escolha ? PanelLeftOpen : PanelLeftClose;
   const botao = (
     <button
       ref={ref}
@@ -216,22 +219,47 @@ const BotaoRecolherMenu = React.forwardRef<HTMLButtonElement, React.ComponentPro
       data-slot="botao-recolher-menu"
       aria-expanded={!escolha}
       aria-controls={idDoMenu || undefined}
-      aria-label={recolhido ? rotulo : undefined}
+      aria-label={rotulo}
       onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) alternar(); }}
       className={cn(
-        "flex min-h-10 w-full items-center gap-3 rounded-md px-3 py-2 text-left text-[0.875rem] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+        "flex h-9 items-center gap-2 rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        recolhido && "justify-center px-0",
+        recolhido ? "w-9 justify-center" : "w-full pr-2",
         className,
       )}
       {...props}
     >
-      <Icone aria-hidden className="h-[18px] w-[18px] shrink-0" />
-      {!recolhido && <span className="min-w-0 flex-1 truncate animate-in fade-in-0 duration-[var(--duration-normal)] motion-reduce:animate-none">{rotulo}</span>}
+      <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center"><Menu className="h-[18px] w-[18px]" /></span>
+      {!recolhido && <span aria-hidden className="text-xs font-medium uppercase tracking-wider">Menu</span>}
     </button>
   );
   return <DicaDoMenu texto={rotulo} ativa={recolhido}>{botao}</DicaDoMenu>;
 });
+
+/** Topo do menu lateral (como no site do DS): o botão "≡ Menu", centralizado quando recolhido. */
+function TopoDoMenu({ className, children }: { className?: string; children?: React.ReactNode }) {
+  const { recolhido, dentro, podeRecolher } = React.useContext(ContextoDoRecolhido);
+  if (!dentro || !podeRecolher) return children ? <div className={className}>{children}</div> : null;
+  return (
+    <div data-slot="topo-do-menu" className={cn("flex h-12 shrink-0 items-center", recolhido ? "justify-center px-2" : "px-3", className)}>
+      <BotaoRecolherMenu />
+      {children}
+    </div>
+  );
+}
+
+/* ── Barra superior do painel (como a do site do design system) ── */
+/**
+ * Faixa branca de ponta a ponta no alto do painel, acima do menu lateral, com linha fina embaixo. O logo fica à
+ * esquerda; busca e notificações à direita; o perfil (GatilhoDaConta) sempre na ponta direita.
+ */
+function BarraSuperiorDoPainel({ className, children, ...props }: React.ComponentProps<"header">) {
+  return (
+    <header data-slot="barra-superior-do-painel" className={cn("flex h-16 shrink-0 items-center gap-2 border-b border-border bg-card px-3 @xl:gap-3 @xl:px-4", className)} {...props}>
+      {children}
+    </header>
+  );
+}
 
 /* ── Iniciais para avatar sem foto ───────────────────────────── */
 function iniciais(nome: string) {
@@ -314,26 +342,27 @@ type ItemDoMenuProps = React.ComponentProps<"a"> & {
 
 const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", className, children, ...props }, ref) {
   const { recolhido, dentro } = React.useContext(ContextoDoRecolhido);
+  // Visual do menu do site do design system (23/11/2026): ícone de 16 px, nome, cantos de 8 px; o ativo tem o fundo
+  // rosa claro e o texto vermelho (--primary-muted + --primary-text, para manter o contraste AA do texto pequeno).
   const item = (
     <a
       ref={ref}
       data-slot="item-do-menu"
       aria-current={ativo ? "page" : undefined}
       className={cn(
-        "group relative flex min-h-10 items-center gap-3 rounded-l-none rounded-r-md px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
+        "group relative flex min-h-9 items-center gap-2.5 rounded-sm px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ativo
-          ? "bg-[var(--primary-muted)] font-semibold text-[var(--primary-text,var(--primary))]"
-          : "text-foreground hover:bg-muted",
+          ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]"
+          : "text-muted-foreground hover:bg-accent hover:text-foreground",
         recolhido && "justify-center px-0",
         className,
       )}
       {...props}
     >
-      {ativo && <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-primary" />}
-      <span aria-hidden className={cn("relative flex h-5 w-5 shrink-0 items-center justify-center [&>svg]:h-[18px] [&>svg]:w-[18px]", !ativo && "text-muted-foreground group-hover:text-foreground")}>
+      <span aria-hidden className="relative flex h-4 w-4 shrink-0 items-center justify-center [&>svg]:h-4 [&>svg]:w-4">
         {icone}
-        {recolhido && !!contador && <span data-slot="ponto-do-contador" className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-card" />}
+        {recolhido && !!contador && <span data-slot="ponto-do-contador" className="absolute -right-1.5 -top-1.5 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-card" />}
       </span>
       {recolhido ? (
         <span className="sr-only">{children}{!!contador && `, ${contador} ${rotuloContador}`}</span>
@@ -354,15 +383,71 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
   return <DicaDoMenu texto={<>{children}{!!contador && `, ${contador} ${rotuloContador}`}</>} ativa={recolhido}>{item}</DicaDoMenu>;
 });
 
-function GrupoDoMenu({ titulo, children, className }: { titulo?: string; children: React.ReactNode; className?: string }) {
+type GrupoDoMenuProps = {
+  titulo?: string;
+  children: React.ReactNode;
+  className?: string;
+  /**
+   * Grupo que abre e fecha, como no site do design system (23/11/2026): ícone, nome e seta; os itens ficam embaixo,
+   * numa linha-guia à esquerda. Recolhido, mostra só o ícone (com tooltip); um clique expande o menu e abre o grupo.
+   * Quando fechado (ou com o menu recolhido) e um item de dentro está ativo, o grupo aparece ativo.
+   */
+  expansivel?: boolean;
+  icone?: React.ReactNode;
+  padraoAberto?: boolean;
+  aberto?: boolean;
+  onAbertoChange?: (v: boolean) => void;
+};
+
+function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAberto = false, aberto: abertoControlado, onAbertoChange }: GrupoDoMenuProps) {
   const id = React.useId();
-  const recolhido = useMenuRecolhido();
+  const { recolhido, dentro } = React.useContext(ContextoDoRecolhido);
+  const { setRecolhido } = useMenuLateral();
+  const [abertoInterno, setAbertoInterno] = React.useState(padraoAberto);
+  if (!expansivel) {
+    return (
+      <div data-slot="grupo-do-menu" className={cn("space-y-0.5", className)} role="group" aria-labelledby={titulo ? id : undefined}>
+        {titulo && <p id={id} className={recolhido ? "sr-only" : "px-3 pb-1 pt-3 text-[0.75rem] font-semibold text-muted-foreground"}>{titulo}</p>}
+        {/* Recolhido: o título vira uma linha fina (que some se já houver um divisor logo antes do grupo). */}
+        {titulo && recolhido && <div aria-hidden data-slot="divisor-do-grupo" className="my-2 border-t border-border [.border-t+[data-slot=grupo-do-menu]_&]:hidden" />}
+        {children}
+      </div>
+    );
+  }
+  const aberto = abertoControlado ?? abertoInterno;
+  const mudar = (v: boolean) => { if (abertoControlado === undefined) setAbertoInterno(v); onAbertoChange?.(v); };
+  const filhoAtivo = React.Children.toArray(children).some(c => React.isValidElement<{ ativo?: boolean }>(c) && !!c.props.ativo);
+  const mostrarFilhos = aberto && !recolhido;
+  const destacado = filhoAtivo && !mostrarFilhos;
+  const idFilhos = `${id}-itens`;
+  const botao = (
+    <button
+      type="button"
+      id={id}
+      data-slot="grupo-do-menu-gatilho"
+      aria-expanded={mostrarFilhos}
+      aria-controls={idFilhos}
+      onClick={() => { if (recolhido) { setRecolhido(false); mudar(true); } else mudar(!aberto); }}
+      className={cn(
+        "flex min-h-9 w-full items-center gap-2.5 rounded-sm px-3 py-2 text-left text-[0.875rem] font-medium transition-[background-color,color] duration-150",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        destacado ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:bg-accent hover:text-foreground",
+        recolhido && "justify-center px-0",
+      )}
+    >
+      {icone && <span aria-hidden className="flex h-4 w-4 shrink-0 items-center justify-center [&>svg]:h-4 [&>svg]:w-4">{icone}</span>}
+      {recolhido ? <span className="sr-only">{titulo}</span> : <span className="min-w-0 flex-1 truncate">{titulo}</span>}
+      {!recolhido && <ChevronRight aria-hidden className={cn("h-3.5 w-3.5 shrink-0 transition-transform duration-150 motion-reduce:transition-none", aberto && "rotate-90")} />}
+    </button>
+  );
   return (
-    <div data-slot="grupo-do-menu" className={cn("space-y-0.5", className)} role="group" aria-labelledby={titulo ? id : undefined}>
-      {titulo && <p id={id} className={recolhido ? "sr-only" : "px-3 pb-1 pt-3 text-[0.75rem] font-semibold text-muted-foreground"}>{titulo}</p>}
-      {/* Recolhido: o título vira uma linha fina (que some se já houver um divisor logo antes do grupo). */}
-      {titulo && recolhido && <div aria-hidden data-slot="divisor-do-grupo" className="my-2 border-t border-border [.border-t+[data-slot=grupo-do-menu]_&]:hidden" />}
-      {children}
+    <div data-slot="grupo-do-menu" data-expansivel="" className={cn("space-y-0.5", className)}>
+      {dentro ? <DicaDoMenu texto={titulo} ativa={recolhido}>{botao}</DicaDoMenu> : botao}
+      {mostrarFilhos && (
+        <div id={idFilhos} role="group" aria-labelledby={id} className="ml-3 space-y-0.5 border-l border-border pl-2">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
@@ -550,6 +635,6 @@ const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<
 
 export {
   AvatarPainel, SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CardDeAjuda, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta, iniciais,
-  MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, useMenuLateral, useMenuRecolhido,
+  MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, TopoDoMenu, BarraSuperiorDoPainel, useMenuLateral, useMenuRecolhido,
   LARGURA_EXPANDIDO, LARGURA_RECOLHIDO,
 };

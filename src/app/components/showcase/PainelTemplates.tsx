@@ -6,10 +6,9 @@ import {
 } from "lucide-react";
 import logoClaro from "../../../imports/findlook/findlook-horizontal-sobre-claro.png";
 import logoEscuro from "../../../imports/findlook/findlook-horizontal-sobre-grafite.png";
-import simbolo from "../../../imports/findlook/findlook-simbolo.png";
 import {
   SeletorDeLoja, ItemDoMenu, GrupoDoMenu, CardDePlano, CampoDeBuscaGlobal, BotaoDeNotificacoes, GatilhoDaConta,
-  MenuLateralProvider, MenuLateral, NavDoMenu, DivisorDoMenu, BotaoRecolherMenu, useMenuRecolhido,
+  MenuLateralProvider, MenuLateral, NavDoMenu, TopoDoMenu, BarraSuperiorDoPainel,
 } from "../ui/painel-shell";
 import { CabecalhoDaPagina, SeletorDePeriodo, BotaoDividido, BannerPromocional } from "../ui/painel-cabecalho";
 import {
@@ -114,17 +113,10 @@ export function MolduraDoPainel({ children, endereco = "Painel da loja · FindLo
   );
 }
 
-function Logo() {
-  // Menu recolhido: só o símbolo, centralizado na coluna de 72 px.
-  if (useMenuRecolhido()) {
-    return (
-      <span className="flex h-9 items-center justify-center">
-        <img src={simbolo} alt="FindLook" className="h-8 w-8 object-contain" />
-      </span>
-    );
-  }
+/** Logo do painel: fica na barra superior, à esquerda, como no site do design system (23/11/2026). */
+function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className="flex h-9 items-center self-start">
+    <span className={`flex h-9 shrink-0 items-center ${className}`}>
       <img src={logoClaro} alt="FindLook" className="h-8 w-auto max-w-none object-contain dark:hidden" />
       <img src={logoEscuro} alt="FindLook" className="hidden h-8 w-auto max-w-none object-contain dark:block" />
     </span>
@@ -148,19 +140,18 @@ function ConteudoDoMenu({ ativo, onIr, primeiroRef }: { ativo: PaginaId; onIr: (
   );
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="shrink-0 space-y-4 px-4 pb-3 pt-4">
-        <Logo />
-        <SeletorDeLoja loja="Ateliê Aurora" />
-      </div>
+      {/* Topo do menu, como no site do DS: o botão "≡ Menu" recolhe e expande (só no menu fixo das telas largas). */}
+      <TopoDoMenu />
       <NavDoMenu aria-label="Menu do painel">
+        <div className="mb-2">
+          <SeletorDeLoja loja="Ateliê Aurora" />
+        </div>
         <GrupoDoMenu>{menuPrincipal.map(item)}</GrupoDoMenu>
-        <DivisorDoMenu />
-        <GrupoDoMenu titulo="Minha loja">{menuMinhaLoja.map((i, n) => item(i, n + 1))}</GrupoDoMenu>
+        {/* Grupo que abre e fecha, com os itens numa linha-guia (como os grupos do site do DS). */}
+        <GrupoDoMenu expansivel padraoAberto titulo="Minha loja" icone={<Store />} className="mt-0.5">{menuMinhaLoja.map((i, n) => item(i, n + 1))}</GrupoDoMenu>
       </NavDoMenu>
-      <div className="shrink-0 space-y-2 border-t border-border p-4">
+      <div className="shrink-0 border-t border-border p-3">
         <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" onAcao={() => onIr("planos")} />
-        {/* Recolher / expandir: só aparece no menu fixo das telas largas (na gaveta, não). */}
-        <BotaoRecolherMenu />
       </div>
     </div>
   );
@@ -312,45 +303,56 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
     <Navegar.Provider value={ir}>
       <MenuLateralProvider chave="findlook-ds:painel-da-loja:menu-recolhido">
       <MolduraDoPainel endereco={`Painel da loja · ${titulos[pagina]}`}>
-        <div className="@container/painel relative flex h-[min(780px,85vh)] min-h-[560px] overflow-hidden bg-background">
-          {/* Menu fixo (telas largas): expandido (256 px) ou recolhido (72 px, só ícones); a escolha fica guardada */}
-          <MenuLateral className="hidden @4xl/painel:block">
-            <ConteudoDoMenu ativo={pagina} onIr={ir} />
-          </MenuLateral>
-
-          {/* Gaveta (telas estreitas), dentro da janela do protótipo */}
-          <div className={`absolute inset-0 z-30 @4xl/painel:hidden ${gaveta ? "" : "pointer-events-none"}`} aria-hidden={!gaveta}>
-            <div onClick={() => setGaveta(false)} className={`absolute inset-0 bg-black/40 transition-opacity duration-200 ${gaveta ? "opacity-100" : "opacity-0"}`} />
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-label="Menu do painel"
-              {...(!gaveta ? { inert: "" } : {})}
-              className={`absolute inset-y-0 left-0 flex w-72 max-w-[85%] flex-col bg-card shadow-[var(--shadow-lg)] transition-transform duration-200 ease-out motion-reduce:transition-none ${gaveta ? "translate-x-0" : "-translate-x-full"}`}
-            >
-              <button type="button" onClick={() => setGaveta(false)} aria-label="Fechar menu" className="absolute right-3 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                <X aria-hidden className="h-5 w-5" />
+        {/* Moldura igual à do site do design system (decisão da dona do produto, 23/11/2026): barra superior branca de ponta
+            a ponta, com o logo à esquerda e busca, sino e perfil à direita; embaixo, o menu lateral branco (≡ Menu no topo)
+            e o conteúdo sobre o fundo --graphite-50 (bg-muted). */}
+        <div className="@container/painel relative flex h-[min(780px,85vh)] min-h-[560px] flex-col overflow-hidden bg-background">
+          <BarraSuperiorDoPainel>
+            <button ref={botaoMenuRef} type="button" onClick={() => setGaveta(true)} aria-label="Abrir menu" aria-expanded={gaveta} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring @4xl/painel:hidden">
+              <Menu aria-hidden className="h-5 w-5" />
+            </button>
+            <Logo />
+            <div className="ml-auto flex min-w-0 items-center gap-1 @xl:gap-2">
+              <CampoDeBuscaGlobal atalho="" placeholder="Buscar páginas e produtos…" onAbrir={() => setBusca(true)} className="hidden w-64 @3xl:flex @5xl:w-80" />
+              <button type="button" onClick={() => setBusca(true)} aria-label="Buscar páginas e produtos" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring @3xl:hidden">
+                <Search aria-hidden className="h-5 w-5" />
               </button>
-              <ConteudoDoMenu ativo={pagina} onIr={ir} primeiroRef={primeiroItemRef} />
+              <MenuDeNotificacoes />
+              <MenuDaConta />
             </div>
-          </div>
+          </BarraSuperiorDoPainel>
 
-          <div className="@container flex min-w-0 flex-1 flex-col">
-            {/* Barra superior: branca, igual ao menu lateral, com linha fina embaixo; perfil sempre aqui, à direita */}
-            <div className="flex shrink-0 items-center gap-2 border-b border-border bg-card px-3 py-2.5 @xl:gap-3 @xl:px-5">
-              <button ref={botaoMenuRef} type="button" onClick={() => setGaveta(true)} aria-label="Abrir menu" aria-expanded={gaveta} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring @4xl/painel:hidden">
-                <Menu aria-hidden className="h-5 w-5" />
-              </button>
-              <CampoDeBuscaGlobal atalho="" placeholder="Buscar páginas e produtos…" onAbrir={() => setBusca(true)} className="min-w-0 max-w-md flex-1" />
-              <div className="ml-auto flex shrink-0 items-center gap-1">
-                <MenuDeNotificacoes />
-                <MenuDaConta />
+          <div className="relative flex min-h-0 flex-1">
+            {/* Menu fixo (telas largas): expandido (240 px) ou recolhido (64 px, só ícones); a escolha fica guardada */}
+            <MenuLateral className="hidden @4xl/painel:block">
+              <ConteudoDoMenu ativo={pagina} onIr={ir} />
+            </MenuLateral>
+
+            {/* Gaveta (telas estreitas), dentro da janela do protótipo, embaixo da barra superior */}
+            <div className={`absolute inset-0 z-30 @4xl/painel:hidden ${gaveta ? "" : "pointer-events-none"}`} aria-hidden={!gaveta}>
+              <div onClick={() => setGaveta(false)} className={`absolute inset-0 bg-black/40 transition-opacity duration-200 ${gaveta ? "opacity-100" : "opacity-0"}`} />
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="Menu do painel"
+                {...(!gaveta ? { inert: "" } : {})}
+                className={`absolute inset-y-0 left-0 flex w-72 max-w-[85%] flex-col border-r border-border bg-card shadow-[var(--shadow-xl)] transition-transform duration-200 ease-out motion-reduce:transition-none ${gaveta ? "translate-x-0" : "-translate-x-full"}`}
+              >
+                <div className="flex h-12 shrink-0 items-center justify-between px-3">
+                  <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Menu</span>
+                  <button type="button" onClick={() => setGaveta(false)} aria-label="Fechar menu" className="flex h-9 w-9 items-center justify-center rounded-sm text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    <X aria-hidden className="h-5 w-5" />
+                  </button>
+                </div>
+                <div className="min-h-0 flex-1">
+                  <ConteudoDoMenu ativo={pagina} onIr={ir} primeiroRef={primeiroItemRef} />
+                </div>
               </div>
             </div>
 
-            {/* Conteúdo com rolagem própria, sobre o fundo cinza claro (graphite-50; pedido da dona do produto, 21/11/2026):
-                os cards brancos se destacam do fundo. */}
-            <div ref={conteudoRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-muted [scrollbar-width:thin]">
+            {/* Conteúdo com rolagem própria, sobre o fundo --graphite-50 (bg-muted). Sem barra de trilha (breadcrumb): nas
+                páginas do painel ela repetiria o título da página, que já fica logo abaixo. */}
+            <div ref={conteudoRef} className="@container min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-contain bg-muted [scrollbar-width:thin]">
               <main key={pagina} className="@container space-y-5 p-4 animate-in fade-in-0 slide-in-from-bottom-1 duration-300 motion-reduce:animate-none @xl:p-6">
                 <h1 ref={tituloRef} tabIndex={-1} className="sr-only">{titulos[pagina]}</h1>
                 {conteudo}

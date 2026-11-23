@@ -1128,7 +1128,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
               <div
                 key={plan.id}
                 className={`@container relative rounded-[20px] bg-card p-4 sm:p-6 flex flex-col transition-shadow
-                  ${plan.highlight || ativo ? "border-2 border-primary shadow-[var(--shadow-sm)]" : "border border-transparent shadow-[var(--shadow-sm)] dark:border-border"}
+                  ${plan.highlight || ativo ? "border-2 border-primary" : "border border-border"}
                   ${ativo ? "ring-4 ring-primary/20" : ""}`}
               >
                 {/* Topo: ícone do plano e, no destacado, o selo no estilo do card com wobble */}
@@ -1782,7 +1782,7 @@ function LandingTemplate() {
             <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Feito para lojas de rua, ateliês e brechós</h2>
           </div>
           <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="sm:col-span-2 rounded-lg border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border p-5 relative overflow-hidden">
+            <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary/8 blur-2xl pointer-events-none" />
               <div className="h-8 w-8 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-3">
                 <Search aria-hidden className={`h-4 w-4 ${textoMarca}`} />
@@ -1795,21 +1795,21 @@ function LandingTemplate() {
                 ))}
               </div>
             </div>
-            <div className="rounded-lg border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border p-4 flex flex-col justify-between">
+            <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between">
               <MessageCircle aria-hidden className="h-5 w-5 text-success mb-2" />
               <div>
                 <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Contato direto</h3>
                 <p className="text-[0.6875rem] text-muted-foreground">A pessoa chama a loja no WhatsApp. A venda é sua.</p>
               </div>
             </div>
-            <div className="rounded-lg border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border p-4 flex flex-col justify-between">
+            <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between">
               <FileSpreadsheet aria-hidden className="h-5 w-5 text-info mb-2" />
               <div>
                 <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Planilha ou uma a uma</h3>
                 <p className="text-[0.6875rem] text-muted-foreground">Cadastre peças pelo painel ou importe várias de uma vez.</p>
               </div>
             </div>
-            <div className="sm:col-span-2 rounded-lg border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border p-5 relative overflow-hidden">
+            <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-info/6 blur-2xl pointer-events-none" />
               <div className="h-8 w-8 rounded-md bg-[var(--info-muted)] flex items-center justify-center mb-3">
                 <BarChart aria-hidden className="h-4 w-4 text-info" />
@@ -1837,7 +1837,7 @@ function LandingTemplate() {
                 <span className="flex items-center gap-1"><span aria-hidden className="h-2 w-2 rounded-full bg-primary inline-block" />Buscas compatíveis com as suas peças (exemplo)</span>
               </div>
             </div>
-            <div className="rounded-lg border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border p-5">
+            <div className="rounded-lg border border-border bg-card p-5">
               <div className="h-[130px]" role="img" aria-label="Gráfico de barras: buscas compatíveis com as peças da loja, de janeiro a dezembro, em crescimento">
                 <ResponsiveContainer width="100%" height="100%">
                   <ReBarChart data={interesseMensal} margin={{ top: 4, right: 0, left: -20, bottom: 0 }} barGap={3}>
@@ -2082,7 +2082,7 @@ function LandingTemplate() {
                 const Icon = ch.icon;
                 return (
                   <li key={ch.label}>
-                    <button type="button" className={`group w-full text-left relative rounded-lg border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`}>
+                    <button type="button" className={`group w-full text-left relative rounded-lg border border-border bg-card p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`}>
                       <div className="flex items-start justify-between w-full">
                         <div className={`h-9 w-9 rounded-md flex items-center justify-center ${ch.iconBg}`}>
                           <Icon aria-hidden style={{ height: 18, width: 18 }} />

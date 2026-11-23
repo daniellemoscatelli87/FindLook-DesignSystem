@@ -48,10 +48,10 @@ function IconeComBase({ tom, tamanho = "md", redonda = false, children, classNam
   );
 }
 
-/* ── Superfície dos cards (decisão da dona do produto, 23/11/2026) ──
-   Cards brancos sem borda e com sombra (--shadow-sm), para se destacarem do fundo cinza do painel. No tema escuro a
-   sombra quase some sobre o preto: fica uma borda sutil só lá (border-transparent no claro mantém o mesmo tamanho). */
-const superficieDoCard = "border border-transparent bg-card shadow-[var(--shadow-sm)] dark:border-border";
+/* ── Superfície dos cards ──
+   Padrão "Só borda" do DS (card parado): borda de 1 px (border-border), fundo branco e nenhuma sombra em repouso.
+   A dona do produto voltou a este padrão em 23/11/2026; sombra fica só no que abre por cima da tela. */
+const superficieDoCard = "border border-border bg-card";
 
 /* ── Formatação pt-BR ────────────────────────────────────────── */
 const fmtNumero = new Intl.NumberFormat("pt-BR");
@@ -417,7 +417,7 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
  *
  * cabecalho (pedido da dona do produto, 23/11/2026: "pode ter sim uma divisória, mas não necessariamente uma linha;
  * pode ser algo com cor"): o cabeçalho fica numa faixa de cor de ponta a ponta, sem linha embaixo, e o conteúdo, no
- * branco. "faixa-neutra" (padrão): cinza claro (--muted). "faixa-marca": rosa claro (--primary-muted); a base do ícone
+ * branco. "faixa-neutra" (padrão): cinza --graphite-100 (#E9E9EC), sobre a página --graphite-50 (#F6F6F7). "faixa-marca": rosa claro (--primary-muted); a base do ícone
  * vira branca para continuar visível. "simples": sem faixa, só o espaçamento separa.
  */
 type EstiloDoCabecalhoDoCard = "faixa-neutra" | "faixa-marca" | "simples";
@@ -433,7 +433,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
         data-slot="cabecalho-do-card"
         className={cn(
           "flex flex-wrap items-start gap-x-3 gap-y-3",
-          faixa ? cn("px-4 py-3.5 @xl:px-5", raio, cabecalho === "faixa-marca" ? "bg-[var(--primary-muted)]" : "bg-muted") : temConteudo && "mb-5",
+          faixa ? cn("px-4 py-3.5 @xl:px-5", raio, cabecalho === "faixa-marca" ? "bg-[var(--primary-muted)]" : "bg-[var(--graphite-100)] dark:bg-muted") : temConteudo && "mb-5",
         )}
       >
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão (36 px, cantos
@@ -443,7 +443,8 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
         </IconeComBase>
         <div className="min-w-[12rem] flex-1 self-center">
           <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
-          {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
+          {/* Na faixa neutra (graphite-100) o cinza padrão (graphite-500) fica abaixo de 4,5:1; usa graphite-600. */}
+          {descricao && <p className={cn("mt-0.5 text-[0.8125rem] leading-snug", cabecalho === "faixa-neutra" ? "text-[var(--graphite-600)] dark:text-muted-foreground" : "text-muted-foreground")}>{descricao}</p>}
         </div>
         {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
       </div>
