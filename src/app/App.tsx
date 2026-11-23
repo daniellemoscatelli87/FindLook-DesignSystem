@@ -463,6 +463,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "tabs",              label: "Tabs",     sectionId: "feedback" },
           { id: "abas-contador",     label: "Abas com contador", sectionId: "feedback" },
           { id: "alerts",            label: "Alerts",   sectionId: "feedback" },
+          { id: "alerta-com-acao",   label: "Alerta com ação", sectionId: "feedback" },
           { id: "banner-promocional", label: "Banner promocional", sectionId: "feedback" },
           { id: "toasts",            label: "Toasts",   sectionId: "feedback" },
           { id: "progress",          label: "Progress", sectionId: "feedback" },

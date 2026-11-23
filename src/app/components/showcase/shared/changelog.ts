@@ -17,6 +17,11 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Alerta com ação; todos os alertas no mesmo padrão"),
+    desc: pt("Aprovado pela dona do produto (23/11/2026). Novo AlertaComAcao (ui/alerta-com-acao.tsx), com BotaoDoAlerta e LinkDoAlerta: ícone com base de 44 px (cor do estado a 18%, 30% no aviso), título de 15 px em negrito e todo o resto em 14 px, borda na cor do estado a 22% e fundo do card com a cor do estado a 7% (9% no aviso). Ações sempre embaixo do texto: uma principal só de contorno, com texto na cor de texto do estado, e uma secundária em forma de link sublinhado; em alerta estreito, a linha de ações usa também a largura sob o ícone. role=\"alert\" em aviso e erro, role=\"status\" em info e sucesso. Tokens novos, só para texto e ícone sobre fundo claro: --success-text (#2B7553) e --info-text (#2E6E98), 5,1:1 no fundo do alerta; no tema escuro apontam para --success e --info. O Alert (ui/alert.tsx) passa a ter a mesma aparência, sem mudar a API: o svg filho vira o ícone com base; ícones do padrão: info Info, sucesso CheckCircle2, aviso AlertCircle, erro TriangleAlert."),
+    page: "feedback", anchor: "alerta-com-acao",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Site do DS com a estrutura do DS Dani Moscatelli"),
     desc: pt("Pedido da dona do produto (23/11/2026): os dois sites de documentação têm a mesma estrutura; só as cores mudam. O fundo da página e a faixa da trilha passam ao cinza da página (--graphite-50, #F6F6F7), com os cards brancos por cima, como o DM faz com o --background #EDF0F5. O --background da FindLook continua branco (fundo de campos e botões de contorno). Menu: mesma curva do DM (--ease-snappy) e item ativo com --primary-text. Medidas conferidas lado a lado: cabeçalho de 64 px com sombra e linha, menu de 240/64 px, itens de 36 px, trilha de 46 px, conteúdo de 960 px com 40 px de respiro. No celular, \"Design System\" some do cabeçalho como previsto (antes aparecia colado ao logo)."),
     page: "overview",

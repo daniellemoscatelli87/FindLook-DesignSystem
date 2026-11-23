@@ -90,6 +90,7 @@
   --success:            #31835D;   /* texto branco 4,6:1 */
   --success-foreground: #FFFFFF;
   --success-muted:      rgba(49, 131, 93, 0.1);
+  --success-text:       #2B7553;   /* verde escuro só para texto e ícone sobre fundo claro: 5,1:1 no fundo do Alerta com ação (decisão de 23/11/2026) */
   --warning:            #F0B135;   /* âmbar de sinalização: texto grafite 11:1 (nenhum âmbar aceita texto branco) */
   --warning-foreground: var(--graphite-900);
   --warning-muted:      rgba(240, 177, 53, 0.14);
@@ -100,6 +101,7 @@
   --info:               #347BA9;   /* texto branco 4,6:1 */
   --info-foreground:    #FFFFFF;
   --info-muted:         rgba(52, 123, 169, 0.1);
+  --info-text:          #2E6E98;   /* azul escuro só para texto e ícone sobre fundo claro: 5,1:1 no fundo do Alerta com ação (decisão de 23/11/2026) */
   --violet:             #ba69dc;
   --violet-foreground:  #FFFFFF;
   --violet-muted:       rgba(186, 105, 220, 0.1);
@@ -202,6 +204,7 @@
   --success:            #41B47F;
   --success-foreground: #000000;
   --success-muted:      rgba(65, 180, 127, 0.14);
+  --success-text:       var(--success);
   --warning:            #F0B135;
   --warning-foreground: #000000;
   --warning-muted:      rgba(240, 177, 53, 0.14);
@@ -212,6 +215,7 @@
   --info:               #59A8DC;
   --info-foreground:    #000000;
   --info-muted:         rgba(89, 168, 220, 0.14);
+  --info-text:          var(--info);
   --violet:             #eb6cff;
   --violet-foreground:  #FFFFFF;
   --violet-muted:       rgba(235, 108, 255, 0.12);
@@ -343,6 +347,8 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-warning-text: var(--warning-text);
+  --color-success-text: var(--success-text);
+  --color-info-text: var(--info-text);
   --color-success-foreground: var(--success-foreground);
   --color-warning-foreground: var(--warning-foreground);
   --color-info-foreground: var(--info-foreground);
