@@ -522,11 +522,14 @@ export function EtiquetaDeNatureza({ natureza, rotulo, className }: { natureza: 
 /**
  * Bloco do insight aberto (camada 2): etiqueta da natureza, título e conteúdo. Fato = números calculados pelo sistema;
  * hipótese = leitura que precisa ser conferida (a IA nunca afirma causa); recomendação = o que fazer com isso.
+ * Dentro de um card (o insight aberto num acordeão, por exemplo), use contorno={false} e a diagramação de duas colunas
+ * (pedido da dona do produto, 23/11/2026): à esquerda, as evidências (gráfico) e o fato; à direita, a hipótese e a
+ * recomendação, separadas por uma linha fina. A metodologia fica num ícone de explicação ao lado de "Evidências".
  */
-export function BlocoDoInsight({ natureza, titulo, rotulo, aviso, children, className }: { natureza: NaturezaDoInsight; titulo: string; rotulo?: string; aviso?: string; children: React.ReactNode; className?: string }) {
+export function BlocoDoInsight({ natureza, titulo, rotulo, aviso, contorno = true, children, className }: { natureza: NaturezaDoInsight; titulo: string; rotulo?: string; aviso?: string; /** false: sem borda nem fundo, para ficar dentro de um card (nunca card dentro de card). */ contorno?: boolean; children: React.ReactNode; className?: string }) {
   const tid = React.useId();
   return (
-    <section aria-labelledby={tid} data-slot="bloco-do-insight" data-natureza={natureza} className={cn("min-w-0 rounded-lg border border-border bg-card p-4 sm:p-5", className)}>
+    <section aria-labelledby={tid} data-slot="bloco-do-insight" data-natureza={natureza} data-contorno={contorno ? "" : undefined} className={cn("min-w-0", contorno && "rounded-lg border border-border bg-card p-4 sm:p-5", className)}>
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <EtiquetaDeNatureza natureza={natureza} rotulo={rotulo} />
       </div>

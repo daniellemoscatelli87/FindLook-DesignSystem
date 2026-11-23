@@ -951,10 +951,18 @@ export function GraficosShowcase() {
         <div id="graficos-insight-aberto" className="mt-6 scroll-mt-32">
           <h3 className="mb-1 text-[1rem] font-bold text-foreground">Insight aberto (camada 2)</h3>
           <p className="mb-4 text-[0.875rem] text-muted-foreground">Quem abre o insight vê, separado, o que é fato, o que é hipótese e o que é recomendação, além das evidências e da metodologia.</p>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-            <BlocoDoInsight natureza="fato" titulo="O que os números mostram">86 buscas por vestido preto no Batel nos últimos 30 dias, 38% a mais que nos 30 dias anteriores; 8 peças publicadas no bairro.</BlocoDoInsight>
-            <BlocoDoInsight natureza="hipotese" titulo="O que pode significar" rotulo="Hipótese da IA" aviso="Leitura feita pela IA a partir dos números ao lado. Confira antes de decidir.">Pode haver mais procura do que opções no bairro. Poucas peças publicadas não provam que as lojas não têm a peça em estoque.</BlocoDoInsight>
-            <BlocoDoInsight natureza="recomendacao" titulo="O que fazer">Perguntar às lojas do bairro se têm vestidos pretos em estoque que ainda não foram publicados.</BlocoDoInsight>
+          <div className="grid grid-cols-1 gap-6 rounded-lg border border-border bg-card p-5 sm:p-6 lg:grid-cols-2">
+            <div className="min-w-0 space-y-5">
+              <div>
+                <p className="mb-3 text-[0.75rem] font-bold uppercase tracking-[0.06em] text-muted-foreground">Evidências</p>
+                <BarrasOrdenadas rotulo="Buscas por peça no Batel (dados de exemplo)" itens={BUSCAS.slice(0, 4)} destaques={1} />
+              </div>
+              <BlocoDoInsight contorno={false} natureza="fato" titulo="O que os números mostram">86 buscas por vestido preto no Batel nos últimos 30 dias, 38% a mais que nos 30 dias anteriores; 8 peças publicadas no bairro.</BlocoDoInsight>
+            </div>
+            <div className="min-w-0 space-y-5 lg:border-l lg:border-border lg:pl-6">
+              <BlocoDoInsight contorno={false} natureza="hipotese" titulo="O que pode significar" rotulo="Hipótese da IA" aviso="Leitura feita pela IA a partir dos números. Confira antes de decidir.">Pode haver mais procura do que opções no bairro. Poucas peças publicadas não provam que as lojas não têm a peça em estoque.</BlocoDoInsight>
+              <BlocoDoInsight contorno={false} className="border-t border-border pt-5" natureza="recomendacao" titulo="O que fazer">Perguntar às lojas do bairro se têm vestidos pretos em estoque que ainda não foram publicados.</BlocoDoInsight>
+            </div>
           </div>
         </div>
         <ul className="mt-5 space-y-1.5 text-[0.8125rem] text-muted-foreground">
