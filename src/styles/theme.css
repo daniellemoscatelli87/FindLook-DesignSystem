@@ -146,6 +146,16 @@
   --chart-8: var(--chart-7);
   --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-100);
+
+  /* FindScore (decisão da dona do produto, 24/11/2026): 5 faixas numa rampa ordinal de um só tom (verde), do mais claro
+     (A melhorar) ao mais escuro (Excelência). Não usa o rosa da marca nem vermelho para desempenho baixo (especificação
+     do FindScore, seção 14.2). Validada com o validador de paletas (ordinal): tons monotônicos, saltos visíveis entre
+     faixas e o tom mais claro com 2:1 sobre o branco. A cor nunca é a única pista: o nome da faixa vem sempre escrito. */
+  --findscore-1: #93BF8D;
+  --findscore-2: #6CA86F;
+  --findscore-3: #4A8F58;
+  --findscore-4: #307344;
+  --findscore-5: #1A5234;
   /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
      os componentes não escrevem texto sobre a cor do gráfico. */
   --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--foreground);
@@ -254,6 +264,13 @@
   --chart-8: var(--chart-7);
   --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-800);
+
+  /* FindScore no tema escuro: a rampa inverte (mais claro = melhor) para manter o contraste sobre o fundo escuro. */
+  --findscore-1: #2E6B47;
+  --findscore-2: #3E8A5B;
+  --findscore-3: #5BA874;
+  --findscore-4: #84C494;
+  --findscore-5: #B2DCB6;
   /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
      os componentes não escrevem texto sobre a cor do gráfico. */
   --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--background);

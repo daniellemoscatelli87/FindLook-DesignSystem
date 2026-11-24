@@ -13,6 +13,9 @@ import { CardDeLoja } from "../ui/card-loja";
 import { MapaDeLojas, MapaIlustrativo, ConviteAoMapa, type PinoIlustrativo } from "../ui/mapa-lojas";
 import { FaixaDeParceiros } from "../ui/faixa-parceiros";
 import {
+  BadgeDeClassificacao, CardDeCriterio, FindScoreResumo, ProgressoDeElegibilidade, SeloFindStar, TermometroFindScore, TEXTO_FINDSTAR,
+} from "../ui/findscore";
+import {
   CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
 } from "../ui/cadastro-lojista";
 
@@ -382,6 +385,91 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
       </section>
 
 
+
+      {/* ── FindScore e FindStar ── */}
+      <section id="produto-findscore" className="scroll-mt-32 space-y-6">
+        <SectionHeader
+          title={t("FindScore and FindStar", "FindScore e FindStar")}
+          description={t(
+            "The store performance indicator (0 to 100, five bands of different widths) and the merit-only recognition. The thermometer draws the bands in proportion to the score and marks the real position; the band name is always written, colour is never the only cue. The screen shows the score rounded down, so a store never sees 95 before reaching Excellence. All data here is fictitious.",
+            "O indicador de desempenho da loja (0 a 100, cinco faixas de amplitudes diferentes) e o reconhecimento conquistado só por mérito. O termômetro desenha as faixas proporcionais à pontuação e marca a posição real; o nome da faixa sempre aparece escrito, e a cor nunca é a única pista. A tela mostra a pontuação arredondada para baixo, para nunca mostrar 95 a quem ainda não chegou a Excelência. Todos os dados aqui são fictícios.",
+          )}
+        />
+        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
+          <div className="min-w-0 space-y-3">
+            <SubTitle>{t("Full summary: store page and showcase", "Resumo completo: perfil e vitrine da loja")}</SubTitle>
+            <FindScoreResumo valor={92.4} variante="completo" periodo="Últimos 90 dias" atualizadoEm="Atualizado em 24/11/2026" hrefEntender="#produto-findscore" />
+            <FindScoreResumo valor={null} variante="completo" hrefEntender="#produto-findscore" />
+          </div>
+          <div className="min-w-0 space-y-3">
+            <SubTitle>{t("Compact summary: cards, search, piece and FindBox", "Resumo compacto: cards, busca, peça e FindBox")}</SubTitle>
+            <div className="space-y-3 rounded-xl bg-[var(--surface-tint)] p-4">
+              <FindScoreResumo valor={96.2} hrefEntender="#produto-findscore" />
+              <FindScoreResumo valor={94.7} hrefEntender="#produto-findscore" />
+              <FindScoreResumo valor={71} hrefEntender="#produto-findscore" />
+              <FindScoreResumo valor={null} hrefEntender="#produto-findscore" />
+            </div>
+            <SubTitle>{t("Thermometer at the band limits", "Termômetro nos limites das faixas")}</SubTitle>
+            <div className="space-y-4 rounded-xl border border-border bg-card p-4">
+              {[18, 40, 59.9, 80, 94.99, 100].map((v) => (
+                <div key={v} className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3">
+                  <BadgeDeClassificacao valor={v} />
+                  <TermometroFindScore valor={v} compacto />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
+          <div className="min-w-0 space-y-3">
+            <SubTitle>{t("FindStar seal", "Selo FindStar")}</SubTitle>
+            <div className="flex flex-wrap items-center gap-4 rounded-xl border border-border bg-card p-4">
+              <SeloFindStar variante="compacto" />
+              <SeloFindStar variante="horizontal" />
+              <SeloFindStar variante="vertical" validade="Válido até 31/12/2026" />
+            </div>
+            <div className="dark flex flex-wrap items-center gap-4 rounded-xl bg-[var(--graphite-950)] p-4 text-foreground">
+              <SeloFindStar variante="compacto" />
+              <SeloFindStar variante="horizontal" />
+              <span className="text-[var(--graphite-300)]"><SeloFindStar variante="horizontal" monocromatico className="border-current bg-transparent text-current" /></span>
+            </div>
+            <p className="text-[0.8125rem] text-muted-foreground">{TEXTO_FINDSTAR}</p>
+          </div>
+          <div className="min-w-0 space-y-3">
+            <SubTitle>{t("Eligibility progress (store panel)", "Progresso de elegibilidade (painel do lojista)")}</SubTitle>
+            <ProgressoDeElegibilidade
+              titulo="Seu FindScore está em construção"
+              itens={[
+                { rotulo: "Tempo de atividade", atual: 18, meta: 30, unidade: "dias" },
+                { rotulo: "Solicitações avaliadas", atual: 7, meta: 10 },
+                { rotulo: "Consumidores distintos", atual: 3, meta: 5 },
+              ]}
+              rodape="Continue atendendo às solicitações dos consumidores para alcançar os requisitos necessários à publicação do seu FindScore."
+            />
+            <ProgressoDeElegibilidade
+              titulo="Seu caminho até o FindStar"
+              itens={[
+                { rotulo: "FindScore", atual: 92, meta: 95, unidade: "pontos" },
+                { rotulo: "Solicitações avaliadas", atual: 24, meta: 20 },
+                { rotulo: "Compras concluídas", atual: 8, meta: 10 },
+                { rotulo: "Tempo de atividade", atual: 75, meta: 60, unidade: "dias" },
+              ]}
+            />
+          </div>
+        </div>
+
+        <div className="min-w-0 space-y-3">
+          <SubTitle>{t("Criteria cards (store panel)", "Cards de critério (painel do lojista)")}</SubTitle>
+          <div className="grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <CardDeCriterio nome="Atendimento" peso={0.3} nota={88} registros={31} explicacao="Respostas às solicitações dentro do horário de funcionamento e o tempo até a primeira resposta." />
+            <CardDeCriterio nome="Confirmação das peças" peso={0.25} nota={74.5} registros={42} explicacao="Peças reservadas que a loja confirmou ter, peça por peça." />
+            <CardDeCriterio nome="Cumprimento das vendas" peso={0.15} estado="dados_insuficientes" explicacao="Compras confirmadas que foram concluídas." />
+            <CardDeCriterio nome="Entrega no prazo" peso={0.15} estado="nao_aplicavel" explicacao="Entregas e retiradas disponíveis no prazo combinado." />
+            <CardDeCriterio nome="Cancelamentos atribuíveis à loja" peso={0.15} estado="em_analise" explicacao="Só cancelamentos de responsabilidade da loja." />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
