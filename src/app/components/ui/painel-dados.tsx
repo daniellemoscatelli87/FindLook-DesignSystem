@@ -158,10 +158,12 @@ type GraficoDeDesempenhoProps = {
   altura?: number;
   /** Destaca o último valor da primeira série visível. */
   destacarUltimo?: boolean;
+  /** Teto fixo do eixo Y (por exemplo, 100 para pontuações de 0 a 100). Sem ele, o teto acompanha os dados. */
+  tetoY?: number;
   className?: string;
 };
 
-function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura = 220, destacarUltimo = true, className }: GraficoDeDesempenhoProps) {
+function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura = 220, destacarUltimo = true, tetoY, className }: GraficoDeDesempenhoProps) {
   const [visiveis, setVisiveis] = React.useState<string[]>(visiveisIniciais ?? series.map(s => s.chave));
   const idBase = React.useId().replace(/:/g, "");
   const alternar = (chave: string) => setVisiveis(v => v.includes(chave) ? (v.length > 1 ? v.filter(c => c !== chave) : v) : [...v, chave]);
@@ -197,7 +199,7 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
             </defs>
             <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="3 3" />
             <XAxis dataKey={chaveX} tickLine={false} axisLine={false} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} interval="preserveStartEnd" minTickGap={24} />
-            <YAxis tickLine={false} axisLine={false} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} tickFormatter={(v: number) => formatarNumero(v)} width={52} domain={[0, (max: number) => Math.max(1, Math.ceil(max * 1.18))]} allowDecimals={false} />
+            <YAxis tickLine={false} axisLine={false} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} tickFormatter={(v: number) => formatarNumero(v)} width={52} domain={[0, tetoY ?? ((max: number) => Math.max(1, Math.ceil(max * 1.18)))]} allowDecimals={false} />
             <ReTooltip
               cursor={{ stroke: "var(--border)" }}
               contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 10, fontSize: 12, color: "var(--popover-foreground)" }}

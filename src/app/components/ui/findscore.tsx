@@ -7,7 +7,7 @@ import { cn } from "./utils";
 import { Badge } from "./badge";
 import { Selo } from "./selo";
 import { CardComCabecalho, Explicacao, IconeComBase, ProgressoRotulado, superficieDoCard } from "./painel-dados";
-import { MarcaFind } from "./marca-find";
+import { MarcaFind, textoComMarcas } from "./marca-find";
 
 /*
  * FindScore e FindStar (especificação da dona do produto, 24/11/2026), montados com os componentes do DS:
@@ -118,7 +118,7 @@ export function TermometroFindScore({ valor, compacto = false, className }: { va
 function Ajuda({ hrefEntender }: { hrefEntender?: string }) {
   return (
     <Explicacao termo="o FindScore">
-      <p className="m-0">{TEXTO_FINDSCORE}</p>
+      <p className="m-0">{textoComMarcas(TEXTO_FINDSCORE)}</p>
       {hrefEntender && (
         <a href={hrefEntender} className="mt-2 inline-block font-semibold text-[var(--primary-text,var(--primary))] underline-offset-2 hover:underline">
           Entenda o FindScore
@@ -159,7 +159,7 @@ export function FindScoreResumo({ valor, variante = "compacto", rodape, hrefEnte
     <CardComCabecalho
       icone={<Gauge />}
       titulo={<MarcaFind sufixo="Score" />}
-      descricao={faixa ? faixa.descricao : EM_AVALIACAO.descricaoPublica}
+      descricao={textoComMarcas(faixa ? faixa.descricao : EM_AVALIACAO.descricaoPublica)}
       acao={<Ajuda hrefEntender={hrefEntender} />}
       cabecalho="simples"
       nivel={3}

@@ -16,7 +16,10 @@ import { FaixaDeParceiros } from "../ui/faixa-parceiros";
 import {
   BadgeDeClassificacao, FAIXAS_FINDSCORE, FindScoreResumo, ProgressoDeElegibilidade, SeloFindStar, TermometroFindScore, TEXTO_FINDSTAR,
 } from "../ui/findscore";
-import { MarcaFind } from "../ui/marca-find";
+import { MarcaFind, textoComMarcas } from "../ui/marca-find";
+import {
+  AndamentoDaOcorrencia, AvisoDeGovernanca, FormularioDeDenuncia, HistoricoDoFindScore, MetodologiaDoFindScore, VerificacaoDoFindStar,
+} from "../ui/findscore-governanca";
 import { CardIndicador } from "../ui/painel-dados";
 import {
   CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
@@ -494,7 +497,60 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
             <SeloFindStar variante="horizontal" />
             <SeloFindStar variante="vertical" validade="Válido até 31/12/2026" />
           </div>
-          <Callout title={t("Merit only", "Só por mérito")}>{TEXTO_FINDSTAR} {t("No plan buys the seal.", "Nenhum plano compra o selo.")}</Callout>
+          <Callout title={t("Merit only", "Só por mérito")}>{textoComMarcas(TEXTO_FINDSTAR)} {t("No plan buys the seal.", "Nenhum plano compra o selo.")}</Callout>
+        </div>
+
+        {/* 6. Metodologia e histórico */}
+        <div className="space-y-3">
+          <SubTitle>{t("6. Methodology and history", "6. Metodologia e histórico")}</SubTitle>
+          <div className="flex flex-wrap items-center gap-3">
+            <MetodologiaDoFindScore gatilho={<Button variant="outline">Entenda o FindScore</Button>} />
+            <span className="text-[0.8125rem] text-muted-foreground">{t("Opens from the ⓘ and from the “Entenda o FindScore” links.", "Abre pelo ⓘ e pelos links “Entenda o FindScore”.")}</span>
+          </div>
+          <HistoricoDoFindScore
+            pontos={Array.from({ length: 90 }, (_, i) => ({ dia: `${String(((i + 26) % 30) + 1).padStart(2, "0")}/${i < 5 ? "08" : i < 35 ? "09" : i < 65 ? "10" : "11"}`, findscore: Math.round((68 + i * 0.27 + Math.sin(i / 6) * 3) * 10) / 10 }))}
+            eventos={[
+              { id: "e1", tipo: "faixa", titulo: "Sua loja passou para Destaque", detalhe: "80 pontos", quando: "12/11" },
+              { id: "e2", tipo: "metodologia", titulo: "Metodologia atualizada (versão 1.1)", detalhe: "Comparações com o período anterior podem variar", quando: "01/11" },
+              { id: "e3", tipo: "faixa", titulo: "Sua loja passou para Bom", detalhe: "60 pontos", quando: "18/09" },
+            ]}
+          />
+        </div>
+
+        {/* 7. Avisos */}
+        <div className="space-y-3">
+          <SubTitle>{t("7. Notices to the store (AlertaComAcao)", "7. Avisos para o lojista (AlertaComAcao)")}</SubTitle>
+          <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+            <AvisoDeGovernanca tipo="conquistado" />
+            <AvisoDeGovernanca tipo="elegivel" />
+            <AvisoDeGovernanca tipo="prazo" />
+            <AvisoDeGovernanca tipo="nao_renovado" />
+            <AvisoDeGovernanca tipo="suspensa" />
+            <AvisoDeGovernanca tipo="banida" />
+          </div>
+          <Callout title={t("One message per situation", "Uma mensagem por situação")}>{textoComMarcas(t("The texts come from the FindScore specification. Conduct notices (suspension, ban) always open the decision with its grounds and how to contest it.", "Os textos vêm da especificação do FindScore. Os avisos de conduta (suspensão e banimento) sempre levam à decisão, com os fundamentos e como contestar."))}</Callout>
+        </div>
+
+        {/* 8. Denúncia */}
+        <div className="space-y-3">
+          <SubTitle>{t("8. Report and follow-up (shopper)", "8. Denúncia e acompanhamento (consumidora)")}</SubTitle>
+          <div className="max-w-3xl rounded-lg border border-border bg-card p-5">
+            <FormularioDeDenuncia loja="Ateliê Exemplo (fictício)" operacao="Reserva #A1B2 · 23/11/2026" onEnviar={() => new Promise((r) => setTimeout(r, 900))} />
+          </div>
+          <div className="grid min-w-0 max-w-3xl gap-4">
+            <AndamentoDaOcorrencia protocolo="#OC-1042" atual={2} />
+            <AndamentoDaOcorrencia protocolo="#OC-1043" atual={1} aguardandoInformacoes />
+          </div>
+        </div>
+
+        {/* 9. Verificação pública */}
+        <div className="space-y-3">
+          <SubTitle>{t("9. Public FindStar check (QR Code destination)", "9. Verificação pública do FindStar (destino do QR Code)")}</SubTitle>
+          <div className="grid min-w-0 gap-4 lg:grid-cols-3">
+            <VerificacaoDoFindStar loja="Ateliê Exemplo (fictício)" estado="vigente" concedidoEm="01/11/2026" validade="30/11/2026" />
+            <VerificacaoDoFindStar loja="Brechó Exemplo (fictício)" estado="nao_vigente" />
+            <VerificacaoDoFindStar loja="Loja Exemplo (fictícia)" estado="indisponivel" />
+          </div>
         </div>
       </section>
     </div>

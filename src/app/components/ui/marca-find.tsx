@@ -20,3 +20,12 @@ export function MarcaFind({ sufixo, className }: { sufixo: SufixoDaMarca; classN
     </span>
   );
 }
+
+const PADRAO_DAS_MARCAS = /(FindLook|FindScore|FindStar|FindBox|FindCloset)/;
+
+/** Troca os nomes das marcas dentro de um texto pelo MarcaFind (para títulos e frases que citam FindScore, FindStar…). */
+export function textoComMarcas(texto: string): React.ReactNode {
+  const partes = texto.split(PADRAO_DAS_MARCAS);
+  if (partes.length === 1) return texto;
+  return partes.map((p, i) => (PADRAO_DAS_MARCAS.test(p) ? <MarcaFind key={i} sufixo={p.slice(4) as SufixoDaMarca} /> : <React.Fragment key={i}>{p}</React.Fragment>));
+}
