@@ -14,8 +14,8 @@ import { MarcaFind } from "./marca-find";
  * CardComCabecalho, CardIndicador (critérios), IconeComBase, ProgressoRotulado, Badge, Selo e MarcaFind.
  *
  * FindScore: desempenho da loja de 0 a 100, em 5 faixas de amplitudes diferentes. O termômetro (único elemento novo)
- * desenha as faixas proporcionais à pontuação, do rosa (mais crítico) ao verde (mais favorável), com laranja e amarelo
- * no meio (tokens --findscore-1..5). Só a faixa atual fica em cor cheia e o nome dela vem sempre escrito.
+ * desenha as faixas proporcionais à pontuação: rosa (A melhorar), laranja (Regular), amarelo (Bom), azul (Destaque) e
+ * verde (Excelência), pelos tokens --findscore-1..5. Só a faixa atual fica em cor cheia e o nome dela vem sempre escrito.
  * A tela mostra o número arredondado para baixo, para nunca mostrar 95 a quem ainda não chegou a Excelência.
  *
  * FindStar: reconhecimento máximo, só por mérito. O selo usa o padrão de ícone com base rosa (foco) e o Selo do DS.

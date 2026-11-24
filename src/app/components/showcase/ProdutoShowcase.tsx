@@ -435,7 +435,7 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
               ))}
             </div>
           </div>
-          <Callout title={t("Colour is never the only cue", "A cor nunca é a única pista")}>{t("Pink is the most critical band and green the most favourable, with orange and yellow in between. Only the current band is in full colour, and its name is always written.", "O rosa é a faixa mais crítica e o verde a mais favorável, com laranja e amarelo no meio. Só a faixa atual fica em cor cheia, e o nome dela vem sempre escrito.")}</Callout>
+          <Callout title={t("Colour is never the only cue", "A cor nunca é a única pista")}>{t("Pink is the most critical band, then orange, yellow and blue (Highlight); green is the most favourable (Excellence). Only the current band is in full colour, and its name is always written.", "O rosa é a faixa mais crítica; depois vêm laranja, amarelo e azul (Destaque); o verde é a mais favorável (Excelência). Só a faixa atual fica em cor cheia, e o nome dela vem sempre escrito.")}</Callout>
         </div>
 
         {/* 3. Consumidora */}

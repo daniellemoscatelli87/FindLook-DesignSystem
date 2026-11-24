@@ -147,14 +147,14 @@
   --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-100);
 
-  /* FindScore (decisão da dona do produto, 24/11/2026): 5 faixas do rosa (mais crítico) ao verde (mais favorável), com
-     laranja e amarelo no meio. Validada no validador de paletas: pares vizinhos distinguíveis com visão normal e com
+  /* FindScore (decisão da dona do produto, 24/11/2026): A melhorar rosa (mais crítico), Regular laranja, Bom amarelo,
+     Destaque azul e Excelência verde (mais favorável). Validada no validador de paletas: pares vizinhos distinguíveis com visão normal e com
      daltonismo. A cor nunca é a única pista: o nome da faixa vem sempre escrito e só a faixa atual fica em cor cheia. */
   --findscore-1: var(--pink-500);
   --findscore-2: #F5871F;
   --findscore-3: #F6CC3C;
-  --findscore-4: #79B95B;
-  --findscore-5: #226847;
+  --findscore-4: var(--info);
+  --findscore-5: #3A9A48;
   /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
      os componentes não escrevem texto sobre a cor do gráfico. */
   --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--foreground);
@@ -268,7 +268,7 @@
   --findscore-1: var(--pink-500);
   --findscore-2: #F5871F;
   --findscore-3: #F6CC3C;
-  --findscore-4: #79B95B;
+  --findscore-4: var(--info);
   --findscore-5: #41B47F;
   /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
      os componentes não escrevem texto sobre a cor do gráfico. */
