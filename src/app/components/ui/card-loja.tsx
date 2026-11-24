@@ -12,7 +12,6 @@ import { Button } from "./button";
  * A loja selecionada ganha fundo rosa claro e um check (o estado não depende só da cor).
  */
 
-const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 type AcaoDaLoja = {
   rotulo: string;
@@ -93,8 +92,9 @@ function ItemDeLoja({ nome, estilo, bairro, selecionada = false, onSelecionar, c
       onClick={onSelecionar}
       aria-pressed={selecionada}
       className={cn(
-        "flex w-full min-w-0 items-center gap-3 rounded-sm px-2 py-2 text-left transition-colors hover:bg-muted aria-pressed:bg-primary-muted",
-        foco,
+        // Linha de lista: hover e seleção na linha inteira, sem cantos; foco por dentro (regra da dona do produto, 24/11/2026).
+        "flex w-full min-w-0 items-center gap-3 rounded-none px-2 py-2 text-left transition-colors hover:bg-row-hover aria-pressed:bg-primary-muted",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
         className,
       )}
     >

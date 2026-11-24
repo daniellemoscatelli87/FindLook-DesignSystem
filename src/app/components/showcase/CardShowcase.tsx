@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { Check, ChevronRight, Image, LayoutPanelTop, MousePointer2, ShieldCheck, Sparkles } from "lucide-react";
 import { useI18n } from "../../i18n";
+import { ResumoDaRegraDasLinhas } from "./shared/RegraDasLinhas";
 import {
   Card,
   CardAction,
@@ -625,6 +626,7 @@ export function CardShowcase() {
                 <li>{t("Boards (kanban): columns side by side when they fit; on phones, one below the other.", "Quadros (kanban): colunas lado a lado quando cabem; no celular, uma embaixo da outra.")}</li>
                 <li>{t("Galleries and chips: a grid that wraps, never a row that scrolls.", "Galerias e chips: grade que quebra de linha, nunca uma fila que rola.")}</li>
               </ul>
+              <ResumoDaRegraDasLinhas />
             </Callout>
           </div>
         </div>
