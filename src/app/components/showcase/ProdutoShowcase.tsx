@@ -7,14 +7,17 @@ import { Callout, SubTitle } from "./shared/Guidance";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { CardDoPainel, ItemDeAtividade } from "../ui/painel-dados";
+import { MessageCircle, PackageCheck, ShoppingBag, Truck, CircleX, Star as StarIcon } from "lucide-react";
 import { BarraFixaDoCelular } from "../ui/barra-fixa-celular";
 import { BuscaDePecas, BuscaNoCelular, type ValoresDaBusca } from "../ui/busca-pecas";
 import { CardDeLoja } from "../ui/card-loja";
 import { MapaDeLojas, MapaIlustrativo, ConviteAoMapa, type PinoIlustrativo } from "../ui/mapa-lojas";
 import { FaixaDeParceiros } from "../ui/faixa-parceiros";
 import {
-  BadgeDeClassificacao, CardDeCriterio, FindScoreResumo, ProgressoDeElegibilidade, SeloFindStar, TermometroFindScore, TEXTO_FINDSTAR,
+  BadgeDeClassificacao, FAIXAS_FINDSCORE, FindScoreResumo, ProgressoDeElegibilidade, SeloFindStar, TermometroFindScore, TEXTO_FINDSTAR,
 } from "../ui/findscore";
+import { MarcaFind } from "../ui/marca-find";
+import { CardIndicador } from "../ui/painel-dados";
 import {
   CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
 } from "../ui/cadastro-lojista";
@@ -387,68 +390,92 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
 
 
       {/* ── FindScore e FindStar ── */}
-      <section id="produto-findscore" className="scroll-mt-32 space-y-6">
+      <section id="produto-findscore" className="scroll-mt-32 space-y-10">
         <SectionHeader
           title={t("FindScore and FindStar", "FindScore e FindStar")}
           description={t(
-            "The store performance indicator (0 to 100, five bands of different widths) and the merit-only recognition. The thermometer draws the bands in proportion to the score and marks the real position; the band name is always written, colour is never the only cue. The screen shows the score rounded down, so a store never sees 95 before reaching Excellence. All data here is fictitious.",
-            "O indicador de desempenho da loja (0 a 100, cinco faixas de amplitudes diferentes) e o reconhecimento conquistado só por mérito. O termômetro desenha as faixas proporcionais à pontuação e marca a posição real; o nome da faixa sempre aparece escrito, e a cor nunca é a única pista. A tela mostra a pontuação arredondada para baixo, para nunca mostrar 95 a quem ainda não chegou a Excelência. Todos os dados aqui são fictícios.",
+            "Store performance (FindScore, 0 to 100) and the merit-only recognition (FindStar). Built with the DS components: CardComCabecalho, CardIndicador, IconeComBase, ProgressoRotulado, Badge, Selo and MarcaFind. The only new piece is the thermometer. All data here is fictitious.",
+            "O desempenho da loja (FindScore, de 0 a 100) e o reconhecimento só por mérito (FindStar). Montados com os componentes do DS: CardComCabecalho, CardIndicador, IconeComBase, ProgressoRotulado, Badge, Selo e MarcaFind. A única peça nova é o termômetro. Todos os dados aqui são fictícios.",
           )}
         />
-        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("Full summary: store page and showcase", "Resumo completo: perfil e vitrine da loja")}</SubTitle>
-            <FindScoreResumo valor={92.4} variante="completo" periodo="Últimos 90 dias" atualizadoEm="Atualizado em 24/11/2026" hrefEntender="#produto-findscore" />
-            <FindScoreResumo valor={null} variante="completo" hrefEntender="#produto-findscore" />
+
+        {/* 1. Marca */}
+        <div className="space-y-3">
+          <SubTitle>{t("1. Brand name: MarcaFind", "1. Nome da marca: MarcaFind")}</SubTitle>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-lg border border-border bg-card p-5 text-[1.5rem]">
+            {(["Look", "Score", "Star", "Box", "Closet"] as const).map((x) => <MarcaFind key={x} sufixo={x} />)}
           </div>
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("Compact summary: cards, search, piece and FindBox", "Resumo compacto: cards, busca, peça e FindBox")}</SubTitle>
-            <div className="space-y-3 rounded-xl bg-[var(--surface-tint)] p-4">
-              <FindScoreResumo valor={96.2} hrefEntender="#produto-findscore" />
-              <FindScoreResumo valor={94.7} hrefEntender="#produto-findscore" />
-              <FindScoreResumo valor={71} hrefEntender="#produto-findscore" />
-              <FindScoreResumo valor={null} hrefEntender="#produto-findscore" />
-            </div>
-            <SubTitle>{t("Thermometer at the band limits", "Termômetro nos limites das faixas")}</SubTitle>
-            <div className="space-y-4 rounded-xl border border-border bg-card p-4">
-              {[18, 40, 59.9, 80, 94.99, 100].map((v) => (
-                <div key={v} className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3">
-                  <BadgeDeClassificacao valor={v} />
-                  <TermometroFindScore valor={v} compacto />
+          <Callout title={t("Always MarcaFind", "Sempre MarcaFind")}>{t("Wherever FindLook, FindScore, FindStar, FindBox or FindCloset appear, use MarcaFind: “Find” in black and the second word in brand pink, ExtraBold, like the logo. Never loose text.", "Onde aparecerem FindLook, FindScore, FindStar, FindBox ou FindCloset, use MarcaFind: “Find” em preto e a segunda palavra no rosa da marca, em ExtraBold, como no logo. Nunca texto solto.")}</Callout>
+        </div>
+
+        {/* 2. Faixas */}
+        <div className="space-y-3">
+          <SubTitle>{t("2. Bands and thermometer", "2. Faixas e termômetro")}</SubTitle>
+          <div className="grid min-w-0 gap-6 lg:grid-cols-2">
+            <ul className="m-0 list-none space-y-2 rounded-lg border border-border bg-card p-4">
+              {FAIXAS_FINDSCORE.map((f) => (
+                <li key={f.id} className="flex items-start gap-3">
+                  <BadgeDeClassificacao valor={f.min + 0.5} className="mt-0.5 w-28 justify-start" />
+                  <span className="min-w-0 text-[0.8125rem]">
+                    <span className="font-semibold tabular-nums text-foreground">{f.min} a {f.max === 100 ? "100" : `menos de ${f.max}`}</span>
+                    <span className="block text-muted-foreground">{f.descricao}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="space-y-4 rounded-lg border border-border bg-card p-4">
+              {[22, 48, 71, 92.4, 97].map((v) => (
+                <div key={v} className="space-y-1">
+                  <div className="flex items-center justify-between text-[0.8125rem]">
+                    <span className="font-bold tabular-nums text-foreground">{Math.floor(v)} <span className="font-medium text-muted-foreground">de 100</span></span>
+                    <BadgeDeClassificacao valor={v} />
+                  </div>
+                  <TermometroFindScore valor={v} />
                 </div>
               ))}
             </div>
           </div>
+          <Callout title={t("Colour is never the only cue", "A cor nunca é a única pista")}>{t("Pink is the most critical band and green the most favourable, with orange and yellow in between. Only the current band is in full colour, and its name is always written.", "O rosa é a faixa mais crítica e o verde a mais favorável, com laranja e amarelo no meio. Só a faixa atual fica em cor cheia, e o nome dela vem sempre escrito.")}</Callout>
         </div>
 
-        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("FindStar seal", "Selo FindStar")}</SubTitle>
-            <div className="flex flex-wrap items-center gap-4 rounded-xl border border-border bg-card p-4">
-              <SeloFindStar variante="compacto" />
-              <SeloFindStar variante="horizontal" />
-              <SeloFindStar variante="vertical" validade="Válido até 31/12/2026" />
-            </div>
-            <div className="dark flex flex-wrap items-center gap-4 rounded-xl bg-[var(--graphite-950)] p-4 text-foreground">
-              <SeloFindStar variante="compacto" />
-              <SeloFindStar variante="horizontal" />
-              <span className="text-[var(--graphite-300)]"><SeloFindStar variante="horizontal" monocromatico className="border-current bg-transparent text-current" /></span>
-            </div>
-            <p className="text-[0.8125rem] text-muted-foreground">{TEXTO_FINDSTAR}</p>
+        {/* 3. Consumidora */}
+        <div className="space-y-3">
+          <SubTitle>{t("3. For the shopper: showcase, cards, piece and FindBox", "3. Para a consumidora: vitrine, cards, peça e FindBox")}</SubTitle>
+          <div className="grid min-w-0 gap-6 lg:grid-cols-2">
+            <FindScoreResumo valor={92.4} variante="completo" rodape="Últimos 90 dias · Atualizado em 24/11/2026" hrefEntender="#produto-findscore" />
+            <FindScoreResumo valor={null} variante="completo" hrefEntender="#produto-findscore" />
           </div>
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("Eligibility progress (store panel)", "Progresso de elegibilidade (painel do lojista)")}</SubTitle>
+          <div className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
+            <FindScoreResumo valor={96.2} hrefEntender="#produto-findscore" />
+            <FindScoreResumo valor={94.7} hrefEntender="#produto-findscore" />
+            <FindScoreResumo valor={null} hrefEntender="#produto-findscore" />
+          </div>
+        </div>
+
+        {/* 4. Lojista */}
+        <div className="space-y-3">
+          <SubTitle>{t("4. For the store: criteria (CardIndicador) and progress", "4. Para o lojista: critérios (CardIndicador) e progresso")}</SubTitle>
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-5 [&>*:last-child]:sm:col-span-2 [&>*:last-child]:xl:col-span-1">
+            <CardIndicador icone={<MessageCircle />} rotulo="Atendimento" valor={88} total={100} rodape="Peso 30% · 31 registros" explicacao="Respostas às solicitações dentro do horário de funcionamento e o tempo até a primeira resposta." />
+            <CardIndicador icone={<PackageCheck />} rotulo="Confirmação das peças" valor={74} total={100} rodape="Peso 25% · 42 registros" explicacao="Peças reservadas que a loja confirmou ter, peça por peça." />
+            <CardIndicador icone={<ShoppingBag />} rotulo="Cumprimento das vendas" semValor="Dados insuficientes. Entra no cálculo assim que houver histórico." rodape="Peso 15%" explicacao="Compras confirmadas que foram concluídas." />
+            <CardIndicador icone={<Truck />} rotulo="Entrega no prazo" semValor="Não aplicável no período. O peso vai para os outros critérios." rodape="Peso 15%" explicacao="Entregas e retiradas disponíveis no prazo combinado." />
+            <CardIndicador icone={<CircleX />} rotulo="Cancelamentos atribuíveis à loja" semValor="Em análise pela FindLook." rodape="Peso 15%" explicacao="Só cancelamentos de responsabilidade da loja." />
+          </div>
+          <div className="grid min-w-0 gap-6 lg:grid-cols-2">
             <ProgressoDeElegibilidade
               titulo="Seu FindScore está em construção"
+              descricao="Continue atendendo às solicitações para publicar seu FindScore."
               itens={[
                 { rotulo: "Tempo de atividade", atual: 18, meta: 30, unidade: "dias" },
                 { rotulo: "Solicitações avaliadas", atual: 7, meta: 10 },
                 { rotulo: "Consumidores distintos", atual: 3, meta: 5 },
               ]}
-              rodape="Continue atendendo às solicitações dos consumidores para alcançar os requisitos necessários à publicação do seu FindScore."
             />
             <ProgressoDeElegibilidade
+              icone={<StarIcon />}
               titulo="Seu caminho até o FindStar"
+              descricao="Requisitos conferidos na avaliação mensal."
               itens={[
                 { rotulo: "FindScore", atual: 92, meta: 95, unidade: "pontos" },
                 { rotulo: "Solicitações avaliadas", atual: 24, meta: 20 },
@@ -459,15 +486,15 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
           </div>
         </div>
 
-        <div className="min-w-0 space-y-3">
-          <SubTitle>{t("Criteria cards (store panel)", "Cards de critério (painel do lojista)")}</SubTitle>
-          <div className="grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            <CardDeCriterio nome="Atendimento" peso={0.3} nota={88} registros={31} explicacao="Respostas às solicitações dentro do horário de funcionamento e o tempo até a primeira resposta." />
-            <CardDeCriterio nome="Confirmação das peças" peso={0.25} nota={74.5} registros={42} explicacao="Peças reservadas que a loja confirmou ter, peça por peça." />
-            <CardDeCriterio nome="Cumprimento das vendas" peso={0.15} estado="dados_insuficientes" explicacao="Compras confirmadas que foram concluídas." />
-            <CardDeCriterio nome="Entrega no prazo" peso={0.15} estado="nao_aplicavel" explicacao="Entregas e retiradas disponíveis no prazo combinado." />
-            <CardDeCriterio nome="Cancelamentos atribuíveis à loja" peso={0.15} estado="em_analise" explicacao="Só cancelamentos de responsabilidade da loja." />
+        {/* 5. Selo */}
+        <div className="space-y-3">
+          <SubTitle>{t("5. FindStar seal", "5. Selo FindStar")}</SubTitle>
+          <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-[var(--surface-tint)] p-5">
+            <SeloFindStar variante="compacto" />
+            <SeloFindStar variante="horizontal" />
+            <SeloFindStar variante="vertical" validade="Válido até 31/12/2026" />
           </div>
+          <Callout title={t("Merit only", "Só por mérito")}>{TEXTO_FINDSTAR} {t("No plan buys the seal.", "Nenhum plano compra o selo.")}</Callout>
         </div>
       </section>
     </div>

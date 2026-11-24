@@ -95,7 +95,12 @@ function Explicacao({ termo, children }: { termo: string; children: React.ReactN
 /* ── Card de indicador (KPI) ─────────────────────────────────── */
 type CardIndicadorProps = {
   icone: React.ReactNode;
-  valor: number;
+  /** Sem valor (critério sem dados, por exemplo): use `semValor` com o motivo, e o número vira "—". */
+  valor?: number;
+  /** Motivo de não haver valor ("Dados insuficientes. Entra no cálculo quando houver histórico."). */
+  semValor?: React.ReactNode;
+  /** Linha discreta embaixo do número (peso, registros, contribuição…), no lugar da variação. */
+  rodape?: React.ReactNode;
   /** Total de que o valor faz parte (por exemplo, 48 de 75 bairros): aparece "de 75", menor, ao lado do número. */
   total?: number;
   rotulo: string;
@@ -113,7 +118,7 @@ type CardIndicadorProps = {
  * (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam
  * alinhados mesmo quando um rótulo ocupa duas linhas.
  */
-function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
+function CardIndicador({ icone, valor, semValor, rodape, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
   const palavras = rotulo.split(" ");
   const ultima = palavras.pop() ?? "";
   return (
@@ -130,10 +135,12 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
       </div>
       <div className="mt-auto">
         <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
-          {formatarNumero(valor)}
-          {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
+          {valor === undefined ? <span className="text-muted-foreground">—</span> : formatarNumero(valor)}
+          {valor !== undefined && total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
         </p>
+        {valor === undefined && semValor && <p className="mt-2 text-[0.75rem] leading-snug text-muted-foreground">{semValor}</p>}
         {variacao !== undefined && <div className="mt-3"><Variacao valor={variacao} comparacao={comparacao} /></div>}
+        {rodape && <p className="mt-2 text-[0.75rem] leading-snug text-muted-foreground">{rodape}</p>}
       </div>
     </div>
   );
@@ -434,7 +441,7 @@ function DivisorSuave({ className }: { className?: string }) {
  * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
  */
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
