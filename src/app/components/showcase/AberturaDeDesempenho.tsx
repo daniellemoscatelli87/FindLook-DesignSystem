@@ -38,7 +38,7 @@ export function AberturaDeDesempenho() {
         <CardDeInformacao icone={<CalendarDays />} rotulo="Próxima avaliação" valor="1º de cada mês" texto="Avaliação mensal, automática." />
       </div>
       <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
-        <CardComCabecalho icone={<ChartColumn />} iconeRedondo cabecalho="simples" titulo="Desempenho por critério" descricao="Veja sua nota em cada critério e foque no que pode melhorar."
+        <CardComCabecalho icone={<ChartColumn />} iconeGrande cabecalho="simples" titulo="Desempenho por critério" descricao="Veja sua nota em cada critério e foque no que pode melhorar."
           rodape={<Button variant="outline" className="h-10 rounded-full border-primary/50 px-5 text-[var(--primary-text,var(--primary))]">Ver detalhes <ChevronRight aria-hidden /></Button>}>
           <ListaDeProgresso itens={[
             { id: "a", icone: <Headset />, rotulo: "Atendimento", etiqueta: "Peso 40%", pct: 82, valor: "82", total: "/100" },
@@ -48,7 +48,7 @@ export function AberturaDeDesempenho() {
             { id: "e", icone: <CircleX />, rotulo: "Cancelamentos", etiqueta: "Peso 10%", pct: 95, valor: "95", total: "/100" },
           ]} />
         </CardComCabecalho>
-        <CardComCabecalho icone={<Target />} iconeRedondo fundo="marca" cabecalho="simples" titulo="Como evoluir agora" descricao="Ações práticas que mais aumentam sua nota."
+        <CardComCabecalho icone={<Target />} iconeGrande fundo="marca" cabecalho="simples" titulo="Como evoluir agora" descricao="Ações práticas que mais aumentam sua nota."
           rodape={<Button className="h-11 w-full rounded-full">Ver todas as recomendações <ChevronRight aria-hidden /></Button>}>
           <ul className="m-0 list-none divide-y divide-border p-0">
             <ItemDeChecklist estado="feito" texto="Responda tudo em até um dia." onClick={nao} />

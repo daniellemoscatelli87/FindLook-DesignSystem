@@ -25,8 +25,10 @@ export type ItemDeProgresso = {
   semValor?: string;
 };
 
-export function ListaDeProgresso({ itens, onSelecionar, className }: {
+export function ListaDeProgresso({ itens, onSelecionar, tom = "neutro", className }: {
   itens: ItemDeProgresso[];
+  /** Base do ícone: neutro (padrão, só identifica o item) ou marca. */
+  tom?: "marca" | "neutro";
   /** Torna cada linha clicável (abre o detalhe do item). */
   onSelecionar?: (id: string) => void;
   className?: string;
@@ -37,7 +39,7 @@ export function ListaDeProgresso({ itens, onSelecionar, className }: {
       {itens.map((i, n) => {
         const conteudo = (
           <>
-            <IconeComBase tom="marca" redonda>{i.icone}</IconeComBase>
+            <IconeComBase tom={tom}>{i.icone}</IconeComBase>
             <div className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1.5 @lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)_4.5rem]">
               <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5">
                 <span className="whitespace-nowrap text-[0.9375rem] font-semibold text-foreground">{i.rotulo}</span>

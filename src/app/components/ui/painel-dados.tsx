@@ -273,7 +273,7 @@ function ItemDeAcao({ midia, titulo, descricao, href, onClick, tom = "marca", va
   if (href === undefined && !onClick) {
     return (
       <div data-slot="item-de-acao" data-variante="informativo" className={cn("flex items-center gap-4 rounded-md border border-border bg-card p-3", className)}>
-        <IconeComBase tom={tom} className="h-14 w-14 [&>svg]:h-6 [&>svg]:w-6">{midia}</IconeComBase>
+        <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
         <span className="min-w-0 flex-1">
           <span className="block text-[0.9375rem] font-bold text-foreground">{titulo}</span>
           {descricao && <span className="mt-0.5 block text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</span>}
@@ -490,7 +490,7 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
 function CardDeInformacao({ icone, rotulo, valor, texto, tom = "marca", className }: { icone: React.ReactNode; rotulo: React.ReactNode; valor: React.ReactNode; texto?: React.ReactNode; tom?: TomDoIcone; className?: string }) {
   return (
     <section data-slot="card-de-informacao" className={cn("flex items-center gap-4 rounded-lg p-5 @xl:px-6", superficieDoCard, className)}>
-      <IconeComBase tom={tom} redonda className="h-14 w-14 [&>svg]:h-6 [&>svg]:w-6">{icone}</IconeComBase>
+      <IconeComBase tom={tom} tamanho="lg">{icone}</IconeComBase>
       <div className="min-w-0">
         <p className="m-0 text-[1.0625rem] font-semibold text-foreground">{rotulo}</p>
         <p className={`${display} m-0 mt-0.5 text-[1.625rem] font-extrabold leading-tight tracking-[-0.02em] text-foreground`}>{valor}</p>
@@ -546,8 +546,9 @@ function DivisorSuave({ className }: { className?: string }) {
  */
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
 /** fundo "marca": card com degradê rosa claro e o conteúdo num painel branco (para a lista de ações em destaque da página).
- *  iconeRedondo: base do ícone redonda e maior, para cards de abertura de página. */
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", fundo = "card", iconeRedondo = false, rodape, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeRedondo?: boolean; /** Botão ou link embaixo do conteúdo (ex.: "Ver detalhes"). */ rodape?: React.ReactNode; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+ *  iconeGrande: base do ícone de 44 px (itens de destaque), para cards de abertura de página. Cantos md, como manda a
+ *  regra de Base do ícone (redonda só nos itens de atividade). */
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", fundo = "card", iconeGrande = false, rodape, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeGrande?: boolean; /** Botão ou link embaixo do conteúdo (ex.: "Ver detalhes"). */ rodape?: React.ReactNode; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
@@ -555,7 +556,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
     <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", fundo === "marca" ? "border border-primary/10 bg-[linear-gradient(160deg,var(--primary-muted),var(--card)_75%)]" : superficieDoCard, className)}>
       <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && cabecalho === "simples" && "mb-5")}>
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
-        <IconeComBase tom={tom} redonda={iconeRedondo} tamanho={iconeRedondo ? "lg" : "md"}>{icone}</IconeComBase>
+        <IconeComBase tom={tom} tamanho={iconeGrande ? "lg" : "md"}>{icone}</IconeComBase>
         <div className="min-w-[12rem] flex-1 self-center">
           <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
           {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
