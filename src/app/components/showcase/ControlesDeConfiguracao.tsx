@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Bell, CalendarClock, Mail, Truck } from "lucide-react";
+import { Bell, CalendarClock, CheckCircle2, ClipboardList, Mail, PackageCheck, Truck } from "lucide-react";
 import { LinhaComInterruptor } from "@/app/components/ui/linha-com-interruptor";
 import { GradeSemanal, type ValorDaGrade } from "@/app/components/ui/grade-semanal";
 import { SelecaoEmGrupos, type GrupoDeSelecao } from "@/app/components/ui/selecao-em-grupos";
 import { CampoDeValor } from "@/app/components/ui/campo-de-valor";
 import { CardComCabecalho } from "@/app/components/ui/painel-dados";
+import { ListaDeEtapas } from "@/app/components/ui/lista-de-etapas";
 
 /* Controles das telas de configuração. Exemplos com dados genéricos; regras e textos de cada produto ficam no produto. */
 
@@ -64,6 +65,19 @@ export function ControlesDeConfiguracao() {
         descricao="Escolher vários itens de uma lista longa organizada em grupos. Busca sem acento, caixa do grupo inteiro (marcada, parcial ou vazia), contagem e o resumo do que foi escolhido, com botão para tirar cada item. Os grupos começam fechados e a busca abre os que têm resultado.">
         <div className="max-w-2xl rounded-lg border border-border bg-card p-5">
           <SelecaoEmGrupos rotulo="estados" grupos={GRUPOS} valor={estados} onChange={setEstados} />
+        </div>
+      </Sub>
+
+      <Sub id="lista-de-etapas" titulo="Lista de etapas"
+        descricao="Como um processo acontece, passo a passo, para explicar regras e prazos dentro de um card. Lista ordenada, com ícone em base rosa, título, quando acontece e a descrição inteira, sem cortar. Para o que já aconteceu (feed), use o Item de atividade.">
+        <div className="max-w-sm">
+          <CardComCabecalho nivel={3} icone={<ClipboardList />} titulo="Como funciona o pedido" descricao="Exemplo genérico.">
+            <ListaDeEtapas etapas={[
+              { icone: <ClipboardList />, titulo: "Você faz o pedido", quando: "Na hora", descricao: "O pedido chega para a equipe com tudo o que você escolheu." },
+              { icone: <CheckCircle2 />, titulo: "A equipe confirma", quando: "Em até 2 dias", descricao: "Você recebe um aviso com o que foi confirmado e o que mudou." },
+              { icone: <PackageCheck />, titulo: "Entrega", quando: "Em até 5 dias", descricao: "Acompanhe pelo painel até a entrega." },
+            ]} />
+          </CardComCabecalho>
         </div>
       </Sub>
 

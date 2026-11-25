@@ -403,6 +403,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "linha-interruptor", label: "Linha com interruptor", sectionId: "buttons" },
           { id: "grade-semanal",     label: "Grade semanal",         sectionId: "buttons" },
           { id: "selecao-em-grupos", label: "Seleção em grupos",     sectionId: "buttons" },
+          { id: "lista-de-etapas",   label: "Lista de etapas",       sectionId: "buttons" },
           { id: "campo-de-valor",    label: "Campo de valor",        sectionId: "buttons" },
           { id: "buttons-tokens", label: "Tokens",          sectionId: "buttons" },
         ],
