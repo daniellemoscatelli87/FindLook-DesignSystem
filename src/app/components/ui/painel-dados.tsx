@@ -279,12 +279,12 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marc
         className={cn("group flex h-full flex-col gap-3 rounded-lg border border-border bg-card p-5 transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] motion-safe:hover:-translate-y-0.5 active:scale-[0.995]", foco, className)}
       >
         <span aria-hidden className={cn("[&>svg]:h-7 [&>svg]:w-7", tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground")}>{midia}</span>
-        <span className="flex flex-1 items-end gap-3">
+        <span className="flex items-center gap-3">
           <span className="min-w-0 flex-1">
             <span className="block text-[1rem] font-bold leading-snug text-foreground">{titulo}</span>
             {descricao && <span className="mt-1 block text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</span>}
           </span>
-          <Seta aria-hidden className="mb-1 h-4 w-4 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5" />
+          <Seta aria-hidden className="mt-6 h-4 w-4 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5" />
         </span>
       </a>
     );
