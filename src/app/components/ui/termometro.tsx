@@ -118,7 +118,7 @@ export function EscalaDeFaixas({ faixas, intervalo, descricao, iconeDoTopo, atua
   descricao?: (f: FaixaDoTermometro) => React.ReactNode;
   /** Ícone no lugar do ponto da última faixa. */
   iconeDoTopo?: React.ReactNode;
-  /** id da faixa atual, marcada para leitores de tela e com borda. */
+  /** id da faixa atual, informada aos leitores de tela. */
   atual?: string;
   className?: string;
 }) {
@@ -128,7 +128,7 @@ export function EscalaDeFaixas({ faixas, intervalo, descricao, iconeDoTopo, atua
         const topo = i === faixas.length - 1 && iconeDoTopo;
         return (
           <li key={f.id} data-faixa={f.id} aria-current={atual === f.id ? "true" : undefined}
-            className={cn("grid grid-cols-1 overflow-hidden rounded-lg border bg-card @md:grid-cols-[minmax(0,13rem)_minmax(0,1fr)]", atual === f.id ? "border-foreground/30" : "border-border")}>
+            className="grid grid-cols-1 overflow-hidden rounded-md border border-border bg-card @md:grid-cols-[minmax(0,13rem)_minmax(0,1fr)]">
             <div className="flex items-center gap-3 px-4 py-2.5" style={{ background: `color-mix(in srgb, ${corDoTom(f.tom)} 16%, var(--card))` }}>
               {topo
                 ? <span aria-hidden className="shrink-0 [&>svg]:h-5 [&>svg]:w-5" style={{ color: corDoTom(f.tom) }}>{iconeDoTopo}</span>

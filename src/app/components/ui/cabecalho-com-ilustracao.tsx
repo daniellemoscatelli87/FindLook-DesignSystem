@@ -6,6 +6,7 @@ import { cn } from "./utils";
  * (reconhecimento, programa, conquista). Título grande, uma frase de apoio em destaque, uma descrição curta e, à direita,
  * uma ilustração sobre um degradê suave da marca. No celular, a ilustração fica menor, acima do texto.
  * As abas da página (opcional) ficam logo abaixo, como no CabecalhoDaPagina.
+ * fundo "nenhum": sem degradê, sobre o fundo padrão da página.
  * fundo "pagina": o degradê rosa se espalha pela largura toda da área de conteúdo e desce por trás dos primeiros cards,
  * como uma abertura de página. Precisa de um contêiner com `isolate` (contexto de empilhamento) e `overflow-x: hidden`
  * na área de rolagem, para o degradê ficar atrás dos cards e não criar rolagem lateral.
@@ -18,7 +19,7 @@ export function CabecalhoComIlustracao({ titulo, subtitulo, descricao, ilustraca
   ilustracao?: React.ReactNode;
   abas?: React.ReactNode;
   nivel?: 1 | 2;
-  fundo?: "suave" | "pagina";
+  fundo?: "suave" | "pagina" | "nenhum";
   className?: string;
 }) {
   const Titulo = `h${nivel}` as "h1" | "h2";
