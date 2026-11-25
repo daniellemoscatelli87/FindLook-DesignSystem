@@ -19,6 +19,7 @@ import { ProgressoDeRequisitos } from "../ui/progresso-de-requisitos";
 import { FormularioDeRelato } from "../ui/formulario-de-relato";
 import { CardIndicador } from "../ui/painel-dados";
 import { Gauge } from "lucide-react";
+import { AberturaDeDesempenho } from "./AberturaDeDesempenho";
 
 /* Termômetro de exemplo (fictício): faixas genéricas, só para demonstrar o componente. */
 const FAIXAS_EXEMPLO: FaixaDoTermometro[] = [
@@ -398,6 +399,18 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
       </section>
 
 
+
+      {/* ── Abertura de página de desempenho ── */}
+      <section id="produto-abertura-desempenho" className="scroll-mt-32 space-y-6">
+        <SectionHeader
+          title={t("Performance page opening", "Abertura de página de desempenho")}
+          description={t(
+            "Header with illustration (animated star), score card, progress list, action checklist (done and to do) and a closing benefits strip with an action. Generic components; names, rules and texts come from the product. Fictitious data.",
+            "Cabeçalho com ilustração (estrela animada), card de nota, lista de progresso, checklist de ações (feito e a fazer) e faixa de benefícios com ação para fechar a página. Componentes genéricos; nomes, regras e textos vêm do produto. Dados fictícios.",
+          )}
+        />
+        <AberturaDeDesempenho />
+      </section>
 
       {/* ── Termômetro, selo de reconhecimento e relato ── */}
       <section id="produto-termometro" className="scroll-mt-32 space-y-10">

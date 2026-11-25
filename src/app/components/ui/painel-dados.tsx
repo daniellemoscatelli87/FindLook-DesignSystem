@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
@@ -300,14 +300,23 @@ function ListaDeTendencias({ itens, className }: { itens: { termo: string; varia
 }
 
 /* ── Item de checklist ───────────────────────────────────────── */
-function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok" | "atencao"; texto: string; href?: string; className?: string }) {
-  const ok = estado === "ok";
+/** estado: "ok" (em dia, check verde) e "atencao" (triângulo) para pendências do painel; "feito" (check cheio na cor da
+ *  marca) e "pendente" (círculo vazio) para listas do que fazer, como "Como evoluir". Com onClick, vira botão. */
+function ItemDeChecklist({ estado, texto, href = "#", onClick, className }: { estado: "ok" | "atencao" | "feito" | "pendente"; texto: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; className?: string }) {
+  const icone = {
+    ok: <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" />,
+    atencao: <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />,
+    feito: <span aria-hidden className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3 w-3" strokeWidth={3} /></span>,
+    pendente: <span aria-hidden className="h-5 w-5 shrink-0 rounded-full border-2 border-[var(--border-strong,var(--border))]" />,
+  }[estado];
+  const leitura = { ok: "Em dia:", atencao: "Precisa de atenção:", feito: "Feito:", pendente: "A fazer:" }[estado];
+  const grande = estado === "feito" || estado === "pendente";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-row-hover", foco, className)}>
-        {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
-        <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
-        <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
+      <a data-slot="item-de-checklist" data-estado={estado} href={href} onClick={onClick} className={cn("flex items-center rounded-md transition-colors hover:bg-row-hover", grande ? "gap-3 px-3 py-3" : "gap-2.5 px-3 py-2.5", foco, className)}>
+        {icone}
+        <span className="sr-only">{leitura}</span>
+        <span className={cn("min-w-0 flex-1 text-foreground", grande ? "text-[0.875rem]" : "text-[0.8125rem]")}>{texto}</span>
         <ChevronRight aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
       </a>
     </li>
@@ -376,25 +385,31 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
 }
 
 /* ── Faixa de benefícios ─────────────────────────────────────── */
-function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { icone?: React.ReactNode; titulo: string; texto: string; beneficios: { icone: React.ReactNode; rotulo: string }[]; className?: string }) {
+/** tom "marca" (padrão): fundo rosa claro. tom "neutro": card branco com borda, para fechar uma página com um convite.
+ *  acao: botão ou link à direita (ex.: "Ver critérios"). O título pode ser um nome da marca (MarcaFind); nesse caso,
+ *  informe `rotulo` em texto para leitores de tela. */
+function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; className?: string }) {
   return (
-    <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-lg border border-primary/15 bg-[var(--primary-muted)] p-5 @5xl:flex-row @5xl:items-center", className)}>
-      <div className="flex min-w-0 gap-3 @5xl:w-80 @5xl:shrink-0">
+    <div className={cn("@container", className)}>
+    <section data-slot="faixa-de-beneficios" data-tom={tom} aria-label={rotulo ?? (typeof titulo === "string" ? titulo : undefined)} className={cn("flex flex-col gap-4 rounded-lg p-5 @4xl:flex-row @4xl:items-center", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
+      <div className="flex min-w-0 gap-3 @4xl:w-64 @4xl:shrink-0">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
           <p className={`${display} text-[1.0625rem] font-bold text-foreground`}>{titulo}</p>
           <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{texto}</p>
         </div>
       </div>
-      <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2 @2xl:grid-cols-4">
-        {beneficios.map(b => (
-          <li key={b.rotulo} className="flex items-center gap-2.5 rounded-md bg-card px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
+      <ul className={cn("grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2", beneficios.length === 3 ? "@2xl:grid-cols-3" : "@2xl:grid-cols-4")}>
+        {beneficios.map((b, i) => (
+          <li key={i} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground", tom === "marca" ? "bg-card shadow-[var(--shadow-xs)]" : "bg-muted/60")}>
             <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{b.icone}</span>
-            {b.rotulo}
+            <span className="min-w-0">{b.rotulo}</span>
           </li>
         ))}
       </ul>
+      {acao && <div className="shrink-0">{acao}</div>}
     </section>
+    </div>
   );
 }
 
