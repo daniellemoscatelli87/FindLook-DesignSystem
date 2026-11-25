@@ -19,15 +19,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/* ── Ícone com base (regra do DS, revista em 25/11/2026: Ícones › Base do ícone) ── */
 /**
- * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
- *        próxima ação, atividade, algo ativo ou em andamento).
- * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
- *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * marca: base rosa + ícone vermelho. Ação de card clicável (o card ou item leva a algum lugar ou faz algo).
+ * informativo: base cinza clara + ícone vermelho. Identifica ou explica uma informação, sem ação (títulos de card,
+ *        indicadores, itens explicativos, atividade, etapas). É o padrão dos cards e listas que não são clicáveis.
+ * neutro: base cinza + ícone cinza. Informação desabilitada (pausada, encerrada, inativa ou bloqueada).
  * Ícone sem base (inline, ao lado do texto) não usa este componente.
  */
-type TomDoIcone = "marca" | "neutro";
+type TomDoIcone = "marca" | "informativo" | "neutro";
 const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
 function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
   return (
@@ -38,7 +38,7 @@ function IconeComBase({ tom, tamanho = "md", redonda = false, children, classNam
       className={cn(
         "flex shrink-0 items-center justify-center",
         redonda ? "rounded-full" : "rounded-md",
-        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : tom === "informativo" ? "bg-muted text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
         TAMANHO_DA_BASE[tamanho],
         className,
       )}
@@ -131,7 +131,7 @@ function CardIndicador({ icone, valor, semValor, rodape, total, rotulo, variacao
             {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
           </span>
         </p>
-        <IconeComBase tom="neutro">{icone}</IconeComBase>
+        <IconeComBase tom="informativo">{icone}</IconeComBase>
       </div>
       <div className="mt-auto">
         <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
@@ -252,7 +252,7 @@ function iniciais(nome: string): string {
 function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className }: { icone?: React.ReactNode; iniciaisDe?: string; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">
+      <IconeComBase tom="informativo" redonda className="[&>svg]:h-4 [&>svg]:w-4">
         {iniciaisDe !== undefined ? <span className={`${display} text-[0.75rem] font-bold leading-none tracking-[0.02em]`}>{iniciais(iniciaisDe)}</span> : icone}
       </IconeComBase>
       <div className="min-w-0 flex-1">
@@ -269,7 +269,8 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 /** variante "card": atalho em card (ícone no alto, sem base; título; descrição com a seta ao lado), para levar às
  *  próximas telas de uma área, em grade. */
 /** Sem `href` e sem `onClick`, o item é só informativo: sem seta, sem estado de clique (ex.: "Por que é avaliado?"). */
-function ItemDeAcao({ midia, titulo, descricao, href, onClick, tom = "marca", variante = "linha", className }: { midia: React.ReactNode; titulo: string; descricao?: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; variante?: "linha" | "card"; className?: string }) {
+function ItemDeAcao({ midia, titulo, descricao, href, onClick, tom: tomInformado, variante = "linha", className }: { midia: React.ReactNode; titulo: string; descricao?: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; /** Padrão: marca quando clicável, informativo quando não. */ tom?: TomDoIcone; variante?: "linha" | "card"; className?: string }) {
+  const tom = tomInformado ?? (href === undefined && !onClick ? "informativo" : "marca");
   if (href === undefined && !onClick) {
     return (
       <div data-slot="item-de-acao" data-variante="informativo" className={cn("flex items-center gap-4 rounded-md border border-border bg-card p-3", className)}>
@@ -487,7 +488,7 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
 
 /* ── Card de informação (ícone grande + rótulo + valor em destaque) ── */
 /** Uma informação só, em destaque, com o ícone redondo à esquerda (ex.: "Próxima avaliação · 1 de dezembro"). */
-function CardDeInformacao({ icone, rotulo, valor, texto, tom = "marca", className }: { icone: React.ReactNode; rotulo: React.ReactNode; valor: React.ReactNode; texto?: React.ReactNode; tom?: TomDoIcone; className?: string }) {
+function CardDeInformacao({ icone, rotulo, valor, texto, tom = "informativo", className }: { icone: React.ReactNode; rotulo: React.ReactNode; valor: React.ReactNode; texto?: React.ReactNode; tom?: TomDoIcone; className?: string }) {
   return (
     <section data-slot="card-de-informacao" className={cn("flex items-center gap-4 rounded-lg p-5 @xl:px-6", superficieDoCard, className)}>
       <IconeComBase tom={tom} tamanho="lg">{icone}</IconeComBase>
@@ -536,10 +537,10 @@ function DivisorSuave({ className }: { className?: string }) {
 
 /* ── Card com cabeçalho de ícone (Opção A, 23/11/2026) ──────── */
 /**
- * Card branco das páginas do painel (padrão "Só borda": 1 px, sem sombra): ícone na base rosa clara (a mesma do
- * CardIndicador), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
- * Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
- * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
+ * Card branco das páginas do painel (padrão "Só borda": 1 px, sem sombra): ícone na base (tom informativo, o padrão:
+ * ícone vermelho em base cinza clara), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois,
+ * o conteúdo. Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
+ * tom="neutro" (base cinza + ícone cinza) para o que está desabilitado (pausado, encerrado, inativo).
  *
  * cabecalho: "divisor" (padrão, decisão da dona do produto de 23/11/2026): o cabeçalho é separado do conteúdo por um
  * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
@@ -548,7 +549,7 @@ type EstiloDoCabecalhoDoCard = "divisor" | "simples";
 /** fundo "marca": card com degradê rosa claro e o conteúdo num painel branco (para a lista de ações em destaque da página).
  *  iconeGrande: base do ícone de 44 px (itens de destaque), para cards de abertura de página. Cantos md, como manda a
  *  regra de Base do ícone (redonda só nos itens de atividade). */
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", fundo = "card", iconeGrande = false, rodape, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeGrande?: boolean; /** Botão ou link embaixo do conteúdo (ex.: "Ver detalhes"). */ rodape?: React.ReactNode; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "informativo", cabecalho = "divisor", fundo = "card", iconeGrande = false, rodape, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeGrande?: boolean; /** Botão ou link embaixo do conteúdo (ex.: "Ver detalhes"). */ rodape?: React.ReactNode; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
@@ -732,7 +733,7 @@ function ResumoEmLinha({ itens, className }: { itens: ItemDoResumo[]; className?
       <ul data-slot="resumo-em-linha" className={cn("m-0 grid list-none grid-cols-1 divide-y divide-border p-0 @lg:divide-x @lg:divide-y-0", colunas)}>
         {itens.map((i) => (
           <li key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:gap-2.5 @lg:px-3 @lg:py-1 @lg:first:pl-0">
-            <IconeComBase tom="neutro">{i.icone}</IconeComBase>
+            <IconeComBase tom="informativo">{i.icone}</IconeComBase>
             <p className="m-0 min-w-0">
               <span className={`${display} block text-[1.25rem] font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</span>
               <span className="block text-[0.8125rem] text-muted-foreground">{i.rotulo}</span>
@@ -783,7 +784,7 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
       className={cn("grid gap-5 rounded-lg p-5", superficieDoCard, "@3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
       <div className="flex min-w-0 items-start gap-3.5">
-        <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
+        <IconeComBase tom="informativo" tamanho="lg">{icone}</IconeComBase>
         <div className="min-w-0">
           {sobretitulo && <p className="text-[0.75rem] font-medium text-muted-foreground">{sobretitulo}</p>}
           <p className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
@@ -833,7 +834,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
             {limite ? <span className="ml-1.5 text-[0.9375rem] font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
           </p>
         </div>
-        <IconeComBase tom="neutro">{icone}</IconeComBase>
+        <IconeComBase tom="informativo">{icone}</IconeComBase>
       </div>
       {pct !== null ? (
         <div className="mt-auto">

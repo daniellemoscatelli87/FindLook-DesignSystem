@@ -25,10 +25,10 @@ export type ItemDeProgresso = {
   semValor?: string;
 };
 
-export function ListaDeProgresso({ itens, onSelecionar, tom = "neutro", className }: {
+export function ListaDeProgresso({ itens, onSelecionar, tom = "informativo", className }: {
   itens: ItemDeProgresso[];
-  /** Base do ícone: neutro (padrão, só identifica o item) ou marca. */
-  tom?: "marca" | "neutro";
+  /** Base do ícone: informativo (padrão: ícone vermelho em base cinza clara) ou neutro (itens desabilitados). */
+  tom?: "marca" | "informativo" | "neutro";
   /** Torna cada linha clicável (abre o detalhe do item). */
   onSelecionar?: (id: string) => void;
   className?: string;

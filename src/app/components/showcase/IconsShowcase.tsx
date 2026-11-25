@@ -241,24 +241,33 @@ export function IconsShowcase() {
         </SubSection>
       </section>
 
-      {/* ── BASE DO ÍCONE (regra da dona do produto, 20/11/2026) ── */}
+      {/* ── BASE DO ÍCONE (regra da dona do produto, 20/11/2026; revista em 25/11/2026) ── */}
       <section id="icon-base">
         <SectionHeader
           title={t("Icon base: when to use", "Base do ícone: quando usar")}
           description={t(
-            "There are only three ways to show an icon. Pick by what the icon does on the screen, not by taste. Component: IconeComBase (ui/painel-dados).",
-            "Existem só três jeitos de mostrar um ícone. A escolha depende do que o ícone faz na tela, não de gosto. Componente: IconeComBase (ui/painel-dados).",
+            "There are only four ways to show an icon. Pick by what the icon does on the screen, not by taste. Component: IconeComBase (ui/painel-dados).",
+            "Existem só quatro jeitos de mostrar um ícone. A escolha depende do que o ícone faz na tela, não de gosto. Componente: IconeComBase (ui/painel-dados).",
           )}
         />
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {[
             {
               exemplo: <IconeComBase tom="marca" tamanho="lg"><LucideIcons.MapPin /></IconeComBase>,
               titulo: t("Pink base + red icon", "Base rosa + ícone vermelho"),
               tokens: "--primary-muted + --primary-text",
               quando: t(
-                "Brand and focus: the main icon of what is the focus of the screen or invites an action. Examples: the top highlight (PainelDeUso), insights and next actions (ItemDeAcao), recent activity (ItemDeAtividade), something active or in progress. Use sparingly: if everything has a pink base, nothing stands out.",
-                "Marca e foco: o ícone principal do que é o foco da tela ou convida a agir. Exemplos: o destaque do topo (PainelDeUso), insights e próximas ações (ItemDeAcao), atividade recente (ItemDeAtividade), algo ativo ou em andamento. Use com moderação: se tudo tiver base rosa, nada se destaca.",
+                "Brand: the action of a clickable card. The card or item takes you somewhere or does something. Examples: action items with a link (ItemDeAcao with href), shortcut cards to the next screens, clickable cards.",
+                "Marca: a ação de um card clicável. O card ou item leva a algum lugar ou faz algo. Exemplos: itens de ação com link (ItemDeAcao com href), cards de atalho para as próximas telas, cards clicáveis.",
+              ),
+            },
+            {
+              exemplo: <IconeComBase tom="informativo" tamanho="lg"><LucideIcons.Target /></IconeComBase>,
+              titulo: t("Light gray base + red icon", "Base cinza clara + ícone vermelho"),
+              tokens: "--muted + --primary-text",
+              quando: t(
+                "Informative: the icon identifies or explains information, with no action. Examples: card titles (CardComCabecalho), indicator and usage cards (CardIndicador, CardDeUso, CardDeInformacao), explanatory items (ItemDeAcao without a link), activity and steps. It is the default of cards and lists that are not clickable.",
+                "Informativo: o ícone identifica ou explica uma informação, sem ação. Exemplos: títulos de card (CardComCabecalho), cards de indicador e de uso (CardIndicador, CardDeUso, CardDeInformacao), itens explicativos (ItemDeAcao sem link), atividade e etapas. É o padrão dos cards e listas que não são clicáveis.",
               ),
             },
             {
@@ -266,8 +275,8 @@ export function IconsShowcase() {
               titulo: t("Gray base + gray icon", "Base cinza + ícone cinza"),
               tokens: "--muted + --muted-foreground",
               quando: t(
-                "Neutral: the icon only identifies the kind of information and does not ask for attention. Examples: indicator and usage cards (CardIndicador, CardDeUso), paused, finished or inactive items, settings and metadata. It is the default in grids of equal cards.",
-                "Neutro: o ícone só identifica o tipo de informação e não pede atenção. Exemplos: cards de indicador e de uso (CardIndicador, CardDeUso), itens pausados, encerrados ou inativos, configurações e metadados. É o padrão em grades de cards iguais.",
+                "Neutral: disabled information. Examples: paused, finished, inactive or locked items.",
+                "Neutro: informação desabilitada. Exemplos: itens pausados, encerrados, inativos ou bloqueados.",
               ),
             },
             {
@@ -291,8 +300,8 @@ export function IconsShowcase() {
         <ShowcaseCard className="mt-4">
           <p className="text-[0.875rem] font-bold text-foreground">{t("Rules", "Regras")}</p>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
-            <li>{t("Never mix: no gray base with a red icon, no pink base with a gray icon.", "Nunca misturar: nada de base cinza com ícone vermelho nem base rosa com ícone cinza.")}</li>
-            <li>{t("In a list, the tone follows the item state: active or in progress = brand; paused, finished or only a record = neutral (ItemDeAcao tom=\"neutro\").", "Numa lista, o tom acompanha o estado do item: ativo ou em andamento = marca; pausado, encerrado ou só registro = neutro (ItemDeAcao tom=\"neutro\").")}</li>
+            <li>{t("Never a pink base with a gray icon.", "Nunca base rosa com ícone cinza.")}</li>
+            <li>{t("In a list, the tone follows the item: clickable = brand; information only = informative; disabled (paused, finished, inactive) = neutral (tom=\"neutro\").", "Numa lista, o tom acompanha o item: clicável = marca; só informação = informativo; desabilitado (pausado, encerrado, inativo) = neutro (tom=\"neutro\").")}</li>
             <li>{t("Color is never the only signal: the state is always written too.", "A cor nunca é o único sinal: o estado vem sempre escrito também.")}</li>
             <li>{t("Base sizes: 32 px (compact list), 36 px (cards), 44 px (action items and highlight). Rounded corners md; round only in activity items.", "Tamanhos da base: 32 px (lista compacta), 36 px (cards), 44 px (itens de ação e destaque). Cantos md; redonda só nos itens de atividade.")}</li>
           </ul>
