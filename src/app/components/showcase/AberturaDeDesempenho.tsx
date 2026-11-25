@@ -1,10 +1,10 @@
 import React from "react";
-import { ArrowRight, CalendarCheck, CalendarDays, ChartColumn, CircleX, Headset, Lock, Package, ShoppingCart, Target, Trophy, Truck } from "lucide-react";
+import { ArrowRight, CalendarCheck, CalendarDays, ChartColumn, ChevronRight, CircleX, Headset, Layers, List, Lock, Package, ShoppingCart, Star, Target, TrendingUp, Trophy, Truck } from "lucide-react";
 import { CabecalhoComIlustracao } from "@/app/components/ui/cabecalho-com-ilustracao";
 import { IconeEstrela, IlustracaoEstrela } from "@/app/components/ui/ilustracao-estrela";
 import { CardDeNota } from "@/app/components/ui/card-de-nota";
 import { ListaDeProgresso } from "@/app/components/ui/lista-de-progresso";
-import { CardComCabecalho, CardDeInformacao, FaixaDeBeneficios, ItemDeChecklist } from "@/app/components/ui/painel-dados";
+import { CardComCabecalho, CardDeInformacao, FaixaDeBeneficios, ItemDeAcao, ItemDeChecklist } from "@/app/components/ui/painel-dados";
 import { BadgeDeFaixa } from "@/app/components/ui/termometro";
 import { Button } from "@/app/components/ui/button";
 import seloEstrela from "../../../imports/findlook/findstar-selo-3d.webp";
@@ -38,7 +38,8 @@ export function AberturaDeDesempenho() {
         <CardDeInformacao icone={<CalendarDays />} rotulo="Próxima avaliação" valor="1º de cada mês" texto="Avaliação mensal, automática." />
       </div>
       <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
-        <CardComCabecalho icone={<ChartColumn />} iconeRedondo cabecalho="simples" titulo="Desempenho por critério" descricao="Veja sua nota em cada critério e foque no que pode melhorar.">
+        <CardComCabecalho icone={<ChartColumn />} iconeRedondo cabecalho="simples" titulo="Desempenho por critério" descricao="Veja sua nota em cada critério e foque no que pode melhorar."
+          rodape={<Button variant="outline" className="h-10 rounded-full border-primary/50 px-5 text-[var(--primary-text,var(--primary))]">Ver detalhes <ChevronRight aria-hidden /></Button>}>
           <ListaDeProgresso itens={[
             { id: "a", icone: <Headset />, rotulo: "Atendimento", etiqueta: "Peso 40%", pct: 82, valor: "82", total: "/100" },
             { id: "b", icone: <Package />, rotulo: "Qualidade", etiqueta: "Peso 25%", pct: 74, valor: "74", total: "/100" },
@@ -47,7 +48,8 @@ export function AberturaDeDesempenho() {
             { id: "e", icone: <CircleX />, rotulo: "Cancelamentos", etiqueta: "Peso 10%", pct: 95, valor: "95", total: "/100" },
           ]} />
         </CardComCabecalho>
-        <CardComCabecalho icone={<Target />} iconeRedondo fundo="marca" cabecalho="simples" titulo="Como evoluir agora" descricao="Ações práticas que mais aumentam sua nota.">
+        <CardComCabecalho icone={<Target />} iconeRedondo fundo="marca" cabecalho="simples" titulo="Como evoluir agora" descricao="Ações práticas que mais aumentam sua nota."
+          rodape={<Button className="h-11 w-full rounded-full">Ver todas as recomendações <ChevronRight aria-hidden /></Button>}>
           <ul className="m-0 list-none divide-y divide-border p-0">
             <ItemDeChecklist estado="feito" texto="Responda tudo em até um dia." onClick={nao} />
             <ItemDeChecklist estado="feito" texto="Mantenha as informações atualizadas." onClick={nao} />
@@ -56,6 +58,15 @@ export function AberturaDeDesempenho() {
           </ul>
         </CardComCabecalho>
       </div>
+      <ul className="grid list-none grid-cols-1 items-stretch gap-4 p-0 sm:grid-cols-2 xl:grid-cols-5" aria-label="Próximas telas">
+        {[
+          { i: <TrendingUp />, t: "Evolução da nota", d: "Acompanhe o histórico e a tendência." },
+          { i: <List />, t: "Ocorrências", d: "Veja o que impactou sua nota." },
+          { i: <Star />, t: "Vantagens", d: "Benefícios conquistados e próximos níveis." },
+          { i: <Star />, t: "Selo", d: "Requisitos, situação e próximas avaliações." },
+          { i: <Layers />, t: "Metodologia", d: "Entenda como a nota é calculada." },
+        ].map((a) => <li key={a.t} className="flex"><ItemDeAcao className="w-full" variante="card" midia={a.i} titulo={a.t} descricao={a.d} onClick={nao} /></li>)}
+      </ul>
       <FaixaDeBeneficios
         tom="neutro"
         variante="linha"

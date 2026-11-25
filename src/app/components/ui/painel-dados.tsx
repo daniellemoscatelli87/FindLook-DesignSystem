@@ -266,7 +266,29 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
 /** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
+/** variante "card": atalho em card (ícone no alto, sem base; título; descrição com a seta ao lado), para levar às
+ *  próximas telas de uma área, em grade. */
+function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", variante = "linha", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; variante?: "linha" | "card"; className?: string }) {
+  if (variante === "card") {
+    return (
+      <a
+        data-slot="item-de-acao"
+        data-variante="card"
+        href={href}
+        onClick={onClick}
+        className={cn("group flex h-full flex-col gap-3 rounded-lg border border-border bg-card p-5 transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] motion-safe:hover:-translate-y-0.5 active:scale-[0.995]", foco, className)}
+      >
+        <span aria-hidden className={cn("[&>svg]:h-7 [&>svg]:w-7", tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground")}>{midia}</span>
+        <span className="flex flex-1 items-end gap-3">
+          <span className="min-w-0 flex-1">
+            <span className="block text-[1rem] font-bold leading-snug text-foreground">{titulo}</span>
+            {descricao && <span className="mt-1 block text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</span>}
+          </span>
+          <Seta aria-hidden className="mb-1 h-4 w-4 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5" />
+        </span>
+      </a>
+    );
+  }
   return (
     <a
       data-slot="item-de-acao"
@@ -500,7 +522,7 @@ function DivisorSuave({ className }: { className?: string }) {
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
 /** fundo "marca": card com degradê rosa claro e o conteúdo num painel branco (para a lista de ações em destaque da página).
  *  iconeRedondo: base do ícone redonda e maior, para cards de abertura de página. */
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", fundo = "card", iconeRedondo = false, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeRedondo?: boolean; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", fundo = "card", iconeRedondo = false, rodape, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeRedondo?: boolean; /** Botão ou link embaixo do conteúdo (ex.: "Ver detalhes"). */ rodape?: React.ReactNode; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
@@ -517,6 +539,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
       </div>
       {temConteudo && cabecalho === "divisor" && <DivisorSuave className="my-4 @xl:my-5" />}
       {fundo === "marca" && temConteudo ? <div className="rounded-md bg-card px-2 py-1 shadow-[var(--shadow-xs)]">{children}</div> : children}
+      {rodape && <div data-slot="rodape-do-card" className="mt-4 flex flex-wrap items-center gap-2">{rodape}</div>}
     </section>
   );
 }
