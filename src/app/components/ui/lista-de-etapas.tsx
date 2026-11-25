@@ -16,7 +16,7 @@ export function ListaDeEtapas({ etapas, className }: { etapas: Etapa[]; classNam
       {etapas.map((e, i) => (
         <li key={i} className="relative flex gap-3 pb-4 last:pb-0">
           {i < etapas.length - 1 && <span aria-hidden className="absolute bottom-0 left-[1.125rem] top-10 w-px -translate-x-1/2 bg-border" />}
-          <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">{e.icone}</IconeComBase>
+          <IconeComBase tom="informativo" redonda className="[&>svg]:h-4 [&>svg]:w-4">{e.icone}</IconeComBase>
           <div className="min-w-0 flex-1 pt-0.5">
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
               <p className="m-0 text-[0.875rem] font-semibold text-foreground">{e.titulo}</p>

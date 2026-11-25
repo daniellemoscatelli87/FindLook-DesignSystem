@@ -32,7 +32,7 @@ export function LinhaComInterruptor({
     <div data-slot="linha-com-interruptor" data-ligado={checked || undefined} className={cn("py-3 first:pt-0 last:pb-0", className)}>
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-start gap-2.5">
-          {icone && <IconeComBase tom="neutro" tamanho="sm">{icone}</IconeComBase>}
+          {icone && <IconeComBase tom="informativo" tamanho="sm">{icone}</IconeComBase>}
           <div className="min-w-0">
             <label htmlFor={id} className={cn("block text-[0.875rem] font-medium text-foreground", disabled ? "cursor-not-allowed" : "cursor-pointer")}>{titulo}</label>
             {descricao && <p id={`${id}-desc`} className="m-0 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
