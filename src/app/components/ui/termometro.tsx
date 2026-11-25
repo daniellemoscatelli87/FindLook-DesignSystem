@@ -62,12 +62,11 @@ export function Termometro({ faixas, valor, rotulo, compacto = false, className 
   return (
     <div
       data-slot="termometro"
-      role="meter"
-      aria-label={rotulo}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={v == null ? undefined : valorExibido(v)}
-      aria-valuetext={v == null ? `${rotulo}: sem pontuação` : `${rotulo}: ${valorExibido(v)} de 100${faixa ? `, ${faixa.nome}` : ""}`}
+      // Sem pontuação, não é um medidor (não há valor): vira uma imagem com a descrição em texto.
+      {...(v == null
+        ? { role: "img", "aria-label": `${rotulo}: sem pontuação` }
+        : { role: "meter", "aria-label": rotulo, "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": valorExibido(v),
+            "aria-valuetext": `${rotulo}: ${valorExibido(v)} de 100${faixa ? `, ${faixa.nome}` : ""}` })}
       className={cn("w-full", className)}
     >
       <div className="relative py-1">

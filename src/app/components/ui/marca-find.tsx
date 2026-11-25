@@ -3,7 +3,7 @@ import { cn } from "./utils";
 
 /**
  * MarcaFind: nomes da família FindLook escritos com a mesma estética do logo: "Find" em preto (foreground) e a segunda
- * palavra no rosa da marca, Plus Jakarta Sans ExtraBold e espaçamento fechado, como no wordmark oficial. O produto usa
+ * palavra no rosa da marca (tom de texto --primary-text, que passa no contraste em qualquer tamanho), Plus Jakarta Sans ExtraBold e espaçamento fechado, como no wordmark oficial. O produto usa
  * este componente sempre que um nome "Find + palavra" aparecer na interface, nunca o texto solto.
  * O tamanho vem do contexto (font-size do pai ou className).
  */
@@ -13,7 +13,7 @@ export function MarcaFind({ palavra, className }: { palavra: string; className?:
       data-slot="marca-find"
       className={cn("whitespace-nowrap font-[family-name:var(--font-display,var(--font-sans))] font-extrabold tracking-[-0.035em] text-foreground", className)}
     >
-      Find<span className="text-primary">{palavra}</span>
+      Find<span className="text-[var(--primary-text,var(--primary))]">{palavra}</span>
     </span>
   );
 }
