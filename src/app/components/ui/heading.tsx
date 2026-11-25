@@ -5,7 +5,7 @@ import { cn } from "./utils";
  * Heading com destaque
  *
  * Padrão do hero do site do estúdio: Plus Jakarta Sans 700, tracking apertado, entrelinha 1,1 e a expressão-chave
- * na cor primária (`.destaque`). Escreva o destaque entre dois asteriscos:
+ * no tom forte do lenço (--primary-destaque, pink-500 #FC0256: só texto grande, 3,98:1 sobre branco; decisão de 25/11/2026). Escreva o destaque entre dois asteriscos:
  *   <Heading level={1}>Transforme a experiência das pessoas em **ativo estratégico** para o seu negócio.</Heading>
  * Regras: um destaque por título, de uma a três palavras, nunca o título inteiro.
  */
@@ -26,7 +26,7 @@ export type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
 };
 
 /** Converte "texto **destaque** texto" em spans. Aceita também children já em JSX. */
-export function withHighlight(children: React.ReactNode, className = "text-primary"): React.ReactNode {
+export function withHighlight(children: React.ReactNode, className = "text-primary-destaque"): React.ReactNode {
   if (typeof children !== "string") return children;
   const parts = children.split(/\*\*(.+?)\*\*/g);
   if (parts.length === 1) return children;
@@ -43,12 +43,12 @@ export function Heading({ level = 2, size, tone = "primary", className, children
       style={{ fontFamily: "var(--font-sans)" }}
       {...props}
     >
-      {withHighlight(children, tone === "primary" ? "text-primary" : undefined)}
+      {withHighlight(children, tone === "primary" ? "text-primary-destaque" : undefined)}
     </Tag>
   );
 }
 
-/** Só o destaque, para usar dentro de um título já existente. */
+/** Só o destaque, para usar dentro de um título já existente (texto grande: 24 px, ou negrito de 18,66 px ou mais). */
 export function Destaque({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <span className={cn("text-primary", className)}>{children}</span>;
+  return <span className={cn("text-primary-destaque", className)}>{children}</span>;
 }

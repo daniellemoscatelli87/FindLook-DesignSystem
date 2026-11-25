@@ -45,9 +45,12 @@ const lightPairs: Pair[] = [
   { name: "card-foreground / card", usage: { en: "Text in cards", pt: "Texto em cards" }, fg: "#000000", bg: "#FFFFFF" },
   { name: "muted-foreground / card", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#696977", bg: "#FFFFFF" },
   { name: "muted-foreground / muted", usage: { en: "Captions on muted surface", pt: "Legendas em superfície suave" }, fg: "#696977", bg: "#F6F6F7" },
-  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
-  { name: "primary / card", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#FFFFFF" },
-  { name: "pink-600 / card", usage: { en: "Small primary text", pt: "Texto primário pequeno (primary-text)" }, fg: "#B91B35", bg: "#FFFFFF" },
+  { name: "primary-foreground / primary", usage: { en: "Label on primary button (pink-550)", pt: "Rótulo no botão principal (pink-550)" }, fg: "#FFFFFF", bg: "#E8004E" },
+  { name: "primary-foreground / primary-hover", usage: { en: "Label on primary button, hover (pink-575)", pt: "Rótulo no botão principal, hover (pink-575)" }, fg: "#FFFFFF", bg: "#D20648" },
+  { name: "primary-destaque / card", usage: { en: "Large coloured text only (pink-500, scarf)", pt: "Só texto colorido grande (pink-500, lenço)" }, fg: "#FC0256", bg: "#FFFFFF" },
+  { name: "primary-text / card", usage: { en: "Small coloured text: links, active item (pink-600)", pt: "Texto colorido pequeno: links, item ativo (pink-600)" }, fg: "#BC0A41", bg: "#FFFFFF" },
+  { name: "primary-text / primary-muted", usage: { en: "Chip text on the pink tint", pt: "Texto do chip sobre o fundo rosado" }, fg: "#BC0A41", bg: "#FFE6EE" },
+  { name: "error-text / alerta", usage: { en: "Error button text on the alert", pt: "Texto do botão no alerta de erro" }, fg: "#BC0A41", bg: "#FFEDF3" },
   { name: "success / card", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#31835D", bg: "#FFFFFF" },
   { name: "warning-foreground / warning", usage: { en: "Text on the warning amber", pt: "Texto sobre o âmbar de aviso" }, fg: "#2C2C33", bg: "#F0B135" },
   { name: "warning-text / card", usage: { en: "Warning as text or icon", pt: "Aviso como texto ou ícone" }, fg: "#A66200", bg: "#FFFFFF" },
@@ -57,9 +60,9 @@ const lightPairs: Pair[] = [
 const darkPairs: Pair[] = [
   { name: "foreground / background", usage: { en: "Body text on page", pt: "Texto do corpo na página" }, fg: "#F6F6F7", bg: "#000000" },
   { name: "muted-foreground / background", usage: { en: "Secondary text", pt: "Texto secundário" }, fg: "#B3B3BC", bg: "#000000" },
-  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E62040" },
-  { name: "primary / background", usage: { en: "Primary as text or icon", pt: "Primário como texto ou ícone" }, fg: "#E62040", bg: "#000000" },
-  { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#F290A0", bg: "#000000" },
+  { name: "primary-foreground / primary", usage: { en: "Label on primary button", pt: "Rótulo no botão primário" }, fg: "#FFFFFF", bg: "#E8004E" },
+  { name: "primary-destaque / background", usage: { en: "Large coloured text (pink-500)", pt: "Texto colorido grande (pink-500)" }, fg: "#FC0256", bg: "#000000" },
+  { name: "pink-300 / background", usage: { en: "Primary muted text", pt: "Texto primário suave (primary-text no escuro)" }, fg: "#F78BA7", bg: "#000000" },
   { name: "success / background", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#41B47F", bg: "#000000" },
 ];
 
@@ -299,7 +302,7 @@ function FormDemo() {
           />
           <p id={`${id}-hint`} className="mt-1.5 text-[0.75rem] text-muted-foreground">{t("We only use it to send the invite.", "Usamos apenas para enviar o convite.")}</p>
           <p id={`${id}-err`} role={show ? "alert" : undefined} className="mt-1.5 text-[0.75rem] font-medium text-foreground flex items-center gap-1.5 min-h-[1rem]">
-            {show && (<><AlertCircle className="h-3.5 w-3.5 text-[var(--error)] shrink-0" aria-hidden />{error}</>)}
+            {show && (<><AlertCircle className="h-3.5 w-3.5 text-[var(--error-text)] shrink-0" aria-hidden />{error}</>)}
           </p>
         </div>
         <button type="submit" className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-[0.875rem] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">

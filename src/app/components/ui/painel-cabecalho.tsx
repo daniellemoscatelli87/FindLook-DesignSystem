@@ -16,9 +16,10 @@ import {
 const display = "font-[family-name:var(--font-display)]";
 
 /** Destaca em primária o trecho entre ** **, como no Heading do DS. */
+/* Destaque do título (26 a 32 px, extranegrito: texto grande) no tom forte do lenço, --primary-destaque (25/11/2026) */
 function destacar(texto: string) {
   return texto.split(/(\*\*[^*]+\*\*)/g).map((parte, i) =>
-    parte.startsWith("**") ? <span key={i} className="text-[var(--primary-text,var(--primary))]">{parte.slice(2, -2)}</span> : parte,
+    parte.startsWith("**") ? <span key={i} className="text-[var(--primary-destaque,var(--primary))]">{parte.slice(2, -2)}</span> : parte,
   );
 }
 

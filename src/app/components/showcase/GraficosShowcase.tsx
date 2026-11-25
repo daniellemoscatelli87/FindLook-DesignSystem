@@ -350,7 +350,7 @@ function SecaoCores() {
           <BarrasEmpilhadas100 rotulo="Exemplo correto" categorias={[{ rotulo: "Vestidos" }, { rotulo: "Calças" }, { rotulo: "Camisas" }, { rotulo: "Outras", neutro: true }]} linhas={[{ rotulo: "Peças buscadas", valores: [34, 26, 16, 24] }]} />
         </Cartao>
         <Cartao>
-          <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><X aria-hidden className="h-4 w-4 text-error" />Não assim: destaque em todas as partes</p>
+          <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><X aria-hidden className="h-4 w-4 text-error-text" />Não assim: destaque em todas as partes</p>
           <div aria-hidden className="flex h-3 gap-[2px] overflow-hidden rounded-sm">
             <span style={{ flex: "34 1 0", background: "var(--chart-1)" }} />
             <span style={{ flex: "26 1 0", background: "var(--chart-2)" }} />
@@ -884,7 +884,7 @@ export function GraficosShowcase() {
                 "Grafite escuro como série par do rosa: o Brechó parece desativado.",
                 "Outros (51%) tem a mesma força visual das partes em destaque.",
                 "Percentuais só na legenda, longe das partes.",
-              ].map(p => <li key={p} className="flex gap-2"><X aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error" />{p}</li>)}
+              ].map(p => <li key={p} className="flex gap-2"><X aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error-text" />{p}</li>)}
             </ul>
           </Cartao>
           <Cartao>
@@ -1115,7 +1115,7 @@ export function GraficosShowcase() {
               <p className="mb-2 flex items-center gap-2 text-[0.9375rem] font-semibold text-foreground"><ChartColumn aria-hidden className="h-4 w-4 text-[var(--primary-text)]" />Título de gráfico</p>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <div className="rounded-md bg-muted/60 p-3">
-                  <p className="mb-1 flex items-center gap-1 text-[0.75rem] font-semibold text-muted-foreground"><X aria-hidden className="h-3.5 w-3.5 text-error" />Evitar</p>
+                  <p className="mb-1 flex items-center gap-1 text-[0.75rem] font-semibold text-muted-foreground"><X aria-hidden className="h-3.5 w-3.5 text-error-text" />Evitar</p>
                   <p className="text-[0.875rem] text-foreground">Distribuição percentual de buscas por categoria (n = 4.812)</p>
                 </div>
                 <div className="rounded-md bg-[var(--success-muted)] p-3">

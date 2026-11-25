@@ -45,14 +45,14 @@ function CodeBlock({ file, tag, code }: { file: string; tag: string; code: strin
 
 const themeCode = `/* 1. Primitives — raw values */
 :root {
-  --pink-500: #E62040;
+  --pink-550: #E8004E;
   --graphite-50:  #F6F6F7;
   --graphite-950: #000000;
 }
 
 /* 2. Semantics — reference primitives */
 :root {
-  --primary:    var(--pink-500);
+  --primary:    var(--pink-550);
   --background: var(--graphite-50);
 }
 .dark {
@@ -215,7 +215,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
           <div className="bg-primary-muted rounded-[var(--radius)] px-5 py-4 flex items-start gap-3">
             <Layers className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
             <p className="text-[0.875rem] leading-relaxed text-foreground">
-              <strong className="font-semibold">{t("Golden rule", "Regra de ouro")}</strong> — {t("In components, always use semantic Tailwind classes (", "Nos componentes, use sempre classes semânticas do Tailwind (")}<Mono>bg-primary</Mono>, <Mono>text-foreground</Mono>, <Mono>border-border</Mono>{t(") — never literal colors (", ") — nunca cores literais (")}<Mono>bg-error</Mono>, <Mono>bg-[#E62040]</Mono>{t("). This ensures the component works in any theme, now and in the future.", "). Assim o componente funciona em qualquer tema, agora e no futuro.")}
+              <strong className="font-semibold">{t("Golden rule", "Regra de ouro")}</strong> — {t("In components, always use semantic Tailwind classes (", "Nos componentes, use sempre classes semânticas do Tailwind (")}<Mono>bg-primary</Mono>, <Mono>text-foreground</Mono>, <Mono>border-border</Mono>{t(") — never literal colors (", ") — nunca cores literais (")}<Mono>bg-error</Mono>, <Mono>bg-[#FC0256]</Mono>{t("). This ensures the component works in any theme, now and in the future.", "). Assim o componente funciona em qualquer tema, agora e no futuro.")}
             </p>
           </div>
         </div>

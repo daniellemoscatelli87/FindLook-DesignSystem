@@ -153,8 +153,8 @@ function RuleCard({ type, bg, children, label }: { type: "do" | "dont"; bg: stri
       <div className={`flex items-center justify-center p-8 min-h-[180px] ${bg}`}>{children}</div>
       <div className="px-4 py-3 bg-card border-t border-border">
         <div className="flex items-center gap-2">
-          {type === "do" ? <CheckCircle className="h-4 w-4 text-success shrink-0" /> : <XCircle className="h-4 w-4 text-error shrink-0" />}
-          <span className={`text-[0.8125rem] font-medium ${type === "do" ? "text-success" : "text-error"}`}>
+          {type === "do" ? <CheckCircle className="h-4 w-4 text-success shrink-0" /> : <XCircle className="h-4 w-4 text-error-text shrink-0" />}
+          <span className={`text-[0.8125rem] font-medium ${type === "do" ? "text-success" : "text-error-text"}`}>
             {type === "do" ? "Correto" : "Incorreto"}
           </span>
         </div>
@@ -177,7 +177,7 @@ export function BrandShowcase() {
           Diretrizes de uso da marca FindLook: assinatura, símbolo, paleta, tipografia e regras de aplicação, para que a marca seja reconhecida sem ruído em todos os pontos de contato.
         </p>
         <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
-          Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os arquivos desta página são os vetores oficiais da marca (assinaturas horizontal e vertical, para fundo claro e escuro, e o símbolo), com o cabide sempre branco. O wordmark é recortado da assinatura oficial e as versões monocromáticas do símbolo são o vetor oficial em uma só cor (nelas o cabide é vazado, por serem de uma cor só).
+          Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os arquivos desta página são os vetores oficiais da marca (assinaturas horizontal e vertical, para fundo claro e escuro, e o símbolo), com o cabide sempre branco e o pink do lenço do gato, <span className="font-mono text-foreground">#FC0256</span> (decisão da dona do produto, 25/11/2026). O wordmark é recortado da assinatura oficial e as versões monocromáticas do símbolo são o vetor oficial em uma só cor (nelas o cabide é vazado, por serem de uma cor só).
         </p>
       </div>
 
@@ -439,7 +439,7 @@ export function BrandShowcase() {
             { bg: "bg-white border border-border", label: "Branco", img: pngSimbolo, text: "text-muted-foreground" },
             { bg: `${ROSA_BG} border border-border`, label: "Rosa claro", img: pngSimbolo, text: "text-muted-foreground" },
             { bg: GRAFITE_BG, label: "Preto grafite", img: pngSimbolo, text: "text-white/60" },
-            { bg: "bg-primary", label: "Pink", img: pngSimboloMonoBranco, text: "text-white/80" },
+            { bg: "bg-primary", label: "Pink", img: pngSimboloMonoBranco, text: "text-white" },
           ].map(({ bg, label, img, text }) => (
             <div key={label} className={`rounded-2xl flex flex-col items-center justify-center gap-4 p-6 min-h-[160px] ${bg}`}>
               <ImageWithFallback src={img} alt={`Símbolo FindLook sobre ${label.toLowerCase()}`} className="h-14 w-auto object-contain" />
@@ -461,13 +461,13 @@ export function BrandShowcase() {
           subtitle="Quatro cores oficiais. Os tokens do sistema (escalas pink e grafite de 50 a 950) derivam delas e estão em Fundamentos."
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <ColorChip name="Pink FindLook" hex="#E62040" usage="Destaque / ação (cor do logo oficial)" />
+          <ColorChip name="Pink FindLook" hex="#FC0256" usage="Rosa-cereja do lenço do gato: cor do logo oficial e da marca" />
           <ColorChip name="Preto Grafite" hex="#000000" usage="Base / contraste (grafite-950; o vetor do logo usa #060608)" />
           <ColorChip name="Branco" hex="#FFFFFF" usage="Clareza / respiro" />
           <ColorChip name="Rosa Claro" hex="#FFF2F5" usage="Apoio / superfícies" />
         </div>
         <p className="mt-3 text-[0.8125rem] text-muted-foreground">
-          Pink é a cor do arquivo vetorial oficial do logo, adotada nos tokens em 01/11/2026. O Preto Grafite dos tokens passou a #000000 em 02/11/2026, quando a escala de grafite ganhou o balanço #3E3E46 · #2C2C33 · #19191C · #000000 (700 a 950); o vetor do logo mantém #060608, visualmente igual (o brand book v1.0 sugeria <span className="font-mono text-foreground">#F4144B</span> e <span className="font-mono text-foreground">#111014</span> e pedia validação no arquivo-mestre). Texto branco sobre o pink atinge 4,5:1 e passa o AA para texto normal; para texto corrido em pink sobre branco, o sistema usa <span className="font-mono text-foreground">pink-600</span> (6,4:1), ver Acessibilidade.
+          Pink FindLook é o rosa-cereja do lenço do gato mascote, <span className="font-mono text-foreground">#FC0256</span>: desde 25/11/2026 é a cor do logo oficial (vetores e PNGs) e a base de toda a escala pink (antes, <span className="font-mono text-foreground">#E62040</span>, do arquivo vetorial, que puxava para o vermelho). O Preto Grafite dos tokens passou a #000000 em 02/11/2026, quando a escala de grafite ganhou o balanço #3E3E46 · #2C2C33 · #19191C · #000000 (700 a 950); o vetor do logo mantém #060608, visualmente igual (o brand book v1.0 sugeria <span className="font-mono text-foreground">#F4144B</span> e <span className="font-mono text-foreground">#111014</span> e pedia validação no arquivo-mestre). Texto branco sobre o <span className="font-mono text-foreground">#FC0256</span> fica em 3,98:1, por isso o botão principal usa o <span className="font-mono text-foreground">pink-550</span> (#E8004E, 4,6:1); destaques em texto grande usam o próprio #FC0256 (3,98:1, AA para texto grande) e texto pequeno em pink usa o <span className="font-mono text-foreground">pink-600</span> (#BC0A41, 6,4:1). Ver Fundamentos e Acessibilidade.
         </p>
       </div>
 
@@ -540,7 +540,7 @@ export function BrandShowcase() {
         </div>
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 text-[0.8125rem] text-muted-foreground">
           {["Não esticar, inclinar, contornar ou mudar cores.", "Não redesenhar o cabide nem separar suas partes.", "Uma mensagem central e um CTA por peça.", "Antes da produção: conferir proporções, cores, tipografia e espessuras no arquivo original."].map(r => (
-            <li key={r} className="flex items-start gap-2"><XCircle className="h-4 w-4 text-error shrink-0 mt-0.5" aria-hidden />{r}</li>
+            <li key={r} className="flex items-start gap-2"><XCircle className="h-4 w-4 text-error-text shrink-0 mt-0.5" aria-hidden />{r}</li>
           ))}
         </ul>
       </div>

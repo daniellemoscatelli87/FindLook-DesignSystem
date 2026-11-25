@@ -67,7 +67,7 @@ const sets = {
     custom: ["duplo-diamante", "jornada", "wireframe", "persona", "post-it", "post-its", "teste-ab", "balao-ideia", "fluxo", "protótipo", "cursor-botao", "mapa-empatia", "checklist"],
   },
   fl: {
-    arquivo: "doodle-moda", claro: "#D4D4D9", escuro: "#2C2C33", primaria: "#F8BCC6",
+    arquivo: "doodle-moda", claro: "#D4D4D9", escuro: "#2C2C33", primaria: "#FBBACB",
     // só peças de moda, por decisão da dona do produto: nada além destas oito, e sem enfeites soltos
     lucide: ["shirt"],
     custom: ["vestido", "calca", "saia", "bone", "oculos-sol", "sandalia", "tenis"],

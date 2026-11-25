@@ -743,7 +743,7 @@ function TeamTemplate() {
                           <button
                             type="button"
                             onClick={() => { setPessoas(prev => prev.filter(p => p.email !== m.email)); setRemovendo(null); setAviso(`${m.nome} não tem mais acesso ao painel.`); }}
-                            className={`h-6 px-2 rounded-sm bg-error text-[var(--error-foreground)] text-[0.6875rem] font-semibold hover:opacity-90 ${foco}`}
+                            className={`h-6 px-2 rounded-sm bg-destructive text-[var(--destructive-foreground)] text-[0.6875rem] font-semibold hover:opacity-90 ${foco}`}
                           >
                             Remover
                           </button>
@@ -762,7 +762,7 @@ function TeamTemplate() {
                             type="button"
                             onClick={() => setRemovendo(m.email)}
                             aria-label={`Remover acesso de ${m.nome}`}
-                            className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-[var(--error-muted)] hover:text-error transition-colors ${foco}`}
+                            className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-[var(--error-muted)] hover:text-error-text transition-colors ${foco}`}
                           >
                             <Trash2 aria-hidden className="h-3 w-3" />
                           </button>
@@ -1493,7 +1493,7 @@ const templatesTokenGroups = (t: (en: string, pt: string) => string): TokenGroup
     tokens: [
       { name: "--sidebar",                   description: t("Sidebar panel background", "Fundo do painel da barra lateral"),      light: "#FFFFFF",              dark: "rgba(0,0,0,0.97)",  isColor: true },
       { name: "--sidebar-foreground",        description: t("Sidebar text", "Texto da barra lateral"),                  light: "#19191C",              dark: "#F6F6F7",              isColor: true },
-      { name: "--sidebar-primary",           description: t("Active nav item", "Item de navegação ativo"),               light: "#E62040",              dark: "#E62040",              isColor: true },
+      { name: "--sidebar-primary",           description: t("Active nav item", "Item de navegação ativo"),               light: "#E8004E",              dark: "#E8004E",              isColor: true },
       { name: "--sidebar-primary-foreground",description: t("Text on active nav item", "Texto no item de navegação ativo"),       light: "#FFFFFF",              dark: "#FFFFFF",              isColor: true },
       { name: "--sidebar-accent",            description: t("Nav hover background", "Fundo de hover da navegação"),          light: "#E9E9EC",              dark: "rgba(44,44,51,0.60)", isColor: true },
       { name: "--sidebar-border",            description: t("Sidebar separator", "Separador da barra lateral"),             light: "rgba(25,25,28,0.09)", dark: "rgba(255,255,255,0.06)", isColor: true },
@@ -1511,9 +1511,9 @@ const templatesTokenGroups = (t: (en: string, pt: string) => string): TokenGroup
   {
     group: t("Brand & CTA", "Marca e CTA"),
     tokens: [
-      { name: "--primary",            description: t("Primary CTA button / link", "Botão / link CTA primário"),  light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--primary",            description: t("Primary CTA button / link", "Botão / link CTA primário"),  light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on CTA", "Texto sobre o CTA"),               light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "rgba(230,32,64,0.10)", dark: "rgba(230,32,64,0.15)", isColor: true },
+      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "rgba(252,2,86,0.10)", dark: "rgba(252,2,86,0.15)", isColor: true },
     ],
   },
   {

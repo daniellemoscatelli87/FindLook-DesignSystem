@@ -200,8 +200,8 @@ function GlassTestCard({ finish, tone = "clara", intensity = "media", opacity, b
           {ok ? <CheckCircle2 className="mt-px h-3.5 w-3.5 shrink-0 text-[var(--success)]" aria-hidden /> : <AlertTriangle className="mt-px h-3.5 w-3.5 shrink-0 text-[var(--warning)]" aria-hidden />}
           <span>
             {ok ? t("Contrast OK", "Contraste OK") : t("Accessibility compromised", "Acessibilidade comprometida")}{" "}<span className="opacity-70">({naFoto ? t("worst case: any area of the photo, from black to white", "pior caso: qualquer área da foto, do preto ao branco") : comTextura ? t("worst case: text over the background or a texture stroke", "pior caso: texto sobre o fundo ou um traço da textura") : t("solid background", "fundo sólido")})</span>
-            {" · "}{t("title", "título")} <strong className={result.titleOk ? "" : "text-[var(--error,var(--destructive))]"}>{formatRatio(result.title)}</strong> ({t("min.", "mín.")} {AA.large}:1)
-            {" · "}{t("subtitle", "subtítulo")} <strong className={result.subtitleOk ? "" : "text-[var(--error,var(--destructive))]"}>{formatRatio(result.subtitle)}</strong> ({t("min.", "mín.")} {String(AA.normal).replace(".", ",")}:1)
+            {" · "}{t("title", "título")} <strong className={result.titleOk ? "" : "text-[var(--error-text,var(--destructive))]"}>{formatRatio(result.title)}</strong> ({t("min.", "mín.")} {AA.large}:1)
+            {" · "}{t("subtitle", "subtítulo")} <strong className={result.subtitleOk ? "" : "text-[var(--error-text,var(--destructive))]"}>{formatRatio(result.subtitle)}</strong> ({t("min.", "mín.")} {String(AA.normal).replace(".", ",")}:1)
           </span>
         </div>
       )}

@@ -537,13 +537,13 @@ function getFormTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Button Colors", "Cores de botão"),
     tokens: [
-      { name: "--primary",               description: t("Primary button background", "Fundo do botão primário"),     light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--primary",               description: t("Primary button background", "Fundo do botão primário"),     light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground",    description: t("Text on primary button", "Texto no botão primário"),        light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-hover",         description: t("Hover state of primary", "Estado hover do primário"),        light: "#E62040", dark: "#EC5A72", isColor: true },
+      { name: "--primary-hover",         description: t("Hover state of primary", "Estado hover do primário"),        light: "#D20648", dark: "#D20648", isColor: true },
       { name: "--secondary",             description: t("Secondary button background", "Fundo do botão secundário"),   light: "#F6F6F7", dark: "rgba(44,44,51,0.80)", isColor: true },
       { name: "--secondary-foreground",  description: t("Text on secondary button", "Texto no botão secundário"),      light: "#19191C", dark: "#F6F6F7", isColor: true },
       { name: "--muted",                 description: t("Ghost button hover background", "Fundo de hover do botão ghost"), light: "#E9E9EC", dark: "rgba(44,44,51,0.60)", isColor: true },
-      { name: "--destructive",           description: t("Danger / delete button", "Botão de perigo / excluir"),        light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--destructive",           description: t("Danger / delete button", "Botão de perigo / excluir"),        light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--destructive-foreground",description: t("Text on destructive button", "Texto no botão destrutivo"),    light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
     ],
   },
@@ -552,7 +552,7 @@ function getFormTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
     tokens: [
       { name: "--input",            description: t("Input border color", "Cor da borda do input"),          light: "var(--border-strong)",         dark: "rgba(25,25,28,0.60)", isColor: true },
       { name: "--input-background", description: t("Input field background", "Fundo do campo de input"),      light: "#FFFFFF",             dark: "rgba(25,25,28,0.60)", isColor: true },
-      { name: "--ring",             description: t("Focus ring", "Anel de foco"),                  light: "rgba(230,32,64,0.35)",dark: "rgba(230,32,64,0.40)", isColor: true },
+      { name: "--ring",             description: t("Focus ring", "Anel de foco"),                  light: "rgba(252,2,86,0.40)", dark: "rgba(252,2,86,0.45)", isColor: true },
       { name: "--border",           description: t("Default border", "Borda padrão"),              light: "rgba(25,25,28,0.09)", dark: "rgba(255,255,255,0.07)", isColor: true },
       { name: "--border-strong",    description: t("Hover / active border", "Borda de hover / ativo"),       light: "rgba(25,25,28,0.16)", dark: "rgba(255,255,255,0.12)", isColor: true },
       { name: "--foreground",       description: t("Input text", "Texto do input"),                  light: "#19191C",             dark: "#F6F6F7", isColor: true },

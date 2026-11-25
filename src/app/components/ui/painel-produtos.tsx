@@ -141,7 +141,7 @@ function BarraDeAcoesEmLote({ selecionados, onLimpar, acoes, className }: { sele
     <div data-slot="acoes-em-lote" role="region" aria-label="Ações para os produtos selecionados" className={cn("flex flex-wrap items-center gap-2 rounded-md border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
       <p className="mr-auto text-[0.8125rem] font-semibold text-foreground" aria-live="polite">{selecionados} {selecionados === 1 ? "produto selecionado" : "produtos selecionados"}</p>
       {acoes.map(a => (
-        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error" : "border-border text-foreground", foco)}>
+        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
           {a.icone}{a.rotulo}
         </button>
       ))}

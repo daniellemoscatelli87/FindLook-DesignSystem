@@ -186,7 +186,7 @@ function StatesDemo() {
         )}
         {view === "error" && (
           <div role="alert" className="m-auto text-center max-w-xs">
-            <AlertTriangle className="h-6 w-6 text-[var(--error)] mx-auto mb-3" aria-hidden />
+            <AlertTriangle className="h-6 w-6 text-[var(--error-text)] mx-auto mb-3" aria-hidden />
             <p className={`${display} text-[1rem] font-semibold text-foreground mb-1`}>{t("We couldn't load your projects", "Não foi possível carregar seus projetos")}</p>
             <p className="text-[0.8125rem] text-muted-foreground mb-4">{t("Check your connection and try again. Your work is safe.", "Verifique sua conexão e tente novamente. Seu trabalho está seguro.")}</p>
             <button type="button" className={`h-9 px-4 rounded-md border border-border bg-card text-foreground text-[0.8125rem] font-medium hover:bg-muted ${ring}`}>{t("Try again", "Tentar novamente")}</button>

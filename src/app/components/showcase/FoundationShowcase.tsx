@@ -22,17 +22,24 @@ const graphiteScale = [
 ];
 
 const pinkScale = [
-  { name: "50",  hex: "#FEF2F4" },
-  { name: "100", hex: "#FCE0E4" },
-  { name: "200", hex: "#F8BCC6" },
-  { name: "300", hex: "#F290A0" },
-  { name: "400", hex: "#EC5A72" },
-  { name: "500", hex: "#E62040" },
-  { name: "600", hex: "#B91B35" },
-  { name: "700", hex: "#91162B" },
-  { name: "800", hex: "#6B1221" },
-  { name: "900", hex: "#490E19" },
-  { name: "950", hex: "#2A0A11" },
+  { name: "50",  hex: "#FFF2F5" },
+  { name: "100", hex: "#FEDFE6" },
+  { name: "200", hex: "#FBBACB" },
+  { name: "300", hex: "#F78BA7" },
+  { name: "400", hex: "#F34E7C" },
+  { name: "500", hex: "#FC0256" },
+  { name: "600", hex: "#BC0A41" },
+  { name: "700", hex: "#950333" },
+  { name: "800", hex: "#6F0427" },
+  { name: "900", hex: "#4C071D" },
+  { name: "950", hex: "#2B0813" },
+];
+
+/* Papéis do pink (decisão da dona do produto, 25/11/2026): contrastes medidos sobre o branco */
+const papeisDoPink = [
+  { papel: "Botão principal (texto branco)", token: "--primary", passo: "pink-550", hex: "#E8004E", fundo: "var(--pink-550)", cor: "#FFFFFF", amostra: "Encontrar peças", amostraCls: "text-[0.9375rem] font-semibold", uso: "Fundo de botões e áreas cheias com texto branco; hover em pink-575 (#D20648, 5,4:1).", contraste: "Texto branco: 4,6:1 (AA)" },
+  { papel: "Texto colorido grande", token: "--primary-destaque", passo: "pink-500", hex: "#FC0256", fundo: "#FFFFFF", cor: "var(--pink-500)", amostra: "descoberta", amostraCls: "text-[1.75rem] font-bold tracking-[-0.02em]", uso: "Só texto grande (24 px ou mais, ou negrito de 18,66 px ou mais): destaques de títulos e do hero.", contraste: "Sobre o branco: 3,98:1 (AA para texto grande)" },
+  { papel: "Texto colorido pequeno", token: "--primary-text", passo: "pink-600", hex: "#BC0A41", fundo: "#FFFFFF", cor: "var(--pink-600)", amostra: "Ver todas as lojas", amostraCls: "text-[0.875rem] font-semibold underline underline-offset-4", uso: "Links, item ativo do menu, chips, rótulos pequenos e texto de erro.", contraste: "Sobre o branco: 6,4:1 · sobre --primary-muted: 5,5:1" },
 ];
 
 const semanticColors = [
@@ -40,11 +47,11 @@ const semanticColors = [
   { name: "Surface (Card)", pt: "Superfície (Card)",   token: "--card",              swatch: "bg-card",             text: "text-card-foreground", light: "#FFFFFF", dark: "rgba(25,25,28,.75)" },
   { name: "Foreground", pt: "Texto (foreground)",       token: "--foreground",        swatch: "bg-foreground",       text: "text-background", light: "#000000", dark: "#F6F6F7" },
   { name: "Muted", pt: "Suave (muted)",            token: "--muted-foreground",  swatch: "bg-muted-foreground", text: "text-background", light: "#696977", dark: "#B3B3BC" },
-  { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E62040", dark: "#E62040" },
+  { name: "Primary", pt: "Primária",          token: "--primary",           swatch: "bg-primary",          text: "text-primary-foreground", light: "#E8004E", dark: "#E8004E" },
   { name: "Border", pt: "Borda",           token: "--border",            swatch: "bg-border",           text: "text-foreground", light: "rgba(0,0,0,.10)", dark: "rgba(255,255,255,.07)" },
   { name: "Success", pt: "Sucesso",          token: "--success",           swatch: "bg-success",          text: "text-success-foreground", light: "#31835D", dark: "#41B47F" },
   { name: "Warning", pt: "Aviso",          token: "--warning",           swatch: "bg-warning",          text: "text-warning-foreground", light: "#F0B135", dark: "#F0B135" },
-  { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-white", light: "#E62040", dark: "#E62040" },
+  { name: "Error", pt: "Erro",            token: "--error",             swatch: "bg-error",            text: "text-graphite-950", light: "#FC0256", dark: "#FC0256" },
   { name: "Info", pt: "Informação",             token: "--info",              swatch: "bg-info",             text: "text-info-foreground", light: "#347BA9", dark: "#59A8DC" },
 ];
 
@@ -109,7 +116,7 @@ export function FoundationShowcase() {
 
       {/* ── COLORS ── */}
       <section id="colors">
-        <SectionHeader title={t("Color Palette", "Paleta de cores")} description={t("Grafite neutro derivado do Preto Grafite #000000 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.", "Grafite neutro derivado do Preto Grafite #000000 e Pink FindLook #E62040 como cor de ação. Rosa Claro #FFF2F5 para superfícies de apoio.")} />
+        <SectionHeader title={t("Color Palette", "Paleta de cores")} description={t("Grafite neutro derivado do Preto Grafite #000000 e Pink FindLook #FC0256, o rosa-cereja do lenço do gato, como cor da marca. Rosa Claro #FFF2F5 para superfícies de apoio.", "Grafite neutro derivado do Preto Grafite #000000 e Pink FindLook #FC0256, o rosa-cereja do lenço do gato, como cor da marca. Rosa Claro #FFF2F5 para superfícies de apoio.")} />
 
         <SubSection title={t("Escala Grafite", "Escala Grafite")}>
           <div className="grid grid-cols-11 gap-1.5">
@@ -139,6 +146,28 @@ export function FoundationShowcase() {
               </div>
             ))}
           </div>
+        </SubSection>
+
+        <SubSection title={t("Pink roles", "Papéis do pink")}>
+          <p className="mb-4 max-w-3xl text-[0.875rem] leading-relaxed text-muted-foreground">
+            A escala nasce do lenço do gato, <span className="font-mono text-foreground">#FC0256</span> (rosa-cereja; decisão da dona do produto, 25/11/2026). Cada passo foi calculado em OKLCH com a mesma luminosidade da escala anterior, o matiz do lenço e o croma ajustado. O tom do lenço com texto branco fica em 3,98:1, por isso cada uso tem o seu tom.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {papeisDoPink.map((p) => (
+              <div key={p.token} className="overflow-hidden rounded-lg border border-border bg-card">
+                <div className="flex h-20 items-center justify-center px-3" style={{ background: p.fundo }}>
+                  <span className={p.amostraCls} style={{ color: p.cor }}>{p.amostra}</span>
+                </div>
+                <div className="space-y-1 p-3.5">
+                  <div className="text-[0.875rem] font-semibold text-foreground">{p.papel}</div>
+                  <div className="font-mono text-[0.75rem] text-muted-foreground">{p.token} · {p.passo} · {p.hex}</div>
+                  <div className="text-[0.8125rem] text-muted-foreground">{p.uso}</div>
+                  <div className="text-[0.8125rem] font-semibold text-foreground">{p.contraste}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[0.8125rem] text-muted-foreground">Nunca texto branco sobre o <span className="font-mono">#FC0256</span>. No tema escuro, o texto pequeno usa o pink-300 (#F78BA7): 9,2:1 sobre o fundo grafite.</p>
         </SubSection>
 
         <SubSection title={t("Semantic Tokens", "Tokens semânticos")}>
@@ -384,18 +413,18 @@ export function FoundationShowcase() {
 
               {/* ✕ Evitar */}
               <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
-                <div className="px-4 pt-4 pb-3 border-b border-border" style={{ background: "rgba(230,32,64,0.06)" }}>
+                <div className="px-4 pt-4 pb-3 border-b border-border" style={{ background: "rgba(252,2,86,0.06)" }}>
                   <div className="flex items-center gap-2">
-                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(230,32,64,0.15)" }}>
-                      <X style={{ height: 11, width: 11, color: "#E62040" }} />
+                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(252,2,86,0.15)" }}>
+                      <X style={{ height: 11, width: 11, color: "#FC0256" }} />
                     </div>
-                    <p className="text-[0.6875rem] font-bold" style={{ color: "#E62040" }}>{t("Avoid", "Evitar")}</p>
+                    <p className="text-[0.6875rem] font-bold" style={{ color: "#FC0256" }}>{t("Avoid", "Evitar")}</p>
                   </div>
                 </div>
                 <ul className="px-4 py-3 space-y-2.5">
                   {[t("Fontes decorativas ou de outra família", "Fontes decorativas ou de outra família"), t("Excesso de pesos na mesma tela", "Excesso de pesos na mesma tela"), t("Texto em caixa alta contínua", "Texto em caixa alta contínua")].map(item => (
                     <li key={item} className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "#E62040", opacity: 0.6 }} />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "#FC0256", opacity: 0.6 }} />
                       <span className="text-[0.6875rem] text-muted-foreground leading-snug">{item}</span>
                     </li>
                   ))}
@@ -536,9 +565,9 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
   {
     group: t("Brand", "Marca"),
     tokens: [
-      { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on primary", "Texto sobre primária"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted primary background", "Fundo com tom da primária"),       light: "rgba(230,32,64,0.10)", dark: "rgba(230,32,64,0.15)", isColor: true },
+      { name: "--primary-muted",      description: t("Tinted primary background", "Fundo com tom da primária"),       light: "rgba(252,2,86,0.10)", dark: "rgba(252,2,86,0.15)", isColor: true },
     ],
   },
   {
@@ -560,13 +589,13 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     tokens: [
       { name: "--success",         description: t("Positive / confirmed", "Positivo / confirmado"),     light: "#31835D", dark: "#41B47F", isColor: true },
       { name: "--warning",         description: t("Caution / pending", "Atenção / pendente"),        light: "#F0B135", dark: "#F0B135", isColor: true },
-      { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--error",           description: t("Error / danger", "Erro / perigo"),           light: "#FC0256", dark: "#FC0256", isColor: true },
       { name: "--info",            description: t("Informational", "Informativo"),            light: "#347BA9", dark: "#59A8DC", isColor: true },
       { name: "--success-text",    description: "Sucesso como texto ou ícone sobre fundo claro (Alerta com ação): 5,1:1",   light: "#2B7553", dark: "#41B47F", isColor: true },
       { name: "--info-text",       description: "Info como texto ou ícone sobre fundo claro (Alerta com ação): 5,1:1",      light: "#2E6E98", dark: "#59A8DC", isColor: true },
       { name: "--warning-text",    description: "Aviso como texto ou ícone sobre fundo claro: 4,5:1 no fundo do alerta",  light: "#A66200", dark: "#F0B135", isColor: true },
-      { name: "--error-text",      description: "Erro como texto ou ícone (= --primary-text): 5,7:1 no fundo do alerta",  light: "#B91B35", dark: "#F290A0", isColor: true },
-      { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--error-text",      description: "Erro como texto ou ícone (= --primary-text): 5,8:1 no fundo do alerta",  light: "#BC0A41", dark: "#F78BA7", isColor: true },
+      { name: "--destructive",     description: t("Destructive action", "Ação destrutiva"),       light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--violet",          description: t("Accent purple", "Roxo de destaque"),            light: "#ba69dc", dark: "#eb6cff", isColor: true },
       { name: "--orange",          description: t("Accent orange", "Laranja de destaque"),            light: "#fa9852", dark: "#ff8833", isColor: true },
     ],
@@ -576,7 +605,7 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     tokens: [
       { name: "--border",       description: t("Default border", "Borda padrão"),          light: "rgba(25,25,28,0.09)",  dark: "rgba(255,255,255,0.07)", isColor: true },
       { name: "--border-strong",description: t("Emphasized border", "Borda enfatizada"),       light: "rgba(25,25,28,0.16)",  dark: "rgba(255,255,255,0.12)", isColor: true },
-      { name: "--ring",         description: t("Focus ring / outline", "Anel de foco / contorno"),    light: "rgba(230,32,64,0.35)", dark: "rgba(230,32,64,0.40)",   isColor: true },
+      { name: "--ring",         description: t("Focus ring / outline", "Anel de foco / contorno"),    light: "rgba(252,2,86,0.40)", dark: "rgba(252,2,86,0.45)",   isColor: true },
     ],
   },
   {

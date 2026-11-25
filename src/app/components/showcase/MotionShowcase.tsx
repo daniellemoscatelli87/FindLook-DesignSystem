@@ -1828,7 +1828,7 @@ type SpotlightOption = {
 
 const SPOTLIGHT_OPTIONS: SpotlightOption[] = [
   { id: "none",    label: "None", labelPt: "Nenhum", swatch: null,      rgba: () => "none" },
-  { id: "pink", label: "Pink", labelPt: "Pink", swatch: "#E62040", rgba: a => `rgba(230,32,64,${a})` },
+  { id: "pink", label: "Pink", labelPt: "Pink", swatch: "#FC0256", rgba: a => `rgba(252,2,86,${a})` },
   { id: "blue",    label: "Blue", labelPt: "Azul", swatch: "#3B82F6", rgba: a => `rgba(59,130,246,${a})` },
   { id: "teal",    label: "Teal", labelPt: "Verde-azulado", swatch: "#14B8A6", rgba: a => `rgba(20,184,166,${a})` },
   { id: "purple",  label: "Purple", labelPt: "Roxo", swatch: "#A855F7", rgba: a => `rgba(168,85,247,${a})` },
@@ -1911,7 +1911,7 @@ function WobbleCardDemo({
     >
       <div ref={glowRef} style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", borderRadius: 18 }} />
       <div style={{ position: "relative", zIndex: 1, padding: "24px 24px 20px" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(230,32,64,0.30)" : "rgba(230,32,64,0.20)"}`, background: dark ? "rgba(230,32,64,0.10)" : "rgba(230,32,64,0.07)", marginBottom: 12 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(252,2,86,0.30)" : "rgba(252,2,86,0.20)"}`, background: dark ? "rgba(252,2,86,0.10)" : "rgba(252,2,86,0.07)", marginBottom: 12 }}>
           <Star style={{ width: 10, height: 10, color: "var(--primary)" }} />
           <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "var(--primary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Lojistas</span>
         </div>
@@ -1924,7 +1924,7 @@ function WobbleCardDemo({
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
           {[t("SSO & mandatory MFA", "SSO e MFA obrigatório"), t("Real-time audit log", "Log de auditoria em tempo real"), t("RBAC per workspace", "RBAC por workspace")].map(item => (
             <div key={item} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <div style={{ width: 16, height: 16, borderRadius: 8, background: "rgba(230,32,64,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <div style={{ width: 16, height: 16, borderRadius: 8, background: "rgba(252,2,86,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <Check style={{ width: 9, height: 9, color: "var(--primary)" }} />
               </div>
               <span style={{ fontSize: "0.6875rem", color: dark ? "#B3B3BC" : "#888896", fontWeight: 500 }}>{item}</span>
@@ -1954,7 +1954,7 @@ export function WobbleCardConteudo() {
   const [wobbleEnabled, setWobbleEnabled] = useState(true);
 
   const ctrl = "var(--border)";
-  const activeStyle = { border: "1.5px solid #E62040", background: "rgba(230,32,64,0.08)", color: "var(--primary)" };
+  const activeStyle = { border: "1.5px solid #FC0256", background: "rgba(252,2,86,0.08)", color: "var(--primary)" };
   const idleColor   = "var(--muted-foreground)";
 
   return (

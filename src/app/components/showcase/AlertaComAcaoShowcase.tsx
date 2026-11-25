@@ -99,7 +99,7 @@ const CONTRASTES: { tom: TomDoAlerta; nome: string; token: string; valor: string
   { tom: "info", nome: "Info", token: "--info-text", valor: "#2E6E98", contraste: "5,1:1" },
   { tom: "sucesso", nome: "Sucesso", token: "--success-text", valor: "#2B7553", contraste: "5,1:1" },
   { tom: "aviso", nome: "Aviso", token: "--warning-text", valor: "#A66200", contraste: "4,5:1" },
-  { tom: "erro", nome: "Erro", token: "--error-text", valor: "#B91B35 (= --primary-text)", contraste: "5,7:1" },
+  { tom: "erro", nome: "Erro", token: "--error-text", valor: "#BC0A41 (= --primary-text)", contraste: "5,8:1" },
 ];
 
 const BORDA_DO_TOM: Record<TomDoAlerta, string> = {

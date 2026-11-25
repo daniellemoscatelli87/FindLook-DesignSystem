@@ -78,7 +78,7 @@ export function IntegrationShowcase() {
       {/* ── Hero ── */}
       <section className="space-y-4">
         <div>
-          <p className="text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-primary">{t("Concepts", "Conceitos")}</p>
+          <p className="text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-primary-text">{t("Concepts", "Conceitos")}</p>
           <h1 className="text-[2.25rem] font-black text-foreground tracking-[-0.04em] leading-none mt-1">
             {t("Connecting to your project", "Conectando ao seu projeto")}
           </h1>
@@ -394,21 +394,21 @@ export function IntegrationShowcase() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <CodeBlock filename={t("❌ Avoid", "❌ Evite")} label={t("hex / literal", "hex / literal")}>
-                <span style={{ color: "#E62040" }}>{"className"}</span>
+                <span style={{ color: "var(--error-text)" }}>{"className"}</span>
                 {"="}
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
-                <span style={{ color: "#E62040" }}>bg-error text-white</span>
+                <span style={{ color: "var(--error-text)" }}>bg-error text-white</span>
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
                 {"\n"}
-                <span style={{ color: "#E62040" }}>{"style"}</span>
+                <span style={{ color: "var(--error-text)" }}>{"style"}</span>
                 {"={{ "}
-                <span style={{ color: "#E62040" }}>background: "#E62040"</span>
+                <span style={{ color: "var(--error-text)" }}>background: "#FC0256"</span>
                 {" }}"}
                 {"\n"}
-                <span style={{ color: "#E62040" }}>{"className"}</span>
+                <span style={{ color: "var(--error-text)" }}>{"className"}</span>
                 {"="}
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
-                <span style={{ color: "#E62040" }}>{"bg-[#E62040]"}</span>
+                <span style={{ color: "var(--error-text)" }}>{"bg-[#FC0256]"}</span>
                 <span style={{ color: "var(--muted-foreground)" }}>"</span>
               </CodeBlock>
               <CodeBlock filename={t("✓ Correct", "✓ Correto")} label={t("semantic tokens", "tokens semânticos")}>
@@ -492,8 +492,8 @@ export function IntegrationShowcase() {
                 who: t("Designer", "Designer"),
                 whoColor: "text-violet",
                 whoBg: "bg-violet/10",
-                action: t("Defines pink-500 as the brand's primary color", "Define pink-500 como a cor primária da marca"),
-                tool: "Figma Variables → Semantics → Primary = pink-500",
+                action: t("Defines pink-550 as the brand's primary button color", "Define pink-550 como a cor do botão principal da marca"),
+                tool: "Figma Variables → Semantics → Primary = pink-550",
                 output: t('Variable "Primary" available across the whole library', 'Variable "Primary" disponível em toda a biblioteca'),
               },
               {
@@ -501,7 +501,7 @@ export function IntegrationShowcase() {
                 whoColor: "text-info",
                 whoBg: "bg-info/10",
                 action: t("Declares the same mapping in CSS", "Declara o mesmo mapeamento no CSS"),
-                tool: "theme.css: --primary: var(--pink-500)",
+                tool: "theme.css: --primary: var(--pink-550)",
                 output: t("--primary token available via CSS custom property", "Token --primary disponível via CSS custom property"),
               },
               {

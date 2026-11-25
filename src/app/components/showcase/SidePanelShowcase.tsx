@@ -105,7 +105,7 @@ function StorePanelDemo({ triggerLabel = "Cadastrar minha loja", outline = false
                   ))}
                 </div>
               </fieldset>
-              {error && <p role="alert" className="text-[0.75rem] text-error">{error}</p>}
+              {error && <p role="alert" className="text-[0.75rem] text-error-text">{error}</p>}
             </form>
           )}
         </SidePanelBody>
@@ -146,7 +146,7 @@ const tokenGroups: TokenGroup[] = [
       { name: "width · sm (≥ 640 px)", description: "Tablet", light: "500px" },
       { name: "width · md (≥ 768 px)", description: "Desktop", light: "540px" },
       { name: "duration", description: "Entrada/saída e fade do fundo", light: "300ms ease-in-out" },
-      { name: "--primary / --ring", description: "Botão de ação e anel de foco", light: "#E62040", dark: "#E62040", isColor: true },
+      { name: "--primary / --ring", description: "Botão de ação e anel de foco", light: "#E8004E", dark: "#E8004E", isColor: true },
     ],
   },
 ];

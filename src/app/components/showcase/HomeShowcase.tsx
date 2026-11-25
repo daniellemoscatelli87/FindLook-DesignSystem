@@ -53,7 +53,7 @@ const explore: { label: string; items: CardItem[] }[] = [
 ];
 
 const graphite = ["#F6F6F7","#E9E9EC","#D4D4D9","#B3B3BC","#888896","#696977","#51515C","#3E3E46","#2C2C33","#19191C","#000000"];
-const pink = ["#FEF2F4","#FCE0E4","#F8BCC6","#F290A0","#EC5A72","#E62040","#B91B35","#91162B","#6B1221","#490E19","#2A0A11"];
+const pink = ["#FFF2F5","#FEDFE6","#FBBACB","#F78BA7","#F34E7C","#FC0256","#BC0A41","#950333","#6F0427","#4C071D","#2B0813"];
 
 export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
   const go = useGo(onNavigate);
@@ -73,7 +73,7 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
               <span className="text-[0.625rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">v1.0</span>
             </div>
             <h1 className={`${display} text-[2rem] sm:text-[2.5rem] font-extrabold tracking-[-0.035em] text-foreground mb-3 leading-none`}>
-              Find<span className="text-primary">Look</span>
+              Find<span className="text-primary-destaque">Look</span>
             </h1>
             <p className={`${display} text-[1.25rem] font-bold tracking-[-0.02em] text-foreground mb-3`}>{withHighlight("Uma experiência, **dois públicos**.")}</p>
             <p className="text-[1.0625rem] text-muted-foreground max-w-xl leading-relaxed mb-6">

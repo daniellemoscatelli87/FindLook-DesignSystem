@@ -71,7 +71,7 @@ function Variacao({ valor, comparacao, className }: { valor: number; comparacao?
   const leitura = `${sobe ? "Alta" : "Queda"} de ${formatarVariacao(Math.abs(valor)).replace("+", "")}${comparacao ? ` ${comparacao}` : ""}`;
   // Mesmo desenho da variação dos Cards de KPI: seta + número na cor da tendência, comparação em texto suave.
   return (
-    <span className={cn("inline-flex items-center gap-1 text-[0.8125rem] font-semibold", sobe ? "text-success" : "text-primary", className)}>
+    <span className={cn("inline-flex items-center gap-1 text-[0.8125rem] font-semibold", sobe ? "text-success" : "text-primary-text", className)}>
       <Icone aria-hidden className="h-3.5 w-3.5" />
       <span aria-hidden>{formatarVariacao(valor)}</span>
       {comparacao && <span aria-hidden className="ml-1 font-normal text-muted-foreground">{comparacao}</span>}

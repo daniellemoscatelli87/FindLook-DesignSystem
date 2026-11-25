@@ -207,7 +207,7 @@ function IllustrationCard({ il }: { il: Illustration }) {
         <div>
           <Label>{t("How not to use", "Como não usar")}</Label>
           <ul className="space-y-2 text-[0.875rem] leading-relaxed text-foreground">
-            {il.naoUsar.map((n) => <li key={n} className="flex gap-2"><X className="mt-1 h-4 w-4 shrink-0 text-[var(--error,var(--destructive))]" aria-hidden /><span>{n}</span></li>)}
+            {il.naoUsar.map((n) => <li key={n} className="flex gap-2"><X className="mt-1 h-4 w-4 shrink-0 text-[var(--error-text,var(--destructive))]" aria-hidden /><span>{n}</span></li>)}
           </ul>
         </div>
       </div>
@@ -278,7 +278,7 @@ export function IllustrationsShowcase() {
             head={[t("Element", "Elemento"), t("Token in the product", "Token no produto")]}
             rows={[
               [t("Fur", "Pelagem"), <span key="a" className="font-mono text-[0.75rem]">--graphite-950</span>],
-              [t("Sunglasses and scarf", "Óculos e lenço"), <span key="b" className="font-mono text-[0.75rem]">--primary (pink-500)</span>],
+              [t("Sunglasses and scarf", "Óculos e lenço"), <span key="b" className="font-mono text-[0.75rem]">--brand-pink (pink-500, #FC0256: a escala nasce deste lenço)</span>],
               [t("Eyes and outlines", "Olhos e contornos"), <span key="c" className="font-mono text-[0.75rem]">#FFFFFF</span>],
               [t("Base shadow", "Sombra da base"), <span key="d" className="font-mono text-[0.75rem]">--graphite-200</span>],
             ]}

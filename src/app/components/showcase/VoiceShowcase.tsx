@@ -120,7 +120,7 @@ export function VoiceShowcase() {
                   <p className={`${display} text-[1rem] font-bold tracking-[-0.01em] text-foreground`}>{p.do}</p>
                 </div>
                 <div className="flex items-start gap-2">
-                  <XCircle className="h-4 w-4 text-error shrink-0 mt-0.5" aria-hidden />
+                  <XCircle className="h-4 w-4 text-error-text shrink-0 mt-0.5" aria-hidden />
                   <p className="text-[0.875rem] text-muted-foreground line-through decoration-error/50">{p.dont}</p>
                 </div>
               </div>
@@ -170,7 +170,7 @@ export function VoiceShowcase() {
             <div key={m.contexto} className={`grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)] gap-1 sm:gap-4 px-5 py-3.5 text-[0.8125rem] ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
               <span className="font-medium text-foreground">{m.contexto}</span>
               <span className="flex items-start gap-2 text-foreground"><CheckCircle className="h-4 w-4 text-success shrink-0 mt-0.5" aria-hidden />{m.escrever}</span>
-              <span className="flex items-start gap-2 text-muted-foreground"><XCircle className="h-4 w-4 text-error shrink-0 mt-0.5" aria-hidden />{m.evitar}</span>
+              <span className="flex items-start gap-2 text-muted-foreground"><XCircle className="h-4 w-4 text-error-text shrink-0 mt-0.5" aria-hidden />{m.evitar}</span>
             </div>
           ))}
         </div>

@@ -167,7 +167,7 @@ export function EscritaDeInteligencia({ prefixo, exemplos, card }: Props) {
               <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{ex.regra}</p>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 <div className="rounded-md border border-border bg-muted/40 p-4">
-                  <p className="mb-1.5 flex items-center gap-1.5 text-[0.75rem] font-semibold text-muted-foreground"><XCircle className="h-4 w-4 text-error" aria-hidden />{t("Avoid", "Evitar")}</p>
+                  <p className="mb-1.5 flex items-center gap-1.5 text-[0.75rem] font-semibold text-muted-foreground"><XCircle className="h-4 w-4 text-error-text" aria-hidden />{t("Avoid", "Evitar")}</p>
                   <p className="text-[0.9375rem] font-semibold text-foreground/70 line-through decoration-error/40">{ex.evitar.titulo}</p>
                   {ex.evitar.texto && <p className="mt-1 text-[0.8125rem] text-muted-foreground">{ex.evitar.texto}</p>}
                 </div>

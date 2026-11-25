@@ -165,7 +165,7 @@ export function UploadDropzone({
         {capture && <input ref={captureRef} type="file" className="sr-only" tabIndex={-1} accept="image/*" capture={capture} disabled={disabled} onChange={e => { handle(e.target.files); e.target.value = ""; }} />}
       </div>
       {error && (
-        <p role="alert" className="mt-2 flex items-start gap-1.5 text-[0.8125rem] text-error">
+        <p role="alert" className="mt-2 flex items-start gap-1.5 text-[0.8125rem] text-error-text">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />{error}
         </p>
       )}
@@ -196,7 +196,7 @@ export function UploadItem({
             </div>
           )}
           <span className={cn("flex shrink-0 items-center gap-1 text-[0.75rem]",
-            item.status === "concluido" ? "text-success" : item.status === "erro" ? "text-error" : "text-muted-foreground")}>
+            item.status === "concluido" ? "text-success" : item.status === "erro" ? "text-error-text" : "text-muted-foreground")}>
             {item.status === "enviando" && <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />}
             {item.status === "concluido" && <CheckCircle2 className="h-3.5 w-3.5" aria-hidden />}
             {item.status === "erro" && <AlertCircle className="h-3.5 w-3.5" aria-hidden />}
@@ -279,7 +279,7 @@ export function ImageUpload({
         <input ref={inputRef} type="file" className="sr-only" tabIndex={-1} accept={accept.join(",")} capture={capture} onChange={e => { pick(e.target.files); e.target.value = ""; }} />
       </div>
       {value && (
-        <button type="button" onClick={() => onChange(null, null)} className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-muted-foreground transition-colors hover:text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
+        <button type="button" onClick={() => onChange(null, null)} className="inline-flex items-center gap-1 text-[0.75rem] font-semibold text-muted-foreground transition-colors hover:text-error-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
           <Trash2 className="h-3.5 w-3.5" aria-hidden /> Remover
         </button>
       )}
@@ -331,7 +331,7 @@ export function ImageGrid({
               {cover && <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-background/95 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.08em] text-foreground"><Star className="h-3 w-3 fill-current text-primary" aria-hidden /> Capa</span>}
               <span className="absolute inset-x-0 bottom-0 flex items-center justify-end gap-1 p-1.5 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
                 {onSetCover && !cover && <button type="button" onClick={() => onSetCover(img.id)} aria-label="Definir como capa" className="flex h-7 w-7 items-center justify-center rounded-full bg-background/95 text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Star className="h-3.5 w-3.5" aria-hidden /></button>}
-                {onRemove && <button type="button" onClick={() => onRemove(img.id)} aria-label="Remover foto" className="flex h-7 w-7 items-center justify-center rounded-full bg-background/95 text-foreground hover:text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Trash2 className="h-3.5 w-3.5" aria-hidden /></button>}
+                {onRemove && <button type="button" onClick={() => onRemove(img.id)} aria-label="Remover foto" className="flex h-7 w-7 items-center justify-center rounded-full bg-background/95 text-foreground hover:text-error-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Trash2 className="h-3.5 w-3.5" aria-hidden /></button>}
               </span>
             </li>
           );

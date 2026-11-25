@@ -2,8 +2,9 @@
 
 /* =========================================================
    FINDLOOK DESIGN SYSTEM — GRAFITE + PINK
-   Moda local · Base grafite #000000 · Pink FindLook #E62040 · Rosa claro #FFF2F5
-   Fonte: cores do arquivo vetorial oficial do logo (o brand book v1.0 sugeria #F4144B e #111014; unificado em 01/11/2026)
+   Moda local · Base grafite #000000 · Pink FindLook #FC0256 (rosa-cereja do lenço do gato) · Rosa claro #FFF2F5
+   Fonte: a cor principal é o rosa do lenço do gato mascote, #FC0256 (decisão da dona do produto, 25/11/2026; antes #E62040,
+   do arquivo vetorial do logo, que puxava para o vermelho). A escala pink inteira nasce dela.
    ========================================================= */
 
 :root {
@@ -33,18 +34,22 @@
   --graphite-900: #19191C;
   --graphite-950: #000000;
 
-  /* ── Escala Pink (500 = Pink FindLook #E62040, cor do logo oficial; claros misturados com branco, escuros com grafite) ── */
-  --pink-50:  #FEF2F4;
-  --pink-100: #FCE0E4;
-  --pink-200: #F8BCC6;
-  --pink-300: #F290A0;
-  --pink-400: #EC5A72;
-  --pink-500: #E62040;
-  --pink-600: #B91B35;
-  --pink-700: #91162B;
-  --pink-800: #6B1221;
-  --pink-900: #490E19;
-  --pink-950: #2A0A11;
+  /* ── Escala Pink: nasce do lenço do gato, #FC0256 (decisão da dona do produto, 25/11/2026) ──
+     Calculada em OKLCH: cada passo mantém a luminosidade da escala anterior (base #E62040), com o matiz do lenço e o
+     croma ajustado. Papéis: 550 = botão cheio com texto branco · 500 = texto colorido grande · 600 = texto colorido pequeno. */
+  --pink-50:  #FFF2F5;
+  --pink-100: #FEDFE6;
+  --pink-200: #FBBACB;
+  --pink-300: #F78BA7;
+  --pink-400: #F34E7C;
+  --pink-500: #FC0256;   /* rosa-cereja do lenço do gato: cor principal; texto branco só 3,98:1, então nunca leva texto branco */
+  --pink-550: #E8004E;   /* botão principal: texto branco 4,6:1 (decisão de 25/11/2026) */
+  --pink-575: #D20648;   /* hover do botão principal: entre 550 e 600, ainda cereja; texto branco 5,4:1 */
+  --pink-600: #BC0A41;   /* texto colorido pequeno (links, item ativo, chips): 6,4:1 sobre branco */
+  --pink-700: #950333;
+  --pink-800: #6F0427;
+  --pink-900: #4C071D;
+  --pink-950: #2B0813;
 
   /* ── Cores oficiais da marca (atalhos) ── */
   --brand-pink:      var(--pink-500);
@@ -60,12 +65,15 @@
   --foreground-muted:  var(--graphite-500);
   --foreground-subtle: var(--graphite-400);
 
-  --primary:                  var(--pink-500);   /* CTA pink: texto branco atinge 4,5:1 (AA para texto normal) */
-  --primary-hover:             var(--pink-600);
+  --primary:                  var(--pink-550);   /* botão principal: texto branco 4,6:1 (AA para texto normal; decisão de 25/11/2026) */
+  --primary-hover:             var(--pink-575);   /* texto branco 5,4:1 */
   --primary-foreground:        #FFFFFF;
   --primary-muted:             color-mix(in srgb, var(--pink-500) 10%, #FFFFFF); /* opaco (21/11/2026): mesma cor sobre o branco e não escurece sobre o fundo cinza do painel */
-  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 6,4:1 sobre branco */
-  --primary-text:              var(--pink-600);
+  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 6,4:1 sobre branco, 5,5:1 sobre --primary-muted */
+  --primary-text:              var(--pink-600);   /* texto colorido pequeno: links, item ativo, chips, rótulos */
+  /* Destaque colorido em texto GRANDE (≥24 px, ou negrito ≥18,66 px), como "Sua loja merece ser descoberta": o tom forte
+     do lenço, 3,98:1 sobre branco (AA para texto grande pede 3:1). Só texto grande; texto pequeno usa --primary-text. */
+  --primary-destaque:          var(--pink-500);
   --surface-tint:              var(--brand-rose); /* Rosa Claro: cards e faixas de apoio */
 
   --secondary:            var(--graphite-100);
@@ -96,9 +104,9 @@
   --warning-muted:      rgba(240, 177, 53, 0.14);
   --warning-text:       #A66200;   /* âmbar escuro só para texto e ícone sobre fundo claro: 4,8:1 no branco, 4,5:1 no warning-muted */
   --error:              var(--pink-500);   /* erro em pink cereja, como a marca (decisão de 16/11/2026) */
-  --error-foreground:   #FFFFFF;
-  --error-muted:        rgba(230, 32, 64, 0.1);
-  --error-text:         var(--primary-text);   /* erro como texto e ícone sobre fundo claro (pink-600): 5,7:1 no fundo do Alerta com ação */
+  --error-foreground:   #FFFFFF;   /* só para ícone ou texto grande sobre --error (3,98:1); botão cheio de erro usa --destructive */
+  --error-muted:        rgba(252, 2, 86, 0.1);
+  --error-text:         var(--primary-text);   /* erro como texto e ícone sobre fundo claro (pink-600): 5,8:1 no fundo do Alerta com ação */
   --info:               #347BA9;   /* texto branco 4,6:1 */
   --info-foreground:    #FFFFFF;
   --info-muted:         rgba(52, 123, 169, 0.1);
@@ -117,7 +125,7 @@
   --input:            var(--border-strong);   /* borda clara dos campos (decisão de 16/11/2026) */
   --input-background: #FFFFFF;
   --switch-background: var(--graphite-200);
-  --ring:             rgba(230, 32, 64, 0.40);
+  --ring:             rgba(252, 2, 86, 0.40);
 
   --radius: 0.75rem;
 
@@ -157,17 +165,17 @@
   --chart-4-texto: var(--foreground);
   --chart-5-texto: var(--foreground);
 
-  --destructive:            var(--pink-500);
+  --destructive:            var(--pink-550);   /* texto branco 4,6:1, como o botão principal */
   --destructive-foreground: #FFFFFF;
 
   --sidebar:                   #FFFFFF;
   --sidebar-foreground:        var(--graphite-950);
-  --sidebar-primary:           var(--pink-500);
+  --sidebar-primary:           var(--pink-550);
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent:            var(--graphite-50);
   --sidebar-accent-foreground: var(--graphite-950);
   --sidebar-border:            rgba(0, 0, 0, 0.10);
-  --sidebar-ring:              rgba(230, 32, 64, 0.40);
+  --sidebar-ring:              rgba(252, 2, 86, 0.40);
 }
 
 /* ── DARK MODE ── */
@@ -177,13 +185,14 @@
   --foreground-muted:  var(--graphite-300);
   --foreground-subtle: var(--graphite-400);
 
-  --primary:                  var(--pink-500);
-  --primary-hover:             var(--pink-400);
+  --primary:                  var(--pink-550);   /* texto branco 4,6:1, como no tema claro */
+  --primary-hover:             var(--pink-575);   /* texto branco 5,4:1 (o pink-400 não aceita texto branco) */
   --primary-foreground:        #FFFFFF;
-  --primary-muted:             rgba(230, 32, 64, 0.16);
-  --primary-muted-foreground:  var(--pink-300);   /* pink para texto no escuro: 8,9:1 sobre grafite-950 */
+  --primary-muted:             rgba(252, 2, 86, 0.16);
+  --primary-muted-foreground:  var(--pink-300);   /* pink para texto no escuro: 9,2:1 sobre grafite-950 */
   --primary-text:              var(--pink-300);
-  --surface-tint:              rgba(230, 32, 64, 0.08);
+  --primary-destaque:          var(--pink-500);   /* texto grande: 5,3:1 sobre grafite-950 */
+  --surface-tint:              rgba(252, 2, 86, 0.08);
 
   --secondary:            rgba(44, 44, 51, 0.85);
   --secondary-hover:      rgba(44, 44, 51, 1);
@@ -212,7 +221,7 @@
   --warning-text:       var(--warning);
   --error:              var(--pink-500);
   --error-foreground:   #000000;
-  --error-muted:        rgba(230, 32, 64, 0.15);
+  --error-muted:        rgba(252, 2, 86, 0.15);
   --error-text:         var(--primary-text);
   --info:               #59A8DC;
   --info-foreground:    #000000;
@@ -232,7 +241,7 @@
   --input:            rgba(25, 25, 28, 0.6);
   --input-background: rgba(25, 25, 28, 0.6);
   --switch-background: var(--graphite-600);
-  --ring:             rgba(230, 32, 64, 0.45);
+  --ring:             rgba(252, 2, 86, 0.45);
 
   --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -265,17 +274,17 @@
   --chart-4-texto: var(--background);
   --chart-5-texto: var(--background);
 
-  --destructive:            var(--pink-500);
+  --destructive:            var(--pink-550);   /* texto preto 4,5:1; o botão destrutivo escurece o fundo e usa texto branco */
   --destructive-foreground: #000000;
 
   --sidebar:                   rgba(0, 0, 0, 0.97);
   --sidebar-foreground:        #F6F6F7;
-  --sidebar-primary:           var(--pink-500);
+  --sidebar-primary:           var(--pink-550);
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent:            rgba(44, 44, 51, 0.6);
   --sidebar-accent-foreground: #F6F6F7;
   --sidebar-border:            rgba(255, 255, 255, 0.07);
-  --sidebar-ring:              rgba(230, 32, 64, 0.45);
+  --sidebar-ring:              rgba(252, 2, 86, 0.45);
 }
 
 /* Ângulo do Shine Border: registrado para poder ser animado */
@@ -365,6 +374,7 @@
   --color-orange-foreground: var(--orange-foreground);
   --color-orange-muted: var(--orange-muted);
   --color-primary-text: var(--primary-text);
+  --color-primary-destaque: var(--primary-destaque);
   --color-surface-tint: var(--surface-tint);
   --color-row-hover: var(--row-hover);
   --color-brand-rose: var(--brand-rose);
@@ -387,6 +397,8 @@
   --color-pink-300: var(--pink-300);
   --color-pink-400: var(--pink-400);
   --color-pink-500: var(--pink-500);
+  --color-pink-550: var(--pink-550);
+  --color-pink-575: var(--pink-575);
   --color-pink-600: var(--pink-600);
   --color-pink-700: var(--pink-700);
   --color-pink-800: var(--pink-800);
