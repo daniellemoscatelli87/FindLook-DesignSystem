@@ -7,19 +7,21 @@ import { ListaDeProgresso } from "@/app/components/ui/lista-de-progresso";
 import { CardComCabecalho, CardDeInformacao, FaixaDeBeneficios, ItemDeChecklist } from "@/app/components/ui/painel-dados";
 import { BadgeDeFaixa } from "@/app/components/ui/termometro";
 import { Button } from "@/app/components/ui/button";
+import seloEstrela from "../../../imports/findlook/findstar-selo-3d.webp";
 
 /* Abertura de uma página de desempenho: exemplo com dados fictícios e genéricos. Nomes, regras e textos de cada
    programa vêm do produto. */
 export function AberturaDeDesempenho() {
   const nao = (e: React.MouseEvent) => e.preventDefault();
   return (
-    <div className="space-y-5 rounded-xl bg-muted/40 p-4 sm:p-6">
+    <div className="relative isolate space-y-5 overflow-hidden rounded-xl bg-muted/40 p-4 sm:p-6">
       <CabecalhoComIlustracao
         nivel={2}
+        fundo="pagina"
         titulo={<>Programa <span className="text-[var(--primary-text,var(--primary))]">Destaque</span></>}
         subtitulo={<>Seu desempenho, de <strong>forma simples e transparente.</strong></>}
         descricao="Acompanhe sua nota, entenda o que influencia o resultado e saiba como evoluir."
-        ilustracao={<IlustracaoEstrela tamanho={150} rotulo={<strong className="font-extrabold">Selo Exemplo</strong>} frase="Reconhecimento genérico" />}
+        ilustracao={<IlustracaoEstrela src={seloEstrela} alt="FindStar: excelência no atendimento" tamanho={400} />}
       />
       <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
         <CardDeNota

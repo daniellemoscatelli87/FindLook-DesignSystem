@@ -71,19 +71,47 @@ function Gradientes({ id }: { id: string }) {
  * Para o topo de páginas de reconhecimento e conquista. Flutua devagar (sem animação com "menos movimento").
  * Com `rotulo`, mostra uma etiqueta em pílula rosa clara atrás da estrela, com o nome e a frase do reconhecimento (vindos
  * do produto). Decorativa: o texto da etiqueta é lido normalmente; a estrela fica escondida dos leitores de tela.
+ * Com `src`, mostra a ilustração pronta (imagem) no lugar do desenho, com `alt` descrevendo o que ela diz; entra com um
+ * leve crescimento e flutua devagar (parada com "menos movimento"). `tamanho` vira a largura da imagem.
  */
-export function IlustracaoEstrela({ tamanho = 168, animar = true, rotulo, frase, className }: {
+export function IlustracaoEstrela({ tamanho = 168, animar = true, rotulo, frase, src, alt, className }: {
   /** Largura da estrela com o pedestal, em px (a altura acompanha). */
   tamanho?: number;
   animar?: boolean;
   /** Nome do reconhecimento, ao lado da estrela (texto ou um MarcaFind). */
   rotulo?: React.ReactNode;
   frase?: React.ReactNode;
+  /** Ilustração pronta (imagem com fundo transparente). */
+  src?: string;
+  /** Texto alternativo da imagem (o que está escrito nela). */
+  alt?: string;
   className?: string;
 }) {
   const reduzir = useReducedMotion();
   const mexe = animar && !reduzir;
   const id = React.useId().replace(/:/g, "");
+  if (src) {
+    return (
+      <motion.div
+        data-slot="ilustracao-estrela"
+        className={cn("relative inline-flex", className)}
+        initial={mexe ? { opacity: 0, scale: 0.94, y: 6 } : false}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.img
+          src={src}
+          alt={alt ?? ""}
+          width={tamanho}
+          height={Math.round(tamanho * 0.4)}
+          className="h-auto max-w-full select-none"
+          draggable={false}
+          animate={mexe ? { y: [0, -4, 0] } : undefined}
+          transition={mexe ? { duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 } : undefined}
+        />
+      </motion.div>
+    );
+  }
   return (
     <div data-slot="ilustracao-estrela" className={cn("relative inline-flex items-center", className)}>
       <svg aria-hidden width={tamanho} height={tamanho * (210 / 240)} viewBox="0 0 240 210" className="relative z-10 shrink-0 overflow-visible">
