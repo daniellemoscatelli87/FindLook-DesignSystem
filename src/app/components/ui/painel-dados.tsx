@@ -386,12 +386,37 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
 
 /* ── Faixa de benefícios ─────────────────────────────────────── */
 /** tom "marca" (padrão): fundo rosa claro. tom "neutro": card branco com borda, para fechar uma página com um convite.
+ *  variante "linha" (com tom neutro): tudo numa linha só, separado por divisores, sem caixas nos itens, com o título
+ *  grande ao lado do ícone (ex.: nome de um reconhecimento). Em telas estreitas, empilha.
  *  acao: botão ou link à direita (ex.: "Ver critérios"). O título pode ser um nome da marca (MarcaFind); nesse caso,
  *  informe `rotulo` em texto para leitores de tela. */
-function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; className?: string }) {
+function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", variante = "caixas", className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; variante?: "caixas" | "linha"; className?: string }) {
+  const nome = rotulo ?? (typeof titulo === "string" ? titulo : undefined);
+  if (variante === "linha") {
+    return (
+      <div className={cn("@container", className)}>
+        <section data-slot="faixa-de-beneficios" data-tom={tom} data-variante="linha" aria-label={nome} className={cn("flex flex-col gap-4 rounded-lg px-5 py-5 @5xl:flex-row @5xl:items-center @5xl:gap-0", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
+          <div className="flex shrink-0 items-center gap-2.5 @5xl:pr-5">
+            {icone && <span aria-hidden className="text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
+            <p className={`${display} text-[1.75rem] font-extrabold leading-none text-foreground`}>{titulo}</p>
+          </div>
+          <p className="text-[0.875rem] leading-snug text-muted-foreground @5xl:max-w-[16rem] @5xl:border-l @5xl:border-border @5xl:px-5">{texto}</p>
+          <ul className="grid min-w-0 flex-1 grid-cols-1 gap-3 @md:grid-cols-3 @5xl:flex @5xl:gap-0">
+            {beneficios.map((b, i) => (
+              <li key={i} className="flex items-center gap-2.5 text-[0.875rem] font-semibold leading-tight text-foreground @5xl:flex-1 @5xl:border-l @5xl:border-border @5xl:px-5">
+                <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-6 [&>svg]:w-6">{b.icone}</span>
+                <span className="min-w-0">{b.rotulo}</span>
+              </li>
+            ))}
+          </ul>
+          {acao && <div className="shrink-0 @5xl:pl-3">{acao}</div>}
+        </section>
+      </div>
+    );
+  }
   return (
     <div className={cn("@container", className)}>
-    <section data-slot="faixa-de-beneficios" data-tom={tom} aria-label={rotulo ?? (typeof titulo === "string" ? titulo : undefined)} className={cn("flex flex-col gap-4 rounded-lg p-5 @4xl:flex-row @4xl:items-center", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
+    <section data-slot="faixa-de-beneficios" data-tom={tom} aria-label={nome} className={cn("flex flex-col gap-4 rounded-lg p-5 @4xl:flex-row @4xl:items-center", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
       <div className="flex min-w-0 gap-3 @4xl:w-64 @4xl:shrink-0">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
@@ -410,6 +435,21 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
       {acao && <div className="shrink-0">{acao}</div>}
     </section>
     </div>
+  );
+}
+
+/* ── Card de informação (ícone grande + rótulo + valor em destaque) ── */
+/** Uma informação só, em destaque, com o ícone redondo à esquerda (ex.: "Próxima avaliação · 1 de dezembro"). */
+function CardDeInformacao({ icone, rotulo, valor, texto, tom = "marca", className }: { icone: React.ReactNode; rotulo: React.ReactNode; valor: React.ReactNode; texto?: React.ReactNode; tom?: TomDoIcone; className?: string }) {
+  return (
+    <section data-slot="card-de-informacao" className={cn("flex items-center gap-4 rounded-lg p-5 @xl:px-6", superficieDoCard, className)}>
+      <IconeComBase tom={tom} redonda className="h-14 w-14 [&>svg]:h-6 [&>svg]:w-6">{icone}</IconeComBase>
+      <div className="min-w-0">
+        <p className="m-0 text-[1.0625rem] font-semibold text-foreground">{rotulo}</p>
+        <p className={`${display} m-0 mt-0.5 text-[1.625rem] font-extrabold leading-tight tracking-[-0.02em] text-foreground`}>{valor}</p>
+        {texto && <p className="m-0 mt-2 text-[0.875rem] text-muted-foreground">{texto}</p>}
+      </div>
+    </section>
   );
 }
 
@@ -458,15 +498,17 @@ function DivisorSuave({ className }: { className?: string }) {
  * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
  */
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+/** fundo "marca": card com degradê rosa claro e o conteúdo num painel branco (para a lista de ações em destaque da página).
+ *  iconeRedondo: base do ícone redonda e maior, para cards de abertura de página. */
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", fundo = "card", iconeRedondo = false, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeRedondo?: boolean; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
+    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", fundo === "marca" ? "border border-primary/10 bg-[linear-gradient(160deg,var(--primary-muted),var(--card)_75%)]" : superficieDoCard, className)}>
       <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && cabecalho === "simples" && "mb-5")}>
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
-        <IconeComBase tom={tom}>{icone}</IconeComBase>
+        <IconeComBase tom={tom} redonda={iconeRedondo} tamanho={iconeRedondo ? "lg" : "md"}>{icone}</IconeComBase>
         <div className="min-w-[12rem] flex-1 self-center">
           <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
           {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
@@ -474,7 +516,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
         {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
       </div>
       {temConteudo && cabecalho === "divisor" && <DivisorSuave className="my-4 @xl:my-5" />}
-      {children}
+      {fundo === "marca" && temConteudo ? <div className="rounded-md bg-card px-2 py-1 shadow-[var(--shadow-xs)]">{children}</div> : children}
     </section>
   );
 }
@@ -759,7 +801,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };

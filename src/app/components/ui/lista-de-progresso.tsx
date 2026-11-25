@@ -37,13 +37,13 @@ export function ListaDeProgresso({ itens, onSelecionar, className }: {
       {itens.map((i, n) => {
         const conteudo = (
           <>
-            <IconeComBase tom="marca" redonda tamanho="sm">{i.icone}</IconeComBase>
-            <div className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1.5 @lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_4.5rem]">
+            <IconeComBase tom="marca" redonda>{i.icone}</IconeComBase>
+            <div className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1.5 @lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)_4.5rem]">
               <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5">
-                <span className="text-[0.875rem] font-semibold text-foreground">{i.rotulo}</span>
+                <span className="whitespace-nowrap text-[0.9375rem] font-semibold text-foreground">{i.rotulo}</span>
                 {i.etiqueta && <span className="rounded-full bg-muted px-2 py-0.5 text-[0.6875rem] font-medium text-muted-foreground">{i.etiqueta}</span>}
               </span>
-              <span className="col-span-2 row-start-2 block h-2 overflow-hidden rounded-full bg-muted @lg:col-span-1 @lg:col-start-2 @lg:row-start-1" aria-hidden>
+              <span className="col-span-2 row-start-2 block h-2.5 overflow-hidden rounded-full bg-muted @lg:col-span-1 @lg:col-start-2 @lg:row-start-1" aria-hidden>
                 {i.pct != null && (
                   <motion.span
                     className="block h-full rounded-full bg-primary"
@@ -64,10 +64,10 @@ export function ListaDeProgresso({ itens, onSelecionar, className }: {
         return (
           <li key={i.id} data-item={i.id}>
             {onSelecionar ? (
-              <button type="button" onClick={() => onSelecionar(i.id)} className="flex w-full items-center gap-3 rounded-md px-2 py-2.5 text-left transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <button type="button" onClick={() => onSelecionar(i.id)} className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 {conteudo}
               </button>
-            ) : <div className="flex items-center gap-3 px-2 py-2.5">{conteudo}</div>}
+            ) : <div className="flex items-center gap-3 px-2 py-2">{conteudo}</div>}
           </li>
         );
       })}

@@ -37,9 +37,15 @@ export const valorExibido = (valor: number) => Math.floor(limitar(valor));
 export const corDoTom = (tom: number) => `var(--termometro-${tom})`;
 
 /* ── Badge da faixa (Badge do DS com o ponto do tom) ─────────── */
-export function BadgeDeFaixa({ faixa, semFaixa = "Em avaliação", className }: { faixa?: FaixaDoTermometro | null; semFaixa?: string; className?: string }) {
+/** `preenchida`: fundo claro no tom da faixa, maior, para o destaque da nota (o nome continua escrito). */
+export function BadgeDeFaixa({ faixa, semFaixa = "Em avaliação", preenchida = false, className }: { faixa?: FaixaDoTermometro | null; semFaixa?: string; preenchida?: boolean; className?: string }) {
   return (
-    <Badge variant="outline" data-slot="badge-de-faixa" className={cn("rounded-full px-2.5 font-semibold", className)}>
+    <Badge
+      variant="outline"
+      data-slot="badge-de-faixa"
+      className={cn("rounded-full px-2.5 font-semibold", preenchida && "gap-2 border-transparent px-3.5 py-1 text-[0.875rem] text-foreground", className)}
+      style={preenchida ? { background: faixa ? `color-mix(in srgb, ${corDoTom(faixa.tom)} 18%, var(--card))` : "var(--muted)" } : undefined}
+    >
       {faixa ? <span aria-hidden className="size-2 rounded-full" style={{ background: corDoTom(faixa.tom) }} /> : <Clock aria-hidden />}
       {faixa ? faixa.nome : semFaixa}
     </Badge>
