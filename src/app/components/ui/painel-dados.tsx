@@ -400,16 +400,16 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
             {icone && <span aria-hidden className="text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
             <p className={`${display} text-[1.75rem] font-extrabold leading-none text-foreground`}>{titulo}</p>
           </div>
-          <p className="text-[0.875rem] leading-snug text-muted-foreground @5xl:max-w-[16rem] @5xl:border-l @5xl:border-border @5xl:px-5">{texto}</p>
-          <ul className="grid min-w-0 flex-1 grid-cols-1 gap-3 @md:grid-cols-3 @5xl:flex @5xl:gap-0">
+          <p className="text-[0.875rem] leading-snug text-muted-foreground @5xl:min-w-0 @5xl:max-w-[17rem] @5xl:flex-1 @5xl:border-l @5xl:border-border @5xl:px-5">{texto}</p>
+          <ul className="grid min-w-0 grid-cols-1 gap-3 @md:grid-cols-3 @5xl:flex @5xl:gap-0">
             {beneficios.map((b, i) => (
-              <li key={i} className="flex items-center gap-2.5 text-[0.875rem] font-semibold leading-tight text-foreground @5xl:flex-1 @5xl:border-l @5xl:border-border @5xl:px-5">
+              <li key={i} className="flex items-center gap-2.5 text-[0.875rem] font-semibold leading-tight text-foreground @5xl:shrink-0 @5xl:border-l @5xl:border-border @5xl:px-4 @5xl:whitespace-nowrap">
                 <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-6 [&>svg]:w-6">{b.icone}</span>
                 <span className="min-w-0">{b.rotulo}</span>
               </li>
             ))}
           </ul>
-          {acao && <div className="shrink-0 @5xl:pl-3">{acao}</div>}
+          {acao && <div className="shrink-0 @5xl:ml-auto @5xl:pl-3">{acao}</div>}
         </section>
       </div>
     );
