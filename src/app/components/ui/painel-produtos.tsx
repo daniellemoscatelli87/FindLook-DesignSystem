@@ -18,7 +18,7 @@ import { Checkbox } from "./checkbox";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 /* ── Abas com contador ───────────────────────────────────────── */
-type Aba = { valor: string; rotulo: string; quantidade?: number };
+type Aba = { valor: string; rotulo: string; quantidade?: number; /** Ícone opcional antes do rótulo (decorativo). */ icone?: React.ReactNode };
 
 /**
  * estilo "pagina" (Opção A, 23/11/2026): abas da página, logo abaixo do título, sem linha de base de ponta a ponta;
@@ -64,6 +64,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
                   : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
             )}
           >
+            {a.icone && <span aria-hidden className="[&>svg]:h-4 [&>svg]:w-4">{a.icone}</span>}
             {a.rotulo}
             {a.quantidade !== undefined && <span className={cn("rounded-full px-1.5 text-[0.6875rem] font-semibold tabular-nums", ativa ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted-foreground/10 text-muted-foreground")}>{formatarNumero(a.quantidade)}</span>}
           </button>

@@ -104,3 +104,44 @@ export function Termometro({ faixas, valor, rotulo, compacto = false, className 
     </div>
   );
 }
+
+/* ── Escala de faixas ───────────────────────────────────────── */
+/**
+ * Escala de faixas: todas as faixas de uma pontuação, uma por linha, com o nome e o intervalo num bloco no tom da faixa e a
+ * explicação ao lado. O nome está sempre escrito (a cor nunca é a única pista). A faixa do alto pode ganhar um ícone no lugar
+ * do ponto (ex.: estrela). Faixas, intervalos e textos vêm do produto. Em telas estreitas, a explicação desce.
+ */
+export function EscalaDeFaixas({ faixas, intervalo, descricao, iconeDoTopo, atual, className }: {
+  faixas: readonly FaixaDoTermometro[];
+  /** Texto do intervalo de cada faixa (ex.: "80 a 94 pontos"). */
+  intervalo: (f: FaixaDoTermometro, i: number) => React.ReactNode;
+  descricao?: (f: FaixaDoTermometro) => React.ReactNode;
+  /** Ícone no lugar do ponto da última faixa. */
+  iconeDoTopo?: React.ReactNode;
+  /** id da faixa atual, marcada para leitores de tela e com borda. */
+  atual?: string;
+  className?: string;
+}) {
+  return (
+    <ul data-slot="escala-de-faixas" className={cn("@container m-0 list-none space-y-2 p-0", className)}>
+      {faixas.map((f, i) => {
+        const topo = i === faixas.length - 1 && iconeDoTopo;
+        return (
+          <li key={f.id} data-faixa={f.id} aria-current={atual === f.id ? "true" : undefined}
+            className={cn("grid grid-cols-1 overflow-hidden rounded-lg border bg-card @md:grid-cols-[minmax(0,13rem)_minmax(0,1fr)]", atual === f.id ? "border-foreground/30" : "border-border")}>
+            <div className="flex items-center gap-3 px-4 py-2.5" style={{ background: `color-mix(in srgb, ${corDoTom(f.tom)} 16%, var(--card))` }}>
+              {topo
+                ? <span aria-hidden className="shrink-0 [&>svg]:h-5 [&>svg]:w-5" style={{ color: corDoTom(f.tom) }}>{iconeDoTopo}</span>
+                : <span aria-hidden className="size-3 shrink-0 rounded-full" style={{ background: corDoTom(f.tom) }} />}
+              <span className="min-w-0">
+                <span className="block text-[0.9375rem] font-bold leading-tight text-foreground">{f.nome}{atual === f.id && <span className="sr-only"> (sua faixa atual)</span>}</span>
+                <span className="block text-[0.8125rem] text-foreground/80">{intervalo(f, i)}</span>
+              </span>
+            </div>
+            {descricao && <p className="m-0 flex items-center px-4 py-2.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao(f)}</p>}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}

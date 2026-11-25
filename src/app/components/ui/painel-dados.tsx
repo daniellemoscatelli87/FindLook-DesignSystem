@@ -268,7 +268,20 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 /** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
 /** variante "card": atalho em card (ícone no alto, sem base; título; descrição com a seta ao lado), para levar às
  *  próximas telas de uma área, em grade. */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", variante = "linha", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; variante?: "linha" | "card"; className?: string }) {
+/** Sem `href` e sem `onClick`, o item é só informativo: sem seta, sem estado de clique (ex.: "Por que é avaliado?"). */
+function ItemDeAcao({ midia, titulo, descricao, href, onClick, tom = "marca", variante = "linha", className }: { midia: React.ReactNode; titulo: string; descricao?: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; variante?: "linha" | "card"; className?: string }) {
+  if (href === undefined && !onClick) {
+    return (
+      <div data-slot="item-de-acao" data-variante="informativo" className={cn("flex items-center gap-4 rounded-md border border-border bg-card p-3", className)}>
+        <IconeComBase tom={tom} className="h-14 w-14 [&>svg]:h-6 [&>svg]:w-6">{midia}</IconeComBase>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[0.9375rem] font-bold text-foreground">{titulo}</span>
+          {descricao && <span className="mt-0.5 block text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</span>}
+        </span>
+      </div>
+    );
+  }
+  href = href ?? "#";
   if (variante === "card") {
     return (
       <a
@@ -412,17 +425,29 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
  *  grande ao lado do ícone (ex.: nome de um reconhecimento). Em telas estreitas, empilha.
  *  acao: botão ou link à direita (ex.: "Ver critérios"). O título pode ser um nome da marca (MarcaFind); nesse caso,
  *  informe `rotulo` em texto para leitores de tela. */
-function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", variante = "caixas", className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; variante?: "caixas" | "linha"; className?: string }) {
+function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", variante = "caixas", tituloGrande = true, className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; variante?: "caixas" | "linha"; /** Na variante linha: título grande (nome de marca) ou médio (frase), com o texto embaixo dele. */ tituloGrande?: boolean; className?: string }) {
   const nome = rotulo ?? (typeof titulo === "string" ? titulo : undefined);
   if (variante === "linha") {
     return (
       <div className={cn("@container", className)}>
         <section data-slot="faixa-de-beneficios" data-tom={tom} data-variante="linha" aria-label={nome} className={cn("flex flex-col gap-4 rounded-lg px-5 py-5 @5xl:flex-row @5xl:items-center @5xl:gap-0", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
-          <div className="flex shrink-0 items-center gap-2.5 @5xl:pr-5">
-            {icone && <span aria-hidden className="text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
-            <p className={`${display} text-[1.75rem] font-extrabold leading-none text-foreground`}>{titulo}</p>
-          </div>
-          <p className="text-[0.875rem] leading-snug text-muted-foreground @5xl:min-w-0 @5xl:max-w-[17rem] @5xl:flex-1 @5xl:border-l @5xl:border-border @5xl:px-5">{texto}</p>
+          {tituloGrande ? (
+            <>
+              <div className="flex shrink-0 items-center gap-2.5 @5xl:pr-5">
+                {icone && <span aria-hidden className="text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
+                <p className={`${display} text-[1.75rem] font-extrabold leading-none text-foreground`}>{titulo}</p>
+              </div>
+              <p className="text-[0.875rem] leading-snug text-muted-foreground @5xl:min-w-0 @5xl:max-w-[17rem] @5xl:flex-1 @5xl:border-l @5xl:border-border @5xl:px-5">{texto}</p>
+            </>
+          ) : (
+            <div className="flex min-w-0 items-center gap-3 @5xl:flex-1 @5xl:pr-5">
+              {icone && <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
+              <div className="min-w-0">
+                <p className={`${display} text-[1.125rem] font-bold leading-snug text-foreground`}>{titulo}</p>
+                <p className="mt-0.5 text-[0.875rem] leading-snug text-muted-foreground">{texto}</p>
+              </div>
+            </div>
+          )}
           <ul className="grid min-w-0 grid-cols-1 gap-3 @md:grid-cols-3 @5xl:flex @5xl:gap-0">
             {beneficios.map((b, i) => (
               <li key={i} className="flex items-center gap-2.5 text-[0.875rem] font-semibold leading-tight text-foreground @5xl:shrink-0 @5xl:border-l @5xl:border-border @5xl:px-4 @5xl:whitespace-nowrap">
