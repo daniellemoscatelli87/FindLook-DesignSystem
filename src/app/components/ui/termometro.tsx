@@ -130,15 +130,17 @@ export function EscalaDeFaixas({ faixas, intervalo, descricao, icone, atual, cla
         <li key={f.id} data-faixa={f.id} aria-current={atual === f.id ? "true" : undefined}
           className="flex flex-col gap-3 rounded-lg border px-4 py-3.5 @2xl:flex-row @2xl:items-center @2xl:gap-5"
           style={{ background: `linear-gradient(90deg, ${tinta(f, 12)}, ${tinta(f, 3)})`, borderColor: tinta(f, 22) }}>
-          <div className="flex min-w-0 items-center gap-4 @2xl:w-[22rem] @2xl:shrink-0">
-            <span aria-hidden className="flex size-12 shrink-0 items-center justify-center rounded-md text-white [&>svg]:size-6" style={{ background: corDoTom(f.tom) }}>
+          <div className="flex min-w-0 items-center gap-3 @md:gap-4 @2xl:w-[22rem] @2xl:shrink-0">
+            <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-md text-white [&>svg]:size-5 @md:size-12 @md:[&>svg]:size-6" style={{ background: corDoTom(f.tom) }}>
               {icone ? icone(f, i) : <span className="size-3 rounded-full bg-white" />}
             </span>
             <span aria-hidden className="h-9 w-px shrink-0" style={{ background: tinta(f, 35) }} />
-            <span className="min-w-0 flex-1 font-[family-name:var(--font-display,var(--font-sans))] text-[1.25rem] font-extrabold leading-tight tracking-[-0.01em] text-foreground">
-              {f.nome}{atual === f.id && <span className="sr-only"> (sua faixa atual)</span>}
+            <span className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-3 gap-y-1">
+              <span className="font-[family-name:var(--font-display,var(--font-sans))] text-[1.125rem] font-extrabold leading-tight tracking-[-0.01em] text-foreground @md:text-[1.25rem]">
+                {f.nome}{atual === f.id && <span className="sr-only"> (sua faixa atual)</span>}
+              </span>
+              <span className="shrink-0 whitespace-nowrap rounded-full px-3 py-1 text-[0.8125rem] font-medium text-foreground @md:text-[0.875rem]" style={{ background: tinta(f, 24) }}>{intervalo(f, i)}</span>
             </span>
-            <span className="shrink-0 rounded-full px-3 py-1 text-[0.875rem] font-medium text-foreground" style={{ background: tinta(f, 24) }}>{intervalo(f, i)}</span>
           </div>
           {descricao && (
             <p className="m-0 min-w-0 flex-1 text-[0.875rem] leading-snug text-foreground/80 @2xl:border-l @2xl:pl-5" style={{ borderColor: tinta(f, 35) }}>{descricao(f)}</p>
