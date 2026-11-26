@@ -426,8 +426,22 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
  *  grande ao lado do ícone (ex.: nome de um reconhecimento). Em telas estreitas, empilha.
  *  acao: botão ou link à direita (ex.: "Ver critérios"). O título pode ser um nome da marca (MarcaFind); nesse caso,
  *  informe `rotulo` em texto para leitores de tela. */
-function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", variante = "caixas", tituloGrande = true, className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; variante?: "caixas" | "linha"; /** Na variante linha: título grande (nome de marca) ou médio (frase), com o texto embaixo dele. */ tituloGrande?: boolean; className?: string }) {
+function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", variante = "caixas", tituloGrande = true, className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; /** "soltos": só os benefícios, em cartões brancos lado a lado, sem moldura nem título (o título fica para leitores de tela). */ variante?: "caixas" | "linha" | "soltos"; /** Na variante linha: título grande (nome de marca) ou médio (frase), com o texto embaixo dele. */ tituloGrande?: boolean; className?: string }) {
   const nome = rotulo ?? (typeof titulo === "string" ? titulo : undefined);
+  if (variante === "soltos") {
+    return (
+      <div className={cn("@container", className)}>
+        <ul data-slot="faixa-de-beneficios" data-variante="soltos" aria-label={nome} className="m-0 grid list-none grid-cols-1 gap-3 p-0 @md:grid-cols-2 @3xl:grid-cols-4">
+          {beneficios.map((b, i) => (
+            <li key={i} className="flex min-w-0 items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-[0.875rem] font-semibold leading-tight text-foreground">
+              <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-6 [&>svg]:w-6">{b.icone}</span>
+              <span className="min-w-0">{b.rotulo}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
   if (variante === "linha") {
     return (
       <div className={cn("@container", className)}>
@@ -482,6 +496,30 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
       </ul>
       {acao && <div className="shrink-0">{acao}</div>}
     </section>
+    </div>
+  );
+}
+
+/* ── Anel de progresso ──────────────────────────────────────── */
+/** Anel de progresso genérico: quantos de um total já foram cumpridos (ex.: "1 de 4 requisitos cumpridos"), na cor da
+ *  marca, com o número no centro. Sem as faixas fixas do AnelDePontuacao. O anel cresce ao aparecer (sem animação com
+ *  "menos movimento"). */
+function AnelDeProgresso({ valor, total, rotulo, tamanho = 136, className }: { valor: number; total: number; /** Texto embaixo do número (ex.: "requisitos cumpridos"). */ rotulo: string; tamanho?: number; className?: string }) {
+  const r = 42, c = 2 * Math.PI * r;
+  const pct = total > 0 ? Math.max(0, Math.min(1, valor / total)) : 0;
+  const [visivel, setVisivel] = React.useState(false);
+  React.useEffect(() => { const t = requestAnimationFrame(() => setVisivel(true)); return () => cancelAnimationFrame(t); }, []);
+  return (
+    <div data-slot="anel-de-progresso" role="img" aria-label={`${valor} de ${total} ${rotulo}`} className={cn("relative inline-flex shrink-0 items-center justify-center", className)} style={{ width: tamanho, height: tamanho }}>
+      <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden>
+        <circle cx="50" cy="50" r={r} fill="none" stroke="var(--muted)" strokeWidth="8" />
+        <circle cx="50" cy="50" r={r} fill="none" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" strokeDasharray={c}
+          strokeDashoffset={c * (1 - (visivel ? pct : 0))} className="transition-[stroke-dashoffset] duration-700 ease-out motion-reduce:transition-none" />
+      </svg>
+      <span aria-hidden className="absolute flex max-w-[70%] flex-col items-center text-center">
+        <span className={`${display} block font-extrabold leading-none text-foreground`} style={{ fontSize: Math.round(tamanho * 0.19) }}>{valor} de {total}</span>
+        <span className="mt-1 block text-[0.75rem] leading-tight text-muted-foreground">{rotulo}</span>
+      </span>
     </div>
   );
 }
@@ -873,7 +911,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, ListaDeCondicoes, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, ListaDeCondicoes, AnelDeProgresso, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };
