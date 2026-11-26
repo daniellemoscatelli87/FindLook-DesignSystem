@@ -522,8 +522,8 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Chart Palette", "Paleta de gráficos"),
     tokens: [
-      { name: "--chart-1", description: t("Tone 1 of the FindLook chart palette — highlight: the main data point", "Tom 1 da paleta de gráficos da FindLook — destaque: o dado principal"), light: "#E62040", dark: "#E62040", isColor: true },
-      { name: "--chart-2", description: t("Tone 2 of the FindLook chart palette — highlight", "Tom 2 da paleta de gráficos da FindLook — destaque"), light: "#FF6E85", dark: "#FF6E85", isColor: true },
+      { name: "--chart-1", description: t("Tone 1 of the FindLook chart palette — highlight: the main data point", "Tom 1 da paleta de gráficos da FindLook — destaque: o dado principal"), light: "#FC0256", dark: "#FC0256", isColor: true },
+      { name: "--chart-2", description: t("Tone 2 of the FindLook chart palette — highlight", "Tom 2 da paleta de gráficos da FindLook — destaque"), light: "#FF6F95", dark: "#FF6F95", isColor: true },
       { name: "--chart-3", description: t("Tone 3 of the FindLook chart palette — support and transition", "Tom 3 da paleta de gráficos da FindLook — apoio e transição"), light: "#F9B5BF", dark: "#F9B5BF", isColor: true },
       { name: "--chart-4", description: t("Tone 4 of the FindLook chart palette — support and transition", "Tom 4 da paleta de gráficos da FindLook — apoio e transição"), light: "#E2919E", dark: "#E2919E", isColor: true },
       { name: "--chart-5", description: t("Tone 5 of the FindLook chart palette — support and transition", "Tom 5 da paleta de gráficos da FindLook — apoio e transição"), light: "#C29AA0", dark: "#C29AA0", isColor: true },

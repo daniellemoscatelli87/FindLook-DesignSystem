@@ -209,7 +209,7 @@ const PASSOS_INTELIGENCIA = [
 ];
 
 /** Paleta da FindLook (decisão da dona do produto, 21/11/2026), em ordem de importância. */
-const PALETA = ["#E62040", "#FF6E85", "#F9B5BF", "#E2919E", "#C29AA0", "#D4D4D4", "#EBEBEB"];
+const PALETA = ["#FC0256", "#FF6F95", "#F9B5BF", "#E2919E", "#C29AA0", "#D4D4D4", "#EBEBEB"];
 
 const FAIXAS_DA_PALETA = [
   { tons: [1, 2], nome: "Destaque", d: "O dado principal ou o ponto de atenção." },
@@ -219,10 +219,10 @@ const FAIXAS_DA_PALETA = [
 
 const REGRAS_DE_COR = [
   { t: "1 gráfico = 1 foco", d: "Use o tom 1, forte, para o dado principal ou o ponto de atenção." },
-  { t: "Importância em ordem", d: "Ordene as séries da mais importante (rosa/vermelho) para a mais contextual (cinza)." },
+  { t: "Importância em ordem", d: "Ordene as séries da mais importante (pink) para a mais contextual (cinza)." },
   { t: "Contexto em cinza", d: "Benchmarks, histórico, metas e comparações secundárias usam os tons finais (6 e 7)." },
   { t: "Evite excesso de destaque", d: "Nunca use mais de 2 tons intensos (1 e 2) no mesmo gráfico." },
-  { t: "Escalas contínuas", d: "Mapas de calor, degradês e intensidades começam no cinza e vão ao rosa/vermelho conforme o valor aumenta." },
+  { t: "Escalas contínuas", d: "Mapas de calor, degradês e intensidades começam no cinza e vão ao pink conforme o valor aumenta." },
 ];
 
 const EX_BARRAS = [
@@ -252,7 +252,7 @@ function SecaoCores() {
     <section id="graficos-cores" className="scroll-mt-32">
       <SectionHeader
         title="Cores dos gráficos"
-        description="Paleta da FindLook: 7 tons em ordem de importância, do vermelho da marca ao cinza, os mesmos no tema claro e no escuro. Quanto mais à esquerda, mais ênfase visual; quanto mais à direita, mais neutro e contextual. Decisão da dona do produto, 21/11/2026."
+        description="Paleta da FindLook: 7 tons em ordem de importância, do pink da marca ao cinza, os mesmos no tema claro e no escuro. Quanto mais à esquerda, mais ênfase visual; quanto mais à direita, mais neutro e contextual. Decisão da dona do produto, 21/11/2026."
       />
       <Cartao>
         <Rotulo>Paleta em ordem de importância</Rotulo>
@@ -364,14 +364,14 @@ function SecaoCores() {
         <DoDont
           dos={[
             "Tom 1 só no dado principal ou no ponto de atenção.",
-            "Séries em ordem de importância, do rosa/vermelho ao cinza (coresPorImportancia).",
+            "Séries em ordem de importância, do pink ao cinza (coresPorImportancia).",
             "Referências, histórico e metas nos tons 6 e 7; Outros em --chart-neutral, por último.",
             "Valores e nomes fora das marcas, sempre na mesma cor de texto, com um ponto na cor da parte quando for preciso ligá-los a ela.",
           ]}
           donts={[
             "Usar mais de 2 tons intensos (1 e 2) no mesmo gráfico.",
             "Criar cores fora da paleta (verde, azul, laranja) para separar séries.",
-            "Começar uma escala contínua pelo vermelho ou embaralhar a ordem dos tons.",
+            "Começar uma escala contínua pelo pink ou embaralhar a ordem dos tons.",
             "Escrever número ou nome sobre uma barra, fatia, célula, bloco ou bolha, ou depender só da legenda para dizer o que é cada cor.",
           ]}
         />

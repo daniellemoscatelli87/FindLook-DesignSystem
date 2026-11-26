@@ -142,8 +142,8 @@
      branco: a dona do produto aceitou (os gráficos sempre escrevem rótulos e valores; a cor nunca é a única pista).
      Regras: 1 gráfico = 1 foco (tom 1) · importância em ordem · contexto em cinza (6–7) · no máximo 2 tons intensos (1 e 2)
      · escalas contínuas do cinza ao rosa. --chart-neutral (= tom 7): "Outros" e informação sem destaque. */
-  --chart-1: #E62040;
-  --chart-2: #FF6E85;
+  --chart-1: #FC0256;
+  --chart-2: #FF6F95;
   --chart-3: #F9B5BF;
   --chart-4: #E2919E;
   --chart-5: #C29AA0;
@@ -251,8 +251,8 @@
   --shadow-xl:  0 16px 64px rgba(0, 0, 0, 0.55), 0 48px 100px rgba(0, 0, 0, 0.40);
 
   /* Gráficos no escuro: a mesma paleta do tema claro (decisão de 21/11/2026). */
-  --chart-1: #E62040;
-  --chart-2: #FF6E85;
+  --chart-1: #FC0256;
+  --chart-2: #FF6F95;
   --chart-3: #F9B5BF;
   --chart-4: #E2919E;
   --chart-5: #C29AA0;
