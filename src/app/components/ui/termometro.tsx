@@ -107,41 +107,44 @@ export function Termometro({ faixas, valor, rotulo, compacto = false, className 
 
 /* ── Escala de faixas ───────────────────────────────────────── */
 /**
- * Escala de faixas: todas as faixas de uma pontuação, uma por linha, com o nome e o intervalo num bloco no tom da faixa e a
- * explicação ao lado. O nome está sempre escrito (a cor nunca é a única pista). A faixa do alto pode ganhar um ícone no lugar
- * do ponto (ex.: estrela). Faixas, intervalos e textos vêm do produto. Em telas estreitas, a explicação desce.
+ * Escala de faixas: todas as faixas de uma pontuação, uma por linha, no tom de cada faixa. À esquerda, o ícone num quadrado
+ * cheio no tom; depois o nome em destaque e o intervalo numa pílula; à direita, a explicação. O nome está sempre escrito (a
+ * cor nunca é a única pista) e o ícone é decorativo. Faixas, ícones, intervalos e textos vêm do produto. Em telas
+ * estreitas, a explicação desce para baixo do nome.
  */
-export function EscalaDeFaixas({ faixas, intervalo, descricao, iconeDoTopo, atual, className }: {
+export function EscalaDeFaixas({ faixas, intervalo, descricao, icone, atual, className }: {
   faixas: readonly FaixaDoTermometro[];
   /** Texto do intervalo de cada faixa (ex.: "80 a 94 pontos"). */
   intervalo: (f: FaixaDoTermometro, i: number) => React.ReactNode;
   descricao?: (f: FaixaDoTermometro) => React.ReactNode;
-  /** Ícone no lugar do ponto da última faixa. */
-  iconeDoTopo?: React.ReactNode;
+  /** Ícone de cada faixa (decorativo). Sem ícone, aparece o ponto no tom. */
+  icone?: (f: FaixaDoTermometro, i: number) => React.ReactNode;
   /** id da faixa atual, informada aos leitores de tela. */
   atual?: string;
   className?: string;
 }) {
+  const tinta = (f: FaixaDoTermometro, pct: number) => `color-mix(in srgb, ${corDoTom(f.tom)} ${pct}%, var(--card))`;
   return (
-    <ul data-slot="escala-de-faixas" className={cn("@container m-0 list-none space-y-2 p-0", className)}>
-      {faixas.map((f, i) => {
-        const topo = i === faixas.length - 1 && iconeDoTopo;
-        return (
-          <li key={f.id} data-faixa={f.id} aria-current={atual === f.id ? "true" : undefined}
-            className="grid grid-cols-1 overflow-hidden rounded-md border border-border bg-card @md:grid-cols-[minmax(0,13rem)_minmax(0,1fr)]">
-            <div className="flex items-center gap-3 px-4 py-2.5" style={{ background: `color-mix(in srgb, ${corDoTom(f.tom)} 16%, var(--card))` }}>
-              {topo
-                ? <span aria-hidden className="shrink-0 [&>svg]:h-5 [&>svg]:w-5" style={{ color: corDoTom(f.tom) }}>{iconeDoTopo}</span>
-                : <span aria-hidden className="size-3 shrink-0 rounded-full" style={{ background: corDoTom(f.tom) }} />}
-              <span className="min-w-0">
-                <span className="block text-[0.9375rem] font-bold leading-tight text-foreground">{f.nome}{atual === f.id && <span className="sr-only"> (sua faixa atual)</span>}</span>
-                <span className="block text-[0.8125rem] text-foreground/80">{intervalo(f, i)}</span>
-              </span>
-            </div>
-            {descricao && <p className="m-0 flex items-center px-4 py-2.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao(f)}</p>}
-          </li>
-        );
-      })}
+    <ul data-slot="escala-de-faixas" className={cn("@container m-0 list-none space-y-3 p-0", className)}>
+      {faixas.map((f, i) => (
+        <li key={f.id} data-faixa={f.id} aria-current={atual === f.id ? "true" : undefined}
+          className="flex flex-col gap-3 rounded-lg border px-4 py-3.5 @2xl:flex-row @2xl:items-center @2xl:gap-5"
+          style={{ background: `linear-gradient(90deg, ${tinta(f, 12)}, ${tinta(f, 3)})`, borderColor: tinta(f, 22) }}>
+          <div className="flex min-w-0 items-center gap-4 @2xl:w-[22rem] @2xl:shrink-0">
+            <span aria-hidden className="flex size-12 shrink-0 items-center justify-center rounded-md text-white [&>svg]:size-6" style={{ background: corDoTom(f.tom) }}>
+              {icone ? icone(f, i) : <span className="size-3 rounded-full bg-white" />}
+            </span>
+            <span aria-hidden className="h-9 w-px shrink-0" style={{ background: tinta(f, 35) }} />
+            <span className="min-w-0 flex-1 font-[family-name:var(--font-display,var(--font-sans))] text-[1.25rem] font-extrabold leading-tight tracking-[-0.01em] text-foreground">
+              {f.nome}{atual === f.id && <span className="sr-only"> (sua faixa atual)</span>}
+            </span>
+            <span className="shrink-0 rounded-full px-3 py-1 text-[0.875rem] font-medium text-foreground" style={{ background: tinta(f, 24) }}>{intervalo(f, i)}</span>
+          </div>
+          {descricao && (
+            <p className="m-0 min-w-0 flex-1 text-[0.875rem] leading-snug text-foreground/80 @2xl:border-l @2xl:pl-5" style={{ borderColor: tinta(f, 35) }}>{descricao(f)}</p>
+          )}
+        </li>
+      ))}
     </ul>
   );
 }
