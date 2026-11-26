@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChevronDown, Clock, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
@@ -486,6 +486,25 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
   );
 }
 
+/* ── Lista de condições ────────────────────────────────────── */
+/** Condições lado a lado, em cartões brancos de mesma largura, cada uma marcada como cumprida (check verde) ou não
+ *  (relógio cinza). Em telas estreitas, uma embaixo da outra. Os textos e os prefixos lidos pelos leitores de tela vêm do
+ *  produto. */
+function ListaDeCondicoes({ itens, rotulos = { cumprido: "Cumprido: ", pendente: "Ainda não cumprido: " }, className }: { itens: { texto: React.ReactNode; cumprido: boolean }[]; rotulos?: { cumprido: string; pendente: string }; className?: string }) {
+  return (
+    <ul data-slot="lista-de-condicoes" className={cn("@container m-0 grid list-none grid-cols-1 gap-3 p-0", itens.length === 2 ? "@xl:grid-cols-2" : itens.length >= 3 ? "@2xl:grid-cols-3" : "", className)}>
+      {itens.map((it, i) => (
+        <li key={i} data-cumprido={it.cumprido} className="flex min-w-0 items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-[0.875rem] text-foreground">
+          <span aria-hidden className={cn("flex size-8 shrink-0 items-center justify-center rounded-full [&>svg]:size-4", it.cumprido ? "bg-[color:color-mix(in_oklab,var(--success)_16%,var(--card))] text-[color:var(--success-text,var(--success))]" : "bg-muted text-muted-foreground")}>
+            {it.cumprido ? <Check strokeWidth={3} /> : <Clock />}
+          </span>
+          <span className="min-w-0"><span className="sr-only">{it.cumprido ? rotulos.cumprido : rotulos.pendente}</span>{it.texto}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /* ── Card de informação (ícone grande + rótulo + valor em destaque) ── */
 /** Uma informação só, em destaque, com o ícone redondo à esquerda (ex.: "Próxima avaliação · 1 de dezembro"). */
 function CardDeInformacao({ icone, rotulo, valor, texto, tom = "informativo", className }: { icone: React.ReactNode; rotulo: React.ReactNode; valor: React.ReactNode; texto?: React.ReactNode; tom?: TomDoIcone; className?: string }) {
@@ -543,9 +562,11 @@ function DivisorSuave({ className }: { className?: string }) {
  * tom="neutro" (base cinza + ícone cinza) para o que está desabilitado (pausado, encerrado, inativo).
  *
  * cabecalho: "divisor" (padrão, decisão da dona do produto de 23/11/2026): o cabeçalho é separado do conteúdo por um
- * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
+ * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. "destaque": um traço vertical na
+ * cor da marca entre o ícone e o título, com o título maior, para o card que fecha ou resume uma seção. (As faixas de cor
+ * saíram.)
  */
-type EstiloDoCabecalhoDoCard = "divisor" | "simples";
+type EstiloDoCabecalhoDoCard = "divisor" | "simples" | "destaque";
 /** fundo "marca": card com degradê rosa claro e o conteúdo num painel branco (para a lista de ações em destaque da página).
  *  iconeGrande: base do ícone de 44 px (itens de destaque), para cards de abertura de página. Cantos md, como manda a
  *  regra de Base do ícone (redonda só nos itens de atividade). */
@@ -555,11 +576,12 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "informativo",
   const temConteudo = children !== undefined && children !== null && children !== false;
   return (
     <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", fundo === "marca" ? "border border-primary/10 bg-[linear-gradient(160deg,var(--primary-muted),var(--card)_75%)]" : superficieDoCard, className)}>
-      <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && cabecalho === "simples" && "mb-5")}>
+      <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && (cabecalho === "simples" || cabecalho === "destaque") && "mb-5")}>
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
-        <IconeComBase tom={tom} tamanho={iconeGrande ? "lg" : "md"}>{icone}</IconeComBase>
-        <div className="min-w-[12rem] flex-1 self-center">
-          <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
+        <IconeComBase tom={tom} tamanho={iconeGrande || cabecalho === "destaque" ? "lg" : "md"}>{icone}</IconeComBase>
+        {cabecalho === "destaque" && <span aria-hidden className="w-0.5 self-stretch rounded-full bg-primary" />}
+        <div className={cn("min-w-[12rem] flex-1 self-center", cabecalho === "destaque" && "min-w-[10rem]")}>
+          <Titulo id={tid} className={cn(display, "font-bold leading-snug tracking-[-0.01em] text-foreground", cabecalho === "destaque" ? "text-[1.1875rem]" : "text-[1.0625rem]")}>{titulo}</Titulo>
           {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
         </div>
         {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
@@ -851,7 +873,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, ListaDeCondicoes, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };
