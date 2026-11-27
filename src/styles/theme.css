@@ -154,6 +154,15 @@
   --chart-8: var(--chart-7);
   --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-100);
+
+  /* Termômetro (escala de 5 faixas, da mais crítica à mais favorável): rosa, laranja, amarelo, verde-amarelado e
+     verde-folha. Validada no validador de paletas (faixas vizinhas distinguíveis com visão normal e com daltonismo).
+     A cor nunca é a única pista: o nome da faixa vem sempre escrito. */
+  --termometro-1: var(--pink-500);
+  --termometro-2: #F5871F;
+  --termometro-3: #F6CC3C;
+  --termometro-4: #86B83C;
+  --termometro-5: #2F8F45;
   /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
      os componentes não escrevem texto sobre a cor do gráfico. */
   --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--foreground);
@@ -263,6 +272,12 @@
   --chart-8: var(--chart-7);
   --chart-neutral: var(--chart-7);
   --chart-grid:    var(--graphite-800);
+
+  --termometro-1: var(--pink-500);
+  --termometro-2: #F5871F;
+  --termometro-3: #F6CC3C;
+  --termometro-4: #86B83C;
+  --termometro-5: #2F8F45;
   /* Escala contínua (mapa de calor, do menor para o maior): do cinza ao rosa (tons 6, 4, 2 e 1). Os tokens -texto ficam por compatibilidade:
      os componentes não escrevem texto sobre a cor do gráfico. */
   --chart-seq-1: var(--chart-6); --chart-seq-1-texto: var(--background);

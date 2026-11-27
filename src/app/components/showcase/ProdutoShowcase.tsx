@@ -12,6 +12,22 @@ import { BuscaDePecas, BuscaNoCelular, type ValoresDaBusca } from "../ui/busca-p
 import { CardDeLoja } from "../ui/card-loja";
 import { MapaDeLojas, MapaIlustrativo, ConviteAoMapa, type PinoIlustrativo } from "../ui/mapa-lojas";
 import { FaixaDeParceiros } from "../ui/faixa-parceiros";
+import { MarcaFind } from "../ui/marca-find";
+import { BadgeDeFaixa, Termometro, faixaDoValor, valorExibido, type FaixaDoTermometro } from "../ui/termometro";
+import { SeloDeReconhecimento } from "../ui/selo-de-reconhecimento";
+import { ProgressoDeRequisitos } from "../ui/progresso-de-requisitos";
+import { FormularioDeRelato } from "../ui/formulario-de-relato";
+import { CardIndicador } from "../ui/painel-dados";
+import { Gauge } from "lucide-react";
+
+/* Termômetro de exemplo (fictício): faixas genéricas, só para demonstrar o componente. */
+const FAIXAS_EXEMPLO: FaixaDoTermometro[] = [
+  { id: "n1", nome: "Nível 1", inicio: 0, fim: 30, tom: 1 },
+  { id: "n2", nome: "Nível 2", inicio: 30, fim: 50, tom: 2 },
+  { id: "n3", nome: "Nível 3", inicio: 50, fim: 70, tom: 3 },
+  { id: "n4", nome: "Nível 4", inicio: 70, fim: 90, tom: 4 },
+  { id: "n5", nome: "Nível 5", inicio: 90, fim: 100, tom: 5 },
+];
 import {
   CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
 } from "../ui/cadastro-lojista";
@@ -382,6 +398,81 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
       </section>
 
 
+
+      {/* ── Termômetro, selo de reconhecimento e relato ── */}
+      <section id="produto-termometro" className="scroll-mt-32 space-y-10">
+        <SectionHeader
+          title={t("Thermometer, recognition seal and report", "Termômetro, selo de reconhecimento e relato")}
+          description={t(
+            "Generic components: the bands, names, limits, criteria and texts always come from the product. All data here is fictitious.",
+            "Componentes genéricos: as faixas, os nomes, os limites, os critérios e os textos vêm sempre do produto. Todos os dados aqui são fictícios.",
+          )}
+        />
+
+        <div className="space-y-3">
+          <SubTitle>{t("Brand name: MarcaFind", "Nome da marca: MarcaFind")}</SubTitle>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-lg border border-border bg-card p-5 text-[1.5rem]">
+            <MarcaFind palavra="Look" />
+            <MarcaFind palavra="Exemplo" />
+          </div>
+          <Callout title={t("Always MarcaFind", "Sempre MarcaFind")}>{t("Any “Find + word” name in the interface uses MarcaFind: “Find” in black and the second word in brand pink, ExtraBold, like the logo.", "Qualquer nome “Find + palavra” na interface usa o MarcaFind: “Find” em preto e a segunda palavra no rosa da marca, em ExtraBold, como no logo.")}</Callout>
+        </div>
+
+        <div className="space-y-3">
+          <SubTitle>{t("Thermometer and band badge", "Termômetro e badge da faixa")}</SubTitle>
+          <div className="space-y-4 rounded-lg border border-border bg-card p-4 lg:max-w-2xl">
+            {[12, 41, 63, 84, 96].map((v) => (
+              <div key={v} className="space-y-1">
+                <div className="flex items-center justify-between text-[0.8125rem]">
+                  <span className="font-bold tabular-nums text-foreground">{valorExibido(v)} <span className="font-medium text-muted-foreground">de 100</span></span>
+                  <BadgeDeFaixa faixa={faixaDoValor(FAIXAS_EXEMPLO, v)} />
+                </div>
+                <Termometro faixas={FAIXAS_EXEMPLO} valor={v} rotulo="Pontuação de exemplo" />
+              </div>
+            ))}
+            <div className="space-y-1">
+              <div className="flex items-center justify-between text-[0.8125rem]"><span className="text-muted-foreground">Sem pontuação</span><BadgeDeFaixa faixa={null} /></div>
+              <Termometro faixas={FAIXAS_EXEMPLO} valor={null} rotulo="Pontuação de exemplo" />
+            </div>
+          </div>
+          <Callout title={t("Colour is never the only cue", "A cor nunca é a única pista")}>{t("Five tones from the most critical (pink) to the most favourable (leaf green). Bands are proportional to their point range; only the current band is in full colour, and its name is always written.", "Cinco tons, do mais crítico (rosa) ao mais favorável (verde-folha). As faixas são proporcionais ao intervalo de pontos; só a faixa atual fica em cor cheia, e o nome dela vem sempre escrito.")}</Callout>
+        </div>
+
+        <div className="space-y-3">
+          <SubTitle>{t("Indicator without a value and requirements progress", "Indicador sem valor e progresso de requisitos")}</SubTitle>
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <CardIndicador icone={<Gauge />} rotulo="Indicador de exemplo" valor={82} total={100} rodape="Linha de apoio do indicador" explicacao="Explicação do indicador." />
+            <CardIndicador icone={<Gauge />} rotulo="Indicador sem dados" semValor="Motivo de não haver valor ainda." rodape="Linha de apoio do indicador" explicacao="Explicação do indicador." />
+            <ProgressoDeRequisitos
+              className="sm:col-span-2 lg:col-span-1"
+              titulo="Requisitos de exemplo"
+              descricao="Descrição do que os requisitos liberam."
+              itens={[{ rotulo: "Requisito A", atual: 7, meta: 10 }, { rotulo: "Requisito B", atual: 12, meta: 10 }, { rotulo: "Requisito C", atual: 3, meta: 5, unidade: "dias" }]}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <SubTitle>{t("Recognition seal", "Selo de reconhecimento")}</SubTitle>
+          <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-[var(--surface-tint)] p-5">
+            <SeloDeReconhecimento variante="compacto" nome={<MarcaFind palavra="Exemplo" />} descricaoAcessivel="Selo de exemplo" />
+            <SeloDeReconhecimento nome={<MarcaFind palavra="Exemplo" />} frase="Frase do reconhecimento" rotulo="Reconhecimento" descricaoAcessivel="Selo de exemplo: frase do reconhecimento" />
+            <SeloDeReconhecimento variante="vertical" nome={<MarcaFind palavra="Exemplo" />} frase="Frase do reconhecimento" rotulo="Reconhecimento" validade="Válido até 31/12/2026" descricaoAcessivel="Selo de exemplo: frase do reconhecimento" />
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <SubTitle>{t("Report form", "Formulário de relato")}</SubTitle>
+          <div className="max-w-3xl rounded-lg border border-border bg-card p-5">
+            <FormularioDeRelato
+              categorias={["Opção de exemplo 1", "Opção de exemplo 2", "Opção de exemplo 3", "Outra situação"]}
+              contexto={<p className="m-0">Contexto já conhecido: <span className="font-semibold text-foreground">Exemplo fictício</span></p>}
+              rodape="Nota sobre quem analisa o relato e a privacidade."
+              onEnviar={() => new Promise((r) => setTimeout(r, 900))}
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
