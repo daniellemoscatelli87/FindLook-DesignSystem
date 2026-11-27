@@ -288,7 +288,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
             {visiveis.map((p, i) => {
               const marcado = selecionados.includes(p.id);
               return (
-                <tr key={p.id} data-state={marcado ? "selected" : undefined} className={cn("border-b border-border/50 transition-colors hover:bg-row-hover", i === visiveis.length - 1 && "border-b-0", marcado && "bg-[var(--primary-sutil)] hover:bg-[var(--primary-sutil)]")}>
+                <tr key={p.id} data-state={marcado ? "selected" : undefined} className={cn("border-b border-border/50 transition-colors hover:bg-row-hover", i === visiveis.length - 1 && "border-b-0", marcado && "bg-[var(--primary-suave)] hover:bg-[var(--primary-suave)]")}>
                   {selecionavel && <td className="py-3 pl-6 pr-2 align-middle"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></td>}
                   <td className={cn("w-full max-w-0 px-4 py-3 align-middle", !selecionavel && "pl-6")}><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
                   <td className="hidden px-4 py-3 align-middle @4xl:table-cell"><span className={etiqueta}>{p.condicao}</span></td>

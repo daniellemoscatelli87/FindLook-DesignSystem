@@ -147,7 +147,7 @@ export function ProductCard({
           </div>
         </div>
         <div className={cn("flex items-center border-t border-border", horizontal ? "justify-end pt-3" : "pt-4")}>
-          <Button asChild={!!cta?.href} size={compacto || horizontal ? "sm" : "default"} variant={esgotado ? "outline" : "default"} className={cn("rounded-full px-5", esgotado && "border-primary text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)] hover:text-[var(--primary-text,var(--primary))]")}>
+          <Button asChild={!!cta?.href} size={compacto || horizontal ? "sm" : "default"} variant={esgotado ? "outline" : "default"} className={cn("rounded-full px-5", esgotado && "border-primary text-[var(--primary-text,var(--primary))] hover:bg-accent hover:text-[var(--primary-text,var(--primary))]")}>
             <Cta {...(cta?.href ? { href: cta.href } : { type: "button", onClick: cta?.onClick })}>
               {esgotado && <Bell aria-hidden />}{ctaLabel}{!esgotado && <ChevronRight aria-hidden />}
             </Cta>

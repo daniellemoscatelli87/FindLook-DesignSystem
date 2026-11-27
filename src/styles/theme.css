@@ -68,11 +68,14 @@
   --primary:                  var(--pink-550);   /* botão principal: texto branco 4,6:1 (AA para texto normal; decisão de 25/11/2026) */
   --primary-hover:             var(--pink-575);   /* texto branco 5,4:1 */
   --primary-foreground:        #FFFFFF;
-  /* Três rosas claros (decisão da dona do produto, 27/11/2026), todos opacos e com texto em --primary-text (pink-600):
-     nível 1 --primary-sutil   #FFF5F8  selecionado: item ativo do menu, botão "✓ Selecionado", segmento e chip ativos, linha selecionada (6,0:1); card selecionado fica branco
-     nível 2 --primary-suave   #FFECF0  hover dos itens rosados e cápsulas (badges/selos como "Recomendado") (5,7:1)
-     nível 3 --primary-muted   #FEDFE6  bases de ícones e destaques (5,2:1); texto cinza de apoio sobre ele usa --muted-foreground com 15% de --foreground
-     (inversão de 1 e 2 decidida pela dona do produto em 27/11/2026; ver o changelog)
+  /* Regra dos rosas claros (decisão da dona do produto, 27/11/2026, igual nos dois design systems), opacos, texto em
+     --primary-text (pink-600):
+     SELECIONADO --primary-suave #FFECF0  item ativo do menu, botão "✓ Selecionado", segmento e chip ativos, linha
+                                          selecionada, selos como "Recomendado" (5,7:1); selecionado + hover continua aqui
+     HOVER       --accent (graphite-100 #E9E9EC), cinza claro, nunca rosa (o --muted graphite-50 é claro demais no branco)
+     DESTAQUE    --primary-muted #FEDFE6  bases de ícones e destaques (5,2:1); texto cinza de apoio sobre ele usa
+                                          --muted-foreground com 15% de --foreground
+     --primary-sutil #FFF5F8 deixa de ser usado para seleção (mantido por compatibilidade)
      Só a ação principal da etapa é preenchida (pink-550); estados selecionados usam estes fundos (Opção A, 27/11/2026). */
   --primary-sutil:             #FFF5F8;
   --primary-suave:             #FFECF0;

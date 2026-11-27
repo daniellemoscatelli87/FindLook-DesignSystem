@@ -507,7 +507,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
 
         <SubSection title={t("Chips (Filterable)", "Chips (filtráveis)")}>
           <ShowcaseCard>
-            <p className="mb-4 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">Chip ativo (decisão da dona do produto, 27/11/2026): fundo rosa nível 1 (--primary-sutil), texto --primary-text (6,0:1); no hover, rosa nível 2 (--primary-suave), borda rosa sutil e o check; nunca preenchido de pink, porque só a ação principal da área é preenchida. aria-pressed diz se está marcado.</p>
+            <p className="mb-4 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">Chip ativo (regra dos rosas claros da dona do produto, 27/11/2026): fundo no rosa do selecionado (--primary-suave), texto --primary-text (5,7:1), borda rosa sutil e o check, e continua rosa com o mouse em cima; chip não ativo com o mouse em cima: cinza claro (--accent), nunca rosa; nunca preenchido de pink, porque só a ação principal da área é preenchida. aria-pressed diz se está marcado.</p>
             <div className="flex flex-wrap gap-2">
               {chipVariants.map(c => {
                 const active = chipActive.includes(c.label);
@@ -517,7 +517,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                     onClick={() => setChipActive(prev => active ? prev.filter(x => x !== c.label) : [...prev, c.label])}
                     aria-pressed={active}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                      ${active ? "bg-[var(--primary-sutil)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-[var(--primary-suave)] hover:border-primary/30"}`}
+                      ${active ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-accent hover:border-[var(--border-strong)]"}`}
                   >
                     {active && <Check className="h-3.5 w-3.5" />}
                     {lang === "en" ? c.label : c.pt}

@@ -2,7 +2,7 @@ import React from "react";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { valorDoToken } from "./shared/temaTokens";
 import { Heading } from "@/app/components/ui/heading";
-import { Check, X } from "lucide-react";
+import { Check, Store, X } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { VejaEm } from "./shared/VejaEm";
 import { SectionHeader } from "./shared/SectionHeader";
@@ -43,12 +43,13 @@ const papeisDoPink = [
   { papel: "Texto colorido pequeno", token: "--primary-text", passo: "pink-600", hex: "#BC0A41", fundo: "#FFFFFF", cor: "var(--pink-600)", amostra: "Ver todas as lojas", amostraCls: "text-[0.875rem] font-semibold underline underline-offset-4", uso: "Links, item ativo do menu, chips, rótulos pequenos e texto de erro.", contraste: "Sobre o branco: 6,4:1 · sobre --primary-muted: 5,2:1" },
 ];
 
-/* Três rosas claros (decisão da dona do produto, 27/11/2026): fundos de estados selecionados, sempre com texto em
-   --primary-text. Só a ação principal da etapa é preenchida (Opção A). Contrastes do pink-600 (#BC0A41) sobre cada um. */
+/* Regra dos rosas claros (decisão da dona do produto, 27/11/2026, igual nos dois design systems): o selecionado fica no
+   rosa do meio, o hover passa a ser cinza claro (nunca rosa) e o rosa mais forte é só destaque. Texto em --primary-text
+   (pink-600, #BC0A41) sobre os rosas. --primary-sutil (#FFF5F8) deixa de ser usado para seleção. */
 const rosasClaros = [
-  { nivel: "1", token: "--primary-sutil", hex: "#FFF5F8", papel: "Selecionado", uso: "Estado selecionado: item ativo do menu, botão “✓ Selecionado”, segmento ativo, chip ativo e linha selecionada. O card selecionado continua branco.", contraste: "6,0:1", amostra: "card" as const },
-  { nivel: "2", token: "--primary-suave", hex: "#FFECF0", papel: "Hover e selos", uso: "Hover dos itens rosados (menu, chips, botão “Selecionar”), um pouco mais escuro que o selecionado; e selos como “Recomendado”.", contraste: "5,7:1", amostra: "chip" as const },
-  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Bases e destaques", uso: "Base dos ícones na cor da marca e destaques (por exemplo, o plano destacado numa tabela).", contraste: "5,2:1", amostra: "botao" as const },
+  { nivel: "1", token: "--primary-suave", hex: "#FFECF0", papel: "Selecionado", uso: "Estado selecionado: item ativo do menu, botão “✓ Selecionado”, segmento ativo, chip ativo, linha selecionada e selos como “Recomendado”. Selecionado com o mouse em cima continua neste rosa. O card selecionado continua branco.", contraste: "Texto --primary-text: 5,7:1", amostra: "card" as const },
+  { nivel: "2", token: "--accent", hex: "#E9E9EC", papel: "Hover", uso: "Cinza claro, nunca rosa: o hover dos itens não selecionados (menu, chips, botão “Selecionar”, cards de escolha). O --muted (#F6F6F7) é claro demais sobre o branco para mostrar o hover. Linhas de lista de ponta a ponta usam o --row-hover.", contraste: "Texto --foreground 17,0:1; --muted-foreground 4,6:1", amostra: "chip" as const },
+  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Destaque", uso: "Base dos ícones na cor da marca e destaques (por exemplo, o plano destacado numa tabela). Nunca marca seleção.", contraste: "Ícone e texto --primary-text: 5,2:1", amostra: "botao" as const },
 ];
 
 const semanticColors = [
@@ -180,23 +181,23 @@ export function FoundationShowcase() {
         </SubSection>
 
         <div id="rosas-claros" className="scroll-mt-32" />
-        <SubSection title="Três rosas claros">
+        <SubSection title="Rosas claros: selecionado, hover e destaque">
           <p className="mb-4 max-w-3xl text-[0.875rem] leading-relaxed text-muted-foreground">
-            Decisão da dona do produto (27/11/2026): só a ação principal de cada área é um botão preenchido. Estados selecionados e ativos usam um destes três fundos, do mais leve ao mais forte, sempre com o texto em <span className="font-mono text-foreground">--primary-text</span>. No tema escuro, os três são o pink-500 a 8%, 12% e 16% sobre o grafite, com o texto em pink-300 (6,9:1 ou mais).
+            Decisão da dona do produto (27/11/2026), igual nos dois design systems: o que está selecionado fica no rosa do meio (e continua rosa com o mouse em cima), o hover dos itens não selecionados é cinza claro, nunca rosa, e o rosa mais forte é só para destaque, como a base dos ícones. Só a ação principal de cada área é um botão preenchido.
           </p>
           <div className="grid gap-3 sm:grid-cols-3" data-rosas-claros>
             {rosasClaros.map((r) => (
               <div key={r.token} className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="flex h-24 items-center justify-center px-3" style={{ background: `var(${r.token})` }}>
-                  {r.amostra === "card" && <span className="rounded-sm px-3 py-2 text-[0.875rem] font-medium text-foreground">Item do menu (hover)</span>}
-                  {r.amostra === "chip" && <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-[var(--primary-suave)] px-3 py-1.5 text-[0.8125rem] font-medium text-primary-text"><span aria-hidden>✓</span> Feminino</span>}
-                  {r.amostra === "botao" && <span className="inline-flex h-10 items-center gap-1.5 rounded-md border-2 border-primary bg-[var(--primary-muted)] px-4 text-[0.8125rem] font-semibold text-primary-text"><span aria-hidden>✓</span> Selecionado</span>}
+                  {r.amostra === "card" && <span className="rounded-sm px-3 py-2 text-[0.875rem] font-medium text-primary-text">Item do menu (selecionado)</span>}
+                  {r.amostra === "chip" && <span className="rounded-sm px-3 py-2 text-[0.875rem] font-medium text-foreground">Item do menu (mouse em cima)</span>}
+                  {r.amostra === "botao" && <span aria-hidden className="flex h-11 w-11 items-center justify-center rounded-md text-primary-text"><Store className="h-5 w-5" /></span>}
                 </div>
                 <div className="space-y-1 p-3.5">
-                  <div className="text-[0.875rem] font-semibold text-foreground">Nível {r.nivel} · {r.papel}</div>
+                  <div className="text-[0.875rem] font-semibold text-foreground">{r.papel}</div>
                   <div className="font-mono text-[0.75rem] text-muted-foreground">{r.token} · {r.hex}</div>
                   <div className="text-[0.8125rem] text-muted-foreground">{r.uso}</div>
-                  <div className="text-[0.8125rem] font-semibold text-foreground">Texto --primary-text: {r.contraste}</div>
+                  <div className="text-[0.8125rem] font-semibold text-foreground">{r.contraste}</div>
                 </div>
               </div>
             ))}
@@ -600,9 +601,10 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     tokens: [
       { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on primary", "Texto sobre primária"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-sutil",      description: t("Light pink level 1: selected state (active menu item, selected button, active segment and chip, selected row)", "Rosa claro nível 1: estado selecionado (item ativo do menu, botão selecionado, segmento e chip ativos, linha selecionada)"), light: "#FFF5F8", dark: "rgba(252,2,86,0.08)", isColor: true },
-      { name: "--primary-suave",      description: t("Light pink level 2: hover of pink items, badges", "Rosa claro nível 2: hover dos itens rosados e selos"), light: "#FFECF0", dark: "rgba(252,2,86,0.12)", isColor: true },
-      { name: "--primary-muted",      description: t("Light pink level 3: icon bases and highlights", "Rosa claro nível 3: base de ícones e destaques"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
+      { name: "--primary-suave",      description: t("Selected (the middle pink): active menu item, selected button, active segment and chip, selected row; stays pink under the pointer", "Selecionado (o rosa do meio): item ativo do menu, botão selecionado, segmento e chip ativos, linha selecionada; continua rosa com o mouse em cima"), light: "#FFECF0", dark: "rgba(252,2,86,0.12)", isColor: true },
+      { name: "--accent",             description: t("Hover: light grey, never pink", "Hover: cinza claro, nunca rosa"), light: "#E9E9EC", dark: "rgba(44,44,51,0.6)", isColor: true },
+      { name: "--primary-muted",      description: t("Highlight: icon bases and highlights; never a selection", "Destaque: base de ícones e destaques; nunca seleção"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
+      { name: "--primary-sutil",      description: t("No longer used for selection (kept for compatibility)", "Não é mais usado para seleção (mantido por compatibilidade)"), light: "#FFF5F8", dark: "rgba(252,2,86,0.08)", isColor: true },
     ],
   },
   {

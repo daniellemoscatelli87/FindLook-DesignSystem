@@ -170,8 +170,8 @@ function Grupo({ titulo, descricao, children }: { titulo: string; descricao?: st
   );
 }
 
-/** Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo em rosa nível 2 (--primary-suave),
-    texto --primary-text, borda rosa sutil e check; aria-pressed e anel de foco. */
+/** Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo no rosa do selecionado (--primary-suave),
+    texto --primary-text, borda rosa sutil e check; não ativo com o mouse em cima: cinza claro (--accent); aria-pressed e anel de foco. */
 function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () => void; children: React.ReactNode; id?: string }) {
   return (
     <button
@@ -182,7 +182,7 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
       className={cn(
         "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150",
         "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        ativo ? "bg-[var(--primary-sutil)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-[var(--primary-suave)] hover:border-primary/30",
+        ativo ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-accent hover:border-[var(--border-strong)]",
       )}
     >
       {ativo && <Check className="h-3.5 w-3.5" aria-hidden />}
@@ -192,7 +192,7 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
 }
 
 /** Cartão selecionável de Cards › Estados: selecionado com fundo branco, borda de 2 px na primária com o brilho animado
-    (BrilhoDeSelecionado), check no título e o botão "✓ Selecionado" de contorno de 2 px com fundo rosa nível 3.
+    (BrilhoDeSelecionado), check no título e o botão "✓ Selecionado" de contorno de 2 px com fundo no rosa do selecionado (--primary-suave).
     Semântica de rádio: o botão é o item do RadioGroup (role="radio", aria-checked). */
 function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { valor: string; titulo: string; descricao: string; selecionado: boolean; id?: string }) {
   return (
@@ -213,7 +213,7 @@ function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { val
           className={cn(
             buttonVariants({ variant: "outline" }),
             "w-full",
-            selecionado && "border-2 border-primary bg-[var(--primary-sutil)] text-primary-text hover:bg-[var(--primary-sutil)] hover:text-primary-text",
+            selecionado && "border-2 border-primary bg-[var(--primary-suave)] text-primary-text hover:bg-[var(--primary-suave)] hover:text-primary-text",
           )}
         >
           {selecionado ? <><Check aria-hidden /> Selecionado</> : "Selecionar"}

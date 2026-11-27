@@ -875,7 +875,7 @@ function InboxTemplate() {
                     aria-current={selected === n.id ? "true" : undefined}
                     onClick={() => { setSelected(n.id); marcar(n.id, true); setDetalheMobile(true); }}
                     className={`w-full text-left px-4 py-3 border-b border-border transition-colors flex gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring
-                      ${selected === n.id ? "bg-[var(--primary-sutil)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
+                      ${selected === n.id ? "bg-[var(--primary-suave)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
                   >
                     <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-3.5 w-3.5" />

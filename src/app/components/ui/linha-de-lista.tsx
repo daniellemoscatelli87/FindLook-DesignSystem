@@ -14,7 +14,7 @@ import { cn } from "./utils";
  *    abaixo de todo o bloco de texto (quebraAcoes="estreito" é o padrão). Para mantê-las ao lado do texto também no
  *    celular, passe quebraAcoes={false}; o texto continua na coluna dele e nunca passa por baixo delas.
  * 2. O hover da linha cobre a linha inteira, de ponta a ponta, sem cantos arredondados (--row-hover). A linha
- *    selecionada tem a mesma forma, no rosa claro nível 1 (--primary-sutil, decisão de 27/11/2026), e o foco do
+ *    selecionada tem a mesma forma, no rosa do selecionado (--primary-suave, regra dos rosas claros de 27/11/2026; continua rosa com o mouse em cima), e o foco do
  *    teclado é um contorno por dentro, também sem cantos.
  *
  * Documentação: Dados > Tabelas e Cards > Comportamento responsivo.
@@ -96,7 +96,7 @@ export function LinhaDeLista({
         colunas,
         alinhar === "centro" ? "items-start sm:items-center" : "items-start",
         clicavel && "cursor-pointer transition-colors hover:bg-[var(--row-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
-        selecionada && "bg-[var(--primary-sutil)] hover:bg-[var(--primary-sutil)]",
+        selecionada && "bg-[var(--primary-suave)] hover:bg-[var(--primary-suave)]",
         className,
       )}
       {...props}

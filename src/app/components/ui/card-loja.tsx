@@ -96,7 +96,7 @@ function ItemDeLoja({ nome, estilo, bairro, selecionada = false, onSelecionar, c
       aria-pressed={selecionada}
       className={cn(
         // Linha de lista: hover e seleção na linha inteira, sem cantos; foco por dentro (regra da dona do produto, 24/11/2026).
-        "flex w-full min-w-0 items-center gap-3 rounded-none px-2 py-2 text-left transition-colors hover:bg-row-hover aria-pressed:bg-primary-sutil",
+        "flex w-full min-w-0 items-center gap-3 rounded-none px-2 py-2 text-left transition-colors hover:bg-row-hover aria-pressed:bg-primary-suave aria-pressed:hover:bg-primary-suave",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
         className,
       )}

@@ -3753,7 +3753,7 @@
           "ancora": "typography",
           "titulo": "Tipografia",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 232,
+          "linha": 233,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -5950,7 +5950,7 @@
           "ancora": "typography",
           "titulo": "Tipografia",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 232,
+          "linha": 233,
           "uso": "direto",
           "exports": [
             "Heading"
@@ -7339,7 +7339,7 @@
           "nome": "ItemDeAcao",
           "tipo": "componente",
           "linha": 264,
-          "descricao": "tom: \"marca\" (padrão) para o que convida a agir ou está ativo; \"neutro\" para o que está pausado, encerrado ou é só registro. Hover no rosa claro nível 2 (--primary-suave, o nível do hover;",
+          "descricao": "tom: \"marca\" (padrão) para o que convida a agir ou está ativo; \"neutro\" para o que está pausado, encerrado ou é só registro.",
           "props": [
             "midia",
             "titulo",
@@ -11900,7 +11900,7 @@
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
       "linha": 175,
-      "descricao": "Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo em rosa nível 2 (--primary-suave), texto --primary-text, borda rosa sutil e check; aria-pressed e anel de foco.",
+      "descricao": "Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo no rosa do selecionado (--primary-suave), texto --primary-text, borda rosa sutil e check; não ativo com o mouse em cima: cinza claro (--accent);",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
       "onde": [
@@ -13111,7 +13111,7 @@
       "ancora": "colors",
       "titulo": "Paleta de cores",
       "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-      "linha": 127,
+      "linha": 128,
       "elementosFeitosAMao": 8,
       "usaComponentes": []
     },
@@ -13121,7 +13121,7 @@
       "ancora": "typography",
       "titulo": "Tipografia",
       "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-      "linha": 232,
+      "linha": 233,
       "elementosFeitosAMao": 35,
       "usaComponentes": [
         "GradeDeCards",
@@ -15422,37 +15422,37 @@
           "id": "colors",
           "titulo": "Paleta de cores",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 127
+          "linha": 128
         },
         {
           "id": "typography",
           "titulo": "Tipografia",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 232
+          "linha": 233
         },
         {
           "id": "spacing",
           "titulo": null,
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 544
+          "linha": 545
         },
         {
           "id": "radius",
           "titulo": "Raio",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 549
+          "linha": 550
         },
         {
           "id": "shadows",
           "titulo": "Sombras",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 568
+          "linha": 569
         },
         {
           "id": "colors-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 588
+          "linha": 589
         }
       ]
     },

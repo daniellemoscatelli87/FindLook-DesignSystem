@@ -440,7 +440,7 @@ function PaginaInicio() {
         <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
           <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
             <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
-            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-md border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
+            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-md border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
           </CardDoPainel>
           <CardDoPainel icone={<ClipboardList />} titulo="Próximas ações" descricao="O que fazer agora para ser mais encontrada.">
             <div className="space-y-2">

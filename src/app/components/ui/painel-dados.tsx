@@ -259,15 +259,15 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
 /** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro.
-    Hover no rosa claro nível 2 (--primary-suave, o nível do hover; 27/11/2026): a descrição cinza fica em 4,8:1 (no nível 3
-    dava 4,35:1) e a base rosa do ícone continua visível. */
+    Hover cinza claro, nunca rosa (regra dos rosas claros, 27/11/2026): fundo --muted (graphite-50), com a borda rosa
+    sutil; a descrição cinza fica em 5,0:1 e a base rosa do ícone continua visível. */
 function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
       href={href}
       onClick={onClick}
-      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-suave)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
+      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-muted hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
       <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
@@ -363,7 +363,7 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
         <div className="min-w-0 flex-1">
           <p className="text-[0.9375rem] font-bold text-foreground">{dica.titulo}</p>
           <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">{dica.texto}</p>
-          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-sm border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-[var(--primary-muted)]", foco)}>{dica.acao}</a>
+          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-sm border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent", foco)}>{dica.acao}</a>
         </div>
       </div>
     </div>
