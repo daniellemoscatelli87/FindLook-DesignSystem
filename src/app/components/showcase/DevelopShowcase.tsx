@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { rotuloVersao } from "../../versao";
-import { Check, Copy, ArrowRight, Megaphone, Layers, Sparkles } from "lucide-react";
+import { Check, Copy, ArrowRight, ExternalLink, Megaphone, Layers, Sparkles } from "lucide-react";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { useI18n, type Bi } from "../../i18n";
 import { Navigate, PageHeader, PageSection, useGo } from "./GetStartedShowcase";
 
@@ -138,6 +140,66 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
           "Implemente o FindLook Design System com código e documentação para desenvolvedores em React, Tailwind CSS e Figma Variables."
         )}
       />
+
+      <PageSection
+        id="dev-catalogo"
+        label={t("Catálogo", "Catálogo")}
+        title={t("Consulte o catálogo antes de montar qualquer peça", "Consulte o catálogo antes de montar qualquer peça")}
+        intro={
+          <p>
+            {t("O catálogo lista todos os componentes importáveis de ui/, os templates e padrões que ainda só existem nas páginas de demonstração, os tokens e as regras de uso, com a página e a âncora onde cada um aparece. É gerado automaticamente a cada build, então está sempre em dia.", "O catálogo lista todos os componentes importáveis de ui/, os templates e padrões que ainda só existem nas páginas de demonstração, os tokens e as regras de uso, com a página e a âncora onde cada um aparece. É gerado automaticamente a cada build, então está sempre em dia.")}
+          </p>
+        }
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("Para quem desenvolve", "Para quem desenvolve")}</CardTitle>
+              <CardDescription>{t("Procure no catálogo o que a tela precisa (plano, preço, card, alerta, tabela) e use o que já existe.", "Procure no catálogo o que a tela precisa (plano, preço, card, alerta, tabela) e use o que já existe.")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc space-y-2 pl-5 text-[0.875rem] leading-relaxed text-muted-foreground">
+                <li><Mono>CATALOGO.md</Mono> {t("é para pessoas; ", "é para pessoas; ")}<Mono>catalogo.json</Mono> {t("é para programas.", "é para programas.")}</li>
+                <li>{t("Componente da seção 1 é importado, nunca refeito. Padrão da seção 2 só existe em demonstração: use exatamente aquele visual e promova a componente antes de usá-lo num produto.", "Componente da seção 1 é importado, nunca refeito. Padrão da seção 2 só existe em demonstração: use exatamente aquele visual e promova a componente antes de usá-lo num produto.")}</li>
+                <li>{t("Gerado por ", "Gerado por ")}<Mono>scripts/gerar-catalogo.mjs</Mono>{t(", antes de cada ", ", antes de cada ")}<Mono>pnpm build</Mono>{t("; ", "; ")}<Mono>pnpm catalogo:check</Mono> {t("falha se o arquivo gravado estiver desatualizado.", "falha se o arquivo gravado estiver desatualizado.")}</li>
+              </ul>
+            </CardContent>
+            <CardFooter className="flex flex-wrap gap-2">
+              <Button asChild>
+                <a href="https://github.com/daniellemoscatelli87/FindLook-DesignSystem/blob/main/CATALOGO.md" target="_blank" rel="noreferrer">
+                  {t("Abrir o CATALOGO.md", "Abrir o CATALOGO.md")} <ExternalLink aria-hidden />
+                  <span className="sr-only">{t("(abre o GitHub em outra aba)", "(abre o GitHub em outra aba)")}</span>
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href="https://github.com/daniellemoscatelli87/FindLook-DesignSystem/blob/main/catalogo.json" target="_blank" rel="noreferrer">
+                  catalogo.json <ExternalLink aria-hidden />
+                  <span className="sr-only">{t("(abre o GitHub em outra aba)", "(abre o GitHub em outra aba)")}</span>
+                </a>
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("Para agentes de IA", "Para agentes de IA")}</CardTitle>
+              <CardDescription>{t("A regra está no CLAUDE.md, na raiz do repositório. Em resumo:", "A regra está no CLAUDE.md, na raiz do repositório. Em resumo:")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc space-y-2 pl-5 text-[0.875rem] leading-relaxed text-muted-foreground">
+                <li>{t("Toda funcionalidade com interface começa pela consulta ao catálogo e é montada com o que já existe.", "Toda funcionalidade com interface começa pela consulta ao catálogo e é montada com o que já existe.")}</li>
+                <li>{t("Peça nova nasce em ui/ como componente reutilizável, com documentação, changelog e proposta em ", "Peça nova nasce em ui/ como componente reutilizável, com documentação, changelog e proposta em ")}<Mono>propostas/</Mono>.</li>
+                <li>{t("Ao delegar, passe a regra e o caminho do catálogo; o relatório lista qual componente cada peça usa.", "Ao delegar, passe a regra e o caminho do catálogo; o relatório lista qual componente cada peça usa.")}</li>
+                <li>{t("Antes de mostrar capturas, confira cada peça contra o catálogo.", "Antes de mostrar capturas, confira cada peça contra o catálogo.")}</li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" onClick={() => go({ page: "catalogo" })}>
+                {t("Ver o catálogo de componentes", "Ver o catálogo de componentes")} <ArrowRight aria-hidden />
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </PageSection>
 
       <PageSection
         id="dev-announcements"
