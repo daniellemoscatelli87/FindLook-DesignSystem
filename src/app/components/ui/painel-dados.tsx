@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChevronDown, Clock, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChevronDown, Clock, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, Lock, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
@@ -500,6 +500,94 @@ function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom
   );
 }
 
+/* ── Card de resumo ─────────────────────────────────────────── */
+/** Card de resumo: duas ou três partes lado a lado, separadas por divisores (ex.: a classificação atual e o que já foi
+ *  conquistado), e um destaque opcional à direita, em base rosa clara (ex.: o próximo objetivo ou uma tendência). Com
+ *  `href` no destaque, ele vira um link com seta (card clicável). Em telas estreitas, as partes ficam uma embaixo da outra. */
+function CardDeResumo({ partes, destaque, className }: {
+  partes: { rotulo: React.ReactNode; conteudo: React.ReactNode }[];
+  destaque?: { icone: React.ReactNode; titulo: React.ReactNode; texto?: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement> };
+  className?: string;
+}) {
+  const corpo = destaque && (
+    <>
+      <IconeComBase tom={destaque.href ? "marca" : "informativo"} tamanho="lg" className="bg-card">{destaque.icone}</IconeComBase>
+      <span className="min-w-0 flex-1">
+        <span className={`${display} block text-[1.0625rem] font-bold leading-snug text-foreground`}>{destaque.titulo}</span>
+        {destaque.texto && <span className="mt-0.5 block text-[0.8125rem] leading-snug text-muted-foreground">{destaque.texto}</span>}
+      </span>
+      {destaque.href && <Seta aria-hidden className="h-5 w-5 shrink-0 text-[var(--primary-text,var(--primary))] transition-transform group-hover:translate-x-0.5" />}
+    </>
+  );
+  return (
+    <section data-slot="card-de-resumo" className={cn("@container rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
+      <div className="flex flex-col gap-4 @4xl:flex-row @4xl:items-stretch @4xl:gap-0">
+        {partes.map((p, i) => (
+          <div key={i} className={cn("min-w-0 @4xl:flex-1 @4xl:px-6 first:@4xl:pl-1", i > 0 && "border-t border-border pt-4 @4xl:border-l @4xl:border-t-0 @4xl:pt-0")}>
+            <p className="m-0 text-[0.875rem] font-semibold text-foreground">{p.rotulo}</p>
+            <div className="mt-2">{p.conteudo}</div>
+          </div>
+        ))}
+        {destaque && (destaque.href ? (
+          <a href={destaque.href} onClick={destaque.onClick} data-slot="destaque-do-resumo" className={cn("group flex items-center gap-4 rounded-lg bg-[var(--primary-muted)] p-4 transition-[box-shadow,transform] hover:shadow-[var(--shadow-xs)] motion-safe:hover:-translate-y-0.5 @4xl:ml-2 @4xl:w-[34%] @4xl:shrink-0", foco)}>{corpo}</a>
+        ) : (
+          <div data-slot="destaque-do-resumo" className="flex items-center gap-4 rounded-lg bg-[var(--primary-muted)] p-4 @4xl:ml-2 @4xl:w-[34%] @4xl:shrink-0">{corpo}</div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Card de nível ──────────────────────────────────────────── */
+/** Um nível de um programa (ex.: de vantagens): ícone, nome e requisito à esquerda; a lista de itens no meio (com check
+ *  quando liberado, círculo vazio quando não); e a situação à direita (ex.: "Conquistadas 3 de 3" ou "A conquistar"). O
+ *  nível atual ganha o fundo rosa claro. Com `href`, o card inteiro vira link (com seta). Textos e itens vêm do produto. */
+function CardDeNivel({ icone, titulo, subtitulo, itens, situacao, atual = false, href, onClick, rotulos = { liberado: "Liberada: ", bloqueado: "Ainda não liberada: " }, className }: {
+  icone: React.ReactNode; titulo: React.ReactNode; subtitulo?: React.ReactNode;
+  itens: { texto: React.ReactNode; liberado: boolean }[];
+  situacao: { liberado: boolean; titulo: React.ReactNode; texto?: React.ReactNode };
+  atual?: boolean; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  rotulos?: { liberado: string; bloqueado: string }; className?: string;
+}) {
+  const conteudo = (
+    <div className="flex flex-col gap-4 @3xl:flex-row @3xl:items-center @3xl:gap-6">
+      <div className="flex min-w-0 items-center gap-3 @3xl:w-60 @3xl:shrink-0">
+        <IconeComBase tom={href ? "marca" : "informativo"} tamanho="lg">{icone}</IconeComBase>
+        <div className="min-w-0">
+          <p className={`${display} m-0 text-[1.25rem] font-extrabold leading-tight text-foreground`}>{titulo}</p>
+          {subtitulo && <p className="m-0 mt-0.5 text-[0.8125rem] text-muted-foreground">{subtitulo}</p>}
+        </div>
+      </div>
+      <ul className="m-0 min-w-0 flex-1 list-none space-y-2 p-0 @3xl:border-l @3xl:border-border @3xl:pl-6">
+        {itens.map((it, i) => (
+          <li key={i} className="flex items-center gap-2.5 text-[0.875rem] text-foreground">
+            {it.liberado
+              ? <span aria-hidden className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3 w-3" strokeWidth={3} /></span>
+              : <span aria-hidden className="size-5 shrink-0 rounded-full border-2 border-[var(--border-strong,var(--border))]" />}
+            <span className="min-w-0"><span className="sr-only">{it.liberado ? rotulos.liberado : rotulos.bloqueado}</span>{it.texto}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="flex items-center gap-3 @3xl:shrink-0">
+        <div className={cn("flex items-center gap-2.5 rounded-lg px-4 py-2.5", situacao.liberado ? "bg-[color:color-mix(in_oklab,var(--success)_12%,var(--card))]" : "bg-muted")}>
+          <span aria-hidden className={cn("[&>svg]:size-5", situacao.liberado ? "text-[color:var(--success-text,var(--success))]" : "text-muted-foreground")}>{situacao.liberado ? <CheckCircle2 /> : <Lock />}</span>
+          <span>
+            <span className="block text-[0.875rem] font-bold text-foreground">{situacao.titulo}</span>
+            {situacao.texto && <span className="block text-[0.75rem] text-muted-foreground">{situacao.texto}</span>}
+          </span>
+        </div>
+        {href && <Seta aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />}
+      </div>
+    </div>
+  );
+  const classes = cn("@container block rounded-lg border p-4 @xl:p-5", atual ? "border-primary/25 bg-[linear-gradient(90deg,var(--primary-muted),var(--card))]" : "border-border bg-card", className);
+  return href ? (
+    <a data-slot="card-de-nivel" data-atual={atual} href={href} onClick={onClick} className={cn("group transition-[border-color,box-shadow] hover:border-primary/30 hover:shadow-[var(--shadow-xs)]", classes, foco)}>{conteudo}</a>
+  ) : (
+    <section data-slot="card-de-nivel" data-atual={atual} className={classes}>{conteudo}</section>
+  );
+}
+
 /* ── Anel de progresso ──────────────────────────────────────── */
 /** Anel de progresso genérico: quantos de um total já foram cumpridos (ex.: "1 de 4 requisitos cumpridos"), na cor da
  *  marca, com o número no centro. Sem as faixas fixas do AnelDePontuacao. O anel cresce ao aparecer (sem animação com
@@ -911,7 +999,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, ListaDeCondicoes, AnelDeProgresso, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, ListaDeCondicoes, AnelDeProgresso, CardDeResumo, CardDeNivel, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };
