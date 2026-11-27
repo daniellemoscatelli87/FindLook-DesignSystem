@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 119 arquivos de componentes em `src/app/components/ui/` com 454 componentes exportados · 89 templates e padrões ainda só em demonstração · 48 seções com marcação feita à mão · 176 tokens · 37 páginas e 266 âncoras no site (https://designsystem.findlook.com.br) · 28 propostas de componente.
+**Resumo:** 120 arquivos de componentes em `src/app/components/ui/` com 455 componentes exportados · 89 templates e padrões ainda só em demonstração · 49 seções com marcação feita à mão · 176 tokens · 37 páginas e 267 âncoras no site (https://designsystem.findlook.com.br) · 28 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -164,7 +164,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/button.tsx](src/app/components/ui/button.tsx)
 - **Quando usar:** Padrão único (decisão de 16/11/2026): botão de 40 px, cantos 12 px; mesma altura do campo de texto. Texto no token do botão (14 px, seminegrito; escala tipográfica de 27/11/2026). No toque (celular ou tela de dedo), todo botão tem 44 px de altura (decisão de 27/11/2026); no computador com mouse, 40 px (sm: 32 px).
 - **Componentes:**
-  - `Button` (props: `className`, `variant`, `size`, `forma`, `asChild`)
+  - `Button` (props: `className`, `variant`, `size`, `forma`, `asChild`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
 - **Funções e constantes:** `buttonVariants`
 - **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon-lg`; `forma` = `padrao` · `pilula`
 - **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 32 seções (ver `catalogo.json`)
@@ -227,7 +227,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CampoDeTelefone` (props: `valor`, `onValorChange`, `placeholder`): Telefone com DDD; teclado numérico no celular.
   - `CampoDeCnpj` (props: `valor`, `onValorChange`, `placeholder`): CNPJ com a máscara; teclado numérico no celular. A validação (cnpjValido) fica a cargo do formulário.
 - **Funções e constantes:** `mascaraTelefone`, `mascaraCnpj`, `cnpjValido`
-- **Onde ver:** Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Campo de busca (`campos#campo-de-busca`) · Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · e mais 3 seções (ver `catalogo.json`)
+- **Onde ver:** Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Campo de busca (`campos#campo-de-busca`) · Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · e mais 4 seções (ver `catalogo.json`)
 
 ### campo-de-busca
 
@@ -236,6 +236,15 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `CampoDeBusca` (props: `valor`, `onValorChange`, `onBusca`, `atraso`, `rotulo`, `resultados`, `textos`, `rotuloVisivel`, `placeholder`, `className`, `id`)
 - **Onde ver:** Campos e formulários › Campo de busca (`campos#campo-de-busca`) · Quadro, conversa e tabela › Tabela adaptável (`painel-e-admin#tabela-adaptavel`)
+
+### campo-de-endereco
+
+- **Arquivo:** [src/app/components/ui/campo-de-endereco.tsx](src/app/components/ui/campo-de-endereco.tsx)
+- **Quando usar:** CampoDeEndereco (endereço com sugestões): O campo de endereço que sugere enquanto a pessoa digita, como o "Presencial" do agendamento de reuniões da área restrita (que sugeria endereços do OpenStreetMap e se perdeu na versão em React). Mesmo arquivo e mesma API nos dois DS (27/11/2026).
+- **Componentes:**
+  - `CampoDeEndereco` (props: `valor`, `onValorChange`, `buscar`, `onEscolher`, `atraso`, `minimo`, `textos`, `icone`, `id`, `className`, `placeholder`, `disabled`, `name`, `maxLength`, `autoFocus`)
+- **Funções e constantes:** `textoDaSugestao`, `enderecoDoPhoton`, `buscaNoPhoton`
+- **Onde ver:** Campos e formulários › Endereço com sugestões (CampoDeEndereco) (`campos#campo-de-endereco`)
 
 ### card
 
@@ -1461,7 +1470,7 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `OrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1478](src/app/components/showcase/MotionShowcase.tsx#L1478) |  | 1 |
 | `AvatarOrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1626](src/app/components/showcase/MotionShowcase.tsx#L1626) |  | 3 |
 
-### 2.4 Seções com marcação feita à mão no próprio corpo (48)
+### 2.4 Seções com marcação feita à mão no próprio corpo (49)
 
 Seções que montam peças direto na página, sem componente local, com 3 ou mais elementos de estilo próprio. Antes de copiar uma delas, confira se a peça já existe na seção 1.
 
@@ -1515,6 +1524,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Sobreposições (overlays) › Diálogos (`overlays#dialogs`) | [src/app/components/showcase/OverlaysShowcase.tsx:610](src/app/components/showcase/OverlaysShowcase.tsx#L610) | `Calendar`, `Dialog`, `Popover` | 3 |
 | Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:697](src/app/components/showcase/OverlaysShowcase.tsx#L697) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
 | Painel lateral › Anatomia (`sidepanel#sidepanel-anatomy`) | [src/app/components/showcase/SidePanelShowcase.tsx:158](src/app/components/showcase/SidePanelShowcase.tsx#L158) |  | 3 |
+| Etapas (Stepper) › Demonstração (`stepper#stepper-demo`) | [src/app/components/showcase/StepperShowcase.tsx:26](src/app/components/showcase/StepperShowcase.tsx#L26) | `Button`, `Stepper` | 3 |
 
 ## 3. Tokens
 
@@ -1848,7 +1858,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso
 - **Upload** (`upload`): `upload-dropzone` Área de soltar · `upload-list` Lista de arquivos · `upload-image` Imagem única · `upload-gallery` Fotos da peça (galeria) · `upload-sheet` Importar planilha · `upload-states` Estados e mensagens · `upload-a11y` Checklist de acessibilidade · `upload-usage` Uso · `upload-tokens` Tokens
 - **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
-- **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar)
+- **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar) · `campo-de-endereco` Endereço com sugestões (CampoDeEndereco)
 - **Chips e estados** (`chips-e-estados`): `chip-de-estado` Chip de estado · `chips-filtro` Chips de filtro · `etiquetas-tons` Etiquetas e bases por tom · `alerta-tom` Alerta com tom · `estado-vazio` Estado vazio · `avaliacao-e-grupos` Avaliação e título de grupo
 - **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável
 - **Demonstrações animadas** (`demonstracoes`): `surgir-ao-rolar` Entrada ao rolar · `numero-animado` Número animado · `cursor-de-demonstracao` Cursor de demonstração · `miniatura-do-painel` Miniatura do painel

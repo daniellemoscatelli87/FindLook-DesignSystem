@@ -5,13 +5,13 @@
   "geradoPor": "scripts/gerar-catalogo.mjs",
   "regra": "antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.",
   "resumo": {
-    "arquivosDeComponentes": 119,
-    "componentesExportados": 454,
+    "arquivosDeComponentes": 120,
+    "componentesExportados": 455,
     "templatesEPadroesSoEmDemonstracao": 89,
-    "secoesComMarcacaoAMao": 48,
+    "secoesComMarcacaoAMao": 49,
     "tokens": 176,
     "paginas": 37,
-    "ancoras": 266,
+    "ancoras": 267,
     "propostas": 28
   },
   "componentes": [
@@ -787,7 +787,7 @@
           "ancora": "botao-de-envio",
           "titulo": "Botão de envio",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 130,
+          "linha": 163,
           "uso": "direto",
           "exports": [
             "BotaoDeEnvio"
@@ -985,8 +985,8 @@
         {
           "nome": "Button",
           "tipo": "componente",
-          "linha": 55,
-          "descricao": "",
+          "linha": 63,
+          "descricao": "forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …",
           "props": [
             "className",
             "variant",
@@ -1240,7 +1240,7 @@
           "ancora": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 117,
+          "linha": 150,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1763,7 +1763,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 37,
+          "linha": 70,
           "uso": "direto",
           "exports": [
             "GradeDeCampos"
@@ -1804,7 +1804,7 @@
           "ancora": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 117,
+          "linha": 150,
           "uso": "direto",
           "exports": [
             "CaixaDeCodigo"
@@ -1840,7 +1840,7 @@
           "ancora": "calendario",
           "titulo": "Seletor de data (Calendar)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 142,
+          "linha": 175,
           "uso": "direto",
           "exports": [
             "Calendar"
@@ -1990,7 +1990,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 37,
+          "linha": 70,
           "uso": "direto",
           "exports": [
             "Campo",
@@ -2004,7 +2004,7 @@
           "ancora": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 68,
+          "linha": 101,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -2016,7 +2016,19 @@
           "ancora": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 76,
+          "linha": 109,
+          "uso": "direto",
+          "exports": [
+            "Campo"
+          ]
+        },
+        {
+          "pagina": "campos",
+          "paginaRotulo": "Campos e formulários",
+          "ancora": "campo-de-endereco",
+          "titulo": "Endereço com sugestões (CampoDeEndereco)",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 184,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -2098,7 +2110,7 @@
           "ancora": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 68,
+          "linha": 101,
           "uso": "direto",
           "exports": [
             "CampoDeBusca"
@@ -2114,6 +2126,81 @@
           "uso": "direto",
           "exports": [
             "CampoDeBusca"
+          ]
+        }
+      ]
+    },
+    {
+      "arquivo": "src/app/components/ui/campo-de-endereco.tsx",
+      "nome": "campo-de-endereco",
+      "quandoUsar": "CampoDeEndereco (endereço com sugestões): O campo de endereço que sugere enquanto a pessoa digita, como o \"Presencial\" do agendamento de reuniões da área restrita (que sugeria endereços do OpenStreetMap e se perdeu na versão em React). Mesmo arquivo e mesma API nos dois DS (27/11/2026).",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "textoDaSugestao",
+          "tipo": "utilitário",
+          "linha": 51,
+          "descricao": "O texto que vai para o campo ao escolher: título e linha, sem repetir partes.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "CampoDeEndereco",
+          "tipo": "componente",
+          "linha": 53,
+          "descricao": "",
+          "props": [
+            "valor",
+            "onValorChange",
+            "buscar",
+            "onEscolher",
+            "atraso",
+            "minimo",
+            "textos",
+            "icone",
+            "id",
+            "className",
+            "placeholder",
+            "disabled",
+            "name",
+            "maxLength",
+            "autoFocus"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "enderecoDoPhoton",
+          "tipo": "utilitário",
+          "linha": 176,
+          "descricao": "O título e a linha de um resultado do Photon (o mesmo texto da área restrita em HTML).",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "buscaNoPhoton",
+          "tipo": "utilitário",
+          "linha": 188,
+          "descricao": "Uma função `buscar` pronta, com o serviço Photon (photon.komoot.io, dados do OpenStreetMap): os mesmos parâmetros da área restrita em HTML (até 5 resultados, prioridade para perto de lat/lon, padrão Curitiba, e só o país `pais`).",
+          "props": [],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "CampoDeEnderecoProps",
+        "SugestaoDeEndereco"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "campos",
+          "paginaRotulo": "Campos e formulários",
+          "ancora": "campo-de-endereco",
+          "titulo": "Endereço com sugestões (CampoDeEndereco)",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 184,
+          "uso": "direto",
+          "exports": [
+            "CampoDeEndereco"
           ]
         }
       ]
@@ -3243,7 +3330,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 86,
+          "linha": 119,
           "uso": "direto",
           "exports": [
             "ChipFiltravel"
@@ -5970,7 +6057,7 @@
           "ancora": "stepper-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
-          "linha": 82,
+          "linha": 86,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6018,7 +6105,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 37,
+          "linha": 70,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6030,7 +6117,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 86,
+          "linha": 119,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -7560,7 +7647,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 86,
+          "linha": 119,
           "uso": "direto",
           "exports": [
             "GrupoDeOpcoes",
@@ -10289,7 +10376,7 @@
         {
           "nome": "NavDoMenu",
           "tipo": "componente",
-          "linha": 172,
+          "linha": 184,
           "descricao": "<nav> do menu lateral, com o id que o BotaoRecolherMenu controla e a rolagem própria.",
           "props": [
             "className"
@@ -10299,7 +10386,7 @@
         {
           "nome": "DivisorDoMenu",
           "tipo": "componente",
-          "linha": 187,
+          "linha": 199,
           "descricao": "Linha fina entre grupos do menu.",
           "props": [
             "className"
@@ -10309,7 +10396,7 @@
         {
           "nome": "BotaoRecolherMenu",
           "tipo": "componente",
-          "linha": 210,
+          "linha": 222,
           "descricao": "Botão \"≡ Menu\" do topo do menu lateral, no estilo do site do design system: recolhe e expande o menu. Só aparece dentro do MenuLateral e em tela larga; na gaveta do celular, não aparece.",
           "props": [
             "className",
@@ -10320,7 +10407,7 @@
         {
           "nome": "TopoDoMenu",
           "tipo": "componente",
-          "linha": 240,
+          "linha": 252,
           "descricao": "Topo do menu lateral (como no site do DS): o botão \"≡ Menu\", centralizado quando recolhido.",
           "props": [
             "className",
@@ -10331,7 +10418,7 @@
         {
           "nome": "BarraSuperiorDoPainel",
           "tipo": "componente",
-          "linha": 256,
+          "linha": 268,
           "descricao": "Faixa branca de ponta a ponta no alto do painel, acima do menu lateral, com linha fina embaixo. O logo fica à esquerda; busca e notificações à direita; o perfil (GatilhoDaConta) sempre na ponta direita.",
           "props": [
             "className",
@@ -10342,7 +10429,7 @@
         {
           "nome": "iniciais",
           "tipo": "utilitário",
-          "linha": 265,
+          "linha": 277,
           "descricao": "Iniciais para avatar sem foto",
           "props": [],
           "reexportaDe": null
@@ -10350,7 +10437,7 @@
         {
           "nome": "AvatarPainel",
           "tipo": "componente",
-          "linha": 269,
+          "linha": 281,
           "descricao": "",
           "props": [
             "nome",
@@ -10362,7 +10449,7 @@
         {
           "nome": "SeletorDeLoja",
           "tipo": "componente",
-          "linha": 286,
+          "linha": 298,
           "descricao": "",
           "props": [
             "loja",
@@ -10375,7 +10462,7 @@
         {
           "nome": "ItemDoMenu",
           "tipo": "componente",
-          "linha": 343,
+          "linha": 355,
           "descricao": "",
           "props": [
             "icone",
@@ -10390,7 +10477,7 @@
         {
           "nome": "GrupoDoMenu",
           "tipo": "componente",
-          "linha": 403,
+          "linha": 415,
           "descricao": "",
           "props": [
             "titulo",
@@ -10407,7 +10494,7 @@
         {
           "nome": "CardDePlano",
           "tipo": "componente",
-          "linha": 468,
+          "linha": 480,
           "descricao": "",
           "props": [
             "compacto",
@@ -10423,7 +10510,7 @@
         {
           "nome": "CardDeAjuda",
           "tipo": "componente",
-          "linha": 527,
+          "linha": 539,
           "descricao": "Card de ajuda (rodapé do menu)",
           "props": [
             "titulo",
@@ -10436,7 +10523,7 @@
         {
           "nome": "CampoDeBuscaGlobal",
           "tipo": "componente",
-          "linha": 573,
+          "linha": 585,
           "descricao": "Barra superior",
           "props": [
             "placeholder",
@@ -10449,7 +10536,7 @@
         {
           "nome": "BotaoDeNotificacoes",
           "tipo": "componente",
-          "linha": 593,
+          "linha": 605,
           "descricao": "",
           "props": [
             "naoLidas",
@@ -10460,7 +10547,7 @@
         {
           "nome": "GatilhoDaConta",
           "tipo": "componente",
-          "linha": 613,
+          "linha": 625,
           "descricao": "",
           "props": [
             "nome",
@@ -11427,7 +11514,7 @@
           "ancora": "seletor-de-quantidade",
           "titulo": "Seletor de quantidade",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 103,
+          "linha": 136,
           "uso": "direto",
           "exports": [
             "SeletorDeQuantidade"
@@ -12304,7 +12391,7 @@
         {
           "nome": "Stepper",
           "tipo": "componente",
-          "linha": 68,
+          "linha": 73,
           "descricao": "",
           "props": [
             "etapas",
@@ -12342,7 +12429,7 @@
           "ancora": "stepper-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
-          "linha": 82,
+          "linha": 86,
           "uso": "direto",
           "exports": [
             "Stepper"
@@ -12791,7 +12878,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 37,
+          "linha": 70,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -12803,7 +12890,7 @@
           "ancora": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 76,
+          "linha": 109,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -16457,6 +16544,19 @@
       "linha": 158,
       "elementosFeitosAMao": 3,
       "usaComponentes": []
+    },
+    {
+      "pagina": "stepper",
+      "paginaRotulo": "Etapas (Stepper)",
+      "ancora": "stepper-demo",
+      "titulo": "Demonstração",
+      "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
+      "linha": 26,
+      "elementosFeitosAMao": 3,
+      "usaComponentes": [
+        "Button",
+        "Stepper"
+      ]
     }
   ],
   "tokens": {
@@ -18038,7 +18138,7 @@
         "ancora": "stepper-usage",
         "titulo": "Uso",
         "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
-        "linha": 82
+        "linha": 86
       },
       {
         "pagina": "upload",
@@ -19793,19 +19893,19 @@
           "id": "stepper-anatomy",
           "titulo": "Anatomia e estados",
           "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
-          "linha": 56
+          "linha": 60
         },
         {
           "id": "stepper-a11y",
           "titulo": "Acessibilidade",
           "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
-          "linha": 69
+          "linha": 73
         },
         {
           "id": "stepper-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/StepperShowcase.tsx",
-          "linha": 82
+          "linha": 86
         }
       ]
     },
@@ -19928,49 +20028,55 @@
           "id": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 37
+          "linha": 70
         },
         {
           "id": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 68
+          "linha": 101
         },
         {
           "id": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 76
+          "linha": 109
         },
         {
           "id": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 86
+          "linha": 119
         },
         {
           "id": "seletor-de-quantidade",
           "titulo": "Seletor de quantidade",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 103
+          "linha": 136
         },
         {
           "id": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 117
+          "linha": 150
         },
         {
           "id": "botao-de-envio",
           "titulo": "Botão de envio",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 130
+          "linha": 163
         },
         {
           "id": "calendario",
           "titulo": "Seletor de data (Calendar)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 142
+          "linha": 175
+        },
+        {
+          "id": "campo-de-endereco",
+          "titulo": "Endereço com sugestões (CampoDeEndereco)",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 184
         }
       ]
     },

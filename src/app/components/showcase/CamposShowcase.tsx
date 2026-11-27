@@ -12,9 +12,42 @@ import { CaixaDeCodigo } from "../ui/caixa-de-codigo";
 import { BotaoDeEnvio, useEstadoDoEnvio } from "../ui/botao-de-envio";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
+import { CampoDeEndereco, type SugestaoDeEndereco } from "../ui/campo-de-endereco";
 import { GradeDeCampos } from "../ui/cadastro-lojista";
 
 /* Campos e formulários: o campo padrão e as peças de formulário que o produto montava à mão (27/11/2026). */
+
+/* Exemplo do CampoDeEndereco sem chamar serviço nenhum: uma lista de exemplo filtrada, com uma espera de 400 ms para
+   mostrar o "Procurando…". No produto, passe a busca de verdade (por exemplo, buscaNoPhoton()). */
+const ENDERECOS_DE_EXEMPLO: SugestaoDeEndereco[] = [
+  { id: "1", titulo: "Rua XV de Novembro, 700", linha: "Centro, Curitiba - PR, 80020-310" },
+  { id: "2", titulo: "Rua Comendador Araújo, 143", linha: "Centro, Curitiba - PR, 80420-000" },
+  { id: "3", titulo: "Avenida Sete de Setembro, 2775", linha: "Rebouças, Curitiba - PR, 80230-010" },
+  { id: "4", titulo: "Rua Mateus Leme, 1200", linha: "Centro Cívico, Curitiba - PR, 80530-010" },
+  { id: "5", titulo: "Praça Tiradentes", linha: "Centro, Curitiba - PR" },
+];
+const semAcento = (t: string) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+function buscaDeExemplo(texto: string, sinal: AbortSignal) {
+  return new Promise<SugestaoDeEndereco[]>((resolve, reject) => {
+    const id = window.setTimeout(() => resolve(ENDERECOS_DE_EXEMPLO.filter((e) => semAcento(`${e.titulo} ${e.linha}`).includes(semAcento(texto)))), 400);
+    sinal.addEventListener("abort", () => { window.clearTimeout(id); reject(new DOMException("cancelado", "AbortError")); });
+  });
+}
+function DemoEndereco() {
+  const [valor, setValor] = useState("");
+  return (
+    <div className="max-w-xl">
+      <CampoDeEndereco
+        rotulo="Endereço"
+        valor={valor}
+        onValorChange={setValor}
+        buscar={buscaDeExemplo}
+        placeholder="Pesquise o endereço ou o nome do local"
+        ajuda="Confira o número e acrescente o complemento, se precisar. Exemplo: digite “rua” ou “centro”."
+      />
+    </div>
+  );
+}
 
 export function CamposShowcase() {
   const [data, setData] = useState<Date | undefined>(new Date(2026, 10, 27));
@@ -146,6 +179,14 @@ export function CamposShowcase() {
             <Calendar mode="single" selected={data} onSelect={setData} defaultMonth={new Date(2026, 10, 1)} />
           </div>
         </Panel>
+      </section>
+
+      <section id="campo-de-endereco" className="scroll-mt-32 space-y-6">
+        <SectionHeader title="Endereço com sugestões (CampoDeEndereco)" description="Sugere endereços enquanto a pessoa digita (a partir de 3 letras, depois de uma pequena pausa). Setas escolhem, Enter confirma, Esc fecha; sem resultado, a pessoa continua escrevendo à mão. Quem busca é o produto: passe a função buscar (por exemplo, buscaNoPhoton(), com dados do OpenStreetMap)." />
+        <Panel className="p-6 sm:p-8">
+          <DemoEndereco />
+        </Panel>
+        <DataTable head={["Prop", "O que faz"]} rows={[[<Mono>buscar(texto, sinal)</Mono>, "Devolve as sugestões { id, titulo, linha }; use o sinal para cancelar o pedido anterior."], [<Mono>valor · onValorChange</Mono>, "O texto do campo (a pessoa pode escrever o endereço inteiro sem escolher sugestão)."], [<Mono>onEscolher</Mono>, "Chamado ao escolher uma sugestão."], [<Mono>atraso · minimo</Mono>, "Espera depois da última tecla (350 ms) e letras mínimas para buscar (3)."], [<Mono>rotulo · ajuda · erro</Mono>, "Os mesmos do Campo."]]} />
       </section>
     </div>
   );

@@ -131,6 +131,12 @@ function useTelaLarga(midia: string) {
 type MenuLateralProps = React.ComponentProps<"aside"> & {
   /** A partir de qual largura de tela o menu pode recolher (padrão: 1024 px). Abaixo dela, fica sempre expandido. */
   midia?: string;
+  /**
+   * Página que rola inteira: altura do cabeçalho fixo acima do menu, em px. O menu vira uma coluna da altura da página
+   * e o conteúdo dele fica grudado logo abaixo do cabeçalho enquanto a página rola. Sem ele, o menu ocupa a altura do
+   * contêiner (h-full), para painéis com rolagem própria. Mesma prop do DS Dani Moscatelli (27/11/2026).
+   */
+  grudarAbaixoDe?: number;
 };
 
 /**
@@ -138,7 +144,7 @@ type MenuLateralProps = React.ComponentProps<"aside"> & {
  * com "menos movimento", a troca é instantânea. Use dentro de um MenuLateralProvider. Esconder em telas
  * estreitas (onde o menu vira gaveta) continua por conta da página, com a mesma classe de hoje.
  */
-const MenuLateral = React.forwardRef<HTMLElement, MenuLateralProps>(function MenuLateral({ midia = MIDIA_RECOLHIVEL, className, style, children, ...props }, ref) {
+const MenuLateral = React.forwardRef<HTMLElement, MenuLateralProps>(function MenuLateral({ midia = MIDIA_RECOLHIVEL, grudarAbaixoDe, className, style, children, ...props }, ref) {
   const { recolhido: escolha, restaurado } = useMenuLateral();
   const larga = useTelaLarga(midia);
   const recolhido = escolha && larga;
@@ -148,6 +154,16 @@ const MenuLateral = React.forwardRef<HTMLElement, MenuLateralProps>(function Men
     const id = window.requestAnimationFrame(() => setMontado(true));
     return () => window.cancelAnimationFrame(id);
   }, []);
+  // Os nomes dos itens só entram com o esmaecer quando a pessoa abre ou recolhe o menu (27/11/2026). Quando quem muda
+  // é a largura da janela (o menu volta a expandir abaixo de 1024 px), eles aparecem prontos, sem repetir a animação.
+  const [escolhaAnterior, setEscolhaAnterior] = React.useState(escolha);
+  const [animar, setAnimar] = React.useState(false);
+  if (escolhaAnterior !== escolha) { setEscolhaAnterior(escolha); setAnimar(true); }
+  React.useEffect(() => {
+    if (!animar) return;
+    const id = window.setTimeout(() => setAnimar(false), 400);
+    return () => window.clearTimeout(id);
+  }, [animar]);
   const valor = React.useMemo(() => ({ recolhido, dentro: true, podeRecolher: larga }), [recolhido, larga]);
   return (
     <aside
@@ -155,15 +171,24 @@ const MenuLateral = React.forwardRef<HTMLElement, MenuLateralProps>(function Men
       aria-label="Menu lateral"
       data-slot="menu-lateral"
       data-recolhido={recolhido ? "" : undefined}
+      data-animar={animar ? "" : undefined}
       className={cn(
-        "h-full shrink-0 overflow-hidden border-r border-border bg-card",
+        "group/menu",
+        "shrink-0 border-r border-border bg-card",
+        grudarAbaixoDe === undefined ? "h-full overflow-hidden" : "self-stretch overflow-x-clip",
         restaurado && montado && "transition-[width] duration-[var(--duration-normal)] ease-[var(--ease-in-out)] motion-reduce:transition-none",
         className,
       )}
       style={{ width: recolhido ? LARGURA_RECOLHIDO : LARGURA_EXPANDIDO, ...style }}
       {...props}
     >
-      <ContextoDoRecolhido.Provider value={valor}>{children}</ContextoDoRecolhido.Provider>
+      <ContextoDoRecolhido.Provider value={valor}>
+        {grudarAbaixoDe === undefined ? children : (
+          <div data-slot="menu-lateral-grudado" className="sticky flex min-h-0 flex-col overflow-hidden" style={{ top: grudarAbaixoDe, height: `calc(100dvh - ${grudarAbaixoDe}px)` }}>
+            {children}
+          </div>
+        )}
+      </ContextoDoRecolhido.Provider>
     </aside>
   );
 });
@@ -207,11 +232,16 @@ function DicaDoMenu({ texto, ativa = true, children }: { texto: React.ReactNode;
  * Só aparece dentro do MenuLateral e em tela larga; na gaveta do celular, não aparece.
  * O nome acessível diz a ação ("Recolher menu" / "Expandir menu") e contém o texto visível "Menu".
  */
-const BotaoRecolherMenu = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button">>(function BotaoRecolherMenu({ className, onClick, ...props }, ref) {
+/** Textos do botão (mesmas props do DS Dani Moscatelli, 27/11/2026). */
+type BotaoRecolherMenuProps = React.ComponentProps<"button"> & { rotulo?: string; rotuloRecolher?: string; rotuloExpandir?: string };
+const BotaoRecolherMenu = React.forwardRef<HTMLButtonElement, BotaoRecolherMenuProps>(function BotaoRecolherMenu(
+  { className, onClick, rotulo: nomeDoBotao = "Menu", rotuloRecolher = "Recolher menu", rotuloExpandir = "Expandir menu", ...props },
+  ref,
+) {
   const { recolhido: escolha, alternar, idDoMenu } = useMenuLateral();
   const { recolhido, dentro, podeRecolher } = React.useContext(ContextoDoRecolhido);
   if (!dentro || !podeRecolher) return null;
-  const rotulo = escolha ? "Expandir menu" : "Recolher menu";
+  const rotulo = escolha ? rotuloExpandir : rotuloRecolher;
   const botao = (
     <button
       ref={ref}
@@ -230,19 +260,19 @@ const BotaoRecolherMenu = React.forwardRef<HTMLButtonElement, React.ComponentPro
       {...props}
     >
       <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center"><Menu className="h-[18px] w-[18px]" /></span>
-      {!recolhido && <span aria-hidden className="text-label leading-4 font-medium uppercase tracking-wider">Menu</span>}
+      {!recolhido && <span aria-hidden className="text-label leading-4 font-medium uppercase tracking-wider">{nomeDoBotao}</span>}
     </button>
   );
   return <DicaDoMenu texto={rotulo} ativa={recolhido}>{botao}</DicaDoMenu>;
 });
 
 /** Topo do menu lateral (como no site do DS): o botão "≡ Menu", centralizado quando recolhido. */
-function TopoDoMenu({ className, children }: { className?: string; children?: React.ReactNode }) {
+function TopoDoMenu({ className, children, ...rotulos }: { className?: string; children?: React.ReactNode } & Pick<BotaoRecolherMenuProps, "rotulo" | "rotuloRecolher" | "rotuloExpandir">) {
   const { recolhido, dentro, podeRecolher } = React.useContext(ContextoDoRecolhido);
   if (!dentro || !podeRecolher) return children ? <div className={className}>{children}</div> : null;
   return (
     <div data-slot="topo-do-menu" className={cn("flex h-12 shrink-0 items-center", recolhido ? "justify-center px-2" : "px-3", className)}>
-      <BotaoRecolherMenu />
+      <BotaoRecolherMenu {...rotulos} />
       {children}
     </div>
   );
@@ -338,15 +368,17 @@ type ItemDoMenuProps = React.ComponentProps<"a"> & {
   contador?: number;
   /** Como o contador é lido ("novos", "pendentes"…). */
   rotuloContador?: string;
+  /** Elemento do link (padrão "a"). Use o Link do roteador do produto, que recebe href e repassa o ref. */
+  as?: React.ElementType;
 };
 
-const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", className, children, ...props }, ref) {
+const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", as: Comp = "a", className, children, ...props }, ref) {
   const { recolhido, dentro } = React.useContext(ContextoDoRecolhido);
   // Visual do menu do site do design system (23/11/2026): ícone de 16 px, nome, cantos de 8 px. Regra dos rosas claros
   // (dona do produto, 27/11/2026): o ativo fica no rosa do selecionado (--primary-suave) com texto --primary-text e
   // continua rosa com o mouse em cima; o hover dos outros itens é cinza claro (--accent), nunca rosa.
   const item = (
-    <a
+    <Comp
       ref={ref}
       data-slot="item-do-menu"
       aria-current={ativo ? "page" : undefined}
@@ -369,7 +401,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
         <span className="sr-only">{children}{!!contador && `, ${contador} ${rotuloContador}`}</span>
       ) : (
         <>
-          <span className="min-w-0 flex-1 truncate animate-in fade-in-0 duration-[var(--duration-normal)] motion-reduce:animate-none">{children}</span>
+          <span className="min-w-0 flex-1 truncate group-data-[animar]/menu:animate-in group-data-[animar]/menu:fade-in-0 duration-[var(--duration-normal)] motion-reduce:animate-none">{children}</span>
           {!!contador && (
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-caption font-bold text-primary-foreground">
               {contador}<span className="sr-only"> {rotuloContador}</span>
@@ -377,7 +409,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
           )}
         </>
       )}
-    </a>
+    </Comp>
   );
   // Fora de um MenuLateral (gaveta do celular, exemplos), o item nunca recolhe: não precisa de tooltip.
   if (!dentro) return item;
@@ -398,9 +430,14 @@ type GrupoDoMenuProps = {
   padraoAberto?: boolean;
   aberto?: boolean;
   onAbertoChange?: (v: boolean) => void;
+  /** Contador do grupo (soma das novidades dos itens), antes da seta. Mesmas props do DS Dani Moscatelli. */
+  contador?: number;
+  rotuloContador?: string;
+  /** Força o grupo a aparecer ativo (quando a página atual é do grupo, mas não é um item dele). */
+  ativo?: boolean;
 };
 
-function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAberto = false, aberto: abertoControlado, onAbertoChange }: GrupoDoMenuProps) {
+function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAberto = false, aberto: abertoControlado, onAbertoChange, contador, rotuloContador = "novos", ativo }: GrupoDoMenuProps) {
   const id = React.useId();
   const { recolhido, dentro } = React.useContext(ContextoDoRecolhido);
   const { setRecolhido } = useMenuLateral();
@@ -419,7 +456,7 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
   const mudar = (v: boolean) => { if (abertoControlado === undefined) setAbertoInterno(v); onAbertoChange?.(v); };
   const filhoAtivo = React.Children.toArray(children).some(c => React.isValidElement<{ ativo?: boolean }>(c) && !!c.props.ativo);
   const mostrarFilhos = aberto && !recolhido;
-  const destacado = filhoAtivo && !mostrarFilhos;
+  const destacado = (filhoAtivo || Boolean(ativo)) && !mostrarFilhos;
   const idFilhos = `${id}-itens`;
   const botao = (
     <button
@@ -437,7 +474,12 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
       )}
     >
       {icone && <span aria-hidden className="flex h-4 w-4 shrink-0 items-center justify-center [&>svg]:h-4 [&>svg]:w-4">{icone}</span>}
-      {recolhido ? <span className="sr-only">{titulo}</span> : <span className="min-w-0 flex-1 truncate">{titulo}</span>}
+      {recolhido ? <span className="sr-only">{titulo}{!!contador && `, ${contador} ${rotuloContador}`}</span> : <span className="min-w-0 flex-1 truncate">{titulo}</span>}
+      {!recolhido && !!contador && (
+        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-caption font-bold text-primary-foreground">
+          {contador}<span className="sr-only"> {rotuloContador}</span>
+        </span>
+      )}
       {!recolhido && <ChevronRight aria-hidden className={cn("h-3.5 w-3.5 shrink-0 transition-transform duration-150 motion-reduce:transition-none", aberto && "rotate-90")} />}
     </button>
   );
@@ -590,7 +632,8 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
   );
 }
 
-const BotaoDeNotificacoes = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"> & { naoLidas?: number }>(function BotaoDeNotificacoes({ naoLidas = 0, className, ...props }, ref) {
+/** indicador: "ponto" (padrão aqui) ou "numero" (a quantidade num círculo). Mesmas props do DS Dani Moscatelli. */
+const BotaoDeNotificacoes = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"> & { naoLidas?: number; indicador?: "ponto" | "numero" }>(function BotaoDeNotificacoes({ naoLidas = 0, indicador = "ponto", className, ...props }, ref) {
   return (
     <button
       ref={ref}
@@ -605,7 +648,9 @@ const BotaoDeNotificacoes = React.forwardRef<HTMLButtonElement, React.ComponentP
       data-slot="notificacoes"
     >
       <Bell aria-hidden className="h-5 w-5" />
-      {naoLidas > 0 && <span aria-hidden className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background" />}
+      {naoLidas > 0 && (indicador === "numero"
+        ? <span aria-hidden className="absolute left-[22px] top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-caption font-bold tabular-nums text-primary-foreground ring-2 ring-background">{naoLidas}</span>
+        : <span aria-hidden className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background" />)}
     </button>
   );
 });

@@ -81,7 +81,7 @@ function formatarVariacao(n: number) {
 }
 
 /* ── Variação (seta + texto; nunca só cor) ───────────────────── */
-function Variacao({ valor, comparacao, className }: { valor: number; comparacao?: string; pilula?: boolean; className?: string }) {
+function Variacao({ valor, comparacao, className }: { valor: number; comparacao?: string; /** Mantida por compatibilidade: não muda o desenho. */ pilula?: boolean; className?: string }) {
   const sobe = valor >= 0;
   const Icone = sobe ? ArrowUpRight : ArrowDownRight;
   const leitura = `${sobe ? "Alta" : "Queda"} de ${formatarVariacao(Math.abs(valor)).replace("+", "")}${comparacao ? ` ${comparacao}` : ""}`;
@@ -487,8 +487,9 @@ function DivisorSuave({ className }: { className?: string }) {
  * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
  */
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
-  const tid = React.useId();
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2, sangria = false, idDoTitulo }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 /** O conteúdo vai de ponta a ponta do card (listas com hover de linha inteira). */ sangria?: boolean; /** Id do título (aria-labelledby da seção). */ idDoTitulo?: string }) {
+  const gerado = React.useId();
+  const tid = idDoTitulo ?? gerado;
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
   return (
@@ -505,7 +506,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
         {acao && <div className="col-start-2 mt-2 flex min-w-0 flex-wrap items-center gap-2 @md:col-start-3 @md:row-start-1 @md:mt-0 @md:self-center">{acao}</div>}
       </div>
       {temConteudo && cabecalho === "divisor" && <DivisorSuave className="my-4 @xl:my-5" />}
-      {children}
+      {sangria ? <div data-slot="conteudo-do-card" className="-mx-4 min-w-0 @xl:-mx-5">{children}</div> : children}
     </section>
   );
 }
@@ -601,7 +602,7 @@ function ConteudoRecolhivel({
  * lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo). icone: ícone
  * pequeno antes do texto (inline, sem base).
  */
-function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marca", icone }: { children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLElement>; tom?: TomDoIcone; icone?: React.ReactNode }) {
+function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marca", icone, as: Comp = "a" }: { /** O Link do roteador do produto no lugar do <a>. */ as?: React.ElementType;  children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLElement>; tom?: TomDoIcone; icone?: React.ReactNode }) {
   const classe = cn(
     "group inline-flex shrink-0 items-center gap-1 rounded-sm text-body-sm font-semibold hover:underline [&>svg]:h-3.5 [&>svg]:w-3.5 toque:min-h-11",
     tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:text-foreground",
@@ -616,7 +617,7 @@ function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marc
   if (href === undefined && onClick) {
     return <button type="button" aria-label={rotulo} onClick={onClick} className={classe}>{conteudo}</button>;
   }
-  return <a href={href ?? "#"} aria-label={rotulo} onClick={onClick} className={classe}>{conteudo}</a>;
+  return <Comp href={href ?? "#"} aria-label={rotulo} onClick={onClick} className={classe}>{conteudo}</Comp>;
 }
 
 /* ── Andamento de uma tarefa (20/11/2026): estado → progresso → números → ações ── */

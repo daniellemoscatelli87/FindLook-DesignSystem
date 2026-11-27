@@ -51,6 +51,10 @@ export function StepperShowcase() {
             "Experimente: Continuar e Voltar mudam de etapa; etapas concluídas podem ser reabertas pelo marcador. Quando os nomes inteiros não cabem na largura do próprio Stepper, aparecem só “Etapa X de N”, o nome da etapa atual e os números; o nome nunca é cortado com reticências.",
           )}
         </p>
+        <div data-testid="stepper-com-data" className="mt-6 rounded-lg border border-border bg-card p-5 md:p-8">
+          <p className="mb-4 text-body-sm text-muted-foreground">{t("With a second line (detalhe): the date stays under the name and the names stay whole while they fit.", "Com a segunda linha (detalhe): a data fica embaixo do nome e os nomes continuam inteiros enquanto cabem.")}</p>
+          <Stepper etapas={[{ titulo: "Contato", detalhe: "12/11" }, { titulo: "Visita", detalhe: "19/11, 14:00" }, { titulo: "Treinamento", detalhe: "26/11" }, { titulo: "Ativa" }]} atual={1} rotulo="Etapas da ativação" />
+        </div>
       </section>
 
       <section id="stepper-anatomy" className="scroll-mt-32">
