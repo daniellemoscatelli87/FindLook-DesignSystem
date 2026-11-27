@@ -6,6 +6,7 @@ import { Input } from "./input";
 import { Label } from "./label";
 import { Stepper, type StepperEtapa } from "./stepper";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
+import { IconeComBase } from "./painel-dados";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "./drawer";
 
@@ -27,7 +28,8 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, Dr
  * largura da tela: o mesmo cadastro funciona na página inteira, num card estreito ou ao lado de outra coluna.
  * - A coluna lateral só fica ao lado do formulário quando a etapa tem 56rem (896 px) ou mais; antes disso, desce para
  *   baixo do formulário. O formulário é sempre a coluna principal; a lateral tem de 15rem a 18rem.
- * - LateralDaEtapa: ícone, título, explicação e um destaque (informação, marca ou aviso).
+ * - LateralDaEtapa: ícone na base (IconeComBase, tom marca), título, explicação e um destaque num Alerta do design system
+ *   (info; aviso usa o Alerta de aviso).
  * - BarraDaEtapa: Voltar e Continuar (com estado "carregando").
  * - ListaDeRevisao, BlocoDeRevisao e LinhaDeDado: o resumo da etapa Revisão, em blocos que abrem e fecham,
  *   com Editar para voltar à etapa.
@@ -317,7 +319,7 @@ function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, re
           {erro && (
             <Alert variant="error" className="mt-5">
               <TriangleAlert aria-hidden />
-              <AlertDescription className="mt-0 pt-[3px] text-foreground">{erro}</AlertDescription>
+              <AlertDescription className="mt-0 self-center">{erro}</AlertDescription>
             </Alert>
           )}
           {resumoDeErros && resumoDeErros.length >= 2 && <ResumoDeErros erros={resumoDeErros} className="mt-5" />}
@@ -373,11 +375,8 @@ function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carr
   );
 }
 
-const TONS_LATERAL = {
-  info: { caixa: "border-info/25 bg-info-muted", icone: "text-info" },
-  marca: { caixa: "border-primary/20 bg-primary-muted", icone: "text-primary-text" },
-  aviso: { caixa: "border-warning/30 bg-warning-muted", icone: "text-warning-text" },
-} as const;
+/* O destaque é um Alerta do design system: info (padrão; "marca" também vira info, o Alerta não tem tom de marca) ou aviso. */
+const TONS_LATERAL = { info: "info", marca: "info", aviso: "warning" } as const;
 
 type LateralDaEtapaProps = {
   icone: React.ReactNode;
@@ -385,26 +384,26 @@ type LateralDaEtapaProps = {
   paragrafos?: string[];
   destaque?: string;
   tom?: keyof typeof TONS_LATERAL;
-  iconeDestaque?: React.ReactNode;
+  /** Ícone do Alerta (lucide). Sem ele, o Alerta fica sem ícone, o recomendado na coluna lateral: o texto ganha a
+      largura toda (com ícone, numa lateral de 18rem, sobram cerca de 130 px para o texto). */
+  iconeDestaque?: React.ReactElement;
   className?: string;
 };
 
 function LateralDaEtapa({ icone, titulo, paragrafos = [], destaque, tom = "info", iconeDestaque, className }: LateralDaEtapaProps) {
   const id = React.useId();
   return (
-    <aside data-slot="lateral-da-etapa" aria-labelledby={id} className={cn("min-w-0 self-start rounded-xl border border-border bg-card p-5 @min-[56rem]/etapa:p-6", className)}>
-      <span aria-hidden className="flex size-12 items-center justify-center rounded-lg bg-primary-muted text-primary-text @min-[56rem]/etapa:size-14 [&>svg]:size-6">
-        {icone}
-      </span>
-      <h3 id={id} className="mt-4 text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground @min-[56rem]/etapa:mt-5">{titulo}</h3>
+    <aside data-slot="lateral-da-etapa" aria-labelledby={id} className={cn("@container/lateral min-w-0 self-start rounded-xl border border-border bg-card p-5 @min-[56rem]/etapa:p-6", className)}>
+      <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
+      <h3 id={id} className="mt-4 text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground">{titulo}</h3>
       {paragrafos.map((p) => (
         <p key={p} className="mt-2 text-sm leading-relaxed text-muted-foreground">{p}</p>
       ))}
       {destaque && (
-        <p className={cn("mt-4 flex gap-3 rounded-lg border p-4 text-sm leading-relaxed text-foreground", TONS_LATERAL[tom].caixa)}>
-          {iconeDestaque && <span aria-hidden className={cn("mt-0.5 flex shrink-0 [&>svg]:size-4", TONS_LATERAL[tom].icone)}>{iconeDestaque}</span>}
-          <span>{destaque}</span>
-        </p>
+        <Alert variant={TONS_LATERAL[tom]} role="note" className="mt-4">
+          {iconeDestaque}
+          <AlertDescription className="mt-0 self-center">{destaque}</AlertDescription>
+        </Alert>
       )}
     </aside>
   );

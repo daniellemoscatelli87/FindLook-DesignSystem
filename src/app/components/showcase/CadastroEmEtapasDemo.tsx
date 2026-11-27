@@ -1,15 +1,20 @@
 import React, { useEffect, useId, useRef, useState } from "react";
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import {
-  ArrowRight, AtSign, Check, CreditCard, Globe, Info, ListChecks, Loader2, Lock, MapPin, QrCode, RotateCcw, ShieldCheck, Store, UserRoundCog, Wand2,
+  ArrowRight, AtSign, Camera, Check, CheckCircle2, CreditCard, Globe, Info, ListChecks, Loader2, Lock, MailCheck, MapPin, QrCode, RotateCcw, Shirt, Store, UserRoundCog, Wand2,
 } from "lucide-react";
 import { cn } from "../ui/utils";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
+import { Button, buttonVariants } from "../ui/button";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { Heading } from "../ui/heading";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { RadioGroup } from "../ui/radio-group";
 import { SegmentedControl } from "../ui/segmented-control";
+import { CardDePreco } from "../ui/card-de-preco";
+import { DivisorSuave, ItemDeAcao } from "../ui/painel-dados";
+import { plans, pricingFeatures } from "./shared/planos";
 import { ImageUpload } from "../ui/upload";
 import { PasswordConfirm, regrasPadrao } from "../ui/password-field";
 import {
@@ -86,7 +91,7 @@ const EXEMPLO: Dados = {
   ...VAZIO,
   nome: "Ana Exemplo", email: "ana@aurora.exemplo.com.br", celular: "(41) 90000-0000", senha: "Exemplo@2026", confirmacao: "Exemplo@2026",
   loja: "Brechó Aurora", cnpj: "11.222.333/0001-81", tipo: "brecho", categorias: ["Feminino", "Acessórios"], cep: "80000-000", rua: "Rua Exemplo", numero: "100",
-  bairro: "Centro", cidade: "Curitiba · PR", instagram: "brechoaurora", plano: "desempenho",
+  bairro: "Centro", cidade: "Curitiba · PR", instagram: "brechoaurora", plano: "intermediario",
 };
 
 const TIPOS = [
@@ -97,12 +102,7 @@ const TIPOS = [
 const NOME_DO_TIPO: Record<Tipo, string> = { loja: "Loja", brecho: "Brechó", ambos: "Loja e brechó" };
 const CATEGORIAS = ["Feminino", "Masculino", "Infantil", "Plus size", "Acessórios", "Calçados", "Moda praia", "Festa"];
 
-/* Planos de exemplo: os nomes vêm do Card de plano do design system; preços e recursos são só ilustrativos. */
-const PLANOS = [
-  { id: "visibilidade", nome: "Visibilidade", paraQuem: "Para começar a ser encontrada", recursos: ["Perfil da loja no mapa", "Peças na busca"] },
-  { id: "desempenho", nome: "Desempenho", paraQuem: "Para acompanhar o interesse", recursos: ["Tudo do Visibilidade", "Painel de desempenho"], recomendado: true },
-  { id: "oportunidades", nome: "Oportunidades", paraQuem: "Para crescer com dados da região", recursos: ["Tudo do Desempenho", "Insights do mercado local"] },
-];
+/* Planos: os mesmos do template Planos e assinatura (shared/planos.ts). Preços aqui são só exemplo. */
 const PRECO_EXEMPLO = "R$ 00,00";
 
 const ORDEM: Campo[][] = [
@@ -155,19 +155,22 @@ function validar(etapa: number, d: Dados): Erros {
 
 /* ── Peças de composição (só padrões que já existem no design system) ── */
 
-/** Grupo de campos com legenda (fieldset), para separar assuntos dentro de uma etapa longa. */
-function Grupo({ titulo, descricao, children, className }: { titulo: string; descricao?: string; children: React.ReactNode; className?: string }) {
+/** Bloco de assunto dentro de uma etapa longa: título (Heading, tamanho card) e descrição; os blocos são separados
+    pelo DivisorSuave do painel. */
+function Grupo({ titulo, descricao, children }: { titulo: string; descricao?: string; children: React.ReactNode }) {
+  const id = useId();
   return (
-    <fieldset className={cn("min-w-0 border-t border-border pt-6 first:border-t-0 first:pt-0", className)}>
-      <legend className="float-left w-full text-[0.9375rem] font-bold text-foreground">{titulo}</legend>
-      {descricao && <p className="clear-both pt-1 text-sm text-muted-foreground">{descricao}</p>}
-      <div className="clear-both pt-4">{children}</div>
-    </fieldset>
+    <section aria-labelledby={id} className="min-w-0">
+      <Heading id={id} level={3} size="card">{titulo}</Heading>
+      {descricao && <p className="mt-1 text-sm text-muted-foreground">{descricao}</p>}
+      <div className="mt-4">{children}</div>
+    </section>
   );
 }
 
-/** Chip filtrável (Rótulos › Chips) com o tom suave do Controle segmentado: um só botão preenchido por área. */
-function Chip({ ativo, onClick, children, id, invalido }: { ativo: boolean; onClick: () => void; children: React.ReactNode; id?: string; invalido?: boolean }) {
+/** Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação. Acréscimos de acessibilidade: aria-pressed
+    e anel de foco (a documentação não tem). */
+function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () => void; children: React.ReactNode; id?: string }) {
   return (
     <button
       id={id}
@@ -175,39 +178,35 @@ function Chip({ ativo, onClick, children, id, invalido }: { ativo: boolean; onCl
       aria-pressed={ativo}
       onClick={onClick}
       className={cn(
-        "inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-medium",
-        "transition-[background-color,border-color,color] duration-[var(--duration-fast)] ease-[var(--ease-out)] motion-reduce:transition-none",
+        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150",
         "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        ativo
-          ? "border-primary/40 bg-[var(--primary-muted)] font-semibold text-primary-text"
-          : cn("bg-card text-foreground hover:border-[var(--border-strong)] hover:bg-row-hover", invalido ? "border-error/60" : "border-border"),
+        ativo ? "bg-primary text-primary-foreground border-primary" : "bg-card text-foreground border-border hover:border-[var(--border-strong)]",
       )}
     >
-      {ativo && <Check className="size-3.5 motion-safe:animate-in motion-safe:zoom-in-50" strokeWidth={3} aria-hidden />}
+      {ativo && <Check className="h-3.5 w-3.5" aria-hidden />}
       {children}
     </button>
   );
 }
 
-/** Cartão selecionável (Cards › Estados: borda de 2 px na primária e marcação visível) com um RadioGroupItem. */
-function CartaoDeOpcao({ id, valor, selecionado, children, topo }: { id: string; valor: string; selecionado: boolean; children: React.ReactNode; topo?: React.ReactNode }) {
+/** Cartão selecionável de Cards › Estados (borda de 2 px na primária, check no título e botão Selecionar/Selecionado),
+    com semântica de rádio: o botão é o item do RadioGroup (role="radio", aria-checked). */
+function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { valor: string; titulo: string; descricao: string; selecionado: boolean; id?: string }) {
   return (
-    <label
-      htmlFor={id}
-      data-selecionado={selecionado || undefined}
-      className={cn(
-        "relative flex min-w-0 cursor-pointer flex-col rounded-xl border-2 bg-card p-5",
-        "transition-[border-color,background-color] duration-[var(--duration-fast)] ease-[var(--ease-out)] motion-reduce:transition-none",
-        "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2",
-        selecionado ? "border-primary" : "border-border hover:border-[var(--border-strong)]",
-      )}
-    >
-      {topo}
-      <span className="flex items-start gap-3">
-        <span className="min-w-0 flex-1">{children}</span>
-        <RadioGroupItem id={id} value={valor} className="mt-0.5 shrink-0" />
-      </span>
-    </label>
+    <Card className={cn("gap-4 border-2 transition-all", selecionado ? "border-primary shadow-[var(--shadow-md)]" : "border-border hover:border-[var(--border-strong)]")}>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-[1rem] font-semibold">
+          {titulo}
+          {selecionado && <Check className="h-4 w-4 text-primary" aria-hidden />}
+        </CardTitle>
+        <CardDescription>{descricao}</CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <RadioGroupPrimitive.Item id={id} value={valor} aria-label={titulo} className={cn(buttonVariants({ variant: selecionado ? "default" : "outline" }), "w-full")}>
+          {selecionado ? <><Check aria-hidden /> Selecionado</> : "Selecionar"}
+        </RadioGroupPrimitive.Item>
+      </CardFooter>
+    </Card>
   );
 }
 
@@ -323,7 +322,9 @@ export function CadastroEmEtapasDemo() {
   };
 
   const resumo: ErroDoResumo[] = ORDEM[etapa].filter((c) => erros[c]).map((c) => ({ id: id(c), rotulo: ROTULOS[c] ?? c, mensagem: erros[c]! }));
-  const plano = PLANOS.find((p) => p.id === d.plano);
+  const plano = plans.find((p) => p.id === d.plano);
+  const nomeDoPlano = plano?.name.pt;
+  const [recursosAbertos, setRecursosAbertos] = useState(false);
   const barra = (onVoltar?: () => void, rotuloFinal?: React.ReactNode, textoCarregando = "Salvando…") => (
     <BarraDaEtapa
       onVoltar={onVoltar}
@@ -369,7 +370,7 @@ export function CadastroEmEtapasDemo() {
                       titulo="Quem deve ser o responsável?"
                       paragrafos={["A pessoa que vai administrar a conta da loja: configurações, assinatura e cobrança."]}
                       destaque="Seus dados pessoais não aparecem no perfil público da loja."
-                      iconeDestaque={<Lock />}
+                     
                     />
                   }
                   barra={barra()}
@@ -407,7 +408,7 @@ export function CadastroEmEtapasDemo() {
                     <LateralDaEtapa
                       icone={<Store />}
                       tom="marca"
-                      iconeDestaque={<Info />}
+                     
                       titulo="Seu cadastro, sua vitrine."
                       paragrafos={["Nome, tipo, categorias, endereço e logo aparecem no perfil público da loja."]}
                       destaque="O CNPJ serve só para formalizar o cadastro e não aparece para o público."
@@ -442,7 +443,7 @@ export function CadastroEmEtapasDemo() {
                         <SegmentedControl<Tipo> aria-labelledby={`${base}-tipo`} options={TIPOS} value={d.tipo} onValueChange={(v) => mudar("tipo", v)} />
                       </div>
                     </Grupo>
-
+                    <DivisorSuave />
                     <Grupo titulo="Categorias *" descricao="Escolha uma ou mais. Elas ajudam a loja a aparecer nas buscas certas.">
                       <div role="group" aria-label="Categorias" aria-describedby={erros.categorias ? `${base}-categorias-erro` : undefined} className="flex flex-wrap gap-2">
                         {CATEGORIAS.map((c, i) => (
@@ -450,7 +451,6 @@ export function CadastroEmEtapasDemo() {
                             key={c}
                             id={i === 0 ? id("categorias") : undefined}
                             ativo={d.categorias.includes(c)}
-                            invalido={Boolean(erros.categorias)}
                             onClick={() => mudar("categorias", d.categorias.includes(c) ? d.categorias.filter((x) => x !== c) : [...d.categorias, c])}
                           >
                             {c}
@@ -460,7 +460,7 @@ export function CadastroEmEtapasDemo() {
                       <p className="sr-only" aria-live="polite">{d.categorias.length ? `${d.categorias.length} selecionadas` : ""}</p>
                       {erros.categorias && <MensagemDeErro id={`${base}-categorias-erro`} className="mt-3">{erros.categorias}</MensagemDeErro>}
                     </Grupo>
-
+                    <DivisorSuave />
                     <Grupo titulo="Endereço" descricao="Digite o CEP: preenchemos a rua, o bairro e a cidade.">
                       <GradeDeCampos>
                         <CampoDoCadastro
@@ -489,7 +489,7 @@ export function CadastroEmEtapasDemo() {
                         <CampoDoCadastro rotulo="Cidade" placeholder="Preenchida pelo CEP" value={d.cidade} onChange={(e) => mudar("cidade", e.target.value)} />
                       </GradeDeCampos>
                     </Grupo>
-
+                    <DivisorSuave />
                     <Grupo titulo="Presença online" descricao="Opcional. Você pode completar depois.">
                       <div className="flex min-w-0 flex-wrap items-start gap-x-6 gap-y-6">
                         <div className="space-y-2">
@@ -528,6 +528,7 @@ export function CadastroEmEtapasDemo() {
                         onValueChange={(v) => mudar("periodo", v)}
                       />
                     </div>
+                    {/* Os cards de preço do template Planos e assinatura (CardDePreco), em modo rádio. */}
                     <div className="@container/planos">
                       <RadioGroup
                         aria-label="Planos"
@@ -535,41 +536,30 @@ export function CadastroEmEtapasDemo() {
                         aria-describedby={erros.plano ? `${base}-plano-erro` : undefined}
                         value={d.plano}
                         onValueChange={(v) => mudar("plano", v)}
-                        className="grid gap-3 @min-[42rem]/planos:grid-cols-3"
+                        className="grid grid-cols-1 gap-5 @min-[48rem]/planos:grid-cols-3"
                       >
-                        {PLANOS.map((p, i) => (
-                          <CartaoDeOpcao
-                            key={p.id}
-                            id={i === 0 ? id("plano") : `${base}-plano-${p.id}`}
-                            valor={p.id}
-                            selecionado={d.plano === p.id}
-                            topo={p.recomendado ? (
-                              <Badge variant="outline" className="mb-3 border-primary/25 bg-[var(--primary-muted)] font-semibold text-primary-text">
-                                <ShieldCheck aria-hidden /> Recomendado
-                              </Badge>
-                            ) : (
-                              // Lado a lado, os outros cartões guardam a mesma altura, para nomes e preços ficarem alinhados.
-                              <Badge aria-hidden variant="outline" className="invisible mb-3 hidden font-semibold @min-[42rem]/planos:inline-flex">
-                                <ShieldCheck /> Recomendado
-                              </Badge>
-                            )}
-                          >
-                            <span className="block text-[1.0625rem] font-bold text-foreground">{p.nome}</span>
-                            <span className="mt-0.5 block text-sm text-muted-foreground">{p.paraQuem}</span>
-                            <span className="mt-4 flex flex-wrap items-baseline gap-x-1">
-                              <span className="text-[1.5rem] font-extrabold tracking-tight text-foreground">{PRECO_EXEMPLO}</span>
-                              <span className="text-sm text-muted-foreground">/{d.periodo === "mensal" ? "mês" : "ano"}</span>
-                            </span>
-                            <span className="block text-xs text-muted-foreground">Valor de exemplo</span>
-                            <ul className="mt-4 space-y-1.5">
-                              {p.recursos.map((r) => (
-                                <li key={r} className="flex items-start gap-2 text-sm text-foreground">
-                                  <Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> {r}
-                                </li>
-                              ))}
-                            </ul>
-                          </CartaoDeOpcao>
-                        ))}
+                        {plans.map((p, i) => {
+                          const Icone = p.icon;
+                          return (
+                            <CardDePreco
+                              key={p.id}
+                              selecao="radio"
+                              valor={p.id}
+                              idDaAcao={i === 0 ? id("plano") : undefined}
+                              nome={p.name.pt}
+                              descricao={p.desc.pt}
+                              icone={<Icone aria-hidden />}
+                              destaque={p.highlight}
+                              paraQuem={p.forWhom?.pt}
+                              recursos={pricingFeatures.map((f, j) => ({ texto: f.pt, incluido: j < p.included }))}
+                              recursosAbertos={recursosAbertos}
+                              onRecursosAbertosChange={setRecursosAbertos}
+                              preco={PRECO_EXEMPLO}
+                              periodo={d.periodo === "mensal" ? "/ mês · exemplo" : "/ ano · exemplo"}
+                              selecionado={d.plano === p.id}
+                            />
+                          );
+                        })}
                       </RadioGroup>
                     </div>
                     {erros.plano && <MensagemDeErro id={`${base}-plano-erro`}>{erros.plano}</MensagemDeErro>}
@@ -589,7 +579,7 @@ export function CadastroEmEtapasDemo() {
                   tituloRef={titulo}
                   resumoDeErros={resumo}
                   onSubmit={continuar}
-                  lateral={<LateralDaEtapa icone={<ListChecks />} tom="marca" iconeDestaque={<Info />} titulo="Tudo certo para continuar?" destaque="Encontrou algo errado? Use Editar para voltar à etapa. Nenhuma cobrança acontece nesta etapa." />}
+                  lateral={<LateralDaEtapa icone={<ListChecks />} tom="marca" titulo="Tudo certo para continuar?" destaque="Encontrou algo errado? Use Editar para voltar à etapa. Nenhuma cobrança acontece nesta etapa." />}
                   barra={barra(() => irPara(2))}
                 >
                   <ListaDeRevisao valoresAbertos={["responsavel", "loja", "plano"]}>
@@ -608,8 +598,8 @@ export function CadastroEmEtapasDemo() {
                       <LinhaDeDado rotulo="Bairro e cidade" valor={[d.bairro, d.cidade].filter(Boolean).join(" · ")} />
                       <LinhaDeDado rotulo="Instagram" valor={d.instagram && `@${d.instagram}`} />
                     </BlocoDeRevisao>
-                    <BlocoDeRevisao valor="plano" titulo="03 · Plano" nomeEtapa="Plano" resumo={[plano?.nome, d.periodo === "mensal" ? "Mensal" : "Anual"]} onEditar={() => editar(2)}>
-                      <LinhaDeDado rotulo="Plano" valor={plano?.nome} />
+                    <BlocoDeRevisao valor="plano" titulo="03 · Plano" nomeEtapa="Plano" resumo={[nomeDoPlano, d.periodo === "mensal" ? "Mensal" : "Anual"]} onEditar={() => editar(2)}>
+                      <LinhaDeDado rotulo="Plano" valor={nomeDoPlano} />
                       <LinhaDeDado rotulo="Cobrança" valor={`${d.periodo === "mensal" ? "Mensal" : "Anual"} · ${PRECO_EXEMPLO} (exemplo)`} />
                     </BlocoDeRevisao>
                   </ListaDeRevisao>
@@ -647,10 +637,10 @@ export function CadastroEmEtapasDemo() {
                     <LateralDaEtapa
                       icone={<Lock />}
                       titulo="Resumo da assinatura"
-                      paragrafos={[`Plano ${plano?.nome ?? "a escolher"} · ${d.periodo === "mensal" ? "mensal" : "anual"}`, `Total: ${PRECO_EXEMPLO} (valor de exemplo)`]}
+                      paragrafos={[`Plano ${nomeDoPlano ?? "a escolher"} · ${d.periodo === "mensal" ? "mensal" : "anual"}`, `Total: ${PRECO_EXEMPLO} (valor de exemplo)`]}
                       destaque="Demonstração: não digite dados reais de cartão."
                       tom="aviso"
-                      iconeDestaque={<Info />}
+                     
                     />
                   }
                   barra={barra(() => irPara(3), <>Confirmar assinatura <Check aria-hidden /></>, "Confirmando…")}
@@ -659,24 +649,8 @@ export function CadastroEmEtapasDemo() {
                     <div className="@container/formas">
                       <p id={`${base}-forma`} className="mb-2 text-sm font-semibold text-foreground">Forma de pagamento</p>
                       <RadioGroup aria-labelledby={`${base}-forma`} value={d.forma} onValueChange={(v) => { mudar("forma", v as Forma); setErros({}); }} className="grid gap-3 @min-[28rem]/formas:grid-cols-2">
-                        <CartaoDeOpcao id={`${base}-forma-cartao`} valor="cartao" selecionado={d.forma === "cartao"}>
-                          <span className="flex items-center gap-3">
-                            <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-primary-text"><CreditCard className="size-5" /></span>
-                            <span className="min-w-0">
-                              <span className="block font-bold text-foreground">Cartão de crédito</span>
-                              <span className="block text-sm text-muted-foreground">Cobrança automática</span>
-                            </span>
-                          </span>
-                        </CartaoDeOpcao>
-                        <CartaoDeOpcao id={`${base}-forma-pix`} valor="pix" selecionado={d.forma === "pix"}>
-                          <span className="flex items-center gap-3">
-                            <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground"><QrCode className="size-5" /></span>
-                            <span className="min-w-0">
-                              <span className="block font-bold text-foreground">Pix</span>
-                              <span className="block text-sm text-muted-foreground">Pagamento na hora</span>
-                            </span>
-                          </span>
-                        </CartaoDeOpcao>
+                        <CartaoSelecionavel id={`${base}-forma-cartao`} valor="cartao" titulo="Cartão de crédito" descricao="Cobrança automática a cada período." selecionado={d.forma === "cartao"} />
+                        <CartaoSelecionavel id={`${base}-forma-pix`} valor="pix" titulo="Pix" descricao="Pagamento na hora, pelo app do banco." selecionado={d.forma === "pix"} />
                       </RadioGroup>
                     </div>
                     {d.forma === "cartao" ? (
@@ -705,45 +679,45 @@ export function CadastroEmEtapasDemo() {
   );
 }
 
-/* ── Tela de sucesso ── */
+/* ── Tela de sucesso: a própria EtapaDoCadastro, com Alerta de sucesso, itens de ação e a barra da etapa ── */
 function Sucesso({ tituloRef, email, onRecomecar }: { tituloRef: React.Ref<HTMLHeadingElement>; email: string; onRecomecar: () => void }) {
   const passos = [
-    { titulo: "Confirme seu e-mail", texto: email ? `Enviamos o link para ${email}.` : "Enviamos um link para o e-mail de acesso." },
-    { titulo: "Complete o perfil da loja", texto: "Horário, fotos e uma descrição curta." },
-    { titulo: "Publique suas primeiras peças", texto: "Elas passam a aparecer nas buscas da região." },
+    { icone: <MailCheck />, titulo: "Confirme seu e-mail", texto: email ? `Enviamos o link para ${email}.` : "Enviamos um link para o e-mail de acesso." },
+    { icone: <Camera />, titulo: "Complete o perfil da loja", texto: "Horário, fotos e uma descrição curta." },
+    { icone: <Shirt />, titulo: "Publique suas primeiras peças", texto: "Elas passam a aparecer nas buscas da região." },
   ];
   return (
-    <div className="@container/sucesso px-4 pt-10 pb-10 @min-[40rem]/sucesso:px-7 @min-[40rem]/sucesso:pt-12" data-sucesso>
-      <div className="mx-auto max-w-xl text-center">
-        <span aria-hidden className="mx-auto flex size-16 items-center justify-center rounded-full bg-success-muted text-success motion-safe:animate-in motion-safe:zoom-in-50 motion-safe:duration-[var(--duration-slow)] motion-safe:ease-[var(--ease-back)]">
-          <Check className="size-8" strokeWidth={2.5} />
-        </span>
-        <h2 ref={tituloRef} tabIndex={-1} className="mt-6 text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-foreground outline-none [text-wrap:balance]">
-          Pronto! Sua loja está cadastrada.
-        </h2>
-        <p className="mt-3 leading-relaxed text-muted-foreground">Agora faltam poucos passos para ela ser descoberta. (Demonstração: nada foi gravado.)</p>
-      </div>
-      <ol className="mx-auto mt-8 max-w-xl divide-y divide-border rounded-xl border border-border">
-        {passos.map((p, i) => (
-          <li
-            key={p.titulo}
-            className="flex items-start gap-4 px-5 py-4 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-normal)] motion-safe:[animation-fill-mode:both]"
-            style={{ animationDelay: `${200 + i * 80}ms` }}
-          >
-            <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-[0.8125rem] font-extrabold tabular-nums text-[var(--graphite-600)]">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block font-semibold text-foreground">{p.titulo}</span>
-              <span className="block text-sm text-muted-foreground">{p.texto}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <div className="mx-auto mt-8 flex max-w-xl flex-col-reverse gap-3 @min-[30rem]/sucesso:flex-row @min-[30rem]/sucesso:justify-center">
-        <Button type="button" variant="outline" size="lg" onClick={onRecomecar}><RotateCcw aria-hidden /> Recomeçar a demonstração</Button>
-        <Button type="button" size="lg">Ir para o painel <ArrowRight aria-hidden /></Button>
-      </div>
+    <div data-sucesso>
+      <EtapaDoCadastro
+        titulo="Pronto! Sua loja está cadastrada."
+        explicacao="Agora faltam poucos passos para ela ser descoberta."
+        tituloRef={tituloRef}
+        onSubmit={(e) => e.preventDefault()}
+        barra={
+          <BarraDaEtapa>
+            <Button type="button" variant="outline" size="lg" onClick={onRecomecar}><RotateCcw aria-hidden /> Recomeçar a demonstração</Button>
+            <Button type="submit" size="lg">Ir para o painel <ArrowRight aria-hidden /></Button>
+          </BarraDaEtapa>
+        }
+      >
+        <div className="space-y-6">
+          <Alert variant="success" className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-[var(--duration-slow)] motion-safe:ease-[var(--ease-back)]">
+            <CheckCircle2 aria-hidden />
+            <AlertTitle>Assinatura confirmada</AlertTitle>
+            <AlertDescription>Demonstração: nada foi gravado nem cobrado.</AlertDescription>
+          </Alert>
+          <section aria-labelledby="proximos-passos-cadastro" className="space-y-3">
+            <Heading id="proximos-passos-cadastro" level={3} size="card">Próximos passos</Heading>
+            <ul className="grid gap-2">
+              {passos.map((p) => (
+                <li key={p.titulo}>
+                  <ItemDeAcao midia={p.icone} titulo={p.titulo} descricao={p.texto} onClick={(e) => e.preventDefault()} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </EtapaDoCadastro>
     </div>
   );
 }
@@ -752,11 +726,11 @@ function Sucesso({ tituloRef, email, onRecomecar }: { tituloRef: React.Ref<HTMLH
 type Peca = { nome: string; por: string; secao?: string; ancora?: string };
 const COMBINACOES: { etapa: string; titulo: string; formula: string; pecas: Peca[] }[] = [
   {
-    etapa: "01", titulo: "Responsável", formula: "Campos + máscara + Senha com confirmação + Coluna lateral",
+    etapa: "01", titulo: "Responsável", formula: "Campos + Senha com confirmação + Coluna lateral com Alerta",
     pecas: [
-      { nome: "Campo de texto (CampoDoCadastro)", por: "Rótulo, ajuda e erro ligados ao campo.", secao: "buttons", ancora: "inputs" },
+      { nome: "Campo de texto (CampoDoCadastro)", por: "Rótulo, ajuda e erro ligados ao campo; celular com máscara.", secao: "buttons", ancora: "inputs" },
       { nome: "Senha com confirmação (PasswordConfirm)", por: "Força, dicas com check e confirmação em tempo real.", secao: "buttons", ancora: "password" },
-      { nome: "Coluna lateral (LateralDaEtapa)", por: "Explica para que servem os dados, sem tirar o foco do formulário." },
+      { nome: "Coluna lateral: Ícone com base + Alerta (info)", por: "Explica para que servem os dados, sem tirar o foco do formulário.", secao: "feedback", ancora: "alerts" },
     ],
   },
   {
@@ -770,11 +744,10 @@ const COMBINACOES: { etapa: string; titulo: string; formula: string; pecas: Peca
     ],
   },
   {
-    etapa: "03", titulo: "Plano", formula: "Cartões selecionáveis + Controle segmentado + Badge + Alerta",
+    etapa: "03", titulo: "Plano", formula: "Cards de preço + Controle segmentado + Alerta",
     pecas: [
-      { nome: "Cartão selecionável", por: "Um plano por vez: borda de 2 px e marcação, não só cor.", secao: "cards", ancora: "card-states" },
-      { nome: "Controle segmentado", por: "Mensal ou anual muda o preço de todos os cartões.", secao: "buttons", ancora: "segmented" },
-      { nome: "Badge", por: "“Recomendado” em texto e ícone, no topo do cartão.", secao: "badges", ancora: "badges" },
+      { nome: "Card de preço (CardDePreco)", por: "O mesmo card do template Planos e assinatura, em modo rádio: um plano por vez.", secao: "templates", ancora: "template-dashboard" },
+      { nome: "Controle segmentado", por: "Mensal ou anual muda o período de todos os cards.", secao: "buttons", ancora: "segmented" },
       { nome: "Alerta (info)", por: "“Sem fidelidade” tranquiliza antes da escolha.", secao: "feedback", ancora: "alerts" },
     ],
   },
@@ -786,11 +759,12 @@ const COMBINACOES: { etapa: string; titulo: string; formula: string; pecas: Peca
     ],
   },
   {
-    etapa: "05", titulo: "Pagamento", formula: "Cartões selecionáveis + campos com máscara + Alerta + carregando e sucesso",
+    etapa: "05", titulo: "Pagamento", formula: "Cartões selecionáveis + campos com máscara + Alertas + carregando e sucesso",
     pecas: [
-      { nome: "Cartão selecionável", por: "Cartão de crédito ou Pix, com ícone na base.", secao: "cards", ancora: "card-states" },
-      { nome: "Alerta (info)", por: "Explica o Pix antes de confirmar.", secao: "feedback", ancora: "alerts" },
-      { nome: "Barra da etapa carregando", por: "Confirmando… com o botão desativado; depois, a tela de sucesso.", secao: "motion", ancora: "micro" },
+      { nome: "Cartão selecionável (Cards › Estados)", por: "Cartão de crédito ou Pix: borda de 2 px, check e Selecionado.", secao: "cards", ancora: "card-states" },
+      { nome: "Alerta (info e aviso)", por: "Explica o Pix e avisa que é demonstração.", secao: "feedback", ancora: "alerts" },
+      { nome: "Barra da etapa carregando", por: "Confirmando… com o botão desativado.", secao: "motion", ancora: "micro" },
+      { nome: "Sucesso: Alerta de sucesso + Itens de ação", por: "Confirmação e os próximos passos, na mesma moldura.", secao: "badges", ancora: "listas-painel" },
     ],
   },
   {
@@ -799,7 +773,7 @@ const COMBINACOES: { etapa: string; titulo: string; formula: string; pecas: Peca
       { nome: "Stepper", por: "Nomes inteiros quando cabem; senão, “Etapa X de N” e os números.", secao: "stepper", ancora: "stepper-demo" },
       { nome: "Erro no campo", por: "aria-invalid, texto com ícone e foco no primeiro erro.", secao: "buttons", ancora: "inputs" },
       { nome: "Resumo dos erros (Alerta de erro)", por: "Com 2 erros ou mais, no topo, com link para cada campo.", secao: "feedback", ancora: "alerts" },
-      { nome: "Tokens de movimento", por: "Entrada de cada etapa e check do sucesso; parados com menos movimento.", secao: "motion", ancora: "motion-tokens" },
+      { nome: "Tokens de movimento", por: "Entrada de cada etapa e do sucesso; parados com menos movimento.", secao: "motion", ancora: "motion-tokens" },
     ],
   },
 ];

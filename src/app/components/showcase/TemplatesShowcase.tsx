@@ -32,6 +32,8 @@ import { SectionHeader } from "./shared/SectionHeader";
 import { CabecalhoDaPagina } from "../ui/painel-cabecalho";
 import { CardComCabecalho } from "../ui/painel-dados";
 import { AbasComContador } from "../ui/painel-produtos";
+import { CardDePreco } from "../ui/card-de-preco";
+import { plans, pricingFeatures } from "./shared/planos";
 
 type L = { en: string; pt: string };
 
@@ -970,54 +972,7 @@ function InboxTemplate() {
 /* ─────────────────────────────────────────────
    6. Pricing / Plans Template
 ───────────────────────────────────────────── */
-const pricingFeatures = [
-  { en: "Searchable public storefront", pt: "Vitrine pública pesquisável" },
-  { en: "Product, variant and stock management", pt: "Gestão de produtos, variantes e estoque" },
-  { en: "Catalog import and updates", pt: "Importação e atualização do catálogo" },
-  { en: "Promotions and contact requests", pt: "Promoções e solicitações de contato" },
-  { en: "Findability tasks", pt: "Tarefas de encontrabilidade" },
-  { en: "Interest indicators per product", pt: "Indicadores de interesse por produto" },
-  { en: "Store discovery funnel", pt: "Funil de descoberta da loja" },
-  { en: "Performance-based recommendations", pt: "Recomendações baseadas no desempenho" },
-  { en: "Searches with no results and regional gaps", pt: "Buscas sem resultado e lacunas regionais" },
-  { en: "Market trends and comparisons", pt: "Tendências e comparativos de mercado" },
-];
-
-// "Para quem" (forWhom) é opcional: plano sem esse texto não mostra o bloco.
-type Plano = { id: string; name: L; price: number; forWhom?: L; desc: L; included: number; highlight: boolean; icon: typeof Package };
-
-const plans: Plano[] = [
-  {
-    id: "basico",
-    name: { en: "Visibility", pt: "Visibilidade" },
-    price: 79,
-    forWhom: { en: "Stores and brands that want to showcase their products and win more customers in their area.", pt: "Lojas e marcas que querem destacar seus produtos e conquistar mais clientes na região." },
-    desc: { en: "Your searchable storefront, organized products and more ways to be contacted.", pt: "Sua vitrine pesquisável, produtos organizados e mais possibilidades de contato." },
-    included: 5,
-    highlight: false,
-    icon: Package,
-  },
-  {
-    id: "intermediario",
-    name: { en: "Performance", pt: "Desempenho" },
-    price: 149,
-    forWhom: { en: "Businesses that want to understand consumer interest and improve their results.", pt: "Negócios que desejam entender o interesse dos consumidores e melhorar seus resultados." },
-    desc: { en: "Everything in the Visibility plan, plus interest and performance analysis and recommendations for your store.", pt: "Todos os recursos do plano Visibilidade, com análise de interesse, desempenho e recomendações para a sua loja." },
-    included: 8,
-    highlight: true,
-    icon: Zap,
-  },
-  {
-    id: "premium",
-    name: { en: "Opportunities", pt: "Oportunidades" },
-    price: 299,
-    forWhom: { en: "Brands that want to identify market demand and discover growth opportunities.", pt: "Marcas que querem identificar demandas do mercado e descobrir oportunidades de crescimento." },
-    desc: { en: "All the store's intelligence, with an aggregated view of searches and of offer gaps in the local market.", pt: "Toda a inteligência da loja, com visão agregada das buscas e das lacunas de oferta do mercado local." },
-    included: 10,
-    highlight: false,
-    icon: Building2,
-  },
-];
+/* Recursos e planos de exemplo: em shared/planos.ts (também usados no cadastro em etapas, Padrões do produto). */
 
 /* Controle só da demonstração: liga e desliga o bloco opcional "Para quem" nos cards de preço */
 function ChaveParaQuem({ ligado, onChange }: { ligado: boolean; onChange: (v: boolean) => void }) {
@@ -1101,106 +1056,34 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
           {plans.map(plan => {
             const Icon = plan.icon;
             const valor = annual ? Math.round(plan.price * 0.8) : plan.price;
-            const forWhom = mostrarParaQuem && plan.forWhom ? bi(plan.forWhom) : null;
-            const idLista = `recursos-${plan.id}`;
-            const ativo = selecionado === plan.id;
             return (
-              <div
+              <CardDePreco
                 key={plan.id}
-                className={`@container relative rounded-[20px] bg-card p-4 sm:p-6 flex flex-col transition-shadow
-                  ${plan.highlight || ativo ? "border-2 border-primary" : "border border-border"}
-                  ${ativo ? "ring-4 ring-primary/20" : ""}`}
-              >
-                {/* Topo: ícone do plano e, no destacado, o selo no estilo do card com wobble */}
-                <div className="mb-4 flex items-center justify-between gap-2">
-                  <div className="h-8 w-8 rounded-full flex items-center justify-center bg-[var(--primary-muted)] dark:bg-muted shrink-0">
-                    <Icon aria-hidden className="h-4 w-4 text-[var(--primary-text,var(--primary))] dark:text-muted-foreground" />
-                  </div>
-                  {plan.highlight && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-[var(--primary-muted)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
-                      <Star aria-hidden className="h-3 w-3 fill-current" />
-                      {t("Recommended", "Recomendado")}
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="mb-2 text-[1.5rem] font-black leading-tight tracking-[-0.03em] text-foreground">{bi(plan.name)}</h3>
-                <p className="mb-4 text-[0.8125rem] leading-relaxed text-muted-foreground">{bi(plan.desc)}</p>
-
-                {/* "Para quem": no máximo 4 linhas, sem reticências; altura de 4 linhas em todos os cards (só cresce, em vez de vazar, quando o card fica estreito demais). Caixa neutra em cinza, nos dois temas: é uma dica, não um aviso (decisão da dona do produto, 20/11/2026) */}
-                {forWhom && (
-                <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-md border border-border bg-muted px-2.5 sm:px-3 py-2.5">
-                  <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                  <p className="min-h-[5.5em] text-[0.8125rem] leading-snug text-foreground">
-                    <strong className="font-bold">{t("Who it's for:", "Para quem:")}</strong> {forWhom}
-                  </p>
-                </div>
-                )}
-
-                {/* Ocultar / expandir os recursos do plano */}
-                <button
-                  type="button"
-                  aria-expanded={recursosAbertos}
-                  aria-controls={idLista}
-                  onClick={() => setRecursosAbertos(v => !v)}
-                  className="mb-3 -mx-1 flex items-center justify-between gap-2 rounded-sm px-1 py-1.5 text-left text-[0.8125rem] font-semibold text-foreground transition-colors hover:text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <span>{recursosAbertos ? t("Hide plan features", "Ocultar recursos do plano") : t("Show plan features", "Ver recursos do plano")}</span>
-                  <span className="flex items-center gap-1.5 text-[0.75rem] font-medium text-muted-foreground whitespace-nowrap">
-                    {t(`${plan.included} of ${pricingFeatures.length}`, `${plan.included} de ${pricingFeatures.length}`)}
-                    <ChevronDown aria-hidden className={`h-4 w-4 transition-transform ${recursosAbertos ? "rotate-180" : ""}`} />
-                  </span>
-                </button>
-
-                {recursosAbertos ? (
-                <ul id={idLista} className="space-y-2.5 flex-1 mb-5">
-                  {pricingFeatures.map((f, i) => {
-                    const inclui = i < plan.included;
-                    return (
-                      <li key={f.en} className={`flex items-start gap-2.5 text-[0.8125rem] leading-snug ${inclui ? "text-foreground" : "text-muted-foreground"}`}>
-                        <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${inclui ? "bg-[var(--primary-muted)]" : "bg-muted"}`}>
-                          {inclui
-                            ? <Check className="h-2.5 w-2.5 text-[var(--primary-text,var(--primary))]" strokeWidth={3} />
-                            : <Minus className="h-2.5 w-2.5 text-muted-foreground" strokeWidth={3} />}
-                        </span>
-                        <span>
-                          <span className="sr-only">{inclui ? t("Included: ", "Incluído: ") : t("Not included: ", "Não incluído: ")}</span>
-                          {bi(f)}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-                ) : (
-                  <div id={idLista} className="flex-1 mb-2" />
-                )}
-
-                <div className="mb-4 border-t border-border" />
-
-                {/* Rodapé no estilo do card com wobble: preço à esquerda e ação à direita; empilha quando o card é estreito */}
-                <div className="flex flex-col gap-3 @[19rem]:flex-row @[19rem]:items-center @[19rem]:justify-between">
-                  <div className="flex items-baseline gap-1 whitespace-nowrap">
-                    <span className="text-[1.625rem] font-black leading-none tracking-[-0.03em] text-foreground">R$ {valor}</span>
-                    <span className="text-[0.75rem] text-muted-foreground">{t("/ month", "/ mês")}</span>
-                  </div>
-                  <button
-                    type="button"
-                    aria-pressed={ativo}
-                    aria-label={ativo
-                      ? `${t("Plan selected", "Plano selecionado")}: ${bi(plan.name)}`
-                      : `${t("Select Plan", "Selecionar Plano")} ${bi(plan.name)}`}
-                    onClick={() => setSelecionado(plan.id)}
-                    className={`h-10 w-full @[19rem]:w-auto px-4 rounded-md border border-primary text-[0.8125rem] font-semibold whitespace-nowrap transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                      ${ativo
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-card text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)]"}`}
-                  >
-                    {ativo && <Check aria-hidden className="h-4 w-4" />}
-                    {ativo ? t("Plan selected", "Plano selecionado") : t("Select Plan", "Selecionar Plano")}
-                    {!ativo && <ArrowRight aria-hidden className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
+                valor={plan.id}
+                nome={bi(plan.name)}
+                descricao={bi(plan.desc)}
+                icone={<Icon aria-hidden />}
+                destaque={plan.highlight}
+                paraQuem={mostrarParaQuem && plan.forWhom ? bi(plan.forWhom) : undefined}
+                recursos={pricingFeatures.map((f, i) => ({ texto: bi(f), incluido: i < plan.included }))}
+                recursosAbertos={recursosAbertos}
+                onRecursosAbertosChange={setRecursosAbertos}
+                preco={`R$ ${valor}`}
+                periodo={t("/ month", "/ mês")}
+                selecionado={selecionado === plan.id}
+                onSelecionar={() => setSelecionado(plan.id)}
+                textos={{
+                  recomendado: t("Recommended", "Recomendado"),
+                  paraQuem: t("Who it's for:", "Para quem:"),
+                  verRecursos: t("Show plan features", "Ver recursos do plano"),
+                  ocultarRecursos: t("Hide plan features", "Ocultar recursos do plano"),
+                  contagem: (i, total) => t(`${i} of ${total}`, `${i} de ${total}`),
+                  incluido: t("Included: ", "Incluído: "),
+                  naoIncluido: t("Not included: ", "Não incluído: "),
+                  selecionar: t("Select Plan", "Selecionar Plano"),
+                  selecionado: t("Plan selected", "Plano selecionado"),
+                }}
+              />
             );
           })}
         </div>
