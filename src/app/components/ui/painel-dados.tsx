@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CheckCircle2, ChevronDown, Clock, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, Lock, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
@@ -19,15 +19,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/* ── Ícone com base (regra do DS, revista em 25/11/2026: Ícones › Base do ícone) ── */
 /**
- * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
- *        próxima ação, atividade, algo ativo ou em andamento).
- * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
- *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * marca: base rosa + ícone vermelho. Ação de card clicável (o card ou item leva a algum lugar ou faz algo).
+ * informativo: base cinza clara + ícone vermelho. Identifica ou explica uma informação, sem ação (títulos de card,
+ *        indicadores, itens explicativos, atividade, etapas). É o padrão dos cards e listas que não são clicáveis.
+ * neutro: base cinza + ícone cinza. Informação desabilitada (pausada, encerrada, inativa ou bloqueada).
  * Ícone sem base (inline, ao lado do texto) não usa este componente.
  */
-type TomDoIcone = "marca" | "neutro";
+type TomDoIcone = "marca" | "informativo" | "neutro";
 const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
 function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
   return (
@@ -38,7 +38,7 @@ function IconeComBase({ tom, tamanho = "md", redonda = false, children, classNam
       className={cn(
         "flex shrink-0 items-center justify-center",
         redonda ? "rounded-full" : "rounded-md",
-        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : tom === "informativo" ? "bg-muted text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
         TAMANHO_DA_BASE[tamanho],
         className,
       )}
@@ -131,7 +131,7 @@ function CardIndicador({ icone, valor, semValor, rodape, total, rotulo, variacao
             {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
           </span>
         </p>
-        <IconeComBase tom="neutro">{icone}</IconeComBase>
+        <IconeComBase tom="informativo">{icone}</IconeComBase>
       </div>
       <div className="mt-auto">
         <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
@@ -252,7 +252,7 @@ function iniciais(nome: string): string {
 function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className }: { icone?: React.ReactNode; iniciaisDe?: string; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">
+      <IconeComBase tom="informativo" redonda className="[&>svg]:h-4 [&>svg]:w-4">
         {iniciaisDe !== undefined ? <span className={`${display} text-[0.75rem] font-bold leading-none tracking-[0.02em]`}>{iniciais(iniciaisDe)}</span> : icone}
       </IconeComBase>
       <div className="min-w-0 flex-1">
@@ -266,7 +266,43 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
 /** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
-function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
+/** variante "card": atalho em card (ícone no alto, sem base; título; descrição com a seta ao lado), para levar às
+ *  próximas telas de uma área, em grade. */
+/** Sem `href` e sem `onClick`, o item é só informativo: sem seta, sem estado de clique (ex.: "Por que é avaliado?"). */
+function ItemDeAcao({ midia, titulo, descricao, href, onClick, tom: tomInformado, variante = "linha", className }: { midia: React.ReactNode; titulo: string; descricao?: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; /** Padrão: marca quando clicável, informativo quando não. */ tom?: TomDoIcone; variante?: "linha" | "card"; className?: string }) {
+  const tom = tomInformado ?? (href === undefined && !onClick ? "informativo" : "marca");
+  if (href === undefined && !onClick) {
+    return (
+      <div data-slot="item-de-acao" data-variante="informativo" className={cn("flex items-center gap-4 rounded-md border border-border bg-card p-3", className)}>
+        <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[0.9375rem] font-bold text-foreground">{titulo}</span>
+          {descricao && <span className="mt-0.5 block text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</span>}
+        </span>
+      </div>
+    );
+  }
+  href = href ?? "#";
+  if (variante === "card") {
+    return (
+      <a
+        data-slot="item-de-acao"
+        data-variante="card"
+        href={href}
+        onClick={onClick}
+        className={cn("group flex h-full flex-col gap-3 rounded-lg border border-border bg-card p-5 transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] motion-safe:hover:-translate-y-0.5 active:scale-[0.995]", foco, className)}
+      >
+        <span aria-hidden className={cn("[&>svg]:h-7 [&>svg]:w-7", tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground")}>{midia}</span>
+        <span className="flex items-center gap-3">
+          <span className="min-w-0 flex-1">
+            <span className="block text-[1rem] font-bold leading-snug text-foreground">{titulo}</span>
+            {descricao && <span className="mt-1 block text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</span>}
+          </span>
+          <Seta aria-hidden className="mt-6 h-4 w-4 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5" />
+        </span>
+      </a>
+    );
+  }
   return (
     <a
       data-slot="item-de-acao"
@@ -300,14 +336,23 @@ function ListaDeTendencias({ itens, className }: { itens: { termo: string; varia
 }
 
 /* ── Item de checklist ───────────────────────────────────────── */
-function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok" | "atencao"; texto: string; href?: string; className?: string }) {
-  const ok = estado === "ok";
+/** estado: "ok" (em dia, check verde) e "atencao" (triângulo) para pendências do painel; "feito" (check cheio na cor da
+ *  marca) e "pendente" (círculo vazio) para listas do que fazer, como "Como evoluir". Com onClick, vira botão. */
+function ItemDeChecklist({ estado, texto, href = "#", onClick, className }: { estado: "ok" | "atencao" | "feito" | "pendente"; texto: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; className?: string }) {
+  const icone = {
+    ok: <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" />,
+    atencao: <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />,
+    feito: <span aria-hidden className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3 w-3" strokeWidth={3} /></span>,
+    pendente: <span aria-hidden className="h-5 w-5 shrink-0 rounded-full border-2 border-[var(--border-strong,var(--border))]" />,
+  }[estado];
+  const leitura = { ok: "Em dia:", atencao: "Precisa de atenção:", feito: "Feito:", pendente: "A fazer:" }[estado];
+  const grande = estado === "feito" || estado === "pendente";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-row-hover", foco, className)}>
-        {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
-        <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
-        <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
+      <a data-slot="item-de-checklist" data-estado={estado} href={href} onClick={onClick} className={cn("flex items-center rounded-md transition-colors hover:bg-row-hover", grande ? "gap-3 px-3 py-3" : "gap-2.5 px-3 py-2.5", foco, className)}>
+        {icone}
+        <span className="sr-only">{leitura}</span>
+        <span className={cn("min-w-0 flex-1 text-foreground", grande ? "text-[0.875rem]" : "text-[0.8125rem]")}>{texto}</span>
         <ChevronRight aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
       </a>
     </li>
@@ -376,24 +421,227 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
 }
 
 /* ── Faixa de benefícios ─────────────────────────────────────── */
-function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { icone?: React.ReactNode; titulo: string; texto: string; beneficios: { icone: React.ReactNode; rotulo: string }[]; className?: string }) {
+/** tom "marca" (padrão): fundo rosa claro. tom "neutro": card branco com borda, para fechar uma página com um convite.
+ *  variante "linha" (com tom neutro): tudo numa linha só, separado por divisores, sem caixas nos itens, com o título
+ *  grande ao lado do ícone (ex.: nome de um reconhecimento). Em telas estreitas, empilha.
+ *  acao: botão ou link à direita (ex.: "Ver critérios"). O título pode ser um nome da marca (MarcaFind); nesse caso,
+ *  informe `rotulo` em texto para leitores de tela. */
+function FaixaDeBeneficios({ icone, titulo, rotulo, texto, beneficios, acao, tom = "marca", variante = "caixas", tituloGrande = true, className }: { icone?: React.ReactNode; titulo: React.ReactNode; rotulo?: string; texto: React.ReactNode; beneficios: { icone: React.ReactNode; rotulo: React.ReactNode }[]; acao?: React.ReactNode; tom?: "marca" | "neutro"; /** "soltos": só os benefícios, em cartões brancos lado a lado, sem moldura nem título (o título fica para leitores de tela). */ variante?: "caixas" | "linha" | "soltos"; /** Na variante linha: título grande (nome de marca) ou médio (frase), com o texto embaixo dele. */ tituloGrande?: boolean; className?: string }) {
+  const nome = rotulo ?? (typeof titulo === "string" ? titulo : undefined);
+  if (variante === "soltos") {
+    return (
+      <div className={cn("@container", className)}>
+        <ul data-slot="faixa-de-beneficios" data-variante="soltos" aria-label={nome} className="m-0 grid list-none grid-cols-1 gap-3 p-0 @md:grid-cols-2 @3xl:grid-cols-4">
+          {beneficios.map((b, i) => (
+            <li key={i} className="flex min-w-0 items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-[0.875rem] font-semibold leading-tight text-foreground">
+              <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-6 [&>svg]:w-6">{b.icone}</span>
+              <span className="min-w-0">{b.rotulo}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  if (variante === "linha") {
+    return (
+      <div className={cn("@container", className)}>
+        <section data-slot="faixa-de-beneficios" data-tom={tom} data-variante="linha" aria-label={nome} className={cn("flex flex-col gap-4 rounded-lg px-5 py-5 @5xl:flex-row @5xl:items-center @5xl:gap-0", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
+          {tituloGrande ? (
+            <>
+              <div className="flex shrink-0 items-center gap-2.5 @5xl:pr-5">
+                {icone && <span aria-hidden className="text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
+                <p className={`${display} text-[1.75rem] font-extrabold leading-none text-foreground`}>{titulo}</p>
+              </div>
+              <p className="text-[0.875rem] leading-snug text-muted-foreground @5xl:min-w-0 @5xl:max-w-[17rem] @5xl:flex-1 @5xl:border-l @5xl:border-border @5xl:px-5">{texto}</p>
+            </>
+          ) : (
+            <div className="flex min-w-0 items-center gap-3 @5xl:flex-1 @5xl:pr-5">
+              {icone && <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-8 [&>svg]:w-8">{icone}</span>}
+              <div className="min-w-0">
+                <p className={`${display} text-[1.125rem] font-bold leading-snug text-foreground`}>{titulo}</p>
+                <p className="mt-0.5 text-[0.875rem] leading-snug text-muted-foreground">{texto}</p>
+              </div>
+            </div>
+          )}
+          <ul className="grid min-w-0 grid-cols-1 gap-3 @md:grid-cols-3 @5xl:flex @5xl:gap-0">
+            {beneficios.map((b, i) => (
+              <li key={i} className="flex items-center gap-2.5 text-[0.875rem] font-semibold leading-tight text-foreground @5xl:shrink-0 @5xl:border-l @5xl:border-border @5xl:px-4 @5xl:whitespace-nowrap">
+                <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-6 [&>svg]:w-6">{b.icone}</span>
+                <span className="min-w-0">{b.rotulo}</span>
+              </li>
+            ))}
+          </ul>
+          {acao && <div className="shrink-0 @5xl:ml-auto @5xl:pl-3">{acao}</div>}
+        </section>
+      </div>
+    );
+  }
   return (
-    <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-lg border border-primary/15 bg-[var(--primary-muted)] p-5 @5xl:flex-row @5xl:items-center", className)}>
-      <div className="flex min-w-0 gap-3 @5xl:w-80 @5xl:shrink-0">
+    <div className={cn("@container", className)}>
+    <section data-slot="faixa-de-beneficios" data-tom={tom} aria-label={nome} className={cn("flex flex-col gap-4 rounded-lg p-5 @4xl:flex-row @4xl:items-center", tom === "marca" ? "border border-primary/15 bg-[var(--primary-muted)]" : superficieDoCard)}>
+      <div className="flex min-w-0 gap-3 @4xl:w-64 @4xl:shrink-0">
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
           <p className={`${display} text-[1.0625rem] font-bold text-foreground`}>{titulo}</p>
           <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{texto}</p>
         </div>
       </div>
-      <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2 @2xl:grid-cols-4">
-        {beneficios.map(b => (
-          <li key={b.rotulo} className="flex items-center gap-2.5 rounded-md bg-card px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
+      <ul className={cn("grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2", beneficios.length === 3 ? "@2xl:grid-cols-3" : "@2xl:grid-cols-4")}>
+        {beneficios.map((b, i) => (
+          <li key={i} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground", tom === "marca" ? "bg-card shadow-[var(--shadow-xs)]" : "bg-muted/60")}>
             <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{b.icone}</span>
-            {b.rotulo}
+            <span className="min-w-0">{b.rotulo}</span>
           </li>
         ))}
       </ul>
+      {acao && <div className="shrink-0">{acao}</div>}
+    </section>
+    </div>
+  );
+}
+
+/* ── Card de resumo ─────────────────────────────────────────── */
+/** Card de resumo: duas ou três partes lado a lado, separadas por divisores (ex.: a classificação atual e o que já foi
+ *  conquistado), e um destaque opcional à direita, em base rosa clara (ex.: o próximo objetivo ou uma tendência). Com
+ *  `href` no destaque, ele vira um link com seta (card clicável). Em telas estreitas, as partes ficam uma embaixo da outra. */
+function CardDeResumo({ partes, destaque, className }: {
+  partes: { rotulo: React.ReactNode; conteudo: React.ReactNode }[];
+  destaque?: { icone: React.ReactNode; titulo: React.ReactNode; texto?: React.ReactNode; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement> };
+  className?: string;
+}) {
+  const corpo = destaque && (
+    <>
+      <IconeComBase tom={destaque.href ? "marca" : "informativo"} tamanho="lg" className="bg-card">{destaque.icone}</IconeComBase>
+      <span className="min-w-0 flex-1">
+        <span className={`${display} block text-[1.0625rem] font-bold leading-snug text-foreground`}>{destaque.titulo}</span>
+        {destaque.texto && <span className="mt-0.5 block text-[0.8125rem] leading-snug text-muted-foreground">{destaque.texto}</span>}
+      </span>
+      {destaque.href && <Seta aria-hidden className="h-5 w-5 shrink-0 text-[var(--primary-text,var(--primary))] transition-transform group-hover:translate-x-0.5" />}
+    </>
+  );
+  return (
+    <section data-slot="card-de-resumo" className={cn("@container rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
+      <div className="flex flex-col gap-4 @4xl:flex-row @4xl:items-stretch @4xl:gap-0">
+        {partes.map((p, i) => (
+          <div key={i} className={cn("min-w-0 @4xl:flex-1 @4xl:px-6 first:@4xl:pl-1", i > 0 && "border-t border-border pt-4 @4xl:border-l @4xl:border-t-0 @4xl:pt-0")}>
+            <p className="m-0 text-[0.875rem] font-semibold text-foreground">{p.rotulo}</p>
+            <div className="mt-2">{p.conteudo}</div>
+          </div>
+        ))}
+        {destaque && (destaque.href ? (
+          <a href={destaque.href} onClick={destaque.onClick} data-slot="destaque-do-resumo" className={cn("group flex items-center gap-4 rounded-lg bg-[var(--primary-muted)] p-4 transition-[box-shadow,transform] hover:shadow-[var(--shadow-xs)] motion-safe:hover:-translate-y-0.5 @4xl:ml-2 @4xl:w-[34%] @4xl:shrink-0", foco)}>{corpo}</a>
+        ) : (
+          <div data-slot="destaque-do-resumo" className="flex items-center gap-4 rounded-lg bg-[var(--primary-muted)] p-4 @4xl:ml-2 @4xl:w-[34%] @4xl:shrink-0">{corpo}</div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Card de nível ──────────────────────────────────────────── */
+/** Um nível de um programa (ex.: de vantagens): ícone, nome e requisito à esquerda; a lista de itens no meio (com check
+ *  quando liberado, círculo vazio quando não); e a situação à direita (ex.: "Conquistadas 3 de 3" ou "A conquistar"). O
+ *  nível atual ganha o fundo rosa claro. Com `href`, o card inteiro vira link (com seta). Textos e itens vêm do produto. */
+function CardDeNivel({ icone, titulo, subtitulo, itens, situacao, atual = false, href, onClick, rotulos = { liberado: "Liberada: ", bloqueado: "Ainda não liberada: " }, className }: {
+  icone: React.ReactNode; titulo: React.ReactNode; subtitulo?: React.ReactNode;
+  itens: { texto: React.ReactNode; liberado: boolean }[];
+  situacao: { liberado: boolean; titulo: React.ReactNode; texto?: React.ReactNode };
+  atual?: boolean; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  rotulos?: { liberado: string; bloqueado: string }; className?: string;
+}) {
+  const conteudo = (
+    <div className="flex flex-col gap-4 @3xl:flex-row @3xl:items-center @3xl:gap-6">
+      <div className="flex min-w-0 items-center gap-3 @3xl:w-60 @3xl:shrink-0">
+        <IconeComBase tom={href ? "marca" : "informativo"} tamanho="lg">{icone}</IconeComBase>
+        <div className="min-w-0">
+          <p className={`${display} m-0 text-[1.25rem] font-extrabold leading-tight text-foreground`}>{titulo}</p>
+          {subtitulo && <p className="m-0 mt-0.5 text-[0.8125rem] text-muted-foreground">{subtitulo}</p>}
+        </div>
+      </div>
+      <ul className="m-0 min-w-0 flex-1 list-none space-y-2 p-0 @3xl:border-l @3xl:border-border @3xl:pl-6">
+        {itens.map((it, i) => (
+          <li key={i} className="flex items-center gap-2.5 text-[0.875rem] text-foreground">
+            {it.liberado
+              ? <span aria-hidden className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3 w-3" strokeWidth={3} /></span>
+              : <span aria-hidden className="size-5 shrink-0 rounded-full border-2 border-[var(--border-strong,var(--border))]" />}
+            <span className="min-w-0"><span className="sr-only">{it.liberado ? rotulos.liberado : rotulos.bloqueado}</span>{it.texto}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="flex items-center gap-3 @3xl:shrink-0">
+        <div className={cn("flex items-center gap-2.5 rounded-lg px-4 py-2.5", situacao.liberado ? "bg-[color:color-mix(in_oklab,var(--success)_12%,var(--card))]" : "bg-muted")}>
+          <span aria-hidden className={cn("[&>svg]:size-5", situacao.liberado ? "text-[color:var(--success-text,var(--success))]" : "text-muted-foreground")}>{situacao.liberado ? <CheckCircle2 /> : <Lock />}</span>
+          <span>
+            <span className="block text-[0.875rem] font-bold text-foreground">{situacao.titulo}</span>
+            {situacao.texto && <span className="block text-[0.75rem] text-muted-foreground">{situacao.texto}</span>}
+          </span>
+        </div>
+        {href && <Seta aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />}
+      </div>
+    </div>
+  );
+  const classes = cn("@container block rounded-lg border p-4 @xl:p-5", atual ? "border-primary/25 bg-[linear-gradient(90deg,var(--primary-muted),var(--card))]" : "border-border bg-card", className);
+  return href ? (
+    <a data-slot="card-de-nivel" data-atual={atual} href={href} onClick={onClick} className={cn("group transition-[border-color,box-shadow] hover:border-primary/30 hover:shadow-[var(--shadow-xs)]", classes, foco)}>{conteudo}</a>
+  ) : (
+    <section data-slot="card-de-nivel" data-atual={atual} className={classes}>{conteudo}</section>
+  );
+}
+
+/* ── Anel de progresso ──────────────────────────────────────── */
+/** Anel de progresso genérico: quantos de um total já foram cumpridos (ex.: "1 de 4 requisitos cumpridos"), na cor da
+ *  marca, com o número no centro. Sem as faixas fixas do AnelDePontuacao. O anel cresce ao aparecer (sem animação com
+ *  "menos movimento"). */
+function AnelDeProgresso({ valor, total, rotulo, tamanho = 136, className }: { valor: number; total: number; /** Texto embaixo do número (ex.: "requisitos cumpridos"). */ rotulo: string; tamanho?: number; className?: string }) {
+  const r = 42, c = 2 * Math.PI * r;
+  const pct = total > 0 ? Math.max(0, Math.min(1, valor / total)) : 0;
+  const [visivel, setVisivel] = React.useState(false);
+  React.useEffect(() => { const t = requestAnimationFrame(() => setVisivel(true)); return () => cancelAnimationFrame(t); }, []);
+  return (
+    <div data-slot="anel-de-progresso" role="img" aria-label={`${valor} de ${total} ${rotulo}`} className={cn("relative inline-flex shrink-0 items-center justify-center", className)} style={{ width: tamanho, height: tamanho }}>
+      <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden>
+        <circle cx="50" cy="50" r={r} fill="none" stroke="var(--muted)" strokeWidth="8" />
+        <circle cx="50" cy="50" r={r} fill="none" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" strokeDasharray={c}
+          strokeDashoffset={c * (1 - (visivel ? pct : 0))} className="transition-[stroke-dashoffset] duration-700 ease-out motion-reduce:transition-none" />
+      </svg>
+      <span aria-hidden className="absolute flex max-w-[70%] flex-col items-center text-center">
+        <span className={`${display} block font-extrabold leading-none text-foreground`} style={{ fontSize: Math.round(tamanho * 0.19) }}>{valor} de {total}</span>
+        <span className="mt-1 block text-[0.75rem] leading-tight text-muted-foreground">{rotulo}</span>
+      </span>
+    </div>
+  );
+}
+
+/* ── Lista de condições ────────────────────────────────────── */
+/** Condições lado a lado, em cartões brancos de mesma largura, cada uma marcada como cumprida (check verde) ou não
+ *  (relógio cinza). Em telas estreitas, uma embaixo da outra. Os textos e os prefixos lidos pelos leitores de tela vêm do
+ *  produto. */
+function ListaDeCondicoes({ itens, rotulos = { cumprido: "Cumprido: ", pendente: "Ainda não cumprido: " }, className }: { itens: { texto: React.ReactNode; cumprido: boolean }[]; rotulos?: { cumprido: string; pendente: string }; className?: string }) {
+  return (
+    <ul data-slot="lista-de-condicoes" className={cn("@container m-0 grid list-none grid-cols-1 gap-3 p-0", itens.length === 2 ? "@xl:grid-cols-2" : itens.length >= 3 ? "@2xl:grid-cols-3" : "", className)}>
+      {itens.map((it, i) => (
+        <li key={i} data-cumprido={it.cumprido} className="flex min-w-0 items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-[0.875rem] text-foreground">
+          <span aria-hidden className={cn("flex size-8 shrink-0 items-center justify-center rounded-full [&>svg]:size-4", it.cumprido ? "bg-[color:color-mix(in_oklab,var(--success)_16%,var(--card))] text-[color:var(--success-text,var(--success))]" : "bg-muted text-muted-foreground")}>
+            {it.cumprido ? <Check strokeWidth={3} /> : <Clock />}
+          </span>
+          <span className="min-w-0"><span className="sr-only">{it.cumprido ? rotulos.cumprido : rotulos.pendente}</span>{it.texto}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/* ── Card de informação (ícone grande + rótulo + valor em destaque) ── */
+/** Uma informação só, em destaque, com o ícone redondo à esquerda (ex.: "Próxima avaliação · 1 de dezembro"). */
+function CardDeInformacao({ icone, rotulo, valor, texto, tom = "informativo", className }: { icone: React.ReactNode; rotulo: React.ReactNode; valor: React.ReactNode; texto?: React.ReactNode; tom?: TomDoIcone; className?: string }) {
+  return (
+    <section data-slot="card-de-informacao" className={cn("flex items-center gap-4 rounded-lg p-5 @xl:px-6", superficieDoCard, className)}>
+      <IconeComBase tom={tom} tamanho="lg">{icone}</IconeComBase>
+      <div className="min-w-0">
+        <p className="m-0 text-[1.0625rem] font-semibold text-foreground">{rotulo}</p>
+        <p className={`${display} m-0 mt-0.5 text-[1.625rem] font-extrabold leading-tight tracking-[-0.02em] text-foreground`}>{valor}</p>
+        {texto && <p className="m-0 mt-2 text-[0.875rem] text-muted-foreground">{texto}</p>}
+      </div>
     </section>
   );
 }
@@ -434,32 +682,39 @@ function DivisorSuave({ className }: { className?: string }) {
 
 /* ── Card com cabeçalho de ícone (Opção A, 23/11/2026) ──────── */
 /**
- * Card branco das páginas do painel (padrão "Só borda": 1 px, sem sombra): ícone na base rosa clara (a mesma do
- * CardIndicador), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
- * Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
- * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
+ * Card branco das páginas do painel (padrão "Só borda": 1 px, sem sombra): ícone na base (tom informativo, o padrão:
+ * ícone vermelho em base cinza clara), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois,
+ * o conteúdo. Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
+ * tom="neutro" (base cinza + ícone cinza) para o que está desabilitado (pausado, encerrado, inativo).
  *
  * cabecalho: "divisor" (padrão, decisão da dona do produto de 23/11/2026): o cabeçalho é separado do conteúdo por um
- * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
+ * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. "destaque": um traço vertical na
+ * cor da marca entre o ícone e o título, com o título maior, para o card que fecha ou resume uma seção. (As faixas de cor
+ * saíram.)
  */
-type EstiloDoCabecalhoDoCard = "divisor" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
+type EstiloDoCabecalhoDoCard = "divisor" | "simples" | "destaque";
+/** fundo "marca": card com degradê rosa claro e o conteúdo num painel branco (para a lista de ações em destaque da página).
+ *  iconeGrande: base do ícone de 44 px (itens de destaque), para cards de abertura de página. Cantos md, como manda a
+ *  regra de Base do ícone (redonda só nos itens de atividade). */
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "informativo", cabecalho = "divisor", fundo = "card", iconeGrande = false, rodape, children, className, id, nivel = 2 }: { icone: React.ReactNode; titulo: React.ReactNode; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; fundo?: "card" | "marca"; iconeGrande?: boolean; /** Botão ou link embaixo do conteúdo (ex.: "Ver detalhes"). */ rodape?: React.ReactNode; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 }) {
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const temConteudo = children !== undefined && children !== null && children !== false;
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
-      <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && cabecalho === "simples" && "mb-5")}>
+    <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", fundo === "marca" ? "border border-primary/10 bg-[linear-gradient(160deg,var(--primary-muted),var(--card)_75%)]" : superficieDoCard, className)}>
+      <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && (cabecalho === "simples" || cabecalho === "destaque") && "mb-5")}>
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
-        <IconeComBase tom={tom}>{icone}</IconeComBase>
-        <div className="min-w-[12rem] flex-1 self-center">
-          <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
+        <IconeComBase tom={tom} tamanho={iconeGrande || cabecalho === "destaque" ? "lg" : "md"}>{icone}</IconeComBase>
+        {cabecalho === "destaque" && <span aria-hidden className="w-0.5 self-stretch rounded-full bg-primary" />}
+        <div className={cn("min-w-[12rem] flex-1 self-center", cabecalho === "destaque" && "min-w-[10rem]")}>
+          <Titulo id={tid} className={cn(display, "font-bold leading-snug tracking-[-0.01em] text-foreground", cabecalho === "destaque" ? "text-[1.1875rem]" : "text-[1.0625rem]")}>{titulo}</Titulo>
           {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
         </div>
         {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
       </div>
       {temConteudo && cabecalho === "divisor" && <DivisorSuave className="my-4 @xl:my-5" />}
-      {children}
+      {fundo === "marca" && temConteudo ? <div className="rounded-md bg-card px-2 py-1 shadow-[var(--shadow-xs)]">{children}</div> : children}
+      {rodape && <div data-slot="rodape-do-card" className="mt-4 flex flex-wrap items-center gap-2">{rodape}</div>}
     </section>
   );
 }
@@ -626,7 +881,7 @@ function ResumoEmLinha({ itens, className }: { itens: ItemDoResumo[]; className?
       <ul data-slot="resumo-em-linha" className={cn("m-0 grid list-none grid-cols-1 divide-y divide-border p-0 @lg:divide-x @lg:divide-y-0", colunas)}>
         {itens.map((i) => (
           <li key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:gap-2.5 @lg:px-3 @lg:py-1 @lg:first:pl-0">
-            <IconeComBase tom="neutro">{i.icone}</IconeComBase>
+            <IconeComBase tom="informativo">{i.icone}</IconeComBase>
             <p className="m-0 min-w-0">
               <span className={`${display} block text-[1.25rem] font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</span>
               <span className="block text-[0.8125rem] text-muted-foreground">{i.rotulo}</span>
@@ -677,7 +932,7 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
       className={cn("grid gap-5 rounded-lg p-5", superficieDoCard, "@3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
       <div className="flex min-w-0 items-start gap-3.5">
-        <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
+        <IconeComBase tom="informativo" tamanho="lg">{icone}</IconeComBase>
         <div className="min-w-0">
           {sobretitulo && <p className="text-[0.75rem] font-medium text-muted-foreground">{sobretitulo}</p>}
           <p className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
@@ -727,7 +982,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
             {limite ? <span className="ml-1.5 text-[0.9375rem] font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
           </p>
         </div>
-        <IconeComBase tom="neutro">{icone}</IconeComBase>
+        <IconeComBase tom="informativo">{icone}</IconeComBase>
       </div>
       {pct !== null ? (
         <div className="mt-auto">
@@ -744,7 +999,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDeInformacao, ListaDeCondicoes, AnelDeProgresso, CardDeResumo, CardDeNivel, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, EstiloDoCabecalhoDoCard };

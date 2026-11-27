@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { AlertCircle, CheckCircle2, Info, TriangleAlert, X } from "lucide-react";
+import { AlertCircle, Check, CheckCircle2, Clock, Info, TriangleAlert, X } from "lucide-react";
 
 import { cn } from "./utils";
 
@@ -61,6 +61,12 @@ type AlertaComAcaoProps = Omit<React.ComponentProps<"div">, "title"> & {
   /** Mostra o botão Fechar no canto (32 px). */
   onFechar?: () => void;
   rotuloFechar?: string;
+  /** Destaque: título maior e um divisor entre o ícone e o texto (para um aviso que abre ou resume uma seção). */
+  destaque?: boolean;
+  /** Lista de condições embaixo do texto, em cartões brancos, cada uma marcada como cumprida (check verde) ou não. */
+  itens?: { texto: React.ReactNode; cumprido: boolean }[];
+  /** Prefixos lidos pelos leitores de tela antes de cada condição. */
+  rotulosDosItens?: { cumprido: string; pendente: string };
 };
 
 function AlertaComAcao({
@@ -70,6 +76,9 @@ function AlertaComAcao({
   acoes,
   onFechar,
   rotuloFechar = "Fechar",
+  destaque = false,
+  itens,
+  rotulosDosItens = { cumprido: "Cumprido: ", pendente: "Ainda não cumprido: " },
   className,
   children,
   ...props
@@ -97,25 +106,50 @@ function AlertaComAcao({
         >
           {icone ?? <Icone />}
         </span>
-        <div className="col-start-2 row-start-1 min-w-0 pt-[3px]">
-          <div data-slot="alerta-com-acao-titulo" className="text-[0.9375rem] font-bold leading-[1.35] text-foreground">
+        <div className={cn("col-start-2 row-start-1 min-w-0", destaque ? "border-l border-[color:color-mix(in_oklab,var(--alerta-cor)_30%,transparent)] py-0.5 pl-[18px] -ml-[2px]" : "pt-[3px]")}>
+          <div data-slot="alerta-com-acao-titulo" className={cn("font-bold text-foreground", destaque ? "font-[family-name:var(--font-display)] text-[1.25rem] leading-tight tracking-[-0.01em]" : "text-[0.9375rem] leading-[1.35]")}>
             {titulo}
           </div>
           {children != null && (
             <div
               data-slot="alerta-com-acao-descricao"
-              className="mt-1 text-sm leading-[1.6] text-muted-foreground [&_strong]:font-semibold [&_strong]:text-foreground [&>p+p]:mt-1.5"
+              className={cn("mt-1 leading-[1.6] text-muted-foreground [&_strong]:font-semibold [&_strong]:text-foreground [&>p+p]:mt-1.5", destaque ? "text-[0.9375rem]" : "text-sm")}
             >
               {children}
             </div>
           )}
         </div>
+        {itens && itens.length > 0 && (
+          <ul
+            data-slot="alerta-com-acao-itens"
+            className={cn("col-start-2 row-start-2 m-0 mt-4 flex min-w-0 list-none flex-wrap gap-3 p-0 @max-[30rem]/alerta:col-span-2 @max-[30rem]/alerta:col-start-1", destaque && "pl-[18px] @max-[30rem]/alerta:pl-0")}
+          >
+            {itens.map((it, i) => (
+              <li
+                key={i}
+                data-cumprido={it.cumprido}
+                className="flex min-w-0 items-center gap-3 rounded-lg border border-[color:color-mix(in_oklab,var(--alerta-cor)_12%,transparent)] bg-card px-3 py-2 text-sm text-foreground shadow-[var(--shadow-xs)] @max-[30rem]/alerta:w-full"
+              >
+                <span
+                  aria-hidden
+                  className={cn("flex size-8 shrink-0 items-center justify-center rounded-full [&>svg]:size-4", it.cumprido ? "bg-[color:color-mix(in_oklab,var(--success)_16%,var(--card))] text-[color:var(--success-text,var(--success))]" : "bg-muted text-muted-foreground")}
+                >
+                  {it.cumprido ? <Check strokeWidth={3} /> : <Clock />}
+                </span>
+                <span className="min-w-0">
+                  <span className="sr-only">{it.cumprido ? rotulosDosItens.cumprido : rotulosDosItens.pendente}</span>
+                  {it.texto}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
         {/* Ações embaixo do texto. Em alerta estreito (menos de 352 px de conteúdo, como no celular), a linha de ações usa
             também a largura sob o ícone, para o botão não quebrar em duas linhas. */}
         {acoes != null && (
           <div
             data-slot="alerta-com-acao-acoes"
-            className="col-start-2 row-start-2 mt-3.5 flex min-w-0 flex-wrap items-center gap-2 @max-[22rem]/alerta:col-span-2 @max-[22rem]/alerta:col-start-1"
+            className="col-start-2 row-start-3 mt-3.5 flex min-w-0 flex-wrap items-center gap-2 @max-[22rem]/alerta:col-span-2 @max-[22rem]/alerta:col-start-1"
           >
             {acoes}
           </div>

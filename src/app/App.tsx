@@ -390,6 +390,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "produto-busca",     label: "Hero search",        sectionId: "produto" },
           { id: "produto-loja-mapa", label: "Store card and map", sectionId: "produto" },
           { id: "produto-cadastro",  label: "Store registration", sectionId: "produto" },
+          { id: "produto-abertura-desempenho", label: "Performance page opening", sectionId: "produto" },
           { id: "produto-termometro", label: "Thermometer, seal and report", sectionId: "produto" },
         ],
       },

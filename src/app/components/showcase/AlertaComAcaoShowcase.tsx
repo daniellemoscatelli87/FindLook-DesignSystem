@@ -138,6 +138,22 @@ export function AlertaComAcaoDoc() {
       </div>
 
       <div>
+        <Rotulo>Com destaque e lista de condições (destaque, itens; textos de exemplo)</Rotulo>
+        <AlertaComAcao
+          tom="info"
+          destaque
+          titulo="Requisitos para participar"
+          itens={[
+            { texto: "Pelo menos 15 dias de cadastro", cumprido: true },
+            { texto: "8 pedidos respondidos", cumprido: true },
+            { texto: "3 avaliações recebidas", cumprido: false },
+          ]}
+        >
+          Para participar, sua conta precisa:
+        </AlertaComAcao>
+      </div>
+
+      <div>
         <Rotulo>Os 4 estados (textos de exemplo)</Rotulo>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <DemoInfoFechavel />
