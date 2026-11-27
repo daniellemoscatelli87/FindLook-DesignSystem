@@ -17,6 +17,10 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Alerta com ação e linhas de lista no celular: uma borda esquerda só"),
+    desc: pt("Pedido da dona do produto (27/11/2026): \"no mobile, diagramação ruim, principalmente na tag e nos botões\". AlertaComAcao abaixo de 640 px: base do ícone menor (36 px) na linha do título, centralizada com ele; descrição, botão e link começam na borda do respiro do card, alinhados com o ícone; botão e link lado a lado, centralizados, quebrando só quando não cabem (respiro de 16 px no celular). Do 640 px em diante, nada muda. LinhaDeLista: quando as tags e ações descem para baixo do texto, a linha começa na borda esquerda da coluna do texto, o mesmo x do título (alinharAcoesAbaixo=\"inicio\" passa a ser o padrão; \"fim\" mantém a borda direita de antes). O alerta-com-acao.tsx continua idêntico nos dois design systems."),
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Cartão de escolha: escolha única em cartões grandes"),
     desc: pt("Proposta de 27/11/2026, tirada do cadastro do produto, que montava o cartão à mão. Novo CartaoDeEscolha, sempre dentro de um GrupoDeCartoesDeEscolha (ui/cartao-de-escolha.tsx), feito sobre o RadioGroup do design system: card branco com borda de 2 px, ícone na base cinza e rádio à direita; escolhido, a borda fica na primária com o BrilhoDeSelecionado, o ícone passa para a base rosa (IconeComBase) e o rádio fica marcado. O cartão inteiro escolhe, as setas do teclado trocam a opção, o nome lido é o título e a frase é a descrição. Opções: colunas={2} (dois lado a lado quando o grupo tem 448 px ou mais) e desabilitado. Nova moldura comum dos cards que se escolhem (molduraDoSelecionavel, em ui/shine-border), usada também por Cards › Estados, pelo CardDePreco selecionado e pelo cadastro em etapas, sem mudar a aparência deles. Documentado em Controles de formulário › Cartões de escolha; proposta em propostas/2026-11-27-cartao-de-escolha.md."),
     page: "buttons", anchor: "cartoes-de-escolha",

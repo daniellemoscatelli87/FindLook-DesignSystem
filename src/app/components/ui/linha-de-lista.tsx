@@ -36,7 +36,11 @@ export type LinhaDeListaProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
   fim?: React.ReactNode;
   /** "estreito" (padrão, decisão da dona do produto de 27/11/2026): no celular (abaixo de 640 px), as tags e ações descem para uma linha própria, abaixo de todo o texto. true: sempre abaixo. false: sempre ao lado do texto (o texto continua na coluna dele). */
   quebraAcoes?: boolean | "estreito";
-  /** Lado das tags e ações quando descem para baixo do texto. */
+  /**
+   * Lado das tags e ações quando descem para baixo do texto. "inicio" (padrão, dona do produto, 27/11/2026): a linha de
+   * baixo começa na borda esquerda da coluna do texto (mesmo x do título), perto do texto a que pertence (proximidade
+   * e alinhamento). "fim": encostada na borda direita.
+   */
   alinharAcoesAbaixo?: "fim" | "inicio";
   /** "centro" centraliza início e fim na altura da linha (do tablet em diante); "inicio" alinha tudo no topo. */
   alinhar?: "inicio" | "centro";
@@ -59,7 +63,7 @@ export function LinhaDeLista({
   descricao,
   fim,
   quebraAcoes = "estreito",
-  alinharAcoesAbaixo = "fim",
+  alinharAcoesAbaixo = "inicio",
   alinhar = "inicio",
   interativa,
   selecionada = false,

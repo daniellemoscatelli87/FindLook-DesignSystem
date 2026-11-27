@@ -318,7 +318,7 @@
         {
           "nome": "variaveisDoAlerta",
           "tipo": "utilitário",
-          "linha": 32,
+          "linha": 38,
           "descricao": "Cada tom define as variáveis que o alerta e os botões usam: --alerta-cor (borda, fundo e contorno do botão), --alerta-texto (texto do botão), --alerta-icone (ícone), --alerta-fundo (tinta do fundo sobre o card) e --alerta-base (tinta da …",
           "props": [],
           "reexportaDe": null
@@ -326,7 +326,7 @@
         {
           "nome": "AlertaComAcao",
           "tipo": "componente",
-          "linha": 70,
+          "linha": 76,
           "descricao": "",
           "props": [
             "tom",
@@ -343,7 +343,7 @@
         {
           "nome": "BotaoDoAlerta",
           "tipo": "componente",
-          "linha": 153,
+          "linha": 160,
           "descricao": "Ação principal do alerta: só contorno, na cor do estado; texto e ícone na cor de texto do estado.",
           "props": [
             "tom",
@@ -355,7 +355,7 @@
         {
           "nome": "LinkDoAlerta",
           "tipo": "componente",
-          "linha": 178,
+          "linha": 185,
           "descricao": "Ação secundária do alerta: botão com cara de link, sublinhado, em --foreground.",
           "props": [
             "asChild",
@@ -6470,7 +6470,7 @@
         {
           "nome": "LinhaDeLista",
           "tipo": "componente",
-          "linha": 55,
+          "linha": 59,
           "descricao": "",
           "props": [
             "as",

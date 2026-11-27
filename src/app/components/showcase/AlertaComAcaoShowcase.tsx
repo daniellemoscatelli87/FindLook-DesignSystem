@@ -158,6 +158,7 @@ export function AlertaComAcaoDoc() {
         <DoDont
           dos={[
             "Coloque as ações embaixo do texto, nunca ao lado.",
+            "No celular (abaixo de 640 px) há uma borda esquerda só: a base do ícone, menor, fica na linha do título, centralizada com ele, e a descrição, o botão e o link começam todos no respiro do card, alinhados com o ícone. Botão e link ficam lado a lado, centralizados um com o outro, e só quebram de linha quando não cabem. A partir de 640 px, o ícone tem a coluna dele e o resto fica na coluna do texto (o componente já faz isso).",
             "Use uma só ação principal, de contorno (BotaoDoAlerta), na cor do estado. Ela tem a altura dos botões do design system (40 px), com o texto de 14 px do alerta.",
             "Se precisar de uma segunda ação, use o link (LinkDoAlerta).",
             "Destaque com <strong> só o que a pessoa precisa ver: seminegrito, na cor do texto principal.",
