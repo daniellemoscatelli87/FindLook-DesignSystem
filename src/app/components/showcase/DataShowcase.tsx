@@ -21,6 +21,7 @@ import { TabelaDeProdutos, CelulaDeProduto, MedidorDeDesempenho, BarraDeAcoesEmL
 import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemplates";
 import { SectionHeader } from "./shared/SectionHeader";
 import { RegraDasLinhas } from "./shared/RegraDasLinhas";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -328,7 +329,7 @@ export function DataShowcase() {
       {/* ── PARTICIPAÇÃO E COMPARAÇÃO (19/11/2026) ── */}
       <section id="grafico-participacao">
         <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor pela paleta de gráficos (--chart-1 a --chart-7), fixa por categoria e em ordem de importância (o principal no tom 1, Outros em --chart-neutral); valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <GradeDeCards className="gap-4 lg:grid-cols-2">
           <ShowcaseCard>
             <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Rosca</h3>
             <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja de um bairro (exemplo)</p>
@@ -356,7 +357,7 @@ export function DataShowcase() {
               ]}
             />
           </ShowcaseCard>
-        </div>
+        </GradeDeCards>
         <ShowcaseCard className="mt-4">
           <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Barras empilhadas</h3>
           <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja por região (exemplo), com legenda</p>
@@ -580,7 +581,7 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
 export function CardsDeKpi() {
   const { t } = useI18n();
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <GradeDeCards className="sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {kpis.map((kpi) => {
         const Icon = kpi.icon;
         const TrendIcon = kpi.trend === "up" ? ArrowUpRight : ArrowDownRight;
@@ -617,20 +618,20 @@ export function CardsDeKpi() {
           </div>
         );
       })}
-    </div>
+    </GradeDeCards>
   );
 }
 
 /** Indicadores do painel da loja (CardIndicador), usados na página Cards. */
 export function IndicadoresDoPainel() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <GradeDeCards className="sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
       <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
       <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
       <CardIndicador icone={<MapPinned />} valor={48} total={75} rotulo="Bairros pesquisados" explicacao="Bairros de Curitiba que a busca de lojas já pesquisou. Com a propriedade total, o número aparece com o total de que faz parte." />
       <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={-4} comparacao="vs. 30 dias" />
-    </div>
+    </GradeDeCards>
   );
 }
 

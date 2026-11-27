@@ -5,6 +5,7 @@ import {
   SidePanel, SidePanelTrigger, SidePanelContent, SidePanelHeader, SidePanelBody, SidePanelActions, SidePanelFooter,
 } from "@/app/components/ui/side-panel";
 import { SectionHeader } from "./shared/SectionHeader";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* ─────────────────────────────────────────────────────────────
    Painel lateral (gaveta)
@@ -188,7 +189,7 @@ export function SidePanelShowcase() {
 
       <section id="sidepanel-behavior">
         <SectionHeader title="Comportamento" description="O que o componente garante ao abrir e fechar." />
-        <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        <GradeDeCards className="gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <ShowcaseCard>
             <p className="mb-4 text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Experimente</p>
             <StorePanelDemo triggerLabel="Abrir painel com formulário" outline />
@@ -213,7 +214,7 @@ export function SidePanelShowcase() {
               })}
             </ul>
           </ShowcaseCard>
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="sidepanel-store">

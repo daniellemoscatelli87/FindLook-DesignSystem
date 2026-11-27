@@ -10,6 +10,7 @@ import { VejaEm } from "./shared/VejaEm";
 import { Carregando } from "../ui/carregando";
 import { Button } from "../ui/button";
 import { ShineBorder, shinePresets, type ShinePreset } from "../ui/shine-border";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* ── Section wrapper ── */
 function Section({ id, title, sub, children }: { id: string; title: string; sub: string; children: React.ReactNode }) {
@@ -813,7 +814,7 @@ function LoadersSection() {
 
   return (
     <Section id="loaders" title={t("Loaders & Progress", "Loaders e progresso")} sub={t("Animated loading states that communicate ongoing work.", "Estados de loading animados que comunicam trabalho em andamento.")}>
-      <div className="grid grid-cols-3 gap-3">
+      <GradeDeCards className="grid-cols-3 gap-3">
 
         {/* Spinner variants */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
@@ -952,7 +953,7 @@ function LoadersSection() {
             </div>
           </div>
         </div>
-      </div>
+      </GradeDeCards>
       <DemoCarregando />
     </Section>
   );

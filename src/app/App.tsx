@@ -411,6 +411,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "card-fundos",         label: "Por fundo",                      sectionId: "cards" },
           { id: "card-layout",         label: "Borda, sombra e raio",           sectionId: "cards" },
           { id: "card-orientacao",     label: "Vertical e horizontal",          sectionId: "cards" },
+          { id: "card-mesma-altura",   label: "Mesma altura ou um por linha",   sectionId: "cards" },
           { id: "card-variants",       label: "Foto e botão",                   sectionId: "cards" },
           { id: "card-actions",        label: "Buttons in Cards",               sectionId: "cards" },
           { id: "card-ia",             label: "Arquitetura de informação",      sectionId: "cards" },

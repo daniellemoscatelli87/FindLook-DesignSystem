@@ -12,6 +12,7 @@ import logoSobreClaro from "../../../imports/svg/findlook-horizontal-sobre-claro
 import logoSobreEscuro from "../../../imports/svg/findlook-horizontal-sobre-grafite.svg";
 import logoIcone from "../../../imports/svg/findlook-simbolo.svg";
 import { SectionHeader } from "./shared/SectionHeader";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* ─────────────────────────────────────────────────────────────
    Header e menus
@@ -748,11 +749,11 @@ export function HeaderShowcase() {
 
       <section id="header-scroll">
         <SectionHeader title={t("Scroll behaviours", "Comportamentos de rolagem")} description={t("Three independent options: turn each one on or off according to the page. In the site, all three are on.", "Três opções independentes: ligue ou desligue cada uma conforme a página. No modelo padrão, as três ficam ligadas.")} />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <GradeDeCards className="gap-4 lg:grid-cols-3">
           {opRolagem.map(o => (
             <CardOpcao key={o.id} Icone={o.Icone} titulo={o.rotulo} desc={o.desc} quando={o.quando} ativo={opcoes[o.id]} rotuloAcao={[t("Turn on in the demo", "Ligar na demonstração"), t("On in the demo", "Ligado na demonstração")]} onAcao={() => verNaDemo(() => setOpcoes(p => ({ ...p, [o.id]: !p[o.id] })))} />
           ))}
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="header-mobile">

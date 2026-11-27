@@ -12,6 +12,7 @@ import { BuscaDePecas, BuscaNoCelular, type ValoresDaBusca } from "../ui/busca-p
 import { CardDeLoja } from "../ui/card-loja";
 import { MapaDeLojas, MapaIlustrativo, ConviteAoMapa, type PinoIlustrativo } from "../ui/mapa-lojas";
 import { FaixaDeParceiros } from "../ui/faixa-parceiros";
+import { GradeDeCards, ItemDaGrade } from "../ui/grade-de-cards";
 import {
   CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
 } from "../ui/cadastro-lojista";
@@ -116,7 +117,7 @@ export function ProdutoShowcase() {
             "A caixa “O que você quer encontrar?”: descrição da peça, foto de referência opcional, Condição da peça e o botão Encontrar peças. No celular, um botão fixo abre a mesma busca numa gaveta inferior, com o botão Garimpar.",
           )}
         />
-        <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+        <div data-cards-ignorar className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           <div className="min-w-0 space-y-3">
             <SubTitle>{t("Computer and tablet: BuscaDePecas", "Computador e tablet: BuscaDePecas")}</SubTitle>
             <div className="rounded-xl bg-[var(--surface-tint)] p-4 sm:p-6">
@@ -191,16 +192,16 @@ export function ProdutoShowcase() {
           }
           convite={<ConviteAoMapa link={{ rotulo: "Conhecer a FindLook para lojistas", href: "#produto-loja-mapa" }} />}
         />
-        <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-          <div className="min-w-0 space-y-2">
+        <GradeDeCards className="min-w-0 gap-4 sm:grid-cols-2">
+          <ItemDaGrade className="min-w-0 space-y-2">
             <SubTitle>{t("Store card: action available", "Card de loja: ação disponível")}</SubTitle>
             <CardDeLoja nome="Ateliê Lume" estilo="Moda autoral" bairro="Batel" exemplo acao={{ rotulo: "Ver perfil", onClick: () => undefined }} />
-          </div>
-          <div className="min-w-0 space-y-2">
+          </ItemDaGrade>
+          <ItemDaGrade className="min-w-0 space-y-2">
             <SubTitle>{t("Store card: action not yet available", "Card de loja: ação ainda indisponível")}</SubTitle>
             <CardDeLoja nome="Brechó Aurora" estilo="Vintage e segunda mão" bairro="São Francisco" exemplo acao={{ rotulo: "Ver perfil", indisponivel: "Perfil disponível quando a loja entrar na rede" }} />
-          </div>
-        </div>
+          </ItemDaGrade>
+        </GradeDeCards>
         <div className="min-w-0 space-y-3">
           <SubTitle>{t("Partners strip (no partners yet: “Your store here” invitations)", "Faixa de parceiros (ainda sem parceiros: convites “Sua loja aqui”)")}</SubTitle>
           <div className="overflow-hidden rounded-xl">
@@ -248,7 +249,7 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
             "O 1º passo na gaveta “Vamos apresentar sua loja?” (nome da loja e e-mail) e as peças do cadastro em 5 etapas: moldura com o Stepper, layout da etapa com coluna lateral, barra de ações e o resumo da revisão.",
           )}
         />
-        <div className="grid min-w-0 gap-6 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-start">
+        <div data-cards-ignorar className="grid min-w-0 gap-6 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-start">
           <div className="min-w-0 space-y-3">
             <SubTitle>{t("Drawer (store page, dark theme)", "Gaveta (página do lojista, tema escuro)")}</SubTitle>
             <MolduraCelular escuro rotulo={t("Phone demo of the registration drawer", "Demonstração da gaveta de cadastro no celular")}>

@@ -21,6 +21,7 @@ import { VejaEm } from "./shared/VejaEm";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 type Bi = { en: string; pt: string };
 type TFn = (en: string, pt: string) => string;
@@ -735,7 +736,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
       <section id="listas-painel">
         <SectionHeader title="Listas de atividade e ações" description="Três listas do painel da loja: o que aconteceu, o que fazer agora e o que está em alta nas buscas." />
         <SubSection title="Atividade, ações e tendências">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <GradeDeCards className="lg:grid-cols-3 gap-4">
             <ShowcaseCard>
               <TituloDaLista titulo="Atividade recente" componente="ItemDeAtividade" />
               <ul className="-my-3 divide-y divide-border" aria-label="Atividade recente">
@@ -757,7 +758,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               <TituloDaLista titulo="Buscas em alta na região" componente="ListaDeTendencias" />
               <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }, { termo: "Bolsa de palha", variacao: 21 }, { termo: "Tênis branco", variacao: -8 }]} />
             </ShowcaseCard>
-          </div>
+          </GradeDeCards>
           <ShowcaseCard className="mt-4">
           </ShowcaseCard>
         </SubSection>

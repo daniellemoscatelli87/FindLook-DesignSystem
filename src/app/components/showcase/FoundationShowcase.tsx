@@ -6,6 +6,7 @@ import { Check, X } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { VejaEm } from "./shared/VejaEm";
 import { SectionHeader } from "./shared/SectionHeader";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 const graphiteScale = [
   { name: "50",  var: "--graphite-50",  hex: "#F6F6F7" },
@@ -219,7 +220,7 @@ export function FoundationShowcase() {
         </SubSection>
 
         {/* ── Role overview ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <GradeDeCards className="md:grid-cols-3 gap-4">
           {[
             {
               role: "PRIMARY", roleLabel: t("TEXTO", "TEXTO"),
@@ -297,7 +298,7 @@ export function FoundationShowcase() {
               </div>
             </div>
           ))}
-        </div>
+        </GradeDeCards>
 
         {/* ── Plus Jakarta Sans — escala ── */}
         <div className="space-y-3">
@@ -389,7 +390,7 @@ export function FoundationShowcase() {
 
             {/* Rules */}
             {/* Usage rules — 4 detailed cards */}
-            <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <GradeDeCards className="md:col-span-2 grid-cols-2 md:grid-cols-4 gap-3">
 
               {/* ✓ Use as an accent */}
               <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
@@ -502,7 +503,7 @@ export function FoundationShowcase() {
                 </div>
               </div>
 
-            </div>
+            </GradeDeCards>
           </div>
         </div>
       </section>

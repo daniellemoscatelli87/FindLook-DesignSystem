@@ -10,6 +10,7 @@ import { Button } from "./button";
  * A ação pode estar indisponível: o motivo aparece em texto, ligado ao botão por aria-describedby.
  * ItemDeLoja: linha da lista ao lado do mapa; tocar seleciona a loja (aria-pressed) e leva o mapa até ela.
  * A loja selecionada ganha fundo rosa claro e um check (o estado não depende só da cor).
+ * Numa GradeDeCards, o CardDeLoja estica até a altura da linha e a ação desce para a base (27/11/2026).
  */
 
 
@@ -39,7 +40,7 @@ function CardDeLoja({ nome, estilo, bairro, exemplo = false, rotuloExemplo = "Ex
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   const detalhe = [estilo, bairro].filter(Boolean).join(" · ");
   return (
-    <article data-slot="card-de-loja" aria-labelledby={`${id}-nome`} className={cn("w-full min-w-0 rounded-lg border border-border bg-card p-4", className)}>
+    <article data-slot="card-de-loja" aria-labelledby={`${id}-nome`} className={cn("flex w-full min-w-0 flex-col items-start rounded-lg border border-border bg-card p-4", className)}>
       <Titulo id={`${id}-nome`} className="text-[0.9375rem] font-bold text-foreground">{nome}</Titulo>
       {detalhe && (
         <p className="mt-0.5 flex items-start gap-1 text-[0.8125rem] text-muted-foreground">
@@ -53,7 +54,7 @@ function CardDeLoja({ nome, estilo, bairro, exemplo = false, rotuloExemplo = "Ex
         </span>
       )}
       {acao && (
-        <div className="mt-3">
+        <div className="mt-auto self-stretch pt-3">
           {acao.indisponivel ? (
             <>
               <Button type="button" aria-disabled="true" aria-describedby={`${id}-motivo`} className="w-full cursor-not-allowed opacity-60" onClick={(e) => e.preventDefault()}>

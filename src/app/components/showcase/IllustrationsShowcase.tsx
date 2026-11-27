@@ -4,6 +4,7 @@ import { useI18n } from "../../i18n";
 import { DataTable, display } from "./shared/Guidance";
 import { PageHeader } from "./GetStartedShowcase";
 import { SectionHeader } from "./shared/SectionHeader";
+import { GradeDeCards, ItemDaGrade } from "../ui/grade-de-cards";
 
 /* ══════════════════════════════════════
    MASCOTE & ILUSTRAÇÕES — parte da identidade da marca FindLook
@@ -192,10 +193,10 @@ function IllustrationCard({ il }: { il: Illustration }) {
         </div>
         <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">{t("Alt text", "Texto alternativo")}:</span> {il.alt}</p>
       </div>
-      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <div><Label>{t("Web view", "Visão web")}</Label><EmptyStateMock src={webp} alt="" /></div>
-        <div><Label>{t("Mobile view", "Visão mobile")}</Label><EmptyStateMock src={webp} alt="" mobile /></div>
-      </div>
+      <GradeDeCards className="gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <ItemDaGrade><Label>{t("Web view", "Visão web")}</Label><EmptyStateMock src={webp} alt="" /></ItemDaGrade>
+        <ItemDaGrade><Label>{t("Mobile view", "Visão mobile")}</Label><EmptyStateMock src={webp} alt="" mobile /></ItemDaGrade>
+      </GradeDeCards>
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <Label>{t("Where / when to use", "Onde / quando usar")}</Label>
@@ -273,7 +274,7 @@ export function IllustrationsShowcase() {
             </div>
           </div>
         </div>
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
+        <GradeDeCards className="mt-5 gap-4 md:grid-cols-2">
           <DataTable
             head={[t("Element", "Elemento"), t("Token in the product", "Token no produto")]}
             rows={[
@@ -291,7 +292,7 @@ export function IllustrationsShowcase() {
               <DownloadButton url={m("nyx-folha-canonica.webp")} filename="nyx-folha-canonica.webp" label="WebP" />
             </div>
           </div>
-        </div>
+        </GradeDeCards>
       </section>
 
       {/* ── 2. EXPRESSÕES E POSES ── */}
@@ -349,7 +350,7 @@ export function IllustrationsShowcase() {
           [t("Moderation", "Moderação"), t("Prioritize relevant moments; avoid excessive presence on operational screens.", "Priorizar aplicações em momentos relevantes, evitando a presença excessiva em telas operacionais.")],
           [t("Accessibility", "Acessibilidade"), t("Illustrations are never the only way to convey important information; every one has alt text.", "Garantir que as ilustrações não sejam a única forma de transmitir informações importantes; toda ilustração tem texto alternativo.")],
         ]} />
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
+        <GradeDeCards className="mt-6 gap-5 md:grid-cols-2">
           <div className="rounded-lg border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
             <Label>{t("Application guidelines", "Diretrizes de aplicação")}</Label>
             <ul className="space-y-2">
@@ -363,7 +364,7 @@ export function IllustrationsShowcase() {
             <p>{t("Every new illustration is added to the official library, identified by its usage context and validated for visual consistency, accessibility and fit with the experience.", "Toda nova ilustração deve ser incorporada à biblioteca oficial, identificada pelo contexto de uso e validada quanto à consistência visual, acessibilidade e adequação à experiência.")}</p>
             <p className="mt-3 text-[0.8125rem] text-muted-foreground">{t("In practice: the brand owner supplies the piece; it enters this section with name, context, alt text and rules; the product only uses what is listed here.", "Na prática: a dona da marca fornece a peça; ela entra nesta seção com nome, contexto, texto alternativo e regras; o produto só usa o que está listado aqui.")}</p>
           </div>
-        </div>
+        </GradeDeCards>
       </section>
 
       {/* ── 7. ATIVOS E NOMENCLATURA ── */}
