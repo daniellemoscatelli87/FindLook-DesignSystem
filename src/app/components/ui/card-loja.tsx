@@ -43,15 +43,15 @@ function CardDeLoja({ nome, estilo, bairro, exemplo = false, rotuloExemplo = "Ex
   const detalhe = [estilo, bairro].filter(Boolean).join(" · ");
   return (
     <article data-slot="card-de-loja" aria-labelledby={`${id}-nome`} className={cn("flex w-full min-w-0 flex-col items-start rounded-lg border border-border bg-card p-4", className)}>
-      <Titulo id={`${id}-nome`} className="text-[0.9375rem] font-bold text-foreground">{nome}</Titulo>
+      <Titulo id={`${id}-nome`} className="text-body font-bold text-foreground">{nome}</Titulo>
       {detalhe && (
-        <p className="mt-0.5 flex items-start gap-1 text-[0.8125rem] text-muted-foreground">
-          <MapPin className="mt-0.5 size-3.5 shrink-0 text-primary-text" aria-hidden />
+        <p className="mt-1 flex items-start gap-1 text-body-sm text-muted-foreground">
+          <MapPin className="mt-1 size-3.5 shrink-0 text-primary-text" aria-hidden />
           {detalhe}
         </p>
       )}
       {exemplo && (
-        <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-warning/40 bg-warning-muted px-2 py-0.5 text-[0.6875rem] font-semibold text-foreground">
+        <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-warning/40 bg-warning-muted px-2 py-1 text-caption font-semibold text-foreground">
           <Info className="size-3 text-warning-text" aria-hidden /> {rotuloExemplo}
         </span>
       )}
@@ -62,7 +62,7 @@ function CardDeLoja({ nome, estilo, bairro, exemplo = false, rotuloExemplo = "Ex
               <Button type="button" aria-disabled="true" aria-describedby={`${id}-motivo`} className="w-full cursor-not-allowed opacity-60" onClick={(e) => e.preventDefault()}>
                 {acao.rotulo}
               </Button>
-              <p id={`${id}-motivo`} className="mt-1.5 text-[0.75rem] text-muted-foreground">{acao.indisponivel}</p>
+              <p id={`${id}-motivo`} className="mt-1 text-label text-muted-foreground">{acao.indisponivel}</p>
             </>
           ) : acao.href ? (
             <Button asChild className="w-full">
@@ -103,8 +103,8 @@ function ItemDeLoja({ nome, estilo, bairro, selecionada = false, onSelecionar, c
     >
       <MapPin className={cn("size-4 shrink-0 text-primary-text", selecionada && "fill-primary-muted")} aria-hidden />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-semibold text-foreground">{nome}</span>
-        {detalhe && <span className="block truncate text-xs text-muted-foreground">{detalhe}</span>}
+        <span className="block truncate text-body-sm leading-5 font-semibold text-foreground">{nome}</span>
+        {detalhe && <span className="block truncate text-label leading-4 text-muted-foreground">{detalhe}</span>}
       </span>
       {selecionada && <Check className="size-4 shrink-0 text-primary-text" aria-hidden />}
     </button>

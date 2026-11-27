@@ -74,7 +74,7 @@ export function ProductCard({
   const Cta = cta?.href ? "a" : "button";
   const ctaLabel = cta?.label ?? (esgotado ? "Avise-me" : "Ver peça");
   const desconto = typeof preco === "number" && typeof precoAntigo === "number" && precoAntigo > preco ? Math.round((1 - preco / precoAntigo) * 100) : null;
-  const tagCls = "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] shadow-[var(--shadow-sm)]";
+  const tagCls = "inline-flex items-center gap-1 rounded-full px-2 py-1 text-caption font-bold uppercase tracking-[0.08em] shadow-[var(--shadow-sm)]";
   // na vertical a tag de estoque fica sobre a imagem; na horizontal (imagem estreita) vai para o conteúdo
   const tagEstoque = escasso ? (
     <span className={cn(tagCls, "bg-primary text-primary-foreground")}><Flame className="h-3.5 w-3.5" aria-hidden />{estoque.quantidade === 1 ? "Última peça" : `Só ${estoque.quantidade} restantes`}</span>
@@ -124,21 +124,21 @@ export function ProductCard({
         <div className={cn("flex min-w-0 flex-1 flex-col", compacto || horizontal ? "gap-2" : "gap-3", esgotado && "grayscale")}>
           <div>
             {horizontal && tagEstoque && <div className="mb-2">{tagEstoque}</div>}
-            <h3 className={cn("line-clamp-2 font-semibold tracking-[-0.01em] text-foreground", compacto || horizontal ? "text-[1rem]" : "text-[1.125rem]")} style={{ fontFamily: "var(--font-sans)" }} title={nome}>{nome}</h3>
-            <p className="mt-0.5 truncate text-[0.875rem] text-muted-foreground">{loja}{estilo ? ` · ${estilo}` : ""}</p>
+            <h3 className={cn("line-clamp-2 font-semibold tracking-[-0.01em] text-foreground", compacto || horizontal ? "text-body" : "text-subtitle")} style={{ fontFamily: "var(--font-sans)" }} title={nome}>{nome}</h3>
+            <p className="mt-1 truncate text-body-sm text-muted-foreground">{loja}{estilo ? ` · ${estilo}` : ""}</p>
           </div>
           <div>
             {precoAntigo !== undefined && (
-              <p className="text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] line-through decoration-[var(--primary-text,var(--primary))]/70"><span className="sr-only">De </span>{formatarPreco(precoAntigo)}</p>
+              <p className="text-body-sm font-semibold text-[var(--primary-text,var(--primary))] line-through decoration-[var(--primary-text,var(--primary))]/70"><span className="sr-only">De </span>{formatarPreco(precoAntigo)}</p>
             )}
             <p className="flex flex-wrap items-center gap-2">
-              <span className={cn("font-bold tracking-[-0.02em] text-foreground", compacto || horizontal ? "text-[1.125rem]" : "text-[1.375rem]")}>{precoAntigo !== undefined && <span className="sr-only">por </span>}{formatarPreco(preco)}</span>
+              <span className={cn("font-bold tracking-[-0.02em] text-foreground", compacto || horizontal ? "text-subtitle" : "text-h3")}>{precoAntigo !== undefined && <span className="sr-only">por </span>}{formatarPreco(preco)}</span>
               {desconto !== null && desconto > 0 && (
-                <span className="rounded-full bg-[var(--primary-muted)] px-2 py-0.5 text-[0.6875rem] font-bold text-[var(--primary-text,var(--primary))]">-{desconto}%</span>
+                <span className="rounded-full bg-[var(--primary-muted)] px-2 py-1 text-caption font-bold text-[var(--primary-text,var(--primary))]">-{desconto}%</span>
               )}
             </p>
           </div>
-          <div className="mt-auto flex flex-col gap-0.5 text-[0.75rem] text-muted-foreground">
+          <div className="mt-auto flex flex-col gap-1 text-label text-muted-foreground">
             <span className={cn("inline-flex items-center gap-1 font-semibold", esgotado ? "text-muted-foreground" : escasso ? "text-[var(--primary-text,var(--primary))]" : "text-foreground")}>
               <PackageCheck className={cn("h-3.5 w-3.5", !esgotado && !escasso && "text-[var(--success)]")} aria-hidden />
               {esgotado ? "Sem peças no momento" : estoque.quantidade === 1 ? "1 disponível" : `${estoque.quantidade} disponíveis`}

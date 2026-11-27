@@ -18,8 +18,8 @@ function Section({ id, title, sub, children }: { id: string; title: string; sub:
   return (
     <section id={id} className="space-y-5">
       <div>
-        <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{title}</h2>
-        <p className="mt-1 max-w-3xl text-[0.9375rem] leading-relaxed text-muted-foreground">{sub}</p>
+        <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{title}</h2>
+        <p className="mt-1 max-w-3xl text-body leading-relaxed text-muted-foreground">{sub}</p>
       </div>
       {children}
     </section>
@@ -29,9 +29,9 @@ function Section({ id, title, sub, children }: { id: string; title: string; sub:
 /* ── Token pill ── */
 function Token({ name, value }: { name: string; value: string }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-0.5 rounded-md border border-border bg-card px-3.5 py-2.5">
-      <code className="whitespace-nowrap text-[0.75rem] font-mono text-primary">{name}</code>
-      <span className="min-w-0 text-[0.6875rem] text-muted-foreground font-mono">{value}</span>
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-md border border-border bg-card px-3 py-2">
+      <code className="whitespace-nowrap text-label font-mono text-primary">{name}</code>
+      <span className="min-w-0 text-caption text-muted-foreground font-mono">{value}</span>
     </div>
   );
 }
@@ -40,10 +40,9 @@ function Token({ name, value }: { name: string; value: string }) {
 function ReplayBtn({ onClick }: { onClick: () => void }) {
   const { t, bi } = useI18n();
   return (
-    <button onClick={onClick}
-      className="flex items-center gap-1 text-[0.625rem] font-semibold text-muted-foreground hover:text-primary transition-colors mt-2">
-      <RefreshCw className="h-3 w-3" /> {t("replay", "repetir")}
-    </button>
+    <Button type="button" variant="ghost" size="sm" onClick={onClick} className="mt-auto text-muted-foreground hover:text-foreground">
+      <RefreshCw aria-hidden className="h-3.5 w-3.5" /> {t("replay", "repetir")}
+    </Button>
   );
 }
 
@@ -144,12 +143,12 @@ function EnterPresets() {
 
   return (
     <Section id="enter-presets" title={t("Enter & Exit Presets", "Presets de entrada e saída")} sub={t("Ready-made animation variants for mounting components into the DOM. Click «Replay all» to watch them in sequence.", "Variantes de animação prontas para montar componentes no DOM. Clique em «Repetir todos» para vê-los em sequência.")}>
-      <div className="flex justify-end">
-        <button onClick={replayAll} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors">
-          <RefreshCw className="h-3.5 w-3.5" /> {t("Replay all", "Repetir todos")}
-        </button>
-      </div>
-      <div className="grid grid-cols-4 gap-3">
+      {/* "Repetir todos" alinhado à esquerda, com o título e a descrição do grupo (27/11/2026) */}
+      <Button type="button" variant="outline" size="sm" onClick={replayAll}>
+        <RefreshCw aria-hidden className="h-3.5 w-3.5" /> {t("Replay all", "Repetir todos")}
+      </Button>
+      {/* Grade que se adapta: 2 colunas no celular, 3 no tablet e 4 no computador; "repetir" sempre no pé do card */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {enterPresets.map((preset, i) => (
           <div key={preset.label} className="rounded-lg border border-border bg-card p-4 flex flex-col items-center gap-3">
             <div className="flex items-center justify-center w-full" style={{ minHeight: 96 }}>
@@ -165,8 +164,8 @@ function EnterPresets() {
               </motion.div>
             </div>
             <div className="text-center w-full">
-              <div className="text-[0.75rem] font-bold text-foreground">{t(preset.label, (preset as any).labelPt)}</div>
-              <div className="text-[0.625rem] text-muted-foreground font-mono mt-0.5">{(preset as any).descPt ? t(preset.desc, (preset as any).descPt) : preset.desc}</div>
+              <div className="text-label font-bold text-foreground">{t(preset.label, (preset as any).labelPt)}</div>
+              <div className="text-caption text-muted-foreground font-mono mt-1">{(preset as any).descPt ? t(preset.desc, (preset as any).descPt) : preset.desc}</div>
             </div>
             <ReplayBtn onClick={() => replay(i)} />
           </div>
@@ -205,7 +204,7 @@ function EasingReference() {
     <Section id="easing" title={t("Easing Reference", "Referência de easing")} sub={t("Visual comparison of cubic-bezier curves used across the design system.", "Comparação visual das curvas cubic-bezier usadas em todo o design system.")}>
       <div className="grid grid-cols-4 gap-3">
         {easings.map((e, i) => (
-          <div key={e.label} className="rounded-lg border border-border bg-card p-4 space-y-3 cursor-pointer hover:border-primary/30 transition-colors group" onClick={() => run(i)}>
+          <div key={e.label} className="rounded-lg border border-border bg-card p-4 space-y-3 cursor-pointer hover:border-[var(--border-strong)] transition-colors group" onClick={() => run(i)}>
             {/* Curve SVG */}
             <div className="flex items-center justify-center">
               <svg width="80" height="80" viewBox="0 0 80 80" className="overflow-visible">
@@ -228,15 +227,15 @@ function EasingReference() {
               </svg>
             </div>
             <div className="text-center">
-              <div className="text-[0.75rem] font-bold text-foreground group-hover:text-primary transition-colors">{t(e.label, e.labelPt)}</div>
-              <div className="text-[0.5625rem] font-mono text-muted-foreground mt-0.5">
+              <div className="text-label font-bold text-foreground group-hover:text-primary transition-colors">{t(e.label, e.labelPt)}</div>
+              <div className="text-caption font-mono text-muted-foreground mt-1">
                 {typeof e.value === "string" ? e.value : `[${e.value.join(", ")}]`}
               </div>
             </div>
           </div>
         ))}
       </div>
-      <p className="text-[0.6875rem] text-muted-foreground">{t("Click a card to animate the dot along the curve.", "Clique em um card para animar o ponto ao longo da curva.")}</p>
+      <p className="text-caption text-muted-foreground">{t("Click a card to animate the dot along the curve.", "Clique em um card para animar o ponto ao longo da curva.")}</p>
     </Section>
   );
 }
@@ -269,15 +268,13 @@ function SpringPhysics() {
 
   return (
     <Section id="spring" title={t("Spring Physics", "Física de spring")} sub={t("Physics-based animation presets. Click a card to see the spring in action.", "Presets de animação baseados em física. Clique em um card para ver o spring em ação.")}>
-      <div className="flex justify-end">
-        <button onClick={triggerAll} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors">
-          <Play className="h-3.5 w-3.5" /> {t("Play all", "Tocar todos")}
-        </button>
-      </div>
-      <div className="grid grid-cols-3 gap-3">
+      <Button type="button" variant="outline" size="sm" onClick={triggerAll}>
+        <Play aria-hidden className="h-3.5 w-3.5" /> {t("Play all", "Tocar todos")}
+      </Button>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {springPresets.map((p, i) => (
           <div key={p.label} onClick={() => trigger(i)}
-            className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4 cursor-pointer hover:border-primary/30 transition-all group" style={{ boxShadow: "var(--shadow-xs)" }}>
+            className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4 cursor-pointer hover:border-[var(--border-strong)] transition-all group" style={{ boxShadow: "var(--shadow-xs)" }}>
             {/* Ball track */}
             <div className="relative h-10 bg-muted/40 rounded-full overflow-hidden border border-border">
               <motion.div
@@ -289,12 +286,12 @@ function SpringPhysics() {
               />
             </div>
             <div>
-              <div className="text-[0.8125rem] font-bold text-foreground group-hover:text-primary transition-colors mb-1">{t(p.label, p.labelPt)}</div>
+              <div className="text-body-sm font-bold text-foreground group-hover:text-primary transition-colors mb-1">{t(p.label, p.labelPt)}</div>
               <div className="grid grid-cols-3 gap-1">
                 {[["s", p.stiffness], ["d", p.damping], ["m", p.mass]].map(([k, v]) => (
                   <div key={k as string} className="text-center rounded-sm bg-muted/50 py-1 px-1">
-                    <div className="text-[0.5rem] text-muted-foreground uppercase tracking-wide">{k}</div>
-                    <div className="text-[0.6875rem] font-bold text-foreground">{v}</div>
+                    <div className="text-caption text-muted-foreground uppercase tracking-wide">{k}</div>
+                    <div className="text-caption font-bold text-foreground">{v}</div>
                   </div>
                 ))}
               </div>
@@ -322,10 +319,10 @@ function SpringPlayground() {
     <div className="rounded-lg border border-border bg-card p-5 space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[0.875rem] font-bold text-foreground">{t("Spring Playground", "Playground de spring")}</div>
-          <div className="text-[0.6875rem] text-muted-foreground">{t("Tune stiffness, damping, and mass live.", "Ajuste rigidez, amortecimento e massa em tempo real.")}</div>
+          <div className="text-body-sm font-bold text-foreground">{t("Spring Playground", "Playground de spring")}</div>
+          <div className="text-caption text-muted-foreground">{t("Tune stiffness, damping, and mass live.", "Ajuste rigidez, amortecimento e massa em tempo real.")}</div>
         </div>
-        <button onClick={run} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity">
+        <button onClick={run} className="flex items-center gap-1 px-3 py-1 rounded-sm bg-primary text-primary-foreground text-label font-semibold hover:opacity-90 transition-opacity">
           <Play className="h-3.5 w-3.5" /> {t("Play", "Tocar")}
         </button>
       </div>
@@ -336,14 +333,14 @@ function SpringPlayground() {
           { label: "Damping", labelPt: "Amortecimento", min: 0,  max: 60,   step: 1,  value: damping,   set: setDamping   },
           { label: "Mass", labelPt: "Massa", min: 0.1,max: 5,    step: 0.1,value: mass,      set: setMass      },
         ].map(ctrl => (
-          <div key={ctrl.label} className="space-y-1.5">
+          <div key={ctrl.label} className="space-y-1">
             <div className="flex items-center justify-between">
-              <label className="text-[0.6875rem] font-semibold text-foreground">{t(ctrl.label, ctrl.labelPt)}</label>
-              <span className="text-[0.6875rem] font-mono text-primary">{ctrl.value}</span>
+              <label className="text-caption font-semibold text-foreground">{t(ctrl.label, ctrl.labelPt)}</label>
+              <span className="text-caption font-mono text-primary">{ctrl.value}</span>
             </div>
             <input type="range" min={ctrl.min} max={ctrl.max} step={ctrl.step} value={ctrl.value}
               onChange={e => ctrl.set(Number(e.target.value))}
-              className="w-full accent-[var(--primary)] h-1 rounded-full cursor-pointer" />
+              className="w-full accent-[var(--primary)] h-1 rounded-full cursor-pointer toque:h-11" />
           </div>
         ))}
       </div>
@@ -411,14 +408,14 @@ function StaggerSection() {
       <div className="rounded-lg border border-border bg-card p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            <label className="text-[0.6875rem] font-semibold text-foreground">{t("Stagger delay", "Atraso do stagger")}</label>
+            <label className="text-caption font-semibold text-foreground">{t("Stagger delay", "Atraso do stagger")}</label>
             <input type="range" min={0.02} max={0.2} step={0.01} value={staggerDelay}
               onChange={e => setStaggerDelay(Number(e.target.value))}
-              className="w-28 accent-[var(--primary)] h-1 rounded-full cursor-pointer" />
-            <span className="text-[0.6875rem] font-mono text-primary">{staggerDelay}s</span>
+              className="w-28 accent-[var(--primary)] h-1 rounded-full cursor-pointer toque:h-11" />
+            <span className="text-caption font-mono text-primary">{staggerDelay}s</span>
           </div>
           <button onClick={() => setKey(k => k + 1)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm border border-border bg-muted text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors">
+            className="flex items-center gap-1 px-3 py-1 rounded-sm border border-border bg-muted text-label font-medium text-foreground hover:bg-accent transition-colors">
             <RefreshCw className="h-3.5 w-3.5" /> {t("Replay", "Repetir")}
           </button>
         </div>
@@ -426,11 +423,11 @@ function StaggerSection() {
         <motion.div key={key} variants={container} initial="hidden" animate="show" className="grid grid-cols-3 gap-2">
           {staggerItems.map((item, i) => (
             <motion.div key={item} variants={staggerChild}
-              className="flex items-center gap-2.5 rounded-md border border-border bg-muted/30 px-3 py-2.5 hover:bg-accent transition-colors">
+              className="flex items-center gap-2 rounded-md border border-border bg-muted/30 px-3 py-2 hover:bg-accent transition-colors">
               <div className="h-6 w-6 rounded-sm bg-primary/12 flex items-center justify-center shrink-0">
-                <span className="text-[0.5rem] font-black text-primary">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-caption font-black text-primary">{String(i + 1).padStart(2, "0")}</span>
               </div>
-              <span className="text-[0.75rem] font-medium text-foreground">{t(item, staggerItemsPt[i])}</span>
+              <span className="text-label font-medium text-foreground">{t(item, staggerItemsPt[i])}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -472,7 +469,7 @@ function HoverSection() {
 
         {/* Lift */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Lift", "Elevação")}</div>
+          <div className="text-label font-bold text-foreground">{t("Lift", "Elevação")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
               whileHover={{ y: -6, boxShadow: "0 16px 40px -8px rgba(0,0,0,0.35)" }}
@@ -482,12 +479,12 @@ function HoverSection() {
               <Layers className="h-5 w-5 text-muted-foreground" />
             </motion.div>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">whileHover: y -6</p>
+          <p className="text-caption text-muted-foreground font-mono">whileHover: y -6</p>
         </div>
 
         {/* Scale */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Scale", "Escala")}</div>
+          <div className="text-label font-bold text-foreground">{t("Scale", "Escala")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
               whileHover={{ scale: 1.12 }}
@@ -498,27 +495,27 @@ function HoverSection() {
               <Zap className="h-5 w-5 text-primary" />
             </motion.div>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">whileHover: scale 1.12</p>
+          <p className="text-caption text-muted-foreground font-mono">whileHover: scale 1.12</p>
         </div>
 
         {/* Glow */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Glow", "Brilho")}</div>
+          <div className="text-label font-bold text-foreground">{t("Glow", "Brilho")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.button
               whileHover={{ boxShadow: "0 0 24px 6px var(--primary)" }}
               transition={{ duration: 0.25 }}
-              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-[0.75rem] font-bold"
+              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-label font-bold"
             >
               {t("Get started", "Começar")}
             </motion.button>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">boxShadow glow</p>
+          <p className="text-caption text-muted-foreground font-mono">boxShadow glow</p>
         </div>
 
         {/* 3D Tilt */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("3D Tilt", "Inclinação 3D")}</div>
+          <div className="text-label font-bold text-foreground">{t("3D Tilt", "Inclinação 3D")}</div>
           <div className="flex items-center justify-center py-2" style={{ perspective: 500 }}>
             <motion.div
               onMouseMove={handleMouse}
@@ -533,32 +530,32 @@ function HoverSection() {
               <motion.div className="absolute inset-0 rounded-lg" style={{ background: sheenBg }} />
               {/* Floating content layer (raised via translateZ) */}
               <div
-                className="absolute inset-0 flex flex-col items-center justify-center gap-1.5"
+                className="absolute inset-0 flex flex-col items-center justify-center gap-1"
                 style={{ transform: "translateZ(20px)" }}
               >
                 <Move className="text-primary" style={{ height: 20, width: 20 }} />
-                <span className="text-[0.5625rem] font-semibold text-primary/70 tracking-wide">{t("MOVE CURSOR", "MOVA O CURSOR")}</span>
+                <span className="text-caption font-semibold text-primary/70 tracking-wide">{t("MOVE CURSOR", "MOVA O CURSOR")}</span>
               </div>
             </motion.div>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">rotateX / rotateY + sheen</p>
+          <p className="text-caption text-muted-foreground font-mono">rotateX / rotateY + sheen</p>
         </div>
 
         {/* Border sweep */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Border Sweep", "Varredura de borda")}</div>
+          <div className="text-label font-bold text-foreground">{t("Border Sweep", "Varredura de borda")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
               initial={{ backgroundSize: "0% 2px" }}
               whileHover={{ backgroundSize: "100% 2px" }}
               transition={{ duration: 0.3 }}
-              className="px-3 py-1.5 text-[0.75rem] font-semibold text-foreground cursor-pointer"
+              className="px-3 py-1 text-label font-semibold text-foreground cursor-pointer"
               style={{ backgroundImage: "linear-gradient(var(--primary), var(--primary))", backgroundRepeat: "no-repeat", backgroundPosition: "bottom left" }}
             >
               {t("Hover me", "Passe o mouse")}
             </motion.div>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">backgroundSize sweep</p>
+          <p className="text-caption text-muted-foreground font-mono">backgroundSize sweep</p>
         </div>
 
         {/* Magnetic */}
@@ -566,27 +563,27 @@ function HoverSection() {
 
         {/* Color shift */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Color Shift", "Mudança de cor")}</div>
+          <div className="text-label font-bold text-foreground">{t("Color Shift", "Mudança de cor")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
               whileHover={{ backgroundColor: "var(--primary)", color: "var(--primary-foreground)" }}
               transition={{ duration: 0.2 }}
-              className="px-4 py-2 rounded-md border border-border text-[0.75rem] font-semibold text-foreground cursor-pointer"
+              className="px-4 py-2 rounded-md border border-border text-label font-semibold text-foreground cursor-pointer"
             >
               {t("Fill on hover", "Preenche no hover")}
             </motion.div>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">backgroundColor transition</p>
+          <p className="text-caption text-muted-foreground font-mono">backgroundColor transition</p>
         </div>
 
         {/* Reveal */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3 group overflow-hidden">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Icon Reveal", "Ícone revelado")}</div>
+          <div className="text-label font-bold text-foreground">{t("Icon Reveal", "Ícone revelado")}</div>
           <div className="flex items-center justify-center py-3">
             <motion.div
               initial={false}
               whileHover="hover"
-              className="flex items-center gap-2 px-4 py-2 rounded-md bg-muted border border-border text-[0.75rem] font-semibold text-foreground cursor-pointer overflow-hidden"
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-muted border border-border text-label font-semibold text-foreground cursor-pointer overflow-hidden"
             >
               <motion.span variants={{ hover: { x: -4 } }} transition={{ type: "spring", stiffness: 400, damping: 20 }}>
                 {t("Learn more", "Saiba mais")}
@@ -600,7 +597,7 @@ function HoverSection() {
               </motion.div>
             </motion.div>
           </div>
-          <p className="text-[0.625rem] text-muted-foreground font-mono">{t("staggered slide reveal", "revelação deslizante em sequência")}</p>
+          <p className="text-caption text-muted-foreground font-mono">{t("staggered slide reveal", "revelação deslizante em sequência")}</p>
         </div>
       </div>
       <VejaEm secao="cards" ancora="card-animacao" titulo={t("Animations applied to cards", "Animações aplicadas a cards")} texto={t("Lift on hover, 3D tilt, wobble, shine border and reveal on whole cards, with where to apply each one, are in Cards › Animation.", "Elevação no hover, inclinação 3D, wobble, borda brilhante e revelação aplicados a cards inteiros, com onde usar cada um, estão em Cards › Animação.")} />
@@ -626,18 +623,18 @@ function MagneticButton() {
 
   return (
     <div className="rounded-lg border border-border bg-card p-4 space-y-3">
-      <div className="text-[0.75rem] font-bold text-foreground">{t("Magnetic", "Magnético")}</div>
+      <div className="text-label font-bold text-foreground">{t("Magnetic", "Magnético")}</div>
       <div className="flex items-center justify-center py-3">
         <div onMouseMove={handleMouse} onMouseLeave={reset} className="flex items-center justify-center w-24 h-14">
           <motion.button
             style={{ x: springX, y: springY }}
-            className="px-4 py-2 rounded-md bg-card border border-border text-[0.75rem] font-semibold text-foreground"
+            className="px-4 py-2 rounded-md bg-card border border-border text-label font-semibold text-foreground"
           >
             <MousePointer2 className="h-4 w-4 text-muted-foreground mx-auto" />
           </motion.button>
         </div>
       </div>
-      <p className="text-[0.625rem] text-muted-foreground font-mono">useSpring magnetic</p>
+      <p className="text-caption text-muted-foreground font-mono">useSpring magnetic</p>
     </div>
   );
 }
@@ -660,7 +657,7 @@ function MicroInteractions() {
 
         {/* Like */}
         <div className="rounded-lg border border-border bg-card p-5 flex flex-col items-center gap-4">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Like Button", "Botão de curtir")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Like Button", "Botão de curtir")}</div>
           <motion.button onClick={() => setLiked(l => !l)} whileTap={{ scale: 0.85 }} className="relative">
             <motion.div
               animate={{ scale: liked ? [1, 1.4, 1] : 1 }}
@@ -680,12 +677,12 @@ function MicroInteractions() {
               )}
             </AnimatePresence>
           </motion.button>
-          <span className="text-[0.6875rem] text-muted-foreground">{liked ? t("Liked!", "Curtiu!") : t("Click to like", "Clique para curtir")}</span>
+          <span className="text-caption text-muted-foreground">{liked ? t("Liked!", "Curtiu!") : t("Click to like", "Clique para curtir")}</span>
         </div>
 
         {/* Checkbox */}
         <div className="rounded-lg border border-border bg-card p-5 flex flex-col items-center gap-4">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Checkbox", "Checkbox")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Checkbox", "Checkbox")}</div>
           <motion.button
             onClick={() => setChecked(c => !c)}
             animate={{ backgroundColor: checked ? "var(--primary)" : "rgba(0, 0, 0, 0)" }}
@@ -706,12 +703,12 @@ function MicroInteractions() {
               )}
             </AnimatePresence>
           </motion.button>
-          <span className="text-[0.6875rem] text-muted-foreground">{checked ? t("Checked", "Marcado") : t("Unchecked", "Desmarcado")}</span>
+          <span className="text-caption text-muted-foreground">{checked ? t("Checked", "Marcado") : t("Unchecked", "Desmarcado")}</span>
         </div>
 
         {/* Toggle */}
         <div className="rounded-lg border border-border bg-card p-5 flex flex-col items-center gap-4">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Toggle Switch", "Toggle switch")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Toggle Switch", "Toggle switch")}</div>
           <motion.button
             onClick={() => setToggled(v => !v)}
             animate={{ backgroundColor: toggled ? "var(--primary)" : "var(--muted)" }}
@@ -724,12 +721,12 @@ function MicroInteractions() {
               className="h-5 w-5 rounded-full bg-white shadow-sm"
             />
           </motion.button>
-          <span className="text-[0.6875rem] text-muted-foreground">{toggled ? t("On", "Ligado") : t("Off", "Desligado")}</span>
+          <span className="text-caption text-muted-foreground">{toggled ? t("On", "Ligado") : t("Off", "Desligado")}</span>
         </div>
 
         {/* Star Rating */}
         <div className="rounded-lg border border-border bg-card p-5 flex flex-col items-center gap-4">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Star Rating", "Avaliação por estrelas")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Star Rating", "Avaliação por estrelas")}</div>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map(n => (
               <motion.button key={n} onClick={() => setRating(n)}
@@ -740,12 +737,12 @@ function MicroInteractions() {
               </motion.button>
             ))}
           </div>
-          <span className="text-[0.6875rem] text-muted-foreground">{rating > 0 ? `${rating}/5 ${t("stars", "estrelas")}` : t("Rate this", "Avalie")}</span>
+          <span className="text-caption text-muted-foreground">{rating > 0 ? `${rating}/5 ${t("stars", "estrelas")}` : t("Rate this", "Avalie")}</span>
         </div>
 
         {/* Bell notification */}
         <div className="rounded-lg border border-border bg-card p-5 flex flex-col items-center gap-4">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Notification Bell", "Sino de notificação")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Notification Bell", "Sino de notificação")}</div>
           <motion.button
             onClick={() => { setNotified(true); setTimeout(() => setNotified(false), 1500); }}
             animate={{ rotate: notified ? [0, -20, 20, -15, 15, -8, 8, 0] : 0 }}
@@ -761,17 +758,17 @@ function MicroInteractions() {
                   exit={{ scale: 0 }}
                   className="absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-destructive border-2 border-card flex items-center justify-center"
                 >
-                  <span className="text-[0.4375rem] text-white font-black">1</span>
+                  <span className="text-caption text-white font-black">1</span>
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.button>
-          <span className="text-[0.6875rem] text-muted-foreground">{t("Tap to notify", "Toque para notificar")}</span>
+          <span className="text-caption text-muted-foreground">{t("Tap to notify", "Toque para notificar")}</span>
         </div>
 
         {/* Counter */}
         <div className="rounded-lg border border-border bg-card p-5 flex flex-col items-center gap-4">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Counter", "Contador")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Counter", "Contador")}</div>
           <div className="flex items-center gap-3">
             <motion.button whileTap={{ scale: 0.85 }} onClick={() => setCounter(c => Math.max(0, c - 1))}
               className="h-8 w-8 rounded-full border border-border bg-muted flex items-center justify-center text-foreground font-bold">
@@ -784,7 +781,7 @@ function MicroInteractions() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 12, opacity: 0 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[1.5rem] font-black text-foreground w-10 text-center tabular-nums"
+                className="text-h3 font-black text-foreground w-10 text-center tabular-nums"
               >
                 {counter}
               </motion.span>
@@ -794,7 +791,7 @@ function MicroInteractions() {
               +
             </motion.button>
           </div>
-          <span className="text-[0.6875rem] text-muted-foreground">{t("Number flip", "Virada de número")}</span>
+          <span className="text-caption text-muted-foreground">{t("Number flip", "Virada de número")}</span>
         </div>
       </div>
     </Section>
@@ -819,7 +816,7 @@ function LoadersSection() {
 
         {/* Spinner variants */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Spinners", "Spinners")}</div>
+          <div className="text-label font-bold text-foreground">{t("Spinners", "Spinners")}</div>
           <div className="flex items-center justify-around">
             {/* CSS border spin */}
             <div className="h-7 w-7 rounded-full border-2 border-border border-t-primary animate-spin" />
@@ -847,10 +844,10 @@ function LoadersSection() {
 
         {/* Progress bar */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Progress Bars", "Barras de progresso")}</div>
+          <div className="text-label font-bold text-foreground">{t("Progress Bars", "Barras de progresso")}</div>
           <div className="space-y-3">
             <div className="space-y-1">
-              <div className="flex justify-between text-[0.6rem] text-muted-foreground">
+              <div className="flex justify-between text-caption text-muted-foreground">
                 <span>{t("Upload", "Envio")}</span><span>{progress}%</span>
               </div>
               <div className="h-1.5 bg-muted rounded-full overflow-hidden">
@@ -858,7 +855,7 @@ function LoadersSection() {
               </div>
             </div>
             <div className="space-y-1">
-              <div className="flex justify-between text-[0.6rem] text-muted-foreground">
+              <div className="flex justify-between text-caption text-muted-foreground">
                 <span>{t("Processing", "Processando")}</span><span className="text-warning-text">75%</span>
               </div>
               <div className="h-1.5 bg-muted rounded-full overflow-hidden relative">
@@ -875,7 +872,7 @@ function LoadersSection() {
 
         {/* Skeleton */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-3">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Skeleton", "Skeleton")}</div>
+          <div className="text-label font-bold text-foreground">{t("Skeleton", "Skeleton")}</div>
           <div className="flex items-center gap-3">
             <motion.div
               animate={{ opacity: [0.4, 0.9, 0.4] }}
@@ -900,13 +897,13 @@ function LoadersSection() {
 
         {/* Step indicator */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Step Indicator", "Indicador de etapas")}</div>
+          <div className="text-label font-bold text-foreground">{t("Step Indicator", "Indicador de etapas")}</div>
           <StepIndicator />
         </div>
 
         {/* Circular */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4 flex flex-col items-start">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Circular Progress", "Progresso circular")}</div>
+          <div className="text-label font-bold text-foreground">{t("Circular Progress", "Progresso circular")}</div>
           <div className="flex-1 flex items-center justify-center w-full">
             <svg width="72" height="72" viewBox="0 0 72 72">
               <circle cx="36" cy="36" r="30" fill="none" stroke="var(--muted)" strokeWidth="6" />
@@ -920,7 +917,7 @@ function LoadersSection() {
                 strokeDashoffset={2 * Math.PI * 30 * (1 - progress / 100)}
                 style={{ rotate: -90, transformOrigin: "36px 36px" }}
               />
-              <text x="36" y="40" textAnchor="middle" className="text-[0.625rem]" fill="var(--foreground)" fontSize="11" fontWeight="700" fontFamily="Plus Jakarta Sans">
+              <text x="36" y="40" textAnchor="middle" className="text-caption" fill="var(--foreground)" fontSize="11" fontWeight="700" fontFamily="Plus Jakarta Sans">
                 {progress}%
               </text>
             </svg>
@@ -929,7 +926,7 @@ function LoadersSection() {
 
         {/* Typing dots */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Chat States", "Estados de chat")}</div>
+          <div className="text-label font-bold text-foreground">{t("Chat States", "Estados de chat")}</div>
           {/* IndicadorDeDigitacao e BalaoDeConversa do DS (ui/conversa, 27/11/2026). */}
           <div className="space-y-3">
             <IndicadorDeDigitacao />
@@ -948,8 +945,8 @@ function DemoCarregando() {
   const [demora, setDemora] = useState(false);
   return (
     <div id="carregando" className="mt-3 rounded-lg border border-border bg-card p-5">
-      <div className="text-[0.75rem] font-bold text-foreground">Carregamento de página</div>
-      <p className="mt-1 text-[0.8125rem] text-muted-foreground">
+      <div className="text-label font-bold text-foreground">Carregamento de página</div>
+      <p className="mt-1 text-body-sm text-muted-foreground">
         <code>{"<Carregando mensagem=\"Carregando o painel da loja\" />"}</code> enquanto a página inteira carrega (variante <code>pagina</code>: a tela toda, sobre o fundo cinza) ou <code>variante="secao"</code> dentro de uma área.
         O símbolo quica e pousa como um pin, com a sombra e a onda do pulse ring; a mensagem diz o que está carregando e a barra corre por baixo.
         Aparece depois de 200 ms (não pisca em carregamento rápido); depois de 10 s avisa a demora e oferece <strong>Tentar de novo</strong>. Com “menos movimento”, fica parado.
@@ -1002,21 +999,21 @@ function StepIndicator() {
       </div>
       <div className="flex justify-between gap-2">
         {steps.map((s, i) => (
-          <span key={s} className={`text-[0.5625rem] font-semibold transition-colors duration-200 ${i + 1 <= step ? "text-primary" : "text-muted-foreground"}`}>
+          <span key={s} className={`text-caption font-semibold transition-colors duration-200 ${i + 1 <= step ? "text-primary" : "text-muted-foreground"}`}>
             {t(s, stepsPt[i])}
           </span>
         ))}
       </div>
-      <div className="flex gap-1.5 justify-center mt-1">
+      <div className="flex gap-1 justify-center mt-1">
         {step > 1 && (
           <button onClick={() => setStep(s => s - 1)}
-            className="px-2.5 py-1 rounded-sm border border-border bg-muted text-[0.625rem] font-medium text-foreground hover:bg-accent transition-colors">
+            className="px-2 py-1 rounded-sm border border-border bg-muted text-caption font-medium text-foreground hover:bg-accent transition-colors">
             {t("Back", "Voltar")}
           </button>
         )}
         {step < steps.length && (
           <button onClick={() => setStep(s => s + 1)}
-            className="px-2.5 py-1 rounded-sm bg-primary text-primary-foreground text-[0.625rem] font-semibold hover:opacity-90 transition-opacity">
+            className="px-2 py-1 rounded-sm bg-primary text-primary-foreground text-caption font-semibold hover:opacity-90 transition-opacity">
             {t("Next", "Próximo")}
           </button>
         )}
@@ -1044,11 +1041,11 @@ function LayoutTransitions() {
         {/* Grid / List switch */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
           <div className="flex items-center justify-between">
-            <div className="text-[0.75rem] font-bold text-foreground">{t("Grid ↔ List", "Grade ↔ Lista")}</div>
-            <div className="flex gap-1 p-0.5 bg-muted rounded-sm">
+            <div className="text-label font-bold text-foreground">{t("Grid ↔ List", "Grade ↔ Lista")}</div>
+            <div className="flex gap-1 p-1 bg-muted rounded-sm">
               {(["grid", "list"] as const).map(v => (
                 <button key={v} onClick={() => setView(v)}
-                  className={`relative px-2.5 py-1 rounded-sm text-[0.625rem] font-semibold transition-colors ${view === v ? "text-foreground" : "text-muted-foreground"}`}>
+                  className={`relative px-2 py-1 rounded-sm text-caption font-semibold transition-colors ${view === v ? "text-foreground" : "text-muted-foreground"}`}>
                   {view === v && (
                     <motion.div layoutId="view-pill" className="absolute inset-0 bg-card rounded-sm" style={{ boxShadow: "var(--shadow-xs)" }} />
                   )}
@@ -1060,9 +1057,9 @@ function LayoutTransitions() {
           <motion.div layout className={`gap-2 ${view === "grid" ? "grid grid-cols-3" : "flex flex-col"}`}>
             {items.map((item, idx) => (
               <motion.div key={item} layout
-                className={`bg-muted/40 border border-border rounded-sm flex items-center gap-2 ${view === "grid" ? "flex-col p-2.5 text-center" : "px-3 py-2"}`}>
+                className={`bg-muted/40 border border-border rounded-sm flex items-center gap-2 ${view === "grid" ? "flex-col p-2 text-center" : "px-3 py-2"}`}>
                 <div className="h-5 w-5 rounded-sm bg-primary/15 shrink-0" />
-                <span className="text-[0.625rem] font-medium text-foreground">{t(item, itemsPt[idx])}</span>
+                <span className="text-caption font-medium text-foreground">{t(item, itemsPt[idx])}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -1070,11 +1067,11 @@ function LayoutTransitions() {
 
         {/* Tab underline */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
-          <div className="text-[0.75rem] font-bold text-foreground">{t("Animated Tabs", "Abas animadas")}</div>
+          <div className="text-label font-bold text-foreground">{t("Animated Tabs", "Abas animadas")}</div>
           <div className="border-b border-border flex flex-wrap gap-0">
             {tabs.map((tabName, i) => (
               <button key={tabName} onClick={() => setTab(i)}
-                className={`relative px-3 py-2 text-[0.75rem] font-semibold transition-colors ${tab === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+                className={`relative px-3 py-2 text-label font-semibold transition-colors ${tab === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 {t(tabName, tabsPt[i])}
                 {tab === i && <motion.div layoutId="tab-under" className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary rounded-t-full" />}
               </button>
@@ -1087,7 +1084,7 @@ function LayoutTransitions() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="rounded-md bg-muted/30 border border-border p-4 min-h-[80px] flex items-center justify-center">
-              <span className="text-[0.75rem] text-muted-foreground">{t(tabs[tab], tabsPt[tab])} {t("content", "conteúdo")}</span>
+              <span className="text-label text-muted-foreground">{t(tabs[tab], tabsPt[tab])} {t("content", "conteúdo")}</span>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -1105,7 +1102,7 @@ function TokensSection() {
     <Section id="motion-tokens" title={t("Motion Tokens", "Tokens de movimento")} sub={t("Consistent duration and easing values used across the design system.", "Valores consistentes de duração e easing usados em todo o design system.")}>
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-2">
-          <div className="text-[0.6875rem] font-bold text-muted-foreground uppercase tracking-[0.08em] mb-3">{t("Duration", "Duração")}</div>
+          <div className="text-caption font-bold text-muted-foreground uppercase tracking-[0.08em] mb-3">{t("Duration", "Duração")}</div>
           <Token name="--duration-instant"   value="80ms"  />
           <Token name="--duration-fast"      value="150ms" />
           <Token name="--duration-normal"    value="250ms" />
@@ -1113,7 +1110,7 @@ function TokensSection() {
           <Token name="--duration-xslow"     value="600ms" />
         </div>
         <div className="space-y-2">
-          <div className="text-[0.6875rem] font-bold text-muted-foreground uppercase tracking-[0.08em] mb-3">Easing</div>
+          <div className="text-caption font-bold text-muted-foreground uppercase tracking-[0.08em] mb-3">Easing</div>
           <Token name="--ease-out"           value="cubic-bezier(0, 0, 0.58, 1)"          />
           <Token name="--ease-in"            value="cubic-bezier(0.42, 0, 1, 1)"           />
           <Token name="--ease-in-out"        value="cubic-bezier(0.42, 0, 0.58, 1)"        />
@@ -1124,7 +1121,7 @@ function TokensSection() {
 
       {/* Duration visual reference */}
       <div className="rounded-lg border border-border bg-card p-5 space-y-3 mt-2">
-        <div className="text-[0.75rem] font-bold text-foreground mb-4">{t("Duration Reference", "Referência de duração")}</div>
+        <div className="text-label font-bold text-foreground mb-4">{t("Duration Reference", "Referência de duração")}</div>
         <DurationBars />
       </div>
     </Section>
@@ -1146,13 +1143,13 @@ function DurationBars() {
   return (
     <div className="space-y-2">
       <div className="flex justify-end mb-3">
-        <button onClick={() => setKey(k => k + 1)} className="flex items-center gap-1 text-[0.625rem] font-semibold text-muted-foreground hover:text-primary transition-colors">
+        <button onClick={() => setKey(k => k + 1)} className="flex items-center gap-1 text-caption font-semibold text-muted-foreground hover:text-primary transition-colors">
           <RefreshCw className="h-3 w-3" /> {t("replay", "repetir")}
         </button>
       </div>
       {durations.map((d, i) => (
         <div key={d.label} className="flex items-center gap-3">
-          <span className="text-[0.625rem] font-mono text-muted-foreground w-14 text-right shrink-0">{d.ms}ms</span>
+          <span className="text-caption font-mono text-muted-foreground w-14 text-right shrink-0">{d.ms}ms</span>
           <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
             <motion.div
               key={key}
@@ -1162,7 +1159,7 @@ function DurationBars() {
               className={`h-full rounded-full ${d.color}`}
             />
           </div>
-          <span className="text-[0.625rem] font-semibold text-muted-foreground w-12 shrink-0">{d.label}</span>
+          <span className="text-caption font-semibold text-muted-foreground w-12 shrink-0">{d.label}</span>
         </div>
       ))}
     </div>
@@ -1222,31 +1219,31 @@ function MarqueeSection() {
   const featureCards = marqueeFeatures.map((f, i) => {
     const Icon = f.icon;
     return (
-      <div key={i} className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-md border border-border bg-card">
+      <div key={i} className="flex items-center gap-2 px-3 py-2 rounded-md border border-border bg-card">
         <div className="h-7 w-7 rounded-sm bg-primary/10 flex items-center justify-center shrink-0">
           <Icon className="h-3.5 w-3.5 text-primary" />
         </div>
         <div>
-          <div className="text-[0.6875rem] font-bold text-foreground whitespace-nowrap">{t(f.label, f.labelPt)}</div>
-          <div className="text-[0.5625rem] text-muted-foreground whitespace-nowrap">{t(f.sub, f.subPt)}</div>
+          <div className="text-caption font-bold text-foreground whitespace-nowrap">{t(f.label, f.labelPt)}</div>
+          <div className="text-caption text-muted-foreground whitespace-nowrap">{t(f.sub, f.subPt)}</div>
         </div>
       </div>
     );
   });
 
   const reviewCards = marqueeReviews.map((r, i) => (
-    <div key={i} className="flex flex-col gap-1.5 px-4 py-3 rounded-md border border-border bg-card" style={{ width: 220 }}>
-      <div className="flex gap-0.5">
+    <div key={i} className="flex flex-col gap-1 px-4 py-3 rounded-md border border-border bg-card" style={{ width: 220 }}>
+      <div className="flex gap-1">
         {Array.from({ length: r.stars }).map((_, j) => <Star key={j} className="h-2.5 w-2.5 fill-warning text-warning-text" />)}
       </div>
-      <p className="text-[0.6875rem] text-foreground italic leading-snug">"{t(r.quote, r.quotePt)}"</p>
-      <div className="flex items-center gap-1.5 mt-0.5">
+      <p className="text-caption text-foreground italic leading-snug">"{t(r.quote, r.quotePt)}"</p>
+      <div className="flex items-center gap-1 mt-1">
         <div className="h-5 w-5 rounded-full bg-primary/12 flex items-center justify-center shrink-0">
-          <span className="text-[0.375rem] font-black text-primary">{r.name.split(" ").map(w => w[0]).join("")}</span>
+          <span className="text-caption font-black text-primary">{r.name.split(" ").map(w => w[0]).join("")}</span>
         </div>
         <div>
-          <div className="text-[0.5625rem] font-bold text-foreground whitespace-nowrap">{r.name}</div>
-          <div className="text-[0.4375rem] text-muted-foreground whitespace-nowrap">{r.role}</div>
+          <div className="text-caption font-bold text-foreground whitespace-nowrap">{r.name}</div>
+          <div className="text-caption text-muted-foreground whitespace-nowrap">{r.role}</div>
         </div>
       </div>
     </div>
@@ -1333,15 +1330,15 @@ function AnimatedListSection() {
                 transition={{ duration: 1.8, repeat: Infinity }}
                 className="h-2 w-2 rounded-full bg-success"
               />
-              <span className="text-[0.8125rem] font-bold text-foreground">{t("Live notifications", "Notificações ao vivo")}</span>
+              <span className="text-body-sm font-bold text-foreground">{t("Live notifications", "Notificações ao vivo")}</span>
             </div>
             <button
               onClick={() => setPaused(p => !p)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm border border-border bg-muted text-[0.625rem] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-1 px-2 py-1 rounded-sm border border-border bg-muted text-caption font-semibold text-muted-foreground hover:text-foreground transition-colors"
             >
               {paused
                 ? <><Play className="h-2.5 w-2.5" /> {t("Resume", "Retomar")}</>
-                : <><span className="flex gap-0.5 items-center"><span className="block h-2.5 w-0.5 bg-current rounded-full"/><span className="block h-2.5 w-0.5 bg-current rounded-full"/></span> {t("Pause", "Pausar")}</>
+                : <><span className="flex gap-1 items-center"><span className="block h-2.5 w-0.5 bg-current rounded-full"/><span className="block h-2.5 w-0.5 bg-current rounded-full"/></span> {t("Pause", "Pausar")}</>
               }
             </button>
           </div>
@@ -1359,20 +1356,20 @@ function AnimatedListSection() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, x: 60, scale: 0.9, transition: { duration: 0.2 } }}
                     transition={{ type: "spring", stiffness: 340, damping: 28 }}
-                    className="flex items-center gap-2.5 rounded-md border border-border bg-background/60 px-3 py-2.5 mb-2 last:mb-0"
+                    className="flex items-center gap-2 rounded-md border border-border bg-background/60 px-3 py-2 mb-2 last:mb-0"
                   >
                     <div className={`h-8 w-8 rounded-sm flex items-center justify-center shrink-0 ${item.iconCls}`}>
                       <Icon className="h-4 w-4" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-[0.75rem] font-bold text-foreground">{t(item.title, item.titlePt)}</span>
-                        <span className="text-[0.5625rem] text-muted-foreground shrink-0 font-mono">{item.time === "now" ? t("now", "agora") : item.time}</span>
+                        <span className="text-label font-bold text-foreground">{t(item.title, item.titlePt)}</span>
+                        <span className="text-caption text-muted-foreground shrink-0 font-mono">{item.time === "now" ? t("now", "agora") : item.time}</span>
                       </div>
-                      <p className="text-[0.6875rem] text-muted-foreground mt-0.5 truncate">{t(item.desc, item.descPt)}</p>
+                      <p className="text-caption text-muted-foreground mt-1 truncate">{t(item.desc, item.descPt)}</p>
                     </div>
                     {item.action && (
-                      <button className="shrink-0 px-2 py-1 rounded-sm bg-primary/10 text-[0.5625rem] font-bold text-primary hover:bg-primary/20 transition-colors whitespace-nowrap">
+                      <button className="shrink-0 px-2 py-1 rounded-sm bg-primary/10 text-caption font-bold text-primary hover:bg-primary/20 transition-colors whitespace-nowrap">
                         {t(item.action, item.actionPt ?? item.action)}
                       </button>
                     )}
@@ -1691,8 +1688,8 @@ function AvatarOrbitCanvas() {
               className="whitespace-nowrap rounded-sm border border-border bg-popover text-popover-foreground px-3 py-2"
               style={{ boxShadow: "var(--shadow-md)" }}
             >
-              <div className="text-[0.75rem] font-bold leading-tight">{hovered.person.name}</div>
-              <div className="text-[0.625rem] text-muted-foreground leading-tight mt-0.5">{hovered.person.role}</div>
+              <div className="text-label font-bold leading-tight">{hovered.person.name}</div>
+              <div className="text-caption text-muted-foreground leading-tight mt-1">{hovered.person.role}</div>
             </div>
             {/* Arrow */}
             <div className="absolute top-full left-1/2 -translate-x-1/2 overflow-hidden" style={{ width: 12, height: 7 }}>
@@ -1713,7 +1710,7 @@ function OrbitingCirclesSection() {
 
         {/* Forward orbit */}
         <div className="rounded-lg border border-border bg-card flex flex-col items-center gap-3 p-6 overflow-hidden">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Clockwise", "Sentido horário")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Clockwise", "Sentido horário")}</div>
           <OrbitCanvas
             center={
               <motion.div
@@ -1730,7 +1727,7 @@ function OrbitingCirclesSection() {
 
         {/* Reverse orbit */}
         <div className="rounded-lg border border-border bg-card flex flex-col items-center gap-3 p-6 overflow-hidden">
-          <div className="text-[0.75rem] font-bold text-foreground self-start">{t("Counterclockwise", "Sentido anti-horário")}</div>
+          <div className="text-label font-bold text-foreground self-start">{t("Counterclockwise", "Sentido anti-horário")}</div>
           <OrbitCanvas
             reverse
             center={
@@ -1747,10 +1744,10 @@ function OrbitingCirclesSection() {
         </div>
 
         {/* Solid variant — full width */}
-        <div className="col-span-2 rounded-lg border border-border bg-card flex flex-col items-center gap-1 p-6">
+        <div className="sm:col-span-2 rounded-lg border border-border bg-card flex flex-col items-center gap-1 p-6">
           <div className="flex items-center justify-between w-full mb-1">
-            <div className="text-[0.75rem] font-bold text-foreground">{t("Solid icons", "Ícones sólidos")}</div>
-            <span className="text-[0.625rem] text-muted-foreground px-2 py-0.5 rounded-full border border-border bg-muted">{t("solid background", "fundo sólido")}</span>
+            <div className="text-label font-bold text-foreground">{t("Solid icons", "Ícones sólidos")}</div>
+            <span className="text-caption text-muted-foreground px-2 py-1 rounded-full border border-border bg-muted">{t("solid background", "fundo sólido")}</span>
           </div>
           <OrbitCanvas
             solid
@@ -1768,13 +1765,13 @@ function OrbitingCirclesSection() {
         </div>
 
         {/* Avatar variant — full width */}
-        <div className="col-span-2 rounded-lg border border-border bg-card flex flex-col items-center gap-1 p-6">
+        <div className="sm:col-span-2 rounded-lg border border-border bg-card flex flex-col items-center gap-1 p-6">
           <div className="flex items-center justify-between w-full mb-2">
             <div>
-              <div className="text-[0.75rem] font-bold text-foreground">{t("Avatars with tooltip", "Avatares com tooltip")}</div>
-              <div className="text-[0.6875rem] text-muted-foreground">{t("Hover over an avatar to pause and see the name", "Passe o mouse sobre um avatar para pausar e ver o nome")}</div>
+              <div className="text-label font-bold text-foreground">{t("Avatars with tooltip", "Avatares com tooltip")}</div>
+              <div className="text-caption text-muted-foreground">{t("Hover over an avatar to pause and see the name", "Passe o mouse sobre um avatar para pausar e ver o nome")}</div>
             </div>
-            <span className="text-[0.625rem] text-muted-foreground px-2 py-0.5 rounded-full border border-border bg-muted">{t("hover to pause", "passe o mouse para pausar")}</span>
+            <span className="text-caption text-muted-foreground px-2 py-1 rounded-full border border-border bg-muted">{t("hover to pause", "passe o mouse para pausar")}</span>
           </div>
           <AvatarOrbitCanvas />
         </div>
@@ -1897,12 +1894,12 @@ function WobbleCardDemo({
       <div style={{ position: "relative", zIndex: 1, padding: "24px 24px 20px" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(252,2,86,0.30)" : "rgba(252,2,86,0.20)"}`, background: dark ? "rgba(252,2,86,0.10)" : "rgba(252,2,86,0.07)", marginBottom: 12 }}>
           <Star style={{ width: 10, height: 10, color: "var(--primary)" }} />
-          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: "var(--primary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Lojistas</span>
+          <span style={{ fontSize: "var(--text-caption)", fontWeight: 700, color: "var(--primary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Lojistas</span>
         </div>
-        <h3 style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--foreground)", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
+        <h3 style={{ fontSize: "var(--text-body-lg)", fontWeight: 900, color: "var(--foreground)", lineHeight: 1.2, letterSpacing: "-0.03em", marginBottom: 8 }}>
           {t("Your store", "Sua loja")}<br />{t("closer.", "mais perto.")}
         </h3>
-        <p style={{ fontSize: "0.75rem", color: "var(--muted-foreground)", lineHeight: 1.6, marginBottom: 16 }}>
+        <p style={{ fontSize: "var(--text-label)", color: "var(--muted-foreground)", lineHeight: 1.6, marginBottom: 16 }}>
           {t("Your items found by people searching in the region.", "Suas peças encontradas por quem procura na região.")}
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
@@ -1911,17 +1908,17 @@ function WobbleCardDemo({
               <div style={{ width: 16, height: 16, borderRadius: 8, background: "rgba(252,2,86,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <Check style={{ width: 9, height: 9, color: "var(--primary)" }} />
               </div>
-              <span style={{ fontSize: "0.6875rem", color: dark ? "#B3B3BC" : "#888896", fontWeight: 500 }}>{item}</span>
+              <span style={{ fontSize: "var(--text-caption)", color: dark ? "#B3B3BC" : "#888896", fontWeight: 500 }}>{item}</span>
             </div>
           ))}
         </div>
         <div style={{ height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(25,25,28,0.07)", marginBottom: 16 }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <span style={{ fontSize: "1.375rem", fontWeight: 900, color: "var(--foreground)" }}>R$499</span>
-            <span style={{ fontSize: "0.625rem", color: dark ? "#696977" : "#B3B3BC" }}>{t("/mo", "/mês")}</span>
+            <span style={{ fontSize: "var(--text-h3)", fontWeight: 900, color: "var(--foreground)" }}>R$499</span>
+            <span style={{ fontSize: "var(--text-caption)", color: dark ? "#696977" : "#B3B3BC" }}>{t("/mo", "/mês")}</span>
           </div>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "var(--primary)", color: "#fff", fontSize: "0.6875rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 9, background: "var(--primary)", color: "#fff", fontSize: "var(--text-caption)", fontWeight: 700, border: "none", cursor: "pointer" }}>
             {t("Subscribe", "Contratar")} <ArrowRight style={{ width: 12, height: 12 }} />
           </button>
         </div>
@@ -1942,7 +1939,7 @@ export function WobbleCardConteudo() {
   const idleColor   = "var(--muted-foreground)";
 
   return (
-      <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+      <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
         {/* Preview */}
         <div
           className="flex items-center justify-center p-12"
@@ -1952,18 +1949,18 @@ export function WobbleCardConteudo() {
         </div>
 
         {/* Controls */}
-        <div className="border-t border-border bg-card px-5 py-3.5 flex flex-wrap items-center gap-6">
+        <div className="border-t border-border bg-card px-5 py-3 flex flex-wrap items-center gap-6">
 
           {/* Spotlight color */}
           <div className="flex items-center gap-3">
-            <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">Spotlight</span>
-            <div className="flex flex-wrap gap-1.5">
+            <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">Spotlight</span>
+            <div className="flex flex-wrap gap-1">
               {SPOTLIGHT_OPTIONS.map(opt => (
                 <button
                   key={opt.id}
                   onClick={() => setSpotlightId(opt.id)}
                   title={t(opt.label, opt.labelPt)}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                  className="flex items-center gap-1 px-2 py-1 rounded-sm text-caption font-semibold transition-all"
                   style={spotlightId === opt.id
                     ? activeStyle
                     : { border: `1.5px solid ${ctrl}`, background: "transparent", color: idleColor }}
@@ -1981,12 +1978,12 @@ export function WobbleCardConteudo() {
 
           {/* Wobble toggle */}
           <div className="flex items-center gap-3">
-            <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Motion", "Movimento")}</span>
+            <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Motion", "Movimento")}</span>
             {[{ id: true, label: t("On", "Ativo") }, { id: false, label: t("Off", "Inativo") }].map(opt => (
               <button
                 key={String(opt.id)}
                 onClick={() => setWobbleEnabled(opt.id)}
-                className="px-3 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="px-3 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={wobbleEnabled === opt.id
                   ? activeStyle
                   : { border: `1.5px solid ${ctrl}`, background: "transparent", color: idleColor }}
@@ -2000,17 +1997,17 @@ export function WobbleCardConteudo() {
         {/* Docs */}
         <div className="border-t border-border bg-card p-5 grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <p className="text-[0.6875rem] font-bold text-muted-foreground uppercase tracking-wider mb-2">{t("Technique", "Técnica")}</p>
-            <p className="text-[0.75rem] text-foreground leading-relaxed">
-              <code className="text-primary text-[0.6875rem]">useMotionValue</code> + <code className="text-primary text-[0.6875rem]">useSpring</code> {t("for", "para")} <code className="text-primary text-[0.6875rem]">rotateX/Y</code> {t("with damping. Spotlight via dynamic", "com amortecimento. Spotlight via")} <code className="text-primary text-[0.6875rem]">radial-gradient</code> {t("in the DOM.", "dinâmico no DOM.")}
+            <p className="text-caption font-bold text-muted-foreground uppercase tracking-wider mb-2">{t("Technique", "Técnica")}</p>
+            <p className="text-label text-foreground leading-relaxed">
+              <code className="text-primary text-caption">useMotionValue</code> + <code className="text-primary text-caption">useSpring</code> {t("for", "para")} <code className="text-primary text-caption">rotateX/Y</code> {t("with damping. Spotlight via dynamic", "com amortecimento. Spotlight via")} <code className="text-primary text-caption">radial-gradient</code> {t("in the DOM.", "dinâmico no DOM.")}
             </p>
           </div>
           <div>
-            <p className="text-[0.6875rem] font-bold text-muted-foreground uppercase tracking-wider mb-2">{t("Use when", "Quando usar")}</p>
+            <p className="text-caption font-bold text-muted-foreground uppercase tracking-wider mb-2">{t("Use when", "Quando usar")}</p>
             <ul className="space-y-1">
               {[t("Pricing card for a recommended plan.", "Card de preço para um plano recomendado."), t("Feature card that needs to stand out.", "Card de recurso que precisa se destacar."), t("Premium product or testimonial card.", "Card de produto premium ou depoimento.")].map(w => (
-                <li key={w} className="flex items-start gap-1.5 text-[0.75rem] text-foreground">
-                  <Check className="h-3.5 w-3.5 shrink-0 mt-0.5 text-success" />{w}
+                <li key={w} className="flex items-start gap-1 text-label text-foreground">
+                  <Check className="h-3.5 w-3.5 shrink-0 mt-1 text-success" />{w}
                 </li>
               ))}
             </ul>
@@ -2065,18 +2062,18 @@ export function ShineBorderConteudo() {
           <div key={example.label} className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
             <ShineBorder duration={example.duration} shineColor={example.colors} />
             <Sparkles className="mb-4 h-5 w-5 text-primary" aria-hidden />
-            <p className="text-[0.875rem] font-bold text-foreground">{example.label}</p>
-            <p className="mt-1 min-h-10 text-[0.75rem] leading-relaxed text-muted-foreground">{example.use}</p>
+            <p className="text-body-sm font-bold text-foreground">{example.label}</p>
+            <p className="mt-1 min-h-10 text-label leading-relaxed text-muted-foreground">{example.use}</p>
             <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
-              <code className="text-[0.6875rem] font-mono text-primary">duration</code>
-              <span className="text-[0.6875rem] font-mono text-muted-foreground">{example.duration}s</span>
+              <code className="text-caption font-mono text-primary">duration</code>
+              <span className="text-caption font-mono text-muted-foreground">{example.duration}s</span>
             </div>
           </div>
         ))}
       </div>
       <div className="space-y-3">
-        <p className="text-[0.875rem] font-semibold text-foreground">{t("Color combinations", "Combinações de cores")}</p>
-        <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+        <p className="text-body-sm font-semibold text-foreground">{t("Color combinations", "Combinações de cores")}</p>
+        <p className="text-body-sm leading-relaxed text-muted-foreground">
           {t("shineColor accepts a list of colors; the shine passes through them in order. The presets below only use system tokens: the gold is the --warning token (amber), brighter in the dark theme. Pass preset=\"…\" or your own list in shineColor.", "shineColor aceita uma lista de cores; o brilho passa por elas na ordem. As combinações abaixo usam só tokens do sistema: o dourado é o token --warning (âmbar), mais vivo no tema escuro. Passe preset=\"…\" ou sua própria lista em shineColor.")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -2091,19 +2088,19 @@ export function ShineBorderConteudo() {
             return (
               <div key={name} className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
                 <ShineBorder preset={name} duration={7} borderWidth={name === "dourada" || name === "ouro" ? 2 : 1} />
-                <div className="mb-3 flex gap-1.5">
+                <div className="mb-3 flex gap-1">
                   {shinePresets[name].slice(0, 2).map((c, i) => (
                     <span key={i} className="h-3 w-3 rounded-full border border-border" style={{ background: c }} />
                   ))}
                 </div>
-                <p className="text-[0.875rem] font-bold text-foreground">preset="{name}"</p>
-                <p className="mt-1 min-h-10 text-[0.75rem] leading-relaxed text-muted-foreground">{descr[name]}</p>
-                <code className="mt-3 block truncate text-[0.6875rem] font-mono text-muted-foreground">{shinePresets[name].slice(0, 2).join(" · ")}</code>
+                <p className="text-body-sm font-bold text-foreground">preset="{name}"</p>
+                <p className="mt-1 min-h-10 text-label leading-relaxed text-muted-foreground">{descr[name]}</p>
+                <code className="mt-3 block truncate text-caption font-mono text-muted-foreground">{shinePresets[name].slice(0, 2).join(" · ")}</code>
               </div>
             );
           })}
         </div>
-        <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`<ShineBorder preset="dourada" borderWidth={2} />
+        <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`<ShineBorder preset="dourada" borderWidth={2} />
 <ShineBorder shineColor={["var(--warning)", "var(--primary)", "var(--warning)"]} />`}</code></pre>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -2111,7 +2108,7 @@ export function ShineBorderConteudo() {
         <Token name="duration" value="8s default" />
         <Token name="easing" value="linear · infinite" />
       </div>
-      <div className="rounded-lg border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
+      <div className="rounded-lg border border-border bg-muted/40 p-4 text-body-sm leading-relaxed text-muted-foreground">
         <span className="font-semibold text-foreground">{t("Accessibility:", "Acessibilidade:")}</span>{" "}
         {t(
           "the implementation uses motion-safe, so prefers-reduced-motion keeps the visual border but removes the loop. Do not use Shine Border as the only indicator of selection or status.",
@@ -2139,7 +2136,7 @@ export function MotionShowcase() {
   return (
     <div className="space-y-16 pb-16">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-[20px] border border-border bg-card p-8" style={{ boxShadow: "var(--shadow-lg)" }}>
+      <div className="relative overflow-hidden rounded-lg border border-border bg-card p-8" style={{ boxShadow: "var(--shadow-lg)" }}>
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/6 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-chart-4/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
         <div className="relative flex items-start gap-6">
@@ -2151,13 +2148,13 @@ export function MotionShowcase() {
             <Wind className="h-7 w-7 text-primary" />
           </motion.div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/8 text-primary text-[0.75rem] font-semibold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/8 text-primary text-label font-semibold mb-3">
               <Activity className="h-3 w-3" /> {t("Motion Design", "Motion design")}
             </div>
-            <h1 className="text-[1.375rem] font-black text-foreground tracking-[-0.03em] mb-2">
+            <h1 className="text-h3 font-black text-foreground tracking-[-0.03em] mb-2">
               {t("Animations & Motion", "Animações e movimento")}
             </h1>
-            <p className="text-[0.875rem] text-muted-foreground max-w-xl leading-relaxed">
+            <p className="text-body-sm text-muted-foreground max-w-xl leading-relaxed">
               {t("Motion principles, enter and exit presets, spring physics, micro-interactions and duration/easing tokens used across the design system.", "Princípios de movimento, presets de entrada e saída, física de spring, microinterações e tokens de duração/easing usados em todo o design system.")}
             </p>
           </div>
@@ -2173,10 +2170,10 @@ export function MotionShowcase() {
           ].map(p => {
             const Icon = p.icon;
             return (
-              <div key={p.label} className="rounded-md border border-border bg-muted/30 p-3.5">
+              <div key={p.label} className="rounded-md border border-border bg-muted/30 p-3">
                 <Icon className="h-4 w-4 text-primary mb-2" />
-                <div className="text-[0.75rem] font-bold text-foreground mb-0.5">{t(p.label, p.labelPt)}</div>
-                <div className="text-[0.6125rem] text-muted-foreground leading-snug">{t(p.desc, p.descPt)}</div>
+                <div className="text-label font-bold text-foreground mb-1">{t(p.label, p.labelPt)}</div>
+                <div className="text-caption text-muted-foreground leading-snug">{t(p.desc, p.descPt)}</div>
               </div>
             );
           })}

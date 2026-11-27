@@ -8,6 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { formatarNumero, formatarPreco, superficieDoCard } from "./painel-dados";
 import { Checkbox } from "./checkbox";
 import { LinhaDeLista } from "./linha-de-lista";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
 /**
  * Produtos no painel da loja (FindLook)
@@ -28,9 +29,27 @@ type Aba = { valor: string; rotulo: string; quantidade?: number };
  * só a aba ativa tem o sublinhado. "sublinhado" mantém a linha de base (abas dentro de um card, como na tabela).
  * idBase (opcional): liga cada aba ao seu painel (id = `${idBase}-aba-${valor}`, aria-controls = `${idBase}-painel`).
  * O painel usa id `${idBase}-painel`, role="tabpanel" e aria-labelledby da aba ativa. Uso nas abas da página (Opção A).
+ *
+ * Quando as abas não cabem numa linha só (27/11/2026, regra das abas): elas nunca quebram em linhas irregulares
+ * (2 + 2 + 1, com a última sozinha). O componente mede o espaço e, se faltar, troca as abas por uma lista de seleção
+ * (Select do DS) com o mesmo rótulo, as mesmas opções e a quantidade de cada uma; a opção ativa aparece no campo.
+ * No toque, cada aba tem 44 px de altura.
  */
 function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "Filtrar por status", idBase, className }: { abas: Aba[]; valor: string; onChange: (v: string) => void; estilo?: "pilula" | "sublinhado" | "pagina"; rotulo?: string; idBase?: string; className?: string }) {
   const refs = React.useRef<(HTMLButtonElement | null)[]>([]);
+  const caixa = React.useRef<HTMLDivElement>(null);
+  const lista = React.useRef<HTMLDivElement>(null);
+  const [emLista, setEmLista] = React.useState(false);
+  // Mede a largura natural das abas (numa linha só) contra o espaço disponível.
+  React.useLayoutEffect(() => {
+    const c = caixa.current, l = lista.current;
+    if (!c || !l || typeof ResizeObserver === "undefined") return;
+    const medir = () => setEmLista(l.scrollWidth > c.clientWidth + 1);
+    medir();
+    const ro = new ResizeObserver(medir);
+    ro.observe(c);
+    return () => ro.disconnect();
+  }, [abas.length, estilo]);
   const mover = (e: React.KeyboardEvent, i: number) => {
     const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
     if (!dir && e.key !== "Home" && e.key !== "End") return;
@@ -39,53 +58,87 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
     refs.current[n]?.focus();
     onChange(abas[n]!.valor);
   };
+  const comQuantidade = (a: Aba) => (a.quantidade !== undefined ? `${a.rotulo} (${formatarNumero(a.quantidade)})` : a.rotulo);
   return (
-    <div role="tablist" aria-label={rotulo} data-slot="abas-com-contador" className={cn("flex max-w-full flex-wrap", estilo === "pilula" ? "min-h-9 w-fit items-center gap-y-[3px] rounded-xl bg-muted p-[3px] text-muted-foreground" : estilo === "pagina" ? "-ml-3 gap-x-1 gap-y-1" : "gap-1 border-b border-border", className)}>
-      {abas.map((a, i) => {
-        const ativa = a.valor === valor;
-        return (
-          <button
-            key={a.valor}
-            ref={el => { refs.current[i] = el; }}
-            type="button"
-            role="tab"
-            id={idBase ? `${idBase}-aba-${a.valor}` : undefined}
-            aria-controls={idBase ? `${idBase}-painel` : undefined}
-            aria-selected={ativa}
-            tabIndex={ativa ? 0 : -1}
-            onClick={() => onChange(a.valor)}
-            onKeyDown={e => mover(e, i)}
-            className={cn(
-              "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-medium transition-[color,box-shadow]",
-              foco,
-              estilo === "pilula"
-                ? cn("h-[29px] rounded-xl border border-transparent px-3 text-sm", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
-                : estilo === "pagina"
-                  // Aba ativa: só o sublinhado e a cor do texto, sem caixa. Foco só pelo teclado (:focus-visible), com o anel
-                  // sutil do DS colado ao rótulo (sem afastamento), nunca depois de um clique (pedido de 23/11/2026).
-                  ? cn("border-b-2 px-3 py-2 text-[0.9375rem] focus-visible:rounded-sm focus-visible:ring-offset-0", ativa ? "border-primary font-semibold text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:text-foreground")
-                  : cn("-mb-px border-b-2 px-4 py-2.5 text-[0.875rem]", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
-            )}
-          >
-            {a.rotulo}
-            {a.quantidade !== undefined && <span className={cn("rounded-full px-1.5 text-[0.6875rem] font-semibold tabular-nums", ativa ? "bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))]" : "bg-muted-foreground/10 text-muted-foreground")}>{formatarNumero(a.quantidade)}</span>}
-          </button>
-        );
-      })}
+    <div ref={caixa} data-slot="abas-com-contador-caixa" data-modo={emLista ? "lista" : "abas"} className={cn("relative min-w-0", estilo === "pilula" ? "w-fit max-w-full" : "w-full")}>
+      <div
+        ref={lista}
+        role="tablist"
+        aria-label={rotulo}
+        data-slot="abas-com-contador"
+        aria-hidden={emLista || undefined}
+        {...(emLista ? ({ inert: "" } as Record<string, string>) : {})}
+        className={cn(
+          "flex w-max flex-nowrap",
+          // Em modo lista, as abas continuam no documento só para medir (largura zero, sem ocupar espaço nem rolar).
+          emLista && "pointer-events-none invisible absolute left-0 top-0 h-0 w-0 overflow-hidden",
+          estilo === "pilula" ? "min-h-9 items-center rounded-xl bg-muted p-1 text-muted-foreground" : estilo === "pagina" ? "-ml-3 gap-x-1" : "min-w-full gap-1 border-b border-border",
+          className,
+        )}
+      >
+        {abas.map((a, i) => {
+          const ativa = a.valor === valor;
+          return (
+            <button
+              key={a.valor}
+              ref={el => { refs.current[i] = el; }}
+              type="button"
+              role="tab"
+              id={idBase ? `${idBase}-aba-${a.valor}` : undefined}
+              aria-controls={idBase ? `${idBase}-painel` : undefined}
+              aria-selected={ativa}
+              tabIndex={ativa ? 0 : -1}
+              onClick={() => onChange(a.valor)}
+              onKeyDown={e => mover(e, i)}
+              className={cn(
+                "inline-flex shrink-0 items-center gap-2 whitespace-nowrap font-medium transition-[color,box-shadow]",
+                foco,
+                estilo === "pilula"
+                  ? cn("h-8 rounded-lg border border-transparent px-3 text-body-sm toque:h-10", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
+                  : estilo === "pagina"
+                    // Aba ativa: só o sublinhado e a cor do texto, sem caixa. Foco só pelo teclado (:focus-visible), com o anel
+                    // sutil do DS colado ao rótulo (sem afastamento), nunca depois de um clique (pedido de 23/11/2026).
+                    ? cn("min-h-10 border-b-2 px-3 py-2 text-body focus-visible:rounded-sm focus-visible:ring-offset-0 toque:min-h-11", ativa ? "border-primary font-semibold text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:text-foreground")
+                    : cn("-mb-px min-h-10 border-b-2 px-4 py-2 text-body-sm toque:min-h-11", ativa ? "border-primary text-[var(--primary-text,var(--primary))]" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"),
+              )}
+            >
+              {a.rotulo}
+              {a.quantidade !== undefined && <span className={cn("rounded-full px-2 text-caption font-semibold tabular-nums", ativa ? "bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))]" : "bg-muted-foreground/10 text-muted-foreground")}>{formatarNumero(a.quantidade)}</span>}
+            </button>
+          );
+        })}
+      </div>
+      {emLista && (
+        <Select value={valor} onValueChange={onChange}>
+          <SelectTrigger aria-label={rotulo} data-slot="abas-com-contador-lista" className="w-full bg-card font-medium text-foreground">
+            <SelectValue>{comQuantidade(abas.find(a => a.valor === valor) ?? abas[0]!)}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {abas.map(a => <SelectItem key={a.valor} value={a.valor}>{comQuantidade(a)}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      )}
     </div>
   );
 }
 
 /* ── Célula de produto ───────────────────────────────────────── */
+/** Foto (ou ícone) do produto, 48 px. */
+function MiniaturaDoProduto({ icone, foto }: { icone?: NomeIconeModa; foto?: string }) {
+  return (
+    <span aria-hidden data-slot="miniatura-do-produto" className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-muted-foreground">
+      {foto ? <img src={foto} alt="" className="h-full w-full object-cover" /> : icone ? <IconeModa nome={icone} size={24} /> : null}
+    </span>
+  );
+}
+
 function CelulaDeProduto({ nome, detalhes, icone, foto, className }: { nome: string; detalhes?: string; icone?: NomeIconeModa; foto?: string; className?: string }) {
   return (
     <div data-slot="celula-de-produto" className={cn("flex min-w-0 items-center gap-3", className)}>
-      <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-muted-foreground">
-        {foto ? <img src={foto} alt="" className="h-full w-full object-cover" /> : icone ? <IconeModa nome={icone} size={26} /> : null}
-      </span>
+      <MiniaturaDoProduto icone={icone} foto={foto} />
       <span className="min-w-0">
-        <span className="block truncate text-[0.875rem] font-semibold text-foreground">{nome}</span>
-        {detalhes && <span className="block truncate text-[0.75rem] text-muted-foreground">{detalhes}</span>}
+        <span className="block truncate text-body-sm font-semibold text-foreground">{nome}</span>
+        {detalhes && <span className="block truncate text-label text-muted-foreground">{detalhes}</span>}
       </span>
     </div>
   );
@@ -96,14 +149,14 @@ function CelulaDeProduto({ nome, detalhes, icone, foto, className }: { nome: str
 function MedidorDeDesempenho({ nivel, visualizacoes, favoritos, className }: { nivel: number; visualizacoes: number; favoritos?: number; className?: string }) {
   return (
     <div data-slot="medidor-de-desempenho" className={cn("flex items-center gap-3 whitespace-nowrap", className)}>
-      <span aria-hidden className="flex h-4 items-end gap-[3px]">
+      <span aria-hidden className="flex h-4 items-end gap-1">
         {[1, 2, 3, 4, 5].map(b => (
-          <span key={b} className={cn("w-[4px] rounded-[2px]", b <= nivel ? "bg-primary" : "bg-muted-foreground/25")} style={{ height: `${6 + b * 2}px` }} />
+          <span key={b} className={cn("w-[4px] rounded-sm", b <= nivel ? "bg-primary" : "bg-muted-foreground/25")} style={{ height: `${6 + b * 2}px` }} />
         ))}
       </span>
-      <span className="text-[0.75rem] text-foreground"><span className="sr-only">Desempenho {nivel} de 5: </span>{formatarNumero(visualizacoes)} visualizações</span>
+      <span className="text-label text-foreground"><span className="sr-only">Desempenho {nivel} de 5: </span>{formatarNumero(visualizacoes)} visualizações</span>
       {favoritos !== undefined && (
-        <span className="inline-flex items-center gap-1 text-[0.75rem] text-foreground">
+        <span className="inline-flex items-center gap-1 text-label text-foreground">
           <Heart aria-hidden className="h-3.5 w-3.5 text-[var(--primary-text,var(--primary))]" />
           {formatarNumero(favoritos)}<span className="sr-only"> favoritos</span>
         </span>
@@ -128,11 +181,11 @@ function StatusDePublicacao({ status, motivo, className }: { status: StatusProdu
   const s = statusInfo[status];
   return (
     <div data-slot="status-de-publicacao" className={cn("min-w-0", className)}>
-      <span className={cn("inline-flex h-6 items-center gap-1 rounded-full border px-2 text-[0.6875rem] font-semibold", s.fundo, s.cor)}>
+      <span className={cn("inline-flex h-6 items-center gap-1 rounded-full border px-2 text-caption font-semibold", s.fundo, s.cor)}>
         <s.Icone aria-hidden className="h-3 w-3" />
         {s.rotulo}
       </span>
-      {motivo && <p className="mt-1 text-[0.75rem] leading-snug text-muted-foreground">{motivo}</p>}
+      {motivo && <p className="mt-1 text-label leading-snug text-muted-foreground">{motivo}</p>}
     </div>
   );
 }
@@ -160,13 +213,13 @@ function BarraDeAcoesEmLote({ selecionados, onLimpar, acoes, className, itemNoSi
   return (
     <div data-slot="acoes-em-lote" role="region" aria-label={rotuloDaRegiao ?? `Ações para os ${itemNoPlural} ${sel}s`} className={cn("flex flex-wrap items-center gap-2 rounded-md border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
       {/* No celular: a contagem e o X na primeira linha, as ações numa linha própria embaixo, alinhadas à esquerda. */}
-      <p className="mr-auto text-[0.8125rem] font-semibold text-foreground" aria-live="polite">{contagem}</p>
+      <p className="mr-auto text-body-sm font-semibold text-foreground" aria-live="polite">{contagem}</p>
       <button type="button" onClick={onLimpar} aria-label={rotuloLimpar} className={cn("order-2 flex size-8 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground toque:size-11 sm:order-3", foco)}>
         <X aria-hidden className="h-4 w-4" />
       </button>
       <div className="order-3 flex w-full flex-wrap items-center gap-2 sm:order-2 sm:w-auto">
         {(acoes ?? []).map(a => (
-          <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted toque:h-11 [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
+          <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1 rounded-sm border bg-card px-3 text-body-sm font-medium transition-colors hover:bg-muted toque:h-11 [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
             {a.icone}{a.rotulo}
           </button>
         ))}
@@ -218,9 +271,9 @@ const abasStatus: { valor: "todos" | StatusProduto; rotulo: string }[] = [
 ];
 
 /** Botão de ferramenta da tabela: mesmo desenho dos botões Filtrar/Exportar da Tabela de dados. */
-const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1.5 rounded-sm border border-border bg-card px-3 text-[0.875rem] font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
-const th = "px-4 py-3 text-left text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground whitespace-nowrap";
-const etiqueta = "inline-flex items-center rounded-sm border border-border bg-muted/40 px-2 py-0.5 text-[0.75rem] font-medium text-foreground";
+const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1 rounded-sm border border-border bg-card px-3 text-body-sm font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
+const th = "px-4 py-3 text-left text-label font-semibold uppercase tracking-[0.06em] text-muted-foreground whitespace-nowrap";
+const etiqueta = "inline-flex items-center rounded-sm border border-border bg-muted/40 px-2 py-1 text-label font-medium text-foreground";
 
 function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecionavel = true, estiloAbas = "sublinhado", contagens, onVerTodos, className }: TabelaDeProdutosProps) {
   const [aba, setAba] = React.useState("todos");
@@ -238,7 +291,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
 
   const MenuDaLinha = ({ p }: { p: Produto }) => (
     <DropdownMenu>
-      <DropdownMenuTrigger aria-label={`Ações de ${p.nome}`} className={cn("flex h-8 w-8 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground", foco)}>
+      <DropdownMenuTrigger aria-label={`Ações de ${p.nome}`} className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground toque:size-11", foco)}>
         <MoreHorizontal aria-hidden className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-44">
@@ -256,14 +309,14 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
       {/* Cabeçalho: título à esquerda, ferramentas à direita (como a Tabela de dados) */}
       <div className="flex flex-col gap-3 border-b border-border px-4 py-4 @2xl:flex-row @2xl:items-center @2xl:justify-between @2xl:px-6">
         <div className="min-w-0">
-          {titulo && <h3 className="text-[1rem] font-semibold text-foreground">{titulo}</h3>}
-          <p className="text-[0.8125rem] text-muted-foreground">{descricao ?? `${formatarNumero(total ?? produtos.length)} produtos na loja`}</p>
+          {titulo && <h3 className="text-body font-semibold text-foreground">{titulo}</h3>}
+          <p className="text-body-sm text-muted-foreground">{descricao ?? `${formatarNumero(total ?? produtos.length)} produtos na loja`}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative min-w-0 flex-1 @2xl:w-60 @2xl:flex-none">
             <label htmlFor={idBusca} className="sr-only">Buscar produto</label>
             <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-border bg-input-background pl-9 pr-3 text-[0.875rem] text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
+            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-border bg-input-background pl-9 pr-3 text-body-sm text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
           </div>
           <button type="button" className={botaoFerramenta}><SlidersHorizontal aria-hidden className="h-4 w-4" />Filtros</button>
         </div>
@@ -313,8 +366,8 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
                   {selecionavel && <td className="py-3 pl-6 pr-2 align-middle"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></td>}
                   <td className={cn("w-full max-w-0 px-4 py-3 align-middle", !selecionavel && "pl-6")}><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
                   <td className="hidden px-4 py-3 align-middle @4xl:table-cell"><span className={etiqueta}>{p.condicao}</span></td>
-                  <td className="hidden px-4 py-3 text-right align-middle text-[0.875rem] tabular-nums text-foreground @4xl:table-cell">{p.estoque}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right align-middle text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}</td>
+                  <td className="hidden px-4 py-3 text-right align-middle text-body-sm tabular-nums text-foreground @4xl:table-cell">{p.estoque}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-right align-middle text-body-sm font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}</td>
                   <td className="hidden px-4 py-3 align-middle @3xl:table-cell"><MedidorDeDesempenho nivel={p.nivel} visualizacoes={p.visualizacoes} favoritos={p.favoritos} /></td>
                   <td className="px-4 py-3 align-middle"><StatusDePublicacao status={p.status} motivo={p.motivo} /></td>
                   <td className="py-3 pr-4 text-right align-middle"><MenuDaLinha p={p} /></td>
@@ -325,8 +378,9 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
         </table>
       </div>
 
-      {/* Lista (quadros estreitos): cada produto vira um item com as mesmas informações. Linha de lista: o texto
-          fica na coluna dele e nunca passa por baixo do menu de ações (regra da dona do produto, 24/11/2026). */}
+      {/* Lista (quadros estreitos): cada produto vira um item com as mesmas informações. Uma borda esquerda só para o
+          texto (27/11/2026): a caixa de seleção e a foto ficam na coluna do início; nome, detalhes, preço, status e o menu
+          de ações ficam todos na coluna do texto, começando no mesmo x do nome. O menu fica na linha do status, no fim. */}
       <ul className="divide-y divide-border/50 border-t border-border @2xl:hidden" aria-label="Produtos da loja">
         {visiveis.map(p => {
           const marcado = selecionados.includes(p.id);
@@ -335,15 +389,21 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
               key={p.id}
               as="li"
               selecionada={marcado}
-              inicio={selecionavel ? <span className="flex h-12 items-center"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></span> : undefined}
-              fim={<span className="flex h-12 items-center max-sm:h-auto"><MenuDaLinha p={p} /></span>}
+              inicio={
+                <span className="flex items-center gap-3">
+                  {selecionavel && <Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} />}
+                  <MiniaturaDoProduto icone={p.icone} foto={p.foto} />
+                </span>
+              }
             >
-              <CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} />
-              <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
-                <span className="min-w-0 text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}<span className="ml-1.5 text-[0.75rem] font-normal text-muted-foreground">{p.condicao} · {p.estoque} em estoque</span></span>
+              <span className="block truncate text-body-sm font-semibold text-foreground">{p.nome}</span>
+              <span className="block truncate text-label text-muted-foreground">{p.detalhes}</span>
+              <p className="mt-2 text-body-sm font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}<span className="ml-1 text-label font-normal text-muted-foreground">{p.condicao} · {p.estoque} em estoque</span></p>
+              <div className="mt-1 flex items-center justify-between gap-2">
                 <StatusDePublicacao status={p.status} />
+                <MenuDaLinha p={p} />
               </div>
-              {p.motivo && <p className="mt-1 text-[0.75rem] text-muted-foreground">{p.motivo}</p>}
+              {p.motivo && <p className="mt-1 text-label text-muted-foreground">{p.motivo}</p>}
             </LinhaDeLista>
           );
         })}
@@ -351,16 +411,16 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
 
       {visiveis.length === 0 && (
         <div className="border-t border-border px-6 py-10 text-center">
-          <p className="text-[0.9375rem] font-semibold text-foreground">Nenhum produto encontrado</p>
-          <p className="mt-1 text-[0.8125rem] text-muted-foreground">Tente outra palavra ou limpe os filtros.</p>
+          <p className="text-body font-semibold text-foreground">Nenhum produto encontrado</p>
+          <p className="mt-1 text-body-sm text-muted-foreground">Tente outra palavra ou limpe os filtros.</p>
         </div>
       )}
 
       {/* Rodapé (como a Tabela de dados) */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 @2xl:px-6">
-        <p className="text-[0.8125rem] text-muted-foreground">Exibindo {visiveis.length ? `1–${visiveis.length}` : "0"} de {formatarNumero(contagem(aba))}</p>
+        <p className="text-body-sm text-muted-foreground">Exibindo {visiveis.length ? `1–${visiveis.length}` : "0"} de {formatarNumero(contagem(aba))}</p>
         {limite !== undefined && (
-          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-sm text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline", foco)}>
+          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] hover:underline toque:min-h-11", foco)}>
             Ver todos os produtos <ArrowRight aria-hidden className="h-3.5 w-3.5" />
           </a>
         )}

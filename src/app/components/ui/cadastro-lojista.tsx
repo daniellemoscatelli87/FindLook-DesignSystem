@@ -51,7 +51,7 @@ const CampoDoCadastro = Campo;
 function GradeDeCampos({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div data-slot="grade-de-campos" className={cn("@container/campos min-w-0", className)}>
-      <div className="grid gap-x-[18px] gap-y-6 @min-[31.125rem]/campos:grid-cols-2">{children}</div>
+      <div className="grid gap-x-4 gap-y-6 @min-[31.125rem]/campos:grid-cols-2">{children}</div>
     </div>
   );
 }
@@ -168,7 +168,7 @@ function FormularioApresentarLoja({ variante = "card", idTitulo, valoresIniciais
       className={className}
     >
       {!gaveta && (
-        <h2 id={`${id}-titulo`} className="mb-5 flex items-center gap-2 text-xl font-extrabold tracking-tight text-foreground">
+        <h2 id={`${id}-titulo`} className="mb-5 flex items-center gap-2 text-h4 leading-7 font-extrabold tracking-tight text-foreground">
           <Store className="size-5 shrink-0 text-primary-text" aria-hidden />
           {tx.titulo}
         </h2>
@@ -177,17 +177,17 @@ function FormularioApresentarLoja({ variante = "card", idTitulo, valoresIniciais
         <CampoDoCadastro rotulo={tx.loja} placeholder={tx.lojaPlaceholder} autoComplete="organization" maxLength={120} value={dados.loja} onChange={(e) => mudar("loja", e.target.value)} erro={erros.loja} />
         <CampoDoCadastro rotulo={tx.email} placeholder={tx.emailPlaceholder} type="email" inputMode="email" autoComplete="email" maxLength={254} value={dados.email} onChange={(e) => mudar("email", e.target.value)} erro={erros.email} />
       </div>
-      <Button type="submit" size="lg" className="mt-6 h-12 w-full text-base">
+      <Button type="submit" size="lg" className="mt-6 h-12 w-full text-body leading-6">
         {tx.botao} <ArrowRight aria-hidden />
       </Button>
-      <ul className="mt-4 space-y-1.5">
+      <ul className="mt-4 space-y-1">
         {tx.tranquilidade.map((t) => (
-          <li key={t} className="flex items-start gap-2 text-sm text-muted-foreground">
-            <Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> {t}
+          <li key={t} className="flex items-start gap-2 text-body-sm leading-5 text-muted-foreground">
+            <Check className="mt-1 size-4 shrink-0 text-success" aria-hidden /> {t}
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-sm text-muted-foreground">
+      <p className="mt-3 text-body-sm leading-5 text-muted-foreground">
         {tx.jaTem}{" "}
         <a href={hrefEntrar} className={cn("rounded-sm font-semibold text-primary-text underline underline-offset-4", foco)}>{tx.entrar}</a>
       </p>
@@ -209,7 +209,7 @@ function GavetaApresentarLoja({ aberta, onAbertaChange, tom = "claro", container
     <Drawer open={aberta} onOpenChange={onAbertaChange}>
       <DrawerContent container={container} className={cn("max-h-[92dvh] text-foreground md:mx-auto md:max-w-lg", tom === "escuro" && "dark bg-[var(--graphite-950)]")}>
         <DrawerHeader className="flex-row items-center justify-between gap-3 px-5 pt-3 pb-2 text-left">
-          <DrawerTitle className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-foreground">
+          <DrawerTitle className="flex items-center gap-2 text-h4 leading-7 font-extrabold tracking-tight text-foreground">
             <Store className="size-5 shrink-0 text-primary-text" aria-hidden />
             {tx.titulo}
           </DrawerTitle>
@@ -271,15 +271,15 @@ function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, re
       <div
         className={cn(
           "grid gap-8 px-4 pt-8 pb-10 @min-[40rem]/etapa:px-7 @min-[40rem]/etapa:pt-12",
-          lateral && "@min-[56rem]/etapa:grid-cols-[minmax(0,1fr)_minmax(15rem,18rem)] @min-[56rem]/etapa:gap-[34px]",
+          lateral && "@min-[56rem]/etapa:grid-cols-[minmax(0,1fr)_minmax(15rem,18rem)] @min-[56rem]/etapa:gap-8",
         )}
       >
         <div className="min-w-0">
-          <h2 ref={tituloRef} tabIndex={-1} className="text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-foreground outline-none [text-wrap:balance]">
+          <h2 ref={tituloRef} tabIndex={-1} className="text-h3 font-bold leading-tight tracking-[-0.02em] text-foreground outline-none [text-wrap:balance]">
             {titulo}
           </h2>
           {explicacao && <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{explicacao}</p>}
-          {obrigatorios && <p className="mt-5 text-sm text-muted-foreground">{obrigatorios}</p>}
+          {obrigatorios && <p className="mt-5 text-body-sm leading-5 text-muted-foreground">{obrigatorios}</p>}
           {erro && (
             <Alert variant="error" className="mt-5">
               <TriangleAlert aria-hidden />
@@ -359,9 +359,9 @@ function LateralDaEtapa({ icone, titulo, paragrafos = [], destaque, tom = "info"
   return (
     <aside data-slot="lateral-da-etapa" aria-labelledby={id} className={cn("@container/lateral min-w-0 self-start rounded-xl border border-border bg-card p-5 @min-[56rem]/etapa:p-6", className)}>
       <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
-      <h3 id={id} className="mt-4 text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground">{titulo}</h3>
+      <h3 id={id} className="mt-4 text-subtitle font-bold tracking-[-0.01em] text-foreground">{titulo}</h3>
       {paragrafos.map((p) => (
-        <p key={p} className="mt-2 text-sm leading-relaxed text-muted-foreground">{p}</p>
+        <p key={p} className="mt-2 text-body-sm leading-relaxed text-muted-foreground">{p}</p>
       ))}
       {destaque && (
         <Alert variant={TONS_LATERAL[tom]} role="note" className="mt-4">
@@ -403,15 +403,15 @@ function BlocoDeRevisao({ valor, titulo, nomeEtapa, resumo = [], onEditar, rotul
     <AccordionItem value={valor} data-slot="bloco-de-revisao" className="@container/revisao rounded-lg border border-border px-5 last:border-b">
       <AccordionTrigger className="min-w-0 items-center py-4 hover:no-underline [&>svg]:size-5 [&>svg]:text-primary-text">
         <span className="min-w-0">
-          <span className="block text-base font-bold text-foreground">{titulo}</span>
-          {texto && <span className="mt-1 block truncate text-sm font-normal text-muted-foreground">{texto}</span>}
+          <span className="block text-body leading-6 font-bold text-foreground">{titulo}</span>
+          {texto && <span className="mt-1 block truncate text-body-sm leading-5 font-normal text-muted-foreground">{texto}</span>}
         </span>
       </AccordionTrigger>
       <AccordionContent>
-        <dl className="grid gap-x-6 gap-y-3 text-sm @min-[30rem]/revisao:grid-cols-2">{children}</dl>
+        <dl className="grid gap-x-6 gap-y-3 text-body-sm leading-5 @min-[30rem]/revisao:grid-cols-2">{children}</dl>
         {depois}
         {onEditar && (
-          <button type="button" onClick={onEditar} className={cn("mt-4 rounded-sm text-sm font-semibold text-primary-text underline underline-offset-4", foco)}>
+          <button type="button" onClick={onEditar} className={cn("mt-4 rounded-sm text-body-sm leading-5 font-semibold text-primary-text underline underline-offset-4", foco)}>
             {rotuloEditar}
             {nomeEtapa && <span className="sr-only"> {nomeEtapa.toLowerCase()}</span>}
           </button>
@@ -424,7 +424,7 @@ function BlocoDeRevisao({ valor, titulo, nomeEtapa, resumo = [], onEditar, rotul
 function LinhaDeDado({ rotulo, valor, vazio = "Não informado", className }: { rotulo: string; valor?: React.ReactNode; vazio?: string; className?: string }) {
   return (
     <div data-slot="linha-de-dado" className={cn("min-w-0", className)}>
-      <dt className="text-xs text-muted-foreground">{rotulo}</dt>
+      <dt className="text-label leading-4 text-muted-foreground">{rotulo}</dt>
       <dd className="break-words font-medium text-foreground">{valor || vazio}</dd>
     </div>
   );

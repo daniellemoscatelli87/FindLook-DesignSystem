@@ -54,16 +54,16 @@ const porModo = {
   cabecalho: { auto: "@min-[40rem]/stepper:hidden", completo: "hidden", compacto: "" },
   nome: { auto: "hidden @min-[40rem]/stepper:inline", completo: "inline", compacto: "hidden" },
   marcador: {
-    auto: "h-8 w-8 text-[0.8125rem] @min-[40rem]/stepper:h-[38px] @min-[40rem]/stepper:w-[38px] @min-[40rem]/stepper:text-[0.9375rem]",
-    completo: "h-[38px] w-[38px] text-[0.9375rem]",
-    compacto: "h-8 w-8 text-[0.8125rem]",
+    auto: "h-8 w-8 text-body-sm @min-[40rem]/stepper:h-[38px] @min-[40rem]/stepper:w-[38px] @min-[40rem]/stepper:text-body",
+    completo: "h-[38px] w-[38px] text-body",
+    compacto: "h-8 w-8 text-body-sm",
   },
-  item: { auto: "pb-4 pt-1 @min-[40rem]/stepper:pb-[19px] @min-[40rem]/stepper:pt-[18px]", completo: "pb-[19px] pt-[18px]", compacto: "pb-4 pt-1" },
+  item: { auto: "pb-4 pt-1 @min-[40rem]/stepper:pb-5 @min-[40rem]/stepper:pt-4", completo: "pb-5 pt-4", compacto: "pb-4 pt-1" },
   lista: { auto: "gap-2 @min-[40rem]/stepper:gap-0", completo: "gap-0", compacto: "gap-2" },
 } as const;
 
 /* Tamanho do nome: maior quando o Stepper tem 60rem ou mais (no lugar do antigo lg: da tela). */
-const nomeTexto = "text-[0.9375rem] font-bold leading-tight @min-[60rem]/stepper:text-[1.0625rem]";
+const nomeTexto = "text-body font-bold leading-tight @min-[60rem]/stepper:text-subtitle";
 
 export function Stepper({ etapas, atual, concluidas, onIrPara, rotulo = "Etapas", textos, className }: StepperProps) {
   const tx = {
@@ -110,7 +110,7 @@ export function Stepper({ etapas, atual, concluidas, onIrPara, rotulo = "Etapas"
       <div aria-hidden className="pointer-events-none invisible absolute inset-x-0 top-0 h-0 overflow-hidden">
         <ol ref={medidaRef} className="flex w-max">
           {etapas.map((e, i) => (
-            <li key={i} className="flex w-max items-center gap-2.5 whitespace-nowrap px-1.5">
+            <li key={i} className="flex w-max items-center gap-2 whitespace-nowrap px-1">
               <span className="h-[38px] w-[38px] shrink-0" />
               <span className={nomeTexto}>{e.titulo}</span>
             </li>
@@ -118,7 +118,7 @@ export function Stepper({ etapas, atual, concluidas, onIrPara, rotulo = "Etapas"
         </ol>
       </div>
       {/* Sem espaço para os nomes: "Etapa X de N" e o nome da etapa atual. */}
-      <p className={cn("mb-3 text-[0.8125rem] text-muted-foreground", porModo.cabecalho[modo])} aria-hidden>
+      <p className={cn("mb-3 text-body-sm text-muted-foreground", porModo.cabecalho[modo])} aria-hidden>
         {corrente ? (
           <>
             {tx.etapa} {atual + 1} {tx.de} {total} · <span className="font-semibold text-foreground">{corrente.titulo}</span>
@@ -155,7 +155,7 @@ export function Stepper({ etapas, atual, concluidas, onIrPara, rotulo = "Etapas"
               <span className="sr-only">{`${clicavel ? `${tx.voltarPara} ${tx.etapa.toLowerCase()}` : tx.etapa} ${i + 1} ${tx.de} ${total}, ${e.titulo} (${estado})`}</span>
             </>
           );
-          const classe = cn("relative flex w-full min-w-0 items-center justify-center gap-2.5 px-1.5", porModo.item[modo]);
+          const classe = cn("relative flex w-full min-w-0 items-center justify-center gap-2 px-1", porModo.item[modo]);
           return (
             <li key={i} className="flex min-w-0 flex-1" aria-current={ehAtual ? "step" : undefined}>
               {clicavel ? (

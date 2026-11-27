@@ -35,7 +35,7 @@ function ShowcaseCard({ children, className = "" }: { children: React.ReactNode;
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-12">
-      <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-5">{title}</h3>
+      <h3 className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-5">{title}</h3>
       {children}
     </div>
   );
@@ -138,7 +138,7 @@ type SortDir = "asc" | "desc" | null;
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-card border border-border rounded-md px-3 py-2 text-[0.8125rem] shadow-lg">
+      <div className="bg-card border border-border rounded-md px-3 py-2 text-body-sm shadow-lg">
         <p className="font-medium text-foreground mb-1">{label}</p>
         {payload.map((p: any, i: number) => (
           <p key={i} style={{ color: p.color }} className="font-medium">
@@ -153,7 +153,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 /* ── Rótulo de variante, código e regras de uso (componentes do painel) ── */
 function DemoLabel({ children }: { children: React.ReactNode }) {
-  return <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">{children}</p>;
+  return <p className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">{children}</p>;
 }
 
 
@@ -232,12 +232,12 @@ export function DataShowcase() {
           <ShowcaseCard className="lg:col-span-2">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-[1rem] font-semibold text-foreground">{t("Search overview", "Visão geral das buscas")}</h3>
-                <p className="text-[0.8125rem] text-muted-foreground">{t("Monthly item views and searches (example data)", "Visualizações de peças e buscas por mês (dados de exemplo)")}</p>
+                <h3 className="text-body font-semibold text-foreground">{t("Search overview", "Visão geral das buscas")}</h3>
+                <p className="text-body-sm text-muted-foreground">{t("Monthly item views and searches (example data)", "Visualizações de peças e buscas por mês (dados de exemplo)")}</p>
               </div>
-              <div className="flex items-center gap-4 text-[0.75rem] text-muted-foreground">
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-1 inline-block" />{t("Views", "Visualizações")}</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-chart-6 inline-block" />{t("Searches", "Buscas")}</span>
+              <div className="flex items-center gap-4 text-label text-muted-foreground">
+                <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-chart-1 inline-block" />{t("Views", "Visualizações")}</span>
+                <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-chart-6 inline-block" />{t("Searches", "Buscas")}</span>
               </div>
             </div>
             <ResponsiveContainer width="100%" height={220}>
@@ -265,8 +265,8 @@ export function DataShowcase() {
           {/* Pie Chart */}
           <ShowcaseCard>
             <div className="mb-4">
-              <h3 className="text-[1rem] font-semibold text-foreground">{t("How people arrive", "Como as pessoas chegam")}</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">{t("Share by source", "Participação por origem")}</p>
+              <h3 className="text-body font-semibold text-foreground">{t("How people arrive", "Como as pessoas chegam")}</h3>
+              <p className="text-body-sm text-muted-foreground">{t("Share by source", "Participação por origem")}</p>
             </div>
             <div className="flex flex-col items-center gap-4">
               <ResponsiveContainer width="100%" height={160}>
@@ -280,7 +280,7 @@ export function DataShowcase() {
               </ResponsiveContainer>
               <div className="w-full space-y-2">
                 {pieData.map((item, i) => (
-                  <div key={item.name} className="flex items-center justify-between text-[0.8125rem]">
+                  <div key={item.name} className="flex items-center justify-between text-body-sm">
                     <span className="flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full inline-block" style={{ backgroundColor: COLORS[i] }} />
                       <span className="text-foreground">{t(item.name, item.pt)}</span>
@@ -297,8 +297,8 @@ export function DataShowcase() {
         <ShowcaseCard>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-[1rem] font-semibold text-foreground">{t("Searches by weekday", "Buscas por dia da semana")}</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">{t("Average searches per day (example data)", "Média de buscas por dia (dados de exemplo)")}</p>
+              <h3 className="text-body font-semibold text-foreground">{t("Searches by weekday", "Buscas por dia da semana")}</h3>
+              <p className="text-body-sm text-muted-foreground">{t("Average searches per day (example data)", "Média de buscas por dia (dados de exemplo)")}</p>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={180}>
@@ -319,8 +319,8 @@ export function DataShowcase() {
         <SectionHeader title="Gráfico de desempenho" description="Gráfico de área do painel da loja, com legenda que liga e desliga cada série e destaque do valor mais recente." />
         <ShowcaseCard>
           <div className="mb-4">
-            <h3 className="text-[1rem] font-semibold text-foreground">Desempenho da descoberta</h3>
-            <p className="text-[0.8125rem] text-muted-foreground">Visualizações, favoritos e contatos nos últimos 30 dias</p>
+            <h3 className="text-body font-semibold text-foreground">Desempenho da descoberta</h3>
+            <p className="text-body-sm text-muted-foreground">Visualizações, favoritos e contatos nos últimos 30 dias</p>
           </div>
           <GraficoDeDesempenho dados={dadosDesempenho} chaveX="dia" series={seriesDesempenho} visiveisIniciais={["visualizacoes"]} altura={240} />
         </ShowcaseCard>
@@ -331,8 +331,8 @@ export function DataShowcase() {
         <SectionHeader title="Rosca, barras horizontais e mapa" description="Rosca para as partes de um todo; barras horizontais para comparar grupos, simples ou empilhadas. Cor pela paleta de gráficos (--chart-1 a --chart-7), fixa por categoria e em ordem de importância (o principal no tom 1, Outros em --chart-neutral); valor sempre escrito; 2 px entre as partes; dica ao passar o mouse; os rótulos quebram de linha, sem rolagem para o lado. Com menos movimento, aparecem prontas. Dados de exemplo." />
         <GradeDeCards className="gap-4 lg:grid-cols-2">
           <ShowcaseCard>
-            <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Rosca</h3>
-            <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja de um bairro (exemplo)</p>
+            <h3 className="mb-1 text-body font-semibold text-foreground">Rosca</h3>
+            <p className="mb-4 text-body-sm text-muted-foreground">Tipos de loja de um bairro (exemplo)</p>
             <Rosca
               rotulo="Tipos de loja (exemplo)"
               centro="3"
@@ -346,8 +346,8 @@ export function DataShowcase() {
             />
           </ShowcaseCard>
           <ShowcaseCard>
-            <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Barras simples</h3>
-            <p className="mb-4 text-[0.8125rem] text-muted-foreground">Comparação de uma medida (exemplo); use maximo=100 para porcentagens</p>
+            <h3 className="mb-1 text-body font-semibold text-foreground">Barras simples</h3>
+            <p className="mb-4 text-body-sm text-muted-foreground">Comparação de uma medida (exemplo); use maximo=100 para porcentagens</p>
             <BarrasHorizontais
               rotulo="Parte das lojas com a característica (exemplo)"
               maximo={100}
@@ -359,8 +359,8 @@ export function DataShowcase() {
           </ShowcaseCard>
         </GradeDeCards>
         <ShowcaseCard className="mt-4">
-          <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Barras empilhadas</h3>
-          <p className="mb-4 text-[0.8125rem] text-muted-foreground">Tipos de loja por região (exemplo), com legenda</p>
+          <h3 className="mb-1 text-body font-semibold text-foreground">Barras empilhadas</h3>
+          <p className="mb-4 text-body-sm text-muted-foreground">Tipos de loja por região (exemplo), com legenda</p>
           <BarrasHorizontais
             rotulo="Tipos de loja por região (exemplo)"
             legenda={[{ rotulo: "Loja multimarcas", cor: "var(--chart-1)" }, { rotulo: "Brechó", cor: "var(--chart-2)" }, { rotulo: "Outros", cor: "var(--chart-6)" }]}
@@ -372,8 +372,8 @@ export function DataShowcase() {
           />
         </ShowcaseCard>
         <ShowcaseCard className="mt-4">
-          <h3 className="mb-1 text-[1rem] font-semibold text-foreground">Mapa coroplético</h3>
-          <p className="mb-4 text-[0.8125rem] text-muted-foreground">Regiões pintadas por um valor, do claro ao escuro; toque numa região para escolher. As formas vêm do produto (no FindLook, os bairros de Curitiba). Formas e números de exemplo.</p>
+          <h3 className="mb-1 text-body font-semibold text-foreground">Mapa coroplético</h3>
+          <p className="mb-4 text-body-sm text-muted-foreground">Regiões pintadas por um valor, do claro ao escuro; toque numa região para escolher. As formas vêm do produto (no FindLook, os bairros de Curitiba). Formas e números de exemplo.</p>
           <MapaDeExemplo />
         </ShowcaseCard>
       </section>
@@ -385,14 +385,14 @@ export function DataShowcase() {
           {[{ v: 85, faixa: "80 a 100" }, { v: 62, faixa: "50 a 79" }, { v: 34, faixa: "Abaixo de 50" }].map(x => (
             <ShowcaseCard key={x.v} className="flex flex-col items-center gap-3 text-center">
               <AnelDePontuacao valor={x.v} tamanho={128} />
-              <p className="text-[0.8125rem] text-muted-foreground">{x.faixa}</p>
+              <p className="text-body-sm text-muted-foreground">{x.faixa}</p>
             </ShowcaseCard>
           ))}
         </div>
         <ShowcaseCard>
           <div className="mb-4">
-            <h3 className="text-[1rem] font-semibold text-foreground">Saúde do catálogo</h3>
-            <p className="text-[0.8125rem] text-muted-foreground">Em uso: o anel ao lado da lista do que falta melhorar</p>
+            <h3 className="text-body font-semibold text-foreground">Saúde do catálogo</h3>
+            <p className="text-body-sm text-muted-foreground">Em uso: o anel ao lado da lista do que falta melhorar</p>
           </div>
           <div className="flex flex-col items-center gap-6 sm:flex-row">
             <AnelDePontuacao valor={85} tamanho={128} />
@@ -409,14 +409,14 @@ export function DataShowcase() {
         <ShowcaseCard className="p-0 overflow-hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-border">
             <div>
-              <h3 className="text-[1rem] font-semibold text-foreground">{t("Stores", "Lojas")}</h3>
-              <p className="text-[0.8125rem] text-muted-foreground">{tableData.length} {t("stores in total (example data)", "lojas no total (dados de exemplo)")}</p>
+              <h3 className="text-body font-semibold text-foreground">{t("Stores", "Lojas")}</h3>
+              <p className="text-body-sm text-muted-foreground">{tableData.length} {t("stores in total (example data)", "lojas no total (dados de exemplo)")}</p>
             </div>
             <div className="flex items-center gap-2">
-              <button className="inline-flex items-center gap-1.5 h-9 px-3 text-[0.875rem] font-medium text-muted-foreground rounded-sm border border-border bg-card hover:bg-accent transition-colors">
+              <button className="inline-flex items-center gap-1 h-9 px-3 text-body-sm font-medium text-muted-foreground rounded-sm border border-border bg-card hover:bg-accent transition-colors">
                 <Filter className="h-4 w-4" /> {t("Filter", "Filtrar")}
               </button>
-              <button className="inline-flex items-center gap-1.5 h-9 px-3 text-[0.875rem] font-medium text-muted-foreground rounded-sm border border-border bg-card hover:bg-accent transition-colors">
+              <button className="inline-flex items-center gap-1 h-9 px-3 text-body-sm font-medium text-muted-foreground rounded-sm border border-border bg-card hover:bg-accent transition-colors">
                 <Download className="h-4 w-4" /> {t("Export", "Exportar")}
               </button>
             </div>
@@ -435,10 +435,10 @@ export function DataShowcase() {
                   ].map(col => (
                     <th
                       key={col.key}
-                      className={`${col.classe} px-3 sm:px-6 py-3 text-left text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground cursor-pointer select-none`}
+                      className={`${col.classe} px-3 sm:px-6 py-3 text-left text-label font-semibold uppercase tracking-[0.06em] text-muted-foreground cursor-pointer select-none`}
                       onClick={() => handleSort(col.key)}
                     >
-                      <span className="inline-flex items-center gap-1.5">
+                      <span className="inline-flex items-center gap-1">
                         {col.label}
                         <SortIcon col={col.key} />
                       </span>
@@ -455,28 +455,28 @@ export function DataShowcase() {
                   >
                     <td className="w-full max-w-0 px-3 sm:px-6 py-4">
                       <div className="flex min-w-0 items-center gap-3">
-                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-[0.75rem] font-semibold text-foreground shrink-0">
+                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-label font-semibold text-foreground shrink-0">
                           {row.name.split(" ").map(n => n[0]).join("")}
                         </div>
                         <div className="min-w-0">
-                          <div className="truncate text-[0.9rem] font-medium text-foreground">{row.name}</div>
-                          <div className="truncate text-[0.75rem] text-muted-foreground">{row.email}</div>
+                          <div className="truncate text-body-sm font-medium text-foreground">{row.name}</div>
+                          <div className="truncate text-label text-muted-foreground">{row.email}</div>
                         </div>
                       </div>
                     </td>
                     <td className="hidden md:table-cell px-3 sm:px-6 py-4">
-                      <span className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-sm text-[0.75rem] font-medium border ${planStyles[row.plan]}`}>
+                      <span className={`inline-flex items-center whitespace-nowrap px-2 py-1 rounded-sm text-label font-medium border ${planStyles[row.plan]}`}>
                         {planPt[row.plan] && t(row.plan, planPt[row.plan])}
                       </span>
                     </td>
                     <td className="px-3 sm:px-6 py-4">
-                      <span className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-sm text-[0.75rem] font-medium border ${statusStyles[row.status]}`}>
-                        <span className={`h-1.5 w-1.5 rounded-full mr-1.5 ${row.status === "Active" ? "bg-success" : row.status === "Trial" ? "bg-warning" : "bg-muted-foreground"}`} />
+                      <span className={`inline-flex items-center whitespace-nowrap px-2 py-1 rounded-sm text-label font-medium border ${statusStyles[row.status]}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full mr-1 ${row.status === "Active" ? "bg-success" : row.status === "Trial" ? "bg-warning" : "bg-muted-foreground"}`} />
                         {t(row.status, statusPt[row.status])}
                       </span>
                     </td>
-                    <td className="hidden sm:table-cell px-3 sm:px-6 py-4 text-[0.9rem] font-semibold text-foreground">{row.mrr}</td>
-                    <td className="hidden lg:table-cell whitespace-nowrap px-3 sm:px-6 py-4 text-[0.8125rem] text-muted-foreground">{t(row.joined, row.joinedPt)}</td>
+                    <td className="hidden sm:table-cell px-3 sm:px-6 py-4 text-body-sm font-semibold text-foreground">{row.mrr}</td>
+                    <td className="hidden lg:table-cell whitespace-nowrap px-3 sm:px-6 py-4 text-body-sm text-muted-foreground">{t(row.joined, row.joinedPt)}</td>
                     <td className="px-3 sm:px-6 py-4">
                       <button className="h-8 w-8 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors">
                         <MoreHorizontal className="h-4 w-4" />
@@ -488,10 +488,10 @@ export function DataShowcase() {
             </table>
           </div>
           <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-muted/10">
-            <span className="text-[0.8125rem] text-muted-foreground">{t("Showing", "Exibindo")} 1–{tableData.length} {t("of", "de")} {tableData.length}</span>
+            <span className="text-body-sm text-muted-foreground">{t("Showing", "Exibindo")} 1–{tableData.length} {t("of", "de")} {tableData.length}</span>
             <div className="flex items-center gap-1">
               {[1, 2, 3].map(p => (
-                <button key={p} className={`h-8 w-8 rounded-sm text-[0.875rem] font-medium transition-colors ${p === 1 ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent"}`}>
+                <button key={p} className={`h-8 w-8 rounded-sm text-body-sm font-medium transition-colors ${p === 1 ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent"}`}>
                   {p}
                 </button>
               ))}
@@ -522,8 +522,8 @@ export function DataShowcase() {
       {/* ── Tokens ── */}
       <section id="data-tokens" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties used by data display components.", "CSS custom properties usadas por componentes de exibição de dados.")}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">{t("CSS custom properties used by data display components.", "CSS custom properties usadas por componentes de exibição de dados.")}</p>
         </div>
         <TokenTable groups={dataTokenGroups} />
       </section>
@@ -580,42 +580,28 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
 /** Cards de KPI: métrica, ícone, minigráfico e tendência (usados na página Cards). */
 export function CardsDeKpi() {
   const { t } = useI18n();
+  // CardIndicador do DS com o minigráfico (antes, montado à mão)
+  const numero = (v: string) => Number(v.replace(/\./g, "").replace(",", "."));
   return (
     <GradeDeCards className="sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {kpis.map((kpi) => {
         const Icon = kpi.icon;
-        const TrendIcon = kpi.trend === "up" ? ArrowUpRight : ArrowDownRight;
-        const trendColor = kpi.trend === "up" ? "text-success" : "text-primary";
         return (
-          <div key={kpi.label} className="bg-card rounded-lg border border-border p-5 flex flex-col gap-4">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-[0.8125rem] font-medium text-muted-foreground mb-1">{t(kpi.label, kpi.pt)}</p>
-                <p className="text-[1.625rem] font-bold text-foreground tracking-[-0.025em] leading-none">{kpi.value}</p>
-              </div>
-              <div className="h-9 w-9 rounded-md bg-muted flex items-center justify-center">
-                <Icon className="h-4.5 w-4.5 text-muted-foreground" style={{ height: "18px", width: "18px" }} />
-              </div>
-            </div>
-            <div className="h-12">
+          <CardIndicador
+            key={kpi.label}
+            icone={<Icon />}
+            valor={numero(kpi.value)}
+            rotulo={t(kpi.label, kpi.pt)}
+            variacao={numero(kpi.delta.replace("%", "").replace("+", ""))}
+            comparacao={t("vs last month", "vs. mês passado")}
+            grafico={
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={kpi.sparkData.map((v, i) => ({ v, i }))}>
-                  <Line
-                    type="monotone"
-                    dataKey="v"
-                    stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-6)"}
-                    strokeWidth={1.5}
-                    dot={false}
-                  />
+                  <Line type="monotone" dataKey="v" stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-6)"} strokeWidth={1.5} dot={false} isAnimationActive={false} />
                 </LineChart>
               </ResponsiveContainer>
-            </div>
-            <div className={`flex items-center gap-1 text-[0.8125rem] font-semibold ${trendColor}`}>
-              <TrendIcon className="h-3.5 w-3.5" />
-              {kpi.delta}
-              <span className="text-muted-foreground font-normal ml-1">{t("vs last month", "vs mês passado")}</span>
-            </div>
-          </div>
+            }
+          />
         );
       })}
     </GradeDeCards>
@@ -681,7 +667,7 @@ export function AndamentoDeTarefa() {
         <div className="space-y-5">
           <FaixaDeEstado
             estado={
-              <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-border bg-muted px-2.5 text-[0.75rem] font-semibold text-foreground">
+              <span className="inline-flex h-7 items-center gap-1 rounded-full border border-border bg-muted px-2 text-label font-semibold text-foreground">
                 <PauseCircle aria-hidden className="h-3.5 w-3.5 text-muted-foreground" /> Pausada
               </span>
             }
@@ -727,7 +713,7 @@ function MapaDeExemplo() {
         marcadores={["Região 9"]}
         legenda={["Menos lojas", "Mais lojas"]}
       />
-      <p aria-live="polite" className="mt-2 min-h-5 text-center text-[0.8125rem] text-muted-foreground">{escolhida ? `${escolhida}: ${valores.get(escolhida)} lojas` : "Toque numa região."}</p>
+      <p aria-live="polite" className="mt-2 min-h-5 text-center text-body-sm text-muted-foreground">{escolhida ? `${escolhida}: ${valores.get(escolhida)} lojas` : "Toque numa região."}</p>
     </div>
   );
 }

@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 118 arquivos de componentes em `src/app/components/ui/` com 445 componentes exportados · 91 templates e padrões ainda só em demonstração · 48 seções com marcação feita à mão · 167 tokens · 37 páginas e 264 âncoras no site (https://designsystem.findlook.com.br) · 1 propostas de componente.
+**Resumo:** 118 arquivos de componentes em `src/app/components/ui/` com 446 componentes exportados · 89 templates e padrões ainda só em demonstração · 48 seções com marcação feita à mão · 167 tokens · 37 páginas e 265 âncoras no site (https://designsystem.findlook.com.br) · 28 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -30,7 +30,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `AccordionItem` (props: `className`)
   - `AccordionTrigger` (props: `className`, `children`, `semIcone`)
   - `AccordionContent` (props: `className`, `children`)
-- **Onde ver:** Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`)
+- **Onde ver:** Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) · Templates › Landing page para lojistas (`templates#template-landing`)
 
 ### alert
 
@@ -162,12 +162,12 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### button
 
 - **Arquivo:** [src/app/components/ui/button.tsx](src/app/components/ui/button.tsx)
-- **Quando usar:** Padrão único (decisão de 16/11/2026): botão de 40 px, texto 15 px seminegrito, cantos 12 px; mesma altura do campo de texto.
+- **Quando usar:** Padrão único (decisão de 16/11/2026): botão de 40 px, cantos 12 px; mesma altura do campo de texto. Texto no token do botão (14 px, seminegrito; escala tipográfica de 27/11/2026). No toque (celular ou tela de dedo), todo botão tem 44 px de altura (decisão de 27/11/2026); no computador com mouse, 40 px (sm: 32 px).
 - **Componentes:**
   - `Button` (props: `className`, `variant`, `size`, `asChild`)
 - **Funções e constantes:** `buttonVariants`
 - **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon`
-- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Microinterações (`motion#micro`) · e mais 29 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 32 seções (ver `catalogo.json`)
 
 ### cabecalho-do-site
 
@@ -245,7 +245,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CardAction` (props: `className`)
   - `CardContent` (props: `className`)
   - `CardFooter` (props: `className`, `children`): Rodapé do card. No Card horizontal, ganha o divisor do card em cima e as ações vão para o canto inferior direito.
-- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 22 seções (ver `catalogo.json`)
+- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 21 seções (ver `catalogo.json`)
 
 ### card-de-preco
 
@@ -292,7 +292,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `GrupoDeCartoesDeEscolha` (props: `value`, `defaultValue`, `onValueChange`, `colunas`, `className`)
   - `CartaoDeEscolha` (props: `valor`, `titulo`, `descricao`, `icone`, `desabilitado`, `id`, `className`)
-- **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`)
+- **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
 
 ### chart
 
@@ -309,10 +309,10 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### checkbox
 
 - **Arquivo:** [src/app/components/ui/checkbox.tsx](src/app/components/ui/checkbox.tsx)
-- **Quando usar:** Caixa de seleção para escolhas independentes.
+- **Quando usar:** Caixa de seleção. O desenho tem 20 px; no toque (celular ou tela de dedo, 27/11/2026) a área clicável cresce para 44 × 44 px em volta dele, com margem negativa, sem mudar o tamanho do desenho nem o espaço que ele ocupa.
 - **Componentes:**
   - `Checkbox` (props: `className`)
-- **Onde ver:** Botões › Senha (`buttons#password`) · Templates › Entrar e criar conta (`templates#template-auth`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) · e mais 1 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Senha (`buttons#password`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Templates › Entrar e criar conta (`templates#template-auth`) · e mais 3 seções (ver `catalogo.json`)
 
 ### chip-de-estado
 
@@ -331,7 +331,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GrupoDeChips` (props: `rotulo`, `className`, `children`)
   - `ChipDeFiltro` (props: `rotulo`, `onRemover`, `className`)
   - `ListaDeFiltrosAtivos` (props: `children`, `onLimparTudo`, `rotuloLimpar`, `className`): Filtros aplicados, em linha, com "Limpar filtros" no fim (mesma linha, quebrando junto).
-- **Onde ver:** Chips e estados › Chips de filtro (`chips-e-estados#chips-filtro`) · Rótulos › Badges e tags (`badges#badges`) · Campos e formulários › Grupo de opções e interruptor (`campos#grupo-de-opcoes`) · e mais 2 seções (ver `catalogo.json`)
+- **Onde ver:** Chips e estados › Chips de filtro (`chips-e-estados#chips-filtro`) · Rótulos › Badges e tags (`badges#badges`) · Campos e formulários › Grupo de opções e interruptor (`campos#grupo-de-opcoes`) · e mais 1 seções (ver `catalogo.json`)
 
 ### collapsible
 
@@ -828,6 +828,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `PaginationPrevious` (props: `className`)
   - `PaginationNext` (props: `className`)
   - `PaginationEllipsis` (props: `className`)
+  - `PaginationStatus` (props: `atual`, `total`, `className`): Resumo da posição ("Página 4 de 12"), para o celular, entre as setas, no lugar dos números (27/11/2026).
 - **Onde ver:** Sobreposições (overlays) › Paginação (`overlays#pagination`)
 
 ### painel-cabecalho
@@ -850,14 +851,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `IconeComBase` (props: `tom`, `tamanho`, `redonda`, `children`, `className`)
   - `Variacao` (props: `valor`, `comparacao`, `className`): Variação (seta + texto; nunca só cor)
   - `Explicacao` (props: `termo`, `children`): Explicação acessível (toque, teclado e mouse)
-  - `CardIndicador` (props: `icone`, `valor`, `total`, `rotulo`, `variacao`, `comparacao`, `explicacao`, `href`, `onClick`, `comoLink`, `className`): Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. Diagramação (21/11/2026, pedido da dona do produto): o ícone de explicação fica sempre colado à última palavra do rótulo (não …
+  - `CardIndicador` (props: `icone`, `valor`, `total`, `rotulo`, `variacao`, `comparacao`, `explicacao`, `grafico`, `href`, `onClick`, `comoLink`, `className`): Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. Diagramação (21/11/2026 e 27/11/2026, pedidos da dona do produto): o ícone de explicação fica sempre colado à última palavra do …
   - `GraficoDeDesempenho` (props: `dados`, `chaveX`, `series`, `visiveisIniciais`, `altura`, `destacarUltimo`, `className`)
   - `ItemDeAtividade` (props: `icone`, `iniciaisDe`, `titulo`, `detalhe`, `quando`, `className`): Item de atividade. icone: o ícone do tipo de evento; ou iniciais (o nome de quem aparece na lista), quando o título do card já diz o tipo e o ícone repetido não ajuda a diferenciar os itens (pedido da dona do produto, 20/11/2026).
   - `ItemDeAcao` (props: `midia`, `titulo`, `descricao`, `href`, `onClick`, `tom`, `className`): tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro.
   - `ListaDeTendencias` (props: `itens`, `className`): Lista de tendências
   - `ItemDeChecklist` (props: `estado`, `texto`, `href`, `className`): Item de checklist
   - `AnelDePontuacao` (props: `valor`, `tamanho`, `rotulo`, `className`)
-  - `CarrosselDeDicas` (props: `dicas`, `onFechar`, `className`)
+  - `CarrosselDeDicas` (props: `dicas`, `onFechar`, `className`): Carrossel de dicas (27/11/2026): a dica num card; embaixo dela, alinhados à esquerda com a borda do card da dica, os controles (anterior, "1 de 3", próxima).
   - `FaixaDeBeneficios` (props: `icone`, `titulo`, `texto`, `beneficios`, `className`): Faixa de benefícios
   - `CardDoPainel` (props: `icone`, `titulo`, `descricao`, `acao`, `children`, `className`, `id`, `nivel`): Card de seção do painel (título, descrição, ação)
   - `DivisorSuave` (props: `className`): Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).
@@ -878,7 +879,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Produtos no painel da loja (FindLook): AbasComContador (filtro por status, com quantidade), CelulaDeProduto (foto ou ícone, nome e detalhes), MedidorDeDesempenho (barrinhas + número em texto), StatusDePublicacao (com motivo), BarraDeAcoesEmLote e TabelaDeProdutos (busca, filtros, seleção, ações por linha, rodapé; vira lista de cards em telas estreitas).
 - **Componentes:**
   - `AbasComContador` (props: `abas`, `valor`, `onChange`, `estilo`, `rotulo`, `idBase`, `className`): estilo "pagina" (Opção A, 23/11/2026): abas da página, logo abaixo do título, sem linha de base de ponta a ponta; só a aba ativa tem o sublinhado. "sublinhado" mantém a linha de base (abas dentro de um card, como na tabela).
-  - `CelulaDeProduto` (props: `nome`, `detalhes`, `icone`, `foto`, `className`): Célula de produto
+  - `CelulaDeProduto` (props: `nome`, `detalhes`, `icone`, `foto`, `className`)
   - `MedidorDeDesempenho` (props: `nivel`, `visualizacoes`, `favoritos`, `className`): nivel de 0 a 5. Sempre acompanhado do número em texto.
   - `StatusDePublicacao` (props: `status`, `motivo`, `className`)
   - `BarraDeAcoesEmLote` (props: `selecionados`, `onLimpar`, `acoes`, `className`, `itemNoSingular`, `itemNoPlural`, `selecionadaNoFeminino`, `textoDaContagem`, `rotuloDaRegiao`, `rotuloLimpar`, `children`)
@@ -985,7 +986,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Escolha única entre poucas opções.
 - **Componentes:**
   - `RadioGroup` (props: `className`)
-  - `RadioGroupItem` (props: `className`)
+  - `RadioGroupItem` (props: `className`): Opção de rádio: desenho de 20 px; no toque, área clicável de 44 × 44 px em volta, sem mudar o desenho (27/11/2026).
 - **Onde ver:** Botões › Senha (`buttons#password`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
 
 ### resizable
@@ -1021,7 +1022,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** SegmentedControl (controle segmentado): Opções acopladas, uma selecionada por vez, que se tocam como botões. Use para escolhas curtas e exclusivas (2 a 5 opções, rótulos de uma ou duas palavras): filtro, condição, período, modo de exibição. Sempre há uma opção selecionada. Teclado: setas movem a seleção; Tab entra e sai do grupo.
 - **Componentes:**
   - `SegmentedControl` (props: `options`, `value`, `defaultValue`, `onValueChange`, `variant`, `size`, `fullWidth`, `className`)
-- **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Linha do tempo › Demonstração (`timeline#timeline-demo`) · Cards › Testar o vidro (`cards#card-glass-teste`)
+- **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Linha do tempo › Demonstração (`timeline#timeline-demo`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · e mais 1 seções (ver `catalogo.json`)
 
 ### select
 
@@ -1038,7 +1039,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `SelectSeparator` (props: `className`)
   - `SelectScrollUpButton` (props: `className`)
   - `SelectScrollDownButton` (props: `className`)
-- **Onde ver:** nenhuma página do site importa este componente (sem demonstração).
+- **Onde ver:** Cards › Estados (`cards#card-states`) · Cards › Testar o vidro (`cards#card-glass-teste`) · Header e menus › Demonstração (`header#header-demo`)
 
 ### seletor-de-quantidade
 
@@ -1095,7 +1096,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `ShineBorder` (props: `borderWidth`, `duration`, `shineColor`, `preset`, `className`, `style`)
   - `BrilhoDeSelecionado` (props: `className`): Borda do card selecionado (decisão da dona do produto, 27/11/2026): o estado selecionado padrão de cards selecionáveis (CardDePreco, cartões de Cards › Estados) é a borda de 2 px na primária com o brilho do ShineBorder (preset "primaria": …
 - **Funções e constantes:** `shinePresets`, `molduraDoSelecionavel`
-- **Onde ver:** Cards › Borda brilhante (shine border) (`cards#card-shine`) · Cards › Estados (`cards#card-states`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
+- **Onde ver:** Cards › Borda brilhante (shine border) (`cards#card-shine`) · Cards › Estados (`cards#card-states`)
 
 ### side-panel
 
@@ -1198,10 +1199,10 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### switch
 
 - **Arquivo:** [src/app/components/ui/switch.tsx](src/app/components/ui/switch.tsx)
-- **Quando usar:** Chave liga/desliga com efeito imediato.
+- **Quando usar:** Interruptor: trilho de 44 × 24 px; no toque, a área clicável tem 44 px de altura, sem mudar o desenho (27/11/2026).
 - **Componentes:**
   - `Switch` (props: `className`)
-- **Onde ver:** Botões › Seletor de período (`buttons#seletor-periodo`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) · e mais 1 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Seletor de período (`buttons#seletor-periodo`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) · e mais 2 seções (ver `catalogo.json`)
 
 ### tabela-adaptavel
 
@@ -1252,7 +1253,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Timeline (linha do tempo) — portada da seção "Como funciona" do site do estúdio.
 - **Componentes:**
   - `Timeline` (props: `etapas`, `alternar`, `limite`, `checkNasFeitas`, `animar`, `className`)
-- **Onde ver:** Linha do tempo › Demonstração (`timeline#timeline-demo`) · Linha do tempo › Uso (`timeline#timeline-usage`)
+- **Onde ver:** Linha do tempo › Demonstração (`timeline#timeline-demo`) · Linha do tempo › Uso (`timeline#timeline-usage`) · Templates › Landing page para lojistas (`templates#template-landing`)
 
 ### titulo-de-grupo
 
@@ -1339,15 +1340,15 @@ Telas inteiras montadas nas páginas de demonstração. Para uma tela parecida n
 
 | Padrão | Onde ver | Arquivo | Usa do DS | Marcação à mão |
 |---|---|---|---|---|
-| `SettingsTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:126](src/app/components/showcase/TemplatesShowcase.tsx#L126) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 11 |
-| `AuthTemplate`<br>3. Entrar e criar conta (loja parceira) | Templates › Entrar e criar conta (`templates#template-auth`) | [src/app/components/showcase/TemplatesShowcase.tsx:365](src/app/components/showcase/TemplatesShowcase.tsx#L365) | `Button`, `Campo`, `Checkbox`, `EstadoVazio`, `LinkDeTexto`, `ListaDeVantagens`, `MolduraDeConta` | 0 |
-| `TeamTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:479](src/app/components/showcase/TemplatesShowcase.tsx#L479) | `CabecalhoDaPagina`, `CardComCabecalho`, `ChipFiltravel`, `GrupoDeChips` | 16 |
-| `InboxTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:744](src/app/components/showcase/TemplatesShowcase.tsx#L744) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho` | 12 |
-| `PricingTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:941](src/app/components/showcase/TemplatesShowcase.tsx#L941) | `CabecalhoDaPagina`, `CardDePreco`, `GradeDeCards` | 4 |
-| `ContactTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:1047](src/app/components/showcase/TemplatesShowcase.tsx#L1047) | `CabecalhoDaPagina`, `CardComCabecalho` | 6 |
-| `LandingTemplate` | Templates › Landing page para lojistas (`templates#template-landing`) | [src/app/components/showcase/TemplatesShowcase.tsx:1439](src/app/components/showcase/TemplatesShowcase.tsx#L1439) | `Campo`, `GradeDeCards`, `IconeModa`, `VoltarAoTopo` | 79 |
+| `SettingsTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:128](src/app/components/showcase/TemplatesShowcase.tsx#L128) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `CartaoDeEscolha`, `GrupoDeCartoesDeEscolha`, `Switch` | 11 |
+| `AuthTemplate`<br>3. Entrar e criar conta (loja parceira) | Templates › Entrar e criar conta (`templates#template-auth`) | [src/app/components/showcase/TemplatesShowcase.tsx:353](src/app/components/showcase/TemplatesShowcase.tsx#L353) | `Button`, `Campo`, `Checkbox`, `EstadoVazio`, `LinkDeTexto`, `ListaDeVantagens`, `MolduraDeConta` | 0 |
+| `TeamTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:467](src/app/components/showcase/TemplatesShowcase.tsx#L467) | `CabecalhoDaPagina`, `CardComCabecalho`, `SegmentedControl` | 17 |
+| `InboxTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:733](src/app/components/showcase/TemplatesShowcase.tsx#L733) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho` | 12 |
+| `PricingTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:920](src/app/components/showcase/TemplatesShowcase.tsx#L920) | `CabecalhoDaPagina`, `CardDePreco`, `GradeDeCards`, `SegmentedControl` | 4 |
+| `ContactTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:1017](src/app/components/showcase/TemplatesShowcase.tsx#L1017) | `CabecalhoDaPagina`, `CardComCabecalho`, `Checkbox` | 6 |
+| `LandingTemplate` | Templates › Landing page para lojistas (`templates#template-landing`) | [src/app/components/showcase/TemplatesShowcase.tsx:1409](src/app/components/showcase/TemplatesShowcase.tsx#L1409) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger`, `Campo`, `Checkbox`, `GradeDeCards`, `IconeModa` +2 | 77 |
 
-### 2.2 Padrões nas páginas de componentes (49)
+### 2.2 Padrões nas páginas de componentes (47)
 
 Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentro das páginas de componentes. São as primeiras candidatas a virar componente.
 
@@ -1360,23 +1361,22 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `BotaoContorno`<br>Páginas | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/PainelTemplates.tsx:374](src/app/components/showcase/PainelTemplates.tsx#L374) |  | 1 |
 | `PaginaInicio` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/PainelTemplates.tsx:382](src/app/components/showcase/PainelTemplates.tsx#L382) | `AnelDePontuacao`, `BannerPromocional`, `BotaoDividido`, `CabecalhoDaPagina`, `CardDoPainel`, `CardIndicador`, `CarrosselDeDicas`, `FaixaDeBeneficios` +11 | 1 |
 | `PaginaEmBreve` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/PainelTemplates.tsx:591](src/app/components/showcase/PainelTemplates.tsx#L591) | `CabecalhoDaPagina` | 3 |
-| `ChaveParaQuem`<br>Controle só da demonstração: liga e desliga o bloco opcional "Para quem" nos cards de preço | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:904](src/app/components/showcase/TemplatesShowcase.tsx#L904) |  | 2 |
-| `DemoBotoesFlutuantes`<br>Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026). | Templates › Botões flutuantes (`templates#template-flutuantes`) | [src/app/components/showcase/TemplatesShowcase.tsx:1211](src/app/components/showcase/TemplatesShowcase.tsx#L1211) | `BarraFixaDoCelular`, `VoltarAoTopo` | 1 |
-| `CadastroEmEtapasDemo`<br>Demonstração | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:210](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L210) | `Alert`, `AlertDescription`, `AlertTitle`, `BarraDaEtapa`, `BlocoDeRevisao`, `BrilhoDeSelecionado`, `Button`, `Card` +21 | 2 |
-| `CombinacoesDoCadastro` | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:781](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L781) |  | 4 |
+| `DemoBotoesFlutuantes`<br>Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026). | Templates › Botões flutuantes (`templates#template-flutuantes`) | [src/app/components/showcase/TemplatesShowcase.tsx:1181](src/app/components/showcase/TemplatesShowcase.tsx#L1181) | `BarraFixaDoCelular`, `VoltarAoTopo` | 1 |
+| `CadastroEmEtapasDemo`<br>Demonstração | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:179](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L179) | `Alert`, `AlertDescription`, `AlertTitle`, `BarraDaEtapa`, `BlocoDeRevisao`, `Button`, `CardDePreco`, `CartaoDeEscolha` +17 | 2 |
+| `CombinacoesDoCadastro` | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:750](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L750) |  | 4 |
 | `InputField` | Botões › Controles de formulário (`buttons#inputs`) | [src/app/components/showcase/FormShowcase.tsx:70](src/app/components/showcase/FormShowcase.tsx#L70) | `Input` | 1 |
 | `CanvasRevealCard`<br>Cards com revelação em canvas (usado na página Cards › Animação). | Cards › Animação (`cards#card-animacao`) | [src/app/components/showcase/BackgroundsShowcase.tsx:498](src/app/components/showcase/BackgroundsShowcase.tsx#L498) |  | 9 |
-| `CenaDoVidro`<br>Cena do seletor: usa o fundo escolhido; fora do seletor, é a cena padrão (GlassScene). | Cards › Vidro: acabamentos (`cards#card-glass`) (+3) | [src/app/components/showcase/CardShowcase.tsx:119](src/app/components/showcase/CardShowcase.tsx#L119) | `DoodleTexture`, `GlassScene` | 2 |
-| `GlassTestCard`<br>Card de teste: título e subtítulo reais sobre o vidro, com avaliação de contraste (WCAG AA) e alerta dentro do card quando a configuração compromete a acessibilidade. | Cards › Vidro: acabamentos (`cards#card-glass`) (+2) | [src/app/components/showcase/CardShowcase.tsx:181](src/app/components/showcase/CardShowcase.tsx#L181) | `GlassCard` | 1 |
-| `GlassFinishPicker` | Cards › Testar o vidro (`cards#card-glass-teste`) | [src/app/components/showcase/CardShowcase.tsx:219](src/app/components/showcase/CardShowcase.tsx#L219) | `DoodleTexture`, `GlassCard`, `GlassScene`, `GradeDeCards`, `SegmentedControl`, `Slider` | 3 |
-| `DemoCarrosselDeDicas` | Cards › Card de dica (`cards#card-dica`) | [src/app/components/showcase/CardShowcase.tsx:337](src/app/components/showcase/CardShowcase.tsx#L337) | `Button`, `CardDoPainel`, `CarrosselDeDicas` | 1 |
-| `CardPorFundo` | Cards › Por fundo (`cards#card-fundos`) | [src/app/components/showcase/CardShowcase.tsx:380](src/app/components/showcase/CardShowcase.tsx#L380) | `Button`, `Card` | 2 |
-| `DemoMesmaAltura`<br>Dois cards lado a lado; o interruptor põe muito conteúdo no segundo e a GradeDeCards troca para um por linha. | Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) | [src/app/components/showcase/CardShowcase.tsx:405](src/app/components/showcase/CardShowcase.tsx#L405) | `Badge`, `Button`, `Card`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardMidia` +4 | 2 |
-| `CardDeExemplo`<br>Card pequeno dos exemplos certo e errado. | Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) | [src/app/components/showcase/CardShowcase.tsx:477](src/app/components/showcase/CardShowcase.tsx#L477) | `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle` | 1 |
-| `CardsDeKpi`<br>Cards de KPI: métrica, ícone, minigráfico e tendência (usados na página Cards). | Cards › Arquitetura de informação (`cards#card-ia`) | [src/app/components/showcase/DataShowcase.tsx:581](src/app/components/showcase/DataShowcase.tsx#L581) | `GradeDeCards` | 2 |
-| `AndamentoDeTarefa`<br>Andamento de uma tarefa longa (FaixaDeEstado + ProgressoRotulado + ResumoEmLinha), usado na página Cards. Números de exemplo. | Cards › Andamento de tarefa (`cards#card-andamento`) | [src/app/components/showcase/DataShowcase.tsx:672](src/app/components/showcase/DataShowcase.tsx#L672) | `Button`, `CardDoPainel`, `FaixaDeEstado`, `LinkVerTudo`, `ProgressoRotulado`, `ResumoEmLinha` | 3 |
-| `WobbleCardConteudo`<br>Card com wobble: demonstração com controles (usada na página Cards). | Cards › Animação (`cards#card-animacao`) | [src/app/components/showcase/MotionShowcase.tsx:1934](src/app/components/showcase/MotionShowcase.tsx#L1934) |  | 5 |
-| `ShineBorderConteudo`<br>Shine Border: velocidades, combinações de cor, tokens e acessibilidade (usado na página Cards). | Cards › Borda brilhante (shine border) (`cards#card-shine`) | [src/app/components/showcase/MotionShowcase.tsx:2038](src/app/components/showcase/MotionShowcase.tsx#L2038) | `ShineBorder` | 5 |
+| `EscolhaEmLista`<br>Escolha com mais de 3 opções nas demonstrações: rótulo em cima e a lista de seleção do DS (Select). | Cards › Testar o vidro (`cards#card-glass-teste`) | [src/app/components/showcase/CardShowcase.tsx:51](src/app/components/showcase/CardShowcase.tsx#L51) | `Select`, `SelectContent`, `SelectItem`, `SelectTrigger`, `SelectValue` | 1 |
+| `CenaDoVidro`<br>Cena do seletor: usa o fundo escolhido; fora do seletor, é a cena padrão (GlassScene). | Cards › Vidro: acabamentos (`cards#card-glass`) (+3) | [src/app/components/showcase/CardShowcase.tsx:138](src/app/components/showcase/CardShowcase.tsx#L138) | `DoodleTexture`, `GlassScene` | 2 |
+| `GlassTestCard`<br>Card de teste: título e subtítulo reais sobre o vidro, com avaliação de contraste (WCAG AA) e alerta dentro do card quando a configuração compromete a acessibilidade. | Cards › Vidro: acabamentos (`cards#card-glass`) (+2) | [src/app/components/showcase/CardShowcase.tsx:200](src/app/components/showcase/CardShowcase.tsx#L200) | `GlassCard` | 1 |
+| `GlassFinishPicker` | Cards › Testar o vidro (`cards#card-glass-teste`) | [src/app/components/showcase/CardShowcase.tsx:238](src/app/components/showcase/CardShowcase.tsx#L238) | `DoodleTexture`, `GlassCard`, `GlassScene`, `GradeDeCards`, `SegmentedControl`, `Select`, `SelectContent`, `SelectItem` +3 | 3 |
+| `DemoCarrosselDeDicas` | Cards › Card de dica (`cards#card-dica`) | [src/app/components/showcase/CardShowcase.tsx:348](src/app/components/showcase/CardShowcase.tsx#L348) | `Button`, `CardDoPainel`, `CarrosselDeDicas` | 1 |
+| `CardPorFundo` | Cards › Por fundo (`cards#card-fundos`) | [src/app/components/showcase/CardShowcase.tsx:391](src/app/components/showcase/CardShowcase.tsx#L391) | `Button`, `Card` | 2 |
+| `DemoMesmaAltura`<br>Dois cards lado a lado; o interruptor põe muito conteúdo no segundo e a GradeDeCards troca para um por linha. | Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) | [src/app/components/showcase/CardShowcase.tsx:416](src/app/components/showcase/CardShowcase.tsx#L416) | `Badge`, `Button`, `Card`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardMidia` +4 | 2 |
+| `CardDeExemplo`<br>Card pequeno dos exemplos certo e errado. | Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) | [src/app/components/showcase/CardShowcase.tsx:488](src/app/components/showcase/CardShowcase.tsx#L488) | `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle` | 1 |
+| `AndamentoDeTarefa`<br>Andamento de uma tarefa longa (FaixaDeEstado + ProgressoRotulado + ResumoEmLinha), usado na página Cards. Números de exemplo. | Cards › Andamento de tarefa (`cards#card-andamento`) | [src/app/components/showcase/DataShowcase.tsx:658](src/app/components/showcase/DataShowcase.tsx#L658) | `Button`, `CardDoPainel`, `FaixaDeEstado`, `LinkVerTudo`, `ProgressoRotulado`, `ResumoEmLinha` | 3 |
+| `WobbleCardConteudo`<br>Card com wobble: demonstração com controles (usada na página Cards). | Cards › Animação (`cards#card-animacao`) | [src/app/components/showcase/MotionShowcase.tsx:1931](src/app/components/showcase/MotionShowcase.tsx#L1931) |  | 5 |
+| `ShineBorderConteudo`<br>Shine Border: velocidades, combinações de cor, tokens e acessibilidade (usado na página Cards). | Cards › Borda brilhante (shine border) (`cards#card-shine`) | [src/app/components/showcase/MotionShowcase.tsx:2035](src/app/components/showcase/MotionShowcase.tsx#L2035) | `ShineBorder` | 5 |
 | `RoscaAntiga`<br>Reprodução da rosca atual do admin, só para comparação (traço grosso, centro com o número de tipos, grafite como série). | Gráficos › Rosca (`graficos#graficos-rosca`) | [src/app/components/showcase/GraficosShowcase.tsx:36](src/app/components/showcase/GraficosShowcase.tsx#L36) |  | 1 |
 | `TabelaQueQuebra`<br>Tabela que vira lista no celular (card nunca rola na horizontal): a TabelaAdaptavel do DS (27/11/2026). | Gráficos › Como escolher (`graficos#graficos-escolher`) (+1) | [src/app/components/showcase/GraficosShowcase.tsx:386](src/app/components/showcase/GraficosShowcase.tsx#L386) | `TabelaAdaptavel` | 1 |
 | `Cartao` | Gráficos › Cores dos gráficos (`graficos#graficos-cores`) (+3) | [src/app/components/showcase/GraficosShowcase.tsx:397](src/app/components/showcase/GraficosShowcase.tsx#L397) |  | 1 |
@@ -1392,14 +1392,13 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `SkeletonPulse`<br>Skeleton | Feedback › Carregamento (skeleton) (`feedback#skeleton`) | [src/app/components/showcase/FeedbackShowcase.tsx:114](src/app/components/showcase/FeedbackShowcase.tsx#L114) |  | 1 |
 | `DemoAbasComContador` | Feedback › Abas com contador (`feedback#abas-contador`) | [src/app/components/showcase/FeedbackShowcase.tsx:142](src/app/components/showcase/FeedbackShowcase.tsx#L142) | `AbasComContador` | 1 |
 | `DemoBannerPromocional`<br>Banner promocional | Feedback › Banner promocional (`feedback#banner-promocional`) | [src/app/components/showcase/FeedbackShowcase.tsx:159](src/app/components/showcase/FeedbackShowcase.tsx#L159) | `BannerPromocional`, `IconeModa` | 2 |
-| `DrawerDemo`<br>Drawer | Sobreposições (overlays) | [src/app/components/showcase/OverlaysShowcase.tsx:142](src/app/components/showcase/OverlaysShowcase.tsx#L142) | `Button`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle` | 3 |
-| `ExemploMenuRecolhivel`<br>Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. | Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) | [src/app/components/showcase/OverlaysShowcase.tsx:196](src/app/components/showcase/OverlaysShowcase.tsx#L196) | `BarraSuperiorDoPainel`, `GatilhoDaConta`, `GrupoDoMenu`, `ItemDoMenu`, `MenuLateral`, `MenuLateralProvider`, `NavDoMenu`, `TopoDoMenu` | 4 |
-| `ExemploOpcaoA`<br>Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. | Sobreposições (overlays) › Cabeçalho da página (`overlays#cabecalho-pagina`) | [src/app/components/showcase/OverlaysShowcase.tsx:245](src/app/components/showcase/OverlaysShowcase.tsx#L245) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 1 |
-| `Segmentado`<br>Controles da demonstração | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:97](src/app/components/showcase/HeaderShowcase.tsx#L97) |  | 1 |
-| `Chave` | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:125](src/app/components/showcase/HeaderShowcase.tsx#L125) |  | 2 |
-| `Capa`<br>Fundos por trás do header | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:155](src/app/components/showcase/HeaderShowcase.tsx#L155) |  | 4 |
-| `DemoHeader`<br>Demonstração: janela com rolagem própria | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:179](src/app/components/showcase/HeaderShowcase.tsx#L179) |  | 39 |
-| `CardOpcao`<br>Cards de explicação, com atalho para a demonstração | Header e menus › Modelos (`header#header-models`) (+3) | [src/app/components/showcase/HeaderShowcase.tsx:565](src/app/components/showcase/HeaderShowcase.tsx#L565) |  | 3 |
+| `DrawerDemo`<br>Drawer | Sobreposições (overlays) | [src/app/components/showcase/OverlaysShowcase.tsx:144](src/app/components/showcase/OverlaysShowcase.tsx#L144) | `Button`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle` | 3 |
+| `ExemploMenuRecolhivel`<br>Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. | Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) | [src/app/components/showcase/OverlaysShowcase.tsx:198](src/app/components/showcase/OverlaysShowcase.tsx#L198) | `BarraSuperiorDoPainel`, `GatilhoDaConta`, `GrupoDoMenu`, `ItemDoMenu`, `MenuLateral`, `MenuLateralProvider`, `NavDoMenu`, `TopoDoMenu` | 4 |
+| `ExemploOpcaoA`<br>Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. | Sobreposições (overlays) › Cabeçalho da página (`overlays#cabecalho-pagina`) | [src/app/components/showcase/OverlaysShowcase.tsx:247](src/app/components/showcase/OverlaysShowcase.tsx#L247) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 1 |
+| `Segmentado`<br>Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso, lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch. | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:102](src/app/components/showcase/HeaderShowcase.tsx#L102) | `Select`, `SelectContent`, `SelectItem`, `SelectTrigger`, `SelectValue` | 1 |
+| `Capa`<br>Fundos por trás do header | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:149](src/app/components/showcase/HeaderShowcase.tsx#L149) |  | 4 |
+| `DemoHeader`<br>Demonstração: janela com rolagem própria | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:173](src/app/components/showcase/HeaderShowcase.tsx#L173) |  | 39 |
+| `CardOpcao`<br>Cards de explicação, com atalho para a demonstração | Header e menus › Modelos (`header#header-models`) (+3) | [src/app/components/showcase/HeaderShowcase.tsx:559](src/app/components/showcase/HeaderShowcase.tsx#L559) |  | 3 |
 | `StorePanelDemo`<br>Variante: formulário "Cadastrar minha loja" (demonstração) | Painel lateral › Comportamento (`sidepanel#sidepanel-behavior`) (+1) | [src/app/components/showcase/SidePanelShowcase.tsx:37](src/app/components/showcase/SidePanelShowcase.tsx#L37) | `SidePanel`, `SidePanelActions`, `SidePanelBody`, `SidePanelContent`, `SidePanelFooter`, `SidePanelHeader`, `SidePanelTrigger` | 6 |
 | `DemoDoCursor` | Demonstrações animadas › Cursor de demonstração (`demonstracoes#cursor-de-demonstracao`) | [src/app/components/showcase/DemonstracoesShowcase.tsx:21](src/app/components/showcase/DemonstracoesShowcase.tsx#L21) | `Button`, `CursorDeDemonstracao`, `Input` | 2 |
 
@@ -1421,7 +1420,7 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `FeedbackDemo`<br>System status | Usabilidade › Status do sistema (`usability#ux-feedback`) | [src/app/components/showcase/UsabilityShowcase.tsx:47](src/app/components/showcase/UsabilityShowcase.tsx#L47) |  | 1 |
 | `UndoDemo` | Usabilidade › Ações destrutivas (`usability#ux-destructive`) | [src/app/components/showcase/UsabilityShowcase.tsx:84](src/app/components/showcase/UsabilityShowcase.tsx#L84) |  | 6 |
 | `StatesDemo` | Usabilidade › Estados de conteúdo (`usability#ux-states`) | [src/app/components/showcase/UsabilityShowcase.tsx:148](src/app/components/showcase/UsabilityShowcase.tsx#L148) | `Button`, `EstadoVazio` | 5 |
-| `HierarchyDemo`<br>Button hierarchy | Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) | [src/app/components/showcase/UsabilityShowcase.tsx:216](src/app/components/showcase/UsabilityShowcase.tsx#L216) |  | 5 |
+| `HierarchyDemo`<br>Button hierarchy | Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) | [src/app/components/showcase/UsabilityShowcase.tsx:216](src/app/components/showcase/UsabilityShowcase.tsx#L216) | `Button` | 1 |
 | `ContrastTable` | Acessibilidade › Contraste (`accessibility#a11y-contrast`) | [src/app/components/showcase/AccessibilityShowcase.tsx:70](src/app/components/showcase/AccessibilityShowcase.tsx#L70) |  | 3 |
 | `ContrastChecker` | Acessibilidade › Contraste (`accessibility#a11y-contrast`) | [src/app/components/showcase/AccessibilityShowcase.tsx:124](src/app/components/showcase/AccessibilityShowcase.tsx#L124) |  | 1 |
 | `FocusDemo`<br>Focus | Acessibilidade › Foco (`accessibility#a11y-focus`) | [src/app/components/showcase/AccessibilityShowcase.tsx:187](src/app/components/showcase/AccessibilityShowcase.tsx#L187) |  | 3 |
@@ -1437,13 +1436,13 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `BgLinesCard`<br>BG LINES CARD — previews with controls | Fundos › Linhas de fundo (`backgrounds#bg-lines-bg`) | [src/app/components/showcase/BackgroundsShowcase.tsx:1240](src/app/components/showcase/BackgroundsShowcase.tsx#L1240) |  | 6 |
 | `EffectCard` | Fundos | [src/app/components/showcase/BackgroundsShowcase.tsx:1488](src/app/components/showcase/BackgroundsShowcase.tsx#L1488) |  | 4 |
 | `DoodleTextureCard`<br>DOODLE TEXTURE — textura de ícones de traço | Fundos › Textura doodle (`backgrounds#doodle-bg`) | [src/app/components/showcase/BackgroundsShowcase.tsx:1637](src/app/components/showcase/BackgroundsShowcase.tsx#L1637) | `DoodleTexture` | 8 |
-| `SpringPlayground` | Movimento › Física de mola (`motion#spring`) | [src/app/components/showcase/MotionShowcase.tsx:312](src/app/components/showcase/MotionShowcase.tsx#L312) |  | 3 |
-| `MagneticButton` | Movimento › Interações de hover (`motion#hover`) | [src/app/components/showcase/MotionShowcase.tsx:611](src/app/components/showcase/MotionShowcase.tsx#L611) |  | 1 |
-| `DemoCarregando`<br>Carregamento de página (componente Carregando, 21/11/2026): como aparece e o aviso de demora, sem esperar 10 s. | Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:946](src/app/components/showcase/MotionShowcase.tsx#L946) | `Button`, `Carregando` | 2 |
-| `StepIndicator` | Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:969](src/app/components/showcase/MotionShowcase.tsx#L969) |  | 3 |
-| `DurationBars` | Movimento › Tokens de movimento (`motion#motion-tokens`) | [src/app/components/showcase/MotionShowcase.tsx:1134](src/app/components/showcase/MotionShowcase.tsx#L1134) |  | 1 |
-| `OrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1481](src/app/components/showcase/MotionShowcase.tsx#L1481) |  | 1 |
-| `AvatarOrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1629](src/app/components/showcase/MotionShowcase.tsx#L1629) |  | 3 |
+| `SpringPlayground` | Movimento › Física de mola (`motion#spring`) | [src/app/components/showcase/MotionShowcase.tsx:309](src/app/components/showcase/MotionShowcase.tsx#L309) |  | 3 |
+| `MagneticButton` | Movimento › Interações de hover (`motion#hover`) | [src/app/components/showcase/MotionShowcase.tsx:608](src/app/components/showcase/MotionShowcase.tsx#L608) |  | 1 |
+| `DemoCarregando`<br>Carregamento de página (componente Carregando, 21/11/2026): como aparece e o aviso de demora, sem esperar 10 s. | Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:943](src/app/components/showcase/MotionShowcase.tsx#L943) | `Button`, `Carregando` | 2 |
+| `StepIndicator` | Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:966](src/app/components/showcase/MotionShowcase.tsx#L966) |  | 3 |
+| `DurationBars` | Movimento › Tokens de movimento (`motion#motion-tokens`) | [src/app/components/showcase/MotionShowcase.tsx:1131](src/app/components/showcase/MotionShowcase.tsx#L1131) |  | 1 |
+| `OrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1478](src/app/components/showcase/MotionShowcase.tsx#L1478) |  | 1 |
+| `AvatarOrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1626](src/app/components/showcase/MotionShowcase.tsx#L1626) |  | 3 |
 
 ### 2.4 Seções com marcação feita à mão no próprio corpo (48)
 
@@ -1452,52 +1451,52 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Seção | Arquivo | Usa do DS | Marcação à mão |
 |---|---|---|---|
 | Início › Novidades (`overview#whats-new`) | [src/app/components/showcase/HomeShowcase.tsx:127](src/app/components/showcase/HomeShowcase.tsx#L127) |  | 3 |
-| Desenvolvimento › Plataformas (`develop#dev-platforms`) | [src/app/components/showcase/DevelopShowcase.tsx:227](src/app/components/showcase/DevelopShowcase.tsx#L227) |  | 3 |
+| Desenvolvimento › Plataformas (`develop#dev-platforms`) | [src/app/components/showcase/DevelopShowcase.tsx:228](src/app/components/showcase/DevelopShowcase.tsx#L228) |  | 3 |
 | Marca › Quando usar o símbolo (`brand#brand-uso-simbolo`) | [src/app/components/showcase/BrandShowcase.tsx:326](src/app/components/showcase/BrandShowcase.tsx#L326) |  | 5 |
 | Marca › Escala e legibilidade (`brand#brand-responsivo`) | [src/app/components/showcase/BrandShowcase.tsx:384](src/app/components/showcase/BrandShowcase.tsx#L384) |  | 7 |
 | Marca › Área de proteção (`brand#brand-respiro`) | [src/app/components/showcase/BrandShowcase.tsx:550](src/app/components/showcase/BrandShowcase.tsx#L550) |  | 6 |
-| Fundamentos › Paleta de cores (`colors#colors`) | [src/app/components/showcase/FoundationShowcase.tsx:128](src/app/components/showcase/FoundationShowcase.tsx#L128) |  | 8 |
-| Fundamentos › Tipografia (`colors#typography`) | [src/app/components/showcase/FoundationShowcase.tsx:233](src/app/components/showcase/FoundationShowcase.tsx#L233) | `GradeDeCards`, `Heading` | 35 |
+| Fundamentos › Paleta de cores (`colors#colors`) | [src/app/components/showcase/FoundationShowcase.tsx:126](src/app/components/showcase/FoundationShowcase.tsx#L126) |  | 8 |
+| Fundamentos › Tipografia (`colors#typography`) | [src/app/components/showcase/FoundationShowcase.tsx:231](src/app/components/showcase/FoundationShowcase.tsx#L231) | `GradeDeCards`, `Heading` | 35 |
 | Grid e espaçamento › Ritmo vertical (`grid#grid-ritmo`) | [src/app/components/showcase/GridShowcase.tsx:183](src/app/components/showcase/GridShowcase.tsx#L183) | `GradeDeCards` | 3 |
 | Grid e espaçamento › Como usar (`grid#grid-uso`) | [src/app/components/showcase/GridShowcase.tsx:217](src/app/components/showcase/GridShowcase.tsx#L217) |  | 3 |
-| Tokens de design › O que são tokens (`tokens#tokens-intro`) | [src/app/components/showcase/TokensShowcase.tsx:115](src/app/components/showcase/TokensShowcase.tsx#L115) | `GradeDeCards`, `ItemDaGrade` | 8 |
-| Tokens de design › As três camadas (`tokens#tokens-hierarchy`) | [src/app/components/showcase/TokensShowcase.tsx:205](src/app/components/showcase/TokensShowcase.tsx#L205) |  | 21 |
-| Tokens de design › Guia para designers (`tokens#tokens-design`) | [src/app/components/showcase/TokensShowcase.tsx:336](src/app/components/showcase/TokensShowcase.tsx#L336) |  | 3 |
-| Tokens de design › IA e tokens (`tokens#tokens-ia`) | [src/app/components/showcase/TokensShowcase.tsx:415](src/app/components/showcase/TokensShowcase.tsx#L415) |  | 8 |
-| Tokens de design › Implementação em código (`tokens#tokens-definition`) | [src/app/components/showcase/TokensShowcase.tsx:635](src/app/components/showcase/TokensShowcase.tsx#L635) |  | 12 |
+| Tokens de design › O que são tokens (`tokens#tokens-intro`) | [src/app/components/showcase/TokensShowcase.tsx:116](src/app/components/showcase/TokensShowcase.tsx#L116) | `GradeDeCards`, `ItemDaGrade` | 8 |
+| Tokens de design › As três camadas (`tokens#tokens-hierarchy`) | [src/app/components/showcase/TokensShowcase.tsx:206](src/app/components/showcase/TokensShowcase.tsx#L206) |  | 21 |
+| Tokens de design › Guia para designers (`tokens#tokens-design`) | [src/app/components/showcase/TokensShowcase.tsx:337](src/app/components/showcase/TokensShowcase.tsx#L337) |  | 3 |
+| Tokens de design › IA e tokens (`tokens#tokens-ia`) | [src/app/components/showcase/TokensShowcase.tsx:416](src/app/components/showcase/TokensShowcase.tsx#L416) |  | 8 |
+| Tokens de design › Implementação em código (`tokens#tokens-definition`) | [src/app/components/showcase/TokensShowcase.tsx:622](src/app/components/showcase/TokensShowcase.tsx#L622) |  | 12 |
 | Tom de voz › Microcopy (`voice#voice-microcopy`) | [src/app/components/showcase/VoiceShowcase.tsx:154](src/app/components/showcase/VoiceShowcase.tsx#L154) |  | 3 |
 | Estados de informação › Chip de status (`states#states-componente`) | [src/app/components/showcase/StatesShowcase.tsx:105](src/app/components/showcase/StatesShowcase.tsx#L105) | `StatusChip` | 4 |
 | Estados de informação › Tokens (`states#states-tokens`) | [src/app/components/showcase/StatesShowcase.tsx:184](src/app/components/showcase/StatesShowcase.tsx#L184) |  | 3 |
-| Fundos › Guia de composição (`backgrounds#section-backgrounds`) | [src/app/components/showcase/BackgroundsShowcase.tsx:1787](src/app/components/showcase/BackgroundsShowcase.tsx#L1787) |  | 7 |
-| Movimento › Física de mola (`motion#spring`) | [src/app/components/showcase/MotionShowcase.tsx:271](src/app/components/showcase/MotionShowcase.tsx#L271) |  | 4 |
-| Movimento › Stagger e sequências (`motion#stagger`) | [src/app/components/showcase/MotionShowcase.tsx:410](src/app/components/showcase/MotionShowcase.tsx#L410) |  | 3 |
-| Movimento › Interações de hover (`motion#hover`) | [src/app/components/showcase/MotionShowcase.tsx:470](src/app/components/showcase/MotionShowcase.tsx#L470) |  | 8 |
-| Movimento › Microinterações (`motion#micro`) | [src/app/components/showcase/MotionShowcase.tsx:658](src/app/components/showcase/MotionShowcase.tsx#L658) | `Button` | 6 |
-| Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:817](src/app/components/showcase/MotionShowcase.tsx#L817) | `BalaoDeConversa`, `GradeDeCards`, `IndicadorDeDigitacao` | 11 |
-| Movimento › Transições de layout (`motion#layout`) | [src/app/components/showcase/MotionShowcase.tsx:1041](src/app/components/showcase/MotionShowcase.tsx#L1041) |  | 6 |
-| Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1325](src/app/components/showcase/MotionShowcase.tsx#L1325) |  | 7 |
-| Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1711](src/app/components/showcase/MotionShowcase.tsx#L1711) |  | 6 |
+| Fundos › Guia de composição (`backgrounds#section-backgrounds`) | [src/app/components/showcase/BackgroundsShowcase.tsx:1787](src/app/components/showcase/BackgroundsShowcase.tsx#L1787) |  | 8 |
+| Movimento › Física de mola (`motion#spring`) | [src/app/components/showcase/MotionShowcase.tsx:270](src/app/components/showcase/MotionShowcase.tsx#L270) | `Button` | 3 |
+| Movimento › Stagger e sequências (`motion#stagger`) | [src/app/components/showcase/MotionShowcase.tsx:407](src/app/components/showcase/MotionShowcase.tsx#L407) |  | 3 |
+| Movimento › Interações de hover (`motion#hover`) | [src/app/components/showcase/MotionShowcase.tsx:467](src/app/components/showcase/MotionShowcase.tsx#L467) |  | 8 |
+| Movimento › Microinterações (`motion#micro`) | [src/app/components/showcase/MotionShowcase.tsx:655](src/app/components/showcase/MotionShowcase.tsx#L655) | `Button` | 6 |
+| Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:814](src/app/components/showcase/MotionShowcase.tsx#L814) | `BalaoDeConversa`, `GradeDeCards`, `IndicadorDeDigitacao` | 11 |
+| Movimento › Transições de layout (`motion#layout`) | [src/app/components/showcase/MotionShowcase.tsx:1038](src/app/components/showcase/MotionShowcase.tsx#L1038) |  | 6 |
+| Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
+| Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
 | Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:142](src/app/components/showcase/CatalogoShowcase.tsx#L142) | `Input` | 5 |
 | Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:209](src/app/components/showcase/FormShowcase.tsx#L209) |  | 5 |
-| Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:659](src/app/components/showcase/CardShowcase.tsx#L659) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
-| Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1015](src/app/components/showcase/CardShowcase.tsx#L1015) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +2 | 3 |
-| Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1169](src/app/components/showcase/CardShowcase.tsx#L1169) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
-| Cards › Vidro no tema escuro (`cards#card-glass-escuro`) | [src/app/components/showcase/CardShowcase.tsx:1495](src/app/components/showcase/CardShowcase.tsx#L1495) | `Card`, `GlassCard`, `GradeDeCards`, `LuzesDifusas` | 6 |
+| Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:670](src/app/components/showcase/CardShowcase.tsx#L670) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
+| Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1026](src/app/components/showcase/CardShowcase.tsx#L1026) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
+| Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1180](src/app/components/showcase/CardShowcase.tsx#L1180) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
+| Cards › Vidro no tema escuro (`cards#card-glass-escuro`) | [src/app/components/showcase/CardShowcase.tsx:1506](src/app/components/showcase/CardShowcase.tsx#L1506) | `Card`, `GlassCard`, `GradeDeCards`, `LuzesDifusas` | 6 |
 | Gráficos › Cores dos gráficos (`graficos#graficos-cores`) | [src/app/components/showcase/GraficosShowcase.tsx:254](src/app/components/showcase/GraficosShowcase.tsx#L254) | `BarrasEmpilhadas100`, `BarrasOrdenadas`, `GradeDeCards`, `GraficoDeLinhas`, `GraficoDeRosca`, `MapaDeCalorMatricial` | 9 |
 | Gráficos › Como escolher (`graficos#graficos-escolher`) | [src/app/components/showcase/GraficosShowcase.tsx:820](src/app/components/showcase/GraficosShowcase.tsx#L820) | `GradeDeCards` | 4 |
 | Gráficos › Design de inteligência (`graficos#graficos-inteligencia`) | [src/app/components/showcase/GraficosShowcase.tsx:1068](src/app/components/showcase/GraficosShowcase.tsx#L1068) | `BarrasOrdenadas`, `DescobertaVisual` | 3 |
 | Exibição de dados › Gráficos (`data#charts`) | [src/app/components/showcase/DataShowcase.tsx:224](src/app/components/showcase/DataShowcase.tsx#L224) |  | 3 |
 | Exibição de dados › Tabela (`data#table`) | [src/app/components/showcase/DataShowcase.tsx:407](src/app/components/showcase/DataShowcase.tsx#L407) |  | 10 |
-| Feedback › Progresso (`feedback#progress`) | [src/app/components/showcase/FeedbackShowcase.tsx:397](src/app/components/showcase/FeedbackShowcase.tsx#L397) |  | 4 |
-| Rótulos › Badges e tags (`badges#badges`) | [src/app/components/showcase/FeedbackShowcase.tsx:488](src/app/components/showcase/FeedbackShowcase.tsx#L488) | `ChipFiltravel`, `GrupoDeChips` | 5 |
-| Rótulos › Selo (tag do hero) (`badges#selo`) | [src/app/components/showcase/FeedbackShowcase.tsx:539](src/app/components/showcase/FeedbackShowcase.tsx#L539) | `Selo` | 3 |
-| Rótulos › Avatar (`badges#avatar`) | [src/app/components/showcase/FeedbackShowcase.tsx:613](src/app/components/showcase/FeedbackShowcase.tsx#L613) |  | 4 |
+| Feedback › Progresso (`feedback#progress`) | [src/app/components/showcase/FeedbackShowcase.tsx:398](src/app/components/showcase/FeedbackShowcase.tsx#L398) |  | 4 |
+| Rótulos › Badges e tags (`badges#badges`) | [src/app/components/showcase/FeedbackShowcase.tsx:489](src/app/components/showcase/FeedbackShowcase.tsx#L489) | `ChipFiltravel`, `GrupoDeChips` | 5 |
+| Rótulos › Selo (tag do hero) (`badges#selo`) | [src/app/components/showcase/FeedbackShowcase.tsx:540](src/app/components/showcase/FeedbackShowcase.tsx#L540) | `Selo` | 3 |
+| Rótulos › Avatar (`badges#avatar`) | [src/app/components/showcase/FeedbackShowcase.tsx:614](src/app/components/showcase/FeedbackShowcase.tsx#L614) |  | 4 |
 | Ícones › Tamanhos e cores (`icons#icon-sizes`) | [src/app/components/showcase/IconsShowcase.tsx:124](src/app/components/showcase/IconsShowcase.tsx#L124) |  | 8 |
-| Sobreposições (overlays) › Barra superior (`overlays#barra-superior`) | [src/app/components/showcase/OverlaysShowcase.tsx:417](src/app/components/showcase/OverlaysShowcase.tsx#L417) | `BotaoDeNotificacoes`, `CampoDeBuscaGlobal`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger` +1 | 4 |
-| Sobreposições (overlays) › Dica de contexto (tooltip) (`overlays#tooltips`) | [src/app/components/showcase/OverlaysShowcase.tsx:505](src/app/components/showcase/OverlaysShowcase.tsx#L505) | `Tooltip` | 3 |
-| Sobreposições (overlays) › Menu suspenso (dropdown) (`overlays#dropdown`) | [src/app/components/showcase/OverlaysShowcase.tsx:520](src/app/components/showcase/OverlaysShowcase.tsx#L520) | `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuTrigger` | 4 |
-| Sobreposições (overlays) › Diálogos (`overlays#dialogs`) | [src/app/components/showcase/OverlaysShowcase.tsx:568](src/app/components/showcase/OverlaysShowcase.tsx#L568) | `Dialog` | 3 |
-| Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:648](src/app/components/showcase/OverlaysShowcase.tsx#L648) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
+| Sobreposições (overlays) › Barra superior (`overlays#barra-superior`) | [src/app/components/showcase/OverlaysShowcase.tsx:419](src/app/components/showcase/OverlaysShowcase.tsx#L419) | `BotaoDeNotificacoes`, `CampoDeBuscaGlobal`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger` +1 | 4 |
+| Sobreposições (overlays) › Dica de contexto (tooltip) (`overlays#tooltips`) | [src/app/components/showcase/OverlaysShowcase.tsx:507](src/app/components/showcase/OverlaysShowcase.tsx#L507) | `Tooltip` | 3 |
+| Sobreposições (overlays) › Menu suspenso (dropdown) (`overlays#dropdown`) | [src/app/components/showcase/OverlaysShowcase.tsx:522](src/app/components/showcase/OverlaysShowcase.tsx#L522) | `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuTrigger` | 4 |
+| Sobreposições (overlays) › Diálogos (`overlays#dialogs`) | [src/app/components/showcase/OverlaysShowcase.tsx:570](src/app/components/showcase/OverlaysShowcase.tsx#L570) | `Dialog` | 3 |
+| Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:650](src/app/components/showcase/OverlaysShowcase.tsx#L650) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
 | Painel lateral › Anatomia (`sidepanel#sidepanel-anatomy`) | [src/app/components/showcase/SidePanelShowcase.tsx:158](src/app/components/showcase/SidePanelShowcase.tsx#L158) |  | 3 |
 
 ## 3. Tokens
@@ -1703,39 +1702,39 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 | Elemento | Tamanho | Peso | Altura da linha |
 |---|---|---|---|
 | `html` | var(--font-size) | — | — |
-| `h1` | 2.5rem | var(--font-weight-extrabold) | 1.15 |
-| `h2` | 2rem | var(--font-weight-extrabold) | 1.2 |
-| `h3` | 1.5rem | var(--font-weight-semibold) | 1.3 |
-| `h4` | 1.25rem | var(--font-weight-semibold) | 1.4 |
-| `h5` | 1.125rem | var(--font-weight-semibold) | 1.4 |
-| `h6` | 1rem | var(--font-weight-semibold) | 1.5 |
-| `label` | 0.875rem | var(--font-weight-medium) | 1.5 |
+| `h1` | var(--text-h1) | var(--font-weight-extrabold) | 1.15 |
+| `h2` | var(--text-h2) | var(--font-weight-extrabold) | 1.2 |
+| `h3` | var(--text-h3) | var(--font-weight-semibold) | 1.3 |
+| `h4` | var(--text-h4) | var(--font-weight-semibold) | 1.4 |
+| `h5` | var(--text-subtitle) | var(--font-weight-semibold) | 1.4 |
+| `h6` | var(--text-body) | var(--font-weight-semibold) | 1.5 |
+| `label` | var(--text-body-sm) | var(--font-weight-medium) | 1.5 |
 | `button` | — | var(--font-weight-semibold) | 1.5 |
-| `input, textarea, select` | 0.9375rem | var(--font-weight-normal) | — |
+| `input, textarea, select` | var(--text-body) | var(--font-weight-normal) | — |
 
 ## 4. Regras de uso
 
 Regras documentadas no site. Antes de montar uma tela, leia as que valem para ela.
 
 - **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:209](src/app/components/showcase/FormShowcase.tsx#L209)
-- **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:279](src/app/components/showcase/UsabilityShowcase.tsx#L279)
-- **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:576](src/app/components/showcase/CardShowcase.tsx#L576)
-- **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:659](src/app/components/showcase/CardShowcase.tsx#L659)
-- **Card: o que evitar** — Cards › O que evitar (`cards#card-guidelines`) · [src/app/components/showcase/CardShowcase.tsx:1557](src/app/components/showcase/CardShowcase.tsx#L1557)
+- **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:282](src/app/components/showcase/UsabilityShowcase.tsx#L282)
+- **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:587](src/app/components/showcase/CardShowcase.tsx#L587)
+- **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:670](src/app/components/showcase/CardShowcase.tsx#L670)
+- **Card: o que evitar** — Cards › O que evitar (`cards#card-guidelines`) · [src/app/components/showcase/CardShowcase.tsx:1568](src/app/components/showcase/CardShowcase.tsx#L1568)
 - **Alertas: tipos e quando usar cada um** — Feedback › Alertas (`feedback#alerts`) · [src/app/components/showcase/FeedbackShowcase.tsx:303](src/app/components/showcase/FeedbackShowcase.tsx#L303)
 - **Alerta com ação: ações sempre embaixo do texto** — Feedback › Alerta com ação (`feedback#alerta-com-acao`) · [src/app/components/showcase/FeedbackShowcase.tsx:339](src/app/components/showcase/FeedbackShowcase.tsx#L339)
 - **Grid de colunas: 4, 8 e 12 colunas por tela** — Grid e espaçamento › Grid de colunas (`grid#grid-colunas`) · [src/app/components/showcase/GridShowcase.tsx:139](src/app/components/showcase/GridShowcase.tsx#L139)
 - **Grid e espaçamento: como usar** — Grid e espaçamento › Como usar (`grid#grid-uso`) · [src/app/components/showcase/GridShowcase.tsx:217](src/app/components/showcase/GridShowcase.tsx#L217)
-- **Grid e espaçamento: o que evitar** — Grid e espaçamento › O que evitar (`grid#grid-evitar`) · [src/app/components/showcase/GridShowcase.tsx:259](src/app/components/showcase/GridShowcase.tsx#L259)
+- **Grid e espaçamento: o que evitar** — Grid e espaçamento › O que evitar (`grid#grid-evitar`) · [src/app/components/showcase/GridShowcase.tsx:279](src/app/components/showcase/GridShowcase.tsx#L279)
 - **Estado nunca só por cor: ícone e texto juntos** — Estados de informação › Nunca só cor (`states#states-regras`) · [src/app/components/showcase/StatesShowcase.tsx:161](src/app/components/showcase/StatesShowcase.tsx#L161)
 - **Contraste mínimo (WCAG 2.2 AA)** — Acessibilidade › Contraste (`accessibility#a11y-contrast`) · [src/app/components/showcase/AccessibilityShowcase.tsx:447](src/app/components/showcase/AccessibilityShowcase.tsx#L447)
 - **Respeitar a preferência por menos movimento** — Acessibilidade › Movimento (`accessibility#a11y-motion`) · [src/app/components/showcase/AccessibilityShowcase.tsx:549](src/app/components/showcase/AccessibilityShowcase.tsx#L549)
-- **Durações e curvas oficiais de movimento** — Movimento › Tokens de movimento (`motion#motion-tokens`) · [src/app/components/showcase/MotionShowcase.tsx:1105](src/app/components/showcase/MotionShowcase.tsx#L1105)
-- **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:365](src/app/components/showcase/UsabilityShowcase.tsx#L365)
+- **Durações e curvas oficiais de movimento** — Movimento › Tokens de movimento (`motion#motion-tokens`) · [src/app/components/showcase/MotionShowcase.tsx:1102](src/app/components/showcase/MotionShowcase.tsx#L1102)
+- **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:368](src/app/components/showcase/UsabilityShowcase.tsx#L368)
 - **Microcopy: textos de botões, erros e estados** — Tom de voz › Microcopy (`voice#voice-microcopy`) · [src/app/components/showcase/VoiceShowcase.tsx:154](src/app/components/showcase/VoiceShowcase.tsx#L154)
 - **Gráficos: como escolher** — Gráficos › Como escolher (`graficos#graficos-escolher`) · [src/app/components/showcase/GraficosShowcase.tsx:820](src/app/components/showcase/GraficosShowcase.tsx#L820)
 - **Gráficos: cores e ordem dos tons** — Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · [src/app/components/showcase/GraficosShowcase.tsx:254](src/app/components/showcase/GraficosShowcase.tsx#L254)
-- **Cabeçalho: uso** — Header e menus › Uso (`header#header-usage`) · [src/app/components/showcase/HeaderShowcase.tsx:809](src/app/components/showcase/HeaderShowcase.tsx#L809)
+- **Cabeçalho: uso** — Header e menus › Uso (`header#header-usage`) · [src/app/components/showcase/HeaderShowcase.tsx:803](src/app/components/showcase/HeaderShowcase.tsx#L803)
 
 Regras de trabalho do repositório: [`CLAUDE.md`](CLAUDE.md), [`guidelines/Guidelines.md`](guidelines/Guidelines.md), [`propostas/README.md`](propostas/README.md).
 
@@ -1759,7 +1758,34 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 
 | Proposta | Componente | Status |
 |---|---|---|
+| [Alert com tom](propostas/2026-11-27-alert-tom.md) | `Alert (props tom e icone) em src/app/components/ui/alert.tsx` | proposta |
+| [Avaliação](propostas/2026-11-27-avaliacao.md) | `Avaliacao em src/app/components/ui/avaliacao.tsx` | proposta |
+| [Tons do Badge e do IconeComBase](propostas/2026-11-27-badge-tons.md) | `Badge (variantes marca, neutro, sucesso, aviso, erro, info) e IconeComBase (tons sucesso, aviso, erro, info) em src/app/components/ui/badge.tsx e painel-dados.tsx` | proposta |
+| [Textos da barra de ações em lote e card de indicador clicável](propostas/2026-11-27-barra-de-acoes-em-lote.md) | `BarraDeAcoesEmLote (itemNoSingular, itemNoPlural, selecionadaNoFeminino, textoDaContagem, rotuloDaRegiao, rotuloLimpar, children) e CardIndicador (href, onClick, comoLink) em src/app/components/ui/painel-produtos.tsx e painel-dados.tsx` | proposta |
+| [Botão com retorno](propostas/2026-11-27-botao-com-retorno.md) | `BotaoComRetorno, useRetornoDoBotao em src/app/components/ui/botao-com-retorno.tsx` | proposta |
+| [Cabeçalho do site e menu do celular](propostas/2026-11-27-cabecalho-do-site.md) | `CabecalhoDoSite, MenuDoCelular, useRolagemDoCabecalho em src/app/components/ui/cabecalho-do-site.tsx` | proposta |
+| [Caixa de código](propostas/2026-11-27-caixa-de-codigo.md) | `CaixaDeCodigo em src/app/components/ui/caixa-de-codigo.tsx` | proposta |
+| [Campo de busca](propostas/2026-11-27-campo-de-busca.md) | `CampoDeBusca em src/app/components/ui/campo-de-busca.tsx` | proposta |
+| [Campo (o campo padrão)](propostas/2026-11-27-campo.md) | `Campo, MensagemDeErro (CampoDoCadastro é o mesmo componente) em src/app/components/ui/campo.tsx` | proposta |
 | [Cartão de escolha](propostas/2026-11-27-cartao-de-escolha.md) | `CartaoDeEscolha e GrupoDeCartoesDeEscolha em src/app/components/ui/cartao-de-escolha.tsx` | proposta |
+| [Chip de estado](propostas/2026-11-27-chip-de-estado.md) | `ChipDeEstado em src/app/components/ui/chip-de-estado.tsx` | proposta |
+| [Chips de filtro](propostas/2026-11-27-chips.md) | `ChipFiltravel, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chips.tsx` | proposta |
+| [Conversa e moldura de celular](propostas/2026-11-27-conversa.md) | `MolduraDeCelular, CabecalhoDaConversa, Conversa, BalaoDeConversa, IndicadorDeDigitacao, AvisoDoSistema, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes em src/app/components/ui/conversa.tsx` | proposta |
+| [Entrada ao rolar, número animado, cursor e miniatura do painel](propostas/2026-11-27-demonstracoes.md) | `SurgirAoRolar, TituloQueSurge, NumeroAnimado, CursorDeDemonstracao (moverCursor, clicarCursor), MiniaturaDoPainel (IndicadoresDaMiniatura, GraficoDaMiniatura, TabelaDaMiniatura) e os tokens de movimento em JS (movimento.ts) em src/app/components/ui/surgir-ao-rolar.tsx, numero-animado.tsx, cursor-de-demonstracao.tsx, miniatura-do-painel.tsx, movimento.ts` | proposta |
+| [Estado vazio](propostas/2026-11-27-estado-vazio.md) | `EstadoVazio em src/app/components/ui/estado-vazio.tsx` | proposta |
+| [Grupo de opções e linha com interruptor](propostas/2026-11-27-grupo-de-opcoes.md) | `GrupoDeOpcoes, LinhaDeInterruptor em src/app/components/ui/grupo-de-opcoes.tsx` | proposta |
+| [Links de texto](propostas/2026-11-27-links.md) | `LinkDeTexto, LinkDeVoltar, LinkSaibaMais, LinkPularConteudo em src/app/components/ui/links.tsx` | proposta |
+| [Lista de vantagens](propostas/2026-11-27-lista-de-vantagens.md) | `ListaDeVantagens em src/app/components/ui/lista-de-vantagens.tsx` | proposta |
+| [Logo](propostas/2026-11-27-logo.md) | `Logo em src/app/components/ui/logo.tsx` | proposta |
+| [Moldura das telas de conta](propostas/2026-11-27-moldura-de-conta.md) | `MolduraDeConta em src/app/components/ui/moldura-de-conta.tsx` | proposta |
+| [Prosa (textos longos)](propostas/2026-11-27-prosa.md) | `Prosa em src/app/components/ui/prosa.tsx` | proposta |
+| [Prova social](propostas/2026-11-27-prova-social.md) | `ProvaSocial em src/app/components/ui/prova-social.tsx` | proposta |
+| [Quadro (kanban)](propostas/2026-11-27-quadro.md) | `Quadro em src/app/components/ui/quadro.tsx` | proposta |
+| [Rodapé do site](propostas/2026-11-27-rodape-do-site.md) | `RodapeDoSite em src/app/components/ui/rodape-do-site.tsx` | proposta |
+| [Seletor de quantidade](propostas/2026-11-27-seletor-de-quantidade.md) | `SeletorDeQuantidade em src/app/components/ui/seletor-de-quantidade.tsx` | proposta |
+| [Tabela adaptável e barra de ferramentas](propostas/2026-11-27-tabela-adaptavel.md) | `TabelaAdaptavel, BarraDeFerramentasDaTabela em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
+| [Contador de caracteres no Textarea](propostas/2026-11-27-textarea-contador.md) | `Textarea (prop contador) em src/app/components/ui/textarea.tsx` | proposta |
+| [Título de grupo](propostas/2026-11-27-titulo-de-grupo.md) | `TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx` | proposta |
 
 ## 6. Páginas e âncoras do site
 
@@ -1770,7 +1796,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Marca** (`brand`): `brand` · `brand-assinatura` Assinatura horizontal · `brand-vertical` Assinatura vertical · `brand-simbolo` Símbolo · `brand-wordmark` Wordmark · `brand-slogan` Assinatura com slogan · `brand-uso-simbolo` Quando usar o símbolo · `brand-responsivo` Escala e legibilidade · `brand-fundos` Fundo e contraste · `brand-paleta` Identidade cromática · `brand-tipografia` Tipografia · `brand-regras` Regras para crescer · `brand-respiro` Área de proteção
 - **Mascote & Ilustrações** (`ilustracoes`): `mascote-personagem` Personagem (Nyx) · `mascote-expressoes` Expressões e poses · `mascote-estilo` Estilo de ilustração · `mascote-estados-vazios` Estados vazios · `mascote-estados-erro` Estados de erro · `mascote-diretrizes` Diretrizes de uso · `mascote-ativos` Ativos e nomenclatura
 - **Fundamentos** (`colors`): `colors` Paleta de cores · `typography` Tipografia · `spacing` · `radius` Raio · `shadows` Sombras · `colors-tokens` Tokens
-- **Grid e espaçamento** (`grid`): `grid-visao` Visão geral · `grid-escala` Escala de espaçamento · `grid-colunas` Grid de colunas · `grid-larguras` Larguras máximas · `grid-ritmo` Ritmo vertical · `grid-uso` Como usar · `grid-evitar` O que evitar · `grid-tokens` Tokens
+- **Grid e espaçamento** (`grid`): `grid-visao` Visão geral · `grid-escala` Escala de espaçamento · `grid-colunas` Grid de colunas · `grid-larguras` Larguras máximas · `grid-ritmo` Ritmo vertical · `grid-uso` Como usar · `grid-celular` Celular: alinhamento e toque · `grid-evitar` O que evitar · `grid-tokens` Tokens
 - **Tokens de design** (`tokens`): `tokens-intro` O que são tokens · `tokens-hierarchy` As três camadas · `tokens-design` Guia para designers · `tokens-ia` IA e tokens · `tokens-bridge` Mapeamento Design ↔ Dev · `tokens-definition` Implementação em código
 - **Integração** (`integration`)
 - **Usabilidade** (`usability`): `ux-principles` Princípios · `ux-hierarchy` Hierarquia de ações · `ux-targets` Tamanho de alvo · `ux-feedback` Status do sistema · `ux-states` Estados de conteúdo · `ux-errors` Erros e microcopy · `ux-destructive` Ações destrutivas · `ux-checklist` Revisão rápida

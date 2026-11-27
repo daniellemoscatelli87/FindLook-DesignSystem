@@ -106,12 +106,12 @@ function BarrasHorizontais({
           const t = total(l);
           return (
             <li key={l.rotulo} className="grid grid-cols-[minmax(4.5rem,8.5rem)_minmax(0,1fr)_auto] items-center gap-3">
-              <span className="min-w-0 break-words text-[0.875rem] font-semibold leading-snug text-foreground">{l.rotulo}</span>
+              <span className="min-w-0 break-words text-body-sm font-semibold leading-snug text-foreground">{l.rotulo}</span>
               <span className="h-3.5 min-w-0 rounded-full bg-muted">
                 <span
                   role="img"
                   aria-label={`${l.rotulo}: ${l.partes.map((p) => `${p.rotulo} ${fmt.format(p.valor)}`).join(", ")}`}
-                  className="flex h-full gap-[2px] overflow-hidden rounded-full motion-safe:transition-[width] motion-safe:duration-700 motion-safe:ease-out"
+                  className="flex h-full gap-0 overflow-hidden rounded-full motion-safe:transition-[width] motion-safe:duration-700 motion-safe:ease-out"
                   style={{ width: montado ? `${Math.max(t > 0 ? 3 : 0, (t / max) * 100)}%` : "0%", transitionDelay: `${i * 60}ms` }}
                 >
                   {l.partes.filter((p) => p.valor > 0).map((p) => (
@@ -119,16 +119,16 @@ function BarrasHorizontais({
                   ))}
                 </span>
               </span>
-              <span className="shrink-0 text-right text-[0.8125rem] tabular-nums text-muted-foreground">{l.texto}</span>
+              <span className="shrink-0 text-right text-body-sm tabular-nums text-muted-foreground">{l.texto}</span>
             </li>
           );
         })}
       </ul>
       {legenda && legenda.length > 0 && (
         <figcaption>
-          <ul aria-label="Legenda" className="m-0 mt-4 flex list-none flex-wrap gap-x-4 gap-y-2 p-0 text-[0.8125rem] text-foreground">
+          <ul aria-label="Legenda" className="m-0 mt-4 flex list-none flex-wrap gap-x-4 gap-y-2 p-0 text-body-sm text-foreground">
             {legenda.map((p) => (
-              <li key={p.rotulo} className="flex items-center gap-1.5">
+              <li key={p.rotulo} className="flex items-center gap-1">
                 <span aria-hidden className="h-3 w-3 rounded-full" style={{ background: p.cor }} />
                 {p.rotulo}
               </li>
@@ -182,6 +182,10 @@ function MapaCoropletico({
 }) {
   const montado = useMontado();
   const maximo = Math.max(1, ...valores.values());
+  // O marcador (ponto e etiqueta) foi desenhado para o mapa de Curitiba (1027 de largura); em mapas menores, encolhe na
+  // mesma proporção, para a etiqueta nunca ficar maior que a região (27/11/2026).
+  const larguraDoMapa = Number(viewBox.trim().split(/[\s,]+/)[2]) || 1027;
+  const k = Math.min(1, larguraDoMapa / 1027);
   return (
     <figure data-slot="mapa-coropletico" className={cn("m-0", className)}>
       <svg viewBox={viewBox} role="img" aria-label={rotulo} className={cn("mx-auto h-auto w-full motion-safe:transition-opacity motion-safe:duration-500", montado ? "opacity-100" : "opacity-0 motion-reduce:opacity-100")}>
@@ -208,17 +212,18 @@ function MapaCoropletico({
           const texto = nomesCurtos[nome] ?? nome;
           return (
             <g key={nome} className="pointer-events-none">
-              <circle cx={r.cx} cy={r.cy} r="24" fill="var(--primary)" stroke="var(--card)" strokeWidth="7" />
-              <rect x={r.cx + 32} y={r.cy - 38} width={texto.length * 24 + 44} height="76" rx="38" fill="var(--card)" stroke="var(--border-strong)" strokeWidth="2" />
-              <text x={r.cx + 54} y={r.cy + 13} className="fill-foreground text-[40px] font-semibold">{texto}</text>
+              <circle cx={r.cx} cy={r.cy} r={24 * k} fill="var(--primary)" stroke="var(--card)" strokeWidth={7 * k} />
+              <rect x={r.cx + 32 * k} y={r.cy - 38 * k} width={(texto.length * 24 + 44) * k} height={76 * k} rx={38 * k} fill="var(--card)" stroke="var(--border-strong)" strokeWidth={2 * k} />
+              {/* Tamanho em unidades do mapa (proporcional ao desenho), não em pixels da tela */}
+              <text x={r.cx + 54 * k} y={r.cy + 13 * k} fontSize={40 * k} className="fill-foreground font-semibold">{texto}</text>
             </g>
           );
         })}
       </svg>
-      <figcaption className="mt-3 flex flex-wrap items-center justify-end gap-x-2 gap-y-1 text-[0.75rem] text-muted-foreground">
+      <figcaption className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-label text-muted-foreground">
         <span className="whitespace-nowrap">{legenda[0]}</span>
-        <span aria-hidden className="flex gap-0.5">
-          {ESCALA_DO_MAPA.map((c) => <span key={c} className="h-2.5 w-6 rounded-[3px]" style={{ background: c }} />)}
+        <span aria-hidden className="flex gap-1">
+          {ESCALA_DO_MAPA.map((c) => <span key={c} className="h-2 w-6 rounded-full" style={{ background: c }} />)}
         </span>
         <span className="whitespace-nowrap">{legenda[1]}</span>
       </figcaption>

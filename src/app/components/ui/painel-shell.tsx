@@ -230,7 +230,7 @@ const BotaoRecolherMenu = React.forwardRef<HTMLButtonElement, React.ComponentPro
       {...props}
     >
       <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center"><Menu className="h-[18px] w-[18px]" /></span>
-      {!recolhido && <span aria-hidden className="text-xs font-medium uppercase tracking-wider">Menu</span>}
+      {!recolhido && <span aria-hidden className="text-label leading-4 font-medium uppercase tracking-wider">Menu</span>}
     </button>
   );
   return <DicaDoMenu texto={rotulo} ativa={recolhido}>{botao}</DicaDoMenu>;
@@ -270,7 +270,7 @@ function AvatarPainel({ nome, foto, className }: { nome: string; foto?: string; 
   return foto ? (
     <img src={foto} alt="" className={cn("h-9 w-9 shrink-0 rounded-full object-cover", className)} />
   ) : (
-    <span aria-hidden className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[0.75rem] font-bold text-[var(--primary-text,var(--primary))]", className)}>
+    <span aria-hidden className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-label font-bold text-[var(--primary-text,var(--primary))]", className)}>
       {iniciais(nome)}
     </span>
   );
@@ -310,7 +310,7 @@ function SeletorDeLoja({ loja, foto, verificada = true, className, ...props }: S
       data-slot="seletor-de-loja"
       aria-label={`Loja atual: ${loja}${verificada ? ", verificada" : ""}. Trocar de loja`}
       className={cn(
-        "flex w-full items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 text-left transition-colors hover:bg-muted/60",
+        "flex w-full items-center gap-3 rounded-md border border-border bg-card px-3 py-2 text-left transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -318,9 +318,9 @@ function SeletorDeLoja({ loja, foto, verificada = true, className, ...props }: S
     >
       <AvatarPainel nome={loja} foto={foto} className="h-10 w-10" />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[0.875rem] font-bold text-foreground">{loja}</span>
+        <span className="block truncate text-body-sm font-bold text-foreground">{loja}</span>
         {verificada && (
-          <span className="mt-0.5 flex items-center gap-1 text-[0.75rem] text-muted-foreground">
+          <span className="mt-1 flex items-center gap-1 text-label text-muted-foreground">
             <BadgeCheck aria-hidden className="h-3.5 w-3.5 text-success" /> Loja verificada
           </span>
         )}
@@ -351,7 +351,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
       data-slot="item-do-menu"
       aria-current={ativo ? "page" : undefined}
       className={cn(
-        "group relative flex min-h-9 items-center gap-2.5 rounded-sm px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
+        "group relative flex min-h-9 items-center gap-2 rounded-sm px-3 py-2 text-body-sm font-medium transition-[background-color,color] duration-150 toque:min-h-11",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ativo
           ? "bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))]"
@@ -371,7 +371,7 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
         <>
           <span className="min-w-0 flex-1 truncate animate-in fade-in-0 duration-[var(--duration-normal)] motion-reduce:animate-none">{children}</span>
           {!!contador && (
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[0.6875rem] font-bold text-primary-foreground">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-caption font-bold text-primary-foreground">
               {contador}<span className="sr-only"> {rotuloContador}</span>
             </span>
           )}
@@ -407,8 +407,8 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
   const [abertoInterno, setAbertoInterno] = React.useState(padraoAberto);
   if (!expansivel) {
     return (
-      <div data-slot="grupo-do-menu" className={cn("space-y-0.5", className)} role="group" aria-labelledby={titulo ? id : undefined}>
-        {titulo && <p id={id} className={recolhido ? "sr-only" : "px-3 pb-1 pt-3 text-[0.75rem] font-semibold text-muted-foreground"}>{titulo}</p>}
+      <div data-slot="grupo-do-menu" className={cn("space-y-1", className)} role="group" aria-labelledby={titulo ? id : undefined}>
+        {titulo && <p id={id} className={recolhido ? "sr-only" : "px-3 pb-1 pt-3 text-label font-semibold text-muted-foreground"}>{titulo}</p>}
         {/* Recolhido: o título vira uma linha fina (que some se já houver um divisor logo antes do grupo). */}
         {titulo && recolhido && <div aria-hidden data-slot="divisor-do-grupo" className="my-2 border-t border-border [.border-t+[data-slot=grupo-do-menu]_&]:hidden" />}
         {children}
@@ -430,7 +430,7 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
       aria-controls={idFilhos}
       onClick={() => { if (recolhido) { setRecolhido(false); mudar(true); } else mudar(!aberto); }}
       className={cn(
-        "flex min-h-9 w-full items-center gap-2.5 rounded-sm px-3 py-2 text-left text-[0.875rem] font-medium transition-[background-color,color] duration-150",
+        "flex min-h-9 w-full items-center gap-2 rounded-sm px-3 py-2 toque:min-h-11 text-left text-body-sm font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         destacado ? "bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:bg-accent hover:text-foreground",
         recolhido && "justify-center px-0",
@@ -442,10 +442,10 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
     </button>
   );
   return (
-    <div data-slot="grupo-do-menu" data-expansivel="" className={cn("space-y-0.5", className)}>
+    <div data-slot="grupo-do-menu" data-expansivel="" className={cn("space-y-1", className)}>
       {dentro ? <DicaDoMenu texto={titulo} ativa={recolhido}>{botao}</DicaDoMenu> : botao}
       {mostrarFilhos && (
-        <div id={idFilhos} role="group" aria-labelledby={id} className="ml-3 space-y-0.5 border-l border-border pl-2">
+        <div id={idFilhos} role="group" aria-labelledby={id} className="ml-3 space-y-1 border-l border-border pl-2">
           {children}
         </div>
       )}
@@ -490,15 +490,15 @@ function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plan
     return (
       <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-lg bg-primary p-3 text-primary-foreground", className)}>
         <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10" />
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           <Crown aria-hidden className="h-5 w-5 shrink-0" />
           <div className="min-w-0 flex-1">
-            <p className="text-[0.6875rem] font-medium leading-none">Seu plano</p>
-            <p className="mt-1 truncate text-[0.875rem] font-bold leading-tight">{plano}</p>
-            {preco && <p className="text-[0.75rem] font-medium leading-tight">{preco} / mês</p>}
+            <p className="text-caption font-medium leading-none">Seu plano</p>
+            <p className="mt-1 truncate text-body-sm font-bold leading-tight">{plano}</p>
+            {preco && <p className="text-label font-medium leading-tight">{preco} / mês</p>}
           </div>
         </div>
-        <button type="button" onClick={onAcao} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-sm bg-primary-foreground text-[0.75rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
+        <button type="button" onClick={onAcao} className="mt-2 inline-flex h-8 w-full items-center justify-center gap-1 rounded-sm bg-primary-foreground text-label font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary">
           {acao} <ArrowRight aria-hidden className="h-3.5 w-3.5" />
         </button>
       </div>
@@ -508,14 +508,14 @@ function CardDePlano({ compacto, plano, preco, descricao, acao = "Gerenciar plan
     <div data-slot="card-de-plano" className={cn("relative overflow-hidden rounded-lg bg-primary p-4 text-primary-foreground shadow-[var(--shadow-md)]", className)}>
       <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/10" />
       <Crown aria-hidden className="mb-2 h-6 w-6" />
-      <p className="text-[0.75rem] font-medium">Seu plano</p>
-      <p className="text-[1.0625rem] font-bold leading-tight">{plano}</p>
-      {preco && <p className="mt-1 text-[1.375rem] font-extrabold leading-none">{preco}<span className="text-[0.8125rem] font-medium"> / mês</span></p>}
-      {descricao && <p className="mt-2 text-[0.75rem] leading-snug">{descricao}</p>}
+      <p className="text-label font-medium">Seu plano</p>
+      <p className="text-subtitle font-bold leading-tight">{plano}</p>
+      {preco && <p className="mt-1 text-h3 font-extrabold leading-none">{preco}<span className="text-body-sm font-medium"> / mês</span></p>}
+      {descricao && <p className="mt-2 text-label leading-snug">{descricao}</p>}
       <button
         type="button"
         onClick={onAcao}
-        className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-md bg-primary-foreground text-[0.8125rem] font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+        className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1 rounded-md bg-primary-foreground text-body-sm font-semibold text-primary transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
       >
         {acao} <ArrowRight aria-hidden className="h-4 w-4" />
       </button>
@@ -560,8 +560,8 @@ function CardDeAjuda({ titulo = "Precisa de ajuda?", texto = "Acesse a central d
     >
       <HelpCircle aria-hidden className="h-6 w-6 shrink-0 text-muted-foreground" />
       <span className="min-w-0 flex-1">
-        <span className="block text-[0.8125rem] font-bold text-foreground">{titulo}</span>
-        <span className="block text-[0.75rem] text-muted-foreground">{texto}</span>
+        <span className="block text-body-sm font-bold text-foreground">{titulo}</span>
+        <span className="block text-label text-muted-foreground">{texto}</span>
       </span>
       <ExternalLink aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
       <span className="sr-only">(abre em nova aba)</span>
@@ -578,14 +578,14 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
       onClick={onAbrir}
       aria-keyshortcuts={atalho === "Ctrl + K" ? "Control+K" : undefined}
       className={cn(
-        "flex h-10 w-full items-center gap-3 rounded-md border border-border bg-card px-3 text-left text-[0.8125rem] text-muted-foreground transition-colors hover:bg-muted/60",
+        "flex h-10 w-full items-center gap-3 rounded-md border border-border bg-card px-3 text-left text-body-sm text-muted-foreground transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
     >
       <Search aria-hidden className="h-4 w-4 shrink-0" />
       <span className="min-w-0 flex-1 truncate">{placeholder}</span>
-      {atalho && <kbd className="hidden shrink-0 rounded-sm border border-border bg-muted px-1.5 py-0.5 font-sans text-[0.6875rem] font-medium sm:inline">{atalho}</kbd>}
+      {atalho && <kbd className="hidden shrink-0 rounded-sm border border-border bg-muted px-1 py-1 font-sans text-caption font-medium sm:inline">{atalho}</kbd>}
     </button>
   );
 }
@@ -617,7 +617,7 @@ const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<
       type="button"
       aria-label={`Conta de ${nome}${papel ? `, ${papel}` : ""}. Abrir menu da conta`}
       className={cn(
-        "flex items-center gap-2.5 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-muted",
+        "flex items-center gap-2 rounded-md px-2 py-1 text-left transition-colors hover:bg-muted",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -626,8 +626,8 @@ const GatilhoDaConta = React.forwardRef<HTMLButtonElement, React.ComponentProps<
     >
       <AvatarPainel nome={nome} foto={foto} />
       <span className="hidden min-w-0 sm:block">
-        <span className="block truncate text-[0.8125rem] font-bold text-foreground">{nome}</span>
-        {papel && <span className="block truncate text-[0.75rem] text-muted-foreground">{papel}</span>}
+        <span className="block truncate text-body-sm font-bold text-foreground">{nome}</span>
+        {papel && <span className="block truncate text-label text-muted-foreground">{papel}</span>}
       </span>
       <ChevronDown aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
     </button>

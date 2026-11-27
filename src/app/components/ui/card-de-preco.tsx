@@ -86,7 +86,7 @@ export type CardDePrecoProps = {
 
 const classeDaAcao = (ativo: boolean) =>
   cn(
-    "h-10 w-full @[19rem]:w-auto px-4 rounded-md border-primary text-[0.8125rem] font-semibold whitespace-nowrap text-[var(--primary-text,var(--primary))] transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+    "h-10 w-full @[19rem]:w-auto px-4 rounded-md border-primary text-body-sm font-semibold whitespace-nowrap text-[var(--primary-text,var(--primary))] transition-colors inline-flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
     ativo ? "border-2 bg-[var(--primary-suave)]" : "border bg-card hover:bg-muted",
   );
 
@@ -117,7 +117,7 @@ export function CardDePreco({
       data-slot="card-de-preco"
       data-selecionado={selecionado || undefined}
       className={cn(
-        "@container relative rounded-[20px] p-4 sm:p-6 flex flex-col transition-[background-color,box-shadow] duration-[var(--duration-fast)]",
+        "@container relative rounded-lg p-4 sm:p-6 flex flex-col transition-[background-color,box-shadow] duration-[var(--duration-fast)]",
         // Selecionado: a moldura comum dos cards que se escolhem (a mesma do CartaoDeEscolha e de Cards › Estados).
         selecionado ? molduraDoSelecionavel(true) : destaque ? "border-2 border-primary" : "border border-border",
         "bg-card",
@@ -131,22 +131,22 @@ export function CardDePreco({
           {icone}
         </div>
         {destaque && (
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-[var(--primary-suave)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
+          <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-[var(--primary-suave)] px-2 py-1 text-caption font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
             <Star aria-hidden className="h-3 w-3 fill-current" />
             {tx.recomendado}
           </span>
         )}
       </div>
 
-      <h3 className="mb-2 text-[1.5rem] font-black leading-tight tracking-[-0.03em] text-foreground">{nome}</h3>
-      <p className="mb-4 text-[0.8125rem] leading-relaxed text-muted-foreground">{descricao}</p>
+      <h3 className="mb-2 text-h3 font-black leading-tight tracking-[-0.03em] text-foreground">{nome}</h3>
+      <p className="mb-4 text-body-sm leading-relaxed text-muted-foreground">{descricao}</p>
 
       {/* "Para quem": no máximo 4 linhas, sem reticências; altura de 4 linhas em todos os cards. Caixa neutra em cinza,
           nos dois temas: é uma dica, não um aviso (decisão da dona do produto, 20/11/2026) */}
       {paraQuem && (
-        <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-md border border-border bg-muted px-2.5 sm:px-3 py-2.5">
-          <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-          <p className="min-h-[5.5em] text-[0.8125rem] leading-snug text-foreground">
+        <div className="mb-5 flex gap-2 sm:gap-2 rounded-md border border-border bg-muted px-2 sm:px-3 py-2">
+          <Lightbulb aria-hidden className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
+          <p className="min-h-[5.5em] text-body-sm leading-snug text-foreground">
             <strong className="font-bold">{tx.paraQuem}</strong> {paraQuem}
           </p>
         </div>
@@ -158,19 +158,19 @@ export function CardDePreco({
         aria-expanded={aberto}
         aria-controls={idLista}
         onClick={alternar}
-        className="mb-3 -mx-1 flex items-center justify-between gap-2 rounded-sm px-1 py-1.5 text-left text-[0.8125rem] font-semibold text-foreground transition-colors hover:text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="mb-3 -mx-1 flex items-center justify-between gap-2 rounded-sm px-1 py-1 text-left text-body-sm font-semibold text-foreground transition-colors hover:text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <span>{aberto ? tx.ocultarRecursos : tx.verRecursos}</span>
-        <span className="flex items-center gap-1.5 text-[0.75rem] font-medium text-muted-foreground whitespace-nowrap">
+        <span className="flex items-center gap-1 text-label font-medium text-muted-foreground whitespace-nowrap">
           {tx.contagem(incluidos, recursos.length)}
           <ChevronDown aria-hidden className={`h-4 w-4 transition-transform ${aberto ? "rotate-180" : ""}`} />
         </span>
       </button>
 
       {aberto ? (
-        <ul id={idLista} className="space-y-2.5 flex-1 mb-5">
+        <ul id={idLista} className="space-y-2 flex-1 mb-5">
           {recursos.map((r) => (
-            <li key={r.texto} className={`flex items-start gap-2.5 text-[0.8125rem] leading-snug ${r.incluido ? "text-foreground" : "text-muted-foreground"}`}>
+            <li key={r.texto} className={`flex items-start gap-2 text-body-sm leading-snug ${r.incluido ? "text-foreground" : "text-muted-foreground"}`}>
               <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${r.incluido ? "bg-[var(--primary-muted)]" : "bg-muted"}`}>
                 {r.incluido
                   ? <Check className="h-2.5 w-2.5 text-[var(--primary-text,var(--primary))]" strokeWidth={3} />
@@ -192,8 +192,8 @@ export function CardDePreco({
       {/* Rodapé no estilo do card com wobble: preço à esquerda e ação à direita; empilha quando o card é estreito */}
       <div className="flex flex-col gap-3 @[19rem]:flex-row @[19rem]:items-center @[19rem]:justify-between">
         <div className="flex items-baseline gap-1 whitespace-nowrap">
-          <span className="text-[1.625rem] font-black leading-none tracking-[-0.03em] text-foreground">{preco}</span>
-          <span className="text-[0.75rem] text-muted-foreground">{periodo}</span>
+          <span className="text-h3 font-black leading-none tracking-[-0.03em] text-foreground">{preco}</span>
+          <span className="text-label text-muted-foreground">{periodo}</span>
         </div>
         {selecao === "radio" ? (
           <RadioGroupPrimitive.Item id={idDaAcao} value={valor} aria-label={rotuloDaAcao} data-slot="card-de-preco-acao" className={classeDaAcao(selecionado)}>

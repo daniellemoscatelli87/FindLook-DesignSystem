@@ -16,7 +16,7 @@ import { GradeDeCards } from "../ui/grade-de-cards";
 
 
 function Rotulo({ children }: { children: React.ReactNode }) {
-  return <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
+  return <p className="mb-2 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
 }
 
 type Tela = "celular" | "tablet" | "desktop";
@@ -34,7 +34,7 @@ function DemoDoGrid({ tela }: { tela: Tela }) {
   return (
     <div className="overflow-x-auto rounded-lg border border-border bg-card p-4">
       <div className="mx-auto" style={{ width: "100%", maxWidth: g.largura }}>
-        <div className="mb-2 flex items-center justify-between text-[0.6875rem] font-mono text-muted-foreground">
+        <div className="mb-2 flex items-center justify-between text-caption font-mono text-muted-foreground">
           <span>{t("margin", "margem")} {g.margem}px</span>
           <span>{g.colunas} {t("columns", "colunas")} · {t("gutter", "calha")} {g.calha}px</span>
           <span>{t("margin", "margem")} {g.margem}px</span>
@@ -42,7 +42,7 @@ function DemoDoGrid({ tela }: { tela: Tela }) {
         <div data-testid="demo-grid" data-colunas={g.colunas} className="rounded-sm bg-[var(--primary-muted)]/40" style={{ paddingInline: g.margem }}>
           <div className="grid h-40" style={{ gridTemplateColumns: `repeat(${g.colunas}, minmax(0, 1fr))`, columnGap: g.calha }}>
             {Array.from({ length: g.colunas }).map((_, i) => (
-              <div key={i} className="flex items-end justify-center rounded-[4px] bg-primary/20 pb-1 text-[0.625rem] font-mono text-[var(--primary-text,var(--primary))]">{i + 1}</div>
+              <div key={i} className="flex items-end justify-center rounded-sm bg-primary/20 pb-1 text-caption font-mono text-[var(--primary-text,var(--primary))]">{i + 1}</div>
             ))}
           </div>
         </div>
@@ -54,8 +54,8 @@ function DemoDoGrid({ tela }: { tela: Tela }) {
 /** Exemplo de composição sobre o grid: blocos com span por tela. */
 function Bloco({ span, rotulo, className }: { span: string; rotulo: string; className?: string }) {
   return (
-    <div className={cn("flex min-h-16 items-center justify-center rounded-md border border-border bg-card p-3 text-center text-[0.75rem] text-muted-foreground", span, className)}>
-      <span><span className="block font-semibold text-foreground">{rotulo}</span><span className="font-mono text-[0.6875rem]">{span}</span></span>
+    <div className={cn("flex min-h-16 items-center justify-center rounded-md border border-border bg-card p-3 text-center text-label text-muted-foreground", span, className)}>
+      <span><span className="block font-semibold text-foreground">{rotulo}</span><span className="font-mono text-caption">{span}</span></span>
     </div>
   );
 }
@@ -127,10 +127,10 @@ export function GridShowcase() {
         <div className="space-y-2">
           {escala.map(e => (
             <div key={e.token} className="grid grid-cols-[4.5rem_minmax(0,1fr)] items-center gap-4 sm:grid-cols-[4.5rem_6.5rem_minmax(0,1fr)_minmax(0,1.4fr)]">
-              <span className="text-right font-mono text-[0.8125rem] text-foreground">{e.px}px</span>
-              <span className="hidden font-mono text-[0.75rem] text-muted-foreground sm:block">{e.token}</span>
-              <div className="h-4 rounded-[3px] bg-primary/70" style={{ width: e.px * 2, maxWidth: "100%" }} />
-              <span className="col-span-2 text-[0.8125rem] leading-snug text-muted-foreground sm:col-span-1">{e.uso}</span>
+              <span className="text-right font-mono text-body-sm text-foreground">{e.px}px</span>
+              <span className="hidden font-mono text-label text-muted-foreground sm:block">{e.token}</span>
+              <div className="h-4 rounded-sm bg-primary/70" style={{ width: e.px * 2, maxWidth: "100%" }} />
+              <span className="col-span-2 text-body-sm leading-snug text-muted-foreground sm:col-span-1">{e.uso}</span>
             </div>
           ))}
         </div>
@@ -148,14 +148,14 @@ export function GridShowcase() {
             ["desktop", "Desktop", Monitor],
           ] as [Tela, string, React.ElementType][]).map(([id, rotulo, Icone]) => (
             <button key={id} type="button" aria-pressed={tela === id} onClick={() => setTela(id)}
-              className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm px-2.5 text-[0.75rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              className={cn("inline-flex h-8 items-center gap-1 rounded-sm px-2 text-label font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 tela === id ? "bg-card text-foreground shadow-[var(--shadow-xs)]" : "text-muted-foreground hover:text-foreground")}>
               <Icone aria-hidden className="h-3.5 w-3.5" />{rotulo}
             </button>
           ))}
         </div>
         <DemoDoGrid tela={tela} />
-        <p className="mt-3 text-[0.8125rem] text-muted-foreground">{t(`From ${GRID[tela].aPartir}: ${GRID[tela].colunas} columns, ${GRID[tela].margem} px margin and ${GRID[tela].calha} px gutter.`, `A partir de ${GRID[tela].aPartir}: ${GRID[tela].colunas} colunas, margem de ${GRID[tela].margem} px e calha de ${GRID[tela].calha} px.`)}</p>
+        <p className="mt-3 text-body-sm text-muted-foreground">{t(`From ${GRID[tela].aPartir}: ${GRID[tela].colunas} columns, ${GRID[tela].margem} px margin and ${GRID[tela].calha} px gutter.`, `A partir de ${GRID[tela].aPartir}: ${GRID[tela].colunas} colunas, margem de ${GRID[tela].margem} px e calha de ${GRID[tela].calha} px.`)}</p>
       </section>
 
       <section id="grid-larguras" className="scroll-mt-32">
@@ -170,9 +170,9 @@ export function GridShowcase() {
             { nome: t("Wide", "Larga"), px: 1280, classe: ".ds-container-wide", uso: t("Panels, dashboards and wide tables.", "Painéis, dashboards e tabelas largas.") },
           ].map(l => (
             <div key={l.px}>
-              <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-2">
-                <p className="text-[0.875rem] font-semibold text-foreground">{l.nome} · {l.px} px <span className="font-mono text-[0.75rem] font-normal text-muted-foreground">{l.classe}</span></p>
-                <p className="text-[0.8125rem] text-muted-foreground">{l.uso}</p>
+              <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
+                <p className="text-body-sm font-semibold text-foreground">{l.nome} · {l.px} px <span className="font-mono text-label font-normal text-muted-foreground">{l.classe}</span></p>
+                <p className="text-body-sm text-muted-foreground">{l.uso}</p>
               </div>
               <div className="h-3 rounded-full bg-muted"><div className="h-3 rounded-full bg-primary/70" style={{ width: `${(l.px / 1280) * 100}%` }} /></div>
             </div>
@@ -194,11 +194,11 @@ export function GridShowcase() {
             ].map(([nome, valor, token], i) => (
               <div key={i}>
                 {i > 0 && (
-                  <div className="flex items-center gap-2 py-2 text-[0.6875rem] font-mono text-[var(--primary-text,var(--primary))]">
+                  <div className="flex items-center gap-2 py-2 text-caption font-mono text-[var(--primary-text,var(--primary))]">
                     <span aria-hidden className="h-6 w-px bg-primary" /> {valor} · {token}
                   </div>
                 )}
-                <div className={cn("flex items-center justify-center rounded-md bg-muted text-[0.75rem] font-semibold text-muted-foreground", i === 0 ? "h-24" : "h-16")}>{nome}</div>
+                <div className={cn("flex items-center justify-center rounded-md bg-muted text-label font-semibold text-muted-foreground", i === 0 ? "h-24" : "h-16")}>{nome}</div>
               </div>
             ))}
           </div>
@@ -241,7 +241,7 @@ export function GridShowcase() {
             </div>
           </div>
           <Panel className="p-5">
-            <p className="mb-3 text-[0.875rem] font-semibold text-foreground">{t("In the code", "No código")}</p>
+            <p className="mb-3 text-body-sm font-semibold text-foreground">{t("In the code", "No código")}</p>
             <DataTable
               head={[t("Use", "Use"), t("For", "Para")]}
               rows={[
@@ -256,6 +256,26 @@ export function GridShowcase() {
         </div>
       </section>
 
+      <section id="grid-celular" className="scroll-mt-32">
+        <SectionHeader
+          title={t("Phone: alignment, touch and what does not fit", "Celular: alinhamento, toque e o que não cabe")}
+          description={t("Rules of 27/11/2026, applied in the components themselves, so every page that uses them follows them.", "Regras de 27/11/2026, aplicadas dentro dos próprios componentes, para toda página que os usa já seguir.")}
+        />
+        <DataTable
+          head={[t("Subject", "Assunto"), t("Rule", "Regra")]}
+          rows={[
+            [t("One left edge", "Uma borda esquerda só"), t("On the phone, the icon goes on the title line, centred with it, and the text, tags and buttons below start at the same left edge. Nothing comes back to the edge of the icon after a column of text, and nothing is pushed alone to the far right after a wrap. Used by AlertaComAcao, LinhaDeLista, the product table, the card header with an action and the \"See in\" notices.", "No celular, o ícone fica na linha do título, centralizado com ele, e o texto, as tags e os botões embaixo começam na mesma borda esquerda. Nada volta para a borda do ícone depois de uma coluna de texto e nada fica sozinho encostado à direita depois de quebrar a linha. Vale para o AlertaComAcao, a LinhaDeLista, a tabela de produtos, o cabeçalho de card com ação e os avisos \"Ver em\".")],
+            [t("Groups of buttons", "Grupos de botões"), t("Buttons of a group stay on one row while they fit. When they do not fit, each one takes the full width, one per row, all the same width; never a staircase of different widths and never a link alone under a button. On narrow cards, the secondary link becomes an outline button of the same width.", "Os botões de um grupo ficam numa linha enquanto cabem. Quando não cabem, cada um ocupa a largura toda, um por linha, todos com a mesma largura; nunca uma escada de larguras diferentes e nunca um link sozinho embaixo do botão. Em card estreito, o link secundário vira botão de contorno da mesma largura.")],
+            [t("Touch (44 px)", "Toque (44 px)"), t("On the phone (below 640 px) and on any screen used with a finger, buttons, fields, tabs and lists are at least 44 px tall; on the computer with a mouse, 40 px. Checkbox, radio and switch keep their drawing and grow only the touch area around it. In the code: the toque: variant (for example h-10 toque:h-11).", "No celular (abaixo de 640 px) e em qualquer tela usada com o dedo, botões, campos, abas e listas têm pelo menos 44 px de altura; no computador com mouse, 40 px. Caixa de seleção, rádio e interruptor mantêm o desenho e só crescem a área de toque em volta. No código: a variante toque: (por exemplo, h-10 toque:h-11).")],
+            [t("Tabs", "Abas"), t("Tabs never wrap into uneven rows (2 + 2 + 1). When they do not fit in one row, they become a selection list with the same options and counts (AbasComContador does it on its own).", "As abas nunca quebram em linhas irregulares (2 + 2 + 1). Quando não cabem numa linha, viram uma lista de seleção com as mesmas opções e quantidades (o AbasComContador faz isso sozinho).")],
+            [t("Pagination", "Paginação"), t("Never wraps: an arrow alone on the line below is confusing. On the phone, \"Page 4 of 12\" between the arrows (PaginationStatus); from 640 px, the numbers.", "Nunca quebra de linha: uma seta sozinha na linha de baixo confunde. No celular, \"Página 4 de 12\" entre as setas (PaginationStatus); do 640 px em diante, os números.")],
+            [t("Tables inside cards", "Tabelas dentro de cards"), t("A card never scrolls sideways. The table shows the columns that fit and says which ones were left out, or turns into a list: each row becomes a block, with the first value in bold and the others with the column name in front.", "Card nunca rola na horizontal. A tabela mostra as colunas que cabem e avisa quais ficaram de fora, ou vira lista: cada linha vira um bloco, com o primeiro valor em destaque e os outros com o nome da coluna na frente.")],
+            [t("Short labels", "Rótulos curtos"), t("Segment labels, badges and chips never break inside (\"Second hand\", \"Only 2 left\"). With more than 3 options, use a selection list instead of a segmented control.", "Rótulos de segmento, selos e chips nunca quebram por dentro (\"Segunda mão\", \"Só 2 restantes\"). Com mais de 3 opções, use a lista de seleção no lugar do controle segmentado.")],
+            [t("Titles", "Títulos"), t("Titles balance their lines (text-wrap: balance), so no word is left alone on the last line.", "Os títulos equilibram as linhas (text-wrap: balance), para nenhuma palavra ficar sozinha na última linha.")],
+          ]}
+        />
+      </section>
+
       <section id="grid-evitar" className="scroll-mt-32">
         <SectionHeader title={t("What to avoid", "O que evitar")} />
         <DoDont
@@ -266,6 +286,7 @@ export function GridShowcase() {
           ]}
           donts={[
             t("Use values outside the scale (13 px, 18 px, 30 px).", "Não use valores fora da escala (13 px, 18 px, 30 px)."),
+            t("Use half steps of the scale (2, 6, 10 or 14 px, the classes ending in .5): they break the 4/8 px rhythm. Since 27/11/2026 the components use only whole steps; a half step goes to the nearest one (6 → 4, 10 → 8, 14 → 12, 2 → 4).", "Não use meios passos da escala (2, 6, 10 ou 14 px, as classes terminadas em .5): eles quebram o ritmo de 4/8 px. Desde 27/11/2026 os componentes usam só passos inteiros; o meio passo vai para o mais perto (6 → 4, 10 → 8, 14 → 12, 2 → 4)."),
             t("Let text lines run the full width of a large screen: use the reading width.", "Não deixe linhas de texto ocuparem a largura toda de uma tela grande: use a largura de leitura."),
             t("Use a span larger than the columns of the screen (more than 4 on phone, 8 on tablet).", "Não use span maior que as colunas da tela (mais de 4 no celular, 8 no tablet)."),
             t("Remove the side margin to gain space on the phone.", "Não tire a margem lateral para ganhar espaço no celular."),

@@ -49,7 +49,7 @@ function downloadSvg(markup: string, filename: string) {
 
 function DownloadButtons({ asset }: { asset: DownloadAsset }) {
   const btn =
-    "inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-[0.75rem] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+    "inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-1 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
   return (
     <div className="flex shrink-0 items-center gap-2">
       <button
@@ -78,8 +78,8 @@ function DownloadButtons({ asset }: { asset: DownloadAsset }) {
 function SectionBlock({ id, title, subtitle }: { id: string; title: string; subtitle?: string }) {
   return (
     <div id={id} className="mb-8 scroll-mt-32">
-      <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{title}</h2>
-      {subtitle && <p className="mt-1 max-w-3xl text-[0.9375rem] leading-relaxed text-muted-foreground">{subtitle}</p>}
+      <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{title}</h2>
+      {subtitle && <p className="mt-1 max-w-3xl text-body leading-relaxed text-muted-foreground">{subtitle}</p>}
       <div className="mt-4 h-px bg-border" />
     </div>
   );
@@ -97,17 +97,17 @@ function LogoCard({
   download?: DownloadAsset;
 }) {
   return (
-    <div className="rounded-2xl border border-border overflow-hidden">
+    <div className="rounded-lg border border-border overflow-hidden">
       <div className={`flex items-center justify-center p-10 min-h-[220px] ${bg}`}>{children}</div>
       <div className="px-5 py-4 bg-card border-t border-border">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-[0.875rem] font-semibold text-foreground">{label}</p>
-            {description && <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{description}</p>}
+            <p className="text-body-sm font-semibold text-foreground">{label}</p>
+            {description && <p className="text-body-sm text-muted-foreground mt-1">{description}</p>}
           </div>
           {download && <DownloadButtons asset={download} />}
           {!download && badge && (
-            <span className="text-[0.6875rem] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
+            <span className="text-caption font-semibold uppercase tracking-wider px-2 py-1 rounded-full bg-muted text-muted-foreground">
               {badge}
             </span>
           )}
@@ -129,14 +129,14 @@ function ColorChip({ name, hex, usage }: { name: string; hex: string; usage: str
     <button
       onClick={copy}
       aria-label={`Copiar ${hex} (${name})`}
-      className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/40 transition-all w-full text-left"
+      className="group flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-[var(--border-strong)] transition-all w-full text-left"
     >
       <div className="h-24 w-full border-b border-border/40" style={{ backgroundColor: hex }} />
       <div className="flex items-start gap-3 px-4 py-3">
         <div className="flex-1 min-w-0">
-          <p className="text-[0.875rem] font-semibold text-foreground truncate">{name}</p>
-          <p className="text-[0.8125rem] text-muted-foreground font-mono">{hex}</p>
-          <p className="text-[0.75rem] text-muted-foreground mt-1">{usage}</p>
+          <p className="text-body-sm font-semibold text-foreground truncate">{name}</p>
+          <p className="text-body-sm text-muted-foreground font-mono">{hex}</p>
+          <p className="text-label text-muted-foreground mt-1">{usage}</p>
         </div>
         <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity mt-1">
           {copied ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
@@ -149,16 +149,16 @@ function ColorChip({ name, hex, usage }: { name: string; hex: string; usage: str
 /* ── Certo / Errado ── */
 function RuleCard({ type, bg, children, label }: { type: "do" | "dont"; bg: string; children: React.ReactNode; label: string }) {
   return (
-    <div className="rounded-2xl border border-border overflow-hidden">
+    <div className="rounded-lg border border-border overflow-hidden">
       <div className={`flex items-center justify-center p-8 min-h-[180px] ${bg}`}>{children}</div>
       <div className="px-4 py-3 bg-card border-t border-border">
         <div className="flex items-center gap-2">
           {type === "do" ? <CheckCircle className="h-4 w-4 text-success shrink-0" /> : <XCircle className="h-4 w-4 text-error-text shrink-0" />}
-          <span className={`text-[0.8125rem] font-medium ${type === "do" ? "text-success" : "text-error-text"}`}>
+          <span className={`text-body-sm font-medium ${type === "do" ? "text-success" : "text-error-text"}`}>
             {type === "do" ? "Correto" : "Incorreto"}
           </span>
         </div>
-        <p className="mt-0.5 text-[0.8125rem] text-muted-foreground pl-6">— {label}</p>
+        <p className="mt-1 text-body-sm text-muted-foreground pl-6">— {label}</p>
       </div>
     </div>
   );
@@ -173,10 +173,10 @@ export function BrandShowcase() {
 
       {/* ── Introdução ── */}
       <div className="space-y-3 max-w-2xl">
-        <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">
+        <p className="text-body leading-relaxed text-muted-foreground">
           Diretrizes de uso da marca FindLook: assinatura, símbolo, paleta, tipografia e regras de aplicação, para que a marca seja reconhecida sem ruído em todos os pontos de contato.
         </p>
-        <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+        <p className="text-body-sm leading-relaxed text-muted-foreground">
           Fonte: Brand Book FindLook, versão conceitual 1.0 (Curitiba). Os arquivos desta página são os vetores oficiais da marca (assinaturas horizontal e vertical, para fundo claro e escuro, e o símbolo), com o cabide sempre branco e o pink do lenço do gato, <span className="font-mono text-foreground">#FC0256</span> (decisão da dona do produto, 25/11/2026). O wordmark é recortado da assinatura oficial e as versões monocromáticas do símbolo são o vetor oficial em uma só cor (nelas o cabide é vazado, por serem de uma cor só).
         </p>
       </div>
@@ -310,13 +310,13 @@ export function BrandShowcase() {
           title="Assinatura com slogan"
           subtitle="“Seu estilo por perto.” é a assinatura emocional da marca. Em peças institucionais, acompanha o logotipo separada por um filete pink."
         />
-        <div className="rounded-2xl border border-border bg-card px-8 py-10 flex flex-wrap items-center justify-center gap-6">
+        <div className="rounded-lg border border-border bg-card px-8 py-10 flex flex-wrap items-center justify-center gap-6">
           <ImageWithFallback src={pngHorizontalClaro} alt="FindLook" className="h-12 w-auto object-contain dark:hidden" />
           <ImageWithFallback src={pngHorizontalGrafite} alt="FindLook" className="h-12 w-auto object-contain hidden dark:block" />
           <span aria-hidden className="h-10 w-0.5 rounded-full bg-primary" />
-          <p className="text-[1.5rem] font-medium tracking-[-0.01em] text-foreground">Seu estilo por perto.</p>
+          <p className="text-h3 font-medium tracking-[-0.01em] text-foreground">Seu estilo por perto.</p>
         </div>
-        <p className="mt-3 text-[0.8125rem] text-muted-foreground">
+        <p className="mt-3 text-body-sm text-muted-foreground">
           Convite de campanha: “Já deu um Find?”. Mensagens por público estão em <span className="font-medium text-foreground">Tom de voz</span>.
         </p>
       </div>
@@ -339,21 +339,21 @@ export function BrandShowcase() {
             { icon: Monitor, label: "Tela de carregamento", desc: "Splash e estados de espera", bg: GRAFITE_BG, preview: pngSimbolo, previewSize: "h-12" },
             { icon: Tablet, label: "Menu lateral recolhido", desc: "Painel do lojista em modo compacto", bg: "bg-card", preview: pngSimbolo, previewSize: "h-8" },
           ].map(({ icon: Icon, label, desc, bg, preview, previewSize }) => (
-            <div key={label} className={`rounded-2xl border border-border ${bg} p-5 flex flex-col gap-4`}>
+            <div key={label} className={`rounded-lg border border-border ${bg} p-5 flex flex-col gap-4`}>
               <div className="flex items-start justify-between">
-                <Icon className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <Icon className="h-4 w-4 text-muted-foreground mt-1" />
                 <ImageWithFallback src={preview} alt={`Símbolo FindLook — ${label}`} className={`${previewSize} w-auto object-contain`} />
               </div>
               <div>
-                <p className={`text-[0.875rem] font-semibold ${bg === "bg-card" ? "text-foreground" : "text-white"}`}>{label}</p>
-                <p className={`text-[0.75rem] mt-0.5 leading-snug ${bg === "bg-card" ? "text-muted-foreground" : "text-white/70"}`}>{desc}</p>
+                <p className={`text-body-sm font-semibold ${bg === "bg-card" ? "text-foreground" : "text-white"}`}>{label}</p>
+                <p className={`text-label mt-1 leading-snug ${bg === "bg-card" ? "text-muted-foreground" : "text-white/70"}`}>{desc}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="rounded-2xl border border-border bg-card px-6 py-5">
-          <p className="text-[0.8125rem] font-semibold text-foreground mb-4">Tamanhos mínimos</p>
+        <div className="rounded-lg border border-border bg-card px-6 py-5">
+          <p className="text-body-sm font-semibold text-foreground mb-4">Tamanhos mínimos</p>
           <div className="flex flex-wrap gap-6 items-end">
             {[
               { size: "h-4", label: "16px", note: "mínimo digital" },
@@ -365,15 +365,15 @@ export function BrandShowcase() {
             ].map(({ size, label, note }) => (
               <div key={label} className="flex flex-col items-center gap-2">
                 <ImageWithFallback src={pngSimbolo} alt={`Símbolo ${label}`} className={`${size} w-auto object-contain`} />
-                <span className="text-[0.75rem] font-mono font-semibold text-foreground">{label}</span>
-                <span className="text-[0.6875rem] text-muted-foreground">{note}</span>
+                <span className="text-label font-mono font-semibold text-foreground">{label}</span>
+                <span className="text-caption text-muted-foreground">{note}</span>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[0.75rem] text-muted-foreground border-t border-border pt-3">
+          <p className="mt-4 text-label text-muted-foreground border-t border-border pt-3">
             Nunca use o símbolo abaixo de <span className="font-semibold text-foreground">16 px</span> no digital ou <span className="font-semibold text-foreground">5 mm</span> na impressão.
           </p>
-          <p className="mt-2 text-[0.75rem] text-muted-foreground">
+          <p className="mt-2 text-label text-muted-foreground">
             Ícones de aplicativo (painel instalável no celular): <span className="font-mono text-foreground">/icone-app-512.png</span>, com fundo transparente, e <span className="font-mono text-foreground">/icone-app-maskable-512.png</span>, com fundo branco e o símbolo dentro da área segura, para celulares que recortam o ícone em círculo ou quadrado.
           </p>
         </div>
@@ -386,8 +386,8 @@ export function BrandShowcase() {
           title="Escala e legibilidade — adaptação por dispositivo"
           subtitle="Priorize a assinatura horizontal em peças amplas. Na escala pequena, use somente o símbolo."
         />
-        <div className="rounded-2xl border border-border bg-card overflow-hidden">
-          <div className="grid grid-cols-4 text-[0.75rem] font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 border-b border-border bg-muted/20">
+        <div className="rounded-lg border border-border bg-card overflow-hidden">
+          <div className="grid grid-cols-4 text-label font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 border-b border-border bg-muted/20">
             <span>Dispositivo</span><span>Breakpoint</span><span>Versão da marca</span><span>Altura mínima</span>
           </div>
           {[
@@ -396,7 +396,7 @@ export function BrandShowcase() {
             { device: "Celular", bp: "< 768 px", version: "Símbolo isolado", size: "32 px" },
             { device: "Favicon / aba", bp: "—", version: "Símbolo isolado", size: "16–32 px" },
           ].map(({ device, bp, version, size }, i, arr) => (
-            <div key={device} className={`grid grid-cols-4 px-5 py-3.5 text-[0.8125rem] ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
+            <div key={device} className={`grid grid-cols-4 px-5 py-3 text-body-sm ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
               <span className="font-medium text-foreground">{device}</span>
               <span className="text-muted-foreground font-mono">{bp}</span>
               <span className="text-foreground">{version}</span>
@@ -410,15 +410,15 @@ export function BrandShowcase() {
             { icon: Tablet, title: "Tablet", img: pngHorizontalGrafite, h: "h-7" },
             { icon: Smartphone, title: "Celular", img: pngSimbolo, h: "h-8" },
           ].map(({ icon: Icon, title, img, h }) => (
-            <div key={title} className="rounded-2xl border border-border overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/30">
+            <div key={title} className="rounded-lg border border-border overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-muted/30">
                 <Icon className="h-4 w-4 text-muted-foreground" />
-                <span className="text-[0.8125rem] font-semibold text-foreground">{title}</span>
+                <span className="text-body-sm font-semibold text-foreground">{title}</span>
               </div>
               <div className={`px-6 py-5 ${GRAFITE_BG} flex items-center`}>
                 <ImageWithFallback src={img} alt={`Marca no cabeçalho — ${title}`} className={`${h} w-auto object-contain`} />
                 <div className="ml-auto flex items-center gap-2">
-                  <span className="h-7 w-16 rounded-full bg-primary flex items-center justify-center text-[0.6875rem] font-semibold text-white">Buscar</span>
+                  <span className="h-7 w-16 rounded-full bg-primary flex items-center justify-center text-caption font-semibold text-white">Buscar</span>
                   <span className="h-7 w-7 rounded-lg bg-white/10" />
                 </div>
               </div>
@@ -441,14 +441,14 @@ export function BrandShowcase() {
             { bg: GRAFITE_BG, label: "Preto grafite", img: pngSimbolo, text: "text-white/60" },
             { bg: "bg-primary", label: "Pink", img: pngSimboloMonoBranco, text: "text-white" },
           ].map(({ bg, label, img, text }) => (
-            <div key={label} className={`rounded-2xl flex flex-col items-center justify-center gap-4 p-6 min-h-[160px] ${bg}`}>
+            <div key={label} className={`rounded-lg flex flex-col items-center justify-center gap-4 p-6 min-h-[160px] ${bg}`}>
               <ImageWithFallback src={img} alt={`Símbolo FindLook sobre ${label.toLowerCase()}`} className="h-14 w-auto object-contain" />
-              <span className={`text-[0.75rem] font-medium ${text}`}>{label}</span>
+              <span className={`text-label font-medium ${text}`}>{label}</span>
             </div>
           ))}
         </div>
-        <div className="mt-4 flex items-start gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-[0.8125rem] text-muted-foreground">
-          <AlertTriangle className="h-4 w-4 text-warning-text shrink-0 mt-0.5" aria-hidden />
+        <div className="mt-4 flex items-start gap-3 rounded-lg border border-border bg-card px-5 py-4 text-body-sm text-muted-foreground">
+          <AlertTriangle className="h-4 w-4 text-warning-text shrink-0 mt-1" aria-hidden />
           <p>Sobre o pink, o símbolo pink some. Use a versão monocromática branca. Em fotografia, aplique uma faixa grafite ou branca atrás da marca.</p>
         </div>
       </div>
@@ -466,7 +466,7 @@ export function BrandShowcase() {
           <ColorChip name="Branco" hex="#FFFFFF" usage="Clareza / respiro" />
           <ColorChip name="Rosa Claro" hex="#FFF2F5" usage="Apoio / superfícies" />
         </div>
-        <p className="mt-3 text-[0.8125rem] text-muted-foreground">
+        <p className="mt-3 text-body-sm text-muted-foreground">
           Pink FindLook é o rosa-cereja do lenço do gato mascote, <span className="font-mono text-foreground">#FC0256</span>: desde 25/11/2026 é a cor do logo oficial (vetores e PNGs) e a base de toda a escala pink (antes, <span className="font-mono text-foreground">#E62040</span>, do arquivo vetorial, que puxava para o vermelho). O Preto Grafite dos tokens passou a #000000 em 02/11/2026, quando a escala de grafite ganhou o balanço #3E3E46 · #2C2C33 · #19191C · #000000 (700 a 950); o vetor do logo mantém #060608, visualmente igual (o brand book v1.0 sugeria <span className="font-mono text-foreground">#F4144B</span> e <span className="font-mono text-foreground">#111014</span> e pedia validação no arquivo-mestre). Texto branco sobre o <span className="font-mono text-foreground">#FC0256</span> fica em 3,98:1, por isso o botão principal usa o <span className="font-mono text-foreground">pink-550</span> (#E8004E, 4,6:1); destaques em texto grande usam o próprio #FC0256 (3,98:1, AA para texto grande) e texto pequeno em pink usa o <span className="font-mono text-foreground">pink-600</span> (#BC0A41, 6,4:1). Ver Fundamentos e Acessibilidade.
         </p>
       </div>
@@ -478,17 +478,17 @@ export function BrandShowcase() {
           title="Tipografia — forte para ser vista"
           subtitle="Direção tipográfica: Plus Jakarta Sans em toda a marca e no produto. Evitar fontes decorativas, excesso de pesos e texto em caixa alta contínua."
         />
-        <div className="rounded-2xl border border-border bg-card overflow-hidden">
+        <div className="rounded-lg border border-border bg-card overflow-hidden">
           {[
-            { sample: "Aa Bb Cc", size: "text-[3rem]", weight: "font-extrabold", label: "Títulos — ExtraBold 800", tracking: "tracking-[-0.03em]" },
-            { sample: "Uma cidade. Muitos estilos.", size: "text-[2rem]", weight: "font-bold", label: "Títulos — Bold 700", tracking: "tracking-[-0.025em]" },
-            { sample: "Seu estilo por perto.", size: "text-[1.25rem]", weight: "font-medium", label: "Destaques — Medium 500", tracking: "tracking-[-0.01em]" },
-            { sample: "Textos claros e objetivos, que mostram o que fazer e o que acontece depois.", size: "text-[1rem]", weight: "font-normal", label: "Corpo — Regular 400", tracking: "" },
-            { sample: "CONFIRMADO PELA LOJA", size: "text-[0.75rem]", weight: "font-semibold", label: "Rótulos — SemiBold 600, só em rótulos curtos", tracking: "tracking-[0.12em]" },
+            { sample: "Aa Bb Cc", size: "text-display-lg", weight: "font-extrabold", label: "Títulos — ExtraBold 800", tracking: "tracking-[-0.03em]" },
+            { sample: "Uma cidade. Muitos estilos.", size: "text-h2", weight: "font-bold", label: "Títulos — Bold 700", tracking: "tracking-[-0.025em]" },
+            { sample: "Seu estilo por perto.", size: "text-subtitle-lg", weight: "font-medium", label: "Destaques — Medium 500", tracking: "tracking-[-0.01em]" },
+            { sample: "Textos claros e objetivos, que mostram o que fazer e o que acontece depois.", size: "text-body", weight: "font-normal", label: "Corpo — Regular 400", tracking: "" },
+            { sample: "CONFIRMADO PELA LOJA", size: "text-label", weight: "font-semibold", label: "Rótulos — SemiBold 600, só em rótulos curtos", tracking: "tracking-[0.12em]" },
           ].map(({ sample, size, weight, label, tracking }, i, arr) => (
             <div key={label} className={`px-6 py-5 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-4 ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
               <span className={`${size} ${weight} ${tracking} text-foreground leading-tight`} style={{ fontFamily: "var(--font-sans)" }}>{sample}</span>
-              <span className="text-[0.75rem] text-muted-foreground shrink-0 font-mono">{label}</span>
+              <span className="text-label text-muted-foreground shrink-0 font-mono">{label}</span>
             </div>
           ))}
         </div>
@@ -509,12 +509,12 @@ export function BrandShowcase() {
             ["Respiro", "Evitar ícones, textos e elementos excessivamente próximos."],
             ["Validação", "Usar o arquivo vetorial oficial e verificar todos os QR codes."],
           ].map(([title, desc]) => (
-            <div key={title} className="rounded-2xl border border-border bg-card p-4">
-              <div className="flex items-center gap-2 mb-1.5">
+            <div key={title} className="rounded-lg border border-border bg-card p-4">
+              <div className="flex items-center gap-2 mb-1">
                 <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-white"><Check className="h-3.5 w-3.5" aria-hidden /></span>
-                <p className="text-[0.8125rem] font-semibold text-primary-text uppercase tracking-wider">{title}</p>
+                <p className="text-label font-semibold text-primary-text uppercase tracking-wider">{title}</p>
               </div>
-              <p className="text-[0.8125rem] text-muted-foreground leading-snug">{desc}</p>
+              <p className="text-body-sm text-muted-foreground leading-snug">{desc}</p>
             </div>
           ))}
         </div>
@@ -538,9 +538,9 @@ export function BrandShowcase() {
             <ImageWithFallback src={pngSimbolo} alt="Incorreto: símbolo pink sobre fundo pink" className="h-16 w-auto object-contain opacity-90" />
           </RuleCard>
         </div>
-        <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 text-[0.8125rem] text-muted-foreground">
+        <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 text-body-sm text-muted-foreground">
           {["Não esticar, inclinar, contornar ou mudar cores.", "Não redesenhar o cabide nem separar suas partes.", "Uma mensagem central e um CTA por peça.", "Antes da produção: conferir proporções, cores, tipografia e espessuras no arquivo original."].map(r => (
-            <li key={r} className="flex items-start gap-2"><XCircle className="h-4 w-4 text-error-text shrink-0 mt-0.5" aria-hidden />{r}</li>
+            <li key={r} className="flex items-start gap-2"><XCircle className="h-4 w-4 text-error-text shrink-0 mt-1" aria-hidden />{r}</li>
           ))}
         </ul>
       </div>
@@ -552,7 +552,7 @@ export function BrandShowcase() {
           title="Área de proteção"
           subtitle="Manter espaço livre em torno do conjunto. Referência provisória: a altura do “F” do logotipo ao redor."
         />
-        <div className="rounded-2xl border border-border bg-card p-16 sm:p-20 flex items-center justify-center overflow-x-auto">
+        <div className="rounded-lg border border-border bg-card p-16 sm:p-20 flex items-center justify-center overflow-x-auto">
           <div className="relative inline-flex items-center justify-center">
             <div className="absolute inset-0 -m-10 border-2 border-dashed border-primary/30 rounded-lg pointer-events-none" />
             {[
@@ -561,7 +561,7 @@ export function BrandShowcase() {
             ].map((cls, i) => (
               <div key={i} className={cls}>
                 <div className="w-px h-8 bg-primary/40" />
-                <span className="text-[0.6875rem] font-mono text-primary-text bg-card px-1.5 py-0.5 rounded">1 F</span>
+                <span className="text-caption font-mono text-primary-text bg-card px-1 py-1 rounded-sm">1 F</span>
               </div>
             ))}
             {[
@@ -570,14 +570,14 @@ export function BrandShowcase() {
             ].map((cls, i) => (
               <div key={i} className={cls}>
                 <div className="h-px w-8 bg-primary/40" />
-                <span className="text-[0.6875rem] font-mono text-primary-text bg-card px-1.5 py-0.5 rounded">1 F</span>
+                <span className="text-caption font-mono text-primary-text bg-card px-1 py-1 rounded-sm">1 F</span>
               </div>
             ))}
             <ImageWithFallback src={pngHorizontalClaro} alt="Assinatura com área de proteção" className="h-16 w-auto object-contain dark:hidden" />
             <ImageWithFallback src={pngHorizontalGrafite} alt="Assinatura com área de proteção" className="h-16 w-auto object-contain hidden dark:block" />
           </div>
         </div>
-        <p className="mt-3 text-[0.8125rem] text-muted-foreground text-center">
+        <p className="mt-3 text-body-sm text-muted-foreground text-center">
           Onde <span className="font-semibold text-primary-text">1 F</span> = altura do “F” maiúsculo do logotipo.
         </p>
       </div>

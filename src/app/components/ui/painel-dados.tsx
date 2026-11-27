@@ -87,7 +87,7 @@ function Variacao({ valor, comparacao, className }: { valor: number; comparacao?
   const leitura = `${sobe ? "Alta" : "Queda"} de ${formatarVariacao(Math.abs(valor)).replace("+", "")}${comparacao ? ` ${comparacao}` : ""}`;
   // Mesmo desenho da variação dos Cards de KPI: seta + número na cor da tendência, comparação em texto suave.
   return (
-    <span className={cn("inline-flex items-center gap-1 text-[0.8125rem] font-semibold", sobe ? "text-success" : "text-primary-text", className)}>
+    <span className={cn("inline-flex items-center gap-1 text-body-sm font-semibold", sobe ? "text-success" : "text-primary-text", className)}>
       <Icone aria-hidden className="h-3.5 w-3.5" />
       <span aria-hidden>{formatarVariacao(valor)}</span>
       {comparacao && <span aria-hidden className="ml-1 font-normal text-muted-foreground">{comparacao}</span>}
@@ -100,10 +100,10 @@ function Variacao({ valor, comparacao, className }: { valor: number; comparacao?
 function Explicacao({ termo, children }: { termo: string; children: React.ReactNode }) {
   return (
     <Popover>
-      <PopoverTrigger aria-label={`O que é ${termo}?`} className={cn("inline-flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground", foco)}>
+      <PopoverTrigger data-alvo-compacto aria-label={`O que é ${termo}?`} className={cn("relative inline-flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground after:absolute after:-inset-2.5 after:content-['']", foco)}>
         <Info aria-hidden className="h-3.5 w-3.5" />
       </PopoverTrigger>
-      <PopoverContent className="w-64 text-[0.8125rem] leading-relaxed">{children}</PopoverContent>
+      <PopoverContent className="w-64 text-body-sm leading-relaxed">{children}</PopoverContent>
     </Popover>
   );
 }
@@ -118,6 +118,8 @@ type CardIndicadorProps = {
   variacao?: number;
   comparacao?: string;
   explicacao?: React.ReactNode;
+  /** Minigráfico opcional (por exemplo, uma linha de tendência), entre o número e a variação (27/11/2026). */
+  grafico?: React.ReactNode;
   /** "linha": variação abaixo do rótulo; "pilula": variação no canto superior. */
   estilo?: "linha" | "pilula";
   /**
@@ -134,11 +136,13 @@ type CardIndicadorProps = {
 
 /**
  * Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo.
- * Diagramação (21/11/2026, pedido da dona do produto): o ícone de explicação fica sempre colado à última palavra do rótulo
- * (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam
- * alinhados mesmo quando um rótulo ocupa duas linhas.
+ * Diagramação (21/11/2026 e 27/11/2026, pedidos da dona do produto): o ícone de explicação fica sempre colado à última
+ * palavra do rótulo (não quebra sozinho para outra linha). O cabeçalho (rótulo e ícone) tem altura mínima de 40 px, que
+ * cabe um rótulo de até duas linhas, e o número vem logo abaixo dele; a variação fica na base do card. Assim, numa linha
+ * de cards, os números ficam na mesma altura, tenham eles variação ou não. Em card estreito (menos de 176 px, como na
+ * grade 2 × 2 do celular), o ícone sai para o rótulo ter a largura toda e nunca ser cortado.
  */
-function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, href, onClick, comoLink, className }: CardIndicadorProps) {
+function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, grafico, href, onClick, comoLink, className }: CardIndicadorProps) {
   const palavras = rotulo.split(" ");
   const ultima = palavras.pop() ?? "";
   const clicavel = Boolean(href || onClick);
@@ -148,34 +152,33 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
       data-slot="card-indicador"
       {...(clicavel ? { href: href ?? "#", onClick } : {})}
       className={cn(
-        "flex flex-col gap-3 rounded-lg p-5",
+        "@container/indicador flex flex-col rounded-lg p-5",
         superficieDoCard,
         clicavel && cn("group transition-colors duration-[var(--duration-fast)] hover:border-[var(--border-strong)] hover:bg-muted", foco),
         className,
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <p className="min-w-0 pt-0.5 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
+      <div className="flex min-h-10 items-start justify-between gap-3">
+        <p className="min-w-0 pt-1 text-body-sm font-medium leading-snug text-muted-foreground">
           {palavras.length > 0 && `${palavras.join(" ")} `}
           <span className="whitespace-nowrap">
             {ultima}
-            {explicacao && !clicavel && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
+            {explicacao && !clicavel && <span className="ml-1 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
           </span>
         </p>
-        <IconeComBase tom="neutro">{icone}</IconeComBase>
+        <IconeComBase tom="neutro" className="@max-[11rem]/indicador:hidden">{icone}</IconeComBase>
       </div>
-      <div className="mt-auto">
-        <p className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">
-          {formatarNumero(valor)}
-          {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
-        </p>
-        {(variacao !== undefined || clicavel) && (
-          <div className="mt-3 flex items-center justify-between gap-2">
-            {variacao !== undefined ? <Variacao valor={variacao} comparacao={comparacao} /> : <span />}
-            {clicavel && <ArrowRight aria-hidden className="size-4 shrink-0 text-muted-foreground transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5 group-hover:text-foreground motion-reduce:transition-none" />}
-          </div>
-        )}
-      </div>
+      <p className="mt-2 text-h3 font-bold leading-none tracking-[-0.025em] text-foreground">
+        {formatarNumero(valor)}
+        {total !== undefined && <span className="ml-1 text-body font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
+      </p>
+      {grafico && <div aria-hidden className="mt-4 h-12">{grafico}</div>}
+      {(variacao !== undefined || clicavel) && (
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          {variacao !== undefined ? <Variacao valor={variacao} comparacao={comparacao} /> : <span />}
+          {clicavel && <ArrowRight aria-hidden className="size-4 shrink-0 text-muted-foreground transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5 group-hover:text-foreground motion-reduce:transition-none" />}
+        </div>
+      )}
     </Raiz>
   );
 }
@@ -206,11 +209,11 @@ function GraficoDeDesempenho({ dados, chaveX, series, visiveisIniciais, altura =
   return (
     <div data-slot="grafico-de-desempenho" className={cn("min-w-0", className)}>
       {series.length > 1 && (
-        <div role="group" aria-label="Séries exibidas no gráfico" className="mb-3 flex flex-wrap gap-x-4 gap-y-1.5">
+        <div role="group" aria-label="Séries exibidas no gráfico" className="mb-3 flex flex-wrap gap-x-4 gap-y-1">
           {series.map(s => {
             const ativa = visiveis.includes(s.chave);
             return (
-              <button key={s.chave} type="button" aria-pressed={ativa} onClick={() => alternar(s.chave)} className={cn("inline-flex items-center gap-1.5 rounded-sm py-0.5 text-[0.75rem] transition-opacity", ativa ? "text-foreground" : "text-muted-foreground opacity-60 hover:opacity-100", foco)}>
+              <button key={s.chave} type="button" aria-pressed={ativa} onClick={() => alternar(s.chave)} className={cn("inline-flex items-center gap-1 rounded-sm py-1 text-label transition-opacity", ativa ? "text-foreground" : "text-muted-foreground opacity-60 hover:opacity-100", foco)}>
                 <span aria-hidden className="inline-block h-2 w-2 rounded-full" style={{ background: s.cor }} />
                 {s.rotulo}
               </button>
@@ -285,33 +288,33 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
       <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">
-        {iniciaisDe !== undefined ? <span className={`${display} text-[0.75rem] font-bold leading-none tracking-[0.02em]`}>{iniciais(iniciaisDe)}</span> : icone}
+        {iniciaisDe !== undefined ? <span className={`${display} text-label font-bold leading-none tracking-[0.02em]`}>{iniciais(iniciaisDe)}</span> : icone}
       </IconeComBase>
       <div className="min-w-0 flex-1">
-        <p className="text-[0.8125rem] font-semibold text-foreground">{titulo}</p>
-        {detalhe && <p className="truncate text-[0.75rem] text-muted-foreground">{detalhe}</p>}
+        <p className="text-body-sm font-semibold text-foreground">{titulo}</p>
+        {detalhe && <p className="truncate text-label text-muted-foreground">{detalhe}</p>}
       </div>
-      <span className="shrink-0 text-[0.75rem] text-muted-foreground">{quando}</span>
+      <span className="shrink-0 text-label text-muted-foreground">{quando}</span>
     </li>
   );
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
 /** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro.
-    Hover cinza claro, nunca rosa (regra dos rosas claros, 27/11/2026): fundo --muted (graphite-50), com a borda rosa
-    sutil; a descrição cinza fica em 5,0:1 e a base rosa do ícone continua visível. */
+    Hover cinza claro, nunca rosa (regra dos rosas claros, 27/11/2026): fundo --muted (graphite-50), com a borda cinza forte (--border-strong; desde 27/11/2026, nunca rosa no hover)
+    a descrição cinza fica em 5,0:1 e a base rosa do ícone continua visível. */
 function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
       href={href}
       onClick={onClick}
-      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-muted hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
+      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-[var(--border-strong)] hover:bg-muted hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
       <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
-        <span className="block text-[0.875rem] font-semibold text-foreground">{titulo}</span>
-        {descricao && <span className="block text-[0.8125rem] text-muted-foreground">{descricao}</span>}
+        <span className="block text-body-sm font-semibold text-foreground">{titulo}</span>
+        {descricao && <span className="block text-body-sm text-muted-foreground">{descricao}</span>}
       </span>
       <Seta aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
     </a>
@@ -323,9 +326,9 @@ function ListaDeTendencias({ itens, className }: { itens: { termo: string; varia
   return (
     <ol data-slot="lista-de-tendencias" className={cn("divide-y divide-border rounded-md border border-border", className)}>
       {itens.map((it, i) => (
-        <li key={it.termo} className="flex items-center gap-3 px-3 py-2.5">
-          <span aria-hidden className="w-5 shrink-0 text-[0.75rem] font-bold text-muted-foreground">{i + 1}</span>
-          <span className="min-w-0 flex-1 truncate text-[0.875rem] text-foreground">{it.termo}</span>
+        <li key={it.termo} className="flex items-center gap-3 px-3 py-2">
+          <span aria-hidden className="w-5 shrink-0 text-label font-bold text-muted-foreground">{i + 1}</span>
+          <span className="min-w-0 flex-1 truncate text-body-sm text-foreground">{it.termo}</span>
           <Variacao valor={it.variacao} pilula />
         </li>
       ))}
@@ -338,10 +341,10 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   const ok = estado === "ok";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-none px-3 py-2.5 transition-colors hover:bg-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}>
+      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2 rounded-none px-3 py-2 toque:min-h-11 transition-colors hover:bg-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}>
         {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
-        <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
+        <span className="min-w-0 flex-1 text-body-sm text-foreground">{texto}</span>
         <ChevronRight aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
       </a>
     </li>
@@ -376,7 +379,7 @@ function AnelDePontuacao({ valor, tamanho = 112, rotulo, className }: { valor: n
       </svg>
       <span aria-hidden className="absolute flex max-w-[64%] flex-col items-center text-center">
         <span className={`${display} block font-extrabold leading-none text-foreground`} style={{ fontSize: Math.round(tamanho * 0.2) }}>{valor}%</span>
-        <span className="mt-0.5 block text-[0.6875rem] font-semibold leading-tight text-muted-foreground">{rotulo ?? faixa.rotulo}</span>
+        <span className="mt-1 block text-caption font-semibold leading-tight text-muted-foreground">{rotulo ?? faixa.rotulo}</span>
       </span>
     </div>
   );
@@ -385,25 +388,30 @@ function AnelDePontuacao({ valor, tamanho = 112, rotulo, className }: { valor: n
 /* ── Carrossel de dicas ──────────────────────────────────────── */
 type Dica = { titulo: string; texto: string; acao: string; midia?: React.ReactNode; href?: string; onAcao?: React.MouseEventHandler<HTMLAnchorElement> };
 
+/**
+ * Carrossel de dicas (27/11/2026): a dica num card; embaixo dela, alinhados à esquerda com a borda do card da dica, os
+ * controles (anterior, "1 de 3", próxima). O botão de fechar fica no canto superior direito da dica, onde se espera um
+ * "fechar". Botões de 32 px no computador e 44 px no toque.
+ */
 function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFechar?: () => void; className?: string }) {
   const [i, setI] = React.useState(0);
   const dica = dicas[i]!;
-  const btn = cn("flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted aria-disabled:opacity-40 aria-disabled:cursor-not-allowed", foco);
+  const btn = cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--border-strong)] bg-card text-foreground transition-colors hover:bg-muted aria-disabled:cursor-not-allowed aria-disabled:opacity-40 toque:size-11", foco);
   return (
-    <div data-slot="carrossel-de-dicas" role="region" aria-roledescription="carrossel" aria-label="Dicas para vender mais" className={cn("min-w-0", className)}>
-      <div className="mb-3 flex items-center justify-end gap-2">
-        <button type="button" className={btn} onClick={() => setI(v => Math.max(0, v - 1))} aria-disabled={i === 0} aria-label="Dica anterior"><ChevronLeft aria-hidden className="h-4 w-4" /></button>
-        <span className="min-w-12 text-center text-[0.75rem] font-medium text-muted-foreground" aria-live="polite">{i + 1} de {dicas.length}</span>
-        <button type="button" className={btn} onClick={() => setI(v => Math.min(dicas.length - 1, v + 1))} aria-disabled={i === dicas.length - 1} aria-label="Próxima dica"><ChevronRight aria-hidden className="h-4 w-4" /></button>
-        {onFechar && <button type="button" className={cn(btn, "border-transparent")} onClick={onFechar} aria-label="Fechar dicas"><X aria-hidden className="h-4 w-4" /></button>}
-      </div>
-      <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className="flex gap-4 rounded-lg border border-border bg-card p-3">
-        {dica.midia && <div aria-hidden className="flex h-24 w-24 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]">{dica.midia}</div>}
+    <div data-slot="carrossel-de-dicas" role="region" aria-roledescription="carrossel" aria-label="Dicas para vender mais" className={cn("@container/dicas min-w-0", className)}>
+      <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className={cn("relative flex gap-4 rounded-lg border border-border bg-card p-3", onFechar && "pr-12")}>
+        {dica.midia && <div aria-hidden className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] @md/dicas:h-24 @md/dicas:w-24">{dica.midia}</div>}
         <div className="min-w-0 flex-1">
-          <p className="text-[0.9375rem] font-bold text-foreground">{dica.titulo}</p>
-          <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">{dica.texto}</p>
-          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-sm border border-primary px-3 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent", foco)}>{dica.acao}</a>
+          <p className="text-body font-bold text-foreground">{dica.titulo}</p>
+          <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{dica.texto}</p>
+          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-sm border border-primary px-3 text-body-sm font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent toque:h-11", foco)}>{dica.acao}</a>
         </div>
+        {onFechar && <button type="button" className={cn(btn, "absolute right-2 top-2 border-transparent bg-transparent")} onClick={onFechar} aria-label="Fechar dicas"><X aria-hidden className="h-4 w-4" /></button>}
+      </div>
+      <div className="mt-3 flex items-center gap-2">
+        <button type="button" className={btn} onClick={() => setI(v => Math.max(0, v - 1))} aria-disabled={i === 0} aria-label="Dica anterior"><ChevronLeft aria-hidden className="h-4 w-4" /></button>
+        <span className="min-w-12 text-center text-label font-medium text-muted-foreground" aria-live="polite">{i + 1} de {dicas.length}</span>
+        <button type="button" className={btn} onClick={() => setI(v => Math.min(dicas.length - 1, v + 1))} aria-disabled={i === dicas.length - 1} aria-label="Próxima dica"><ChevronRight aria-hidden className="h-4 w-4" /></button>
       </div>
     </div>
   );
@@ -414,15 +422,15 @@ function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { ic
   return (
     <section data-slot="faixa-de-beneficios" aria-label={titulo} className={cn("flex flex-col gap-4 rounded-lg border border-primary/15 bg-[var(--primary-muted)] p-5 @5xl:flex-row @5xl:items-center", className)}>
       <div className="flex min-w-0 gap-3 @5xl:w-80 @5xl:shrink-0">
-        {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
+        {icone && <span aria-hidden className="mt-1 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
-          <p className={`${display} text-[1.0625rem] font-bold text-foreground`}>{titulo}</p>
-          <p className="mt-0.5 text-[0.8125rem] leading-snug text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">{texto}</p>
+          <p className={`${display} text-subtitle font-bold text-foreground`}>{titulo}</p>
+          <p className="mt-1 text-body-sm leading-snug text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">{texto}</p>
         </div>
       </div>
       <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2 @2xl:grid-cols-4">
         {beneficios.map(b => (
-          <li key={b.rotulo} className="flex items-center gap-2.5 rounded-md bg-card px-3 py-2.5 text-[0.8125rem] font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
+          <li key={b.rotulo} className="flex items-center gap-2 rounded-md bg-card px-3 py-2 text-body-sm font-medium leading-tight text-foreground shadow-[var(--shadow-xs)]">
             <span aria-hidden className="shrink-0 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{b.icone}</span>
             {b.rotulo}
           </li>
@@ -437,14 +445,15 @@ function CardDoPainel({ icone, titulo, descricao, acao, children, className, id,
   const tid = React.useId();
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
   return (
-    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
-      <div className="mb-4 flex items-start gap-3">
-        {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>}
-        <div className="min-w-0 flex-1">
-          <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
-          {descricao && <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{descricao}</p>}
+    <section id={id} aria-labelledby={tid} data-slot="card-do-painel" className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
+      {/* Mesma regra do CardComCabecalho (27/11/2026): em card estreito, a ação desce para a coluna do texto. */}
+      <div className={cn("mb-4 grid items-start gap-x-3", icone ? "grid-cols-[auto_minmax(0,1fr)]" : "grid-cols-[minmax(0,1fr)]", acao && (icone ? "@md:grid-cols-[auto_minmax(0,1fr)_auto]" : "@md:grid-cols-[minmax(0,1fr)_auto]"))}>
+        {icone && <span aria-hidden className="mt-1 text-[var(--primary-text,var(--primary))] [&>svg]:h-5 [&>svg]:w-5">{icone}</span>}
+        <div className="min-w-0">
+          <Titulo id={tid} className={`${display} text-subtitle font-bold tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
+          {descricao && <p className="mt-1 text-body-sm text-muted-foreground">{descricao}</p>}
         </div>
-        {acao}
+        {acao && <div className={cn("mt-2 flex min-w-0 flex-wrap items-center gap-2 @md:row-start-1 @md:mt-0", icone ? "col-start-2 @md:col-start-3" : "col-start-1 @md:col-start-2")}>{acao}</div>}
       </div>
       {children}
     </section>
@@ -483,14 +492,16 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
   const temConteudo = children !== undefined && children !== null && children !== false;
   return (
     <section id={id} aria-labelledby={tid} data-slot="card-com-cabecalho" data-cabecalho={cabecalho} className={cn("@container min-w-0 rounded-lg p-4 @xl:p-5", superficieDoCard, className)}>
-      <div data-slot="cabecalho-do-card" className={cn("flex flex-wrap items-start gap-x-3 gap-y-3", temConteudo && cabecalho === "simples" && "mb-5")}>
+      {/* Cabeçalho (27/11/2026): ícone, título e descrição; a ação fica à direita quando o card tem espaço (448 px ou
+          mais) e, em card estreito, desce para baixo da descrição, na coluna do texto (mesma borda do título). */}
+      <div data-slot="cabecalho-do-card" className={cn("grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3", acao && "@md:grid-cols-[auto_minmax(0,1fr)_auto]", temConteudo && cabecalho === "simples" && "mb-5")}>
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
         <IconeComBase tom={tom}>{icone}</IconeComBase>
-        <div className="min-w-[12rem] flex-1 self-center">
-          <Titulo id={tid} className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
-          {descricao && <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{descricao}</p>}
+        <div className="min-w-0 self-center">
+          <Titulo id={tid} className={`${display} text-subtitle font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
+          {descricao && <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{descricao}</p>}
         </div>
-        {acao && <div className="flex shrink-0 flex-wrap items-center gap-2">{acao}</div>}
+        {acao && <div className="col-start-2 mt-2 flex min-w-0 flex-wrap items-center gap-2 @md:col-start-3 @md:row-start-1 @md:mt-0 @md:self-center">{acao}</div>}
       </div>
       {temConteudo && cabecalho === "divisor" && <DivisorSuave className="my-4 @xl:my-5" />}
       {children}
@@ -563,7 +574,7 @@ function ConteudoRecolhivel({
           type="button"
           aria-haspopup={onMostrarMais ? undefined : "dialog"}
           onClick={() => (onMostrarMais ? onMostrarMais() : setJanela(true))}
-          className="mt-2 inline-flex min-h-9 items-center gap-1 self-start rounded-[4px] text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="mt-2 inline-flex min-h-9 toque:min-h-11 items-center gap-1 self-start rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {rotuloMais}
           {onMostrarMais ? <ArrowRight aria-hidden className="h-4 w-4" /> : <ChevronRight aria-hidden className="h-4 w-4" />}
@@ -573,7 +584,7 @@ function ConteudoRecolhivel({
         <Dialog open={janela} onOpenChange={setJanela}>
           <DialogContent className="flex max-h-[85dvh] flex-col gap-0 p-0 sm:max-w-2xl">
             <DialogHeader className="border-b border-border px-5 py-4 pr-12 text-left">
-              <DialogTitle className={`${display} text-[1.0625rem] font-bold tracking-[-0.01em]`}>{titulo}</DialogTitle>
+              <DialogTitle className={`${display} text-subtitle font-bold tracking-[-0.01em]`}>{titulo}</DialogTitle>
               {descricao ? <DialogDescription>{descricao}</DialogDescription> : <DialogDescription className="sr-only">Tudo o que não coube no card.</DialogDescription>}
             </DialogHeader>
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 [scrollbar-width:thin]">{janela && children}</div>
@@ -591,13 +602,13 @@ function ConteudoRecolhivel({
  */
 function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marca", icone }: { children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLElement>; tom?: TomDoIcone; icone?: React.ReactNode }) {
   const classe = cn(
-    "group inline-flex shrink-0 items-center gap-1 rounded-sm text-[0.8125rem] font-semibold hover:underline [&>svg]:h-3.5 [&>svg]:w-3.5",
+    "group inline-flex shrink-0 items-center gap-1 rounded-sm text-body-sm font-semibold hover:underline [&>svg]:h-3.5 [&>svg]:w-3.5 toque:min-h-11",
     tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:text-foreground",
     foco,
   );
   const conteudo = (
     <>
-      {icone && <span aria-hidden className="mr-0.5 inline-flex [&>svg]:h-3.5 [&>svg]:w-3.5">{icone}</span>}
+      {icone && <span aria-hidden className="mr-1 inline-flex [&>svg]:h-3.5 [&>svg]:w-3.5">{icone}</span>}
       {children} <ArrowRight aria-hidden className="transition-transform motion-safe:group-hover:translate-x-0.5" />
     </>
   );
@@ -623,8 +634,8 @@ function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", clas
           <div className="shrink-0">{estado}</div>
           <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
           <div className="min-w-0">
-            <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
-            {texto && <p className={cn("mt-0.5 text-[0.8125rem] leading-relaxed", tom === "marca" ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground")}>{texto}</p>}
+            <p className={`${display} text-body font-bold leading-snug text-foreground`}>{titulo}</p>
+            {texto && <p className={cn("mt-1 text-body-sm leading-relaxed", tom === "marca" ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground")}>{texto}</p>}
           </div>
         </div>
         {complemento && <div className="flex shrink-0 flex-wrap items-center gap-3 @3xl:max-w-[50%]">{complemento}</div>}
@@ -639,8 +650,8 @@ function ProgressoRotulado({ rotulo, pct, texto, className }: { rotulo: string; 
   return (
     <div data-slot="progresso-rotulado" className={className}>
       <div className="mb-2 flex items-baseline justify-between gap-3">
-        <span className="text-[0.875rem] font-semibold text-foreground">{rotulo}</span>
-        <span className={`${display} text-[1.0625rem] font-bold tabular-nums text-foreground`}>{valor}</span>
+        <span className="text-body-sm font-semibold text-foreground">{rotulo}</span>
+        <span className={`${display} text-subtitle font-bold tabular-nums text-foreground`}>{valor}</span>
       </div>
       <BarraDeUso pct={pct ?? 0} rotulo={pct === null ? `${rotulo}: calculando` : `${rotulo}: ${valor}`} className="h-2" />
     </div>
@@ -660,11 +671,11 @@ function ResumoEmLinha({ itens, className }: { itens: ItemDoResumo[]; className?
     <div className={cn("@container", className)}>
       <ul data-slot="resumo-em-linha" className={cn("m-0 grid list-none grid-cols-1 divide-y divide-border p-0 @lg:divide-x @lg:divide-y-0", colunas)}>
         {itens.map((i) => (
-          <li key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:gap-2.5 @lg:px-3 @lg:py-1 @lg:first:pl-0">
+          <li key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:gap-2 @lg:px-3 @lg:py-1 @lg:first:pl-0">
             <IconeComBase tom="neutro">{i.icone}</IconeComBase>
             <p className="m-0 min-w-0">
-              <span className={`${display} block text-[1.25rem] font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</span>
-              <span className="block text-[0.8125rem] text-muted-foreground">{i.rotulo}</span>
+              <span className={`${display} block text-h4 font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</span>
+              <span className="block text-body-sm text-muted-foreground">{i.rotulo}</span>
             </p>
           </li>
         ))}
@@ -711,22 +722,22 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
       aria-label={`${titulo}: ${pctTexto(pct)} do limite`}
       className={cn("grid gap-5 rounded-lg p-5", superficieDoCard, "@3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
-      <div className="flex min-w-0 items-start gap-3.5">
+      <div className="flex min-w-0 items-start gap-3">
         <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
         <div className="min-w-0">
-          {sobretitulo && <p className="text-[0.75rem] font-medium text-muted-foreground">{sobretitulo}</p>}
-          <p className={`${display} text-[1.0625rem] font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
-          {descricao && <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">{descricao}</p>}
+          {sobretitulo && <p className="text-label font-medium text-muted-foreground">{sobretitulo}</p>}
+          <p className={`${display} text-subtitle font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
+          {descricao && <p className="mt-1 text-body-sm text-muted-foreground">{descricao}</p>}
         </div>
       </div>
       <div className="min-w-0">
         <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
           <p className="tabular-nums">
-            <span className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{pctTexto(pct)}</span>
-            <span className="ml-2 text-[0.875rem] text-muted-foreground">{formatarNumero(usado)} de {formatarNumero(limite)} {unidade}</span>
+            <span className="text-h3 font-bold leading-none tracking-[-0.025em] text-foreground">{pctTexto(pct)}</span>
+            <span className="ml-2 text-body-sm text-muted-foreground">{formatarNumero(usado)} de {formatarNumero(limite)} {unidade}</span>
           </p>
           {selo && (
-            <p data-tom={alerta ? "alerta" : "neutro"} className={cn("inline-flex items-center gap-1.5 text-[0.8125rem]", alerta ? "font-semibold text-destructive" : "text-muted-foreground")}>
+            <p data-tom={alerta ? "alerta" : "neutro"} className={cn("inline-flex items-center gap-1 text-body-sm", alerta ? "font-semibold text-destructive" : "text-muted-foreground")}>
               <span aria-hidden className="shrink-0 [&>svg]:h-4 [&>svg]:w-4">{selo.icone ?? (alerta ? <TriangleAlert /> : <CheckCircle2 className="text-success" />)}</span>
               <span><span className={alerta ? "" : "font-medium text-foreground"}>{selo.titulo}</span>{selo.texto ? ` · ${selo.texto}` : ""}</span>
             </p>
@@ -756,10 +767,10 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
     <div data-slot="card-de-uso" className={cn("flex h-full min-w-0 flex-col gap-4 rounded-lg p-5", superficieDoCard, className)}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="mb-1 text-[0.8125rem] font-medium leading-snug text-muted-foreground">{rotulo}</p>
+          <p className="mb-1 text-body-sm font-medium leading-snug text-muted-foreground">{rotulo}</p>
           <p className="tabular-nums">
-            <span className="text-[1.625rem] font-bold leading-none tracking-[-0.025em] text-foreground">{formatarNumero(usado)}</span>
-            {limite ? <span className="ml-1.5 text-[0.9375rem] font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
+            <span className="text-h3 font-bold leading-none tracking-[-0.025em] text-foreground">{formatarNumero(usado)}</span>
+            {limite ? <span className="ml-1 text-body font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
           </p>
         </div>
         <IconeComBase tom="neutro">{icone}</IconeComBase>
@@ -767,10 +778,10 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
       {pct !== null ? (
         <div className="mt-auto">
           <BarraDeUso pct={pct} rotulo={`${rotulo}: ${formatarNumero(usado)} de ${formatarNumero(limite!)}`} />
-          <p className="mt-1.5 text-[0.75rem] tabular-nums text-muted-foreground">{pctTexto(pct)} do limite</p>
+          <p className="mt-1 text-label tabular-nums text-muted-foreground">{pctTexto(pct)} do limite</p>
         </div>
       ) : (
-        <p className="mt-auto text-[0.75rem] text-muted-foreground">{semLimite}</p>
+        <p className="mt-auto text-label text-muted-foreground">{semLimite}</p>
       )}
     </div>
   );

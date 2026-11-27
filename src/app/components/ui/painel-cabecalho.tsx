@@ -49,11 +49,13 @@ function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, abas, nivel = 1
     // linha; quando não cabem, descem juntas para baixo do texto, sem apertar o título (pedido da dona do produto, 23/11/2026).
     <header data-slot="cabecalho-da-pagina" className={cn("flex flex-wrap items-start justify-between gap-x-8 gap-y-4", !abas && className)}>
       <div className="min-w-0 flex-[1_1_36rem]">
-        {saudacao && <p className="mb-1 text-[0.9375rem] font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
-        <Titulo className={`${display} text-[1.625rem] @xl:text-[2rem] font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
-        {descricao && <p className="mt-2 max-w-[65ch] text-[0.9375rem] leading-relaxed text-muted-foreground">{descricao}</p>}
+        {saudacao && <p className="mb-1 text-body font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
+        <Titulo className={`${display} text-h3 @xl:text-h2 font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
+        {descricao && <p className="mt-2 max-w-[65ch] text-body leading-relaxed text-muted-foreground">{descricao}</p>}
       </div>
-      {acoes && <div data-slot="acoes-da-pagina" className="flex max-w-full flex-wrap items-center gap-2">{acoes}</div>}
+      {/* Celular (abaixo de 640 px, 27/11/2026): as ações ficam uma por linha, todas com a largura toda, na mesma borda
+          esquerda do título; nunca uma escada de larguras diferentes. Do 640 px em diante, lado a lado. */}
+      {acoes && <div data-slot="acoes-da-pagina" className="flex max-w-full flex-wrap items-center gap-2 max-sm:grid max-sm:w-full max-sm:grid-cols-1 max-sm:[&>*]:w-full max-sm:[&>*]:justify-center">{acoes}</div>}
     </header>
   );
   if (!abas) return topo;
@@ -80,7 +82,7 @@ function SeletorDePeriodo({ valor, onChange, periodos = periodosPadrao, classNam
       <DropdownMenuTrigger
         aria-label={`Período: ${atual.rotulo}. Trocar período`}
         className={cn(
-          "inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-border bg-card px-3 text-[0.9375rem] text-foreground transition-colors hover:bg-accent",
+          "inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-card px-3 text-button font-semibold text-foreground transition-colors hover:bg-accent toque:h-11",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className,
         )}
@@ -105,14 +107,14 @@ type AcaoDoMenu = { rotulo: string; icone?: React.ReactNode; onSelect?: () => vo
 function BotaoDividido({ rotulo, icone, onClick, acoes, rotuloMenu = "Mais opções", className }: { rotulo: string; icone?: React.ReactNode; onClick?: () => void; acoes: AcaoDoMenu[]; rotuloMenu?: string; className?: string }) {
   const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
   return (
-    <div data-slot="botao-dividido" className={cn("inline-flex h-10 rounded-md bg-primary text-primary-foreground shadow-sm", className)}>
-      <button type="button" onClick={onClick} className={cn("inline-flex items-center gap-2 whitespace-nowrap rounded-l-md pl-3.5 pr-4 text-[0.9375rem] font-medium transition-colors hover:bg-[var(--primary-hover)]", foco)}>
+    <div data-slot="botao-dividido" className={cn("inline-flex h-10 rounded-md bg-primary text-primary-foreground shadow-sm toque:h-11", className)}>
+      <button type="button" onClick={onClick} className={cn("inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-l-md pl-3 pr-4 text-button font-semibold transition-colors hover:bg-[var(--primary-hover)]", foco)}>
         {icone && <span aria-hidden className="[&>svg]:h-4 [&>svg]:w-4">{icone}</span>}
         {rotulo}
       </button>
       <span aria-hidden className="my-2 w-px bg-primary-foreground/40" />
       <DropdownMenu>
-        <DropdownMenuTrigger aria-label={`${rotuloMenu}: ${rotulo}`} className={cn("inline-flex w-10 items-center justify-center rounded-r-md transition-colors hover:bg-[var(--primary-hover)]", foco)}>
+        <DropdownMenuTrigger aria-label={`${rotuloMenu}: ${rotulo}`} className={cn("inline-flex w-10 items-center justify-center rounded-r-md transition-colors hover:bg-[var(--primary-hover)] toque:w-11", foco)}>
           <ChevronDown aria-hidden className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-52">
@@ -145,15 +147,15 @@ function BannerPromocional({ titulo, texto, acao, onAcao, onFechar, imagem, clas
     <aside data-slot="banner-promocional" aria-label={titulo} className={cn("relative flex items-stretch overflow-hidden rounded-lg border border-primary/20 bg-[var(--primary-muted)]", className)}>
       {imagem && <div aria-hidden className="hidden w-28 shrink-0 items-center justify-center bg-primary/10 text-[var(--primary-text,var(--primary))] @md:flex">{imagem}</div>}
       <div className="min-w-0 flex-1 p-4 pr-12">
-        <p className="text-[0.9375rem] font-bold text-foreground">{titulo}</p>
+        <p className="text-body font-bold text-foreground">{titulo}</p>
         {/* Texto de apoio sobre o rosa claro: --muted-foreground com 15% de --foreground (6,1:1; o cinza puro dava 4,35:1). */}
-        <p className="mt-0.5 text-[0.8125rem] leading-snug text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">{texto}</p>
+        <p className="mt-1 text-body-sm leading-snug text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">{texto}</p>
         <button
           type="button"
           onClick={onAcao}
           // "Um botão principal por área visível" (decisão da dona do produto, 23/11/2026): o banner usa o botão
           // secundário (contorno, fundo branco); o botão principal fica com a ação da página.
-          className="mt-3 inline-flex h-10 items-center gap-1.5 rounded-md border border-[var(--border-strong)] bg-card px-4 text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="mt-3 inline-flex h-10 items-center gap-1 rounded-md border border-[var(--border-strong)] bg-card px-4 text-button font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {acao} <ArrowRight aria-hidden className="h-4 w-4" />
         </button>

@@ -67,17 +67,17 @@ export function Carregando({ mensagem = "Carregando", detalhe, variante = "pagin
           <span className="fl-carregando-sombra absolute bottom-0.5 h-2.5 w-10 rounded-[50%] bg-foreground/15" />
           <SimboloFindLook className="fl-carregando-pin relative mb-2 h-14 w-auto drop-shadow-[0_6px_10px_rgb(230_32_64_/_0.18)]" />
         </div>
-        <p className="mt-5 text-base font-bold text-foreground">
+        <p className="mt-5 text-body leading-6 font-bold text-foreground">
           {mensagem}
           <span className="fl-carregando-reticencias" aria-hidden />
         </p>
-        {detalhe && <p className="mt-1 text-sm text-muted-foreground">{detalhe}</p>}
+        {detalhe && <p className="mt-1 text-body-sm leading-5 text-muted-foreground">{detalhe}</p>}
         <div className="fl-carregando-trilho mt-4 h-1 w-40 overflow-hidden rounded-full bg-primary/15" aria-hidden>
           <span className="fl-carregando-barra block h-full w-2/5 rounded-full bg-primary" />
         </div>
         {demorou && (
           <div className="fl-carregando-entra mt-6 flex flex-col items-center">
-            <p className="text-sm text-muted-foreground">Está levando mais tempo que o normal. Confira sua conexão e tente de novo.</p>
+            <p className="text-body-sm leading-5 text-muted-foreground">Está levando mais tempo que o normal. Confira sua conexão e tente de novo.</p>
             <Button
               type="button"
               variant="outline"

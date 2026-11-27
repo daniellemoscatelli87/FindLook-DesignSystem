@@ -112,16 +112,16 @@ export function VoiceShowcase() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {pilares.map(p => (
             <article key={p.id} id={`voice-${p.id}`} className="scroll-mt-32 flex flex-col rounded-[var(--radius)] border border-border bg-card p-5">
-              <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-primary-text mb-2">{p.title}</p>
-              <p className="text-[0.9375rem] text-foreground leading-relaxed mb-5">{p.rule}</p>
+              <p className="text-label font-semibold uppercase tracking-[0.1em] text-primary-text mb-2">{p.title}</p>
+              <p className="text-body text-foreground leading-relaxed mb-5">{p.rule}</p>
               <div className="mt-auto space-y-3">
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-success shrink-0 mt-0.5" aria-hidden />
-                  <p className={`${display} text-[1rem] font-bold tracking-[-0.01em] text-foreground`}>{p.do}</p>
+                  <CheckCircle className="h-4 w-4 text-success shrink-0 mt-1" aria-hidden />
+                  <p className={`${display} text-body font-bold tracking-[-0.01em] text-foreground`}>{p.do}</p>
                 </div>
                 <div className="flex items-start gap-2">
-                  <XCircle className="h-4 w-4 text-error-text shrink-0 mt-0.5" aria-hidden />
-                  <p className="text-[0.875rem] text-muted-foreground line-through decoration-error/50">{p.dont}</p>
+                  <XCircle className="h-4 w-4 text-error-text shrink-0 mt-1" aria-hidden />
+                  <p className="text-body-sm text-muted-foreground line-through decoration-error/50">{p.dont}</p>
                 </div>
               </div>
             </article>
@@ -140,11 +140,11 @@ export function VoiceShowcase() {
             <div key={publico} className={`grid grid-cols-1 sm:grid-cols-[9rem_minmax(0,1fr)] gap-2 sm:gap-6 rounded-[var(--radius)] border border-border px-5 py-4 ${i % 2 === 0 ? "bg-[var(--surface-tint)]" : "bg-muted"}`}>
               <div className="flex items-center gap-2">
                 <Icon className="h-4 w-4 text-primary-text" aria-hidden />
-                <span className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-primary-text">{publico}</span>
+                <span className="text-label font-semibold uppercase tracking-[0.1em] text-primary-text">{publico}</span>
               </div>
               <div>
-                <p className={`${display} text-[1.125rem] font-bold tracking-[-0.015em] text-foreground`}>{frase}</p>
-                <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{nota}</p>
+                <p className={`${display} text-subtitle font-bold tracking-[-0.015em] text-foreground`}>{frase}</p>
+                <p className="text-body-sm text-muted-foreground mt-1">{nota}</p>
               </div>
             </div>
           ))}
@@ -163,14 +163,14 @@ export function VoiceShowcase() {
         }
       >
         <div className="rounded-[var(--radius)] border border-border bg-card overflow-hidden">
-          <div className="hidden sm:grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)] text-[0.75rem] font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 border-b border-border bg-muted/20">
+          <div className="hidden sm:grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)] text-label font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 border-b border-border bg-muted/20">
             <span>Contexto</span><span>Escrever</span><span>Evitar</span>
           </div>
           {microcopy.map((m, i, arr) => (
-            <div key={m.contexto} className={`grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)] gap-1 sm:gap-4 px-5 py-3.5 text-[0.8125rem] ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
+            <div key={m.contexto} className={`grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)] gap-1 sm:gap-4 px-5 py-3 text-body-sm ${i < arr.length - 1 ? "border-b border-border" : ""}`}>
               <span className="font-medium text-foreground">{m.contexto}</span>
-              <span className="flex items-start gap-2 text-foreground"><CheckCircle className="h-4 w-4 text-success shrink-0 mt-0.5" aria-hidden />{m.escrever}</span>
-              <span className="flex items-start gap-2 text-muted-foreground"><XCircle className="h-4 w-4 text-error-text shrink-0 mt-0.5" aria-hidden />{m.evitar}</span>
+              <span className="flex items-start gap-2 text-foreground"><CheckCircle className="h-4 w-4 text-success shrink-0 mt-1" aria-hidden />{m.escrever}</span>
+              <span className="flex items-start gap-2 text-muted-foreground"><XCircle className="h-4 w-4 text-error-text shrink-0 mt-1" aria-hidden />{m.evitar}</span>
             </div>
           ))}
         </div>
@@ -181,8 +181,8 @@ export function VoiceShowcase() {
       <section>
         <SectionLabel>Resumo</SectionLabel>
         <div className="flex items-start gap-3 rounded-[var(--radius)] bg-foreground text-background px-5 py-4">
-          <MessageCircle className="h-5 w-5 shrink-0 mt-0.5" aria-hidden />
-          <p className="text-[0.9375rem] font-medium">Para quem compra: encontrar. Para quem vende: ser encontrado. Todo texto da FindLook serve a um desses dois verbos.</p>
+          <MessageCircle className="h-5 w-5 shrink-0 mt-1" aria-hidden />
+          <p className="text-body font-medium">Para quem compra: encontrar. Para quem vende: ser encontrado. Todo texto da FindLook serve a um desses dois verbos.</p>
         </div>
       </section>
     </div>

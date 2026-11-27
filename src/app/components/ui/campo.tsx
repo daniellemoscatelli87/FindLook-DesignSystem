@@ -35,7 +35,7 @@ export type CampoProps = React.ComponentProps<typeof Input> & {
 /** Texto de erro de um campo ou grupo: ícone + texto na cor de texto do erro (nunca só a cor). */
 export function MensagemDeErro({ id, children, className }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
-    <p id={id} data-slot="mensagem-de-erro" className={cn("flex items-start gap-1.5 text-body-sm font-medium text-error-text", className)}>
+    <p id={id} data-slot="mensagem-de-erro" className={cn("flex items-start gap-1 text-body-sm leading-5 font-medium text-error-text", className)}>
       <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden /> <span className="min-w-0">{children}</span>
     </p>
   );
@@ -66,7 +66,7 @@ export function Campo({
   return (
     <div data-slot="campo" className={cn("min-w-0 space-y-2", inteiro && "col-span-full", classeDoBloco)}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <Label htmlFor={id} className="inline text-body-sm font-semibold leading-snug">
+        <Label htmlFor={id} className="inline text-body-sm font-semibold leading-5">
           {rotulo}
           {opcional && <span className="ml-1 font-normal text-muted-foreground">(opcional)</span>}
         </Label>
@@ -96,7 +96,7 @@ export function Campo({
         )}
       </div>
       {depois}
-      {mostrarAjuda && <p id={`${id}-ajuda`} className="m-0 text-body-sm text-muted-foreground">{ajuda}</p>}
+      {mostrarAjuda && <p id={`${id}-ajuda`} className="m-0 text-body-sm leading-5 text-muted-foreground">{ajuda}</p>}
       {erro && <MensagemDeErro id={`${id}-erro`}>{erro}</MensagemDeErro>}
     </div>
   );

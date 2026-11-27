@@ -74,7 +74,7 @@ function FaixaDeParceiros({
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-muted text-primary-text">
                 <Store className="size-4" />
               </span>
-              <span className="text-sm font-semibold text-foreground">{convite}</span>
+              <span className="text-body-sm leading-5 font-semibold text-foreground">{convite}</span>
             </span>
           )}
         </li>
@@ -110,7 +110,7 @@ function FaixaDeParceiros({
             type="button"
             onClick={() => setPausada((v) => !v)}
             aria-pressed={pausada}
-            className="inline-flex h-8 items-center gap-1.5 rounded-full px-2.5 text-[0.75rem] font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex h-8 items-center gap-1 rounded-full px-2 text-label font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             {pausada ? <Play className="size-3.5" aria-hidden /> : <Pause className="size-3.5" aria-hidden />}
             {pausada ? "Continuar movimento" : "Pausar movimento"}
