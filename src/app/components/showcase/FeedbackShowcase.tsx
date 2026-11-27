@@ -320,6 +320,20 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
           </ShowcaseCard>
         </SubSection>
 
+        <SubSection title="Alerta só com descrição">
+          <div id="alerta-sem-titulo" className="scroll-mt-32" />
+          <ShowcaseCard>
+            <p className="mb-4 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">
+              Quando a mensagem cabe numa frase, use o Alert sem AlertTitle. A frase passa a ser a informação principal: fica na cor do texto principal, centralizada na altura do ícone e com a quebra de linha equilibrada. É automático: basta não usar o título.
+            </p>
+            <div className="space-y-3">
+              <UiAlert variant="error"><TriangleAlert aria-hidden /><AlertDescription>E-mail ou senha incorretos. Confira e tente de novo.</AlertDescription></UiAlert>
+              <UiAlert variant="success"><CheckCircle2 aria-hidden /><AlertDescription>Alterações salvas.</AlertDescription></UiAlert>
+              <UiAlert variant="info"><Info aria-hidden /><AlertDescription>A disponibilidade das peças deve ser confirmada com a loja.</AlertDescription></UiAlert>
+            </div>
+          </ShowcaseCard>
+        </SubSection>
+
         <div id="alerta-com-acao" className="scroll-mt-32 mb-12">
           <AlertaComAcaoDoc />
         </div>

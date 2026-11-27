@@ -19,7 +19,7 @@ import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
 import { Badge } from "../ui/badge";
 import { Columns2, Rows2 } from "lucide-react";
-import { ShineBorder, BrilhoDeSelecionado } from "../ui/shine-border";
+import { ShineBorder, BrilhoDeSelecionado, molduraDoSelecionavel } from "../ui/shine-border";
 import { PartnerCard } from "../ui/partner-card";
 import { ProductCard } from "../ui/product-card";
 import { GlassCard, GlassScene, glassTextContrast, glassSceneTexture, type GlassFinish, type GlassCardProps } from "../ui/glass-card";
@@ -1029,7 +1029,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
                   [t("Either", "Tanto faz"), t("Show both", "Mostrar as duas")],
                 ];
                 return (
-                  <Card key={index} className={`relative gap-4 border-2 transition-all ${isSelected ? "border-primary" : "border-border hover:border-[var(--border-strong)]"}`}>
+                  <Card key={index} className={`relative gap-4 transition-all ${molduraDoSelecionavel(isSelected)}`}>
                     {isSelected && <BrilhoDeSelecionado />}
                     <CardHeader>
                       <CardTitle className={`${display} text-[1rem] font-semibold flex items-center gap-2`}>
@@ -1073,7 +1073,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
                   [t("Resting", "Parado"), t("Rule of the background (see How to choose).", "Regra do fundo (veja Como escolher).")],
                   [t("Hover (clickable card)", "Hover (card clicável)"), t("Stronger border and medium shadow; may rise 2 px.", "Borda mais forte e sombra média; pode subir 2 px.")],
                   [t("Focus", "Foco"), t("Visible focus ring around the whole card.", "Anel de foco visível em volta do card inteiro.")],
-                  [t("Selected", "Selecionado"), "Card branco com borda primária de 2 px e o brilho animado por cima (BrilhoDeSelecionado, de ui/shine-border, preset primaria; com menos movimento, só a borda parada); check no título; o botão vira contorno de 2 px na primária, a mesma espessura da borda, com “✓ Selecionado”, texto --primary-text e fundo rosa nível 3 (--primary-muted). Só a ação principal da área é preenchida (Opção A, 27/11/2026). aria-pressed, ou role=\"radio\" quando a escolha é de um grupo."],
+                  [t("Selected", "Selecionado"), "Card branco com borda primária de 2 px e o brilho animado por cima (BrilhoDeSelecionado, de ui/shine-border, preset primaria; com menos movimento, só a borda parada); check no título; o botão vira contorno de 2 px na primária, a mesma espessura da borda, com “✓ Selecionado”, texto --primary-text e fundo rosa nível 1 (--primary-sutil). Só a ação principal da área é preenchida (Opção A, 27/11/2026). aria-pressed, ou role=\"radio\" quando a escolha é de um grupo. A borda é a moldura comum dos cards que se escolhem (molduraDoSelecionavel), a mesma do Cartão de escolha (Controles de formulário › Cartões de escolha), que é o componente pronto para escolha única num formulário."],
                   [t("Loading", "Carregando"), t("Skeleton in the shape of the content and aria-busy.", "Skeleton no formato do conteúdo e aria-busy.")],
                 ]}
               />

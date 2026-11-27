@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
@@ -256,14 +258,16 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
-/** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro. */
+/** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro.
+    Hover no rosa claro nível 2 (--primary-suave, o nível do hover; 27/11/2026): a descrição cinza fica em 4,8:1 (no nível 3
+    dava 4,35:1) e a base rosa do ícone continua visível. */
 function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
   return (
     <a
       data-slot="item-de-acao"
       href={href}
       onClick={onClick}
-      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-muted)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
+      className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-[var(--primary-suave)] hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
       <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
@@ -374,7 +378,7 @@ function FaixaDeBeneficios({ icone, titulo, texto, beneficios, className }: { ic
         {icone && <span aria-hidden className="mt-0.5 text-[var(--primary-text,var(--primary))] [&>svg]:h-7 [&>svg]:w-7">{icone}</span>}
         <div className="min-w-0">
           <p className={`${display} text-[1.0625rem] font-bold text-foreground`}>{titulo}</p>
-          <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{texto}</p>
+          <p className="mt-0.5 text-[0.8125rem] leading-snug text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">{texto}</p>
         </div>
       </div>
       <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @md:grid-cols-2 @2xl:grid-cols-4">
@@ -570,6 +574,7 @@ function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marc
  * Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o
  * que vem depois. tom="marca" (padrão, rosa claro: o estado é o foco do card, pedido da dona do produto em 20/11/2026) ou
  * tom="neutro" (cinza, quando o estado é só registro). No celular, o texto desce para baixo do chip.
+ * No rosa claro, o texto de apoio usa --muted-foreground com 15% de --foreground (6,1:1; o cinza puro dava 4,35:1).
  */
 function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; /** À direita (embaixo, em telas estreitas): progresso, botão ou link. Uso: cabeçalho de uma tarefa longa (21/11/2026). */ complemento?: React.ReactNode; tom?: TomDoIcone; className?: string } & Omit<React.HTMLAttributes<HTMLDivElement>, "title">) {
   return (
@@ -580,7 +585,7 @@ function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", clas
           <span aria-hidden className={cn("hidden h-10 w-px shrink-0 @md:block", tom === "marca" ? "bg-primary/20" : "bg-border")} />
           <div className="min-w-0">
             <p className={`${display} text-[0.9375rem] font-bold leading-snug text-foreground`}>{titulo}</p>
-            {texto && <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{texto}</p>}
+            {texto && <p className={cn("mt-0.5 text-[0.8125rem] leading-relaxed", tom === "marca" ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground")}>{texto}</p>}
           </div>
         </div>
         {complemento && <div className="flex shrink-0 flex-wrap items-center gap-3 @3xl:max-w-[50%]">{complemento}</div>}

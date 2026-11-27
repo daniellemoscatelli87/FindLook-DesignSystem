@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useId, useRef } from "react";
 import { VoltarAoTopo } from "../ui/voltar-ao-topo";
+import { BarraFixaDoCelular } from "../ui/barra-fixa-celular";
+import { MolduraCelular, ConteudoFalso } from "./shared/MolduraCelular";
 import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { Callout, DoDont } from "./shared/Guidance";
 import {
@@ -1281,6 +1283,37 @@ function ContactTemplate() {
 /* ─────────────────────────────────────────────
    Main export
 ───────────────────────────────────────────── */
+/* Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026). */
+function DemoBotoesFlutuantes() {
+  const { t } = useI18n();
+  const rolagem = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = rolagem.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, []);
+  return (
+    <MolduraCelular rotulo={t("Phone demo: end of a page with the action bar and Back to top", "Demonstração no celular: fim de uma página com a barra de ação e o Voltar ao topo")}>
+      {() => (
+        <>
+          <div ref={rolagem} data-cards-ignorar data-gc-ignorar className="h-full overflow-y-auto">
+            <div data-topo tabIndex={-1} className="outline-none">
+              <ConteudoFalso titulo="Diga o que procura. A gente mostra onde encontrar." texto={t("Home page content (example).", "Conteúdo da página inicial (exemplo).")} />
+            </div>
+            <ConteudoFalso titulo={t("Local stores", "Lojas locais")} texto={t("More page content (example).", "Mais conteúdo da página (exemplo).")} />
+            <footer className="mt-6 border-t border-border px-5 py-6 text-[0.75rem] leading-relaxed text-muted-foreground">
+              <p className="font-semibold text-foreground">Seu estilo por perto.</p>
+              <p className="mt-1">Privacidade · Termos de uso</p>
+              <p className="mt-1">Desenvolvido por Dani Moscatelli • Experience Design Studio</p>
+            </footer>
+            <BarraFixaDoCelular icone={<Search />} somenteCelular={false}>{t("Find pieces", "Encontrar peças")}</BarraFixaDoCelular>
+          </div>
+          <VoltarAoTopo rolagem={rolagem} focoEm="[data-topo]" />
+        </>
+      )}
+    </MolduraCelular>
+  );
+}
+
 export function TemplatesShowcase() {
   const { t, bi } = useI18n();
   return (
@@ -1323,14 +1356,25 @@ export function TemplatesShowcase() {
         </div>
         <Callout title={t("Back to top", "Voltar ao topo")}>
           {t(
-            "Component VoltarAoTopo (ui/voltar-ao-topo.tsx): round primary button, 48 px, arrow up, bottom right corner (16 px on the phone, 24 px from 640 px). It only appears at the end of the page and goes back to the top; with reduced motion the return is instant; focus goes to the main content. On pages with a phone action bar, use comBarraFixa: up to 768 px it rises to 96 px from the bottom, above the bar.",
-            "Componente VoltarAoTopo (ui/voltar-ao-topo.tsx): botão redondo primário, 48 px, seta para cima, no canto inferior direito (16 px no celular, 24 px a partir de 640 px). Só aparece no fim da página e volta ao topo; com menos movimento a volta é instantânea; o foco vai para o conteúdo principal. Em páginas com barra de ação no celular, use comBarraFixa: até 768 px ele sobe para 96 px da base, acima da barra.",
+            "Component VoltarAoTopo (ui/voltar-ao-topo.tsx): round secondary button, 48 px: white surface, border, arrow in the brand text colour and the floating shadow (--shadow-lg). It is secondary on purpose: next to the filled phone action bar, only the main action is filled. Bottom right corner (16 px on the phone, 24 px from 640 px). It only appears at the end of the page and goes back to the top; with reduced motion the return is instant; focus goes to the main content. When the page has a phone action bar, it rises on its own to sit just above it, 12 px away, counting the device safe area.",
+            "Componente VoltarAoTopo (ui/voltar-ao-topo.tsx): botão redondo secundário, 48 px: superfície branca, borda, seta na cor de texto da marca e a sombra dos elementos que flutuam (--shadow-lg). É secundário de propósito: ao lado da barra de ação do celular, que é preenchida, só a ação principal fica cheia. Fica no canto inferior direito (16 px no celular, 24 px a partir de 640 px). Só aparece no fim da página e volta ao topo; com menos movimento a volta é instantânea; o foco vai para o conteúdo principal. Quando a página tem a barra de ação do celular, ele sobe sozinho para ficar logo acima dela, a 12 px, contando a área segura do aparelho.",
           )}
         </Callout>
+        <Callout title={t("Phone action bar", "Barra de ação do celular")}>
+          {t(
+            "Component BarraFixaDoCelular (ui/barra-fixa-celular.tsx): filled 56 px pill, fixed at the bottom of the screen, that opens a drawer. It reserves the space it needs by itself, where it is placed: its height plus the device safe area (96 px on a device without one), or 160 px when the page also has Back to top. Place it at the end of the page, after the footer, and nothing at the end of the page is hidden behind it. The space stays while the drawer is open, so the page does not jump. If the bar has to sit elsewhere, use reservarEspaco={false} and put EspacoDaBarraFixa at the end of the page.",
+            "Componente BarraFixaDoCelular (ui/barra-fixa-celular.tsx): pílula preenchida de 56 px, presa na base da tela, que abre uma gaveta. Ela reserva sozinha o espaço de que precisa, no lugar onde é colocada: a altura dela mais a área segura do aparelho (96 px num aparelho sem área segura), ou 160 px quando a página também tem o Voltar ao topo. Coloque a barra no fim da página, depois do rodapé, e nada do fim da página fica escondido atrás dela. O espaço continua lá enquanto a gaveta está aberta, para a página não pular. Se a barra precisar ficar em outro lugar, use reservarEspaco={false} e ponha o EspacoDaBarraFixa no fim da página.",
+          )}
+        </Callout>
+        <div className="space-y-3">
+          <p className="text-[0.8125rem] font-semibold text-foreground">{t("Try it: end of the page on the phone", "Experimente: fim da página no celular")}</p>
+          <DemoBotoesFlutuantes />
+          <p className="mx-auto max-w-[360px] text-[0.75rem] leading-relaxed text-muted-foreground">{t("The demo starts at the end of the page. Back to top sits above the bar, and the last line of the footer stays visible above both. Tap Back to top to go up.", "A demonstração começa no fim da página. O Voltar ao topo fica acima da barra, e a última linha do rodapé continua visível acima dos dois. Toque no Voltar ao topo para subir.")}</p>
+        </div>
         <DoDont
           dos={[
-            t("Use comBarraFixa whenever the page has a fixed action bar on the phone.", "Use comBarraFixa sempre que a página tiver barra de ação fixa no celular."),
-            t("Reserve 160 px at the end of the page on the phone when there is a fixed bar (96 px when there is only the bar).", "Reserve 160 px no fim da página, no celular, quando houver barra fixa (96 px quando houver só a barra)."),
+            t("Place the phone action bar at the end of the page, after the footer: it reserves its own space.", "Coloque a barra de ação do celular no fim da página, depois do rodapé: ela reserva o próprio espaço."),
+            t("Keep Back to top secondary (white, with border): the filled button is the bar.", "Mantenha o Voltar ao topo secundário (branco, com borda): o botão preenchido é a barra."),
             t("Keep the layer order: fixed bar and Back to top at z-40, menus and drawers above them.", "Mantenha a ordem das camadas: barra fixa e Voltar ao topo em z-40, menus e gavetas acima deles."),
           ]}
           donts={[
@@ -1343,8 +1387,9 @@ export function TemplatesShowcase() {
           group: t("Floating buttons", "Botões flutuantes"),
           tokens: [
             { name: "VoltarAoTopo", description: t("Size / corner (phone · 640 px+)", "Tamanho / canto (celular · 640 px+)"), light: "48 px · 16 px · 24 px" },
-            { name: "comBarraFixa", description: t("Distance from the bottom up to 768 px", "Distância da base até 768 px"), light: "96 px (bottom-24)" },
-            { name: t("End of page (phone)", "Fim da página (celular)"), description: t("Space with fixed bar + Back to top / only the bar", "Espaço com barra fixa + Voltar ao topo / só a barra"), light: "160 px (h-40) / 96 px (h-24)" },
+            { name: "VoltarAoTopo", description: t("Surface / border / icon / shadow", "Superfície / borda / ícone / sombra"), light: "--card · --border-strong · --primary-text · --shadow-lg" },
+            { name: t("Above the bar", "Acima da barra"), description: t("Distance from the bottom when the page has the bar (automatic)", "Distância da base quando a página tem a barra (automática)"), light: "84 px + área segura além de 16 px" },
+            { name: t("End of page (automatic)", "Fim da página (automático)"), description: t("Space reserved by the bar: with Back to top / only the bar", "Espaço reservado pela barra: com Voltar ao topo / só a barra"), light: "160 px / 96 px (+ área segura)" },
             { name: "z-index", description: t("Fixed bar and Back to top", "Barra fixa e Voltar ao topo"), light: "z-40" },
           ],
         }]} />
@@ -1751,17 +1796,17 @@ function LandingTemplate() {
           <ul className="sm:hidden max-w-md mx-auto space-y-3" aria-label="Planos">
             {plans.map(p => (
               <li key={p.id} className={`rounded-lg border p-4 ${p.highlight ? "border-primary/40 bg-[var(--primary-muted)]" : "border-border bg-card"}`} style={{ boxShadow: "var(--shadow-sm)" }}>
-                {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-muted-foreground">Recomendado</span>}
+                {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">Recomendado</span>}
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className={`text-[0.9375rem] font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</h3>
-                  <span className="text-[0.75rem] text-muted-foreground">{reais(p.price)}/mês</span>
+                  <span className={`text-[0.75rem] ${p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>{reais(p.price)}/mês</span>
                 </div>
                 <ul className="mt-3 space-y-1.5">
                   {pricingFeatures.map((f, i) => {
                     const inclui = i < p.included;
                     return (
-                      <li key={f.pt} className={`flex items-start gap-2 text-[0.75rem] ${inclui ? "text-foreground" : "text-muted-foreground"}`}>
-                        {inclui ? <Check aria-hidden className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${textoMarca}`} /> : <Minus aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
+                      <li key={f.pt} className={`flex items-start gap-2 text-[0.75rem] ${inclui ? "text-foreground" : p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>
+                        {inclui ? <Check aria-hidden className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${textoMarca}`} /> : <Minus aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0" />}
                         <span>{f.pt}<span className="sr-only">{inclui ? ": incluído" : ": não incluído"}</span></span>
                       </li>
                     );
@@ -1786,9 +1831,9 @@ function LandingTemplate() {
                   <th scope="col" className="px-4 py-3 text-left text-[0.6875rem] font-semibold text-muted-foreground">Recurso</th>
                   {plans.map(p => (
                     <th key={p.id} scope="col" className={`px-3 py-3 text-center align-top ${p.highlight ? "bg-[var(--primary-muted)]" : ""}`}>
-                      {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-muted-foreground">Recomendado</span>}
+                      {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">Recomendado</span>}
                       <span className={`block text-[0.75rem] font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</span>
-                      <span className="block text-[0.6875rem] font-normal text-muted-foreground">{reais(p.price)}/mês</span>
+                      <span className={`block text-[0.6875rem] font-normal ${p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>{reais(p.price)}/mês</span>
                     </th>
                   ))}
                 </tr>

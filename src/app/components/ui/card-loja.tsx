@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { Check, Info, MapPin } from "lucide-react";
 import { cn } from "./utils";

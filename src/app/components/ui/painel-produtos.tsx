@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { ArrowRight, CheckCircle2, Clock, Ban, Bookmark, FilePen, Heart, MoreHorizontal, Search, SlidersHorizontal, X, Eye, Pencil, Copy, Trash2, Send } from "lucide-react";
 import { cn } from "./utils";

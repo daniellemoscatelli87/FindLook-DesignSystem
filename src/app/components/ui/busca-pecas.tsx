@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { AlertCircle, ChevronRight, ImagePlus, Info, Lightbulb, MessageCircleQuestion, Search, X } from "lucide-react";
 import { cn } from "./utils";

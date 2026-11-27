@@ -81,3 +81,13 @@ export function ShineBorder({
 export function BrilhoDeSelecionado({ className, ...props }: Omit<ShineBorderProps, "borderWidth" | "preset" | "shineColor">) {
   return <ShineBorder preset="primaria" borderWidth={2} duration={6} data-slot="brilho-de-selecionado" className={cn("-inset-[2px] size-auto motion-reduce:hidden", className)} {...props} />;
 }
+
+/**
+ * Moldura do card selecionável (27/11/2026): a borda que acompanha o BrilhoDeSelecionado, igual em todos os cards que
+ * se escolhem (CartaoDeEscolha, cartões de Cards › Estados e, quando selecionado, CardDePreco).
+ * Selecionado: borda de 2 px na primária (ponha o BrilhoDeSelecionado dentro do card). Não selecionado: borda neutra
+ * de 2 px (a mesma espessura, para nada pular ao selecionar) que escurece no hover.
+ */
+export function molduraDoSelecionavel(selecionado: boolean) {
+  return selecionado ? "border-2 border-primary" : "border-2 border-border hover:border-[var(--border-strong)]";
+}

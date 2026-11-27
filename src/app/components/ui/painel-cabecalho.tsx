@@ -146,7 +146,8 @@ function BannerPromocional({ titulo, texto, acao, onAcao, onFechar, imagem, clas
       {imagem && <div aria-hidden className="hidden w-28 shrink-0 items-center justify-center bg-primary/10 text-[var(--primary-text,var(--primary))] @md:flex">{imagem}</div>}
       <div className="min-w-0 flex-1 p-4 pr-12">
         <p className="text-[0.9375rem] font-bold text-foreground">{titulo}</p>
-        <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{texto}</p>
+        {/* Texto de apoio sobre o rosa claro: --muted-foreground com 15% de --foreground (6,1:1; o cinza puro dava 4,35:1). */}
+        <p className="mt-0.5 text-[0.8125rem] leading-snug text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">{texto}</p>
         <button
           type="button"
           onClick={onAcao}

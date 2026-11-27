@@ -13,6 +13,8 @@ import { Checkbox } from "@/app/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group";
 import { Switch } from "@/app/components/ui/switch";
 import { PasswordConfirm, regrasPadrao, textosPadrao } from "@/app/components/ui/password-field";
+import { GrupoDeCartoesDeEscolha, CartaoDeEscolha } from "@/app/components/ui/cartao-de-escolha";
+import { Store, CreditCard, QrCode, Barcode } from "lucide-react";
 import { LayoutGrid, List, Map as MapIcon, FileSpreadsheet, Camera } from "lucide-react";
 import { BotaoDividido, SeletorDePeriodo, periodosPadrao } from "@/app/components/ui/painel-cabecalho";
 import { SectionHeader } from "./shared/SectionHeader";
@@ -109,6 +111,9 @@ export function FormShowcase() {
   const [swA, setSwA] = useState(true);
   const [swB, setSwB] = useState(false);
   const [radio, setRadio] = useState("b");
+  const [perfil, setPerfil] = useState("consumidor");
+  const [pagamento, setPagamento] = useState("");
+  const [perfilLado, setPerfilLado] = useState("lojista");
   const [loading, setLoading] = useState(false);
   const [ultimaAcao, setUltimaAcao] = useState("Nenhuma ainda");
   const [periodo, setPeriodo] = useState("30");
@@ -273,7 +278,7 @@ export function FormShowcase() {
           <div id="password" className="scroll-mt-32" />
           <ShowcaseCard>
             <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
-              {t("Password and confirmation fields, each with a show/hide button. Strength in four bars plus a text label, calculated from the requirements met. The hint list gives each requirement a green check as soon as it is met; the icon changes shape and screen readers hear \"met\", so colour is never the only signal. The confirmation shows whether the passwords match after the person types.", "Campos de senha e de confirmação, cada um com botão de exibir/ocultar. Força em quatro barras mais um rótulo em texto, calculada pelos requisitos atendidos. A lista de dicas dá um check verde a cada requisito assim que ele é atendido; o ícone muda de forma e o leitor de tela ouve \"atendido\", então a cor nunca é o único sinal. A confirmação mostra se as senhas coincidem depois que a pessoa digita.")}
+              {t("Password and confirmation fields, each with a show/hide button. Strength in four bars plus a text label, calculated from the requirements met. The hint list shows a neutral dot, like a list bullet, on each requirement not met yet, and swaps it for the green success check as soon as it is met; the sign changes shape and screen readers hear \"met\" or \"not met\", so colour is never the only signal. Nothing in the list looks like a control: the old hollow circle looked like a radio button. The confirmation shows whether the passwords match after the person types.", "Campos de senha e de confirmação, cada um com botão de exibir/ocultar. Força em quatro barras mais um rótulo em texto, calculada pelos requisitos atendidos. A lista de dicas mostra um ponto neutro, como o de uma lista, em cada requisito ainda não atendido, e troca pelo check verde de sucesso assim que ele é atendido; o sinal muda de forma e o leitor de tela ouve \"atendido\" ou \"não atendido\", então a cor nunca é o único sinal. Nada na lista parece um controle: o círculo vazado de antes lembrava um botão de rádio. A confirmação mostra se as senhas coincidem depois que a pessoa digita.")}
             </p>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div>
@@ -386,6 +391,71 @@ const [confirmacao, setConfirmacao] = useState("");
                 <span className="text-[0.9375rem] text-foreground">{t("Disabled", "Desabilitado")}</span>
               </label>
             </RadioGroup>
+          </ShowcaseCard>
+        </SubSection>
+
+        <SubSection title="Cartões de escolha">
+          <div id="cartoes-de-escolha" className="scroll-mt-32" />
+          <ShowcaseCard>
+            <p className="mb-6 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">
+              Escolha única entre 2 a 4 opções grandes, cada uma com ícone, título e uma frase de explicação, como a primeira pergunta do cadastro. Componente <code className="text-foreground">CartaoDeEscolha</code>, sempre dentro de um <code className="text-foreground">GrupoDeCartoesDeEscolha</code>, em <code className="text-foreground">ui/cartao-de-escolha.tsx</code>. O cartão é branco com borda de 2 px; escolhido, a borda fica na cor da marca com o brilho que corre por ela, o ícone passa para a base rosa e o rádio à direita fica marcado. Clique em qualquer ponto do cartão para escolher; no teclado, as setas trocam a opção.
+            </p>
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div className="min-w-0">
+                <p id="escolha-perfil" className="mb-3 text-sm font-semibold text-foreground">Como você vai usar a FindLook?</p>
+                <GrupoDeCartoesDeEscolha aria-labelledby="escolha-perfil" value={perfil} onValueChange={setPerfil}>
+                  <CartaoDeEscolha valor="consumidor" icone={<Search />} titulo="Quero encontrar peças" descricao="Buscar, salvar e seguir lojas" />
+                  <CartaoDeEscolha valor="lojista" icone={<Store />} titulo="Tenho uma loja ou brechó" descricao="Mostrar meu catálogo" />
+                </GrupoDeCartoesDeEscolha>
+                <p className="mt-3 text-[0.75rem] text-muted-foreground">Um por linha (padrão): cada cartão usa a largura toda, o melhor arranjo no celular.</p>
+              </div>
+              <div className="min-w-0">
+                <p id="escolha-pagamento" className="mb-3 text-sm font-semibold text-foreground">Forma de pagamento</p>
+                <GrupoDeCartoesDeEscolha aria-labelledby="escolha-pagamento" value={pagamento} onValueChange={setPagamento}>
+                  <CartaoDeEscolha valor="cartao" icone={<CreditCard />} titulo="Cartão de crédito" descricao="Cobrança automática a cada período." />
+                  <CartaoDeEscolha valor="pix" icone={<QrCode />} titulo="Pix" descricao="Pagamento na hora, pelo app do banco." />
+                  <CartaoDeEscolha valor="boleto" icone={<Barcode />} titulo="Boleto" descricao="Indisponível neste plano." desabilitado />
+                </GrupoDeCartoesDeEscolha>
+                <p className="mt-3 text-[0.75rem] text-muted-foreground">Sem escolha inicial, quando nenhuma opção é a mais comum; a terceira está desabilitada e diz por quê.</p>
+              </div>
+            </div>
+            <div className="mt-8 min-w-0">
+              <p id="escolha-perfil-lado" className="mb-3 text-sm font-semibold text-foreground">Como você vai usar a FindLook?</p>
+              <GrupoDeCartoesDeEscolha aria-labelledby="escolha-perfil-lado" colunas={2} value={perfilLado} onValueChange={setPerfilLado}>
+                <CartaoDeEscolha valor="consumidor" icone={<Search />} titulo="Quero encontrar peças" descricao="Buscar, salvar e seguir lojas" />
+                <CartaoDeEscolha valor="lojista" icone={<Store />} titulo="Tenho uma loja ou brechó" descricao="Mostrar meu catálogo" />
+              </GrupoDeCartoesDeEscolha>
+              <p className="mt-3 text-[0.75rem] text-muted-foreground">A mesma pergunta com dois lado a lado (colunas=2): vale quando o espaço do grupo tem 448 px ou mais e o número de opções é par; abaixo disso, volta a um por linha.</p>
+            </div>
+            <pre className="mt-6 whitespace-pre-wrap break-words rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { GrupoDeCartoesDeEscolha, CartaoDeEscolha } from "@/app/components/ui/cartao-de-escolha";
+
+<p id="pergunta">Como você vai usar a FindLook?</p>
+<GrupoDeCartoesDeEscolha aria-labelledby="pergunta" value={perfil} onValueChange={setPerfil}>
+  <CartaoDeEscolha
+    valor="consumidor" icone={<Search />}
+    titulo="Quero encontrar peças" descricao="Buscar, salvar e seguir lojas"
+  />
+  <CartaoDeEscolha
+    valor="lojista" icone={<Store />}
+    titulo="Tenho uma loja ou brechó" descricao="Mostrar meu catálogo"
+  />
+</GrupoDeCartoesDeEscolha>
+
+// Dois lado a lado quando houver espaço: colunas={2}. Opção indisponível: desabilitado.`}</code></pre>
+            <div className="mt-6">
+              <DoDont
+                dos={[
+                  "Use para 2 a 4 opções que mudam o caminho da pessoa e pedem uma frase de explicação.",
+                  "Dê ao grupo o nome da pergunta (aria-labelledby), escrita como pergunta.",
+                  "Deixe a escolha aparecer na borda, no ícone e no rádio, nunca só na cor.",
+                ]}
+                donts={[
+                  "Não pinte o cartão escolhido de rosa: ele continua branco (o rosa fica na borda e na base do ícone).",
+                  "Não use para opções de uma ou duas palavras: aí o Controle segmentado é mais direto.",
+                  "Não monte o cartão à mão com Card, rádio e ícone: use o CartaoDeEscolha.",
+                ]}
+              />
+            </div>
           </ShowcaseCard>
         </SubSection>
 

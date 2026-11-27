@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { AlertCircle, ArrowLeft, ArrowRight, Check, Loader2, Store, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
@@ -319,7 +321,7 @@ function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, re
           {erro && (
             <Alert variant="error" className="mt-5">
               <TriangleAlert aria-hidden />
-              <AlertDescription className="mt-0 self-center">{erro}</AlertDescription>
+              <AlertDescription>{erro}</AlertDescription>
             </Alert>
           )}
           {resumoDeErros && resumoDeErros.length >= 2 && <ResumoDeErros erros={resumoDeErros} className="mt-5" />}
@@ -402,7 +404,7 @@ function LateralDaEtapa({ icone, titulo, paragrafos = [], destaque, tom = "info"
       {destaque && (
         <Alert variant={TONS_LATERAL[tom]} role="note" className="mt-4">
           {iconeDestaque}
-          <AlertDescription className="mt-0 self-center">{destaque}</AlertDescription>
+          <AlertDescription>{destaque}</AlertDescription>
         </Alert>
       )}
     </aside>

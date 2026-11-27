@@ -1,8 +1,10 @@
+"use client";
+
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { ArrowRight, Check, ChevronDown, Lightbulb, Minus, Star } from "lucide-react";
 import { cn } from "./utils";
-import { BrilhoDeSelecionado } from "./shine-border";
+import { BrilhoDeSelecionado, molduraDoSelecionavel } from "./shine-border";
 
 /**
  * Card de preço (CardDePreco), o card do template "Planos e assinatura" (Templates › Pricing), agora reaproveitável
@@ -16,8 +18,9 @@ import { BrilhoDeSelecionado } from "./shine-border";
  * Estado selecionado (Opção A, decisões da dona do produto de 27/11/2026: só a ação principal da área é preenchida):
  * o card continua branco, com a borda de 2 px na primária e o brilho animado do design system por cima dela
  * (BrilhoDeSelecionado, de ui/shine-border; parado com "menos movimento"); a ação vira um botão de contorno de 2 px
- * (a mesma espessura da borda do card) com "✓ Plano selecionado", texto --primary-text e fundo rosa nível 1 (--primary-sutil; hover dos outros no nível 2)
- * (--primary-muted). Nunca só cor: o check e o texto mudam. O plano em destaque também tem a borda de 2 px; o selo "Recomendado" usa o nível 2
+ * (a mesma espessura da borda do card) com "✓ Plano selecionado", texto --primary-text e fundo rosa nível 1 (--primary-sutil; hover
+ * dos outros no nível 2, --primary-suave). Nunca só cor: o check e o texto mudam. A borda do selecionado é a moldura
+ * comum dos cards que se escolhem (molduraDoSelecionavel, de ui/shine-border), a mesma do CartaoDeEscolha. O plano em destaque também tem a borda de 2 px; o selo "Recomendado" usa o nível 2
  * (--primary-suave).
  *
  * Seleção:
@@ -115,7 +118,8 @@ export function CardDePreco({
       data-selecionado={selecionado || undefined}
       className={cn(
         "@container relative rounded-[20px] p-4 sm:p-6 flex flex-col transition-[background-color,box-shadow] duration-[var(--duration-fast)]",
-        destaque || selecionado ? "border-2 border-primary" : "border border-border",
+        // Selecionado: a moldura comum dos cards que se escolhem (a mesma do CartaoDeEscolha e de Cards › Estados).
+        selecionado ? molduraDoSelecionavel(true) : destaque ? "border-2 border-primary" : "border border-border",
         "bg-card",
         className,
       )}

@@ -14,7 +14,7 @@ import { RadioGroup } from "../ui/radio-group";
 import { SegmentedControl } from "../ui/segmented-control";
 import { CardDePreco } from "../ui/card-de-preco";
 import { GradeDeCards } from "../ui/grade-de-cards";
-import { BrilhoDeSelecionado } from "../ui/shine-border";
+import { BrilhoDeSelecionado, molduraDoSelecionavel } from "../ui/shine-border";
 import { DivisorSuave, ItemDeAcao } from "../ui/painel-dados";
 import { plans, pricingFeatures } from "./shared/planos";
 import { ImageUpload } from "../ui/upload";
@@ -196,7 +196,7 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
     Semântica de rádio: o botão é o item do RadioGroup (role="radio", aria-checked). */
 function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { valor: string; titulo: string; descricao: string; selecionado: boolean; id?: string }) {
   return (
-    <Card className={cn("relative gap-4 border-2 transition-all", selecionado ? "border-primary" : "border-border hover:border-[var(--border-strong)]")}>
+    <Card className={cn("relative gap-4 transition-all", molduraDoSelecionavel(selecionado))}>
       {selecionado && <BrilhoDeSelecionado />}
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-[1rem] font-semibold">

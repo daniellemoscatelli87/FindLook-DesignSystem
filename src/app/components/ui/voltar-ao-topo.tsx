@@ -7,16 +7,18 @@ import { cn } from "./utils";
 /**
  * Voltar ao topo
  *
- * Botão redondo com seta para cima que aparece quando a pessoa chega ao fim da página e a leva de volta ao topo.
- * Fica fixo no canto inferior direito (mude com className, por exemplo para subir acima de um botão fixo do celular).
- * Com "menos movimento", a volta é instantânea. Ao voltar, o foco vai para o elemento de `focoEm` (por padrão, o
- * <main>), para quem usa teclado ou leitor de tela continuar do começo.
+ * Botão redondo de 48 px, secundário (superfície branca, borda, seta na cor de texto da marca e a sombra dos elementos
+ * que flutuam, --shadow-lg), que aparece quando a pessoa chega ao fim da página e a leva de volta ao topo. É secundário
+ * de propósito (27/11/2026): ao lado da barra de ação do celular, que é preenchida, só a ação principal fica cheia.
+ * Fica fixo no canto inferior direito. Quando a página tem a BarraFixaDoCelular, ele sobe sozinho para ficar logo
+ * acima dela (12 px de folga, contando a área segura do aparelho), sem cobrir o botão; a barra também reserva o espaço
+ * dos dois no fim da página. Com "menos movimento", a volta é instantânea. Ao voltar, o foco vai para o elemento de
+ * `focoEm` (por padrão, o <main>), para quem usa teclado ou leitor de tela continuar do começo.
  *
  * rolagem      — ref de um contêiner com rolagem própria (por exemplo, uma janela de demonstração); sem ela, usa a página.
  * limiar       — distância, em px, do fim da rolagem a partir da qual o botão aparece.
- * comBarraFixa — a página tem uma barra de ação fixa no rodapé do celular (por exemplo, "Encontrar peças"): até 768 px,
- *                o botão sobe para ficar acima dela (96 px da base). A página reserva 160 px no fim do conteúdo, no
- *                celular, para nada do rodapé ficar por baixo dos dois (padrão Botões flutuantes, 16/11/2026).
+ * comBarraFixa — não é mais necessário (a posição acima da barra é automática); continua aceito e força a posição
+ *                acima da barra até 768 px.
  */
 export type VoltarAoTopoProps = {
   rolagem?: React.RefObject<HTMLElement | null>;
@@ -70,8 +72,10 @@ export function VoltarAoTopo({ rolagem, limiar = 160, rotulo = "Voltar ao topo",
       tabIndex={visivel ? undefined : -1}
       onClick={subir}
       className={cn(
-        "fixed right-4 bottom-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-lg)] transition-[opacity,translate,background-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 motion-reduce:transition-none sm:right-6 sm:bottom-6",
-        comBarraFixa && "bottom-24 sm:bottom-24 md:bottom-6",
+        "fixed right-4 bottom-4 z-40 inline-flex size-12 items-center justify-center rounded-full border border-[var(--border-strong)] bg-card text-primary-text shadow-[var(--shadow-lg)] transition-[opacity,translate,background-color,bottom] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none sm:right-6 sm:bottom-6",
+        // Acima da barra de ação do celular (BarraFixaDoCelular): faixa de 12 + 56 px + base (16 px ou a área segura).
+        "max-md:[body:has([data-slot=barra-fixa-celular])_&]:bottom-[calc(4.25rem+max(1rem,env(safe-area-inset-bottom)))] [body:has([data-slot=barra-fixa-celular][data-somente-celular=nao])_&]:bottom-[calc(4.25rem+max(1rem,env(safe-area-inset-bottom)))]",
+        comBarraFixa && "max-md:bottom-[calc(4.25rem+max(1rem,env(safe-area-inset-bottom)))]",
         visivel ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0",
         className,
       )}

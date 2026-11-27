@@ -158,7 +158,7 @@ export function AlertaComAcaoDoc() {
         <DoDont
           dos={[
             "Coloque as ações embaixo do texto, nunca ao lado.",
-            "Use uma só ação principal, de contorno (BotaoDoAlerta), na cor do estado.",
+            "Use uma só ação principal, de contorno (BotaoDoAlerta), na cor do estado. Ela tem a altura dos botões do design system (40 px), com o texto de 14 px do alerta.",
             "Se precisar de uma segunda ação, use o link (LinkDoAlerta).",
             "Destaque com <strong> só o que a pessoa precisa ver: seminegrito, na cor do texto principal.",
             "Use role=\"alert\" em aviso e erro e role=\"status\" em info e sucesso (o componente já faz isso).",
