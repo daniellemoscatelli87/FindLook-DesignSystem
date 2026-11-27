@@ -20,6 +20,7 @@ import { IconeModa } from "../ui/fashion-icons";
 import { UploadDropzone, UploadList, type UploadFile } from "../ui/upload";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* ─────────────────────────────────────────────
    Dados de exemplo do painel da loja
@@ -399,15 +400,15 @@ function PaginaInicio() {
         {banner && <BannerPromocional titulo="Destaque sua coleção" texto="Deixe sua vitrine ainda mais atrativa com fotos de alta qualidade." acao="Ver dicas de foto" imagem={<IconeModa nome="cabide" size={44} />} onFechar={() => setBanner(false)} />}
       </div>
 
-      <div className="grid grid-cols-1 gap-3 @lg:grid-cols-2 @min-[44rem]:grid-cols-3 @6xl:grid-cols-5">
+      <GradeDeCards className="gap-3 @lg:grid-cols-2 @min-[44rem]:grid-cols-3 @6xl:grid-cols-5">
         <CardIndicador icone={<Shirt />} valor={128} rotulo="Produtos publicados" variacao={12} comparacao="vs. 30 dias" />
         <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
         <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
         <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja, como “calça jeans wide leg”." />
         <CardIndicador icone={<MessageCircle />} valor={6} rotulo="Contatos e reservas" variacao={50} comparacao="vs. 30 dias" />
-      </div>
+      </GradeDeCards>
 
-      <div className="grid gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.85fr)]">
+      <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.85fr)]">
         <CardDoPainel icone={<LineChart />} titulo="Desempenho da descoberta" descricao="Visualizações, favoritos e contatos da sua loja.">
           <div className="mb-2 flex flex-wrap items-baseline gap-2">
             <span className="font-[family-name:var(--font-display)] text-[1.75rem] font-extrabold leading-none text-foreground">{formatarNumero(1284)}</span>
@@ -432,11 +433,11 @@ function PaginaInicio() {
             <ItemDeAtividade icone={<Upload />} titulo="Planilha importada" detalhe="12 peças atualizadas" quando="há 2 h" />
           </ul>
         </CardDoPainel>
-      </div>
+      </GradeDeCards>
 
       <div className="grid gap-4 @6xl:grid-cols-[minmax(0,1fr)_22rem]">
         <TabelaDeProdutos titulo="Seus produtos" descricao="Gerencie, edite e acompanhe o desempenho das suas peças." produtos={produtosExemplo} total={137} contagens={contagensExemplo} limite={4} onVerTodos={() => ir("produtos")} />
-        <div className="grid gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
+        <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
           <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
             <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
             <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-md border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-[var(--primary-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
@@ -448,10 +449,10 @@ function PaginaInicio() {
               <ItemDeAcao onClick={irPara(ir, "produtos")} midia={<Ruler />} titulo="Cadastre os tamanhos" descricao="3 peças sem variação de tamanho." />
             </div>
           </CardDoPainel>
-        </div>
+        </GradeDeCards>
       </div>
 
-      <div className="grid gap-4 @min-[44rem]:grid-cols-2">
+      <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2">
         <CardDoPainel icone={<ShieldCheck />} titulo="Saúde do catálogo" descricao="Veja o que pode ser melhorado para aumentar a sua visibilidade.">
           <div className="@container">
             <div className="flex flex-col items-center gap-4 @md:flex-row">
@@ -476,7 +477,7 @@ function PaginaInicio() {
             <p className="text-[0.8125rem] text-muted-foreground">Você fechou as dicas. <button type="button" onClick={() => setDicas(true)} className="font-semibold text-[var(--primary-text,var(--primary))] underline underline-offset-2">Mostrar de novo</button></p>
           )}
         </CardDoPainel>
-      </div>
+      </GradeDeCards>
 
       <FaixaDeBeneficios icone={<Sparkles />} titulo="Mais visibilidade, mais oportunidades." texto="Suas peças são mostradas para pessoas que procuram exatamente o seu estilo." beneficios={[
         { icone: <Search />, rotulo: "Descoberta de peças" }, { icone: <MapPin />, rotulo: "Clientes da sua região" }, { icone: <Zap />, rotulo: "Gestão simples" }, { icone: <TrendingUp />, rotulo: "Mais oportunidades de venda" },
@@ -497,12 +498,12 @@ function PaginaProdutos() {
           <BotaoDividido rotulo="Cadastrar produto" icone={<Plus />} acoes={[{ rotulo: "Cadastrar produto", icone: <Plus /> }, { rotulo: "Cadastrar com fotos", icone: <ImagePlus /> }]} />
         </>}
       />
-      <div className="grid grid-cols-2 gap-3 @min-[44rem]:grid-cols-4">
+      <GradeDeCards className="grid-cols-2 gap-3 @min-[44rem]:grid-cols-4">
         <CardIndicador icone={<Shirt />} valor={128} rotulo="Publicados" variacao={12} />
         <CardIndicador icone={<ClipboardList />} valor={6} rotulo="Pendentes" explicacao="Peças com alguma informação faltando ou foto em baixa qualidade. Elas só aparecem na vitrine depois de revisadas." />
         <CardIndicador icone={<Boxes />} valor={3} rotulo="Esgotados" />
         <CardIndicador icone={<Bell />} valor={2} rotulo="Reservados" />
-      </div>
+      </GradeDeCards>
       <TabelaDeProdutos titulo="Todos os produtos" descricao="Selecione peças para publicar, marcar como esgotadas ou excluir de uma vez." produtos={produtosExemplo} total={137} contagens={contagensExemplo} />
     </>
   );
@@ -539,12 +540,12 @@ function PaginaBuscas() {
   return (
     <>
       <CabecalhoDaPagina titulo="Buscas e interesse" descricao="O que as pessoas da sua região estão procurando e como isso combina com as peças da sua loja." />
-      <div className="grid grid-cols-1 gap-3 @lg:grid-cols-3">
+      <GradeDeCards className="gap-3 @lg:grid-cols-3">
         <CardIndicador icone={<ScanSearch />} valor={8} rotulo="Buscas compatíveis" explicacao="Buscas feitas por pessoas da sua região que combinam com peças da sua loja." />
         <CardIndicador icone={<Eye />} valor={1284} rotulo="Visualizações" variacao={18.6} comparacao="vs. 30 dias" />
         <CardIndicador icone={<Heart />} valor={24} rotulo="Favoritos" variacao={33.3} comparacao="vs. 30 dias" />
-      </div>
-      <div className="grid gap-4 @min-[44rem]:grid-cols-2">
+      </GradeDeCards>
+      <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2">
         <CardDoPainel icone={<Target />} titulo="Buscas em alta na sua região" descricao="Variação em relação aos 30 dias anteriores.">
           <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }, { termo: "Bolsa de palha", variacao: 21 }, { termo: "Tênis branco", variacao: -8 }]} />
         </CardDoPainel>
@@ -555,7 +556,7 @@ function PaginaBuscas() {
             <ItemDeAtividade icone={<IconeModa nome="saia" size={16} />} titulo="Saia de linho" detalhe="“saia linho midi” · 3 ocorrências" quando="há 3 h" />
           </ul>
         </CardDoPainel>
-      </div>
+      </GradeDeCards>
     </>
   );
 }
@@ -568,7 +569,7 @@ function PaginaInteligencia() {
       <CardDoPainel icone={<LineChart />} titulo="Desempenho da descoberta" descricao="Ligue e desligue as séries para comparar.">
         <GraficoDeDesempenho dados={dadosDesempenho} chaveX="dia" series={seriesGrafico} altura={260} />
       </CardDoPainel>
-      <div className="grid gap-4 @min-[44rem]:grid-cols-2">
+      <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2">
         <CardDoPainel icone={<Sparkles />} titulo="Insights para sua loja">
           <div className="space-y-2">
             <ItemDeAcao onClick={irPara(ir, "buscas")} midia={<IconeModa nome="vestido" size={24} />} titulo="Vestidos midi estão em alta" descricao="+62% de buscas na sua região." />
@@ -582,7 +583,7 @@ function PaginaInteligencia() {
             <ItemDeAcao onClick={irPara(ir, "produtos")} midia={<Ruler />} titulo="Cadastre os tamanhos" descricao="3 peças sem variação de tamanho." />
           </div>
         </CardDoPainel>
-      </div>
+      </GradeDeCards>
     </>
   );
 }

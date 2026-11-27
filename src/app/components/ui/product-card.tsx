@@ -4,6 +4,7 @@ import { cn } from "./utils";
 import { Button } from "./button";
 import { Selo } from "./selo";
 import { IconeModa, type NomeIconeModa } from "./fashion-icons";
+import { useOrientacaoDoCard } from "./grade-de-cards";
 
 /**
  * ProductCard (card de peça)
@@ -18,7 +19,8 @@ import { IconeModa, type NomeIconeModa } from "./fashion-icons";
  * Escassez: `quantidade <= estoque.poucasAte` (padrão 3) mostra a tag na primária ("Só 2 restantes" /
  * "Última peça") e a contagem na primária. Esgotada (0): imagem e textos em preto e branco, só o favorito
  * e o botão coloridos, botão "Avise-me" com sino.
- * `orientation="horizontal"`: imagem à esquerda, conteúdo à direita (listas e resultados em linha).
+ * `orientation="horizontal"`: imagem à esquerda, conteúdo à direita (listas e resultados em linha). Sem orientation, segue a
+ * GradeDeCards: horizontal quando a grade virou lista (regra da dona do produto, 27/11/2026).
  * Desconto: `precoAntigo` mostra o preço anterior riscado, na primária, acima do atual; o percentual "-N%" fica ao lado do atual.
  * Ações: "Ver peça" (primária, com chevron) ou, esgotada, "Avise-me" (contorno na primária, com sino).
  */
@@ -55,11 +57,13 @@ const formatarPreco = (v: number | string) =>
   typeof v === "number" ? v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : v;
 
 export function ProductCard({
-  nome, loja, estilo, preco, precoAntigo, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, compacto = false, orientation = "vertical", className, ...props
+  nome, loja, estilo, preco, precoAntigo, novo = false, imagem, icone = "camiseta", favorito = false, onFavoritar, estoque, cta, compacto = false, orientation: orientacaoFixa, className, ...props
 }: ProductCardProps) {
   const [fav, setFav] = React.useState(favorito);
   React.useEffect(() => setFav(favorito), [favorito]);
   const toggle = () => { const v = !fav; setFav(v); onFavoritar?.(v); };
+  const daGrade = useOrientacaoDoCard();
+  const orientation = orientacaoFixa ?? daGrade ?? "vertical";
   const horizontal = orientation === "horizontal";
   const poucasAte = estoque.poucasAte ?? 3;
   const escasso = estoque.quantidade > 0 && estoque.quantidade <= poucasAte;

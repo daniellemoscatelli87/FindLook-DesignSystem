@@ -13,6 +13,7 @@ import {
   Pizza, Waffle, Piramide, Dispersao, MatrizDeCorrelacao, Radar, CoordenadasParalelas, Sankey, RedeDeConexoes,
   Histograma, BoxPlot, Violino, Densidade, MapaDePontos, MapaDeBolhas, resumoDaDistribuicao,
 } from "../ui/graficos-catalogo";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* Gráficos e visualizações (19/11/2026). Todos os números desta página são dados de exemplo, fictícios:
    nenhum descreve lojas, bairros ou buscas reais. */
@@ -301,7 +302,7 @@ function SecaoCores() {
 
       <div className="mt-6">
         <Rotulo>Exemplos aplicados</Rotulo>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <GradeDeCards className="gap-4 md:grid-cols-2">
           <Cartao>
             <p className="text-[0.875rem] font-semibold text-foreground">Barras por importância</p>
             <p className="mb-4 text-[0.75rem] text-muted-foreground">A a E nos tons 1, 2, 3, 4 e 5, em sequência (dados de exemplo).</p>
@@ -322,7 +323,7 @@ function SecaoCores() {
             <p className="mb-4 text-[0.75rem] text-muted-foreground">Do cinza (valor baixo) ao rosa (valor alto), nos tons 6, 4, 2 e 1 (dados de exemplo).</p>
             <MapaDeCalorMatricial rotulo="Escala contínua (dados de exemplo)" {...EX_ESCALA} rotuloLinhas="Período" rotulos={{ menos: "Baixo", mais: "Alto" }} />
           </Cartao>
-        </div>
+        </GradeDeCards>
       </div>
 
       <Cartao className="mt-6">
@@ -344,7 +345,7 @@ function SecaoCores() {
           <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Áreas:</span> linha fina na cor da série e preenchimento em degradê transparente.</p>
         </div>
       </Cartao>
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <GradeDeCards className="mt-4 gap-4 md:grid-cols-2">
         <Cartao>
           <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><Check aria-hidden className="h-4 w-4 text-success" />Assim: importância em ordem, Outros em cinza</p>
           <BarrasEmpilhadas100 rotulo="Exemplo correto" categorias={[{ rotulo: "Vestidos" }, { rotulo: "Calças" }, { rotulo: "Camisas" }, { rotulo: "Outras", neutro: true }]} linhas={[{ rotulo: "Peças buscadas", valores: [34, 26, 16, 24] }]} />
@@ -359,7 +360,7 @@ function SecaoCores() {
           </div>
           <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted-foreground">Com tons intensos em todas as partes, nada se destaca e o olho não sabe por onde começar; "Outros" parece tão importante quanto o resto. Sem rótulos, a cor carrega o significado sozinha.</p>
         </Cartao>
-      </div>
+      </GradeDeCards>
       <div className="mt-4">
         <DoDont
           dos={[
@@ -671,7 +672,7 @@ function Familia({ id, icone: Icone, nome, descricao, children }: { id: string; 
           <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{descricao}</p>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">{children}</div>
+      <GradeDeCards className="gap-4 lg:grid-cols-2">{children}</GradeDeCards>
     </div>
   );
 }
@@ -841,7 +842,7 @@ export function GraficosShowcase() {
             </li>
           ))}
         </ol>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <GradeDeCards className="gap-4 md:grid-cols-2 xl:grid-cols-3">
           {FAMILIAS.map(f => (
             <Cartao key={f.nome}>
               <div className="mb-3 flex items-center gap-3">
@@ -855,7 +856,7 @@ export function GraficosShowcase() {
               <p className="mt-3 text-[0.75rem] text-muted-foreground"><span className="font-semibold text-foreground">No DS:</span> {f.ds}</p>
             </Cartao>
           ))}
-        </div>
+        </GradeDeCards>
         <div className="mt-8">
           <Rotulo>Recomendados para a FindLook</Rotulo>
           <TabelaQueQuebra head={["Pergunta", "Gráfico", "Componente"]} rows={RECOMENDACOES} />
@@ -871,7 +872,7 @@ export function GraficosShowcase() {
           title="Rosca"
           description="A rosca continua, redesenhada no traço do DS: anel fino, partes nos tons por importância da maior para a menor (a maior no tom 1), Outros em cinza no fim, percentual escrito junto de cada parte e o total no centro. Exemplo com os mesmos números da Composição do comércio de moda do admin (dados de exemplo)."
         />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <GradeDeCards className="gap-4 lg:grid-cols-2">
           <Cartao>
             <Rotulo>Antes</Rotulo>
             <h3 className="mb-4 text-[0.9375rem] font-bold text-foreground">Composição do comércio de moda</h3>
@@ -907,7 +908,7 @@ export function GraficosShowcase() {
               ].map(p => <li key={p} className="flex gap-2"><Check aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success" />{p}</li>)}
             </ul>
           </Cartao>
-        </div>
+        </GradeDeCards>
         <div className="mt-4">
           <Callout title="Quando usar a rosca">
             <p>Para mostrar a participação de poucas partes (até 5) num todo, quando uma delas é a descoberta. Para comparar muitas partes ou várias regiões, prefira barras 100% ou o mosaico. Proporção não é quantidade: diga fatia, parte ou participação.</p>
@@ -921,7 +922,7 @@ export function GraficosShowcase() {
           title="Gráficos recomendados"
           description="Os 10 gráficos recomendados para a inteligência da FindLook, cada um dentro do card de descoberta: conclusão, gráfico, por que importa e próximo passo. Textos, lojas, bairros e números são dados de exemplo."
         />
-        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+        <GradeDeCards className="gap-4 xl:grid-cols-2">
           <div id="graficos-barras" className="min-w-0 scroll-mt-32">
             <DescobertaVisual
               tema="O que mais procuram" selo={SELO}
@@ -1066,7 +1067,7 @@ export function GraficosShowcase() {
               <Funil rotulo="Jornada da busca até o contato (dados de exemplo)" etapas={JORNADA} />
             </DescobertaVisual>
           </div>
-        </div>
+        </GradeDeCards>
       </section>
 
       {/* ── CATÁLOGO COMPLETO ── */}
@@ -1191,7 +1192,7 @@ export function GraficosShowcase() {
       {/* ── ACESSIBILIDADE ── */}
       <section id="graficos-acessibilidade" className="scroll-mt-32">
         <SectionHeader title="Acessibilidade" description="O gráfico precisa ser entendido sem a cor, sem o mouse e sem enxergar a tela." />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <GradeDeCards className="gap-4 lg:grid-cols-2">
           <Callout title="Checklist">
             <ul className="list-disc space-y-1 pl-5">
               <li>Todo gráfico tem título com a conclusão e um nome acessível (role="img" com aria-label que resume os dados). O mapa de calor em matriz é uma tabela de verdade.</li>
@@ -1209,7 +1210,7 @@ export function GraficosShowcase() {
               <li>Realce ao passar o cursor é extra: a mesma informação está escrita no gráfico ou na tabela.</li>
             </ul>
           </Callout>
-        </div>
+        </GradeDeCards>
       </section>
     </div>
   );

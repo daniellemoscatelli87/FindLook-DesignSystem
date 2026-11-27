@@ -4,6 +4,7 @@ import { Check, ChevronRight, Image, LayoutPanelTop, MousePointer2, ShieldCheck,
 import { useI18n } from "../../i18n";
 import {
   Card,
+  CardMidia,
   CardAction,
   CardContent,
   CardDescription,
@@ -12,6 +13,11 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
+import { GradeDeCards, ItemDaGrade, LIMITE_DE_DIFERENCA, type LayoutDaGrade } from "../ui/grade-de-cards";
+import { Switch } from "../ui/switch";
+import { Label } from "../ui/label";
+import { Badge } from "../ui/badge";
+import { Columns2, Rows2 } from "lucide-react";
 import { ShineBorder } from "../ui/shine-border";
 import { PartnerCard } from "../ui/partner-card";
 import { ProductCard } from "../ui/product-card";
@@ -295,17 +301,17 @@ function GlassFinishPicker() {
       </div>
       <CenaDeTesteCtx.Provider value={cena}>
       <CenaDoVidro>
-        <div className="grid gap-5 md:grid-cols-2 items-start">
+        <GradeDeCards className="gap-5 md:grid-cols-2">
           <GlassTestCard finish={finish} tone={tone} intensity={intensity} opacity={opacidade ?? undefined} blur={desfoque ?? undefined} interactive eyebrow={"Brechó · 1,2 km"} title={"Garimpo da Lu"} subtitle={"Vintage, jeans e acessórios. Aberto até as 19h."} cta={"Ver loja"} />
           <GlassTestCard finish={finish} tone={tone} intensity={intensity} opacity={opacidade ?? undefined} blur={desfoque ?? undefined} tint title={current.label} subtitle={current.desc} />
-        </div>
+        </GradeDeCards>
       </CenaDoVidro>
       <CenaDoVidro className="p-4 sm:p-5">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <GradeDeCards className="gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {finishes.map(x => (
             <GlassTestCard key={x.value} compact finish={x.value} intensity="media" title={x.label} subtitle={`finish="${x.value}"`} />
           ))}
-        </div>
+        </GradeDeCards>
       </CenaDoVidro>
       </CenaDeTesteCtx.Provider>
     </div>
@@ -393,6 +399,92 @@ function CardPorFundo({ fundo }: { fundo: FundoSolido }) {
 
 /** Foto de exemplo para os cards com imagem (a mesma do Header e menus). */
 const FOTO = { src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=70&auto=format&fit=crop", alt: { en: "Clothing store with racks and shelves", pt: "Loja de roupas com araras e prateleiras" } };
+/* ── Mesma altura, ou um por linha (regra da dona do produto, 27/11/2026) ── */
+/** Dois cards lado a lado; o interruptor põe muito conteúdo no segundo e a GradeDeCards troca para um por linha. */
+function DemoMesmaAltura() {
+  const { t } = useI18n();
+  const [mais, setMais] = useState(false);
+  const [layout, setLayout] = useState<LayoutDaGrade>("grade");
+  const id = React.useId();
+  const itens = [
+    t("Oversized denim jacket", "Jaqueta jeans oversized"),
+    t("Floral midi dress", "Vestido midi floral"),
+    t("Leather ankle boots", "Bota de couro cano curto"),
+    t("Linen shirt", "Camisa de linho"),
+    t("Knit cardigan", "Cardigã de tricô"),
+  ];
+  return (
+    <Panel className="p-4 sm:p-6">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <Switch id={id} checked={mais} onCheckedChange={setMais} />
+          <Label htmlFor={id} className="text-[0.875rem]">{t("Much more content in the second card", "Muito mais conteúdo no segundo card")}</Label>
+        </div>
+        <Badge variant="outline" role="status" className="gap-1.5 px-2.5 py-1 text-[0.75rem]">
+          {layout === "grade" ? <Columns2 aria-hidden /> : <Rows2 aria-hidden />}
+          {layout === "grade" ? t("Side by side · same height", "Lado a lado · mesma altura") : t("One per row · horizontal cards", "Um por linha · cards horizontais")}
+        </Badge>
+      </div>
+      <GradeDeCards data-demo="mesma-altura" colunas={{ base: 1, md: 2 }} onLayoutChange={setLayout}>
+        <Card className="border-border">
+          <CardMidia tipo="icone"><Search /></CardMidia>
+          <CardHeader>
+            <CardTitle className={`${display} text-[1rem] font-semibold`}>{t("Matching searches", "Buscas compatíveis")}</CardTitle>
+            <CardDescription className="text-[0.8125rem] leading-relaxed">{t("People who looked for pieces like yours this week.", "Pessoas que procuraram peças parecidas com as suas nesta semana.")}</CardDescription>
+          </CardHeader>
+          <CardFooter><Button variant="outline" size="sm">{t("See searches", "Ver buscas")}</Button></CardFooter>
+        </Card>
+        <Card className="border-border">
+          <CardMidia tipo="icone"><TrendingUp /></CardMidia>
+          <CardHeader>
+            <CardTitle className={`${display} text-[1rem] font-semibold`}>{t("Trending pieces", "Peças em alta")}</CardTitle>
+            <CardDescription className="text-[0.8125rem] leading-relaxed">{t("The pieces with the most visits and favourites.", "As peças com mais visitas e favoritos.")}</CardDescription>
+          </CardHeader>
+          {mais && (
+            <CardContent>
+              <ol className="space-y-2 text-[0.8125rem] text-foreground">
+                {itens.map((x, i) => (
+                  <li key={x} className="flex items-center gap-3"><span className="w-4 text-right font-semibold text-muted-foreground">{i + 1}</span>{x}</li>
+                ))}
+              </ol>
+            </CardContent>
+          )}
+          <CardFooter><Button size="sm">{t("See pieces", "Ver peças")}<ChevronRight /></Button></CardFooter>
+        </Card>
+      </GradeDeCards>
+    </Panel>
+  );
+}
+
+/** Exemplo certo ou errado: selo com ícone e texto, a frase e o exemplo. */
+function ExemploDeAltura({ certo, titulo, children }: { certo: boolean; titulo: string; children: React.ReactNode }) {
+  const { t } = useI18n();
+  return (
+    <div className="min-w-0">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <Badge variant="outline" className={cn("gap-1 px-2 py-0.5", certo ? "text-[var(--success-text,var(--success))]" : "text-[var(--error-text,var(--destructive))]")}>
+          {certo ? <Check aria-hidden /> : <X aria-hidden />}{certo ? t("Correct", "Certo") : t("Incorrect", "Errado")}
+        </Badge>
+        <p className="text-[0.8125rem] text-muted-foreground">{titulo}</p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+/** Card pequeno dos exemplos certo e errado. */
+function CardDeExemplo({ titulo, texto, acao }: { titulo: string; texto: string; acao: string }) {
+  return (
+    <Card className="gap-3 border-border">
+      <CardHeader className="px-4 pt-4">
+        <CardTitle className={`${display} text-[0.875rem] font-semibold`}>{titulo}</CardTitle>
+        <CardDescription className="text-[0.75rem] leading-relaxed">{texto}</CardDescription>
+      </CardHeader>
+      <CardFooter className="px-4 pb-4"><Button variant="outline" size="sm">{acao}</Button></CardFooter>
+    </Card>
+  );
+}
+
 
 export function CardShowcase() {
   const { t, bi } = useI18n();
@@ -511,7 +603,7 @@ export function CardShowcase() {
             "Cards agrupam informações e ações relacionadas em uma superfície fácil de escanear. Use uma hierarquia clara e inclua apenas elementos da mesma tarefa ou assunto.",
           )}
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+        <GradeDeCards className="gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <SpecCard
             title={t("Workspace activity", "Atividade do workspace")}
             description={t("A concise description establishes context before the main content.", "Uma descrição concisa estabelece o contexto antes do conteúdo principal.")}
@@ -545,7 +637,7 @@ export function CardShowcase() {
               [t("Footer", "Rodapé"), t("Contains metadata or actions related to the whole card.", "Contém metadados ou ações relacionadas ao card inteiro.")],
             ]}
           />
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="card-fundos" className="scroll-mt-32">
@@ -556,11 +648,11 @@ export function CardShowcase() {
             "O mesmo card do modo claro nos três fundos em que o card sólido é usado. Card direto sobre o fundo da página é sempre Só borda, no branco ou no cinza. Sobre fundo escuro (não é o tema escuro), o card branco fica sem borda e ganha sombra forte.",
           )}
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div><Rotulo>{t("White background", "Fundo branco")}</Rotulo><CardPorFundo fundo="branco" /></div>
-          <div><Rotulo>{t("Light grey background", "Fundo cinza claro")}</Rotulo><CardPorFundo fundo="cinza" /></div>
-          <div><Rotulo>{t("Dark background (light mode)", "Fundo escuro (modo claro)")}</Rotulo><CardPorFundo fundo="escuro" /></div>
-        </div>
+        <GradeDeCards className="gap-4 md:grid-cols-3">
+          <ItemDaGrade><Rotulo>{t("White background", "Fundo branco")}</Rotulo><CardPorFundo fundo="branco" /></ItemDaGrade>
+          <ItemDaGrade><Rotulo>{t("Light grey background", "Fundo cinza claro")}</Rotulo><CardPorFundo fundo="cinza" /></ItemDaGrade>
+          <ItemDaGrade><Rotulo>{t("Dark background (light mode)", "Fundo escuro (modo claro)")}</Rotulo><CardPorFundo fundo="escuro" /></ItemDaGrade>
+        </GradeDeCards>
       </section>
 
       <section id="card-layout" className="scroll-mt-32">
@@ -569,7 +661,7 @@ export function CardShowcase() {
           description={t("When each card gets a border or a shadow, and which radius to use. Card dimensions respond to the parent grid; prefer consistent internal spacing over fixed heights.", "Quando o card tem borda ou sombra e qual raio usar. As dimensões respondem ao grid pai; prefira espaçamento interno consistente a alturas fixas.")}
         />
         <div className="space-y-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <GradeDeCards className="gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { nome: t("Border only", "Só borda"), quando: t("Resting card directly on the page background, white or light grey (always).", "Card parado direto sobre o fundo da página, branco ou cinza claro (sempre)."), cls: "border border-border", sombra: undefined },
               { nome: t("Fading divider", "Divisor suave"), quando: t("Separates the card header from the content; fades out at the sides (DivisorSuave).", "Separa o cabeçalho do card do conteúdo; some nas laterais (DivisorSuave)."), cls: "border border-border", sombra: undefined, divisor: true },
@@ -582,8 +674,8 @@ export function CardShowcase() {
                 <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted-foreground">{x.quando}</p>
               </div>
             ))}
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          </GradeDeCards>
+          <GradeDeCards className="gap-4 sm:grid-cols-3">
             {[
               { raio: "rounded-xl", valor: "24 px · rounded-xl", uso: t("Default card, lists, forms and data.", "Card padrão, listas, formulários e dados.") },
               { raio: "rounded-lg", valor: "16 px", uso: t("Media, highlight and partner cards.", "Cards com mídia, de destaque e de convite.") },
@@ -594,8 +686,8 @@ export function CardShowcase() {
                 <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted-foreground">{x.uso}</p>
               </div>
             ))}
-          </div>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          </GradeDeCards>
+          <GradeDeCards className="gap-5 lg:grid-cols-2">
             <Panel className="p-5">
               <SubTitle>{t("Default specification", "Especificação padrão")}</SubTitle>
               <div className="space-y-3 text-[0.8125rem]">
@@ -626,7 +718,7 @@ export function CardShowcase() {
                 <li>{t("Galleries and chips: a grid that wraps, never a row that scrolls.", "Galerias e chips: grade que quebra de linha, nunca uma fila que rola.")}</li>
               </ul>
             </Callout>
-          </div>
+          </GradeDeCards>
         </div>
       </section>
 
@@ -635,31 +727,105 @@ export function CardShowcase() {
           title={t("Vertical and horizontal", "Vertical e horizontal")}
           description={t("Vertical for grids of 2 to 4 columns; horizontal for lists and full-width bands. On phones, the horizontal card becomes vertical.", "Vertical para grids de 2 a 4 colunas; horizontal para listas e faixas de largura inteira. No celular, o card horizontal vira vertical.")}
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-          <div>
+        <GradeDeCards className="gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+          <ItemDaGrade>
             <Rotulo>{t("Vertical", "Vertical")}</Rotulo>
-            <Card className="gap-0 overflow-hidden rounded-lg border-border">
-              <img src={FOTO.src} alt={bi(FOTO.alt)} className="h-40 w-full object-cover" />
-              <CardHeader className="pt-5">
+            <Card orientacao="vertical" className="overflow-hidden rounded-lg border-border">
+              <CardMidia><img src={FOTO.src} alt={bi(FOTO.alt)} /></CardMidia>
+              <CardHeader>
                 <CardTitle className={`${display} text-[1rem] font-semibold`}>{"Garimpo da Lu"}</CardTitle>
                 <CardDescription>{"Vintage, jeans e acessórios. Aberto até as 19h."}</CardDescription>
               </CardHeader>
-              <CardFooter className="pt-5"><Button variant="outline" size="sm">{"Ver loja"}</Button></CardFooter>
+              <CardFooter><Button variant="outline" size="sm">{"Ver loja"}</Button></CardFooter>
             </Card>
-          </div>
-          <div>
+          </ItemDaGrade>
+          <ItemDaGrade>
             <Rotulo>{t("Horizontal", "Horizontal")}</Rotulo>
-            <Card className="gap-0 overflow-hidden rounded-lg border-border sm:flex-row">
-              <img src={FOTO.src} alt={bi(FOTO.alt)} className="h-40 w-full object-cover sm:h-auto sm:w-2/5" />
-              <div className="flex flex-1 flex-col justify-center gap-4 p-6">
-                <div>
-                  <CardTitle className={`${display} text-[1rem] font-semibold`}>{"Garimpo da Lu"}</CardTitle>
-                  <CardDescription className="mt-1.5">{"Vintage, jeans e acessórios. Aberto até as 19h."}</CardDescription>
-                </div>
-                <Button variant="outline" size="sm" className="self-start">{"Ver loja"}</Button>
-              </div>
+            <Card orientacao="horizontal" className="overflow-hidden rounded-lg border-border">
+              <CardMidia><img src={FOTO.src} alt={bi(FOTO.alt)} /></CardMidia>
+              <CardHeader>
+                <CardTitle className={`${display} text-[1rem] font-semibold`}>{"Garimpo da Lu"}</CardTitle>
+                <CardDescription>{"Vintage, jeans e acessórios. Aberto até as 19h."}</CardDescription>
+              </CardHeader>
+              <CardFooter><Button variant="outline" size="sm">{"Ver loja"}</Button></CardFooter>
             </Card>
+          </ItemDaGrade>
+        </GradeDeCards>
+        <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted-foreground">{t("Same Card, same parts: orientacao=\"horizontal\" puts the CardMidia on the left, the header and content in the middle and the footer on the right. Inside a GradeDeCards that became a list, the Card turns horizontal on its own.", "O mesmo Card, as mesmas partes: orientacao=\"horizontal\" põe a CardMidia à esquerda, o cabeçalho e o conteúdo no meio e o rodapé à direita. Dentro de uma GradeDeCards que virou lista, o Card fica horizontal sozinho.")}</p>
+      </section>
+
+      <section id="card-mesma-altura" className="scroll-mt-32">
+        <SectionHeader
+          title={t("Same height, or one per row", "Mesma altura, ou um por linha")}
+          description={t(
+            "Rule of the product owner (27/11/2026): cards side by side never have different heights. If the content is so different that one card would be left with a large empty vertical area, the cards become horizontal, one per row, and the card that was beside goes below. GradeDeCards does this on its own.",
+            "Regra da dona do produto (27/11/2026): cards lado a lado nunca têm tamanhos diferentes. Se o conteúdo for tão diferente que um card ficaria com uma área vazia vertical grande, os cards passam a ser horizontais, um por linha, e o card que estava do lado vai para baixo. A GradeDeCards faz isso sozinha.",
+          )}
+        />
+        <div className="space-y-6">
+          <DemoMesmaAltura />
+          {/* exemplos (não são cards): cada um com o selo Certo ou Errado */}
+          <div className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2">
+            <ExemploDeAltura certo titulo={t("Similar content: side by side, same height, actions aligned at the bottom.", "Conteúdo parecido: lado a lado, mesma altura, ações alinhadas na base.")}>
+              <GradeDeCards colunas={{ base: 1, sm: 2 }}>
+                <CardDeExemplo titulo={t("Store profile", "Perfil da loja")} texto={t("Name, address and opening hours.", "Nome, endereço e horário.")} acao={t("Edit", "Editar")} />
+                <CardDeExemplo titulo={t("Pieces", "Peças")} texto={t("Photos, sizes, prices and stock of each piece.", "Fotos, tamanhos, preços e estoque de cada peça.")} acao={t("Open", "Abrir")} />
+              </GradeDeCards>
+            </ExemploDeAltura>
+            <ExemploDeAltura certo titulo={t("Very different content: horizontal cards, one per row.", "Conteúdo muito diferente: cards horizontais, um por linha.")}>
+              <GradeDeCards colunas={{ base: 1, sm: 2 }}>
+                <CardDeExemplo titulo={t("Store profile", "Perfil da loja")} texto={t("Name, address and opening hours.", "Nome, endereço e horário.")} acao={t("Edit", "Editar")} />
+                <CardDeExemplo titulo={t("Pieces", "Peças")} texto={t("Photos, sizes, prices and stock of each piece. Pieces without a photo or price do not appear in the search, so check the list every week: new pieces, sold pieces and pieces that came back to the store. When in doubt, update the stock.", "Fotos, tamanhos, preços e estoque de cada peça. Peças sem foto ou sem preço não aparecem na busca, então confira a lista toda semana: peças novas, vendidas e que voltaram para a loja. Na dúvida, atualize o estoque.")} acao={t("Open", "Abrir")} />
+              </GradeDeCards>
+            </ExemploDeAltura>
+            <ExemploDeAltura certo={false} titulo={t("Different heights side by side.", "Alturas diferentes lado a lado.")}>
+              <GradeDeCards data-cards-ignorar layout="grade" colunas={{ base: 1, sm: 2 }} className="items-start">
+                <CardDeExemplo titulo={t("Store profile", "Perfil da loja")} texto={t("Name, address and opening hours.", "Nome, endereço e horário.")} acao={t("Edit", "Editar")} />
+                <CardDeExemplo titulo={t("Pieces", "Peças")} texto={t("Photos, sizes, prices and stock of each piece, with the date of the last update.", "Fotos, tamanhos, preços e estoque de cada peça, com a data da última atualização.")} acao={t("Open", "Abrir")} />
+              </GradeDeCards>
+            </ExemploDeAltura>
+            <ExemploDeAltura certo={false} titulo={t("Same height, but with a large empty area.", "Mesma altura, mas com uma área vazia grande.")}>
+              <GradeDeCards data-cards-ignorar layout="grade" colunas={{ base: 1, sm: 2 }}>
+                <CardDeExemplo titulo={t("Store profile", "Perfil da loja")} texto={t("Name, address and opening hours.", "Nome, endereço e horário.")} acao={t("Edit", "Editar")} />
+                <CardDeExemplo titulo={t("Pieces", "Peças")} texto={t("Photos, sizes, prices and stock of each piece. Pieces without a photo or price do not appear in the search, so check the list every week: new pieces, sold pieces and pieces that came back to the store. When in doubt, update the stock.", "Fotos, tamanhos, preços e estoque de cada peça. Peças sem foto ou sem preço não aparecem na busca, então confira a lista toda semana: peças novas, vendidas e que voltaram para a loja. Na dúvida, atualize o estoque.")} acao={t("Open", "Abrir")} />
+              </GradeDeCards>
+            </ExemploDeAltura>
           </div>
+          <GradeDeCards colunas={{ base: 1, lg: 2 }} className="gap-5">
+            <DataTable
+              head={[t("Situation", "Situação"), t("Layout", "Layout")]}
+              rows={[
+                [t("Difference up to the limit", "Diferença até o limite"), t("Side by side; the grid stretches the cards to the same height and the footer goes to the bottom.", "Lado a lado; a grade estica os cards até a mesma altura e o rodapé desce para a base.")],
+                [t(`Difference above ${LIMITE_DE_DIFERENCA.px} px`, `Diferença acima de ${LIMITE_DE_DIFERENCA.px} px`), t("One per row, horizontal cards.", "Um por linha, cards horizontais.")],
+                [t("Difference above 1/3 of the tallest card (and at least 64 px)", "Diferença acima de 1/3 do card mais alto (e de pelo menos 64 px)"), t("One per row, horizontal cards.", "Um por linha, cards horizontais.")],
+                [t("Back to side by side", "Volta para lado a lado"), t("Only when the difference falls below 75% of the limit (90 px, or 1/4 and 48 px), so it does not flicker.", "Só quando a diferença cai abaixo de 75% do limite (90 px, ou 1/4 e 48 px), para não piscar.")],
+                [t("One column (phone)", "Uma coluna (celular)"), t("Nothing changes: the cards are already one per row, vertical.", "Nada muda: os cards já ficam um por linha, na vertical.")],
+              ]}
+            />
+            <Callout title={t("Why this limit", "Por que este limite")}>
+              <p>{t(
+                "120 px is about 5 lines of text: an empty area that shows in any card. One third catches small cards: in a 180 px indicator, 60 px empty already looks half empty. The 64 px floor avoids switching for differences the size of the card's own padding.",
+                "120 px são cerca de 5 linhas de texto: uma área vazia que aparece em qualquer card. Um terço pega os cards pequenos: num indicador de 180 px, 60 px vazios já parecem pela metade. O piso de 64 px evita a troca por diferenças do tamanho do próprio respiro do card.",
+              )}</p>
+              <p className="mt-2">{t(
+                "The grid measures again when the width or the content changes (ResizeObserver), before painting, and the switch fades in briefly; with reduced motion, without animation.",
+                "A grade mede de novo quando a largura ou o conteúdo mudam (ResizeObserver), antes da pintura, e a troca entra com um esmaecimento curto; com \"menos movimento\", sem animação.",
+              )}</p>
+            </Callout>
+          </GradeDeCards>
+          <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { GradeDeCards, ItemDaGrade } from "@/app/components/ui/grade-de-cards";
+import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/components/ui/card";
+
+<GradeDeCards colunas={{ base: 1, md: 2, lg: 3 }}>      {/* ou larguraMinima={280} */}
+  <Card>
+    <CardMidia tipo="icone"><Search /></CardMidia>      {/* ou tipo="imagem" com <img> */}
+    <CardHeader><CardTitle>…</CardTitle></CardHeader>
+    <CardFooter><Button>…</Button></CardFooter>          {/* desce para a base */}
+  </Card>
+  <ItemDaGrade><Rotulo>…</Rotulo><Card>…</Card></ItemDaGrade>  {/* rótulo + card */}
+</GradeDeCards>
+// data-layout="grade" | "lista"; limiteDeDiferenca={{ px, proporcao, minimo }}; onLayoutChange; layout="grade" | "lista" fixa.
+// Card, PartnerCard e ProductCard ficam horizontais sozinhos na lista (useOrientacaoDoCard); orientacao fixa a orientação.`}</code></pre>
         </div>
       </section>
 
@@ -668,23 +834,23 @@ export function CardShowcase() {
           title={t("With and without photo, with and without button", "Com e sem foto, com e sem botão")}
           description={t("Choose by content and behaviour, not decoration. A photo only when it adds context; a button only when there is an action.", "Escolha pelo conteúdo e pelo comportamento, não pela decoração. Foto só quando adiciona contexto; botão só quando há uma ação.")}
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div>
+        <GradeDeCards className="gap-4 md:grid-cols-2">
+          <ItemDaGrade>
             <Rotulo>{t("No photo, no button", "Sem foto, sem botão")}</Rotulo>
             <SpecCard title={t("Information", "Informação")} description={t("For grouped information to read, with no action.", "Para informações agrupadas para leitura, sem ação.")}>
               <p className="text-[0.875rem] leading-relaxed text-muted-foreground">{t("Keep the content focused and let the surrounding layout define its width.", "Mantenha o conteúdo focado e deixe o layout ao redor definir sua largura.")}</p>
             </SpecCard>
-          </div>
-          <div>
+          </ItemDaGrade>
+          <ItemDaGrade>
             <Rotulo>{t("No photo, with button", "Sem foto, com botão")}</Rotulo>
             <SpecCard title={t("Task", "Tarefa")} description={t("For one clear action related to the content.", "Para uma ação clara relacionada ao conteúdo.")} footer={<Button size="sm">{t("Continue", "Continuar")}<ChevronRight /></Button>}>
               <p className="text-[0.875rem] leading-relaxed text-muted-foreground">{t("The button goes in the footer, aligned with the content.", "O botão fica no rodapé, alinhado ao conteúdo.")}</p>
             </SpecCard>
-          </div>
-          <div>
+          </ItemDaGrade>
+          <ItemDaGrade>
             <Rotulo>{t("With photo, no button (whole card clickable)", "Com foto, sem botão (card inteiro clicável)")}</Rotulo>
-            <a href="#card-variants" onClick={e => e.preventDefault()} className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-              <Card className="gap-0 overflow-hidden rounded-lg border-border transition-all group-hover:-translate-y-0.5 group-hover:border-[var(--border-strong)] group-hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
+            <a href="#card-variants" onClick={e => e.preventDefault()} className="group flex flex-col rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+              <Card className="flex-1 gap-0 overflow-hidden rounded-lg border-border transition-all group-hover:-translate-y-0.5 group-hover:border-[var(--border-strong)] group-hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
                 <img src={FOTO.src} alt="" className="h-32 w-full object-cover" />
                 <CardHeader className="pb-6 pt-5">
                   <CardTitle className={`${display} flex items-center justify-between gap-2 text-[1rem] font-semibold`}>{"Garimpo da Lu"} <ArrowUpRight className="h-4 w-4 text-primary" aria-hidden /></CardTitle>
@@ -692,8 +858,8 @@ export function CardShowcase() {
                 </CardHeader>
               </Card>
             </a>
-          </div>
-          <div>
+          </ItemDaGrade>
+          <ItemDaGrade>
             <Rotulo>{t("With photo and button", "Com foto e botão")}</Rotulo>
             <Card className="gap-0 overflow-hidden rounded-lg border-border">
               <img src={FOTO.src} alt={bi(FOTO.alt)} className="h-32 w-full object-cover" />
@@ -703,7 +869,7 @@ export function CardShowcase() {
               </CardHeader>
               <CardFooter className="pt-5"><Button variant="outline" size="sm">{t("Learn more", "Saiba mais")}</Button></CardFooter>
             </Card>
-          </div>
+          </ItemDaGrade>
           <div className="md:col-span-2">
             <Rotulo>{t("Compact", "Compacto")}</Rotulo>
             <Card className="gap-3 border-border px-4 py-3">
@@ -716,7 +882,7 @@ export function CardShowcase() {
               </div>
             </Card>
           </div>
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="card-actions" className="scroll-mt-32">
@@ -727,7 +893,7 @@ export function CardShowcase() {
             "O posicionamento e a ênfase dos botões refletem a tarefa do card. Mantenha uma ação principal e reduza a ênfase das ações de apoio.",
           )}
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <GradeDeCards className="md:grid-cols-2 gap-4">
           <SpecCard
             title={t("Primary and secondary actions", "Ações primária e secundária")}
             description={t("Place task-level actions together in the footer, with the primary action last.", "Coloque ações da tarefa juntas no rodapé, com a ação principal por último.")}
@@ -772,7 +938,7 @@ export function CardShowcase() {
               <p>{t("Irreversible actions open a confirmation dialog.", "Ações irreversíveis abrem um diálogo de confirmação.")}</p>
             </Callout>
           </SpecCard>
-        </div>
+        </GradeDeCards>
         <div className="mt-5">
           <DataTable
             head={[t("Position", "Posição"), t("Recommended use", "Uso recomendado"), t("Variant", "Variante")]}
@@ -808,8 +974,8 @@ export function CardShowcase() {
             <Rotulo>{t("Progress of a long task: state (chip → what is happening and what comes next) → progress → numbers with a gray icon base → actions", "Andamento de uma tarefa longa: estado (chip → o que acontece e o que vem depois) → progresso → números com ícone em base cinza → ações")}</Rotulo>
             <AndamentoDeTarefa />
           </div>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <div>
+          <GradeDeCards className="gap-5 lg:grid-cols-2">
+            <ItemDaGrade>
               <Rotulo>{t("Summary: title → description → indicators → action", "Resumo: título → descrição → indicadores → ação")}</Rotulo>
               <SpecCard
                 title={t("Workspace activity", "Atividade do workspace")}
@@ -825,12 +991,12 @@ export function CardShowcase() {
                   ))}
                 </div>
               </SpecCard>
-            </div>
-            <div>
+            </ItemDaGrade>
+            <ItemDaGrade>
               <Rotulo>{t("Invitation: tag → headline → benefit → action", "Convite: selo → título → benefício → ação")}</Rotulo>
               <PartnerCard size="p" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
-            </div>
-          </div>
+            </ItemDaGrade>
+          </GradeDeCards>
           <div>
             <Rotulo>{t("Choice (plan): name → who it is for → select", "Escolha (plano): nome → para quem → selecionar")}</Rotulo>
             <p className="mb-3 text-[0.8125rem] text-muted-foreground">{t("See the selectable plans in States, below. Ready-made FindLook cards (piece, plan, tip and benefits band) are at the end of Part 1.", "Veja os planos selecionáveis em Estados, logo abaixo. Os cards prontos do FindLook (peça, plano, dica e faixa de benefícios) ficam no fim da Parte 1.")}</p>
@@ -846,7 +1012,7 @@ export function CardShowcase() {
         <div className="space-y-6">
           <div>
             <Rotulo>{t("Selected", "Selecionado")}</Rotulo>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <GradeDeCards className="sm:grid-cols-3 gap-3">
               {[0, 1, 2].map(index => {
                 const isSelected = selected === index;
                 const labels = [
@@ -871,10 +1037,10 @@ export function CardShowcase() {
                   </Card>
                 );
               })}
-            </div>
+            </GradeDeCards>
           </div>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-            <div>
+          <GradeDeCards className="gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+            <ItemDaGrade>
               <Rotulo>{t("Loading", "Carregando")}</Rotulo>
               <Card className="gap-4 border-border p-6" aria-busy="true" aria-label={t("Loading card", "Carregando card")}>
                 <Skeleton className="h-4 w-2/5" />
@@ -882,18 +1048,21 @@ export function CardShowcase() {
                 <Skeleton className="h-3 w-3/5" />
                 <Skeleton className="mt-2 h-9 w-28 rounded-md" />
               </Card>
-            </div>
-            <DataTable
-              head={[t("State", "Estado"), t("Treatment", "Tratamento")]}
-              rows={[
-                [t("Resting", "Parado"), t("Rule of the background (see How to choose).", "Regra do fundo (veja Como escolher).")],
-                [t("Hover (clickable card)", "Hover (card clicável)"), t("Stronger border and medium shadow; may rise 2 px.", "Borda mais forte e sombra média; pode subir 2 px.")],
-                [t("Focus", "Foco"), t("Visible focus ring around the whole card.", "Anel de foco visível em volta do card inteiro.")],
-                [t("Selected", "Selecionado"), t("2 px primary border, check icon and aria-pressed.", "Borda primária de 2 px, ícone de check e aria-pressed.")],
-                [t("Loading", "Carregando"), t("Skeleton in the shape of the content and aria-busy.", "Skeleton no formato do conteúdo e aria-busy.")],
-              ]}
-            />
-          </div>
+            </ItemDaGrade>
+            <ItemDaGrade>
+              <Rotulo>{t("Treatment by state", "Tratamento por estado")}</Rotulo>
+              <DataTable
+                head={[t("State", "Estado"), t("Treatment", "Tratamento")]}
+                rows={[
+                  [t("Resting", "Parado"), t("Rule of the background (see How to choose).", "Regra do fundo (veja Como escolher).")],
+                  [t("Hover (clickable card)", "Hover (card clicável)"), t("Stronger border and medium shadow; may rise 2 px.", "Borda mais forte e sombra média; pode subir 2 px.")],
+                  [t("Focus", "Foco"), t("Visible focus ring around the whole card.", "Anel de foco visível em volta do card inteiro.")],
+                  [t("Selected", "Selecionado"), t("2 px primary border, check icon and aria-pressed.", "Borda primária de 2 px, ícone de check e aria-pressed.")],
+                  [t("Loading", "Carregando"), t("Skeleton in the shape of the content and aria-busy.", "Skeleton no formato do conteúdo e aria-busy.")],
+                ]}
+              />
+            </ItemDaGrade>
+          </GradeDeCards>
         </div>
       </section>
 
@@ -945,7 +1114,7 @@ export function CardShowcase() {
           )}
         />
         <div className="space-y-8">
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+          <GradeDeCards className="gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
             <Card className="relative gap-5 overflow-hidden border-border">
               <ShineBorder borderWidth={1} duration={7} shineColor={["var(--primary)", "var(--chart-2)", "var(--primary)"]} />
               <CardHeader>
@@ -975,7 +1144,7 @@ export function CardShowcase() {
                 ]}
               />
             </div>
-          </div>
+          </GradeDeCards>
           <ShineBorderConteudo />
         </div>
       </section>
@@ -985,7 +1154,7 @@ export function CardShowcase() {
           title={t("Nested cards", "Cards aninhados")}
           description={t("When a card contains another card, only the outer card defines elevation; the inner card uses a border or a tonal background.", "Quando um card contém outro, só o card externo define a elevação; o card interno usa borda ou fundo tonal.")}
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+        <GradeDeCards className="gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <Card className="gap-5 border-border p-6">
             <div>
               <CardTitle className={`${display} text-[1rem] font-semibold`}>{t("Project overview", "Visão geral do projeto")}</CardTitle>
@@ -1011,7 +1180,7 @@ export function CardShowcase() {
               [t("Inner interactive card", "Card interno interativo"), t("Border and focus ring communicate the state.", "Borda e anel de foco comunicam o estado.")],
             ]}
           />
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="card-partner" className="scroll-mt-32">
@@ -1019,10 +1188,10 @@ export function CardShowcase() {
         <div className="space-y-8">
           <div>
             <SubTitle>{t("Vertical — sizes S, M and L", "Vertical — tamanhos P, M e G")}</SubTitle>
-            <div className="grid gap-5 md:grid-cols-[2fr_3fr] items-start">
+            <GradeDeCards className="gap-5 md:grid-cols-[2fr_3fr]">
               <PartnerCard size="p" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
               <PartnerCard size="m" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
-            </div>
+            </GradeDeCards>
             <div className="mt-5 max-w-[600px]">
               <PartnerCard size="g" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
             </div>
@@ -1035,7 +1204,7 @@ export function CardShowcase() {
               <PartnerCard orientation="horizontal" size="g" surface="dark" eyebrow="Para quem vende" title="Seja encontrado por quem já **procura o que você vende**." description="Crie o perfil da sua loja ou brechó, cadastre suas peças e apareça na busca de quem já tem intenção de compra. Nada é publicado sem a sua confirmação." cta={{ label: "Cadastrar minha loja", href: "#" }} secondary={{ label: "Como funciona", href: "#" }} visual={<Store />} />
             </div>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <GradeDeCards className="gap-4 md:grid-cols-3">
             {[
               [t("Sizes", "Tamanhos"), t("S: sidebars and lists (title 18 px). M: content columns (24–28 px). L: page ends and landing bands (32–40 px).", "P: barras laterais e listas (título 18 px). M: colunas de conteúdo (24–28 px). G: fim de página e faixas de landing (32–40 px).")],
               [t("Surfaces", "Superfícies"), t("card (default), tint (support surface) and dark (graphite, for contrast bands). The primary glow in the corner echoes the hero background.", "card (padrão), tint (superfície de apoio) e dark (grafite, para faixas de contraste). O brilho primário no canto ecoa o fundo do hero.")],
@@ -1043,7 +1212,7 @@ export function CardShowcase() {
             ].map(([a, b]) => (
               <div key={a} className="rounded-lg border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></div>
             ))}
-          </div>
+          </GradeDeCards>
           <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { PartnerCard } from "@/app/components/ui/partner-card";
 <PartnerCard orientation="horizontal" size="m" eyebrow="…" title="… **destaque** …" description="…" cta={{ label: "…", href: "/…" }} />`}</code></pre>
         </div>
@@ -1059,31 +1228,31 @@ export function CardShowcase() {
         />
         <div className="space-y-8">
           <div>
-            <div className="grid gap-5 sm:grid-cols-2 max-w-[760px]">
+            <GradeDeCards className="gap-5 sm:grid-cols-2 max-w-[760px]">
               <ProductCard nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic" preco={329} novo icone="jaqueta" favorito estoque={{ quantidade: 2, atualizadoHa: "há 2 h" }} cta={{ href: "#card-produto" }} />
               <ProductCard nome="Calça jeans wide leg" loja="Movimento Livre" estilo="Casual" preco={189.9} novo icone="calca" estoque={{ quantidade: 8, atualizadoHa: "há 1 dia" }} cta={{ href: "#card-produto" }} />
-            </div>
+            </GradeDeCards>
           </div>
           <div>
             <SubTitle>{t("Variations", "Variações")}</SubTitle>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-[1000px]">
+            <GradeDeCards className="gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-[1000px]">
               <ProductCard nome="Vestido midi floral com mangas bufantes e cinto de amarrar" loja="Casa Flor" estilo="Romântico" preco={259} icone="vestido" estoque={{ quantidade: 1, atualizadoHa: "há 3 h" }} cta={{ href: "#card-produto" }} />
               <ProductCard nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} icone="tenis" estoque={{ quantidade: 0, atualizadoHa: "há 5 dias" }} cta={{ href: "#card-produto" }} />
               <ProductCard nome="Saia plissada" loja="Brechó da Lu" estilo="Vintage" preco={89} precoAntigo={129} novo icone="saia" favorito estoque={{ quantidade: 12, atualizadoHa: "há 20 min" }} cta={{ href: "#card-produto" }} />
-            </div>
+            </GradeDeCards>
             <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Left to right: last piece and a long name clamped to two lines; sold out (black and white, only the favorite and the \"Avise-me\" button in color); favorited with a discount (old price struck through above the current one, -31% beside it).", "Da esquerda para a direita: última peça e nome longo cortado em duas linhas; esgotada (preto e branco, só o favorito e o botão \"Avise-me\" coloridos); favoritada com desconto (preço antigo riscado acima do atual, -31% ao lado).")}</p>
           </div>
           <div>
             <SubTitle>{t("Horizontal", "Horizontal")}</SubTitle>
-            <div className="grid gap-4 lg:grid-cols-2 max-w-[1000px]">
+            <GradeDeCards className="gap-4 lg:grid-cols-2 max-w-[1000px]">
               <ProductCard orientation="horizontal" nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic" preco={329} novo icone="jaqueta" favorito estoque={{ quantidade: 2, atualizadoHa: "há 2 h" }} cta={{ href: "#card-produto" }} />
               <ProductCard orientation="horizontal" nome="Tênis branco minimal" loja="Passo Certo" preco={349.9} icone="tenis" estoque={{ quantidade: 0, atualizadoHa: "há 5 dias" }} cta={{ href: "#card-produto" }} />
               <ProductCard orientation="horizontal" compacto nome="Calça jeans wide leg" loja="Movimento Livre" estilo="Casual" preco={189.9} precoAntigo={249.9} novo icone="calca" estoque={{ quantidade: 8, atualizadoHa: "há 1 dia" }} cta={{ href: "#card-produto" }} />
               <ProductCard orientation="horizontal" compacto nome="Vestido midi floral com mangas bufantes e cinto de amarrar" loja="Casa Flor" estilo="Romântico" preco={259} icone="vestido" estoque={{ quantidade: 1, atualizadoHa: "há 3 h" }} cta={{ href: "#card-produto" }} />
-            </div>
+            </GradeDeCards>
             <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Image on the left (144 to 192 px; 112 to 144 px compact), content on the right. For result lists, favorites in list view and the store's piece list. Second row: compact density.", "Imagem à esquerda (144 a 192 px; 112 a 144 px no compacto), conteúdo à direita. Para listas de resultados, favoritos em lista e a lista de peças da loja. Segunda linha: densidade compacta.")}</p>
           </div>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 [&>*]:min-w-0">
+          <GradeDeCards className="gap-5 lg:grid-cols-2 [&>*]:min-w-0">
             <DataTable
               head={[t("Element", "Elemento"), t("Rule", "Regra")]}
               rows={[
@@ -1112,7 +1281,7 @@ export function CardShowcase() {
 
 <ProductCard orientation="horizontal" compacto … />`}</code></pre>
             </div>
-          </div>
+          </GradeDeCards>
         </div>
       </section>
 
@@ -1123,16 +1292,16 @@ export function CardShowcase() {
         />
         <div className="space-y-5">
           <div>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:max-w-3xl items-start">
-              <div>
+            <GradeDeCards className="gap-5 sm:grid-cols-2 lg:max-w-3xl data-[layout=lista]:*:max-w-sm">
+              <ItemDaGrade>
                 <RotuloVariante nome="Completo" prop="padrão" />
                 <CardDePlano plano="Plano Desempenho" preco="R$ 149" descricao="Análise de interesse, desempenho e recomendações para a sua loja." />
-              </div>
-              <div>
+              </ItemDaGrade>
+              <ItemDaGrade>
                 <RotuloVariante nome="Compacto" prop="compacto" />
                 <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" />
-              </div>
-            </div>
+              </ItemDaGrade>
+            </GradeDeCards>
           </div>
         </div>
       </section>
@@ -1156,7 +1325,7 @@ export function CardShowcase() {
           title="Card com Mostrar mais"
           description="Card com muitos itens não tem rolagem por dentro (prende a roda do mouse e dificulta rolar a página). Mostra o que cabe, com um degradê, e Mostrar mais abre uma janela com tudo; quando o conteúdo é muito grande, leva para outra tela (onMostrarMais). O botão só aparece quando sobra conteúdo."
         />
-        <div className="grid max-w-4xl items-start gap-4 @container md:grid-cols-2">
+        <GradeDeCards className="max-w-4xl gap-4 @container md:grid-cols-2">
           <CardDoPainel icone={<Lightbulb />} titulo="Atividade recente" descricao="Exemplo com 12 itens.">
             <ConteudoRecolhivel altura="max-h-[14rem]" titulo="Atividade recente">
               <ul className="divide-y divide-border">
@@ -1173,7 +1342,7 @@ export function CardShowcase() {
               </ul>
             </ConteudoRecolhivel>
           </CardDoPainel>
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="faixa-beneficios" className="scroll-mt-32">
@@ -1209,13 +1378,13 @@ export function CardShowcase() {
         <div className="space-y-5">
           <CenaDeTesteCtx.Provider value={cenaPadrao}>
             <CenaDoVidro className="p-4 sm:p-5">
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <GradeDeCards className="gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {aprovados.filter(a => a.cfg).map(a => (
-                  <div key={a.value} data-acabamento-aprovado={a.value} data-props={propsDoVidro(a.cfg!)}>
+                  <ItemDaGrade key={a.value} data-acabamento-aprovado={a.value} data-props={propsDoVidro(a.cfg!)}>
                     <GlassTestCard {...a.cfg!} title={a.label} subtitle={a.desc} />
-                  </div>
+                  </ItemDaGrade>
                 ))}
-              </div>
+              </GradeDeCards>
             </CenaDoVidro>
           </CenaDeTesteCtx.Provider>
           {semAprovacao.length > 0 && (
@@ -1244,13 +1413,13 @@ export function CardShowcase() {
           title={t("Glass by background", "Vidro por fundo")}
           description={t("Light background, dark background and photo, each with an approved glass. Over a photo the check considers any area of the image, from black to white.", "Fundo claro, fundo escuro e foto, cada um com um vidro aprovado. Sobre foto, a conferência considera qualquer área da imagem, do preto ao branco.")}
         />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <GradeDeCards className="gap-4 lg:grid-cols-3">
           {([
             [t("Light background", "Fundo claro"), cenaPadrao, vidroPorFundo.padrao],
             [t("Dark background", "Fundo escuro"), cenaEscura, vidroPorFundo.escura],
             [t("Photo", "Foto"), cenaFoto, vidroPorFundo.foto],
           ] as [string, CenaDeTeste, ConfigVidro | null][]).map(([nome, cena, cfg]) => (
-            <div key={nome}>
+            <ItemDaGrade key={nome}>
               <Rotulo>{nome}</Rotulo>
               <CenaDeTesteCtx.Provider value={cena}>
                 <CenaDoVidro className="p-4 sm:p-5">
@@ -1259,9 +1428,9 @@ export function CardShowcase() {
                     : <p className="rounded-md bg-card p-4 text-[0.8125rem] text-foreground">{t("No approved glass on this background in the current theme: use a solid card.", "Sem vidro aprovado neste fundo no tema atual: use card sólido.")}</p>}
                 </CenaDoVidro>
               </CenaDeTesteCtx.Provider>
-            </div>
+            </ItemDaGrade>
           ))}
-        </div>
+        </GradeDeCards>
       </section>
 
       <section id="card-glass-conteudo" className="scroll-mt-32">
@@ -1274,7 +1443,7 @@ export function CardShowcase() {
           <Rotulo><span className="font-mono normal-case tracking-normal">{propsDoVidro(vidroConteudo)}</span></Rotulo>
           <CenaDeTesteCtx.Provider value={cenaPadrao}>
             <CenaDoVidro>
-              <div className="grid gap-5 md:grid-cols-3">
+              <GradeDeCards className="gap-5 md:grid-cols-3">
                 <GlassCard {...vidroConteudo}>
                   <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.08em] ${corSub(vidroConteudo)}`}>{"Peças salvas esta semana"}</p>
                   <p className={`${display} mt-2 text-[2.25rem] font-bold leading-none tracking-[-0.03em]`}>128</p>
@@ -1297,7 +1466,7 @@ export function CardShowcase() {
                   <p className={`mt-2 text-[0.8125rem] leading-relaxed ${corSub(vidroConteudo)}`}>{"Tire uma foto da peça e veja quem vende perto de você."}</p>
                   <Button className="mt-4 w-full rounded-full">{"Buscar por foto"}</Button>
                 </GlassCard>
-              </div>
+              </GradeDeCards>
             </CenaDoVidro>
           </CenaDeTesteCtx.Provider>
           </>
@@ -1317,7 +1486,7 @@ export function CardShowcase() {
         <div className="space-y-6">
           <div className="dark relative isolate overflow-x-clip rounded-xl bg-[var(--graphite-950)] p-6 text-foreground sm:p-10">
             <LuzesDifusas variante="esquerda" />
-            <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
+            <GradeDeCards className="gap-5 lg:grid-cols-[1.2fr_1fr]">
               <GlassCard finish="painel" tone="escura" className="rounded-xl">
                 <p className="m-0 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-primary-text">{"Procura"}</p>
                 <p className={`${display} m-0 mt-2 text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-white`}>{"Seu próximo cliente já sabe o que procura."}</p>
@@ -1338,7 +1507,7 @@ export function CardShowcase() {
                   <p className="m-0 mt-2 text-[0.875rem] leading-relaxed text-white/70">{"Card de benefício no mesmo vidro, com ícone em base rosa clara."}</p>
                 </div>
               </GlassCard>
-            </div>
+            </GradeDeCards>
           </div>
           <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
 import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
@@ -1375,6 +1544,7 @@ import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
             dos={[
               t("Group content that shares one subject or task.", "Agrupe conteúdos que compartilham um assunto ou tarefa."),
               t("Keep card structures consistent within the same grid.", "Mantenha estruturas consistentes no mesmo grid."),
+              t("Put cards side by side in a GradeDeCards: same height, actions at the bottom and, with very different content, one per row (rule of 27/11/2026).", "Coloque cards lado a lado numa GradeDeCards: mesma altura, ações na base e, com conteúdo muito diferente, um por linha (regra de 27/11/2026)."),
               t("Choose border and shadow by the background (see How to choose).", "Escolha borda e sombra pelo fundo (veja Como escolher)."),
               t("Use one primary action and move secondary actions to the footer or menu.", "Use uma ação principal e mova ações secundárias para o rodapé ou menu."),
             ]}
@@ -1385,6 +1555,7 @@ import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
               t("Use the link style for save, submit, delete or other state-changing actions.", "Não use o estilo link para salvar, enviar, excluir ou outras ações que alteram estado."),
               t("Use elevation only as decoration or mix multiple shadow levels in one grid.", "Não use elevação apenas como decoração nem misture vários níveis de sombra no mesmo grid."),
               t("Add horizontal scrolling inside a card.", "Não coloque rolagem horizontal dentro do card."),
+              t("Leave cards side by side with different heights, or stretched with a large empty area.", "Não deixe cards lado a lado com alturas diferentes, nem esticados com uma área vazia grande."),
             ]}
           />
         </div>
@@ -1437,7 +1608,7 @@ import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
         </div>
         <div>
           <SubTitle>{t("Animation", "Animação")}</SubTitle>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <GradeDeCards className="gap-3 md:grid-cols-3">
             {[
               [t("Wobble", "Wobble"), evitarWobble(t)],
               [t("Canvas Reveal", "Canvas Reveal"), evitarCanvasReveal(t)],
@@ -1452,7 +1623,7 @@ import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
                 </ul>
               </Panel>
             ))}
-          </div>
+          </GradeDeCards>
         </div>
       </section>
 

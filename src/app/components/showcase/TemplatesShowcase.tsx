@@ -32,6 +32,7 @@ import { SectionHeader } from "./shared/SectionHeader";
 import { CabecalhoDaPagina } from "../ui/painel-cabecalho";
 import { CardComCabecalho } from "../ui/painel-dados";
 import { AbasComContador } from "../ui/painel-produtos";
+import { GradeDeCards } from "../ui/grade-de-cards";
 
 type L = { en: string; pt: string };
 
@@ -1097,7 +1098,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
 
         {/* Colunas pela largura disponível (não pela tela): dentro do protótipo do painel, os 3 cards só ficam lado a lado se couberem */}
         <div className="@container/precos">
-        <div className="grid grid-cols-1 @4xl/precos:grid-cols-3 gap-5 max-w-md @4xl/precos:max-w-none">
+        <GradeDeCards className="@4xl/precos:grid-cols-3 gap-5 max-w-md @4xl/precos:max-w-none">
           {plans.map(plan => {
             const Icon = plan.icon;
             const valor = annual ? Math.round(plan.price * 0.8) : plan.price;
@@ -1203,7 +1204,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
               </div>
             );
           })}
-        </div>
+        </GradeDeCards>
         </div>
       </div>
     </TemplateFrame>
@@ -1761,7 +1762,7 @@ function LandingTemplate() {
             <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Benefícios</p>
             <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Feito para lojas de rua, ateliês e brechós</h2>
           </div>
-          <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <GradeDeCards className="max-w-2xl mx-auto sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary/8 blur-2xl pointer-events-none" />
               <div className="h-8 w-8 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-3">
@@ -1802,7 +1803,7 @@ function LandingTemplate() {
                 ))}
               </div>
             </div>
-          </div>
+          </GradeDeCards>
         </div>
 
         {/* ══ INTERESSE MÊS A MÊS ══ */}
