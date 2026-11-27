@@ -65,7 +65,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
             )}
           >
             {a.rotulo}
-            {a.quantidade !== undefined && <span className={cn("rounded-full px-1.5 text-[0.6875rem] font-semibold tabular-nums", ativa ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted-foreground/10 text-muted-foreground")}>{formatarNumero(a.quantidade)}</span>}
+            {a.quantidade !== undefined && <span className={cn("rounded-full px-1.5 text-[0.6875rem] font-semibold tabular-nums", ativa ? "bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))]" : "bg-muted-foreground/10 text-muted-foreground")}>{formatarNumero(a.quantidade)}</span>}
           </button>
         );
       })}
@@ -117,7 +117,7 @@ const statusInfo: Record<StatusProduto, { rotulo: string; Icone: React.ElementTy
   publicado: { rotulo: "Publicado", Icone: CheckCircle2, cor: "text-success", fundo: "bg-success/10 border-success/30" },
   pendente:  { rotulo: "Pendente",  Icone: Clock,        cor: "text-warning-text", fundo: "bg-warning/10 border-warning/40" },
   esgotado:  { rotulo: "Esgotado",  Icone: Ban,          cor: "text-foreground", fundo: "bg-muted border-border" },
-  reservado: { rotulo: "Reservado", Icone: Bookmark,     cor: "text-primary-text", fundo: "bg-primary/10 border-primary/30" },
+  reservado: { rotulo: "Reservado", Icone: Bookmark,     cor: "text-primary-text", fundo: "bg-[var(--primary-suave)] border-primary/30" },
   rascunho:  { rotulo: "Rascunho",  Icone: FilePen,      cor: "text-muted-foreground", fundo: "bg-card border-border" },
 };
 
@@ -285,7 +285,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
             {visiveis.map((p, i) => {
               const marcado = selecionados.includes(p.id);
               return (
-                <tr key={p.id} data-state={marcado ? "selected" : undefined} className={cn("border-b border-border/50 transition-colors hover:bg-row-hover", i === visiveis.length - 1 && "border-b-0", marcado && "bg-[var(--primary-muted)] hover:bg-[var(--primary-muted)]")}>
+                <tr key={p.id} data-state={marcado ? "selected" : undefined} className={cn("border-b border-border/50 transition-colors hover:bg-row-hover", i === visiveis.length - 1 && "border-b-0", marcado && "bg-[var(--primary-sutil)] hover:bg-[var(--primary-sutil)]")}>
                   {selecionavel && <td className="py-3 pl-6 pr-2 align-middle"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></td>}
                   <td className={cn("w-full max-w-0 px-4 py-3 align-middle", !selecionavel && "pl-6")}><CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} /></td>
                   <td className="hidden px-4 py-3 align-middle @4xl:table-cell"><span className={etiqueta}>{p.condicao}</span></td>
@@ -306,7 +306,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
         {visiveis.map(p => {
           const marcado = selecionados.includes(p.id);
           return (
-            <li key={p.id} className={cn("px-4 py-3", marcado && "bg-[var(--primary-muted)]")}>
+            <li key={p.id} className={cn("px-4 py-3", marcado && "bg-[var(--primary-sutil)]")}>
               <div className="flex items-center gap-3">
                 {selecionavel && <Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} />}
                 <CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} className="flex-1" />

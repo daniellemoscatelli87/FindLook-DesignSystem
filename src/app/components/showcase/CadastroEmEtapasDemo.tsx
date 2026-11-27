@@ -13,6 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { RadioGroup } from "../ui/radio-group";
 import { SegmentedControl } from "../ui/segmented-control";
 import { CardDePreco } from "../ui/card-de-preco";
+import { BrilhoDeSelecionado } from "../ui/shine-border";
 import { DivisorSuave, ItemDeAcao } from "../ui/painel-dados";
 import { plans, pricingFeatures } from "./shared/planos";
 import { ImageUpload } from "../ui/upload";
@@ -168,8 +169,8 @@ function Grupo({ titulo, descricao, children }: { titulo: string; descricao?: st
   );
 }
 
-/** Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação. Acréscimos de acessibilidade: aria-pressed
-    e anel de foco (a documentação não tem). */
+/** Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo em rosa nível 2 (--primary-suave),
+    texto --primary-text, borda rosa sutil e check; aria-pressed e anel de foco. */
 function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () => void; children: React.ReactNode; id?: string }) {
   return (
     <button
@@ -180,7 +181,7 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
       className={cn(
         "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150",
         "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        ativo ? "bg-primary text-primary-foreground border-primary" : "bg-card text-foreground border-border hover:border-[var(--border-strong)]",
+        ativo ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:border-[var(--border-strong)]",
       )}
     >
       {ativo && <Check className="h-3.5 w-3.5" aria-hidden />}
@@ -189,11 +190,13 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
   );
 }
 
-/** Cartão selecionável de Cards › Estados (borda de 2 px na primária, check no título e botão Selecionar/Selecionado),
-    com semântica de rádio: o botão é o item do RadioGroup (role="radio", aria-checked). */
+/** Cartão selecionável de Cards › Estados: selecionado com fundo branco, borda de 2 px na primária com o brilho animado
+    (BrilhoDeSelecionado), check no título e o botão "✓ Selecionado" de contorno de 2 px com fundo rosa nível 3.
+    Semântica de rádio: o botão é o item do RadioGroup (role="radio", aria-checked). */
 function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { valor: string; titulo: string; descricao: string; selecionado: boolean; id?: string }) {
   return (
-    <Card className={cn("gap-4 border-2 transition-all", selecionado ? "border-primary shadow-[var(--shadow-md)]" : "border-border hover:border-[var(--border-strong)]")}>
+    <Card className={cn("relative gap-4 border-2 transition-all", selecionado ? "border-primary" : "border-border hover:border-[var(--border-strong)]")}>
+      {selecionado && <BrilhoDeSelecionado />}
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-[1rem] font-semibold">
           {titulo}
@@ -202,7 +205,16 @@ function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { val
         <CardDescription>{descricao}</CardDescription>
       </CardHeader>
       <CardFooter>
-        <RadioGroupPrimitive.Item id={id} value={valor} aria-label={titulo} className={cn(buttonVariants({ variant: selecionado ? "default" : "outline" }), "w-full")}>
+        <RadioGroupPrimitive.Item
+          id={id}
+          value={valor}
+          aria-label={titulo}
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "w-full",
+            selecionado && "border-2 border-primary bg-[var(--primary-muted)] text-primary-text hover:bg-[var(--primary-muted)] hover:text-primary-text",
+          )}
+        >
           {selecionado ? <><Check aria-hidden /> Selecionado</> : "Selecionar"}
         </RadioGroupPrimitive.Item>
       </CardFooter>

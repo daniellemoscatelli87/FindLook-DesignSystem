@@ -39,7 +39,15 @@ const pinkScale = [
 const papeisDoPink = [
   { papel: "Botão principal (texto branco)", token: "--primary", passo: "pink-550", hex: "#E8004E", fundo: "var(--pink-550)", cor: "#FFFFFF", amostra: "Encontrar peças", amostraCls: "text-[0.9375rem] font-semibold", uso: "Fundo de botões e áreas cheias com texto branco; hover em pink-575 (#D20648, 5,4:1).", contraste: "Texto branco: 4,6:1 (AA)" },
   { papel: "Texto colorido grande", token: "--primary-destaque", passo: "pink-500", hex: "#FC0256", fundo: "#FFFFFF", cor: "var(--pink-500)", amostra: "descoberta", amostraCls: "text-[1.75rem] font-bold tracking-[-0.02em]", uso: "Só texto grande (24 px ou mais, ou negrito de 18,66 px ou mais): destaques de títulos e do hero.", contraste: "Sobre o branco: 3,98:1 (AA para texto grande)" },
-  { papel: "Texto colorido pequeno", token: "--primary-text", passo: "pink-600", hex: "#BC0A41", fundo: "#FFFFFF", cor: "var(--pink-600)", amostra: "Ver todas as lojas", amostraCls: "text-[0.875rem] font-semibold underline underline-offset-4", uso: "Links, item ativo do menu, chips, rótulos pequenos e texto de erro.", contraste: "Sobre o branco: 6,4:1 · sobre --primary-muted: 5,5:1" },
+  { papel: "Texto colorido pequeno", token: "--primary-text", passo: "pink-600", hex: "#BC0A41", fundo: "#FFFFFF", cor: "var(--pink-600)", amostra: "Ver todas as lojas", amostraCls: "text-[0.875rem] font-semibold underline underline-offset-4", uso: "Links, item ativo do menu, chips, rótulos pequenos e texto de erro.", contraste: "Sobre o branco: 6,4:1 · sobre --primary-muted: 5,2:1" },
+];
+
+/* Três rosas claros (decisão da dona do produto, 27/11/2026): fundos de estados selecionados, sempre com texto em
+   --primary-text. Só a ação principal da etapa é preenchida (Opção A). Contrastes do pink-600 (#BC0A41) sobre cada um. */
+const rosasClaros = [
+  { nivel: "1", token: "--primary-sutil", hex: "#FFF5F8", papel: "Hover e linhas", uso: "Hover dos itens do menu e linha selecionada em listas. O card selecionado continua branco.", contraste: "6,0:1", amostra: "card" as const },
+  { nivel: "2", token: "--primary-suave", hex: "#FFECF0", papel: "Cápsulas", uso: "Chips ativos e badges ou selos como “Recomendado”.", contraste: "5,7:1", amostra: "chip" as const },
+  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Controles selecionados", uso: "Botão “✓ Selecionado”, item ativo do menu, segmento ativo.", contraste: "5,2:1", amostra: "botao" as const },
 ];
 
 const semanticColors = [
@@ -168,6 +176,30 @@ export function FoundationShowcase() {
             ))}
           </div>
           <p className="mt-3 text-[0.8125rem] text-muted-foreground">Nunca texto branco sobre o <span className="font-mono">#FC0256</span>. No tema escuro, o texto pequeno usa o pink-300 (#F78BA7): 9,2:1 sobre o fundo grafite.</p>
+        </SubSection>
+
+        <div id="rosas-claros" className="scroll-mt-32" />
+        <SubSection title="Três rosas claros">
+          <p className="mb-4 max-w-3xl text-[0.875rem] leading-relaxed text-muted-foreground">
+            Decisão da dona do produto (27/11/2026): só a ação principal de cada área é um botão preenchido. Estados selecionados e ativos usam um destes três fundos, do mais leve ao mais forte, sempre com o texto em <span className="font-mono text-foreground">--primary-text</span>. No tema escuro, os três são o pink-500 a 8%, 12% e 16% sobre o grafite, com o texto em pink-300 (6,9:1 ou mais).
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3" data-rosas-claros>
+            {rosasClaros.map((r) => (
+              <div key={r.token} className="overflow-hidden rounded-lg border border-border bg-card">
+                <div className="flex h-24 items-center justify-center px-3" style={{ background: `var(${r.token})` }}>
+                  {r.amostra === "card" && <span className="rounded-sm px-3 py-2 text-[0.875rem] font-medium text-foreground">Item do menu (hover)</span>}
+                  {r.amostra === "chip" && <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-[var(--primary-suave)] px-3 py-1.5 text-[0.8125rem] font-medium text-primary-text"><span aria-hidden>✓</span> Feminino</span>}
+                  {r.amostra === "botao" && <span className="inline-flex h-10 items-center gap-1.5 rounded-md border-2 border-primary bg-[var(--primary-muted)] px-4 text-[0.8125rem] font-semibold text-primary-text"><span aria-hidden>✓</span> Selecionado</span>}
+                </div>
+                <div className="space-y-1 p-3.5">
+                  <div className="text-[0.875rem] font-semibold text-foreground">Nível {r.nivel} · {r.papel}</div>
+                  <div className="font-mono text-[0.75rem] text-muted-foreground">{r.token} · {r.hex}</div>
+                  <div className="text-[0.8125rem] text-muted-foreground">{r.uso}</div>
+                  <div className="text-[0.8125rem] font-semibold text-foreground">Texto --primary-text: {r.contraste}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </SubSection>
 
         <SubSection title={t("Semantic Tokens", "Tokens semânticos")}>
@@ -567,7 +599,9 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     tokens: [
       { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on primary", "Texto sobre primária"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted primary background", "Fundo com tom da primária"),       light: "rgba(252,2,86,0.10)", dark: "rgba(252,2,86,0.15)", isColor: true },
+      { name: "--primary-sutil",      description: t("Light pink level 1: selected surfaces, menu hover", "Rosa claro nível 1: superfícies selecionadas, hover do menu"), light: "#FFF5F8", dark: "rgba(252,2,86,0.08)", isColor: true },
+      { name: "--primary-suave",      description: t("Light pink level 2: active chips, badges", "Rosa claro nível 2: chips ativos, badges e selos"), light: "#FFECF0", dark: "rgba(252,2,86,0.12)", isColor: true },
+      { name: "--primary-muted",      description: t("Light pink level 3: selected controls, active menu item", "Rosa claro nível 3: controles selecionados, item ativo do menu"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
     ],
   },
   {

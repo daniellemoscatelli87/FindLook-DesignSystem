@@ -22,7 +22,7 @@ function SeloSecao({ className, icon, size = "md", children, ...props }: SeloSec
       data-slot="selo-secao"
       className={cn(
         "inline-flex w-fit select-none items-center whitespace-nowrap rounded-full border font-bold uppercase tracking-[0.2em] shadow-[var(--shadow-xs)]",
-        "border-primary/25 bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] dark:border-primary/30",
+        "border-primary/25 bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))] dark:border-primary/30",
         size === "md" ? "gap-2 px-4 py-1.5 text-[0.75rem]" : "gap-1.5 px-3 py-1 text-[0.6875rem]",
         className,
       )}

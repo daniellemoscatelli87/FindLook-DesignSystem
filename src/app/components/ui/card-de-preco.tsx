@@ -2,6 +2,7 @@ import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { ArrowRight, Check, ChevronDown, Lightbulb, Minus, Star } from "lucide-react";
 import { cn } from "./utils";
+import { BrilhoDeSelecionado } from "./shine-border";
 
 /**
  * Card de preço (CardDePreco), o card do template "Planos e assinatura" (Templates › Pricing), agora reaproveitável
@@ -12,8 +13,12 @@ import { cn } from "./utils";
  * (abre e fecha a lista com incluído e não incluído) · divisor · preço com período à esquerda e a ação à direita
  * (empilham quando o card fica estreito).
  *
- * Estado selecionado (padrão de Cards › Estados): borda de 2 px na primária, anel suave e a ação vira
- * "Plano selecionado" com check; nunca só cor. O plano em destaque também tem a borda de 2 px.
+ * Estado selecionado (Opção A, decisões da dona do produto de 27/11/2026: só a ação principal da área é preenchida):
+ * o card continua branco, com a borda de 2 px na primária e o brilho animado do design system por cima dela
+ * (BrilhoDeSelecionado, de ui/shine-border; parado com "menos movimento"); a ação vira um botão de contorno de 2 px
+ * (a mesma espessura da borda do card) com "✓ Plano selecionado", texto --primary-text e fundo rosa nível 3
+ * (--primary-muted). Nunca só cor: o check e o texto mudam. O plano em destaque também tem a borda de 2 px; o selo "Recomendado" usa o nível 2
+ * (--primary-suave).
  *
  * Seleção:
  * - "botao" (padrão, página de planos do painel): a ação é um botão com aria-pressed.
@@ -78,8 +83,8 @@ export type CardDePrecoProps = {
 
 const classeDaAcao = (ativo: boolean) =>
   cn(
-    "h-10 w-full @[19rem]:w-auto px-4 rounded-md border border-primary text-[0.8125rem] font-semibold whitespace-nowrap transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-    ativo ? "bg-primary text-primary-foreground" : "bg-card text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)]",
+    "h-10 w-full @[19rem]:w-auto px-4 rounded-md border-primary text-[0.8125rem] font-semibold whitespace-nowrap text-[var(--primary-text,var(--primary))] transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+    ativo ? "border-2 bg-[var(--primary-muted)]" : "border bg-card hover:bg-[var(--primary-sutil)]",
   );
 
 export function CardDePreco({
@@ -109,19 +114,20 @@ export function CardDePreco({
       data-slot="card-de-preco"
       data-selecionado={selecionado || undefined}
       className={cn(
-        "@container relative rounded-[20px] bg-card p-4 sm:p-6 flex flex-col transition-shadow",
+        "@container relative rounded-[20px] p-4 sm:p-6 flex flex-col transition-[background-color,box-shadow] duration-[var(--duration-fast)]",
         destaque || selecionado ? "border-2 border-primary" : "border border-border",
-        selecionado && "ring-4 ring-primary/20",
+        "bg-card",
         className,
       )}
     >
+      {selecionado && <BrilhoDeSelecionado />}
       {/* Topo: ícone do plano e, no destacado, o selo no estilo do card com wobble */}
       <div className="mb-4 flex items-center justify-between gap-2">
         <div className="h-8 w-8 rounded-full flex items-center justify-center bg-[var(--primary-muted)] dark:bg-muted shrink-0 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-[var(--primary-text,var(--primary))] dark:[&>svg]:text-muted-foreground">
           {icone}
         </div>
         {destaque && (
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-[var(--primary-muted)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-[var(--primary-suave)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
             <Star aria-hidden className="h-3 w-3 fill-current" />
             {tx.recomendado}
           </span>

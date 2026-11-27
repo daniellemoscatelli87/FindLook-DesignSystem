@@ -201,10 +201,10 @@ function TituloDaLista({ titulo, componente }: { titulo: string; componente: str
 /* ── Badges ── */
 const badgeVariants = [
   { label: { en: "Default", pt: "Padrão" },  cls: "bg-muted text-foreground border-border" },
-  { label: { en: "Primary", pt: "Primário" },  cls: "bg-primary/10 text-primary border-primary/20" },
+  { label: { en: "Primary", pt: "Primário" },  cls: "bg-[var(--primary-suave)] text-primary-text border-primary/20" },
   { label: { en: "Success", pt: "Sucesso" },  cls: "bg-success/10 text-success border-success/20" },
   { label: { en: "Warning", pt: "Aviso" },  cls: "bg-warning/10 text-warning-text border-warning/20" },
-  { label: { en: "Error", pt: "Erro" },    cls: "bg-primary/10 text-primary border-primary/20" },
+  { label: { en: "Error", pt: "Erro" },    cls: "bg-[var(--error-muted)] text-error-text border-error/20" },
   { label: { en: "Info", pt: "Info" },     cls: "bg-info/10 text-info border-info/20" },
 ];
 
@@ -219,7 +219,7 @@ const chipVariants = [
 const tagVariants = [
   { label: "react", color: "bg-info/10 text-info border-info/20 dark:text-info" },
   { label: "typescript", color: "bg-violet/10 text-violet border-violet/20 dark:text-violet" },
-  { label: "ui-design", color: "bg-primary/10 text-primary border-primary/20" },
+  { label: "ui-design", color: "bg-[var(--primary-suave)] text-primary-text border-primary/20" },
   { label: "performance", color: "bg-success/10 text-success border-success/20" },
   { label: "api", color: "bg-muted text-muted-foreground border-border" },
 ];
@@ -479,7 +479,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                   {bi(b.label)}
                 </span>
               ))}
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border bg-primary/10 text-primary border-primary/20">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border bg-[var(--primary-suave)] text-primary-text border-primary/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 {t("Live", "Ao vivo")}
               </span>
@@ -492,6 +492,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
 
         <SubSection title={t("Chips (Filterable)", "Chips (filtráveis)")}>
           <ShowcaseCard>
+            <p className="mb-4 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">Chip ativo (decisão da dona do produto, 27/11/2026): fundo rosa nível 2 (--primary-suave), texto --primary-text (5,7:1), borda rosa sutil e o check; nunca preenchido de pink, porque só a ação principal da área é preenchida. aria-pressed diz se está marcado.</p>
             <div className="flex flex-wrap gap-2">
               {chipVariants.map(c => {
                 const active = chipActive.includes(c.label);
@@ -499,8 +500,9 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                   <button
                     key={c.label}
                     onClick={() => setChipActive(prev => active ? prev.filter(x => x !== c.label) : [...prev, c.label])}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150
-                      ${active ? "bg-primary text-primary-foreground border-primary" : "bg-card text-foreground border-border hover:border-[var(--border-strong)]"}`}
+                    aria-pressed={active}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                      ${active ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:border-[var(--border-strong)]"}`}
                   >
                     {active && <Check className="h-3.5 w-3.5" />}
                     {lang === "en" ? c.label : c.pt}

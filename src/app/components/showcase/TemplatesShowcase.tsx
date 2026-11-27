@@ -282,7 +282,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                         document.documentElement.classList.toggle("dark", newDark);
                       }}
                       className={`p-3 rounded-md border-2 flex flex-col items-center gap-2 transition-all ${foco}
-                        ${th.active ? "border-primary bg-[var(--primary-muted)]" : "border-border bg-card"}`}
+                        ${th.active ? "border-primary bg-card" : "border-border bg-card"}`}
                     >
                       <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
                       <span className={`text-[0.75rem] font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
@@ -525,7 +525,7 @@ type Situacao = "ativo" | "pendente" | "pausado";
 type Pessoa = { nome: string; email: string; papel: Papel; situacao: Situacao; iniciais: string; acesso: string };
 
 const papeis: Record<Papel, { rotulo: string; desc: string; cor: string }> = {
-  responsavel: { rotulo: "Responsável", desc: "Cuida do plano, da equipe e de todos os dados da loja.", cor: `bg-[var(--primary-muted)] ${textoMarca} border-primary/20` },
+  responsavel: { rotulo: "Responsável", desc: "Cuida do plano, da equipe e de todos os dados da loja.", cor: `bg-[var(--primary-suave)] ${textoMarca} border-primary/20` },
   atendente:   { rotulo: "Atendente",   desc: "Responde contatos e pedidos de reserva.",                cor: "bg-[var(--info-muted)] text-foreground border-info/30" },
   estoquista:  { rotulo: "Estoquista",  desc: "Cadastra peças, fotos, tamanhos e estoque.",             cor: "bg-muted text-foreground border-border" },
 };
@@ -648,7 +648,7 @@ function TeamTemplate() {
                 type="button"
                 aria-pressed={filtro === f}
                 onClick={() => setFiltro(f)}
-                className={`h-7 px-2.5 rounded-full border text-[0.6875rem] font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-muted)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
+                className={`h-7 px-2.5 rounded-full border text-[0.6875rem] font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
               >
                 {f === "todos" ? "Todos" : papeis[f].rotulo}
               </button>
@@ -872,7 +872,7 @@ function InboxTemplate() {
                     aria-current={selected === n.id ? "true" : undefined}
                     onClick={() => { setSelected(n.id); marcar(n.id, true); setDetalheMobile(true); }}
                     className={`w-full text-left px-4 py-3 border-b border-border transition-colors flex gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring
-                      ${selected === n.id ? "bg-[var(--primary-muted)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
+                      ${selected === n.id ? "bg-[var(--primary-sutil)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
                   >
                     <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-3.5 w-3.5" />
@@ -1396,7 +1396,7 @@ const templatesTokenGroups = (t: (en: string, pt: string) => string): TokenGroup
     tokens: [
       { name: "--primary",            description: t("Primary CTA button / link", "Botão / link CTA primário"),  light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on CTA", "Texto sobre o CTA"),               light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "rgba(252,2,86,0.10)", dark: "rgba(252,2,86,0.15)", isColor: true },
+      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
     ],
   },
   {
@@ -1509,7 +1509,7 @@ function LandingTemplate() {
           <div className="absolute top-10 left-1/5 w-[220px] h-[220px] rounded-full bg-info/5 blur-3xl pointer-events-none" />
           <div className="absolute top-10 right-1/5 w-[180px] h-[180px] rounded-full bg-warning/4 blur-3xl pointer-events-none" />
           <div className="relative z-10 text-center max-w-2xl mx-auto">
-            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/25 bg-[var(--primary-muted)] text-[0.6875rem] font-semibold mb-5 ${textoMarca}`}>
+            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/25 bg-[var(--primary-suave)] text-[0.6875rem] font-semibold mb-5 ${textoMarca}`}>
               <Store aria-hidden className="h-3 w-3" /> Para lojas e brechós da sua cidade
             </div>
             <h1 className="text-[1.875rem] sm:text-[2.25rem] font-black text-foreground tracking-[-0.04em] leading-[1.1] mb-4">
@@ -1654,7 +1654,7 @@ function LandingTemplate() {
               <p className="text-[0.75rem] text-muted-foreground leading-snug mb-3">Quem procura por foto ou descrição encontra as suas peças pelo estilo, pelo tamanho e pela região.</p>
               <div className="flex flex-wrap gap-2">
                 {["Busca por foto", "Busca por descrição", "Perto de quem procura"].map(chip => (
-                  <span key={chip} className={`text-[0.5625rem] px-2 py-0.5 rounded-full bg-[var(--primary-muted)] font-medium border border-primary/15 ${textoMarca}`}>{chip}</span>
+                  <span key={chip} className={`text-[0.5625rem] px-2 py-0.5 rounded-full bg-[var(--primary-suave)] font-medium border border-primary/15 ${textoMarca}`}>{chip}</span>
                 ))}
               </div>
             </div>
@@ -1924,7 +1924,7 @@ function LandingTemplate() {
 
           <div className="relative z-10 px-4 sm:px-6 py-12">
             <div className="text-center mb-8">
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/20 bg-[var(--primary-muted)] text-[0.6875rem] font-semibold mb-3 ${textoMarca}`}>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/20 bg-[var(--primary-suave)] text-[0.6875rem] font-semibold mb-3 ${textoMarca}`}>
                 <MessageCircle aria-hidden className="h-3 w-3" /> Fale com a gente
               </div>
               <h2 className="text-[1.375rem] font-black text-foreground tracking-[-0.03em] mb-2">
@@ -2089,7 +2089,7 @@ function LandingTemplate() {
                               type="button"
                               aria-pressed={tipoLoja === s}
                               onClick={() => setTipoLoja(s)}
-                              className={`px-2.5 py-1 rounded-full border text-[0.625rem] font-medium transition-all ${foco} ${tipoLoja === s ? `border-primary bg-[var(--primary-muted)] ${textoMarca}` : "border-border bg-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
+                              className={`px-2.5 py-1 rounded-full border text-[0.625rem] font-medium transition-all ${foco} ${tipoLoja === s ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
                             >
                               {tipoLoja === s && <Check aria-hidden className="inline h-2.5 w-2.5 mr-1 -mt-px" />}
                               {s}

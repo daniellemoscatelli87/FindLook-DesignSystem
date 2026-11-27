@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { ShineBorder } from "../ui/shine-border";
+import { ShineBorder, BrilhoDeSelecionado } from "../ui/shine-border";
 import { PartnerCard } from "../ui/partner-card";
 import { ProductCard } from "../ui/product-card";
 import { GlassCard, GlassScene, glassTextContrast, glassSceneTexture, type GlassFinish, type GlassCardProps } from "../ui/glass-card";
@@ -855,7 +855,8 @@ export function CardShowcase() {
                   [t("Either", "Tanto faz"), t("Show both", "Mostrar as duas")],
                 ];
                 return (
-                  <Card key={index} className={`gap-4 border-2 transition-all ${isSelected ? "border-primary shadow-[var(--shadow-md)]" : "border-border hover:border-[var(--border-strong)]"}`}>
+                  <Card key={index} className={`relative gap-4 border-2 transition-all ${isSelected ? "border-primary" : "border-border hover:border-[var(--border-strong)]"}`}>
+                    {isSelected && <BrilhoDeSelecionado />}
                     <CardHeader>
                       <CardTitle className={`${display} text-[1rem] font-semibold flex items-center gap-2`}>
                         {labels[index][0]}
@@ -864,7 +865,14 @@ export function CardShowcase() {
                       <CardDescription>{labels[index][1]}</CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button className="w-full" variant={isSelected ? "default" : "outline"} onClick={() => setSelected(index)} aria-pressed={isSelected}>
+                      {/* Opção A (27/11/2026): selecionado é contorno de 2 px (a espessura da borda do card) com check, fundo rosa nível 3; só a ação principal da área é preenchida. */}
+                      <Button
+                        className={`w-full ${isSelected ? "border-2 border-primary bg-[var(--primary-muted)] text-primary-text hover:bg-[var(--primary-muted)] hover:text-primary-text" : ""}`}
+                        variant="outline"
+                        onClick={() => setSelected(index)}
+                        aria-pressed={isSelected}
+                      >
+                        {isSelected && <Check aria-hidden />}
                         {isSelected ? t("Selected", "Selecionado") : t("Select", "Selecionar")}
                       </Button>
                     </CardFooter>
@@ -889,7 +897,7 @@ export function CardShowcase() {
                 [t("Resting", "Parado"), t("Rule of the background (see How to choose).", "Regra do fundo (veja Como escolher).")],
                 [t("Hover (clickable card)", "Hover (card clicável)"), t("Stronger border and medium shadow; may rise 2 px.", "Borda mais forte e sombra média; pode subir 2 px.")],
                 [t("Focus", "Foco"), t("Visible focus ring around the whole card.", "Anel de foco visível em volta do card inteiro.")],
-                [t("Selected", "Selecionado"), t("2 px primary border, check icon and aria-pressed.", "Borda primária de 2 px, ícone de check e aria-pressed.")],
+                [t("Selected", "Selecionado"), "Card branco com borda primária de 2 px e o brilho animado por cima (BrilhoDeSelecionado, de ui/shine-border, preset primaria; com menos movimento, só a borda parada); check no título; o botão vira contorno de 2 px na primária, a mesma espessura da borda, com “✓ Selecionado”, texto --primary-text e fundo rosa nível 3 (--primary-muted). Só a ação principal da área é preenchida (Opção A, 27/11/2026). aria-pressed, ou role=\"radio\" quando a escolha é de um grupo."],
                 [t("Loading", "Carregando"), t("Skeleton in the shape of the content and aria-busy.", "Skeleton no formato do conteúdo e aria-busy.")],
               ]}
             />
@@ -949,7 +957,7 @@ export function CardShowcase() {
             <Card className="relative gap-5 overflow-hidden border-border">
               <ShineBorder borderWidth={1} duration={7} shineColor={["var(--primary)", "var(--chart-2)", "var(--primary)"]} />
               <CardHeader>
-                <span className="mb-2 inline-flex w-fit items-center rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[0.6875rem] font-semibold text-primary">{t("Recommended", "Recomendado")}</span>
+                <span className="mb-2 inline-flex w-fit items-center rounded-full border border-primary/20 bg-[var(--primary-suave)] px-2.5 py-1 text-[0.6875rem] font-semibold text-primary-text">{t("Recommended", "Recomendado")}</span>
                 <CardTitle className={`${display} text-[1.125rem] font-semibold`}>{t("Launch Basic", "Básico de lançamento")}</CardTitle>
                 <CardDescription>{t("Use Shine Border to call attention to one exceptional option.", "Use Shine Border para chamar atenção para uma única opção excepcional.")}</CardDescription>
               </CardHeader>
@@ -972,6 +980,7 @@ export function CardShowcase() {
                   [t("Hierarchy", "Hierarquia"), t("Reserve for recommended, premium or newly highlighted content.", "Reserve para conteúdo recomendado, premium ou recém-destacado.")],
                   [t("Interaction", "Interação"), t("The border is decorative and never captures pointer events.", "A borda é decorativa e nunca captura eventos de ponteiro.")],
                   [t("Reduced motion", "Movimento reduzido"), t("The border remains visible but stops animating.", "A borda continua visível, mas deixa de animar.")],
+                  ["Card selecionado", "Estado selecionado padrão (27/11/2026): BrilhoDeSelecionado (preset primaria, 2 px) em cima da borda primária de 2 px do card, que continua branco. Com menos movimento, só a borda parada. Usado no CardDePreco e nos cartões de Cards › Estados."],
                 ]}
               />
             </div>

@@ -49,7 +49,7 @@ const lightPairs: Pair[] = [
   { name: "primary-foreground / primary-hover", usage: { en: "Label on primary button, hover (pink-575)", pt: "Rótulo no botão principal, hover (pink-575)" }, fg: "#FFFFFF", bg: "#D20648" },
   { name: "primary-destaque / card", usage: { en: "Large coloured text only (pink-500, scarf)", pt: "Só texto colorido grande (pink-500, lenço)" }, fg: "#FC0256", bg: "#FFFFFF" },
   { name: "primary-text / card", usage: { en: "Small coloured text: links, active item (pink-600)", pt: "Texto colorido pequeno: links, item ativo (pink-600)" }, fg: "#BC0A41", bg: "#FFFFFF" },
-  { name: "primary-text / primary-muted", usage: { en: "Chip text on the pink tint", pt: "Texto do chip sobre o fundo rosado" }, fg: "#BC0A41", bg: "#FFE6EE" },
+  { name: "primary-text / primary-muted", usage: { en: "Chip text on the pink tint", pt: "Texto do chip sobre o fundo rosado" }, fg: "#BC0A41", bg: "#FEDFE6" },
   { name: "error-text / alerta", usage: { en: "Error button text on the alert", pt: "Texto do botão no alerta de erro" }, fg: "#BC0A41", bg: "#FFEDF3" },
   { name: "success / card", usage: { en: "Status color alone", pt: "Cor de status isolada" }, fg: "#31835D", bg: "#FFFFFF" },
   { name: "warning-foreground / warning", usage: { en: "Text on the warning amber", pt: "Texto sobre o âmbar de aviso" }, fg: "#2C2C33", bg: "#F0B135" },
