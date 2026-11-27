@@ -20,7 +20,7 @@ import { MolduraCelular, ConteudoFalso } from "./shared/MolduraCelular";
 /* Padrões do produto: componentes trazidos do produto FindLook (busca do hero, loja e mapa e cadastro do lojista),
    para o produto copiar daqui. As telas do admin entram só quando a decisão final for tomada no FindLook. Todos os dados desta página são exemplos fictícios. */
 
-const codigo = "overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground";
+const codigo = "overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground";
 
 /* ── Dados de exemplo (fictícios) ── */
 const PINOS: PinoIlustrativo[] = [
@@ -88,7 +88,7 @@ export function ProdutoShowcase() {
             <div className="rounded-xl bg-[var(--surface-tint)] p-4 sm:p-6">
               <BuscaDePecas elevada onBuscar={setBuscaEnviada} />
             </div>
-            <p role="status" className="text-[0.8125rem] text-muted-foreground">
+            <p role="status" className="text-body-sm text-muted-foreground">
               {buscaEnviada
                 ? t(`Sent: “${buscaEnviada.descricao}” · ${condicao[buscaEnviada.condicao]}${buscaEnviada.foto ? " · with photo" : ""}`, `Enviado: “${buscaEnviada.descricao}” · ${condicao[buscaEnviada.condicao]}${buscaEnviada.foto ? " · com foto" : ""}`)
                 : t("Try it: submit empty to see the error; fill it in to see what onBuscar receives.", "Experimente: envie vazio para ver o erro; preencha para ver o que o onBuscar recebe.")}
@@ -235,13 +235,13 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
             </MolduraCelular>
           </div>
           <div className="min-w-0 space-y-4 md:pt-9">
-            <p className="text-[0.9375rem] leading-relaxed text-foreground">O 1º passo acontece na gaveta “Vamos apresentar sua loja?”: só o nome da loja e o e-mail. Ao continuar, o produto abre o cadastro em 5 etapas, logo abaixo.</p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> Abre por todos os botões “Cadastrar minha loja”; na página do lojista, tom escuro.</li>
-              <li className="flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> No celular, a barra fixa “Cadastrar minha loja” abre a mesma gaveta.</li>
-              <li className="flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> Continuar vazio mostra os erros e leva o foco ao primeiro campo.</li>
+            <p className="text-body leading-relaxed text-foreground">O 1º passo acontece na gaveta “Vamos apresentar sua loja?”: só o nome da loja e o e-mail. Ao continuar, o produto abre o cadastro em 5 etapas, logo abaixo.</p>
+            <ul className="space-y-2 text-body-sm leading-5 text-muted-foreground">
+              <li className="flex items-start gap-2"><Check className="mt-1 size-4 shrink-0 text-success" aria-hidden /> Abre por todos os botões “Cadastrar minha loja”; na página do lojista, tom escuro.</li>
+              <li className="flex items-start gap-2"><Check className="mt-1 size-4 shrink-0 text-success" aria-hidden /> No celular, a barra fixa “Cadastrar minha loja” abre a mesma gaveta.</li>
+              <li className="flex items-start gap-2"><Check className="mt-1 size-4 shrink-0 text-success" aria-hidden /> Continuar vazio mostra os erros e leva o foco ao primeiro campo.</li>
             </ul>
-            <p role="status" className="text-[0.8125rem] text-muted-foreground">
+            <p role="status" className="text-body-sm text-muted-foreground">
               {cadastroEnviado ? `onContinuar recebeu “${cadastroEnviado}”. O produto abre então o cadastro em 5 etapas.` : "Experimente: toque em Cadastrar minha loja na moldura."}
             </p>
           </div>
@@ -256,7 +256,7 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
 
         <div id="produto-cadastro-combinacoes" className="min-w-0 scroll-mt-32 space-y-3">
           <SubTitle>Combinações</SubTitle>
-          <p className="max-w-3xl text-[0.875rem] leading-relaxed text-muted-foreground">Quais componentes do design system cada etapa combina, e por quê. Cada nome leva à documentação do componente.</p>
+          <p className="max-w-3xl text-body-sm leading-relaxed text-muted-foreground">Quais componentes do design system cada etapa combina, e por quê. Cada nome leva à documentação do componente.</p>
           <CombinacoesDoCadastro />
         </div>
         <div className="grid gap-4 lg:grid-cols-2">

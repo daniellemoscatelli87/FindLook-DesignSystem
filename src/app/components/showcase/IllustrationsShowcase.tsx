@@ -113,7 +113,7 @@ const expressoes = [
 
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
+  return <p className="mb-2 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
 }
 
 function Panel({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
@@ -145,7 +145,7 @@ async function baixar(url: string, filename: string) {
 
 function DownloadButton({ url, filename, label }: { url: string; filename: string; label: string }) {
   return (
-    <button type="button" onClick={() => baixar(url, filename)} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[0.75rem] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
+    <button type="button" onClick={() => baixar(url, filename)} className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground">
       <Download className="h-3.5 w-3.5" aria-hidden /> {label}
     </button>
   );
@@ -155,13 +155,13 @@ function DownloadButton({ url, filename, label }: { url: string; filename: strin
 function EmptyStateMock({ src, alt, mobile = false }: { src: string; alt: string; mobile?: boolean }) {
   const { t } = useI18n();
   return (
-    <div className={mobile ? "mx-auto w-[300px] rounded-[28px] border-[6px] border-[var(--graphite-900)] bg-white p-4 pt-8 shadow-[var(--shadow-md)]" : "rounded-lg border border-border bg-white p-8 shadow-[var(--shadow-xs)]"}>
+    <div className={mobile ? "mx-auto w-[300px] rounded-xl border-[6px] border-[var(--graphite-900)] bg-white p-4 pt-8 shadow-[var(--shadow-md)]" : "rounded-lg border border-border bg-white p-8 shadow-[var(--shadow-xs)]"}>
       {!mobile && <div className="mb-6 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[var(--graphite-300)]" /><span className="h-2 w-16 rounded-full bg-[var(--graphite-200)]" /><span className="ml-auto h-2 w-10 rounded-full bg-[var(--graphite-200)]" /></div>}
       <div className={`flex flex-col items-center text-center ${mobile ? "gap-3" : "gap-4"}`}>
         <img src={src} alt={alt} className={mobile ? "w-[180px] h-auto" : "w-[300px] h-auto"} />
-        <span className={`${display} ${mobile ? "text-[1rem]" : "text-[1.25rem]"} font-semibold tracking-[-0.01em] text-[var(--graphite-950)]`}>{t("Empty state title", "Título do estado vazio")}</span>
-        <span className={`${mobile ? "text-[0.75rem]" : "text-[0.875rem]"} max-w-[28ch] leading-relaxed text-[var(--graphite-500)]`}>{t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}</span>
-        <span className={`inline-flex items-center rounded-full bg-primary ${mobile ? "h-9 px-4 text-[0.75rem]" : "h-10 px-5 text-[0.875rem]"} font-semibold text-primary-foreground`}>{t("Primary action", "Ação principal")}</span>
+        <span className={`${display} ${mobile ? "text-body" : "text-h4"} font-semibold tracking-[-0.01em] text-[var(--graphite-950)]`}>{t("Empty state title", "Título do estado vazio")}</span>
+        <span className={`${mobile ? "text-label" : "text-body-sm"} max-w-[28ch] leading-relaxed text-[var(--graphite-500)]`}>{t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}</span>
+        <span className={`inline-flex items-center rounded-full bg-primary ${mobile ? "h-9 px-4 text-label" : "h-10 px-5 text-body-sm"} font-semibold text-primary-foreground`}>{t("Primary action", "Ação principal")}</span>
       </div>
       {mobile && <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-[var(--graphite-200)]" />}
     </div>
@@ -180,8 +180,8 @@ function IllustrationCard({ il }: { il: Illustration }) {
     <section id={il.id} className="scroll-mt-32 space-y-6 rounded-xl border border-border bg-card p-5 sm:p-8">
       <div>
         <Label>{t("Name", "Nome")}</Label>
-        <h3 className={`${display} text-[1.375rem] font-semibold tracking-[-0.02em] text-foreground`}>{il.nome}</h3>
-        <p className="mt-1 text-[0.8125rem] text-muted-foreground">{t("Expression", "Expressão")}: {il.expressao}</p>
+        <h3 className={`${display} text-h3 font-semibold tracking-[-0.02em] text-foreground`}>{il.nome}</h3>
+        <p className="mt-1 text-body-sm text-muted-foreground">{t("Expression", "Expressão")}: {il.expressao}</p>
       </div>
       <div>
         <Label>{t("Image", "Imagem")}</Label>
@@ -189,9 +189,9 @@ function IllustrationCard({ il }: { il: Illustration }) {
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <DownloadButton url={webp} filename={`${nomeArquivo}.${ext}`} label={il.arquivoSvg ? t("SVG (vector)", "SVG (vetor)") : "WebP"} />
           <DownloadButton url={png} filename={`${nomeArquivo}.png`} label="PNG" />
-          <span className="text-[0.75rem] text-muted-foreground">{il.largura} × {il.altura} px · {t("transparent background", "fundo transparente")} · <span className="font-mono">{nomeArquivo}</span></span>
+          <span className="text-label text-muted-foreground">{il.largura} × {il.altura} px · {t("transparent background", "fundo transparente")} · <span className="font-mono">{nomeArquivo}</span></span>
         </div>
-        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">{t("Alt text", "Texto alternativo")}:</span> {il.alt}</p>
+        <p className="mt-2 text-label leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">{t("Alt text", "Texto alternativo")}:</span> {il.alt}</p>
       </div>
       <GradeDeCards className="gap-6 lg:grid-cols-[1.4fr_1fr]">
         <ItemDaGrade><Label>{t("Web view", "Visão web")}</Label><EmptyStateMock src={webp} alt="" /></ItemDaGrade>
@@ -200,14 +200,14 @@ function IllustrationCard({ il }: { il: Illustration }) {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <Label>{t("Where / when to use", "Onde / quando usar")}</Label>
-          <ul className="space-y-2 text-[0.875rem] leading-relaxed text-foreground">
+          <ul className="space-y-2 text-body-sm leading-relaxed text-foreground">
             <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span><span className="font-semibold">{t("Where", "Onde")}:</span> {il.onde}</span></li>
             <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span><span className="font-semibold">{t("When", "Quando")}:</span> {il.quando}</span></li>
           </ul>
         </div>
         <div>
           <Label>{t("How not to use", "Como não usar")}</Label>
-          <ul className="space-y-2 text-[0.875rem] leading-relaxed text-foreground">
+          <ul className="space-y-2 text-body-sm leading-relaxed text-foreground">
             {il.naoUsar.map((n) => <li key={n} className="flex gap-2"><X className="mt-1 h-4 w-4 shrink-0 text-[var(--error-text,var(--destructive))]" aria-hidden /><span>{n}</span></li>)}
           </ul>
         </div>
@@ -220,7 +220,7 @@ function Bullets({ items }: { items: [string, string][] }) {
   return (
     <ul className="grid gap-3 sm:grid-cols-2">
       {items.map(([a, b]) => (
-        <li key={a} className="rounded-lg border border-border bg-card p-4"><p className="mb-1 text-[0.875rem] font-semibold text-foreground">{a}</p><p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{b}</p></li>
+        <li key={a} className="rounded-lg border border-border bg-card p-4"><p className="mb-1 text-body-sm font-semibold text-foreground">{a}</p><p className="text-body-sm leading-relaxed text-muted-foreground">{b}</p></li>
       ))}
     </ul>
   );
@@ -253,14 +253,14 @@ export function IllustrationsShowcase() {
           <div>
             <Label>{t("Official character", "Personagem oficial")}</Label>
             <Panel src={m("nyx-master.webp")} alt={t("Nyx, the FindLook mascot: a black cat sitting, with pink sunglasses on her head and a pink scarf, looking up with a smile.", "Nyx, a mascote da FindLook: uma gata preta sentada, com óculos escuros pink na cabeça e lenço pink, olhando para cima com um sorriso.")} className="[&_img]:max-w-[360px]" />
-            <p className={`${display} mt-3 text-center text-[1.125rem] font-semibold text-foreground`}>Nyx</p>
-            <p className="text-center text-[0.8125rem] text-muted-foreground">{t("The FindLook cat · official character", "A gatinha FindLook · personagem oficial")}</p>
+            <p className={`${display} mt-3 text-center text-subtitle font-semibold text-foreground`}>Nyx</p>
+            <p className="text-center text-body-sm text-muted-foreground">{t("The FindLook cat · official character", "A gatinha FindLook · personagem oficial")}</p>
           </div>
           <div className="space-y-5">
             <div>
               <Label>{t("Turnaround (reference views)", "Turnaround (visões de referência)")}</Label>
               <Panel src={m("nyx-turnaround.webp")} alt={t("Nyx in four views: front, three-quarter right, right profile and back.", "Nyx em quatro visões: frente, 3/4 direita, perfil direita e costas.")} />
-              <p className="mt-2 text-[0.75rem] text-muted-foreground">{t("Front · 3/4 right · right profile · back. New scenes start from one of these views.", "Frente · 3/4 direita · perfil direita · costas. Novas cenas partem de uma destas visões.")}</p>
+              <p className="mt-2 text-label text-muted-foreground">{t("Front · 3/4 right · right profile · back. New scenes start from one of these views.", "Frente · 3/4 direita · perfil direita · costas. Novas cenas partem de uma destas visões.")}</p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
@@ -278,13 +278,13 @@ export function IllustrationsShowcase() {
           <DataTable
             head={[t("Element", "Elemento"), t("Token in the product", "Token no produto")]}
             rows={[
-              [t("Fur", "Pelagem"), <span key="a" className="font-mono text-[0.75rem]">--graphite-950</span>],
-              [t("Sunglasses and scarf", "Óculos e lenço"), <span key="b" className="font-mono text-[0.75rem]">--brand-pink (pink-500, #FC0256: a escala nasce deste lenço)</span>],
-              [t("Eyes and outlines", "Olhos e contornos"), <span key="c" className="font-mono text-[0.75rem]">#FFFFFF</span>],
-              [t("Base shadow", "Sombra da base"), <span key="d" className="font-mono text-[0.75rem]">--graphite-200</span>],
+              [t("Fur", "Pelagem"), <span key="a" className="font-mono text-label">--graphite-950</span>],
+              [t("Sunglasses and scarf", "Óculos e lenço"), <span key="b" className="font-mono text-label">--brand-pink (pink-500, #FC0256: a escala nasce deste lenço)</span>],
+              [t("Eyes and outlines", "Olhos e contornos"), <span key="c" className="font-mono text-label">#FFFFFF</span>],
+              [t("Base shadow", "Sombra da base"), <span key="d" className="font-mono text-label">--graphite-200</span>],
             ]}
           />
-          <div className="rounded-lg border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
+          <div className="rounded-lg border border-border bg-muted/40 p-4 text-body-sm leading-relaxed text-muted-foreground">
             <p className="mb-2 font-semibold text-foreground">{t("Download the master sheet", "Baixar a folha de referência")}</p>
             <p className="mb-3">{t("The canonical sheet is the starting point for any new scene: same proportions, same elements, same palette.", "A folha canônica é o ponto de partida de qualquer cena nova: mesmas proporções, mesmos elementos, mesma paleta.")}</p>
             <div className="flex flex-wrap gap-2">
@@ -317,7 +317,7 @@ export function IllustrationsShowcase() {
       <section id="mascote-estilo" className="scroll-mt-32">
         <SectionHeader title={t("Illustration style", "Estilo de ilustração")} description={t("What makes a FindLook scene recognizable, beyond the character.", "O que torna uma cena da FindLook reconhecível, além do personagem.")} />
         <Bullets items={[
-          [t("Shapes", "Formas"), t("Flat shapes, no outlines, rounded and friendly; a soft gray shadow at the base of the scene.", "Formas chapadas, sem contorno, arredondadas e simpáticas; sombra cinza suave na base da cena.")],
+          [t("Shapes", "Formas"), t("Flat shapes, no outlines, rounded-sm and friendly; a soft gray shadow at the base of the scene.", "Formas chapadas, sem contorno, arredondadas e simpáticas; sombra cinza suave na base da cena.")],
           [t("Colors", "Cores"), t("Only the brand palette: pink (--primary), graphite (--graphite-950) and white. Pink carries the brand elements; graphite carries Nyx and the type.", "Só a paleta da marca: pink (--primary), grafite (--graphite-950) e branco. O pink leva os elementos da marca; o grafite leva a Nyx e os números.")],
           [t("Brand symbol in the scene", "Símbolo da marca na cena"), t("The location pin with the hanger always appears: as the zero in 404, on top of the wardrobe, on the store roofs.", "O pin de localização com o cabide aparece sempre: como o zero do 404, no topo do guarda-roupa, nos telhados das lojas.")],
           [t("Props", "Objetos de cena"), t("Fashion pieces only: bag, boots, heels, dress, hangers, store fronts, gift box. Phone allowed when the scene is about the app.", "Só peças de moda: sacola, botas, saltos, vestido, cabides, vitrines, caixa de presente. Celular permitido quando a cena é sobre o app.")],
@@ -351,7 +351,7 @@ export function IllustrationsShowcase() {
           [t("Accessibility", "Acessibilidade"), t("Illustrations are never the only way to convey important information; every one has alt text.", "Garantir que as ilustrações não sejam a única forma de transmitir informações importantes; toda ilustração tem texto alternativo.")],
         ]} />
         <GradeDeCards className="mt-6 gap-5 md:grid-cols-2">
-          <div className="rounded-lg border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
+          <div className="rounded-lg border border-border bg-card p-4 text-body-sm leading-relaxed text-foreground">
             <Label>{t("Application guidelines", "Diretrizes de aplicação")}</Label>
             <ul className="space-y-2">
               <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span>{t("The mascot may be used in empty states, error pages, onboarding, confirmations and other contextual communications.", "A mascote pode ser utilizada em estados vazios, páginas de erro, onboarding, confirmações e outras comunicações contextuais.")}</span></li>
@@ -359,10 +359,10 @@ export function IllustrationsShowcase() {
               <li className="flex gap-2"><Check className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]" aria-hidden /><span>{t("New scenes start from the official character reference, ensuring aesthetic continuity and brand recognition.", "A criação de novas cenas deve partir da referência visual oficial do personagem, garantindo continuidade estética e reconhecimento da marca.")}</span></li>
             </ul>
           </div>
-          <div className="rounded-lg border border-border bg-card p-4 text-[0.875rem] leading-relaxed text-foreground">
+          <div className="rounded-lg border border-border bg-card p-4 text-body-sm leading-relaxed text-foreground">
             <Label>{t("Governance", "Governança")}</Label>
             <p>{t("Every new illustration is added to the official library, identified by its usage context and validated for visual consistency, accessibility and fit with the experience.", "Toda nova ilustração deve ser incorporada à biblioteca oficial, identificada pelo contexto de uso e validada quanto à consistência visual, acessibilidade e adequação à experiência.")}</p>
-            <p className="mt-3 text-[0.8125rem] text-muted-foreground">{t("In practice: the brand owner supplies the piece; it enters this section with name, context, alt text and rules; the product only uses what is listed here.", "Na prática: a dona da marca fornece a peça; ela entra nesta seção com nome, contexto, texto alternativo e regras; o produto só usa o que está listado aqui.")}</p>
+            <p className="mt-3 text-body-sm text-muted-foreground">{t("In practice: the brand owner supplies the piece; it enters this section with name, context, alt text and rules; the product only uses what is listed here.", "Na prática: a dona da marca fornece a peça; ela entra nesta seção com nome, contexto, texto alternativo e regras; o produto só usa o que está listado aqui.")}</p>
           </div>
         </GradeDeCards>
       </section>
@@ -370,19 +370,19 @@ export function IllustrationsShowcase() {
       {/* ── 7. ATIVOS E NOMENCLATURA ── */}
       <section id="mascote-ativos" className="scroll-mt-32">
         <SectionHeader title={t("Assets and naming", "Ativos e nomenclatura")} description={t("Every file of the library, with its naming rule.", "Todos os arquivos da biblioteca, com a regra de nomes.")} />
-        <div className="mb-5 rounded-lg border border-border bg-muted/40 p-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
+        <div className="mb-5 rounded-lg border border-border bg-muted/40 p-4 text-body-sm leading-relaxed text-muted-foreground">
           <p className="font-semibold text-foreground">{t("Naming rule", "Regra de nomes")}</p>
           <p className="mt-1"><span className="font-mono text-foreground">findlook-&lt;contexto&gt;-&lt;estado&gt;.webp</span> {t("for scenes (e.g. findlook-favoritos-vazio), and", "para cenas (ex.: findlook-favoritos-vazio), e")} <span className="font-mono text-foreground">nyx-&lt;parte&gt;.webp</span> {t("for the character reference (e.g. nyx-turnaround). Lowercase, no accents, hyphens; scenes and character in WebP (source) and PNG (fallback).", "para a referência do personagem (ex.: nyx-turnaround). Minúsculas, sem acentos, com hífens; cenas e personagem em WebP (origem) e PNG (fallback).")}</p>
         </div>
         <DataTable
           head={[t("File", "Arquivo"), t("What it is", "O que é"), t("Context", "Contexto"), t("Size", "Dimensões")]}
           rows={[
-            [<span key="1" className="font-mono text-[0.75rem]">mascote/nyx-folha-canonica.png · .webp</span>, t("Master sheet: character, turnaround, expressions, elements, palette", "Folha mestre: personagem, turnaround, expressões, elementos, paleta"), t("Reference", "Referência"), "1536 × 1024"],
-            [<span key="2" className="font-mono text-[0.75rem]">mascote/nyx-master · nyx-turnaround · nyx-expressoes · nyx-elementos · nyx-paleta.webp</span>, t("Panels cut from the master sheet", "Painéis recortados da folha mestre"), t("Reference", "Referência"), t("variable", "variável")],
-            ...ilustracoes.map((il) => [<a key={il.id} href={`#${il.id}`} className="font-mono text-[0.75rem] text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{(il.arquivoSvg ?? il.arquivoWebp!).replace("ilustracoes/", "")} · .png</a>, il.nome, il.contexto === "vazio" ? t("Empty state", "Estado vazio") : t("Error state", "Estado de erro"), `${il.largura} × ${il.altura}`]),
+            [<span key="1" className="font-mono text-label">mascote/nyx-folha-canonica.png · .webp</span>, t("Master sheet: character, turnaround, expressions, elements, palette", "Folha mestre: personagem, turnaround, expressões, elementos, paleta"), t("Reference", "Referência"), "1536 × 1024"],
+            [<span key="2" className="font-mono text-label">mascote/nyx-master · nyx-turnaround · nyx-expressoes · nyx-elementos · nyx-paleta.webp</span>, t("Panels cut from the master sheet", "Painéis recortados da folha mestre"), t("Reference", "Referência"), t("variable", "variável")],
+            ...ilustracoes.map((il) => [<a key={il.id} href={`#${il.id}`} className="font-mono text-label text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{(il.arquivoSvg ?? il.arquivoWebp!).replace("ilustracoes/", "")} · .png</a>, il.nome, il.contexto === "vazio" ? t("Empty state", "Estado vazio") : t("Error state", "Estado de erro"), `${il.largura} × ${il.altura}`]),
           ]}
         />
-        <p className="mt-3 text-[0.75rem] text-muted-foreground">{t("All files live in public/ilustracoes and public/mascote of the FindLook Design System repository and are served from the same paths on the published site.", "Todos os arquivos ficam em public/ilustracoes e public/mascote do repositório FindLook Design System e são servidos nos mesmos caminhos no site publicado.")}</p>
+        <p className="mt-3 text-label text-muted-foreground">{t("All files live in public/ilustracoes and public/mascote of the FindLook Design System repository and are served from the same paths on the published site.", "Todos os arquivos ficam em public/ilustracoes e public/mascote do repositório FindLook Design System e são servidos nos mesmos caminhos no site publicado.")}</p>
       </section>
     </div>
   );

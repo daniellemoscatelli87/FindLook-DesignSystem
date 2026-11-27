@@ -40,8 +40,8 @@ function MapaDeLojas({ mapa, lojas, selecionada = null, onSelecionar, rotuloList
   return (
     <div data-slot="mapa-de-lojas" className={cn("min-w-0", className)}>
       {aviso && (
-        <p className="mb-4 flex items-start gap-2 rounded-md border border-warning/30 bg-warning-muted px-3 py-2 text-[0.8125rem] text-foreground">
-          <Info className="mt-0.5 size-4 shrink-0 text-warning-text" aria-hidden />
+        <p className="mb-4 flex items-start gap-2 rounded-md border border-warning/30 bg-warning-muted px-3 py-2 text-body-sm text-foreground">
+          <Info className="mt-1 size-4 shrink-0 text-warning-text" aria-hidden />
           <span>{aviso}</span>
         </p>
       )}
@@ -51,7 +51,7 @@ function MapaDeLojas({ mapa, lojas, selecionada = null, onSelecionar, rotuloList
         </div>
         <div className="flex min-w-0 flex-col gap-4">
           <div className="rounded-xl border border-border bg-card p-3">
-            <p id={`${id}-lista`} className="px-2 pt-1 pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{rotuloLista}</p>
+            <p id={`${id}-lista`} className="px-2 pt-1 pb-2 text-label leading-4 font-semibold uppercase tracking-[0.12em] text-muted-foreground">{rotuloLista}</p>
             <ul aria-labelledby={`${id}-lista`} className="max-h-[15rem] space-y-1 overflow-y-auto overscroll-contain lg:max-h-[17rem]">
               {lojas.map((l) => (
                 <li key={l.id}>
@@ -104,7 +104,7 @@ function MapaIlustrativo({ pinos, selecionada = null, onSelecionar, rotulo = "Ma
         <ellipse cx="82" cy="20" rx="10" ry="7" fill="var(--success-muted)" />
         <ellipse cx="16" cy="84" rx="9" ry="6" fill="var(--success-muted)" />
       </svg>
-      <span className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full border border-border bg-card px-2.5 py-1 text-[0.6875rem] font-semibold text-foreground">
+      <span className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full border border-border bg-card px-2 py-1 text-caption font-semibold text-foreground">
         <Info className="size-3 text-muted-foreground" aria-hidden /> {selo}
       </span>
       <ul className="absolute inset-0">
@@ -163,12 +163,12 @@ function ConviteAoMapa({
 }: ConviteAoMapaProps) {
   return (
     <div data-slot="convite-ao-mapa" className={cn("rounded-xl border border-dashed border-primary/30 bg-card p-4", className)}>
-      <p className="flex items-center gap-2 text-sm font-bold text-foreground">
+      <p className="flex items-center gap-2 text-body-sm leading-5 font-bold text-foreground">
         <Store className="size-4 shrink-0 text-primary-text" aria-hidden /> {titulo}
       </p>
-      <p className="mt-1 text-sm text-muted-foreground">{texto}</p>
+      <p className="mt-1 text-body-sm leading-5 text-muted-foreground">{texto}</p>
       {link && (
-        <a href={link.href ?? "#"} onClick={link.onClick} className={cn("mt-2 inline-flex items-center gap-1 rounded-sm text-sm font-semibold text-primary-text underline-offset-4 hover:underline", foco)}>
+        <a href={link.href ?? "#"} onClick={link.onClick} className={cn("mt-2 inline-flex items-center gap-1 rounded-sm text-body-sm leading-5 font-semibold text-primary-text underline-offset-4 hover:underline", foco)}>
           {link.rotulo} <ArrowRight className="size-4" aria-hidden />
         </a>
       )}

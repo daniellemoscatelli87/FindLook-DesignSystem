@@ -164,7 +164,7 @@ function Grupo({ titulo, descricao, children }: { titulo: string; descricao?: st
   return (
     <section aria-labelledby={id} className="min-w-0">
       <Heading id={id} level={3} size="card">{titulo}</Heading>
-      {descricao && <p className="mt-1 text-sm text-muted-foreground">{descricao}</p>}
+      {descricao && <p className="mt-1 text-body-sm leading-5 text-muted-foreground">{descricao}</p>}
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -180,7 +180,7 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
       aria-pressed={ativo}
       onClick={onClick}
       className={cn(
-        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150",
+        "inline-flex items-center gap-1 px-3 py-1 rounded-full text-body-sm font-medium border transition-all duration-150",
         "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         ativo ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-accent hover:border-[var(--border-strong)]",
       )}
@@ -199,7 +199,7 @@ function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { val
     <Card className={cn("relative gap-4 transition-all", molduraDoSelecionavel(selecionado))}>
       {selecionado && <BrilhoDeSelecionado />}
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-[1rem] font-semibold">
+        <CardTitle className="flex items-center gap-2 text-body font-semibold">
           {titulo}
           {selecionado && <Check className="h-4 w-4 text-primary" aria-hidden />}
         </CardTitle>
@@ -354,7 +354,7 @@ export function CadastroEmEtapasDemo() {
   return (
     <div ref={raiz} className="min-w-0 scroll-mt-32 space-y-3" data-demo-cadastro>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <p className="min-w-0 flex-1 text-[0.8125rem] text-muted-foreground">
+        <p className="min-w-0 flex-1 text-body-sm text-muted-foreground">
           Experimente: Continuar com campos vazios mostra os erros; o Stepper reabre as etapas concluídas; na Revisão, Editar volta à etapa.
         </p>
         <div className="flex shrink-0 flex-wrap gap-2">
@@ -444,7 +444,7 @@ export function CadastroEmEtapasDemo() {
                           onChange={(e) => mudar("cnpj", mascaraCnpj(e.target.value))}
                           erro={d.semCnpj ? null : erros.cnpj}
                           depois={
-                            <label className="flex w-fit cursor-pointer items-center gap-2.5 pt-1 text-sm text-foreground">
+                            <label className="flex w-fit cursor-pointer items-center gap-2 pt-1 text-body-sm leading-5 text-foreground">
                               <Checkbox checked={d.semCnpj} onCheckedChange={(v) => { mudar("semCnpj", v === true); if (v === true) mudar("cnpj", ""); }} />
                               Ainda não tenho CNPJ
                             </label>
@@ -452,7 +452,7 @@ export function CadastroEmEtapasDemo() {
                         />
                       </GradeDeCampos>
                       <div className="mt-6 min-w-0 space-y-2">
-                        <p id={`${base}-tipo`} className="text-sm font-semibold text-foreground">Tipo de loja *</p>
+                        <p id={`${base}-tipo`} className="text-body-sm leading-5 font-semibold text-foreground">Tipo de loja *</p>
                         <SegmentedControl<Tipo> aria-labelledby={`${base}-tipo`} options={TIPOS} value={d.tipo} onValueChange={(v) => mudar("tipo", v)} />
                       </div>
                     </Grupo>
@@ -488,9 +488,9 @@ export function CadastroEmEtapasDemo() {
                           onChange={(e) => mudarCep(e.target.value)}
                           erro={erros.cep}
                           ajuda={
-                            <span aria-live="polite" className="inline-flex items-start gap-1.5">
-                              {cep === "buscando" && <><Loader2 className="mt-0.5 size-4 shrink-0 motion-safe:animate-spin" aria-hidden /> Buscando o endereço…</>}
-                              {cep === "achou" && <><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> Endereço de exemplo preenchido (simulação).</>}
+                            <span aria-live="polite" className="inline-flex items-start gap-1">
+                              {cep === "buscando" && <><Loader2 className="mt-1 size-4 shrink-0 motion-safe:animate-spin" aria-hidden /> Buscando o endereço…</>}
+                              {cep === "achou" && <><Check className="mt-1 size-4 shrink-0 text-success" aria-hidden /> Endereço de exemplo preenchido (simulação).</>}
                               {cep === "parado" && "Só números; o traço entra sozinho."}
                             </span>
                           }
@@ -506,7 +506,7 @@ export function CadastroEmEtapasDemo() {
                     <Grupo titulo="Presença online" descricao="Opcional. Você pode completar depois.">
                       <div className="flex min-w-0 flex-wrap items-start gap-x-6 gap-y-6">
                         <div className="space-y-2">
-                          <p className="text-sm font-semibold text-foreground">Logo da loja</p>
+                          <p className="text-body-sm leading-5 font-semibold text-foreground">Logo da loja</p>
                           <ImageUpload value={d.logo} onChange={(_f, url) => mudar("logo", url)} label="Logo" size={112} maxSize={2 * 1024 * 1024} />
                         </div>
                         <div className="min-w-0 flex-[1_1_15rem]">
@@ -532,7 +532,7 @@ export function CadastroEmEtapasDemo() {
                 >
                   <div className="space-y-6">
                     <div className="flex flex-wrap items-center gap-3">
-                      <p id={`${base}-periodo`} className="text-sm font-semibold text-foreground">Cobrança</p>
+                      <p id={`${base}-periodo`} className="text-body-sm leading-5 font-semibold text-foreground">Cobrança</p>
                       <SegmentedControl<Periodo>
                         aria-labelledby={`${base}-periodo`}
                         size="sm"
@@ -628,9 +628,9 @@ export function CadastroEmEtapasDemo() {
                         onCheckedChange={(v) => mudar("termos", v === true)}
                         aria-invalid={erros.termos ? true : undefined}
                         aria-describedby={erros.termos ? `${base}-termos-erro` : undefined}
-                        className="mt-0.5"
+                        className="mt-1"
                       />
-                      <Label htmlFor={id("termos")} className="block text-sm font-normal leading-relaxed text-foreground">
+                      <Label htmlFor={id("termos")} className="block text-body-sm font-normal leading-relaxed text-foreground">
                         Li e aceito os{" "}
                         <a href="#produto-cadastro" onClick={(e) => e.preventDefault()} className="rounded-sm font-semibold text-primary-text underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Termos de uso</a>{" "}
                         e a{" "}
@@ -664,7 +664,7 @@ export function CadastroEmEtapasDemo() {
                 >
                   <div className="space-y-6">
                     <div className="@container/formas">
-                      <p id={`${base}-forma`} className="mb-2 text-sm font-semibold text-foreground">Forma de pagamento</p>
+                      <p id={`${base}-forma`} className="mb-2 text-body-sm leading-5 font-semibold text-foreground">Forma de pagamento</p>
                       <RadioGroup aria-labelledby={`${base}-forma`} value={d.forma} onValueChange={(v) => { mudar("forma", v as Forma); setErros({}); }} className="grid gap-3 @min-[28rem]/formas:grid-cols-2">
                         <CartaoSelecionavel id={`${base}-forma-cartao`} valor="cartao" titulo="Cartão de crédito" descricao="Cobrança automática a cada período." selecionado={d.forma === "cartao"} />
                         <CartaoSelecionavel id={`${base}-forma-pix`} valor="pix" titulo="Pix" descricao="Pagamento na hora, pelo app do banco." selecionado={d.forma === "pix"} />
@@ -802,15 +802,15 @@ export function CombinacoesDoCadastro() {
         {COMBINACOES.map((c) => (
           <li key={c.titulo} className="min-w-0 rounded-xl border border-border bg-card p-5">
             <div className="flex items-start gap-3">
-              <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-[0.8125rem] font-extrabold tabular-nums text-[var(--graphite-600)]">{c.etapa}</span>
+              <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-body-sm font-extrabold tabular-nums text-[var(--graphite-600)]">{c.etapa}</span>
               <div className="min-w-0 flex-1">
-                <h4 className="text-[0.9375rem] font-bold text-foreground">{c.titulo}</h4>
-                <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">{c.formula}</p>
+                <h4 className="text-body font-bold text-foreground">{c.titulo}</h4>
+                <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{c.formula}</p>
               </div>
             </div>
             <ul className="mt-4 space-y-3 border-t border-border pt-4">
               {c.pecas.map((p) => (
-                <li key={p.nome} className="min-w-0 text-[0.8125rem] leading-snug">
+                <li key={p.nome} className="min-w-0 text-body-sm leading-snug">
                   {p.secao ? (
                     <button
                       type="button"

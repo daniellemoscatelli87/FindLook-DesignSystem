@@ -98,14 +98,14 @@ export function MolduraDoPainel({ children, endereco = "Painel da loja · FindLo
   return (
     <div className="overflow-hidden rounded-lg border border-border" style={{ boxShadow: "var(--shadow-lg)" }}>
       <div className="flex h-9 shrink-0 items-center gap-2 border-b border-border bg-muted/60 px-4" aria-hidden>
-        <div className="flex gap-1.5">
+        <div className="flex gap-1">
           <div className="h-2.5 w-2.5 rounded-full bg-primary/50" />
           <div className="h-2.5 w-2.5 rounded-full bg-warning/50" />
           <div className="h-2.5 w-2.5 rounded-full bg-success/50" />
         </div>
         <div className="mx-4 flex-1">
           <div className="mx-auto flex h-5 max-w-[280px] items-center rounded-sm bg-background/70 px-3">
-            <span className="truncate text-[0.625rem] text-muted-foreground">{endereco}</span>
+            <span className="truncate text-caption text-muted-foreground">{endereco}</span>
           </div>
         </div>
       </div>
@@ -149,7 +149,7 @@ function ConteudoDoMenu({ ativo, onIr, primeiroRef }: { ativo: PaginaId; onIr: (
         </div>
         <GrupoDoMenu>{menuPrincipal.map(item)}</GrupoDoMenu>
         {/* Grupo que abre e fecha, com os itens numa linha-guia (como os grupos do site do DS). */}
-        <GrupoDoMenu expansivel padraoAberto titulo="Minha loja" icone={<Store />} className="mt-0.5">{menuMinhaLoja.map((i, n) => item(i, n + 1))}</GrupoDoMenu>
+        <GrupoDoMenu expansivel padraoAberto titulo="Minha loja" icone={<Store />} className="mt-1">{menuMinhaLoja.map((i, n) => item(i, n + 1))}</GrupoDoMenu>
       </NavDoMenu>
       <div className="shrink-0 border-t border-border p-3">
         <CardDePlano compacto plano="Plano Desempenho" preco="R$ 149" onAcao={() => onIr("planos")} />
@@ -175,27 +175,27 @@ function MenuDeNotificacoes() {
         <BotaoDeNotificacoes naoLidas={lidas ? 0 : notificacoesRecentes.length} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80 p-0">
-        <div className="flex items-center justify-between border-b border-border px-3 py-2.5">
-          <DropdownMenuLabel className="p-0 text-[0.875rem]">Notificações</DropdownMenuLabel>
-          <button type="button" onClick={() => setLidas(true)} disabled={lidas} className="inline-flex items-center gap-1 rounded-sm text-[0.75rem] font-semibold text-[var(--primary-text,var(--primary))] hover:underline disabled:pointer-events-none disabled:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <div className="flex items-center justify-between border-b border-border px-3 py-2">
+          <DropdownMenuLabel className="p-0 text-body-sm">Notificações</DropdownMenuLabel>
+          <button type="button" onClick={() => setLidas(true)} disabled={lidas} className="inline-flex items-center gap-1 rounded-sm text-label font-semibold text-[var(--primary-text,var(--primary))] hover:underline disabled:pointer-events-none disabled:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             <CheckCheck aria-hidden className="h-3.5 w-3.5" /> {lidas ? "Tudo lido" : "Marcar como lidas"}
           </button>
         </div>
         <div className="max-h-72 overflow-y-auto p-1">
           {notificacoesRecentes.map(n => (
-            <DropdownMenuItem key={n.titulo} onSelect={() => ir("notificacoes")} className="items-start gap-3 rounded-md px-2.5 py-2">
-              <span aria-hidden className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-4 [&>svg]:w-4">{n.icone}</span>
+            <DropdownMenuItem key={n.titulo} onSelect={() => ir("notificacoes")} className="items-start gap-3 rounded-md px-2 py-2">
+              <span aria-hidden className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] [&>svg]:h-4 [&>svg]:w-4">{n.icone}</span>
               <span className="min-w-0 flex-1">
-                <span className="flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground">
+                <span className="flex items-center gap-1 text-body-sm font-semibold text-foreground">
                   {!lidas && <span aria-hidden className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />}{n.titulo}{!lidas && <span className="sr-only">(não lida)</span>}
                 </span>
-                <span className="block truncate text-[0.75rem] text-muted-foreground">{n.detalhe} · {n.quando}</span>
+                <span className="block truncate text-label text-muted-foreground">{n.detalhe} · {n.quando}</span>
               </span>
             </DropdownMenuItem>
           ))}
         </div>
         <DropdownMenuSeparator className="m-0" />
-        <DropdownMenuItem onSelect={() => ir("notificacoes")} className="justify-center rounded-none py-2.5 text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))]">Ver todas as notificações</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => ir("notificacoes")} className="justify-center rounded-none py-2 text-body-sm font-semibold text-[var(--primary-text,var(--primary))]">Ver todas as notificações</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -210,8 +210,8 @@ function MenuDaConta() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="font-normal">
-          <span className="block text-[0.8125rem] font-semibold text-foreground">Ana Oliveira</span>
-          <span className="block text-[0.75rem] text-muted-foreground">Proprietária · Ateliê Aurora</span>
+          <span className="block text-body-sm font-semibold text-foreground">Ana Oliveira</span>
+          <span className="block text-label text-muted-foreground">Proprietária · Ateliê Aurora</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => ir("perfil")}><Store />Perfil da loja</DropdownMenuItem>
@@ -242,7 +242,7 @@ function BuscaDoPainel({ aberta, onAberta }: { aberta: boolean; onAberta: (v: bo
         <CommandGroup heading="Produtos">
           {produtosExemplo.slice(0, 6).map(p => (
             <CommandItem key={p.id} value={`${p.nome} ${p.detalhes}`} onSelect={() => escolher("produtos")}>
-              {p.icone && <IconeModa nome={p.icone} size={18} />}{p.nome}<span className="ml-auto text-[0.75rem] text-muted-foreground">{p.detalhes.split(" · ")[0]}</span>
+              {p.icone && <IconeModa nome={p.icone} size={18} />}{p.nome}<span className="ml-auto text-label text-muted-foreground">{p.detalhes.split(" · ")[0]}</span>
             </CommandItem>
           ))}
         </CommandGroup>
@@ -340,7 +340,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
                 className={`absolute inset-y-0 left-0 flex w-72 max-w-[85%] flex-col border-r border-border bg-card shadow-[var(--shadow-xl)] transition-transform duration-200 ease-out motion-reduce:transition-none ${gaveta ? "translate-x-0" : "-translate-x-full"}`}
               >
                 <div className="flex h-12 shrink-0 items-center justify-between px-3">
-                  <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Menu</span>
+                  <span className="text-label leading-4 font-medium uppercase tracking-wider text-muted-foreground">Menu</span>
                   <button type="button" onClick={() => setGaveta(false)} aria-label="Fechar menu" className="flex h-9 w-9 items-center justify-center rounded-sm text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <X aria-hidden className="h-5 w-5" />
                   </button>
@@ -373,7 +373,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
 ───────────────────────────────────────────── */
 function BotaoContorno({ children, onClick, href = "#", externo }: { children: React.ReactNode; onClick?: React.MouseEventHandler<HTMLAnchorElement>; href?: string; externo?: boolean }) {
   return (
-    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-transparent px-4 text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-transparent px-4 text-button font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
       {children}
     </a>
   );
@@ -411,8 +411,8 @@ function PaginaInicio() {
       <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.85fr)]">
         <CardDoPainel icone={<LineChart />} titulo="Desempenho da descoberta" descricao="Visualizações, favoritos e contatos da sua loja.">
           <div className="mb-2 flex flex-wrap items-baseline gap-2">
-            <span className="font-[family-name:var(--font-display)] text-[1.75rem] font-extrabold leading-none text-foreground">{formatarNumero(1284)}</span>
-            <span className="text-[0.8125rem] text-muted-foreground">visualizações</span>
+            <span className="font-[family-name:var(--font-display)] text-h2 font-extrabold leading-none text-foreground">{formatarNumero(1284)}</span>
+            <span className="text-body-sm text-muted-foreground">visualizações</span>
             <Variacao valor={18.6} />
           </div>
           <GraficoDeDesempenho dados={dadosDesempenho} chaveX="dia" series={seriesGrafico} visiveisIniciais={["visualizacoes"]} />
@@ -440,7 +440,7 @@ function PaginaInicio() {
         <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
           <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
             <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
-            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1.5 rounded-md border border-[var(--border-strong)] text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
+            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1 rounded-md border border-[var(--border-strong)] text-button font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
           </CardDoPainel>
           <CardDoPainel icone={<ClipboardList />} titulo="Próximas ações" descricao="O que fazer agora para ser mais encontrada.">
             <div className="space-y-2">
@@ -474,7 +474,7 @@ function PaginaInicio() {
               { titulo: "Responda rápido", texto: "Responda os contatos no mesmo dia, enquanto o interesse ainda está alto.", acao: "Ver contatos", midia: <MessageCircle className="h-9 w-9" /> },
             ]} />
           ) : (
-            <p className="text-[0.8125rem] text-muted-foreground">Você fechou as dicas. <button type="button" onClick={() => setDicas(true)} className="font-semibold text-[var(--primary-text,var(--primary))] underline underline-offset-2">Mostrar de novo</button></p>
+            <p className="text-body-sm text-muted-foreground">Você fechou as dicas. <button type="button" onClick={() => setDicas(true)} className="font-semibold text-[var(--primary-text,var(--primary))] underline underline-offset-2">Mostrar de novo</button></p>
           )}
         </CardDoPainel>
       </GradeDeCards>
@@ -595,9 +595,9 @@ function PaginaEmBreve({ titulo }: { titulo: string }) {
       <CabecalhoDaPagina titulo={titulo} />
       <div className="flex flex-col items-center rounded-lg border border-dashed border-border bg-card px-6 py-14 text-center">
         <span aria-hidden className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]"><Construction className="h-6 w-6" /></span>
-        <p className="font-[family-name:var(--font-display)] text-[1.125rem] font-bold text-foreground">Esta página ainda não tem template no DS</p>
-        <p className="mt-1 max-w-md text-[0.875rem] leading-relaxed text-muted-foreground">O menu já leva até aqui para mostrar a navegação. O conteúdo de “{titulo}” ainda vai ser desenhado com os componentes do painel.</p>
-        <a href="#inicio" onClick={irPara(ir, "inicio")} className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-[0.9375rem] font-medium text-primary-foreground shadow-sm hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Voltar ao início</a>
+        <p className="font-[family-name:var(--font-display)] text-subtitle font-bold text-foreground">Esta página ainda não tem template no DS</p>
+        <p className="mt-1 max-w-md text-body-sm leading-relaxed text-muted-foreground">O menu já leva até aqui para mostrar a navegação. O conteúdo de “{titulo}” ainda vai ser desenhado com os componentes do painel.</p>
+        <a href="#inicio" onClick={irPara(ir, "inicio")} className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-button font-medium text-primary-foreground shadow-sm hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Voltar ao início</a>
       </div>
     </>
   );

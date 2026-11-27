@@ -68,7 +68,7 @@ const colorVariants = [
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-12">
-      <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-5">{title}</h3>
+      <h3 className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-5">{title}</h3>
       {children}
     </div>
   );
@@ -129,7 +129,7 @@ export function IconsShowcase() {
 
         <SubSection title={t("Fashion icons", "Ícones de moda")}>
           <ShowcaseCard>
-            <p className="mb-5 text-[0.875rem] text-muted-foreground">
+            <p className="mb-5 text-body-sm text-muted-foreground">
               {t(
                 "Custom outline icons for fashion items that Lucide does not have (pants, dress, skirt, sneakers…). Same drawing style as Lucide; the same drawings make up the doodle texture.",
                 "Ícones de traço próprios para as peças de moda que o Lucide não tem (calça, vestido, saia, tênis…). Mesmo estilo de desenho do Lucide; são os mesmos desenhos da textura doodle.",
@@ -139,12 +139,12 @@ export function IconsShowcase() {
               {nomesIconesModa.map((nome) => (
                 <div key={nome} className="flex flex-col items-center gap-2 rounded-md border border-border p-3 text-center">
                   <IconeModa nome={nome} className="size-6 text-foreground" strokeWidth={1.75} />
-                  <span className="text-[0.75rem] font-semibold text-foreground">{iconesModa[nome].rotulo}</span>
-                  <code className="text-[0.6875rem] text-muted-foreground">{nome}</code>
+                  <span className="text-label font-semibold text-foreground">{iconesModa[nome].rotulo}</span>
+                  <code className="text-caption text-muted-foreground">{nome}</code>
                 </div>
               ))}
             </div>
-            <pre className="mt-5 overflow-x-auto rounded-md bg-muted p-3 text-[0.75rem]"><code>{`import { IconeModa } from "@/components/ui/fashion-icons";\n\n<IconeModa nome="calca" className="size-4 text-primary" />`}</code></pre>
+            <pre className="mt-5 overflow-x-auto rounded-md bg-muted p-3 text-label"><code>{`import { IconeModa } from "@/components/ui/fashion-icons";\n\n<IconeModa nome="calca" className="size-4 text-primary" />`}</code></pre>
           </ShowcaseCard>
         </SubSection>
 
@@ -159,8 +159,8 @@ export function IconsShowcase() {
                     strokeWidth={1.75}
                   />
                   <div className="text-center">
-                    <div className="text-[0.8125rem] font-semibold text-foreground">{s.label}</div>
-                    <div className="text-[0.6875rem] text-muted-foreground font-mono">{s.px}px</div>
+                    <div className="text-body-sm font-semibold text-foreground">{s.label}</div>
+                    <div className="text-caption text-muted-foreground font-mono">{s.px}px</div>
                   </div>
                 </div>
               ))}
@@ -174,7 +174,7 @@ export function IconsShowcase() {
               {colorVariants.map(v => (
                 <div key={v.label} className="flex flex-col items-center gap-2">
                   <Bell className={`w-5 h-5 ${v.cls}`} strokeWidth={1.75} />
-                  <span className="text-[0.75rem] text-muted-foreground">{t(v.label, colorLabelPt[v.label] ?? v.label)}</span>
+                  <span className="text-label text-muted-foreground">{t(v.label, colorLabelPt[v.label] ?? v.label)}</span>
                 </div>
               ))}
             </div>
@@ -193,7 +193,7 @@ export function IconsShowcase() {
                 <div key={s.label} className="flex flex-col items-center gap-2">
                   <Settings className="w-6 h-6 text-foreground" strokeWidth={s.sw} />
                   <span
-                    className={`text-[0.75rem] ${
+                    className={`text-label ${
                       s.sw === 1.75
                         ? "font-semibold text-primary"
                         : "text-muted-foreground"
@@ -210,13 +210,13 @@ export function IconsShowcase() {
         <SubSection title={t("In context", "Em contexto")}>
           <ShowcaseCard>
             <div className="flex flex-wrap gap-3">
-              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md bg-primary text-primary-foreground text-[0.9375rem] font-semibold hover:opacity-90 transition-opacity">
+              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md bg-primary text-primary-foreground text-button font-semibold hover:opacity-90 transition-opacity">
                 <Plus className="w-4 h-4" strokeWidth={2} /> {t("New", "Novo")}
               </button>
-              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border bg-card text-foreground text-[0.9375rem] font-semibold hover:bg-accent transition-colors">
+              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border bg-card text-foreground text-button font-semibold hover:bg-accent transition-colors">
                 <Download className="w-4 h-4" strokeWidth={1.75} /> {t("Export", "Exportar")}
               </button>
-              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border bg-card text-foreground text-[0.9375rem] font-semibold hover:bg-accent transition-colors">
+              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border bg-card text-foreground text-button font-semibold hover:bg-accent transition-colors">
                 <Filter className="w-4 h-4" strokeWidth={1.75} /> {t("Filter", "Filtrar")}
               </button>
               {([Search, Settings, Bell, MoreHorizontal] as React.ElementType[]).map((Icon, i) => (
@@ -227,13 +227,13 @@ export function IconsShowcase() {
                   <Icon className="w-4 h-4" strokeWidth={1.75} />
                 </button>
               ))}
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-success/10 text-success border border-success/20">
+              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm text-body-sm font-medium bg-success/10 text-success border border-success/20">
                 <CheckCircle className="w-3.5 h-3.5" strokeWidth={2} /> {t("Active", "Ativo")}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-primary/10 text-primary border border-primary/20">
+              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm text-body-sm font-medium bg-primary/10 text-primary border border-primary/20">
                 <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} /> {t("Alert", "Alerta")}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[0.8125rem] font-medium bg-warning/10 text-warning-text border border-warning/20">
+              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm text-body-sm font-medium bg-warning/10 text-warning-text border border-warning/20">
                 <Clock className="w-3.5 h-3.5" strokeWidth={2} /> {t("Pending", "Pendente")}
               </span>
             </div>
@@ -271,7 +271,7 @@ export function IconsShowcase() {
               ),
             },
             {
-              exemplo: <span className="flex h-11 items-center gap-1.5 text-[0.875rem] font-semibold text-foreground"><LucideIcons.History className="h-5 w-5 text-[var(--primary-text)]" aria-hidden /> {t("Search history", "Histórico de buscas")}</span>,
+              exemplo: <span className="flex h-11 items-center gap-1 text-body-sm font-semibold text-foreground"><LucideIcons.History className="h-5 w-5 text-[var(--primary-text)]" aria-hidden /> {t("Search history", "Histórico de buscas")}</span>,
               titulo: t("No base (inline)", "Sem base (inline)"),
               tokens: t("color of the context", "cor do contexto"),
               quando: t(
@@ -282,15 +282,15 @@ export function IconsShowcase() {
           ].map((o) => (
             <ShowcaseCard key={o.titulo}>
               <div className="flex h-12 items-center">{o.exemplo}</div>
-              <p className="mt-3 text-[0.9375rem] font-bold text-foreground">{o.titulo}</p>
-              <code className="text-[0.6875rem] text-muted-foreground">{o.tokens}</code>
-              <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">{o.quando}</p>
+              <p className="mt-3 text-body font-bold text-foreground">{o.titulo}</p>
+              <code className="text-caption text-muted-foreground">{o.tokens}</code>
+              <p className="mt-2 text-body-sm leading-relaxed text-muted-foreground">{o.quando}</p>
             </ShowcaseCard>
           ))}
         </div>
         <ShowcaseCard className="mt-4">
-          <p className="text-[0.875rem] font-bold text-foreground">{t("Rules", "Regras")}</p>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+          <p className="text-body-sm font-bold text-foreground">{t("Rules", "Regras")}</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-body-sm leading-relaxed text-muted-foreground">
             <li>{t("Never mix: no gray base with a red icon, no pink base with a gray icon.", "Nunca misturar: nada de base cinza com ícone vermelho nem base rosa com ícone cinza.")}</li>
             <li>{t("In a list, the tone follows the item state: active or in progress = brand; paused, finished or only a record = neutral (ItemDeAcao tom=\"neutro\").", "Numa lista, o tom acompanha o estado do item: ativo ou em andamento = marca; pausado, encerrado ou só registro = neutro (ItemDeAcao tom=\"neutro\").")}</li>
             <li>{t("Color is never the only signal: the state is always written too.", "A cor nunca é o único sinal: o estado vem sempre escrito também.")}</li>
@@ -303,10 +303,10 @@ export function IconsShowcase() {
       <section id="icon-library">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1">
+            <h2 className="text-h3 font-semibold tracking-[-0.02em] text-foreground mb-1">
               {t("Library", "Biblioteca")}
             </h2>
-            <p className="text-[0.9375rem] text-muted-foreground">
+            <p className="text-body text-muted-foreground">
               {search ? t(`${filteredTotal} of ${totalIcons}`, `${filteredTotal} de ${totalIcons}`) : totalIcons} {t("icons in", "ícones em")}{" "}
               {safeCategories.length} {t(`categories · Lucide ${versaoLucide} complete, plus brand icons kept in the DS · Click to copy the name`, `categorias · Lucide ${versaoLucide} completa, mais os ícones de marca mantidos no DS · Clique para copiar o nome`)}
             </p>
@@ -318,7 +318,7 @@ export function IconsShowcase() {
               onChange={e => setSearch(e.target.value)}
               placeholder={t("Search icon...", "Buscar ícone...")}
               aria-label={t("Search icon", "Buscar ícone")}
-              className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-md pl-9 pr-3 py-2 text-[0.875rem] outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 transition-all"
+              className="w-full bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-md pl-9 pr-3 py-2 text-body-sm outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus:border-primary/60 transition-all"
             />
           </div>
         </div>
@@ -327,10 +327,10 @@ export function IconsShowcase() {
           {filtered.map(cat => (
             <div key={cat.name}>
               <div className="flex items-center gap-3 mb-3">
-                <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                <h3 className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground">
                   {t(cat.name, cat.pt)}
                 </h3>
-                <span className="text-[0.6875rem] text-muted-foreground/50 font-mono">
+                <span className="text-caption text-muted-foreground/50 font-mono">
                   {cat.icons.length}
                 </span>
               </div>
@@ -350,7 +350,7 @@ export function IconsShowcase() {
                       ? <Check className="w-5 h-5 text-primary" strokeWidth={2} />
                       : <Icon className="w-5 h-5" strokeWidth={1.75} />
                     }
-                    <span className="text-[0.5625rem] font-medium text-center leading-tight w-full truncate">
+                    <span className="text-caption font-medium text-center leading-tight w-full truncate">
                       {copied === label ? t("Copied!", "Copiado!") : label}
                     </span>
                   </button>
@@ -362,7 +362,7 @@ export function IconsShowcase() {
           {filtered.length === 0 && (
             <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
               <Search className="w-8 h-8 opacity-30" />
-              <p className="text-[0.9rem]">
+              <p className="text-body-sm">
                 {t("No icon found for", "Nenhum ícone encontrado para")}{" "}
                 <strong className="text-foreground">"{search}"</strong>
               </p>
@@ -374,8 +374,8 @@ export function IconsShowcase() {
       {/* ── Tokens ── */}
       <section id="icons-tokens" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties for icon color, sizing, and context.", "Propriedades CSS customizadas para cor, tamanho e contexto dos ícones.")}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">{t("CSS custom properties for icon color, sizing, and context.", "Propriedades CSS customizadas para cor, tamanho e contexto dos ícones.")}</p>
         </div>
         <TokenTable groups={localizedTokenGroups} />
       </section>

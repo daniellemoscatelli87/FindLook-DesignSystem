@@ -12,7 +12,7 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
       role="navigation"
-      aria-label="pagination"
+      aria-label="Paginação"
       data-slot="pagination"
       className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
@@ -27,7 +27,9 @@ function PaginationContent({
   return (
     <ul
       data-slot="pagination-content"
-      className={cn("flex flex-row flex-wrap items-center gap-1", className)}
+      // Nunca quebra de linha (27/11/2026): uma seta sozinha na linha de baixo confunde. No celular, use poucas páginas
+      // ou o resumo "Página 4 de 12" (PaginationStatus) entre as setas.
+      className={cn("flex flex-row flex-nowrap items-center gap-1", className)}
       {...props}
     />
   );
@@ -74,7 +76,7 @@ function PaginationPrevious({
     <PaginationLink
       aria-label="Ir para a página anterior"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      className={cn("gap-1 px-2", className)}
       {...props}
     >
       <ChevronLeftIcon />
@@ -91,7 +93,7 @@ function PaginationNext({
     <PaginationLink
       aria-label="Ir para a próxima página"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
+      className={cn("gap-1 px-2", className)}
       {...props}
     >
       <span className="hidden sm:block">Próxima</span>
@@ -108,7 +110,7 @@ function PaginationEllipsis({
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn("flex size-9 items-center justify-center", className)}
+      className={cn("flex size-10 items-center justify-center toque:size-11", className)}
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />
@@ -117,8 +119,18 @@ function PaginationEllipsis({
   );
 }
 
+/** Resumo da posição ("Página 4 de 12"), para o celular, entre as setas, no lugar dos números (27/11/2026). */
+function PaginationStatus({ atual, total, className, ...props }: React.ComponentProps<"span"> & { atual: number; total: number }) {
+  return (
+    <span data-slot="pagination-status" aria-current="page" className={cn("whitespace-nowrap px-2 text-body-sm font-medium tabular-nums text-foreground", className)} {...props}>
+      Página {atual} de {total}
+    </span>
+  );
+}
+
 export {
   Pagination,
+  PaginationStatus,
   PaginationContent,
   PaginationLink,
   PaginationItem,

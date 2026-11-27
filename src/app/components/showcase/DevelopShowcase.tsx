@@ -31,14 +31,14 @@ function CopyBtn({ text }: { text: string }) {
 function CodeBlock({ file, tag, code }: { file: string; tag: string; code: string }) {
   return (
     <div className="bg-muted border border-border rounded-[var(--radius)] overflow-hidden min-w-0">
-      <div className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-border">
-        <span className="text-[0.75rem] font-[family-name:var(--font-mono)] text-foreground truncate">{file}</span>
+      <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-border">
+        <span className="text-label font-[family-name:var(--font-mono)] text-foreground truncate">{file}</span>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{tag}</span>
+          <span className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{tag}</span>
           <CopyBtn text={code} />
         </div>
       </div>
-      <pre className="px-4 py-4 text-[0.75rem] leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto">
+      <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto">
         <code>{code}</code>
       </pre>
     </div>
@@ -107,7 +107,7 @@ const catPt: Record<string, string> = { Color: "Cor", Typography: "Tipografia", 
 
 function Mono({ children }: { children: React.ReactNode }) {
   return (
-    <code className="text-[0.8125rem] font-[family-name:var(--font-mono)] px-1.5 py-0.5 rounded-sm bg-muted text-foreground border border-border">
+    <code className="text-body-sm font-[family-name:var(--font-mono)] px-1 py-1 rounded-sm bg-muted text-foreground border border-border">
       {children}
     </code>
   );
@@ -118,7 +118,7 @@ function TextLink({ children, onClick }: { children: React.ReactNode; onClick: (
     <button
       type="button"
       onClick={onClick}
-      className="group inline-flex items-center gap-1.5 text-[0.875rem] font-semibold text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-[4px]"
+      className="group inline-flex items-center gap-1 text-body-sm font-semibold text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
     >
       {children}
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -158,7 +158,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
               <CardDescription>{t("Procure no catálogo o que a tela precisa (plano, preço, card, alerta, tabela) e use o que já existe.", "Procure no catálogo o que a tela precisa (plano, preço, card, alerta, tabela) e use o que já existe.")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="list-disc space-y-2 pl-5 text-[0.875rem] leading-relaxed text-muted-foreground">
+              <ul className="list-disc space-y-2 pl-5 text-body-sm leading-relaxed text-muted-foreground">
                 <li><Mono>CATALOGO.md</Mono> {t("é para pessoas; ", "é para pessoas; ")}<Mono>catalogo.json</Mono> {t("é para programas.", "é para programas.")}</li>
                 <li>{t("Componente da seção 1 é importado, nunca refeito. Padrão da seção 2 só existe em demonstração: use exatamente aquele visual e promova a componente antes de usá-lo num produto.", "Componente da seção 1 é importado, nunca refeito. Padrão da seção 2 só existe em demonstração: use exatamente aquele visual e promova a componente antes de usá-lo num produto.")}</li>
                 <li>{t("Gerado por ", "Gerado por ")}<Mono>scripts/gerar-catalogo.mjs</Mono>{t(", antes de cada ", ", antes de cada ")}<Mono>pnpm build</Mono>{t("; ", "; ")}<Mono>pnpm catalogo:check</Mono> {t("falha se o arquivo gravado estiver desatualizado.", "falha se o arquivo gravado estiver desatualizado.")}</li>
@@ -185,7 +185,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
               <CardDescription>{t("A regra está no CLAUDE.md, na raiz do repositório. Em resumo:", "A regra está no CLAUDE.md, na raiz do repositório. Em resumo:")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="list-disc space-y-2 pl-5 text-[0.875rem] leading-relaxed text-muted-foreground">
+              <ul className="list-disc space-y-2 pl-5 text-body-sm leading-relaxed text-muted-foreground">
                 <li>{t("Toda funcionalidade com interface começa pela consulta ao catálogo e é montada com o que já existe.", "Toda funcionalidade com interface começa pela consulta ao catálogo e é montada com o que já existe.")}</li>
                 <li>{t("Peça nova nasce em ui/ como componente reutilizável, com documentação, changelog e proposta em ", "Peça nova nasce em ui/ como componente reutilizável, com documentação, changelog e proposta em ")}<Mono>propostas/</Mono>.</li>
                 <li>{t("Ao delegar, passe a regra e o caminho do catálogo; o relatório lista qual componente cada peça usa.", "Ao delegar, passe a regra e o caminho do catálogo; o relatório lista qual componente cada peça usa.")}</li>
@@ -210,12 +210,12 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
         <article className="bg-card border border-border border-l-4 border-l-primary rounded-[var(--radius)] p-5 max-w-2xl">
           <div className="flex items-center gap-2 mb-2">
             <Megaphone className="h-4 w-4 text-primary" aria-hidden />
-            <time className="text-[0.75rem] font-medium text-muted-foreground">{t("October 22, 2026", "22 de outubro de 2026")}</time>
+            <time className="text-label font-medium text-muted-foreground">{t("October 22, 2026", "22 de outubro de 2026")}</time>
           </div>
-          <h3 className={`${display} text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground mb-1.5`}>
+          <h3 className={`${display} text-subtitle font-semibold tracking-[-0.01em] text-foreground mb-1`}>
             {t("Design tokens now documented end to end", "Design tokens agora documentados de ponta a ponta")}
           </h3>
-          <p className="text-[0.875rem] leading-relaxed text-muted-foreground">
+          <p className="text-body-sm leading-relaxed text-muted-foreground">
             {t(
               "The Develop page brings token definition, Tailwind mapping and the Figma sync workflow together in one place.",
               "A página Desenvolvimento reúne a definição dos tokens, o mapeamento do Tailwind e o fluxo de sincronização com o Figma em um só lugar."
@@ -232,13 +232,13 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="flex flex-col bg-card border border-border rounded-[var(--radius)] p-5">
-            <span className="self-start mb-3 rounded-full bg-primary-muted text-primary text-[0.6875rem] font-semibold uppercase tracking-[0.06em] px-2.5 py-1">
+            <span className="self-start mb-3 rounded-full bg-primary-muted text-primary text-caption font-semibold uppercase tracking-[0.06em] px-2 py-1">
               {t("Recommended", "Recomendado")}
             </span>
-            <h3 className={`${display} text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground mb-2`}>
+            <h3 className={`${display} text-subtitle font-semibold tracking-[-0.01em] text-foreground mb-2`}>
               Web — React + Tailwind CSS
             </h3>
-            <p className="text-[0.875rem] leading-relaxed text-muted-foreground mb-5">
+            <p className="text-body-sm leading-relaxed text-muted-foreground mb-5">
               {t("Components are built in React with Tailwind CSS. Tokens live in ", "Os componentes são feitos em React com Tailwind CSS. Os tokens ficam em ")}<Mono>src/styles/theme.css</Mono>{t(" and are exposed as Tailwind classes in ", " e são expostos como classes do Tailwind em ")}<Mono>src/styles/index.css</Mono>{t(" through ", " por meio de ")}<Mono>@theme inline</Mono>.
             </p>
             <div className="mt-auto">
@@ -246,10 +246,10 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
             </div>
           </div>
           <div className="flex flex-col bg-card border border-border rounded-[var(--radius)] p-5">
-            <h3 className={`${display} text-[1.0625rem] font-semibold tracking-[-0.01em] text-foreground mb-2 md:mt-[2.125rem]`}>
+            <h3 className={`${display} text-subtitle font-semibold tracking-[-0.01em] text-foreground mb-2 md:mt-[2.125rem]`}>
               Figma — Variables
             </h3>
-            <p className="text-[0.875rem] leading-relaxed text-muted-foreground mb-5">
+            <p className="text-body-sm leading-relaxed text-muted-foreground mb-5">
               {t(
                 "Two collections — Primitives and Semantics — with Light and Dark modes. Names are identical to the CSS:",
                 "Duas coleções — Primitives e Semantics — com modos Light e Dark. Os nomes são idênticos aos do CSS:"
@@ -275,8 +275,8 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
             <CodeBlock file="src/styles/index.css" tag={t("Tailwind mapping", "Mapeamento Tailwind")} code={indexCode} />
           </div>
           <div className="bg-primary-muted rounded-[var(--radius)] px-5 py-4 flex items-start gap-3">
-            <Layers className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
-            <p className="text-[0.875rem] leading-relaxed text-foreground">
+            <Layers className="h-5 w-5 text-primary shrink-0 mt-1" aria-hidden />
+            <p className="text-body-sm leading-relaxed text-foreground">
               <strong className="font-semibold">{t("Golden rule", "Regra de ouro")}</strong> — {t("In components, always use semantic Tailwind classes (", "Nos componentes, use sempre classes semânticas do Tailwind (")}<Mono>bg-primary</Mono>, <Mono>text-foreground</Mono>, <Mono>border-border</Mono>{t(") — never literal colors (", ") — nunca cores literais (")}<Mono>bg-error</Mono>, <Mono>bg-[#FC0256]</Mono>{t("). This ensures the component works in any theme, now and in the future.", "). Assim o componente funciona em qualquer tema, agora e no futuro.")}
             </p>
           </div>
@@ -301,7 +301,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
             <thead>
               <tr className="bg-muted border-b border-border">
                 {[t("Category", "Categoria"), t("Design Token", "Design Token"), "CSS / Dev", "Tailwind"].map(h => (
-                  <th key={h} className="px-4 py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                  <th key={h} className="px-4 py-3 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">
                     {h}
                   </th>
                 ))}
@@ -310,10 +310,10 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
             <tbody>
               {rows.map(([cat, design, css, tw]) => (
                 <tr key={css} className="border-b border-border last:border-b-0">
-                  <td className="px-4 py-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t(cat, catPt[cat] ?? cat)}</td>
-                  <td className="px-4 py-2.5 text-[0.8125rem] text-foreground">{design}</td>
-                  <td className="px-4 py-2.5 text-[0.75rem] font-[family-name:var(--font-mono)] text-primary">{css}</td>
-                  <td className="px-4 py-2.5 text-[0.75rem] font-[family-name:var(--font-mono)] text-foreground">{tw}</td>
+                  <td className="px-4 py-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t(cat, catPt[cat] ?? cat)}</td>
+                  <td className="px-4 py-2 text-body-sm text-foreground">{design}</td>
+                  <td className="px-4 py-2 text-label font-[family-name:var(--font-mono)] text-primary">{css}</td>
+                  <td className="px-4 py-2 text-label font-[family-name:var(--font-mono)] text-foreground">{tw}</td>
                 </tr>
               ))}
             </tbody>
@@ -346,12 +346,12 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
               key={col.title}
               className={`bg-card border border-border border-t-2 ${col.border} rounded-[var(--radius)] p-5`}
             >
-              <p className={`${display} text-[0.8125rem] font-bold uppercase tracking-[0.08em] mb-3 ${col.tone}`}>
+              <p className={`${display} text-label font-bold uppercase tracking-[0.08em] mb-3 ${col.tone}`}>
                 {col.label}
               </p>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2">
                 {col.items.map(i => (
-                  <li key={i.en} className="text-[0.875rem] leading-relaxed text-foreground">{bi(i)}</li>
+                  <li key={i.en} className="text-body-sm leading-relaxed text-foreground">{bi(i)}</li>
                 ))}
               </ul>
             </div>
@@ -381,7 +381,7 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
         </div>
       </PageSection>
 
-      <p className="pt-6 border-t border-border text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+      <p className="pt-6 border-t border-border text-caption font-medium uppercase tracking-[0.12em] text-muted-foreground">
         {rotuloVersao(t)}
       </p>
     </div>

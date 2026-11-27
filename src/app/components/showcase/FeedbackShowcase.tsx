@@ -44,7 +44,7 @@ function ShowcaseCard({ children, className = "" }: { children: React.ReactNode;
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-12">
-      <h3 className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-5">{title}</h3>
+      <h3 className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-5">{title}</h3>
       {children}
     </div>
   );
@@ -87,7 +87,7 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
   if (!visible) return null;
   // Componente real (ui/alert), o mesmo que o produto copia
   return (
-    <UiAlert variant={kind} className={dismissible ? "pr-[52px]" : ""}>
+    <UiAlert variant={kind} className={dismissible ? "pr-12" : ""}>
       <Icon aria-hidden />
       <AlertTitle>{bi(cfg.title)}</AlertTitle>
       <AlertDescription>{bi(cfg.msg)}</AlertDescription>
@@ -142,11 +142,11 @@ function DemoAbasComContador({ estilo }: { estilo: "pilula" | "sublinhado" }) {
   const atual = abasContador.find(a => a.valor === aba)!;
   return (
     <div className="min-w-0">
-      <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+      <p className="mb-3 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">
         {estilo === "pilula" ? "Pílula" : "Sublinhado"} <span className="font-mono normal-case tracking-normal">· estilo="{estilo}"</span>
       </p>
       <AbasComContador abas={abasContador} valor={aba} onChange={setAba} estilo={estilo} rotulo={`Filtrar produtos por status (${estilo === "pilula" ? "pílula" : "sublinhado"})`} />
-      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-md bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+      <div role="tabpanel" aria-label={atual.rotulo} className="mt-4 rounded-md bg-muted/30 border border-border p-4 text-body-sm text-muted-foreground">
         Mostrando <strong className="text-foreground">{atual.leitura}</strong>.
       </div>
     </div>
@@ -176,9 +176,9 @@ function DemoBannerPromocional() {
           onFechar={() => setAberto(false)}
         />
       ) : (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3.5">
-          <p className="text-[0.875rem] text-muted-foreground">Você fechou o banner.</p>
-          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3">
+          <p className="text-body-sm text-muted-foreground">Você fechou o banner.</p>
+          <button type="button" onClick={() => setAberto(true)} className="inline-flex items-center gap-2 h-9 px-4 text-body-sm font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
             Mostrar de novo
           </button>
         </div>
@@ -193,8 +193,8 @@ const evitarSalto = (e: React.MouseEvent) => e.preventDefault();
 function TituloDaLista({ titulo, componente }: { titulo: string; componente: string }) {
   return (
     <div className="mb-4">
-      <h4 className="text-[0.9375rem] font-semibold text-foreground">{titulo}</h4>
-      <p className="mt-0.5 font-mono text-[0.75rem] text-muted-foreground">{componente}</p>
+      <h4 className="text-body font-semibold text-foreground">{titulo}</h4>
+      <p className="mt-1 font-mono text-label text-muted-foreground">{componente}</p>
     </div>
   );
 }
@@ -256,7 +256,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                 ))}
               </TabsList>
               <TabsContent value={defaultTab}>
-                <div className="rounded-md bg-muted/30 border border-border p-4 text-[0.875rem] text-muted-foreground">
+                <div className="rounded-md bg-muted/30 border border-border p-4 text-body-sm text-muted-foreground">
                   {t("Content for", "Conteúdo da aba")} <strong className="text-foreground">{bi(tabItems.find(x => x.id === defaultTab)!.label)}</strong>{lang === "en" ? " tab." : "."}
                 </div>
               </TabsContent>
@@ -271,14 +271,14 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                 <button
                   key={tab.id}
                   onClick={() => setUnderlineTab(tab.id)}
-                  className={`whitespace-nowrap px-4 py-2.5 text-[0.875rem] font-medium transition-all duration-150 border-b-2 -mb-px outline-none
+                  className={`whitespace-nowrap px-4 py-2 text-body-sm font-medium transition-all duration-150 border-b-2 -mb-px outline-none
                     ${underlineTab === tab.id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"}`}
                 >
                   {bi(tab.label)}
                 </button>
               ))}
             </div>
-            <div className="text-[0.875rem] text-muted-foreground">
+            <div className="text-body-sm text-muted-foreground">
               {t("Viewing:", "Visualizando:")} <strong className="text-foreground">{bi(tabItems.find(x => x.id === underlineTab)!.label)}</strong>
             </div>
           </ShowcaseCard>
@@ -323,7 +323,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <SubSection title="Alerta só com descrição">
           <div id="alerta-sem-titulo" className="scroll-mt-32" />
           <ShowcaseCard>
-            <p className="mb-4 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">
+            <p className="mb-4 max-w-3xl text-body-sm leading-relaxed text-muted-foreground">
               Quando a mensagem cabe numa frase, use o Alert sem AlertTitle. A frase passa a ser a informação principal: fica na cor do texto principal, centralizada na altura do ícone e com a quebra de linha equilibrada. É automático: basta não usar o título.
             </p>
             <div className="space-y-3">
@@ -353,7 +353,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <SectionHeader title={t("Toasts", "Toasts")} description={t("Floating notification toasts for transient feedback messages.", "Notificações flutuantes (toasts) para mensagens de feedback temporárias.")} />
         <SubSection title={t("Try it", "Experimente")}>
           <ShowcaseCard>
-            <p className="mb-3 text-[0.875rem] text-muted-foreground">{t("Each button shows a real notification in the corner of the screen (ui/sonner).", "Cada botão mostra uma notificação de verdade no canto da tela (ui/sonner).")}</p>
+            <p className="mb-3 text-body-sm text-muted-foreground">{t("Each button shows a real notification in the corner of the screen (ui/sonner).", "Cada botão mostra uma notificação de verdade no canto da tela (ui/sonner).")}</p>
             <div className="flex flex-wrap gap-2">
               {toastTypes.map(tt => (
                 <Button key={tt.tipo} variant="outline" onClick={() => {
@@ -377,7 +377,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                 return (
                   <div key={toast.label} className="flex items-center gap-3 rounded-md border border-border bg-card px-4 py-3" style={{ boxShadow: "var(--shadow-md)" }}>
                     <Icon className={`h-4.5 w-4.5 shrink-0 ${toast.color} ${toast.label === "Loading" ? "animate-spin" : ""}`} style={{ height: "18px", width: "18px" }} />
-                    <span className="text-[0.875rem] font-medium text-foreground flex-1">{bi(toast.msg)}</span>
+                    <span className="text-body-sm font-medium text-foreground flex-1">{bi(toast.msg)}</span>
                     <button aria-label={t("Close", "Fechar")} className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
                       <X className="h-4 w-4" />
                     </button>
@@ -399,7 +399,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
             <div className="space-y-5">
               {progressItems.map(p => (
                 <div key={p.label.en}>
-                  <div className="flex justify-between text-[0.8125rem] mb-1.5">
+                  <div className="flex justify-between text-body-sm mb-1">
                     <span className="font-medium text-foreground">{bi(p.label)}</span>
                     <span className="text-muted-foreground font-mono">{p.value}%</span>
                   </div>
@@ -423,7 +423,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                   style={{ animation: "indeterminate 1.5s ease-in-out infinite" }}
                 />
               </div>
-              <div className="flex items-center gap-2 text-[0.875rem] text-muted-foreground">
+              <div className="flex items-center gap-2 text-body-sm text-muted-foreground">
                 <Loader2 className="h-4 w-4 animate-spin text-primary" />
                 {t("Processing your request...", "Processando sua solicitação...")}
               </div>
@@ -461,13 +461,13 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
 
             {/* Table skeleton */}
             <ShowcaseCard className="p-0 overflow-hidden">
-              <div className="px-5 py-3.5 border-b border-border">
+              <div className="px-5 py-3 border-b border-border">
                 <SkeletonPulse className="h-4 w-28" />
               </div>
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className="flex items-center gap-3 px-5 py-3.5 border-b border-border/50">
+                <div key={i} className="flex items-center gap-3 px-5 py-3 border-b border-border/50">
                   <SkeletonPulse className="h-8 w-8 rounded-full shrink-0" />
-                  <div className="flex-1 space-y-1.5">
+                  <div className="flex-1 space-y-1">
                     <SkeletonPulse className="h-3.5 w-36" />
                     <SkeletonPulse className="h-3 w-24" />
                   </div>
@@ -490,15 +490,15 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
           <ShowcaseCard>
             <div className="flex flex-wrap gap-2">
               {badgeVariants.map(b => (
-                <span key={b.label.en} className={`inline-flex items-center px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border ${b.cls}`}>
+                <span key={b.label.en} className={`inline-flex items-center px-2 py-1 rounded-sm text-label font-semibold border ${b.cls}`}>
                   {bi(b.label)}
                 </span>
               ))}
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[0.75rem] font-semibold border bg-[var(--primary-suave)] text-primary-text border-primary/20">
+              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-sm text-label font-semibold border bg-[var(--primary-suave)] text-primary-text border-primary/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 {t("Live", "Ao vivo")}
               </span>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[0.6875rem] font-bold bg-primary text-primary-foreground">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-caption font-bold bg-primary text-primary-foreground">
                 42
               </span>
             </div>
@@ -507,7 +507,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
 
         <SubSection title={t("Chips (Filterable)", "Chips (filtráveis)")}>
           <ShowcaseCard>
-            <p className="mb-4 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">Chip ativo (regra dos rosas claros da dona do produto, 27/11/2026): fundo no rosa do selecionado (--primary-suave), texto --primary-text (5,7:1), borda rosa sutil e o check, e continua rosa com o mouse em cima; chip não ativo com o mouse em cima: cinza claro (--accent), nunca rosa; nunca preenchido de pink, porque só a ação principal da área é preenchida. aria-pressed diz se está marcado.</p>
+            <p className="mb-4 max-w-3xl text-body-sm leading-relaxed text-muted-foreground">Chip ativo (regra dos rosas claros da dona do produto, 27/11/2026): fundo no rosa do selecionado (--primary-suave), texto --primary-text (5,7:1), borda rosa sutil e o check, e continua rosa com o mouse em cima; chip não ativo com o mouse em cima: cinza claro (--accent), nunca rosa; nunca preenchido de pink, porque só a ação principal da área é preenchida. aria-pressed diz se está marcado.</p>
             <div className="flex flex-wrap gap-2">
               {chipVariants.map(c => {
                 const active = chipActive.includes(c.label);
@@ -516,7 +516,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                     key={c.label}
                     onClick={() => setChipActive(prev => active ? prev.filter(x => x !== c.label) : [...prev, c.label])}
                     aria-pressed={active}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                    className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-body-sm font-medium border transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                       ${active ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-accent hover:border-[var(--border-strong)]"}`}
                   >
                     {active && <Check className="h-3.5 w-3.5" />}
@@ -532,7 +532,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
           <ShowcaseCard>
             <div className="flex flex-wrap gap-2">
               {tagVariants.map(tag => (
-                <span key={tag.label} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-sm text-[0.75rem] font-medium border ${tag.color}`}>
+                <span key={tag.label} className={`inline-flex items-center gap-1 px-2 py-1 rounded-sm text-label font-medium border ${tag.color}`}>
                   <span className="opacity-60">#</span>{tag.label}
                 </span>
               ))}
@@ -543,7 +543,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <div id="selo" className="scroll-mt-32" />
         <SubSection title={t("Hero tag (selo)", "Selo (tag do hero)")}>
           <ShowcaseCard>
-            <p className="mb-4 text-[0.8125rem] leading-relaxed text-muted-foreground">
+            <p className="mb-4 text-body-sm leading-relaxed text-muted-foreground">
               {t(
                 "The pill used at the top of the Experience Intelligence page on the studio site: card background, thin border, small uppercase text with wide tracking and a primary dot. Use it to set the context at the top of a page or section (product name, place, theme), never for status or counts.",
                 "A pílula usada no topo da página Experience Intelligence do site do estúdio: fundo de card, borda fina, texto pequeno em caixa alta com espaçamento largo e um ponto na cor primária. Use para situar a pessoa no topo de uma página ou seção (nome do produto, lugar, tema), nunca para status ou contagem.",
@@ -557,18 +557,18 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               <Selo dot={false}>{t("No dot", "Sem ponto")}</Selo>
             </div>
             <div className="mt-4 rounded-md bg-foreground p-5">
-              <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-background/60">{t("On a dark surface", "Sobre superfície escura")}</p>
+              <p className="mb-3 text-caption font-semibold uppercase tracking-[0.08em] text-background/60">{t("On a dark surface", "Sobre superfície escura")}</p>
               <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-white/85"><span aria-hidden className="h-2 w-2 rounded-full bg-primary" />{t("Inverted", "Invertido")}</span>
+                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-label font-semibold uppercase tracking-[0.14em] text-white/85"><span aria-hidden className="h-2 w-2 rounded-full bg-primary" />{t("Inverted", "Invertido")}</span>
               </div>
             </div>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+            <ul className="mt-4 grid gap-1 text-body-sm text-muted-foreground sm:grid-cols-2">
               <li>• {t("One hero tag per page or section; it comes right above the title.", "Um selo por página ou seção; ele vem logo acima do título.")}</li>
               <li>• {t("Short text (two to four words), uppercase by the component, never a sentence.", "Texto curto (duas a quatro palavras), caixa alta pelo componente, nunca uma frase.")}</li>
               <li>• {t("Dot or one icon in the primary color, never both.", "Ponto ou um ícone na cor primária, nunca os dois.")}</li>
               <li>• {t("It is not interactive. For filters use chips; for status use badges or the status chip.", "Não é interativo. Para filtros use chips; para status use badges ou o chip de status.")}</li>
             </ul>
-            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
 <Selo>Moda local em Curitiba</Selo>
 <Selo icon={<MapPin />}>Moda local em Curitiba</Selo>`}</code></pre>
           </ShowcaseCard>
@@ -577,12 +577,12 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <SubSection title={t("Section seal", "Selo de seção")}>
           <div id="selo-secao" className="scroll-mt-32" />
           <ShowcaseCard>
-            <p className="mb-5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+            <p className="mb-5 text-body-sm leading-relaxed text-muted-foreground">
               {t("From the sections of the studio site's Experience Intelligence 2 page (\"Cenário Atual\", \"O Desafio\", \"Método\"): a filled pill in the light primary tint with a thin primary border and the primary text color, uppercase with wide tracking, no dot. It sits centred above a section title and names the subject of the section. The hero tag stays neutral (card surface, dot); this one is coloured.", "Das seções da página Experience Intelligence 2 do site do estúdio (\"Cenário Atual\", \"O Desafio\", \"Método\"): pílula preenchida com o tom claro da primária, borda fina na primária e texto na cor primária de texto, em caixa alta com espaçamento largo, sem ponto. Fica centralizada acima do título da seção e nomeia o assunto dela. O selo do hero continua neutro (fundo de card, ponto); este é colorido.")}
             </p>
             <div className="rounded-lg border border-border bg-background px-6 py-10 text-center">
               <SeloSecao className="mb-4">{"Para quem procura"}</SeloSecao>
-              <h3 className="mx-auto max-w-[32ch] text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{"Encontre peças alinhadas ao seu estilo, tamanho e região."}</h3>
+              <h3 className="mx-auto max-w-[32ch] text-h3 font-bold leading-tight tracking-[-0.02em] text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{"Encontre peças alinhadas ao seu estilo, tamanho e região."}</h3>
             </div>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <SeloSecao>{"Para quem vende"}</SeloSecao>
@@ -590,11 +590,11 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               <SeloSecao size="sm">{t("Compact", "Compacto")} · sm</SeloSecao>
               <SeloSecao icon={<Sparkles />}>{t("With icon", "Com ícone")}</SeloSecao>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
 
 <SeloSecao>Cenário atual</SeloSecao>
 <h2>…</h2>`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+            <ul className="mt-4 grid gap-1 text-body-sm text-muted-foreground sm:grid-cols-2">
               <li>• {t("One per section, above the title, centred when the title is centred.", "Um por seção, acima do título, centralizado quando o título é centralizado.")}</li>
               <li>• {t("One to three words naming the subject; never status, count or action.", "De uma a três palavras nomeando o assunto; nunca status, contagem ou ação.")}</li>
               <li>• {t("Tokens: --primary-muted (fill), primary at 25 % (border), --primary-text (text), --shadow-xs.", "Tokens: --primary-muted (fundo), primária a 25 % (borda), --primary-text (texto), --shadow-xs.")}</li>
@@ -620,11 +620,11 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
           <ShowcaseCard>
             <div className="flex flex-wrap items-end gap-6">
               {[
-                { size: "h-6 w-6 text-[0.5rem]",  label: "XS" },
-                { size: "h-8 w-8 text-[0.625rem]", label: "SM" },
-                { size: "h-10 w-10 text-[0.75rem]",label: "MD" },
-                { size: "h-12 w-12 text-[0.875rem]",label: "LG" },
-                { size: "h-14 w-14 text-[1rem]",   label: "XL" },
+                { size: "h-6 w-6 text-caption",  label: "XS" },
+                { size: "h-8 w-8 text-caption", label: "SM" },
+                { size: "h-10 w-10 text-label",label: "MD" },
+                { size: "h-12 w-12 text-body-sm",label: "LG" },
+                { size: "h-14 w-14 text-body",   label: "XL" },
               ].map(({ size, label }) => (
                 <div key={label} className="flex flex-col items-center gap-2">
                   <div className="relative">
@@ -635,7 +635,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                       <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-success border-2 border-background" />
                     )}
                   </div>
-                  <span className="text-[0.6875rem] text-muted-foreground">{label}</span>
+                  <span className="text-caption text-muted-foreground">{label}</span>
                 </div>
               ))}
               {/* Avatar group */}
@@ -644,17 +644,17 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                   {["AN", "SL", "YT", "LO"].map((init, i) => (
                     <div
                       key={init}
-                      className="h-10 w-10 rounded-full flex items-center justify-center text-[0.75rem] font-semibold border-2 border-background"
+                      className="h-10 w-10 rounded-full flex items-center justify-center text-label font-semibold border-2 border-background"
                       style={{ backgroundColor: `hsl(${i * 60}, 40%, ${35 + i * 8}%)`, color: "white", zIndex: 4 - i }}
                     >
                       {init}
                     </div>
                   ))}
-                  <div className="h-10 w-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-[0.75rem] font-semibold text-muted-foreground z-0">
+                  <div className="h-10 w-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-label font-semibold text-muted-foreground z-0">
                     +5
                   </div>
                 </div>
-                <span className="text-[0.6875rem] text-muted-foreground">{t("Group", "Grupo")}</span>
+                <span className="text-caption text-muted-foreground">{t("Group", "Grupo")}</span>
               </div>
             </div>
           </ShowcaseCard>
@@ -663,7 +663,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <SubSection title="Avatar Circles">
           <div id="avatar-circles" className="scroll-mt-32" />
           <ShowcaseCard>
-            <p className="text-[0.8125rem] leading-relaxed text-muted-foreground mb-5">
+            <p className="text-body-sm leading-relaxed text-muted-foreground mb-5">
               {t("Overlapping avatar circles with a final “+N” circle, ported from Magic UI and adapted to the system tokens: borders follow the background, so it works on light and dark themes, and the “+N” only becomes a link when a destination is given. Use it as social proof next to a call to action. ", "Círculos de avatares sobrepostos com um último círculo “+N”, portado do Magic UI e adaptado aos tokens do sistema: as bordas seguem o fundo, então funciona nos temas claro e escuro, e o “+N” só vira link quando há um destino. Use como prova social ao lado de uma chamada para ação. ")}
               {t('Stores already registered in the city, people who saved an item or followers of a store.', 'Lojas já cadastradas na cidade, pessoas que salvaram uma peça ou seguidores de uma loja.')}
             </p>
@@ -671,18 +671,18 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               {([["sm", "SM · 32 px"], ["md", "MD · 40 px"], ["lg", "LG · 48 px"]] as const).map(([size, label]) => (
                 <div key={size} className="flex flex-wrap items-center gap-4">
                   <AvatarCircles size={size} numPeople={99} moreHref="#avatar-circles" avatarUrls={DEMO_AVATARS} />
-                  <span className="text-[0.6875rem] text-muted-foreground">{label}</span>
+                  <span className="text-caption text-muted-foreground">{label}</span>
                 </div>
               ))}
               <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-muted/40 p-4">
                 <AvatarCircles numPeople={120} avatarUrls={DEMO_AVATARS.slice(0, 4)} />
-                <p className="text-[0.8125rem] text-foreground">
+                <p className="text-body-sm text-foreground">
                   <span className="font-semibold">{t("124 stores", "124 lojas")}</span>{" "}
                   <span className="text-muted-foreground">{t("already found by people nearby.", "já são encontradas por quem está perto.")}</span>
                 </p>
               </div>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
+            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
 
 <AvatarCircles
   numPeople={99}
@@ -692,7 +692,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
     { imageUrl: "/avatares/avatar-2.svg", profileUrl: "/perfil/bruno", name: "Bruno" },
   ]}
 />`}</code></pre>
-            <ul className="mt-4 grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+            <ul className="mt-4 grid gap-1 text-body-sm text-muted-foreground sm:grid-cols-2">
               <li>• {t("Props: avatarUrls (imageUrl, profileUrl, name), numPeople, moreHref, size sm | md | lg, className.", "Props: avatarUrls (imageUrl, profileUrl, name), numPeople, moreHref, size sm | md | lg, className.")}</li>
               <li>• {t("Three to six avatars; beyond that, the “+N” carries the rest.", "De três a seis avatares; acima disso, o “+N” resume o restante.")}</li>
               <li>• {t("Always pass name: it becomes the image alt text and the tooltip.", "Sempre informe name: vira o texto alternativo da imagem e o tooltip.")}</li>
@@ -710,17 +710,17 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ShowcaseCard>
             <div className="flex flex-col items-center text-center py-8 gap-4">
-              <div className="h-16 w-16 rounded-[20px] bg-muted flex items-center justify-center">
+              <div className="h-16 w-16 rounded-lg bg-muted flex items-center justify-center">
                 <svg className="h-8 w-8 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5L7.5 3h9L21 7.5v9L16.5 21h-9L3 16.5v-9z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01" />
                 </svg>
               </div>
               <div>
-                <h4 className="text-[1rem] font-semibold text-foreground mb-1">{t("No results found", "Nenhum resultado encontrado")}</h4>
-                <p className="text-[0.875rem] text-muted-foreground max-w-[220px]">{t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}</p>
+                <h4 className="text-body font-semibold text-foreground mb-1">{t("No results found", "Nenhum resultado encontrado")}</h4>
+                <p className="text-body-sm text-muted-foreground max-w-[220px]">{t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}</p>
               </div>
-              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors">
+              <button className="inline-flex items-center gap-2 h-9 px-4 text-body-sm font-semibold rounded-md border border-border bg-card hover:bg-accent text-foreground transition-colors">
                 {t("Clear filters", "Limpar filtros")}
               </button>
             </div>
@@ -728,16 +728,16 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
 
           <ShowcaseCard>
             <div className="flex flex-col items-center text-center py-8 gap-4">
-              <div className="h-16 w-16 rounded-[20px] bg-primary/10 flex items-center justify-center">
+              <div className="h-16 w-16 rounded-lg bg-primary/10 flex items-center justify-center">
                 <svg className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
               </div>
               <div>
-                <h4 className="text-[1rem] font-semibold text-foreground mb-1">{t("Create your first project", "Crie seu primeiro projeto")}</h4>
-                <p className="text-[0.875rem] text-muted-foreground max-w-[220px]">{t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}</p>
+                <h4 className="text-body font-semibold text-foreground mb-1">{t("Create your first project", "Crie seu primeiro projeto")}</h4>
+                <p className="text-body-sm text-muted-foreground max-w-[220px]">{t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}</p>
               </div>
-              <button className="inline-flex items-center gap-2 h-9 px-4 text-[0.875rem] font-semibold rounded-md bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] transition-colors">
+              <button className="inline-flex items-center gap-2 h-9 px-4 text-body-sm font-semibold rounded-md bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] transition-colors">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                 {t("New Project", "Novo projeto")}
               </button>
@@ -779,7 +779,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
           </ShowcaseCard>
         </SubSection>
         <SubSection title="Atividade com iniciais">
-          <p className="mb-3 max-w-2xl text-[0.8125rem] text-muted-foreground">
+          <p className="mb-3 max-w-2xl text-body-sm text-muted-foreground">
             Quando o título do card já diz o tipo (por exemplo, "Lojas encontradas até agora"), o mesmo ícone em todos os itens não ajuda a diferenciar.
             Use iniciaisDe: o avatar mostra até duas iniciais do nome, na mesma base rosa.
           </p>
@@ -801,8 +801,8 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
       {parte === "feedback" && (
       <section id="feedback-tokens" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Tokens — Feedback", "Tokens — Feedback")}</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties used by alerts, toasts, and status components.", "Propriedades CSS customizadas usadas por alertas, toasts e componentes de status.")}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{t("Tokens — Feedback", "Tokens — Feedback")}</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">{t("CSS custom properties used by alerts, toasts, and status components.", "Propriedades CSS customizadas usadas por alertas, toasts e componentes de status.")}</p>
         </div>
         <TokenTable groups={feedbackTokenGroups(t)} />
       </section>
@@ -812,8 +812,8 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
       {parte === "rotulos" && (
       <section id="badges-tokens" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Tokens — Labels & Badges", "Tokens — Rótulos e badges")}</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("CSS custom properties used by badges, tags, avatars, and status pills.", "Propriedades CSS customizadas usadas por badges, tags, avatares e pílulas de status.")}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{t("Tokens — Labels & Badges", "Tokens — Rótulos e badges")}</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">{t("CSS custom properties used by badges, tags, avatars, and status pills.", "Propriedades CSS customizadas usadas por badges, tags, avatares e pílulas de status.")}</p>
         </div>
         <TokenTable groups={badgesTokenGroups(t)} />
       </section>

@@ -19,8 +19,8 @@ export function MolduraCelular({ children, escuro = false, rotulo }: { children:
 export function ConteudoFalso({ titulo, texto }: { titulo: string; texto: string }) {
   return (
     <div className="space-y-3 p-5 pt-8">
-      <p className="text-[1.375rem] font-extrabold leading-tight tracking-tight text-foreground">{titulo}</p>
-      <p className="text-[0.875rem] leading-relaxed text-muted-foreground">{texto}</p>
+      <p className="text-h3 font-extrabold leading-tight tracking-tight text-foreground">{titulo}</p>
+      <p className="text-body-sm leading-relaxed text-muted-foreground">{texto}</p>
       <div aria-hidden className="space-y-2 pt-4">
         {[90, 75, 82, 60].map((w) => <div key={w} className="h-3 rounded-full bg-muted" style={{ width: `${w}%` }} />)}
       </div>

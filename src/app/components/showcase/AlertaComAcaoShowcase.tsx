@@ -9,7 +9,7 @@ import { Callout, DoDont, Mono, Panel } from "./shared/Guidance";
  */
 
 function Rotulo({ children }: { children: React.ReactNode }) {
-  return <h4 className="mb-4 text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</h4>;
+  return <h4 className="mb-4 text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</h4>;
 }
 
 /* Exemplo do painel da loja, com a ação simulada: carregando, depois o alerta passa para sucesso. */
@@ -86,8 +86,8 @@ function DemoInfoFechavel() {
           As peças agora mostram o tamanho na lista. Você pode mudar isso nas configurações.
         </AlertaComAcao>
       ) : (
-        <div className="flex h-full min-h-[120px] flex-col items-start justify-center gap-3 rounded-lg border border-dashed border-border px-[22px] py-5">
-          <p className="text-[0.875rem] text-muted-foreground">Você fechou o aviso.</p>
+        <div className="flex h-full min-h-[120px] flex-col items-start justify-center gap-3 rounded-lg border border-dashed border-border px-6 py-5">
+          <p className="text-body-sm text-muted-foreground">Você fechou o aviso.</p>
           <LinkDoAlerta onClick={() => setAberto(true)}>Mostrar de novo</LinkDoAlerta>
         </div>
       )}
@@ -126,8 +126,8 @@ export function AlertaComAcaoDoc() {
   return (
     <div className="space-y-10">
       <div>
-        <h3 className="font-[family-name:var(--font-display)] text-[1.25rem] font-semibold tracking-[-0.01em] text-foreground">Alerta com ação</h3>
-        <p className="mt-1 max-w-3xl text-[0.9375rem] leading-relaxed text-muted-foreground">
+        <h3 className="font-[family-name:var(--font-display)] text-h4 font-semibold tracking-[-0.01em] text-foreground">Alerta com ação</h3>
+        <p className="mt-1 max-w-3xl text-body leading-relaxed text-muted-foreground">
           Aviso que pede uma ação de quem lê: ícone com base, título, descrição e, embaixo do texto, uma ação principal de contorno e, se precisar, uma secundária em forma de link. Componente <Mono>AlertaComAcao</Mono>, com <Mono>BotaoDoAlerta</Mono> e <Mono>LinkDoAlerta</Mono>, em <Mono>ui/alerta-com-acao.tsx</Mono>.
         </p>
       </div>
@@ -177,16 +177,16 @@ export function AlertaComAcaoDoc() {
         <Rotulo>Cores de texto dos botões e contraste</Rotulo>
         <Panel className="divide-y divide-border">
           {CONTRASTES.map(c => (
-            <div key={c.tom} className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3.5">
+            <div key={c.tom} className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3">
               <span aria-hidden className={`h-6 w-6 shrink-0 rounded-sm border-[1.5px] ${BORDA_DO_TOM[c.tom]}`} style={{ backgroundColor: `var(${c.token})` }} />
-              <span className="min-w-[7.5rem] text-[0.875rem] font-semibold text-foreground">{c.nome}</span>
+              <span className="min-w-[7.5rem] text-body-sm font-semibold text-foreground">{c.nome}</span>
               <Mono>{c.token}</Mono>
-              <span className="text-[0.8125rem] text-muted-foreground">{c.valor}</span>
-              <span className="text-[0.8125rem] font-semibold text-foreground sm:ml-auto">{c.contraste} no fundo do alerta</span>
+              <span className="text-body-sm text-muted-foreground">{c.valor}</span>
+              <span className="text-body-sm font-semibold text-foreground sm:ml-auto">{c.contraste} no fundo do alerta</span>
             </div>
           ))}
         </Panel>
-        <p className="mt-3 max-w-3xl text-[0.8125rem] leading-relaxed text-muted-foreground">
+        <p className="mt-3 max-w-3xl text-body-sm leading-relaxed text-muted-foreground">
           <Mono>--info-text</Mono>, <Mono>--success-text</Mono> e <Mono>--error-text</Mono> são novos (23/11/2026): servem só para texto e ícone sobre fundo claro. No tema escuro, <Mono>--info-text</Mono> e <Mono>--success-text</Mono> apontam para <Mono>--info</Mono> e <Mono>--success</Mono>, como o <Mono>--warning-text</Mono>; o <Mono>--error-text</Mono> aponta para o <Mono>--primary-text</Mono> nos dois temas. O link usa <Mono>--foreground</Mono>, com sublinhado a 35% que fica inteiro no hover.
         </p>
       </div>
@@ -200,7 +200,7 @@ export function AlertaComAcaoDoc() {
 
       <div>
         <Rotulo>Como usar</Rotulo>
-        <pre className="whitespace-pre-wrap break-words rounded-lg border border-border bg-card p-4 text-[0.75rem] leading-relaxed text-muted-foreground"><code>{exemploDeCodigo}</code></pre>
+        <pre className="whitespace-pre-wrap break-words rounded-lg border border-border bg-card p-4 text-label leading-relaxed text-muted-foreground"><code>{exemploDeCodigo}</code></pre>
       </div>
     </div>
   );

@@ -124,7 +124,7 @@ function BuscaDePecas({
   const idDescricao = `${id}-descricao`;
   const idDica = `${id}-dica`;
   const idErro = `${id}-erro`;
-  const linkTexto = cn("rounded-sm text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary-text", foco);
+  const linkTexto = cn("rounded-sm text-body-sm leading-5 font-medium text-foreground underline underline-offset-4 hover:text-primary-text", foco);
 
   return (
     <form
@@ -136,14 +136,14 @@ function BuscaDePecas({
       className={cn(!gaveta && "rounded-xl border border-border bg-card p-5 sm:p-6", !gaveta && elevada && "shadow-[var(--shadow-lg)]", className)}
     >
       {!gaveta && (
-        <h2 id={`${id}-titulo`} className="mb-5 flex items-center gap-2 text-xl font-extrabold tracking-tight text-foreground">
+        <h2 id={`${id}-titulo`} className="mb-5 flex items-center gap-2 text-h4 leading-7 font-extrabold tracking-tight text-foreground">
           <MessageCircleQuestion className="size-5 shrink-0 text-primary-text" aria-hidden />
           {tx.titulo}
         </h2>
       )}
 
       <div className="space-y-2">
-        <Label htmlFor={idDescricao} className="block text-sm font-semibold leading-snug">
+        <Label htmlFor={idDescricao} className="block text-body-sm font-semibold leading-snug">
           {tx.rotulo}
           <span aria-hidden className="ml-1 text-primary-text">*</span>
         </Label>
@@ -162,15 +162,15 @@ function BuscaDePecas({
             setDescricao(e.target.value);
             if (erroDescricao) setErroDescricao(checar(e.target.value));
           }}
-          className="min-h-24 resize-y bg-card text-[0.9375rem]"
+          className="min-h-24 resize-y bg-card text-body"
         />
         <div className="flex items-start gap-3 rounded-md border border-warning/20 bg-warning-muted px-4 py-3">
-          <Lightbulb className="mt-0.5 size-5 shrink-0 text-warning-text" aria-hidden />
-          <p id={idDica} className="flex-1 text-sm leading-relaxed text-foreground">{tx.dica}</p>
+          <Lightbulb className="mt-1 size-5 shrink-0 text-warning-text" aria-hidden />
+          <p id={idDica} className="flex-1 text-body-sm leading-relaxed text-foreground">{tx.dica}</p>
         </div>
         {erroDescricao && (
-          <p id={idErro} role="alert" className="flex items-start gap-1.5 text-sm font-medium text-primary-text">
-            <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden />
+          <p id={idErro} role="alert" className="flex items-start gap-1 text-body-sm leading-5 font-medium text-primary-text">
+            <AlertCircle className="mt-1 size-4 shrink-0" aria-hidden />
             {erroDescricao}
           </p>
         )}
@@ -181,8 +181,8 @@ function BuscaDePecas({
           <div className="flex items-center gap-3 rounded-md border border-border bg-card p-3">
             <img src={previa} alt={tx.fotoAlt} className="size-14 shrink-0 rounded-sm object-cover" />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-foreground">{foto.name}</p>
-              <p className="text-xs text-muted-foreground">{formatBytes(foto.size)}</p>
+              <p className="truncate text-body-sm leading-5 font-semibold text-foreground">{foto.name}</p>
+              <p className="text-label leading-4 text-muted-foreground">{formatBytes(foto.size)}</p>
               <div className="mt-1 flex gap-4">
                 <button type="button" onClick={() => trocar.current?.click()} className={linkTexto}>{tx.trocarFoto}</button>
                 <button type="button" onClick={() => setFoto(null)} className={linkTexto}>{tx.removerFoto}</button>
@@ -216,20 +216,20 @@ function BuscaDePecas({
           />
         )}
         {previa && erroFoto && (
-          <p role="alert" className="mt-2 flex items-start gap-1.5 text-sm font-medium text-primary-text">
-            <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden />
+          <p role="alert" className="mt-2 flex items-start gap-1 text-body-sm leading-5 font-medium text-primary-text">
+            <AlertCircle className="mt-1 size-4 shrink-0" aria-hidden />
             {erroFoto}
           </p>
         )}
       </div>
 
       <fieldset className="mt-5 min-w-0 border-0 p-0">
-        <legend className="mb-2 text-sm font-semibold text-foreground">{tx.condicao}</legend>
+        <legend className="mb-2 text-body-sm leading-5 font-semibold text-foreground">{tx.condicao}</legend>
         <SegmentedControl<CondicaoDaPeca>
           aria-label={tx.condicao}
           fullWidth
-          // Em telas estreitas as três opções dividem a largura e o texto pode quebrar, sem vazar do card.
-          className="auto-cols-[minmax(0,1fr)] [&_[data-slot=segmented-item]]:h-auto [&_[data-slot=segmented-item]]:min-h-10 [&_[data-slot=segmented-item]]:px-2 [&_[data-slot=segmented-item]]:py-1.5 [&_[data-slot=segmented-item]]:text-center [&_[data-slot=segmented-item]]:leading-tight [&_[data-slot=segmented-item]]:whitespace-normal"
+          // As três opções dividem a largura igualmente; o rótulo nunca quebra dentro do segmento (27/11/2026).
+          className="auto-cols-[minmax(0,1fr)] [&_[data-slot=segmented-item]]:px-2"
           value={condicao}
           onValueChange={setCondicao}
           options={[
@@ -240,7 +240,7 @@ function BuscaDePecas({
         />
       </fieldset>
 
-      <Button type="submit" size="lg" className="mt-6 h-12 w-full text-base">
+      <Button type="submit" size="lg" className="mt-6 h-12 w-full text-body leading-6">
         {gaveta ? (
           <>
             {tx.botaoGaveta} <ChevronRight aria-hidden />
@@ -251,7 +251,7 @@ function BuscaDePecas({
           </>
         )}
       </Button>
-      <p className="mt-3 flex items-start gap-1.5 text-xs leading-relaxed text-muted-foreground">
+      <p className="mt-3 flex items-start gap-1 text-label leading-relaxed text-muted-foreground">
         <Info className="mt-px size-3.5 shrink-0" aria-hidden />
         {tx.aviso}
       </p>
@@ -286,7 +286,7 @@ function BuscaNoCelular({ aberta, onAbertaChange, somenteCelular = true, contain
       <Drawer open={estaAberta} onOpenChange={mudar}>
         <DrawerContent container={container} className="max-h-[92dvh]">
           <DrawerHeader className="flex-row items-center justify-between gap-3 px-5 pt-3 pb-2 text-left">
-            <DrawerTitle className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+            <DrawerTitle className="flex items-center gap-2 text-h4 leading-7 font-extrabold tracking-tight">
               <MessageCircleQuestion className="size-5 shrink-0 text-primary-text" aria-hidden />
               {tx.titulo}
             </DrawerTitle>

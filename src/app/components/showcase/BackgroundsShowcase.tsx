@@ -136,7 +136,7 @@ function Swatch({
       {active && (
         <span style={{
           position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "0.5rem", color: isWhite ? "#FC0256" : "#fff",
+          fontSize: "var(--text-caption)", color: isWhite ? "#FC0256" : "#fff",
           fontWeight: 900, userSelect: "none",
         }}>✓</span>
       )}
@@ -158,10 +158,10 @@ function GradientControls({
     <div className="px-5 py-4 border-b border-border flex flex-col gap-3">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.07em] text-muted-foreground">
+        <span className="text-caption font-semibold uppercase tracking-[0.07em] text-muted-foreground">
           {t("Blob colors", "Cores dos blobs")}
         </span>
-        <span className={`text-[0.625rem] font-bold px-2 py-0.5 rounded-full ${
+        <span className={`text-caption font-bold px-2 py-1 rounded-full ${
           maxReached
             ? "bg-destructive/10 text-destructive"
             : "bg-muted text-muted-foreground"
@@ -176,7 +176,7 @@ function GradientControls({
         { label: "Pink",  entries: pink  },
       ].map(({ label, entries }) => (
         <div key={label} className="flex items-center gap-3">
-          <span className="text-[0.625rem] font-bold uppercase tracking-[0.06em] text-muted-foreground/60 w-12 shrink-0">
+          <span className="text-caption font-bold uppercase tracking-[0.06em] text-muted-foreground/60 w-12 shrink-0">
             {label}
           </span>
           <div className="flex gap-2 flex-wrap">
@@ -241,7 +241,7 @@ function GradientAnimCard() {
   ];
 
   return (
-    <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+    <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
       {/* Preview — clean, no overlay */}
       <div className="h-80 relative overflow-hidden">
         <GradientAnimPreview dark={dark} blobColors={blobColors} />
@@ -254,12 +254,12 @@ function GradientAnimCard() {
       <div className="p-5 space-y-4">
         <div className="flex items-start gap-3 justify-between">
           <div>
-            <h3 className="text-[0.9375rem] font-black text-foreground tracking-[-0.025em]">{name}</h3>
-            <p className="text-[0.8125rem] text-muted-foreground mt-0.5 leading-relaxed">{description}</p>
+            <h3 className="text-body font-black text-foreground tracking-[-0.025em]">{name}</h3>
+            <p className="text-body-sm text-muted-foreground mt-1 leading-relaxed">{description}</p>
           </div>
-          <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+          <div className="flex flex-wrap gap-1 justify-end shrink-0">
             {tags.map(tg => (
-              <span key={tg} className="px-2 py-0.5 rounded-sm text-[0.5625rem] font-bold uppercase tracking-wide whitespace-nowrap"
+              <span key={tg} className="px-2 py-1 rounded-sm text-caption font-bold uppercase tracking-wide whitespace-nowrap"
                 style={{ background: tagColors[tg].bg, color: tagColors[tg].color }}>
                 {bi(TAG_LABEL[tg])}
               </span>
@@ -270,7 +270,7 @@ function GradientAnimCard() {
         <div className="flex gap-1 p-1 rounded-md bg-muted w-fit">
           {(["spec", "usage"] as const).map(k => (
             <button key={k} onClick={() => setTab(k)}
-              className={`px-3 py-1 rounded-sm text-[0.75rem] font-semibold transition-colors
+              className={`px-3 py-1 rounded-sm text-label font-semibold transition-colors
                 ${tab === k ? "bg-card text-foreground" : "text-muted-foreground"}`}>
               {k === "spec" ? t("Technique", "Técnica") : t("When to use", "Quando usar")}
             </button>
@@ -280,14 +280,14 @@ function GradientAnimCard() {
         {tab === "spec" && (
           <div className="space-y-3">
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Implementation", "Implementação")}</p>
-              <p className="text-[0.8125rem] text-foreground/80 mt-0.5 leading-relaxed">{technique}</p>
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Implementation", "Implementação")}</p>
+              <p className="text-body-sm text-foreground/80 mt-1 leading-relaxed">{technique}</p>
             </div>
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Compatible components", "Componentes compatíveis")}</p>
-              <div className="flex flex-wrap gap-1.5 mt-1.5">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Compatible components", "Componentes compatíveis")}</p>
+              <div className="flex flex-wrap gap-1 mt-1">
                 {components.map(c => (
-                  <span key={c} className="px-2 py-0.5 rounded-sm bg-muted text-[0.75rem] text-foreground/80">{c}</span>
+                  <span key={c} className="px-2 py-1 rounded-sm bg-muted text-label text-foreground/80">{c}</span>
                 ))}
               </div>
             </div>
@@ -297,11 +297,11 @@ function GradientAnimCard() {
         {tab === "usage" && (
           <div className="space-y-3">
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--success)" }}>✓ {t("Use when", "Usar quando")}</p>
-              <ul className="mt-1.5 space-y-1">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--success)" }}>✓ {t("Use when", "Usar quando")}</p>
+              <ul className="mt-1 space-y-1">
                 {useWhen.map((w, i) => (
-                  <li key={i} className="text-[0.8125rem] text-muted-foreground flex items-start gap-2">
-                    <Check className="h-3.5 w-3.5 shrink-0 mt-0.5" style={{ color: "var(--success)" }} />{w}
+                  <li key={i} className="text-body-sm text-muted-foreground flex items-start gap-2">
+                    <Check className="h-3.5 w-3.5 shrink-0 mt-1" style={{ color: "var(--success)" }} />{w}
                   </li>
                 ))}
               </ul>
@@ -484,7 +484,7 @@ function RevealCardItem({
         <motion.h3
           animate={{ y: hovered ? -6 : 8, opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          style={{ fontSize: "1rem", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.25 }}
+          style={{ fontSize: "var(--text-body)", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.25 }}
         >
           {card.title}
         </motion.h3>
@@ -518,7 +518,7 @@ export function CanvasRevealCard() {
   ];
 
   return (
-    <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+    <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
 
       {/* Preview — 3 cards lado a lado */}
       <div className="grid grid-cols-3">
@@ -534,19 +534,19 @@ export function CanvasRevealCard() {
       </div>
 
       {/* Controls */}
-      <div className="border-t border-border bg-card px-5 py-3.5 flex flex-wrap items-center gap-6">
+      <div className="border-t border-border bg-card px-5 py-3 flex flex-wrap items-center gap-6">
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Colors", "Cores")}</span>
-          <div className="flex flex-wrap gap-1.5">
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Colors", "Cores")}</span>
+          <div className="flex flex-wrap gap-1">
             {CANVAS_PRESETS.map(p => (
               <button key={p.id} onClick={() => setPresetId(p.id)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="flex items-center gap-1 px-2 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${presetId === p.id ? "#FC0256" : ctrl}`,
                   background: presetId === p.id ? "rgba(252,2,86,0.08)" : "transparent",
                   color: presetId === p.id ? "#FC0256" : idle,
                 }}>
-                <span className="flex gap-0.5">
+                <span className="flex gap-1">
                   {p.swatches.map(hex => (
                     <span key={hex} style={{ width:7, height:7, borderRadius:2, background:hex, display:"inline-block" }} />
                   ))}
@@ -558,11 +558,11 @@ export function CanvasRevealCard() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Size", "Tamanho")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Size", "Tamanho")}</span>
           <div className="flex gap-1">
             {DOT_SIZES.map(s => (
               <button key={s.id} onClick={() => setDotSizeId(s.id)}
-                className="w-9 py-1.5 rounded-sm text-[0.6875rem] font-bold transition-all"
+                className="w-9 py-1 rounded-sm text-caption font-bold transition-all"
                 style={{
                   border: `1.5px solid ${dotSizeId === s.id ? "#FC0256" : ctrl}`,
                   background: dotSizeId === s.id ? "rgba(252,2,86,0.08)" : "transparent",
@@ -575,11 +575,11 @@ export function CanvasRevealCard() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Speed", "Velocidade")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Speed", "Velocidade")}</span>
           <div className="flex gap-1">
             {ANIM_SPEEDS.map(s => (
               <button key={s.id} onClick={() => setSpeedId(s.id)}
-                className="px-3 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="px-3 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${speedId === s.id ? "#FC0256" : ctrl}`,
                   background: speedId === s.id ? "rgba(252,2,86,0.08)" : "transparent",
@@ -596,14 +596,14 @@ export function CanvasRevealCard() {
       <div className="p-5 space-y-4">
         <div className="flex items-start gap-3 justify-between">
           <div>
-            <h3 className="text-[0.9375rem] font-black text-foreground tracking-[-0.025em]">Canvas Reveal</h3>
-            <p className="text-[0.8125rem] text-muted-foreground mt-0.5 leading-relaxed">
+            <h3 className="text-body font-black text-foreground tracking-[-0.025em]">Canvas Reveal</h3>
+            <p className="text-body-sm text-muted-foreground mt-1 leading-relaxed">
               {t("Hover over the cards. Animated colored dots fill the card on hover — the icon rises and the title appears.", "Passe o mouse sobre os cards. Pontos coloridos animados preenchem o card no hover — o ícone sobe e o título aparece.")}
             </p>
           </div>
-          <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+          <div className="flex flex-wrap gap-1 justify-end shrink-0">
             {tags.map(tg => (
-              <span key={tg} className="px-2 py-0.5 rounded-sm text-[0.5625rem] font-bold uppercase tracking-wide whitespace-nowrap"
+              <span key={tg} className="px-2 py-1 rounded-sm text-caption font-bold uppercase tracking-wide whitespace-nowrap"
                 style={{ background: tagColors[tg].bg, color: tagColors[tg].color }}>{bi(TAG_LABEL[tg])}</span>
             ))}
           </div>
@@ -612,7 +612,7 @@ export function CanvasRevealCard() {
         <div className="flex gap-1 p-1 rounded-md bg-muted w-fit">
           {(["spec", "usage"] as const).map(k => (
             <button key={k} onClick={() => setTab(k)}
-              className={`px-3 py-1 rounded-sm text-[0.75rem] font-semibold transition-colors ${tab === k ? "bg-card text-foreground" : "text-muted-foreground"}`}>
+              className={`px-3 py-1 rounded-sm text-label font-semibold transition-colors ${tab === k ? "bg-card text-foreground" : "text-muted-foreground"}`}>
               {k === "spec" ? t("Technique", "Técnica") : t("When to use", "Quando usar")}
             </button>
           ))}
@@ -621,16 +621,16 @@ export function CanvasRevealCard() {
         {tab === "spec" && (
           <div className="space-y-3">
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Implementation", "Implementação")}</p>
-              <p className="text-[0.8125rem] text-foreground/80 mt-0.5 leading-relaxed">
-                {lang === "pt" ? <>Canvas 2D com uma grade de pontos — cada ponto tem uma <code className="text-primary text-[0.6875rem]">phase</code> aleatória em uma onda senoidal, criando pulsos independentes. <code className="text-primary text-[0.6875rem]">AnimatePresence</code> monta/desmonta o canvas no hover com um fade. O conteúdo usa <code className="text-primary text-[0.6875rem]">motion.div</code> para o deslize do título.</> : <>2D canvas with a dot grid — each dot has a random <code className="text-primary text-[0.6875rem]">phase</code> on a sine wave, creating independent pulsing. <code className="text-primary text-[0.6875rem]">AnimatePresence</code> mounts/unmounts the canvas on hover with a fade. Content uses <code className="text-primary text-[0.6875rem]">motion.div</code> for the title slide.</>}
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Implementation", "Implementação")}</p>
+              <p className="text-body-sm text-foreground/80 mt-1 leading-relaxed">
+                {lang === "pt" ? <>Canvas 2D com uma grade de pontos — cada ponto tem uma <code className="text-primary text-caption">phase</code> aleatória em uma onda senoidal, criando pulsos independentes. <code className="text-primary text-caption">AnimatePresence</code> monta/desmonta o canvas no hover com um fade. O conteúdo usa <code className="text-primary text-caption">motion.div</code> para o deslize do título.</> : <>2D canvas with a dot grid — each dot has a random <code className="text-primary text-caption">phase</code> on a sine wave, creating independent pulsing. <code className="text-primary text-caption">AnimatePresence</code> mounts/unmounts the canvas on hover with a fade. Content uses <code className="text-primary text-caption">motion.div</code> for the title slide.</>}
               </p>
             </div>
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Compatible components", "Componentes compatíveis")}</p>
-              <div className="flex flex-wrap gap-1.5 mt-1.5">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Compatible components", "Componentes compatíveis")}</p>
+              <div className="flex flex-wrap gap-1 mt-1">
                 {[t("Feature cards", "Cards de funcionalidades"), t("Pricing cards", "Cards de preços"), t("Testimonials", "Depoimentos"), t("Product showcase", "Vitrine de produto")].map(c => (
-                  <span key={c} className="px-2 py-0.5 rounded-sm bg-muted text-[0.75rem] text-foreground/80">{c}</span>
+                  <span key={c} className="px-2 py-1 rounded-sm bg-muted text-label text-foreground/80">{c}</span>
                 ))}
               </div>
             </div>
@@ -640,21 +640,21 @@ export function CanvasRevealCard() {
         {tab === "usage" && (
           <div className="space-y-3">
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--success)" }}>✓ {t("Use when", "Usar quando")}</p>
-              <ul className="mt-1.5 space-y-1">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--success)" }}>✓ {t("Use when", "Usar quando")}</p>
+              <ul className="mt-1 space-y-1">
                 {[t("Feature cards or product differentiators.", "Cards de funcionalidades ou diferenciais do produto."), t("Exploration sections where the user has time.", "Seções de exploração em que o usuário tem tempo."), t("When you want to create a wow moment without distraction.", "Quando você quer criar um momento uau sem distração.")].map((w, i) => (
-                  <li key={i} className="text-[0.8125rem] text-muted-foreground flex items-start gap-2">
-                    <Check className="h-3.5 w-3.5 shrink-0 mt-0.5" style={{ color: "var(--success)" }} />{w}
+                  <li key={i} className="text-body-sm text-muted-foreground flex items-start gap-2">
+                    <Check className="h-3.5 w-3.5 shrink-0 mt-1" style={{ color: "var(--success)" }} />{w}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-destructive">✕ {t("Avoid when", "Evitar quando")}</p>
-              <ul className="mt-1.5 space-y-1">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-destructive">✕ {t("Avoid when", "Evitar quando")}</p>
+              <ul className="mt-1 space-y-1">
                 {[t("Mobile — hover doesn't exist on touch.", "Mobile — hover não existe em telas touch."), t("Cards with a lot of internal information.", "Cards com muita informação interna."), t("Contexts with a reduced-motion preference.", "Contextos com preferência por movimento reduzido.")].map((w, i) => (
-                  <li key={i} className="text-[0.8125rem] text-muted-foreground flex items-start gap-2">
-                    <span className="text-destructive shrink-0 mt-0.5 text-[0.75rem]">✕</span>{w}
+                  <li key={i} className="text-body-sm text-muted-foreground flex items-start gap-2">
+                    <span className="text-destructive shrink-0 mt-1 text-label">✕</span>{w}
                   </li>
                 ))}
               </ul>
@@ -1161,20 +1161,20 @@ function BigBangCard() {
   const ef      = { name: "Big Bang", tags: ["Animado", "Canvas"] as EffectTag[] };
 
   return (
-    <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+    <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
       {/* Preview */}
       <div className="h-80 relative overflow-hidden">
         <VortexBg dark={dark} cfg={cfg}><VortexContent dark={dark} /></VortexBg>
       </div>
 
       {/* Controls */}
-      <div className="border-t border-border bg-card px-5 py-3.5 flex flex-wrap items-center gap-6">
+      <div className="border-t border-border bg-card px-5 py-3 flex flex-wrap items-center gap-6">
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Speed", "Velocidade")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Speed", "Velocidade")}</span>
           <div className="flex gap-1">
             {BB_SPEEDS.map(s => (
               <button key={s.id} onClick={() => setSpeedId(s.id)}
-                className="px-3 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="px-3 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${speedId === s.id ? "#FC0256" : ctrl}`,
                   background: speedId === s.id ? "rgba(252,2,86,0.08)" : "transparent",
@@ -1187,17 +1187,17 @@ function BigBangCard() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Colors", "Cores")}</span>
-          <div className="flex flex-wrap gap-1.5">
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Colors", "Cores")}</span>
+          <div className="flex flex-wrap gap-1">
             {BB_PALETTES.map(p => (
               <button key={p.id} onClick={() => setPaletteId(p.id)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="flex items-center gap-1 px-2 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${paletteId === p.id ? "#FC0256" : ctrl}`,
                   background: paletteId === p.id ? "rgba(252,2,86,0.08)" : "transparent",
                   color: paletteId === p.id ? "#FC0256" : idle,
                 }}>
-                <span className="flex gap-0.5">
+                <span className="flex gap-1">
                   {p.swatches.slice(0, 2).map((hex, i) => (
                     <span key={i} style={{ width: 7, height: 7, borderRadius: 2, background: hex, display: "inline-block" }} />
                   ))}
@@ -1213,19 +1213,19 @@ function BigBangCard() {
       <div className="p-5 space-y-3">
         <div className="flex items-start gap-3 justify-between">
           <div>
-            <h3 className="text-[0.9375rem] font-black text-foreground tracking-[-0.025em]">{ef.name}</h3>
-            <p className="text-[0.8125rem] text-muted-foreground mt-0.5 leading-relaxed">
+            <h3 className="text-body font-black text-foreground tracking-[-0.025em]">{ef.name}</h3>
+            <p className="text-body-sm text-muted-foreground mt-1 leading-relaxed">
               {t("Cyclic cosmic explosion: particles burst from the center with concentric shockwaves, light trails and a nebular glow. Conveys scale, power and impact.", "Explosão cósmica cíclica: partículas saem do centro com ondas de choque concêntricas, rastros de luz e um brilho nebular. Transmite escala, poder e impacto.")}
             </p>
           </div>
-          <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+          <div className="flex flex-wrap gap-1 justify-end shrink-0">
             {ef.tags.map(tg => (
-              <span key={tg} className="px-2 py-0.5 rounded-sm text-[0.5625rem] font-bold uppercase tracking-wide whitespace-nowrap"
+              <span key={tg} className="px-2 py-1 rounded-sm text-caption font-bold uppercase tracking-wide whitespace-nowrap"
                 style={{ background: tagColors[tg].bg, color: tagColors[tg].color }}>{bi(TAG_LABEL[tg])}</span>
             ))}
           </div>
         </div>
-        <p className="text-[0.75rem] text-muted-foreground/70 leading-relaxed">
+        <p className="text-label text-muted-foreground/70 leading-relaxed">
           {t("2D canvas with a radially fired particle system. Shockwaves with growing radius and decreasing opacity. Core glow via radialGradient + persistent nebula. Line trail between previous and current position.", "Canvas 2D com um sistema de partículas disparadas radialmente. Ondas de choque com raio crescente e opacidade decrescente. Brilho do núcleo via radialGradient + nebulosa persistente. Rastro em linha entre a posição anterior e a atual.")}
         </p>
       </div>
@@ -1255,20 +1255,20 @@ function BgLinesCard() {
   const ef   = { name: "Background Lines", tags: ["Animado", "Canvas"] as EffectTag[] };
 
   return (
-    <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+    <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
       {/* Preview */}
       <div className="h-80 relative overflow-hidden">
         <BackgroundLinesBg dark={dark} cfg={cfg}><LinesContent dark={dark} /></BackgroundLinesBg>
       </div>
 
       {/* Controls */}
-      <div className="border-t border-border bg-card px-5 py-3.5 flex flex-wrap items-center gap-6">
+      <div className="border-t border-border bg-card px-5 py-3 flex flex-wrap items-center gap-6">
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Speed", "Velocidade")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Speed", "Velocidade")}</span>
           <div className="flex gap-1">
             {BGL_SPEEDS.map(s => (
               <button key={s.id} onClick={() => setSpeedId(s.id)}
-                className="px-3 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="px-3 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${speedId === s.id ? "#FC0256" : ctrl}`,
                   background: speedId === s.id ? "rgba(252,2,86,0.08)" : "transparent",
@@ -1281,11 +1281,11 @@ function BgLinesCard() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Density", "Densidade")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Density", "Densidade")}</span>
           <div className="flex gap-1">
             {BGL_DENSITIES.map(d => (
               <button key={d.id} onClick={() => setDensityId(d.id)}
-                className="px-3 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="px-3 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${densityId === d.id ? "#FC0256" : ctrl}`,
                   background: densityId === d.id ? "rgba(252,2,86,0.08)" : "transparent",
@@ -1298,17 +1298,17 @@ function BgLinesCard() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Colors", "Cores")}</span>
-          <div className="flex flex-wrap gap-1.5">
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Colors", "Cores")}</span>
+          <div className="flex flex-wrap gap-1">
             {BGL_PALETTES.map(p => (
               <button key={p.id} onClick={() => setPaletteId(p.id)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+                className="flex items-center gap-1 px-2 py-1 rounded-sm text-caption font-semibold transition-all"
                 style={{
                   border: `1.5px solid ${paletteId === p.id ? "#FC0256" : ctrl}`,
                   background: paletteId === p.id ? "rgba(252,2,86,0.08)" : "transparent",
                   color: paletteId === p.id ? "#FC0256" : idle,
                 }}>
-                <span className="flex gap-0.5">
+                <span className="flex gap-1">
                   {p.swatches.map((hex, i) => (
                     <span key={i} style={{ width: 7, height: 7, borderRadius: 2, background: hex, display: "inline-block" }} />
                   ))}
@@ -1324,19 +1324,19 @@ function BgLinesCard() {
       <div className="p-5 space-y-3">
         <div className="flex items-start gap-3 justify-between">
           <div>
-            <h3 className="text-[0.9375rem] font-black text-foreground tracking-[-0.025em]">{ef.name}</h3>
-            <p className="text-[0.8125rem] text-muted-foreground mt-0.5 leading-relaxed">
+            <h3 className="text-body font-black text-foreground tracking-[-0.025em]">{ef.name}</h3>
+            <p className="text-body-sm text-muted-foreground mt-1 leading-relaxed">
               {t("Horizontal streams and vertical drops with lit gradients, scanner beam and sparkles at intersections. Evokes data flow, pipelines and infrastructure.", "Fluxos horizontais e gotas verticais com gradientes luminosos, feixe de scanner e faíscas nas interseções. Evoca fluxo de dados, pipelines e infraestrutura.")}
             </p>
           </div>
-          <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+          <div className="flex flex-wrap gap-1 justify-end shrink-0">
             {ef.tags.map(tg => (
-              <span key={tg} className="px-2 py-0.5 rounded-sm text-[0.5625rem] font-bold uppercase tracking-wide whitespace-nowrap"
+              <span key={tg} className="px-2 py-1 rounded-sm text-caption font-bold uppercase tracking-wide whitespace-nowrap"
                 style={{ background: tagColors[tg].bg, color: tagColors[tg].color }}>{bi(TAG_LABEL[tg])}</span>
             ))}
           </div>
         </div>
-        <p className="text-[0.75rem] text-muted-foreground/70 leading-relaxed">
+        <p className="text-label text-muted-foreground/70 leading-relaxed">
           {t("2D canvas with a cell grid. H-streams with a tail gradient; V-drops with a bright tip. Sinusoidal scanner beam. Sparks at intersections. Perimeter radial vignette.", "Canvas 2D com grade de células. H-streams com gradiente na cauda; V-drops com ponta brilhante. Feixe de scanner senoidal. Faíscas nas interseções. Vinheta radial no perímetro.")}
         </p>
       </div>
@@ -1363,19 +1363,19 @@ function HeroContent({ dark }: { dark: boolean }) {
       <div style={{ maxWidth: 280 }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(25,25,28,0.15)"}`, marginBottom: 14 }}>
           <span style={{ width: 6, height: 6, borderRadius: 99, background: "#FC0256", display: "inline-block" }} />
-          <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "rgba(255,255,255,0.6)" : "#888896", textTransform: "uppercase", letterSpacing: "0.06em" }}>{t("v2.0 available", "v2.0 disponível")}</span>
+          <span style={{ fontSize: "var(--text-caption)", fontWeight: 700, color: dark ? "rgba(255,255,255,0.6)" : "#888896", textTransform: "uppercase", letterSpacing: "0.06em" }}>{t("v2.0 available", "v2.0 disponível")}</span>
         </div>
-        <h1 style={{ fontSize: "1.375rem", fontWeight: 900, color: c, lineHeight: 1.15, letterSpacing: "-0.03em", marginBottom: 10 }}>
+        <h1 style={{ fontSize: "var(--text-h3)", fontWeight: 900, color: c, lineHeight: 1.15, letterSpacing: "-0.03em", marginBottom: 10 }}>
           {lang === "pt" ? <>A plataforma para<br />times que entregam.</> : <>The platform for<br />teams that ship.</>}
         </h1>
-        <p style={{ fontSize: "0.8125rem", color: m, lineHeight: 1.6, marginBottom: 18 }}>
+        <p style={{ fontSize: "var(--text-body-sm)", color: m, lineHeight: 1.6, marginBottom: 18 }}>
           {t("Deploy, observability and monitoring in one place.", "Deploy, observabilidade e monitoramento em um só lugar.")}
         </p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 9, background: "#FC0256", color: "#fff", fontSize: "0.75rem", fontWeight: 700, border: "none", cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 9, background: "#FC0256", color: "#fff", fontSize: "var(--text-label)", fontWeight: 700, border: "none", cursor: "pointer" }}>
             {t("Get started", "Começar")} <ArrowRight style={{ width: 12, height: 12 }} />
           </button>
-          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 9, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(25,25,28,0.15)"}`, background: "transparent", color: dark ? "#B3B3BC" : "#888896", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer" }}>
+          <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 9, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : "rgba(25,25,28,0.15)"}`, background: "transparent", color: dark ? "#B3B3BC" : "#888896", fontSize: "var(--text-label)", fontWeight: 600, cursor: "pointer" }}>
             {t("View demo", "Ver demo")}
           </button>
         </div>
@@ -1390,14 +1390,14 @@ function StatsContent({ dark }: { dark: boolean }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, maxWidth: 300, width: "100%" }}>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", letterSpacing: "-0.025em", textAlign: "center", lineHeight: 1.2 }}>
+        <h2 style={{ fontSize: "var(--text-subtitle-lg)", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", letterSpacing: "-0.025em", textAlign: "center", lineHeight: 1.2 }}>
           {lang === "pt" ? <>Passe o mouse para revelar<br />o que está embaixo.</> : <>Hover to reveal<br />what's below.</>}
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, width: "100%" }}>
           {[{ v: "99.9%", l: "Uptime" }, { v: "50ms", l: t("Latency", "Latência") }, { v: "10k+", l: t("Customers", "Clientes") }].map(s => (
             <div key={s.l} style={{ textAlign: "center", padding: "10px 6px", borderRadius: 10, background: dark ? "rgba(25,25,28,0.60)" : "rgba(255,255,255,0.70)", backdropFilter: "blur(8px)", border: `1px solid ${dark ? "rgba(255,255,255,0.07)" : "rgba(25,25,28,0.08)"}` }}>
-              <div style={{ fontSize: "1rem", fontWeight: 900, color: "#FC0256" }}>{s.v}</div>
-              <div style={{ fontSize: "0.5625rem", color: m }}>{s.l}</div>
+              <div style={{ fontSize: "var(--text-body)", fontWeight: 900, color: "#FC0256" }}>{s.v}</div>
+              <div style={{ fontSize: "var(--text-caption)", color: m }}>{s.l}</div>
             </div>
           ))}
         </div>
@@ -1413,12 +1413,12 @@ function VortexContent({ dark }: { dark: boolean }) {
       <div style={{ textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 99, background: dark ? "rgba(252,2,86,0.15)" : "rgba(252,2,86,0.10)", border: `1px solid rgba(252,2,86,0.25)`, marginBottom: 14 }}>
           <Zap style={{ width: 12, height: 12, color: "#FC0256" }} />
-          <span style={{ fontSize: "0.625rem", fontWeight: 700, color: "#FC0256", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Processing", "Processamento")}</span>
+          <span style={{ fontSize: "var(--text-caption)", fontWeight: 700, color: "#FC0256", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Processing", "Processamento")}</span>
         </div>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: 8 }}>
+        <h2 style={{ fontSize: "var(--text-subtitle-lg)", fontWeight: 900, color: dark ? "#F6F6F7" : "#19191C", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: 8 }}>
           {lang === "pt" ? <>1M+ eventos<br />por segundo.</> : <>1M+ events<br />per second.</>}
         </h2>
-        <p style={{ fontSize: "0.75rem", color: dark ? "#888896" : "#B3B3BC" }}>
+        <p style={{ fontSize: "var(--text-label)", color: dark ? "#888896" : "#B3B3BC" }}>
           {t("Distributed infrastructure with zero downtime.", "Infraestrutura distribuída com zero downtime.")}
         </p>
       </div>
@@ -1431,7 +1431,7 @@ function LinesContent({ dark }: { dark: boolean }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", padding: 24 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", maxWidth: 300 }}>
-        <p style={{ fontSize: "0.5625rem", fontWeight: 700, color: dark ? "#696977" : "#B3B3BC", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Integrations", "Integrações")}</p>
+        <p style={{ fontSize: "var(--text-caption)", fontWeight: 700, color: dark ? "#696977" : "#B3B3BC", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("Integrations", "Integrações")}</p>
         {[
           { icon: Shield, label: "GitHub Actions", status: "active" },
           { icon: BarChart2, label: "Datadog", status: "active" },
@@ -1441,8 +1441,8 @@ function LinesContent({ dark }: { dark: boolean }) {
             <div style={{ width: 28, height: 28, borderRadius: 8, background: dark ? "rgba(252,2,86,0.15)" : "rgba(252,2,86,0.10)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <item.icon style={{ width: 14, height: 14, color: "#FC0256" }} />
             </div>
-            <span style={{ flex: 1, fontSize: "0.75rem", fontWeight: 600, color: dark ? "#F6F6F7" : "#19191C" }}>{item.label}</span>
-            <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: item.status === "active" ? "var(--success)" : dark ? "#888896" : "#B3B3BC" }}>● {item.status === "active" ? t("Active", "Ativo") : t("Setting up", "Configurando")}</span>
+            <span style={{ flex: 1, fontSize: "var(--text-label)", fontWeight: 600, color: dark ? "#F6F6F7" : "#19191C" }}>{item.label}</span>
+            <span style={{ fontSize: "var(--text-caption)", fontWeight: 700, color: item.status === "active" ? "var(--success)" : dark ? "#888896" : "#B3B3BC" }}>● {item.status === "active" ? t("Active", "Ativo") : t("Setting up", "Configurando")}</span>
           </div>
         ))}
       </div>
@@ -1492,7 +1492,7 @@ function EffectCard({ ef }: { ef: EffectDef }) {
   const preview = dark ? ef.previewDark : ef.previewLight;
 
   return (
-    <div className="rounded-[20px] border border-border bg-card overflow-hidden"
+    <div className="rounded-lg border border-border bg-card overflow-hidden"
       style={{ boxShadow: "var(--shadow-md)" }}>
       {/* Interactive preview */}
       <div className="h-80 relative overflow-hidden">
@@ -1503,12 +1503,12 @@ function EffectCard({ ef }: { ef: EffectDef }) {
       <div className="p-5 space-y-4">
         <div className="flex items-start gap-3 justify-between">
           <div>
-            <h3 className="text-[0.9375rem] font-black text-foreground tracking-[-0.025em]">{ef.name}</h3>
-            <p className="text-[0.8125rem] text-muted-foreground mt-0.5 leading-relaxed">{ef.description}</p>
+            <h3 className="text-body font-black text-foreground tracking-[-0.025em]">{ef.name}</h3>
+            <p className="text-body-sm text-muted-foreground mt-1 leading-relaxed">{ef.description}</p>
           </div>
-          <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+          <div className="flex flex-wrap gap-1 justify-end shrink-0">
             {ef.tags.map(tg => (
-              <span key={tg} className="px-2 py-0.5 rounded-sm text-[0.5625rem] font-bold uppercase tracking-wide whitespace-nowrap"
+              <span key={tg} className="px-2 py-1 rounded-sm text-caption font-bold uppercase tracking-wide whitespace-nowrap"
                 style={{ background: tagColors[tg].bg, color: tagColors[tg].color }}>
                 {bi(TAG_LABEL[tg])}
               </span>
@@ -1519,7 +1519,7 @@ function EffectCard({ ef }: { ef: EffectDef }) {
         <div className="flex gap-1 p-1 rounded-md bg-muted w-fit">
           {(["spec", "usage"] as const).map(k => (
             <button key={k} onClick={() => setTab(k)}
-              className={`px-3 py-1 rounded-sm text-[0.75rem] font-semibold transition-colors
+              className={`px-3 py-1 rounded-sm text-label font-semibold transition-colors
                 ${tab === k ? "bg-card text-foreground" : "text-muted-foreground"}`}>
               {k === "spec" ? t("Technique", "Técnica") : t("When to use", "Quando usar")}
             </button>
@@ -1529,14 +1529,14 @@ function EffectCard({ ef }: { ef: EffectDef }) {
         {tab === "spec" && (
           <div className="space-y-3">
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Implementation", "Implementação")}</p>
-              <p className="text-[0.8125rem] text-foreground/80 mt-0.5 leading-relaxed">{ef.technique}</p>
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Implementation", "Implementação")}</p>
+              <p className="text-body-sm text-foreground/80 mt-1 leading-relaxed">{ef.technique}</p>
             </div>
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Compatible components", "Componentes compatíveis")}</p>
-              <div className="flex flex-wrap gap-1.5 mt-1.5">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("Compatible components", "Componentes compatíveis")}</p>
+              <div className="flex flex-wrap gap-1 mt-1">
                 {ef.components.map(c => (
-                  <span key={c} className="px-2 py-0.5 rounded-sm bg-muted text-[0.75rem] text-foreground/80">{c}</span>
+                  <span key={c} className="px-2 py-1 rounded-sm bg-muted text-label text-foreground/80">{c}</span>
                 ))}
               </div>
             </div>
@@ -1546,21 +1546,21 @@ function EffectCard({ ef }: { ef: EffectDef }) {
         {tab === "usage" && (
           <div className="space-y-3">
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--success)" }}>✓ {t("Use when", "Usar quando")}</p>
-              <ul className="mt-1.5 space-y-1">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em]" style={{ color: "var(--success)" }}>✓ {t("Use when", "Usar quando")}</p>
+              <ul className="mt-1 space-y-1">
                 {ef.useWhen.map((w, i) => (
-                  <li key={i} className="text-[0.8125rem] text-muted-foreground flex items-start gap-2">
-                    <Check className="h-3.5 w-3.5 shrink-0 mt-0.5" style={{ color: "var(--success)" }} />{w}
+                  <li key={i} className="text-body-sm text-muted-foreground flex items-start gap-2">
+                    <Check className="h-3.5 w-3.5 shrink-0 mt-1" style={{ color: "var(--success)" }} />{w}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-destructive">✕ {t("Avoid when", "Evitar quando")}</p>
-              <ul className="mt-1.5 space-y-1">
+              <p className="text-caption font-semibold uppercase tracking-[0.06em] text-destructive">✕ {t("Avoid when", "Evitar quando")}</p>
+              <ul className="mt-1 space-y-1">
                 {ef.avoidWhen.map((w, i) => (
-                  <li key={i} className="text-[0.8125rem] text-muted-foreground flex items-start gap-2">
-                    <span className="text-destructive shrink-0 mt-0.5 text-[0.75rem]">✕</span>{w}
+                  <li key={i} className="text-body-sm text-muted-foreground flex items-start gap-2">
+                    <span className="text-destructive shrink-0 mt-1 text-label">✕</span>{w}
                   </li>
                 ))}
               </ul>
@@ -1654,51 +1654,51 @@ function DoodleTextureCard() {
     [t("PNG light 1600 px", "PNG claro 1600 px"), doodleTextureFiles.pngClaro], [t("PNG dark 1600 px", "PNG escuro 1600 px"), doodleTextureFiles.pngEscuro],
   ];
   const Btn = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
-    <button onClick={onClick} className="px-3 py-1.5 rounded-sm text-[0.6875rem] font-semibold transition-all"
+    <button onClick={onClick} className="px-3 py-1 rounded-sm text-caption font-semibold transition-all"
       style={{ border: `1.5px solid ${active ? "var(--primary)" : ctrl}`, background: active ? "var(--primary-muted)" : "transparent", color: active ? "var(--primary-text, var(--primary))" : idle }}>
       {children}
     </button>
   );
   return (
-    <div className="rounded-[20px] border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
+    <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
       <div className="relative isolate h-80 overflow-hidden bg-background">
         <DoodleTexture scale={scale} color={color} />
         {/* conteúdo em card sólido: a textura fica atrás, nunca sob o texto */}
         <div className="flex h-full w-full items-center justify-center p-6">
-          <div className="rounded-[20px] border border-border bg-card px-2 py-1" style={{ boxShadow: "var(--shadow-lg)" }}>
+          <div className="rounded-lg border border-border bg-card px-2 py-1" style={{ boxShadow: "var(--shadow-lg)" }}>
             <HeroContent dark={dark} />
           </div>
         </div>
       </div>
-      <div className="border-t border-border bg-card px-5 py-3.5 flex flex-wrap items-center gap-6">
+      <div className="border-t border-border bg-card px-5 py-3 flex flex-wrap items-center gap-6">
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Scale", "Escala")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Scale", "Escala")}</span>
           <div className="flex gap-1">{(["p", "m", "g"] as const).map(s => <Btn key={s} active={scale === s} onClick={() => setScale(s)}>{s.toUpperCase()}</Btn>)}</div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-[0.6875rem] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Stroke", "Traço")}</span>
+          <span className="text-caption font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">{t("Stroke", "Traço")}</span>
           <div className="flex gap-1">{colors.map(c => <Btn key={c.id} active={colorId === c.id} onClick={() => setColorId(c.id)}>{c.label}</Btn>)}</div>
         </div>
       </div>
       <div className="border-t border-border px-5 py-4 space-y-4">
         <div className="flex items-start gap-3 justify-between">
-          <h3 className="text-[0.9375rem] font-black text-foreground tracking-[-0.025em]">{t("Doodle Texture", "Textura doodle")}</h3>
-          <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+          <h3 className="text-body font-black text-foreground tracking-[-0.025em]">{t("Doodle Texture", "Textura doodle")}</h3>
+          <div className="flex flex-wrap gap-1 justify-end shrink-0">
             {(["SVG"] as EffectTag[]).map(tg => (
-              <span key={tg} className="px-2 py-0.5 rounded-sm text-[0.5625rem] font-bold uppercase tracking-wide whitespace-nowrap"
+              <span key={tg} className="px-2 py-1 rounded-sm text-caption font-bold uppercase tracking-wide whitespace-nowrap"
                 style={{ background: tagColors[tg].bg, color: tagColors[tg].color }}>{bi(TAG_LABEL[tg])}</span>
             ))}
           </div>
         </div>
-        <p className="text-[0.8125rem] leading-relaxed text-muted-foreground max-w-3xl">{t('A seamless pattern of line icons with fashion pieces only, so it reads as fashion at a glance: dress, pants, skirt, cap, sunglasses, sandal, sneaker and t-shirt. Eight drawings, no loose ornaments, on an 800 px tile.', 'Padrão sem emenda de ícones de traço só com peças de moda, para ler como moda à primeira vista: vestido, calça, saia, boné, óculos de sol, sandália, tênis e camiseta. Oito desenhos, sem enfeites soltos, em um ladrilho de 800 px.')} {t("Strokes are solid colors, never transparent: graphite-200 on the light theme and graphite-800 on the dark theme by default, as in the reference wallpaper. In React the drawing is applied as a mask, so the stroke can take any token.", "Os traços são cores sólidas, nunca transparentes: grafite-200 no tema claro e grafite-800 no escuro por padrão, como no papel de parede de referência. No React o desenho é aplicado como máscara, então o traço aceita qualquer token.")}</p>
+        <p className="text-body-sm leading-relaxed text-muted-foreground max-w-3xl">{t('A seamless pattern of line icons with fashion pieces only, so it reads as fashion at a glance: dress, pants, skirt, cap, sunglasses, sandal, sneaker and t-shirt. Eight drawings, no loose ornaments, on an 800 px tile.', 'Padrão sem emenda de ícones de traço só com peças de moda, para ler como moda à primeira vista: vestido, calça, saia, boné, óculos de sol, sandália, tênis e camiseta. Oito desenhos, sem enfeites soltos, em um ladrilho de 800 px.')} {t("Strokes are solid colors, never transparent: graphite-200 on the light theme and graphite-800 on the dark theme by default, as in the reference wallpaper. In React the drawing is applied as a mask, so the stroke can take any token.", "Os traços são cores sólidas, nunca transparentes: grafite-200 no tema claro e grafite-800 no escuro por padrão, como no papel de parede de referência. No React o desenho é aplicado como máscara, então o traço aceita qualquer token.")}</p>
         <div className="flex flex-wrap gap-2">
           {downloads.map(([label, file]) => (
-            <a key={file} href={base + file} download className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[0.75rem] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
+            <a key={file} href={base + file} download className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground">
               <Download className="h-3.5 w-3.5" aria-hidden /> {label}
             </a>
           ))}
         </div>
-        <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { DoodleTexture } from "@/app/components/ui/doodle-texture";
+        <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { DoodleTexture } from "@/app/components/ui/doodle-texture";
 
 <section className="relative isolate">
   <DoodleTexture scale="m" />              {/* grafite-200 / grafite-800 */}
@@ -1708,7 +1708,7 @@ function DoodleTextureCard() {
 
 /* fora do React (CSS) */
 background: var(--background) url("/texturas/doodle-moda-claro.svg") 0 0 / 640px repeat;`}</code></pre>
-        <ul className="grid gap-1.5 text-[0.8125rem] text-muted-foreground sm:grid-cols-2">
+        <ul className="grid gap-1 text-body-sm text-muted-foreground sm:grid-cols-2">
           <li>• {t("Use behind heroes, empty states, onboarding and waiting screens; never behind long text.", "Use atrás de heros, estados vazios, onboarding e telas de espera; nunca atrás de texto longo.")}</li>
           <li>• {t("Keep the default grays for a quiet background; the primary stroke is for small areas or brand moments.", "Mantenha os cinzas padrão para um fundo discreto; o traço primário é para áreas pequenas ou momentos de marca.")}</li>
           <li>• {t("The tile is seamless in both directions; keep the scale between 480 and 800 px so the icons read.", "O ladrilho não tem emenda nas duas direções; mantenha a escala entre 480 e 800 px para os ícones lerem.")}</li>
@@ -1731,7 +1731,7 @@ export function BackgroundsShowcase() {
 
       {/* Intro */}
       <div className="space-y-4">
-        <p className="text-[0.9375rem] text-muted-foreground leading-relaxed max-w-2xl">
+        <p className="text-body text-muted-foreground leading-relaxed max-w-2xl">
           {t("Four animated, interactive background patterns — each with a distinct visual personality, adapted to the Design System's graphite + pink palette. The previews respond to the site's dark/light mode — use the toggle at the top of the page to switch. All previews are interactive: hover to feel the effects in real time.",
             "Quatro padrões de fundo animados e interativos — cada um com uma personalidade visual distinta, adaptados à paleta graphite + pink do Design System. Os previews respondem ao modo dark/light do site — use o botão no topo da página para alternar. Todos os previews são interativos: passe o mouse para sentir os efeitos em tempo real.")}
         </p>
@@ -1739,7 +1739,7 @@ export function BackgroundsShowcase() {
         {/* Legend */}
         <div className="flex flex-wrap gap-2">
           {(Object.entries(tagColors) as [EffectTag, { bg: string; color: string }][]).map(([tag, style]) => (
-            <span key={tag} className="px-2.5 py-1 rounded-sm text-[0.6875rem] font-semibold"
+            <span key={tag} className="px-2 py-1 rounded-sm text-caption font-semibold"
               style={{ background: style.bg, color: style.color }}>
               {bi(TAG_LABEL[tag])}
             </span>
@@ -1786,8 +1786,8 @@ export function BackgroundsShowcase() {
       {/* Usage guide */}
       <section id="section-backgrounds" className="space-y-4">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Composition guide", "Guia de composição")}</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("How to combine the four effects on a landing page — with a palette suggestion for each section.", "Como combinar os quatro efeitos em uma landing page — com sugestão de paleta para cada seção.")}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{t("Composition guide", "Guia de composição")}</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">{t("How to combine the four effects on a landing page — with a palette suggestion for each section.", "Como combinar os quatro efeitos em uma landing page — com sugestão de paleta para cada seção.")}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
@@ -1829,8 +1829,8 @@ export function BackgroundsShowcase() {
               {/* Card header */}
               <div className="px-4 py-3 border-b border-border flex items-center justify-between">
                 <div>
-                  <p className="text-[0.8125rem] font-bold text-foreground">{guide.title}</p>
-                  <p className="text-[0.5625rem] font-semibold uppercase tracking-[0.07em] mt-0.5"
+                  <p className="text-body-sm font-bold text-foreground">{guide.title}</p>
+                  <p className="text-caption font-semibold uppercase tracking-[0.07em] mt-1"
                     style={{ color: guide.accent }}>{guide.mode}</p>
                 </div>
                 <div className="h-2.5 w-2.5 rounded-full" style={{ background: guide.accent }} />
@@ -1842,17 +1842,17 @@ export function BackgroundsShowcase() {
                   <div key={i} className="flex items-stretch">
                     {/* Color swatch strip — full height, labeled */}
                     <div className="w-1.5 shrink-0" style={{ background: s.accent, opacity: 0.7 }} />
-                    <div className="flex-1 px-3 py-2.5 flex items-start gap-3"
+                    <div className="flex-1 px-3 py-2 flex items-start gap-3"
                       style={{ background: `${s.band}12` }}>
                       {/* Section label badge */}
-                      <div className="pt-0.5 shrink-0">
-                        <span className="inline-block text-[0.5rem] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded-[4px] text-foreground/60 border border-border bg-muted/40"
+                      <div className="pt-1 shrink-0">
+                        <span className="inline-block text-caption font-bold uppercase tracking-[0.08em] px-1 py-1 rounded-sm text-foreground/60 border border-border bg-muted/40"
                           style={{ minWidth: 52, textAlign: "center" }}>{s.label}</span>
                       </div>
                       {/* Effect name + description */}
                       <div className="min-w-0">
-                        <p className="text-[0.6875rem] font-semibold text-foreground leading-tight truncate">{s.effect}</p>
-                        <p className="text-[0.5625rem] text-muted-foreground leading-snug mt-0.5">{s.note}</p>
+                        <p className="text-caption font-semibold text-foreground leading-tight truncate">{s.effect}</p>
+                        <p className="text-caption text-muted-foreground leading-snug mt-1">{s.note}</p>
                       </div>
                     </div>
                   </div>
@@ -1862,24 +1862,14 @@ export function BackgroundsShowcase() {
           ))}
         </div>
 
-        {/* Palette × Effect — compatibility table */}
-        <div className="rounded-lg border border-border bg-card overflow-hidden">
+        {/* Palette × Effect — compatibility table. Sem rolagem horizontal (regra do DS): no espaço estreito vira lista. */}
+        <div className="@container rounded-lg border border-border bg-card overflow-hidden">
           <div className="px-4 py-3 border-b border-border">
-            <p className="text-[0.8125rem] font-bold text-foreground">{t("Palettes × Usage context", "Paletas × Contexto de uso")}</p>
-            <p className="text-[0.6875rem] text-muted-foreground mt-0.5">{t("Quick guide to which palette to use for each section type.", "Guia rápido de qual paleta usar em cada tipo de seção.")}</p>
+            <p className="text-body-sm font-bold text-foreground">{t("Palettes × Usage context", "Paletas × Contexto de uso")}</p>
+            <p className="text-caption text-muted-foreground mt-1">{t("Quick guide to which palette to use for each section type.", "Guia rápido de qual paleta usar em cada tipo de seção.")}</p>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-[0.6875rem]">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left px-4 py-2.5 text-muted-foreground font-semibold w-28">{t("Palette", "Paleta")}</th>
-                  <th className="text-left px-3 py-2.5 text-muted-foreground font-semibold">{t("Personality", "Personalidade")}</th>
-                  <th className="text-left px-3 py-2.5 text-muted-foreground font-semibold">Big Bang</th>
-                  <th className="text-left px-3 py-2.5 text-muted-foreground font-semibold">Bg Lines</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
+          {(() => {
+            const linhas = [
                   { palette: "Pink", dot: "#FC0256", personality: t("Energy, urgency, primary brand", "Energia, urgência, marca principal"), bb: t("Launch hero, CTA", "Hero de lançamento, CTA"), bgl: t("Technical features, B2B product", "Funcionalidades técnicas, produto B2B") },
                   { palette: "Cosmos",  dot: "#7C3AED", personality: t("Mystery, scale, ambition", "Mistério, escala, ambição"),         bb: t("Impact hero, splash screens", "Hero de impacto, telas de splash"),  bgl: t("AI product, data, ML", "Produto de IA, dados, ML") },
                   { palette: "Ocean",  dot: "#0EA5E9", personality: t("Trust, flow, technology", "Confiança, fluxo, tecnologia"),      bb: t("Infrastructure product, cloud", "Produto de infraestrutura, cloud"),  bgl: t("Pipelines, ETL, integrations", "Pipelines, ETL, integrações") },
@@ -1887,30 +1877,51 @@ export function BackgroundsShowcase() {
                   { palette: "Cyan",   dot: "#06B6D4", personality: t("Precision, data, clean technical", "Precisão, dados, técnico e limpo"),   bb: "—",                                bgl: t("Dashboard, analytics, CI/CD", "Dashboard, analytics, CI/CD") },
                   { palette: "Aurora",  dot: "#8B5CF6", personality: t("Premium, creative, distinctive", "Premium, criativo, diferenciado"),  bb: t("Consumer CTA, consumer product", "CTA consumer, produto consumer"),   bgl: t("Design tools, creative platforms", "Ferramentas de design, plataformas criativas") },
                   { palette: "Graphite", dot: "#B3B3BC", personality: t("Neutral, elegant, subtle background", "Neutro, elegante, fundo sutil"),  bb: "—",                                bgl: t("Features background, light mode", "Fundo de features, light mode") },
-                ].map(row => (
-                  <tr key={row.palette} className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors">
-                    <td className="px-4 py-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: row.dot }} />
-                        <span className="font-semibold text-foreground">{row.palette}</span>
-                      </div>
-                    </td>
-                    <td className="px-3 py-2.5 text-muted-foreground">{row.personality}</td>
-                    <td className="px-3 py-2.5 text-muted-foreground">{row.bb}</td>
-                    <td className="px-3 py-2.5 text-muted-foreground">{row.bgl}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                ];
+            const ponto = (cor: string) => <span aria-hidden className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: cor }} />;
+            return (
+              <>
+                <table className="hidden w-full text-label @xl:table">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left px-4 py-2 text-muted-foreground font-semibold w-28">{t("Palette", "Paleta")}</th>
+                      <th className="text-left px-3 py-2 text-muted-foreground font-semibold">{t("Personality", "Personalidade")}</th>
+                      <th className="text-left px-3 py-2 text-muted-foreground font-semibold">Big Bang</th>
+                      <th className="text-left px-3 py-2 text-muted-foreground font-semibold">Bg Lines</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {linhas.map(row => (
+                      <tr key={row.palette} className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors">
+                        <td className="px-4 py-2"><div className="flex items-center gap-2">{ponto(row.dot)}<span className="font-semibold text-foreground">{row.palette}</span></div></td>
+                        <td className="px-3 py-2 text-muted-foreground">{row.personality}</td>
+                        <td className="px-3 py-2 text-muted-foreground">{row.bb}</td>
+                        <td className="px-3 py-2 text-muted-foreground">{row.bgl}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <ul className="m-0 list-none p-0 text-label @xl:hidden">
+                  {linhas.map(row => (
+                    <li key={row.palette} className="border-b border-border/50 px-4 py-3 last:border-0">
+                      <p className="flex items-center gap-2 font-semibold text-foreground">{ponto(row.dot)}{row.palette}</p>
+                      <p className="mt-1 text-muted-foreground"><span className="font-medium text-foreground">{t("Personality", "Personalidade")}:</span> {row.personality}</p>
+                      <p className="mt-1 text-muted-foreground"><span className="font-medium text-foreground">Big Bang:</span> {row.bb}</p>
+                      <p className="mt-1 text-muted-foreground"><span className="font-medium text-foreground">Bg Lines:</span> {row.bgl}</p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            );
+          })()}
         </div>
       </section>
 
       {/* Tokens */}
       <section id="backgrounds-tokens" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Color tokens", "Tokens de cor")}</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{t("Color tokens", "Tokens de cor")}</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">
             {t("Reference values for the system's four Canvas patterns. Big Bang and Background Lines use interchangeable palettes — the tokens below document the default palette (Pink).", "Valores de referência para os quatro padrões Canvas do sistema. Big Bang e Background Lines usam paletas intercambiáveis — os tokens abaixo documentam a paleta padrão (Pink).")}
           </p>
         </div>

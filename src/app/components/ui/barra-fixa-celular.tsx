@@ -64,7 +64,7 @@ function BarraFixaDoCelular({ icone, oculta = false, somenteCelular = true, rese
             type="button"
             aria-haspopup="dialog"
             className={cn(
-              "flex h-14 w-full items-center justify-center gap-2 rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[var(--shadow-lg)] transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&_svg]:size-5 [&_svg]:shrink-0",
+              "flex h-14 w-full items-center justify-center gap-2 rounded-full bg-primary text-body leading-6 font-semibold text-primary-foreground shadow-[var(--shadow-lg)] transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&_svg]:size-5 [&_svg]:shrink-0",
               className,
             )}
             {...props}

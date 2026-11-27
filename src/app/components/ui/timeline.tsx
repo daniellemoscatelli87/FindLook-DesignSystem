@@ -84,7 +84,7 @@ export function Timeline({ etapas, alternar = true, limite = 0.6, checkNasFeitas
     <ol
       data-slot="timeline"
       data-animado={ativo ? "" : undefined}
-      className={cn("relative m-0 grid list-none gap-[14px] p-0 md:mx-auto md:max-w-[920px] md:gap-[18px]", className)}
+      className={cn("relative m-0 grid list-none gap-4 p-0 md:mx-auto md:max-w-[920px] md:gap-4", className)}
       style={{ "--marco": "44px", "--trilho": "14px" } as React.CSSProperties}
       {...props}
     >
@@ -130,18 +130,18 @@ export function Timeline({ etapas, alternar = true, limite = 0.6, checkNasFeitas
             {/* card */}
             <div
               className={cn(
-                "relative col-start-2 row-start-1 flex items-start gap-[14px] rounded-[20px] border border-border bg-card px-[18px] py-4 transition-[transform,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-[var(--shadow-md)]",
+                "relative col-start-2 row-start-1 flex items-start gap-4 rounded-lg border border-border bg-card px-4 py-4 transition-[transform,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-[var(--shadow-md)]",
                 direita ? "md:col-start-3" : "md:col-start-1",
                 // setinha apontando para a linha (a partir de 768 px)
-                "md:before:absolute md:before:top-1/2 md:before:h-3 md:before:w-3 md:before:-mt-1.5 md:before:rotate-45 md:before:border md:before:border-border md:before:bg-card md:before:content-['']",
+                "md:before:absolute md:before:top-1/2 md:before:h-3 md:before:w-3 md:before:-mt-1 md:before:rotate-45 md:before:border md:before:border-border md:before:bg-card md:before:content-['']",
                 direita ? "md:before:-left-[7px] md:before:border-t-0 md:before:border-r-0" : "md:before:-right-[7px] md:before:border-b-0 md:before:border-l-0",
                 ativo && !visivel && "opacity-0",
                 ativo && visivel && (direita ? "animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both [animation-delay:150ms] max-md:slide-in-from-bottom-4 max-md:slide-in-from-right-0" : "animate-in fade-in slide-in-from-left-8 duration-700 fill-mode-both [animation-delay:150ms] max-md:slide-in-from-bottom-4 max-md:slide-in-from-left-0"),
               )}
             >
               <div className="min-w-0">
-                <h4 className="mb-1 text-[1.125rem] font-bold leading-[1.3] tracking-[-0.02em] text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{e.titulo}</h4>
-                <p className="m-0 text-[0.9375rem] leading-normal text-muted-foreground">{e.descricao}</p>
+                <h4 className="mb-1 text-subtitle font-bold leading-[1.3] tracking-[-0.02em] text-foreground" style={{ fontFamily: "var(--font-sans)" }}>{e.titulo}</h4>
+                <p className="m-0 text-body leading-normal text-muted-foreground">{e.descricao}</p>
               </div>
             </div>
           </li>

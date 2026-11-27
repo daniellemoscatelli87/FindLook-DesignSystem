@@ -67,29 +67,29 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
           <img src={logoSimbolo} alt="" className="hidden sm:block h-24 w-auto object-contain shrink-0" />
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/12 text-primary-text border border-primary/25 text-[0.75rem] font-semibold uppercase tracking-[0.08em]">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/12 text-primary-text border border-primary/25 text-label font-semibold uppercase tracking-[0.08em]">
                 Design System
               </span>
-              <span className="text-[0.625rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">v1.0</span>
+              <span className="text-caption font-semibold uppercase tracking-[0.12em] text-muted-foreground">v1.0</span>
             </div>
-            <h1 className={`${display} text-[2rem] sm:text-[2.5rem] font-extrabold tracking-[-0.035em] text-foreground mb-3 leading-none`}>
+            <h1 className={`${display} text-h2 sm:text-h1 font-extrabold tracking-[-0.035em] text-foreground mb-3 leading-none`}>
               Find<span className="text-primary-destaque">Look</span>
             </h1>
-            <p className={`${display} text-[1.25rem] font-bold tracking-[-0.02em] text-foreground mb-3`}>{withHighlight("Uma experiência, **dois públicos**.")}</p>
-            <p className="text-[1.0625rem] text-muted-foreground max-w-xl leading-relaxed mb-6">
+            <p className={`${display} text-h4 font-bold tracking-[-0.02em] text-foreground mb-3`}>{withHighlight("Uma experiência, **dois públicos**.")}</p>
+            <p className="text-body-lg text-muted-foreground max-w-xl leading-relaxed mb-6">
               Os fundamentos, componentes e padrões que dão forma à experiência da FindLook, a plataforma web de descoberta de moda local. Para que cada tela, em qualquer jornada, seja consistente, acessível e fácil de evoluir.
             </p>
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <button
                 onClick={() => onNavigate("get-started")}
-                className="group inline-flex items-center gap-2 h-10 px-5 rounded-full bg-primary text-primary-foreground text-[0.875rem] font-semibold hover:bg-[var(--primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                className="group inline-flex items-center gap-2 h-10 px-5 rounded-full bg-primary text-primary-foreground text-body-sm font-semibold hover:bg-[var(--primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
               >
                 Começar
                 <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
               <button
                 onClick={() => go({ scroll: "whats-new" })}
-                className="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-border text-[0.875rem] font-medium text-foreground hover:border-[var(--border-strong)] hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-border text-body-sm font-medium text-foreground hover:border-[var(--border-strong)] hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Sparkles className="h-4 w-4 text-primary" />
                 Novidades
@@ -97,7 +97,7 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
             </div>
             <div className="flex flex-wrap gap-2">
               {["Mobile-first", "Meta WCAG 2.2 AA", "Tokens Tailwind v4", "Modo claro e escuro", "Só português"].map((tag, i) => (
-                <span key={tag} className={`inline-flex items-center px-3 py-1 rounded-full text-[0.8125rem] font-medium ${i === 0 ? "bg-primary/12 text-primary-text" : "bg-muted text-foreground"}`}>
+                <span key={tag} className={`inline-flex items-center px-3 py-1 rounded-full text-body-sm font-medium ${i === 0 ? "bg-primary/12 text-primary-text" : "bg-muted text-foreground"}`}>
                   {tag}
                 </span>
               ))}
@@ -110,29 +110,29 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
         <SectionLabel>Duas jornadas, uma conexão</SectionLabel>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="rounded-[var(--radius)] border border-border bg-[var(--surface-tint)] p-6">
-            <div className="flex items-center gap-2 mb-3"><Search className="h-4 w-4 text-primary-text" aria-hidden /><p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-primary-text">Para quem procura</p></div>
-            <p className={`${display} text-[1.25rem] font-bold tracking-[-0.02em] text-foreground mb-2`}>Encontre peças alinhadas ao seu estilo, tamanho e região.</p>
-            <p className="text-[0.875rem] text-muted-foreground">Busca por foto, descrição ou ambas. Sem pesquisar loja por loja.</p>
+            <div className="flex items-center gap-2 mb-3"><Search className="h-4 w-4 text-primary-text" aria-hidden /><p className="text-label font-semibold uppercase tracking-[0.1em] text-primary-text">Para quem procura</p></div>
+            <p className={`${display} text-h4 font-bold tracking-[-0.02em] text-foreground mb-2`}>Encontre peças alinhadas ao seu estilo, tamanho e região.</p>
+            <p className="text-body-sm text-muted-foreground">Busca por foto, descrição ou ambas. Sem pesquisar loja por loja.</p>
           </div>
           <div className="rounded-[var(--radius)] border border-border bg-muted p-6">
-            <div className="flex items-center gap-2 mb-3"><Store className="h-4 w-4 text-primary-text" aria-hidden /><p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-primary-text">Para quem vende</p></div>
-            <p className={`${display} text-[1.25rem] font-bold tracking-[-0.02em] text-foreground mb-2`}>Sua vitrine pesquisável para quem já tem intenção de compra.</p>
-            <p className="text-[0.875rem] text-muted-foreground">Visibilidade para lojas e brechós. Contato direto com o cliente.</p>
+            <div className="flex items-center gap-2 mb-3"><Store className="h-4 w-4 text-primary-text" aria-hidden /><p className="text-label font-semibold uppercase tracking-[0.1em] text-primary-text">Para quem vende</p></div>
+            <p className={`${display} text-h4 font-bold tracking-[-0.02em] text-foreground mb-2`}>Sua vitrine pesquisável para quem já tem intenção de compra.</p>
+            <p className="text-body-sm text-muted-foreground">Visibilidade para lojas e brechós. Contato direto com o cliente.</p>
           </div>
         </div>
-        <p className="mt-3 text-[0.8125rem] text-muted-foreground">A plataforma não vende: ela gera encontros. A compra acontece diretamente entre consumidor e loja. O design system garante que as duas experiências falem a mesma língua visual e verbal.</p>
+        <p className="mt-3 text-body-sm text-muted-foreground">A plataforma não vende: ela gera encontros. A compra acontece diretamente entre consumidor e loja. O design system garante que as duas experiências falem a mesma língua visual e verbal.</p>
       </section>
 
       <section id="whats-new" className="scroll-mt-32">
         <SectionLabel>Histórico de mudanças</SectionLabel>
         <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-          <h2 className={`${display} text-[1.5rem] font-extrabold tracking-[-0.02em] text-foreground`}>Novidades</h2>
-          <p className="text-[0.8125rem] text-muted-foreground">Mais recente: {latest.title.pt} · {latest.date}</p>
+          <h2 className={`${display} text-h3 font-extrabold tracking-[-0.02em] text-foreground`}>Novidades</h2>
+          <p className="text-body-sm text-muted-foreground">Mais recente: {latest.title.pt} · {latest.date}</p>
         </div>
-        <p className="max-w-2xl mb-6 text-[0.9375rem] leading-relaxed text-muted-foreground">
+        <p className="max-w-2xl mb-6 text-body leading-relaxed text-muted-foreground">
           Toda adição, mudança e remoção no design system, da mais recente para a mais antiga.
         </p>
-        <ol className="relative border-l border-border ml-1.5 space-y-3">
+        <ol className="relative border-l border-border ml-1 space-y-3">
           {changelog.map((e, i) => {
             const Tag = e.page ? "button" : "div";
             return (
@@ -144,14 +144,14 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
                     e.page ? "transition-all hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" : ""
                   }`}
                 >
-                  <span className={`shrink-0 self-start inline-flex items-center px-2 py-0.5 rounded-full border text-[0.6875rem] font-semibold uppercase tracking-[0.06em] sm:mt-0.5 ${kindStyle[e.kind]}`}>
+                  <span className={`shrink-0 self-start inline-flex items-center px-2 py-1 rounded-full border text-caption font-semibold uppercase tracking-[0.06em] sm:mt-1 ${kindStyle[e.kind]}`}>
                     {kindPt[e.kind]}
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className={`${display} block text-[0.9375rem] font-semibold tracking-[-0.01em] text-foreground mb-0.5`}>{e.title.pt}</span>
-                    <span className="block text-[0.8125rem] leading-relaxed text-muted-foreground">{e.desc.pt}</span>
+                    <span className={`${display} block text-body font-semibold tracking-[-0.01em] text-foreground mb-1`}>{e.title.pt}</span>
+                    <span className="block text-body-sm leading-relaxed text-muted-foreground">{e.desc.pt}</span>
                   </span>
-                  <span className="shrink-0 text-[0.75rem] text-muted-foreground sm:mt-0.5">{e.date}</span>
+                  <span className="shrink-0 text-label text-muted-foreground sm:mt-1">{e.date}</span>
                 </Tag>
               </li>
             );
@@ -162,11 +162,11 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
       <section id="home-explore" className="scroll-mt-32 space-y-8">
         <div>
           <SectionLabel>Explorar</SectionLabel>
-          <h2 className={`${display} text-[1.5rem] font-extrabold tracking-[-0.02em] text-foreground`}>Tudo no sistema</h2>
+          <h2 className={`${display} text-h3 font-extrabold tracking-[-0.02em] text-foreground`}>Tudo no sistema</h2>
         </div>
         {explore.map(g => (
           <div key={g.label}>
-            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">{g.label}</p>
+            <p className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">{g.label}</p>
             <CardGrid items={g.items} onGo={go} cols={g.items.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"} compact />
           </div>
         ))}
@@ -179,7 +179,7 @@ export function HomeShowcase({ onNavigate }: { onNavigate: Navigate }) {
           <div className="w-px bg-background/20" />
           {pink.map(c => <div key={c} className="flex-1" style={{ backgroundColor: c }} />)}
         </div>
-        <div className="flex justify-between text-[0.6875rem] text-muted-foreground mt-2 px-1">
+        <div className="flex justify-between text-caption text-muted-foreground mt-2 px-1">
           <span>Escala Grafite, de 50 a 950</span>
           <span>Escala Pink, de 50 a 950</span>
         </div>

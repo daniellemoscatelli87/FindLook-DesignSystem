@@ -37,13 +37,13 @@ export type PartnerCardProps = React.HTMLAttributes<HTMLDivElement> & {
 
 const pad: Record<Size, string> = { p: "p-5", m: "p-6 sm:p-8", g: "p-8 sm:p-12" };
 const titleSize: Record<Size, string> = {
-  p: "text-[1.125rem] leading-snug tracking-[-0.015em]",
-  m: "text-[1.5rem] sm:text-[1.75rem] leading-tight tracking-[-0.025em]",
-  g: "text-[2rem] sm:text-[2.5rem] leading-[1.1] tracking-[-0.03em]",
+  p: "text-body-lg leading-snug tracking-[-0.015em]",
+  m: "text-h3 sm:text-h2 leading-tight tracking-[-0.025em]",
+  g: "text-h2 sm:text-h1 leading-[1.1] tracking-[-0.03em]",
 };
-const descSize: Record<Size, string> = { p: "text-[0.8125rem]", m: "text-[0.9375rem]", g: "text-[1.0625rem]" };
+const descSize: Record<Size, string> = { p: "text-body-sm", m: "text-body", g: "text-body-lg" };
 const visualBox: Record<Size, string> = { p: "h-12 w-12", m: "h-16 w-16", g: "h-24 w-24" };
-const ctaSize: Record<Size, string> = { p: "h-9 px-4 text-[0.8125rem]", m: "h-10 px-5 text-[0.875rem]", g: "h-12 px-6 text-[0.9375rem]" };
+const ctaSize: Record<Size, string> = { p: "h-10 px-4 text-button toque:h-11", m: "h-10 px-5 text-button toque:h-11", g: "h-12 px-6 text-body" };
 
 export function PartnerCard({
   orientation: orientacaoFixa, size = "m", eyebrow, title, description, cta, secondary, visual, surface = "card", className, ...props
@@ -77,11 +77,11 @@ export function PartnerCard({
         </div>
       )}
 
-      <div className={cn("min-w-0", horizontal ? "flex-1" : "flex flex-1 flex-col")}>
+      <div className={cn("@container/parceiro min-w-0", horizontal ? "flex-1" : "flex flex-1 flex-col")}>
         {eyebrow && (
           <div className="mb-3">
             {dark ? (
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-white/85"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />{eyebrow}</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-caption font-semibold uppercase tracking-[0.14em] text-white/85"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />{eyebrow}</span>
             ) : (
               <Selo size="sm">{eyebrow}</Selo>
             )}
@@ -92,10 +92,13 @@ export function PartnerCard({
           {withHighlight(title, size === "p" && !dark ? "text-primary-text" : "text-primary-destaque")}
         </h3>
         {description && <p className={cn("mt-2 max-w-prose leading-relaxed", descSize[size], dark ? "text-white/70" : surface === "tint" ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground")}>{description}</p>}
-        <div className={cn("mt-auto flex flex-wrap items-center gap-x-5 gap-y-3", size === "p" ? "pt-4" : "pt-6")}>
+        {/* Ações (27/11/2026): o botão e o link ficam na mesma linha quando o card tem espaço. Em card estreito (menos de
+            384 px de texto, como no celular), os dois viram botões da mesma largura, um embaixo do outro: o principal
+            cheio e o secundário de contorno. Nunca um link sozinho embaixo do botão; o link tem 44 px de altura no toque. */}
+        <div className={cn("mt-auto grid grid-cols-1 gap-3 @sm/parceiro:flex @sm/parceiro:flex-wrap @sm/parceiro:items-center @sm/parceiro:gap-x-5", size === "p" ? "pt-4" : "pt-6")}>
           <Cta
             {...(cta.href ? { href: cta.href } : { type: "button", onClick: cta.onClick })}
-            className={cn("group inline-flex items-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:bg-[var(--primary-hover)] hover:shadow-[var(--shadow-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", dark && "focus-visible:ring-offset-[var(--graphite-950)]", ctaSize[size])}
+            className={cn("group inline-flex items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground shadow-[var(--shadow-sm)] transition-all duration-[var(--duration-fast)] hover:-translate-y-0.5 hover:bg-[var(--primary-hover)] hover:shadow-[var(--shadow-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0", dark && "focus-visible:ring-offset-[var(--graphite-950)]", ctaSize[size])}
           >
             {cta.label}
             <ArrowRight className={cn("transition-transform group-hover:translate-x-0.5", size === "g" ? "h-5 w-5" : "h-4 w-4")} aria-hidden />
@@ -103,7 +106,14 @@ export function PartnerCard({
           {secondary && (
             <Sec
               {...(secondary.href ? { href: secondary.href } : { type: "button", onClick: secondary.onClick })}
-              className={cn("text-[0.8125rem] font-semibold underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded", dark ? "text-white/80" : "text-[var(--primary-text,var(--primary))]")}
+              className={cn(
+                "inline-flex items-center justify-center rounded-full border font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                ctaSize[size],
+                dark ? "border-white/30 text-white/90 hover:bg-white/10" : "border-[var(--border-strong)] bg-card text-foreground hover:bg-accent",
+                // Card largo: vira link discreto, na linha do botão, com a mesma altura de toque
+                "@sm/parceiro:h-auto @sm/parceiro:min-h-11 @sm/parceiro:rounded-sm @sm/parceiro:border-0 @sm/parceiro:bg-transparent @sm/parceiro:px-1 @sm/parceiro:underline-offset-4 @sm/parceiro:hover:bg-transparent @sm/parceiro:hover:underline",
+                !dark && "@sm/parceiro:text-[var(--primary-text,var(--primary))]",
+              )}
             >
               {secondary.label}
             </Sec>

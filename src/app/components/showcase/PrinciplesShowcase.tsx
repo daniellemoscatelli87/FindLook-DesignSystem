@@ -87,12 +87,12 @@ const anchorId = (p: PrincipleItem) => `principle-${p.n}`;
 function PrincipleCard({ p, onGo }: { p: PrincipleItem; onGo: (t: Target) => void }) {
   return (
     <article className="flex flex-col h-full bg-card border border-border rounded-[var(--radius)] p-6">
-      <h3 className={`${display} text-[1.25rem] font-bold tracking-[-0.015em] leading-tight text-foreground mb-2`}>{p.title}</h3>
-      <p className="text-[0.9375rem] leading-relaxed text-foreground mb-5">{p.statement}</p>
-      <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-2">Na prática</p>
+      <h3 className={`${display} text-h4 font-bold tracking-[-0.015em] leading-tight text-foreground mb-2`}>{p.title}</h3>
+      <p className="text-body leading-relaxed text-foreground mb-5">{p.statement}</p>
+      <p className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-2">Na prática</p>
       <ul className="space-y-2 mb-6">
         {p.practice.map(item => (
-          <li key={item} className="flex items-start gap-2.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+          <li key={item} className="flex items-start gap-2 text-body-sm leading-relaxed text-muted-foreground">
             <span aria-hidden className="mt-[0.5em] h-1 w-1 rounded-full bg-primary shrink-0" />
             <span>{item}</span>
           </li>
@@ -101,7 +101,7 @@ function PrincipleCard({ p, onGo }: { p: PrincipleItem; onGo: (t: Target) => voi
       <button
         type="button"
         onClick={() => onGo(p.target)}
-        className="group mt-auto self-start inline-flex items-center gap-1.5 rounded-sm text-[0.8125rem] font-semibold text-primary-text hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="group mt-auto self-start inline-flex items-center gap-1 rounded-sm text-body-sm font-semibold text-primary-text hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <span>
           Saiba mais<span className="sr-only"> sobre {p.linkLabel}</span>
@@ -137,7 +137,7 @@ export function PrinciplesShowcase({ onNavigate }: { onNavigate: Navigate }) {
               >
                 <span
                   aria-hidden
-                  className={`${display} absolute left-0 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary bg-background text-[0.8125rem] font-semibold tabular-nums text-primary-text md:static md:col-start-2 md:row-start-1 md:mt-5 md:justify-self-center`}
+                  className={`${display} absolute left-0 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary bg-background text-body-sm font-semibold tabular-nums text-primary-text md:static md:col-start-2 md:row-start-1 md:mt-5 md:justify-self-center`}
                 >
                   {p.n}
                 </span>
@@ -150,7 +150,7 @@ export function PrinciplesShowcase({ onNavigate }: { onNavigate: Navigate }) {
         </ol>
       </section>
 
-      <p className="text-[0.75rem] text-muted-foreground uppercase tracking-[0.08em] pt-2">Versão 1.0 · 2026 · Fonte: Brand Book FindLook v1.0</p>
+      <p className="text-label text-muted-foreground uppercase tracking-[0.08em] pt-2">Versão 1.0 · 2026 · Fonte: Brand Book FindLook v1.0</p>
     </div>
   );
 }

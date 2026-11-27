@@ -30,7 +30,7 @@ export const estadosDeInformacao: EstadoVisual[] = [
 export function StatusChip({ state, size = "md", className }: { state: InfoState; size?: "sm" | "md"; className?: string }) {
   const s = estadosDeInformacao.find(x => x.id === state)!;
   const Icon = s.icon;
-  const pad = size === "sm" ? "h-6 px-2 text-[0.6875rem] gap-1" : "h-7 px-2.5 text-[0.75rem] gap-1.5";
+  const pad = size === "sm" ? "h-6 px-2 text-caption gap-1" : "h-7 px-2 text-label gap-1";
   return (
     <span data-slot="status-chip" className={cn("inline-flex items-center rounded-full border font-semibold", pad, s.bg, s.border, s.color, className)}>
       <Icon className={size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"} aria-hidden />

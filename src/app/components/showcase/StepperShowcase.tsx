@@ -31,9 +31,9 @@ export function StepperShowcase() {
             "Mostra onde a pessoa está num formulário dividido em telas: quais etapas já foram feitas, a atual e o que vem depois. Visual do protótipo do produto (v8.87), em abas numeradas.",
           )}
         />
-        <div className="rounded-[20px] border border-border bg-card p-5 md:p-8">
+        <div className="rounded-lg border border-border bg-card p-5 md:p-8">
           <Stepper etapas={CADASTRO} atual={atual} onIrPara={setAtual} rotulo="Etapas do cadastro da loja" />
-          <div className="mt-8 rounded-lg border border-dashed border-border p-5 text-[0.875rem] text-muted-foreground">
+          <div className="mt-8 rounded-lg border border-dashed border-border p-5 text-body-sm text-muted-foreground">
             {t("Form of the step", "Formulário da etapa")} <strong className="text-foreground">{CADASTRO[atual]!.titulo}</strong>
           </div>
           <div className="mt-5 flex flex-wrap justify-between gap-3">
@@ -45,7 +45,7 @@ export function StepperShowcase() {
             </Button>
           </div>
         </div>
-        <p className="mt-3 text-[0.8125rem] text-muted-foreground">
+        <p className="mt-3 text-body-sm text-muted-foreground">
           {t(
             "Try it: Continue and Back move between steps; done steps can be reopened by clicking the marker. When the full names do not fit in the Stepper's own width, only “Step X of N”, the current step name and the numbers are shown; names are never cut.",
             "Experimente: Continuar e Voltar mudam de etapa; etapas concluídas podem ser reabertas pelo marcador. Quando os nomes inteiros não cabem na largura do próprio Stepper, aparecem só “Etapa X de N”, o nome da etapa atual e os números; o nome nunca é cortado com reticências.",
@@ -105,7 +105,7 @@ export function StepperShowcase() {
             ],
           }]} />
         </div>
-        <pre className="mt-5 overflow-x-auto rounded-md bg-muted/60 p-3 text-[0.75rem] text-muted-foreground"><code>{`import { Stepper } from "@/app/components/ui/stepper";
+        <pre className="mt-5 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Stepper } from "@/app/components/ui/stepper";
 
 <Stepper
   rotulo="Etapas do cadastro da loja"

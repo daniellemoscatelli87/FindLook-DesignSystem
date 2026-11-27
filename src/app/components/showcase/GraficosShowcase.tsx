@@ -53,13 +53,13 @@ function RoscaAntiga() {
           return <circle key={p.rotulo} cx="60" cy="60" r={r} fill="none" stroke={p.cor} strokeWidth="16" strokeDasharray={`${Math.max(0, tam - 2)} ${c}`} strokeDashoffset={-ini} />;
         })}
         <g className="rotate-90" style={{ transformOrigin: "60px 60px" }}>
-          <text x="60" y="58" textAnchor="middle" className="fill-foreground text-[22px] font-bold">8</text>
-          <text x="60" y="74" textAnchor="middle" className="fill-muted-foreground text-[9px]">tipos de loja</text>
+          <text x="60" y="58" textAnchor="middle" className="fill-foreground text-h3 font-bold">8</text>
+          <text x="60" y="74" textAnchor="middle" className="fill-muted-foreground text-caption">tipos de loja</text>
         </g>
       </svg>
-      <ul className="m-0 min-w-[10rem] flex-1 list-none space-y-2 p-0 text-[0.875rem]">
+      <ul className="m-0 min-w-[10rem] flex-1 list-none space-y-2 p-0 text-body-sm">
         {partes.map(p => (
-          <li key={p.rotulo} className="flex items-start gap-2.5">
+          <li key={p.rotulo} className="flex items-start gap-2">
             <span aria-hidden className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: p.cor }} />
             <span className="min-w-0 flex-1 leading-snug text-foreground">{p.rotulo}</span>
             <span className="shrink-0 font-semibold tabular-nums text-foreground">{Math.round((p.valor / total) * 100)}%</span>
@@ -261,28 +261,28 @@ function SecaoCores() {
           {PALETA.map((hex, i) => (
             <li key={hex} className="min-w-0">
               <span aria-hidden className="block h-14 rounded-md border border-border" style={{ background: `var(--chart-${i + 1})` }} />
-              <p className="mt-1.5 text-[0.875rem] font-bold tabular-nums text-foreground">{i + 1}</p>
-              <p className="font-mono text-[0.6875rem] text-muted-foreground [overflow-wrap:anywhere]">{hex}</p>
-              <p className="font-mono text-[0.6875rem] text-muted-foreground [overflow-wrap:anywhere]">--chart-{i + 1}</p>
+              <p className="mt-1 text-body-sm font-bold tabular-nums text-foreground">{i + 1}</p>
+              <p className="font-mono text-caption text-muted-foreground [overflow-wrap:anywhere]">{hex}</p>
+              <p className="font-mono text-caption text-muted-foreground [overflow-wrap:anywhere]">--chart-{i + 1}</p>
             </li>
           ))}
         </ol>
-        <p className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[0.75rem] font-semibold text-muted-foreground">
+        <p className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-label font-semibold text-muted-foreground">
           <span>← Mais ênfase visual</span>
           <span>Mais neutro e contextual →</span>
         </p>
         <ul className="m-0 mt-5 grid list-none grid-cols-1 gap-3 border-t border-border p-0 pt-5 sm:grid-cols-3">
           {FAIXAS_DA_PALETA.map(f => (
             <li key={f.nome} className="min-w-0 rounded-md border border-border p-3">
-              <span aria-hidden className="mb-2 flex h-2.5 gap-[2px] overflow-hidden rounded-sm">
+              <span aria-hidden className="mb-2 flex h-2.5 gap-0 overflow-hidden rounded-sm">
                 {f.tons.map(t => <span key={t} className="flex-1" style={{ background: `var(--chart-${t})` }} />)}
               </span>
-              <p className="text-[0.875rem] font-bold text-foreground">{f.nome} <span className="font-semibold tabular-nums text-muted-foreground">· tons {f.tons[0]}–{f.tons[f.tons.length - 1]}</span></p>
-              <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{f.d}</p>
+              <p className="text-body-sm font-bold text-foreground">{f.nome} <span className="font-semibold tabular-nums text-muted-foreground">· tons {f.tons[0]}–{f.tons[f.tons.length - 1]}</span></p>
+              <p className="mt-1 text-body-sm leading-relaxed text-muted-foreground">{f.d}</p>
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-[0.75rem] leading-relaxed text-muted-foreground">As séries usam os tons em sequência, com <span className="font-mono">coresPorImportancia(n)</span>: 1 série → 1 · 2 → 1, 2 · 3 → 1, 2, 3 · … · 7 → 1 a 7 (um mosaico de 7 partes usa os 7 tons, na ordem). <span className="font-mono">--chart-neutral</span> é o tom 7: "Outros" e informação sem destaque, sempre por último. "Outros" fica no tom 6 quando as partes param antes dele (pizza com 2 partes e Outros: 1, 2 e 6) e no tom 7 nos demais casos. <span className="font-mono">--chart-grid</span>: linhas de grade. Os dois cinzas são próximos entre si (1,24:1) e o tom 7 quase some sobre o branco (1,2:1): por isso todo gráfico escreve rótulos e valores, e a cor nunca é a única pista.</p>
+        <p className="mt-4 text-label leading-relaxed text-muted-foreground">As séries usam os tons em sequência, com <span className="font-mono">coresPorImportancia(n)</span>: 1 série → 1 · 2 → 1, 2 · 3 → 1, 2, 3 · … · 7 → 1 a 7 (um mosaico de 7 partes usa os 7 tons, na ordem). <span className="font-mono">--chart-neutral</span> é o tom 7: "Outros" e informação sem destaque, sempre por último. "Outros" fica no tom 6 quando as partes param antes dele (pizza com 2 partes e Outros: 1, 2 e 6) e no tom 7 nos demais casos. <span className="font-mono">--chart-grid</span>: linhas de grade. Os dois cinzas são próximos entre si (1,24:1) e o tom 7 quase some sobre o branco (1,2:1): por isso todo gráfico escreve rótulos e valores, e a cor nunca é a única pista.</p>
       </Cartao>
 
       <div className="mt-6">
@@ -290,10 +290,10 @@ function SecaoCores() {
         <ol className="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 xl:grid-cols-5">
           {REGRAS_DE_COR.map((r, i) => (
             <li key={r.t} className="flex min-w-0 gap-3 rounded-lg border border-border bg-card p-4 xl:flex-col">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[0.75rem] font-bold text-[var(--primary-text)]">{i + 1}</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-label font-bold text-[var(--primary-text)]">{i + 1}</span>
               <div className="min-w-0">
-                <p className="text-[0.875rem] font-semibold leading-snug text-foreground">{r.t}</p>
-                <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{r.d}</p>
+                <p className="text-body-sm font-semibold leading-snug text-foreground">{r.t}</p>
+                <p className="mt-1 text-body-sm leading-relaxed text-muted-foreground">{r.d}</p>
               </div>
             </li>
           ))}
@@ -304,23 +304,23 @@ function SecaoCores() {
         <Rotulo>Exemplos aplicados</Rotulo>
         <GradeDeCards className="gap-4 md:grid-cols-2">
           <Cartao>
-            <p className="text-[0.875rem] font-semibold text-foreground">Barras por importância</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">A a E nos tons 1, 2, 3, 4 e 5, em sequência (dados de exemplo).</p>
+            <p className="text-body-sm font-semibold text-foreground">Barras por importância</p>
+            <p className="mb-4 text-label text-muted-foreground">A a E nos tons 1, 2, 3, 4 e 5, em sequência (dados de exemplo).</p>
             <BarrasOrdenadas rotulo="Barras por importância (dados de exemplo)" itens={EX_BARRAS} destaques={1} posicao={false} cores="importancia" />
           </Cartao>
           <Cartao>
-            <p className="text-[0.875rem] font-semibold text-foreground">Linhas: principal, secundária e benchmark</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1, secundária no 2 e benchmark no cinza de contexto (tom 6), tracejado (dados de exemplo).</p>
+            <p className="text-body-sm font-semibold text-foreground">Linhas: principal, secundária e benchmark</p>
+            <p className="mb-4 text-label text-muted-foreground">Principal no tom 1, secundária no 2 e benchmark no cinza de contexto (tom 6), tracejado (dados de exemplo).</p>
             <GraficoDeLinhas rotulo="Linhas principal, secundária e benchmark (dados de exemplo)" series={EX_LINHAS} rotulosX={EX_MESES} altura={200} zero={false} />
           </Cartao>
           <Cartao>
-            <p className="text-[0.875rem] font-semibold text-foreground">Rosca com um foco</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">Principal no tom 1 (56%), apoio no 2, secundária no 3 e contexto no 6 (dados de exemplo).</p>
+            <p className="text-body-sm font-semibold text-foreground">Rosca com um foco</p>
+            <p className="mb-4 text-label text-muted-foreground">Principal no tom 1 (56%), apoio no 2, secundária no 3 e contexto no 6 (dados de exemplo).</p>
             <GraficoDeRosca rotulo="Rosca com um foco (dados de exemplo)" partes={EX_ROSCA} centro={{ valor: "250", rotulo: "respostas" }} tamanho={180} />
           </Cartao>
           <Cartao>
-            <p className="text-[0.875rem] font-semibold text-foreground">Escala contínua</p>
-            <p className="mb-4 text-[0.75rem] text-muted-foreground">Do cinza (valor baixo) ao rosa (valor alto), nos tons 6, 4, 2 e 1 (dados de exemplo).</p>
+            <p className="text-body-sm font-semibold text-foreground">Escala contínua</p>
+            <p className="mb-4 text-label text-muted-foreground">Do cinza (valor baixo) ao rosa (valor alto), nos tons 6, 4, 2 e 1 (dados de exemplo).</p>
             <MapaDeCalorMatricial rotulo="Escala contínua (dados de exemplo)" {...EX_ESCALA} rotuloLinhas="Período" rotulos={{ menos: "Baixo", mais: "Alto" }} />
           </Cartao>
         </GradeDeCards>
@@ -332,33 +332,33 @@ function SecaoCores() {
           {TONS_DA_ESCALA.map((tom, i) => [`--chart-seq-${i + 1}`, tom] as const).map(([tk, tom]) => (
             <li key={tk} className="min-w-0">
               <span aria-hidden className="block h-10 rounded-sm" style={{ background: `var(${tk})` }} />
-              <span className="mt-1 block font-mono text-[0.6875rem] text-foreground [overflow-wrap:anywhere]">{tk}</span>
-              <span className="block text-[0.6875rem] text-muted-foreground">tom {tom}</span>
+              <span className="mt-1 block font-mono text-caption text-foreground [overflow-wrap:anywhere]">{tk}</span>
+              <span className="block text-caption text-muted-foreground">tom {tom}</span>
             </li>
           ))}
         </ul>
-        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground">Do cinza (tom 6) ao rosa (tom 1), passando pelos tons 4 e 2. As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Tons vizinhos ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
+        <p className="mt-2 text-label leading-relaxed text-muted-foreground">Do cinza (tom 6) ao rosa (tom 1), passando pelos tons 4 e 2. As células de calor não levam número: a cor mostra a faixa, a célula em destaque é contornada e dita numa frase abaixo, e os números ficam na dica e em Ver dados. Tons vizinhos ficam parecidos para quem tem daltonismo: por isso o destaque também vai escrito.</p>
         <div className="mt-6 border-t border-border pt-5">
           <Rotulo>Texto nos gráficos</Rotulo>
-          <p className="text-[0.9375rem] font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
-          <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground">Nenhuma cor de texto passa de 4,5:1 sobre todos os tons da paleta, e trocar a cor do texto de uma parte para outra confunde a leitura. Por isso barras, fatias, células, blocos e bolhas não levam número nem nome. Valores e nomes em --foreground; --muted-foreground só no texto secundário, como os eixos. Quando o valor precisa ser ligado a uma parte (barras empilhadas, mosaico, rosca), ele vem depois de um ponto na cor dela, na mesma ordem das partes. Decisão da dona do produto, 19/11/2026.</p>
-          <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Áreas:</span> linha fina na cor da série e preenchimento em degradê transparente.</p>
+          <p className="text-body font-semibold leading-snug text-foreground">Nenhum texto sobre a cor do gráfico: valores e rótulos ficam fora da marca, sempre na mesma cor de texto.</p>
+          <p className="mt-2 text-body-sm leading-relaxed text-muted-foreground">Nenhuma cor de texto passa de 4,5:1 sobre todos os tons da paleta, e trocar a cor do texto de uma parte para outra confunde a leitura. Por isso barras, fatias, células, blocos e bolhas não levam número nem nome. Valores e nomes em --foreground; --muted-foreground só no texto secundário, como os eixos. Quando o valor precisa ser ligado a uma parte (barras empilhadas, mosaico, rosca), ele vem depois de um ponto na cor dela, na mesma ordem das partes. Decisão da dona do produto, 19/11/2026.</p>
+          <p className="mt-2 text-body-sm leading-relaxed text-muted-foreground"><span className="font-semibold text-foreground">Áreas:</span> linha fina na cor da série e preenchimento em degradê transparente.</p>
         </div>
       </Cartao>
       <GradeDeCards className="mt-4 gap-4 md:grid-cols-2">
         <Cartao>
-          <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><Check aria-hidden className="h-4 w-4 text-success" />Assim: importância em ordem, Outros em cinza</p>
+          <p className="mb-3 flex items-center gap-1 text-body-sm font-semibold text-foreground"><Check aria-hidden className="h-4 w-4 text-success" />Assim: importância em ordem, Outros em cinza</p>
           <BarrasEmpilhadas100 rotulo="Exemplo correto" categorias={[{ rotulo: "Vestidos" }, { rotulo: "Calças" }, { rotulo: "Camisas" }, { rotulo: "Outras", neutro: true }]} linhas={[{ rotulo: "Peças buscadas", valores: [34, 26, 16, 24] }]} />
         </Cartao>
         <Cartao>
-          <p className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground"><X aria-hidden className="h-4 w-4 text-error-text" />Não assim: destaque em todas as partes</p>
-          <div aria-hidden className="flex h-3 gap-[2px] overflow-hidden rounded-sm">
+          <p className="mb-3 flex items-center gap-1 text-body-sm font-semibold text-foreground"><X aria-hidden className="h-4 w-4 text-error-text" />Não assim: destaque em todas as partes</p>
+          <div aria-hidden className="flex h-3 gap-0 overflow-hidden rounded-sm">
             <span style={{ flex: "34 1 0", background: "var(--chart-1)" }} />
             <span style={{ flex: "26 1 0", background: "var(--chart-2)" }} />
             <span style={{ flex: "16 1 0", background: "var(--chart-1)" }} />
             <span style={{ flex: "24 1 0", background: "var(--chart-2)" }} />
           </div>
-          <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted-foreground">Com tons intensos em todas as partes, nada se destaca e o olho não sabe por onde começar; "Outros" parece tão importante quanto o resto. Sem rótulos, a cor carrega o significado sozinha.</p>
+          <p className="mt-3 text-body-sm leading-relaxed text-muted-foreground">Com tons intensos em todas as partes, nada se destaca e o olho não sabe por onde começar; "Outros" parece tão importante quanto o resto. Sem rótulos, a cor carrega o significado sozinha.</p>
         </Cartao>
       </GradeDeCards>
       <div className="mt-4">
@@ -385,12 +385,12 @@ function SecaoCores() {
 function TabelaQueQuebra({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-card">
-      <div className="hidden grid-cols-[1.2fr_1fr_1.3fr] gap-4 border-b border-border bg-muted/50 px-4 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground md:grid">
+      <div className="hidden grid-cols-[1.2fr_1fr_1.3fr] gap-4 border-b border-border bg-muted/50 px-4 py-2 text-label font-semibold uppercase tracking-[0.06em] text-muted-foreground md:grid">
         {head.map(h => <span key={h}>{h}</span>)}
       </div>
       <ul className="m-0 list-none p-0">
         {rows.map((r, i) => (
-          <li key={i} className="grid grid-cols-1 gap-1 border-b border-border px-4 py-3 text-[0.8125rem] last:border-0 md:grid-cols-[1.2fr_1fr_1.3fr] md:gap-4">
+          <li key={i} className="grid grid-cols-1 gap-1 border-b border-border px-4 py-3 text-body-sm last:border-0 md:grid-cols-[1.2fr_1fr_1.3fr] md:gap-4">
             {r.map((c, j) => (
               <span key={j} className={j === 0 ? "font-semibold text-foreground" : "text-muted-foreground [overflow-wrap:anywhere]"}>
                 <span className="mr-1 font-medium text-foreground md:hidden">{j > 0 ? `${head[j]}:` : ""}</span>{c}
@@ -408,7 +408,7 @@ function Cartao({ children, className = "" }: { children: React.ReactNode; class
 }
 
 function Rotulo({ children }: { children: React.ReactNode }) {
-  return <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
+  return <p className="mb-3 text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</p>;
 }
 
 /* ── Catálogo completo: dados de exemplo (fictícios; gerados por sementes fixas, sempre iguais) ── */
@@ -635,22 +635,22 @@ function CartaoDoCatalogo({ nome, componente, quando, cuidado, dados, children }
     <article className="flex min-w-0 flex-col rounded-lg border border-border bg-card p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
-          <h4 className="text-[1rem] font-bold leading-snug text-foreground">{nome}</h4>
-          <p className="font-mono text-[0.75rem] text-muted-foreground">{componente}</p>
+          <h4 className="text-body font-bold leading-snug text-foreground">{nome}</h4>
+          <p className="font-mono text-label text-muted-foreground">{componente}</p>
         </div>
-        <span className="inline-flex h-6 shrink-0 items-center rounded-sm border border-border px-2 text-[0.6875rem] font-medium text-muted-foreground">{SELO}</span>
+        <span className="inline-flex h-6 shrink-0 items-center rounded-sm border border-border px-2 text-caption font-medium text-muted-foreground">{SELO}</span>
       </div>
-      <p className="mt-2 text-[0.8125rem] leading-relaxed text-foreground"><span className="font-semibold">Quando usar: </span>{quando}</p>
+      <p className="mt-2 text-body-sm leading-relaxed text-foreground"><span className="font-semibold">Quando usar: </span>{quando}</p>
       <div className="mt-5 min-w-0 flex-1">{children}</div>
       {cuidado && (
-        <p className="mt-4 flex gap-2 rounded-md bg-[var(--warning-muted)] px-3 py-2 text-[0.8125rem] leading-relaxed text-foreground">
-          <AlertTriangle aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-warning-text" />
+        <p className="mt-4 flex gap-2 rounded-md bg-[var(--warning-muted)] px-3 py-2 text-body-sm leading-relaxed text-foreground">
+          <AlertTriangle aria-hidden className="mt-1 h-4 w-4 shrink-0 text-warning-text" />
           <span><span className="font-semibold">Cuidado: </span>{cuidado}</span>
         </p>
       )}
       <div className="mt-4">
         <button type="button" aria-expanded={aberto} aria-controls={id} onClick={() => setAberto(v => !v)}
-          className="inline-flex items-center gap-1 rounded-sm text-[0.8125rem] font-semibold text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          className="inline-flex items-center gap-1 rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           {aberto ? "Ocultar dados" : "Ver dados"}
           <ChevronDown aria-hidden className={`h-4 w-4 transition-transform motion-reduce:transition-none ${aberto ? "rotate-180" : ""}`} />
         </button>
@@ -668,8 +668,8 @@ function Familia({ id, icone: Icone, nome, descricao, children }: { id: string; 
       <div className="mb-4 flex items-start gap-3">
         <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text)]"><Icone className="h-[18px] w-[18px]" /></span>
         <div>
-          <h3 className="text-[1.125rem] font-bold text-foreground">{nome}</h3>
-          <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{descricao}</p>
+          <h3 className="text-subtitle font-bold text-foreground">{nome}</h3>
+          <p className="text-body-sm leading-relaxed text-muted-foreground">{descricao}</p>
         </div>
       </div>
       <GradeDeCards className="gap-4 lg:grid-cols-2">{children}</GradeDeCards>
@@ -834,10 +834,10 @@ export function GraficosShowcase() {
         <ol className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {PASSOS_CATALOGO.map((p, i) => (
             <li key={p.t} className="flex gap-3 rounded-lg border border-border bg-card p-4">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-[0.75rem] font-bold text-[var(--primary-text)]">{i + 1}</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-label font-bold text-[var(--primary-text)]">{i + 1}</span>
               <div>
-                <p className="text-[0.875rem] font-semibold text-foreground">{p.t}</p>
-                <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{p.d}</p>
+                <p className="text-body-sm font-semibold text-foreground">{p.t}</p>
+                <p className="text-body-sm leading-relaxed text-muted-foreground">{p.d}</p>
               </div>
             </li>
           ))}
@@ -847,13 +847,13 @@ export function GraficosShowcase() {
             <Cartao key={f.nome}>
               <div className="mb-3 flex items-center gap-3">
                 <span aria-hidden className="flex h-9 w-9 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text)]"><f.icone className="h-[18px] w-[18px]" /></span>
-                <h3 className="text-[1rem] font-bold text-foreground">{f.nome}</h3>
+                <h3 className="text-body font-bold text-foreground">{f.nome}</h3>
               </div>
-              <p className="text-[0.875rem] leading-relaxed text-foreground">{f.quando}</p>
-              <ul className="mt-3 flex flex-wrap gap-1.5">
-                {f.tipos.map(tp => <li key={tp} className="rounded-sm border border-border px-2 py-0.5 text-[0.75rem] text-muted-foreground">{tp}</li>)}
+              <p className="text-body-sm leading-relaxed text-foreground">{f.quando}</p>
+              <ul className="mt-3 flex flex-wrap gap-1">
+                {f.tipos.map(tp => <li key={tp} className="rounded-sm border border-border px-2 py-1 text-label text-muted-foreground">{tp}</li>)}
               </ul>
-              <p className="mt-3 text-[0.75rem] text-muted-foreground"><span className="font-semibold text-foreground">No DS:</span> {f.ds}</p>
+              <p className="mt-3 text-label text-muted-foreground"><span className="font-semibold text-foreground">No DS:</span> {f.ds}</p>
             </Cartao>
           ))}
         </GradeDeCards>
@@ -875,37 +875,37 @@ export function GraficosShowcase() {
         <GradeDeCards className="gap-4 lg:grid-cols-2">
           <Cartao>
             <Rotulo>Antes</Rotulo>
-            <h3 className="mb-4 text-[0.9375rem] font-bold text-foreground">Composição do comércio de moda</h3>
+            <h3 className="mb-4 text-body font-bold text-foreground">Composição do comércio de moda</h3>
             <RoscaAntiga />
-            <p className="mt-3 text-[0.75rem] text-muted-foreground">123 lojas de moda no bairro (dados de exemplo).</p>
-            <ul className="mt-5 space-y-1.5 border-t border-border pt-4 text-[0.8125rem] text-muted-foreground">
+            <p className="mt-3 text-label text-muted-foreground">123 lojas de moda no bairro (dados de exemplo).</p>
+            <ul className="mt-5 space-y-1 border-t border-border pt-4 text-body-sm text-muted-foreground">
               {[
                 "Anel grosso, com trilho cinza por trás: pesa mais que a informação.",
                 "O centro mostra 8 tipos, mas a legenda tem 4 linhas: o número não se explica.",
                 "Grafite escuro como série par do rosa: o Brechó parece desativado.",
                 "Outros (51%) tem a mesma força visual das partes em destaque.",
                 "Percentuais só na legenda, longe das partes.",
-              ].map(p => <li key={p} className="flex gap-2"><X aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error-text" />{p}</li>)}
+              ].map(p => <li key={p} className="flex gap-2"><X aria-hidden className="mt-1 h-3.5 w-3.5 shrink-0 text-error-text" />{p}</li>)}
             </ul>
           </Cartao>
           <Cartao>
             <Rotulo>Depois</Rotulo>
-            <h3 className="text-[0.9375rem] font-bold text-foreground">Lojas multimarcas são o formato mais comum no bairro</h3>
-            <p className="mb-4 mt-1 text-[0.8125rem] text-muted-foreground">Um quarto das lojas de moda; os outros 5 tipos somam metade.</p>
+            <h3 className="text-body font-bold text-foreground">Lojas multimarcas são o formato mais comum no bairro</h3>
+            <p className="mb-4 mt-1 text-body-sm text-muted-foreground">Um quarto das lojas de moda; os outros 5 tipos somam metade.</p>
             <GraficoDeRosca
               rotulo="Composição do comércio de moda no bairro (dados de exemplo)"
               partes={COMPOSICAO}
               centro={{ valor: "123", rotulo: "lojas de moda" }}
               formatarQuantidade={v => `${v} lojas`}
             />
-            <ul className="mt-5 space-y-1.5 border-t border-border pt-4 text-[0.8125rem] text-muted-foreground">
+            <ul className="mt-5 space-y-1 border-t border-border pt-4 text-body-sm text-muted-foreground">
               {[
                 "Anel fino (10 px), sem trilho, com 2 px de respiro entre as partes.",
                 "Centro com o total (quantidade de lojas); ao passar o cursor na lista, mostra a parte.",
                 "Tons por importância da maior para a menor; Outros em cinza de contexto e por último.",
                 "Percentual escrito junto de cada parte; a lista traz quantidade e percentual.",
                 "Título diz a descoberta, em linguagem natural.",
-              ].map(p => <li key={p} className="flex gap-2"><Check aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-success" />{p}</li>)}
+              ].map(p => <li key={p} className="flex gap-2"><Check aria-hidden className="mt-1 h-3.5 w-3.5 shrink-0 text-success" />{p}</li>)}
             </ul>
           </Cartao>
         </GradeDeCards>
@@ -1082,9 +1082,9 @@ export function GraficosShowcase() {
         <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {PASSOS_INTELIGENCIA.map(p => (
             <li key={p.n} className="rounded-lg border border-border bg-card p-4">
-              <span className="text-[1.25rem] font-bold tabular-nums text-[var(--primary-text)]">{p.n}</span>
-              <p className="mt-1 text-[0.9375rem] font-semibold text-foreground">{p.t}</p>
-              <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted-foreground">{p.d}</p>
+              <span className="text-h4 font-bold tabular-nums text-[var(--primary-text)]">{p.n}</span>
+              <p className="mt-1 text-body font-semibold text-foreground">{p.t}</p>
+              <p className="mt-1 text-body-sm leading-relaxed text-muted-foreground">{p.d}</p>
             </li>
           ))}
         </ol>
@@ -1104,8 +1104,8 @@ export function GraficosShowcase() {
           </div>
           <div className="min-w-0 space-y-4">
             <Cartao>
-              <p className="mb-2 flex items-center gap-2 text-[0.9375rem] font-semibold text-foreground"><MessageSquareText aria-hidden className="h-4 w-4 text-[var(--primary-text)]" />Princípio editorial</p>
-              <ul className="space-y-2 text-[0.875rem] leading-relaxed text-foreground">
+              <p className="mb-2 flex items-center gap-2 text-body font-semibold text-foreground"><MessageSquareText aria-hidden className="h-4 w-4 text-[var(--primary-text)]" />Princípio editorial</p>
+              <ul className="space-y-2 text-body-sm leading-relaxed text-foreground">
                 <li>A IA apresenta descobertas em linguagem natural, como uma pessoa que entende do mercado diria.</li>
                 <li>Destaque o que mudou: subiu, caiu, passou à frente, ficou acima da cidade.</li>
                 <li>Estatística técnica (amostra, desvio, correlação, método) fica no detalhamento, nunca no título.</li>
@@ -1113,15 +1113,15 @@ export function GraficosShowcase() {
               </ul>
             </Cartao>
             <Cartao>
-              <p className="mb-2 flex items-center gap-2 text-[0.9375rem] font-semibold text-foreground"><ChartColumn aria-hidden className="h-4 w-4 text-[var(--primary-text)]" />Título de gráfico</p>
+              <p className="mb-2 flex items-center gap-2 text-body font-semibold text-foreground"><ChartColumn aria-hidden className="h-4 w-4 text-[var(--primary-text)]" />Título de gráfico</p>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <div className="rounded-md bg-muted/60 p-3">
-                  <p className="mb-1 flex items-center gap-1 text-[0.75rem] font-semibold text-muted-foreground"><X aria-hidden className="h-3.5 w-3.5 text-error-text" />Evitar</p>
-                  <p className="text-[0.875rem] text-foreground">Distribuição percentual de buscas por categoria (n = 4.812)</p>
+                  <p className="mb-1 flex items-center gap-1 text-label font-semibold text-muted-foreground"><X aria-hidden className="h-3.5 w-3.5 text-error-text" />Evitar</p>
+                  <p className="text-body-sm text-foreground">Distribuição percentual de buscas por categoria (n = 4.812)</p>
                 </div>
                 <div className="rounded-md bg-[var(--success-muted)] p-3">
-                  <p className="mb-1 flex items-center gap-1 text-[0.75rem] font-semibold text-foreground"><Check aria-hidden className="h-3.5 w-3.5 text-success" />Preferir</p>
-                  <p className="text-[0.875rem] text-foreground">Vestidos e calças são metade das peças buscadas</p>
+                  <p className="mb-1 flex items-center gap-1 text-label font-semibold text-foreground"><Check aria-hidden className="h-3.5 w-3.5 text-success" />Preferir</p>
+                  <p className="text-body-sm text-foreground">Vestidos e calças são metade das peças buscadas</p>
                 </div>
               </div>
             </Cartao>
@@ -1180,7 +1180,7 @@ export function GraficosShowcase() {
             ["Densidade", "Forma de 2 ou 3 distribuições", "series (rotulo, valores, destaque), eixoX"],
             ["MapaDePontos", "Onde as coisas estão (esquemático)", "regioes, colunas, linhas, pontos (rotulo, x, y, tipo, destaque), tipos"],
             ["MapaDeBolhas", "Quantidade por lugar (esquemático)", "regioes, colunas, linhas, bolhas (rotulo, x, y, valor, destaque), rotuloTamanho"],
-          ].map(l => [<code key="c" className="font-mono text-[0.8125rem]">{l[0]}</code>, l[1], l[2]])}
+          ].map(l => [<code key="c" className="font-mono text-body-sm">{l[0]}</code>, l[1], l[2]])}
         />
         <div className="mt-4">
           <Callout title="Mapa de calor geográfico">

@@ -50,7 +50,7 @@ function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: 
       <div className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center">
         <Icon className="h-3.5 w-3.5 text-muted-foreground" />
       </div>
-      <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.07em] text-muted-foreground">{label}</span>
+      <span className="text-label font-semibold uppercase tracking-[0.07em] text-muted-foreground">{label}</span>
     </div>
   );
 }
@@ -65,14 +65,14 @@ function TemplateFrame({ children, className = "", url = "Painel da loja · Find
     <div className={`rounded-lg border border-border overflow-hidden ${className}`} style={{ boxShadow: "var(--shadow-lg)" }}>
       {/* Browser chrome */}
       <div className="h-9 bg-muted/60 border-b border-border flex items-center px-4 gap-2 shrink-0">
-        <div className="flex gap-1.5">
+        <div className="flex gap-1">
           <div className="h-2.5 w-2.5 rounded-full bg-primary/50" />
           <div className="h-2.5 w-2.5 rounded-full bg-warning/50" />
           <div className="h-2.5 w-2.5 rounded-full bg-success/50" />
         </div>
         <div className="flex-1 mx-4">
           <div className="h-5 bg-background/70 rounded-sm max-w-[280px] mx-auto flex items-center px-3">
-            <span className="text-[0.625rem] text-muted-foreground/60 truncate">{url}</span>
+            <span className="text-caption text-muted-foreground/60 truncate">{url}</span>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@ function TemplateFrame({ children, className = "", url = "Painel da loja · Find
    Helpers dos templates FindLook
 ───────────────────────────────────────────── */
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-const campo = "w-full bg-background border border-border rounded-sm px-3 py-2 text-[0.8125rem] text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all";
+const campo = "w-full bg-background border border-border rounded-sm px-3 py-2 text-body-sm text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all";
 const textoMarca = "text-[var(--primary-text,var(--primary))]";
 
 /* Símbolo + wordmark FindLook, com legenda opcional (ex.: nome da loja) */
@@ -94,10 +94,10 @@ function MarcaFindLook({ legenda, tamanho = "sm" }: { legenda?: string; tamanho?
     <div className="flex items-center gap-2 min-w-0">
       <img src={logoSimbolo} alt="" className={`${tamanho === "md" ? "h-8" : "h-6"} w-auto object-contain shrink-0`} />
       <div className="min-w-0 leading-tight">
-        <span className={`${tamanho === "md" ? "text-[1rem]" : "text-[0.8125rem]"} font-extrabold tracking-[-0.03em] text-foreground whitespace-nowrap`}>
+        <span className={`${tamanho === "md" ? "text-body" : "text-body-sm"} font-extrabold tracking-[-0.03em] text-foreground whitespace-nowrap`}>
           Find<span className="text-primary">Look</span>
         </span>
-        {legenda && <span className="block text-[0.625rem] text-muted-foreground truncate">{legenda}</span>}
+        {legenda && <span className="block text-caption text-muted-foreground truncate">{legenda}</span>}
       </div>
     </div>
   );
@@ -144,15 +144,15 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
 
   const linhaSwitch = (id: string, titulo: string, desc: string, marcado: boolean, mudar: (v: boolean) => void, Icon?: React.ElementType, desativado = false) => (
     <div key={id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
-      <div className="flex items-start gap-2.5 min-w-0">
+      <div className="flex items-start gap-2 min-w-0">
         {Icon && (
           <span className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center shrink-0">
             <Icon aria-hidden className="h-3.5 w-3.5 text-muted-foreground" />
           </span>
         )}
         <div className="min-w-0">
-          <label htmlFor={`${pre}-${id}`} className="block text-[0.8125rem] font-medium text-foreground cursor-pointer">{titulo}</label>
-          <p id={`${pre}-${id}-desc`} className="text-[0.6875rem] text-muted-foreground leading-snug">{desc}</p>
+          <label htmlFor={`${pre}-${id}`} className="block text-body-sm font-medium text-foreground cursor-pointer">{titulo}</label>
+          <p id={`${pre}-${id}-desc`} className="text-caption text-muted-foreground leading-snug">{desc}</p>
         </div>
       </div>
       <Switch id={`${pre}-${id}`} checked={marcado} onCheckedChange={mudar} disabled={desativado} aria-describedby={`${pre}-${id}-desc`} />
@@ -161,7 +161,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
 
   // Opção A (decisão da dona do produto, 23/11/2026): título, descrição e abas fora de qualquer card, no fundo da
   // página; embaixo, o conteúdo da aba em cards brancos com cabeçalho de ícone, um card por assunto.
-  const rotulo = (id: string, texto: string) => <label htmlFor={`${pre}-${id}`} className="block text-[0.75rem] font-medium text-foreground mb-1">{texto}</label>;
+  const rotulo = (id: string, texto: string) => <label htmlFor={`${pre}-${id}`} className="block text-label font-medium text-foreground mb-1">{texto}</label>;
   return (
     <TemplateFrame url="Painel da loja · Configurações">
       <div className={`space-y-5 ${embutido ? "" : "bg-muted p-4 sm:p-6"}`}>
@@ -191,9 +191,9 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                       <Store aria-hidden className={`h-7 w-7 ${textoMarca}`} />
                     </div>
                     <div>
-                      <div className="text-[0.875rem] font-semibold text-foreground">Ateliê Aurora</div>
-                      <div className="text-[0.75rem] text-muted-foreground">Loja parceira desde mar. de 2026</div>
-                      <button type="button" className={`mt-1 text-[0.6875rem] font-medium hover:underline rounded-[4px] ${textoMarca} ${foco}`}>Trocar logo da loja</button>
+                      <div className="text-body-sm font-semibold text-foreground">Ateliê Aurora</div>
+                      <div className="text-label text-muted-foreground">Loja parceira desde mar. de 2026</div>
+                      <button type="button" className={`mt-1 text-caption font-medium hover:underline rounded-sm ${textoMarca} ${foco}`}>Trocar logo da loja</button>
                     </div>
                   </div>
                   <div>
@@ -210,7 +210,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                       defaultValue="Moda feminina autoral e peças de brechó selecionadas. Tamanhos do PP ao GG."
                       className={`${campo} resize-none`}
                     />
-                    <p id={`${pre}-desc-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Conte em poucas palavras o que a sua loja vende e para quem.</p>
+                    <p id={`${pre}-desc-dica`} className="mt-1 text-caption text-muted-foreground">Conte em poucas palavras o que a sua loja vende e para quem.</p>
                   </div>
                 </div>
               </CardComCabecalho>
@@ -237,10 +237,10 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
               </CardComCabecalho>
 
               <div className="flex flex-wrap items-center justify-end gap-3">
-                <p role="status" className="text-[0.75rem] text-muted-foreground flex items-center gap-1.5">
+                <p role="status" className="text-label text-muted-foreground flex items-center gap-1">
                   {salvo && <><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> Alterações salvas. A vitrine já mostra as novas informações.</>}
                 </p>
-                <button type="submit" className={`h-10 px-4 rounded-md bg-primary text-primary-foreground text-[0.875rem] font-semibold hover:bg-[var(--primary-hover)] transition-colors ${foco}`}>
+                <button type="submit" className={`h-10 px-4 rounded-md bg-primary text-primary-foreground text-body-sm font-semibold hover:bg-[var(--primary-hover)] transition-colors ${foco}`}>
                   Salvar alterações
                 </button>
               </div>
@@ -288,8 +288,8 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                         ${th.active ? "border-primary bg-card" : "border-border bg-card"}`}
                     >
                       <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
-                      <span className={`text-[0.75rem] font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
-                      {th.active && <span className={`flex items-center gap-1 text-[0.625rem] font-semibold ${textoMarca}`}><Check aria-hidden className="h-3 w-3" /> Em uso</span>}
+                      <span className={`text-label font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
+                      {th.active && <span className={`flex items-center gap-1 text-caption font-semibold ${textoMarca}`}><Check aria-hidden className="h-3 w-3" /> Em uso</span>}
                     </button>
                   );
                 })}
@@ -304,7 +304,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                 icone={<Zap />}
                 titulo="Plano"
                 descricao="Plano Desempenho · R$ 149,00 por mês · renova em 1º de dez. de 2026"
-                acao={<button type="button" className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-[0.8125rem] font-medium text-foreground hover:bg-accent ${foco}`}>Ver planos</button>}
+                acao={<button type="button" className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-body-sm font-medium text-foreground hover:bg-accent ${foco}`}>Ver planos</button>}
               />
 
               <CardComCabecalho nivel={3} icone={<ShieldCheck />} titulo="Privacidade da vitrine" descricao="O que quem encontra suas peças pode ver da loja.">
@@ -313,9 +313,9 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                   {linhaSwitch("mostrar-whats", "Mostrar o WhatsApp na vitrine", "Quem encontra suas peças pode chamar a loja direto.", privacidade.whatsapp, v => setPrivacidade(p => ({ ...p, whatsapp: v })), MessageCircle)}
                   {linhaSwitch("mostrar-end", "Mostrar o endereço completo", "Desligado, a vitrine mostra só o bairro.", privacidade.endereco, v => setPrivacidade(p => ({ ...p, endereco: v })), MapPin)}
                   </div>
-                  <div className="mt-4 flex items-start gap-2.5 p-3 rounded-md bg-muted">
-                    <ShieldCheck aria-hidden className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                    <p className="text-[0.6875rem] text-muted-foreground leading-snug">
+                  <div className="mt-4 flex items-start gap-2 p-3 rounded-md bg-muted">
+                    <ShieldCheck aria-hidden className="h-4 w-4 text-success shrink-0 mt-1" />
+                    <p className="text-caption text-muted-foreground leading-snug">
                       Os avisos mostram o que as pessoas fizeram, sem nome nem contato. Você só recebe os dados de alguém quando a pessoa escolhe falar com a loja.
                     </p>
                   </div>
@@ -332,13 +332,13 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                   <button
                     type="button"
                     onClick={() => setVitrinePausada(v => !v)}
-                    className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-[0.8125rem] font-medium text-foreground hover:bg-accent ${foco}`}
+                    className={`h-9 px-3 rounded-md border border-[var(--border-strong)] bg-card text-body-sm font-medium text-foreground hover:bg-accent ${foco}`}
                   >
                     {vitrinePausada ? "Reativar vitrine" : "Pausar vitrine"}
                   </button>
                 }
               >
-                <button type="button" className={`inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}>
+                <button type="button" className={`inline-flex items-center gap-1 text-body-sm font-medium text-muted-foreground hover:text-foreground rounded-sm ${foco}`}>
                   <LogOut aria-hidden className="h-3.5 w-3.5" /> Sair da conta
                 </button>
               </CardComCabecalho>
@@ -372,16 +372,16 @@ function AuthTemplate() {
           <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-info/6 blur-3xl" />
           <div className="relative z-10 max-w-[240px]">
             <div className="mb-5"><MarcaFindLook tamanho="md" legenda="Painel da loja" /></div>
-            <h2 className="text-[1.125rem] font-bold text-foreground leading-snug mb-2">
+            <h2 className="text-subtitle font-bold text-foreground leading-snug mb-2">
               Sua loja encontrada por quem já procura o que você vende.
             </h2>
-            <p className="text-[0.8125rem] text-muted-foreground leading-relaxed">
+            <p className="text-body-sm text-muted-foreground leading-relaxed">
               Publique suas peças e receba contatos de pessoas da sua região.
             </p>
             <ul className="mt-6 space-y-2">
               {["Vitrine pesquisável por foto e descrição", "Contato direto pelo WhatsApp", "Veja quais peças despertam interesse"].map(f => (
-                <li key={f} className="flex items-start gap-2 text-[0.75rem] text-muted-foreground">
-                  <Check aria-hidden className="h-3.5 w-3.5 text-success shrink-0 mt-0.5" />
+                <li key={f} className="flex items-start gap-2 text-label text-muted-foreground">
+                  <Check aria-hidden className="h-3.5 w-3.5 text-success shrink-0 mt-1" />
                   {f}
                 </li>
               ))}
@@ -393,14 +393,14 @@ function AuthTemplate() {
         <div className="flex-1 flex items-center justify-center p-6 sm:p-8">
           <div className="w-full max-w-[300px]">
             <div className="md:hidden mb-5"><MarcaFindLook legenda="Painel da loja" /></div>
-            <div className="flex rounded-md border border-border bg-muted/40 p-0.5 mb-6" role="group" aria-label="Escolha uma opção">
+            <div className="flex rounded-md border border-border bg-muted/40 p-1 mb-6" role="group" aria-label="Escolha uma opção">
               {(["entrar", "criar"] as const).map(tb => (
                 <button
                   key={tb}
                   type="button"
                   aria-pressed={tab === tb}
                   onClick={() => trocar(tb)}
-                  className={`flex-1 py-1.5 rounded-sm text-[0.75rem] font-semibold transition-all ${foco}
+                  className={`flex-1 py-1 rounded-sm text-label font-semibold transition-all ${foco}
                     ${tab === tb ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
                 >
                   {tb === "entrar" ? "Entrar" : "Criar conta"}
@@ -413,23 +413,23 @@ function AuthTemplate() {
                 <div className="h-12 w-12 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-3">
                   <CheckCircle aria-hidden className="h-6 w-6 text-success" />
                 </div>
-                <p className="text-[0.9375rem] font-bold text-foreground mb-1">{entrar ? "Tudo certo!" : "Conta criada!"}</p>
-                <p className="text-[0.75rem] text-muted-foreground leading-relaxed mb-5">
+                <p className="text-body font-bold text-foreground mb-1">{entrar ? "Tudo certo!" : "Conta criada!"}</p>
+                <p className="text-label text-muted-foreground leading-relaxed mb-5">
                   {entrar
                     ? "Abrindo o painel do Ateliê Aurora."
                     : "Enviamos um e-mail para confirmar o endereço. Depois é só cadastrar as primeiras peças."}
                 </p>
-                <button type="button" onClick={() => setEnviado(false)} className={`h-8 px-4 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>
+                <button type="button" onClick={() => setEnviado(false)} className={`h-8 px-4 rounded-sm border border-border bg-card text-label font-medium text-foreground hover:bg-accent ${foco}`}>
                   Voltar
                 </button>
               </div>
             ) : (
               <form onSubmit={e => { e.preventDefault(); setEnviado(true); }}>
                 <div className="mb-5">
-                  <h1 className="text-[1.125rem] font-bold text-foreground">
+                  <h1 className="text-subtitle font-bold text-foreground">
                     {entrar ? "Que bom ter você de volta" : "Cadastre sua loja"}
                   </h1>
-                  <p className="text-[0.75rem] text-muted-foreground mt-0.5">
+                  <p className="text-label text-muted-foreground mt-1">
                     {entrar ? "Entre no painel da sua loja." : "Leva poucos minutos. Você revisa tudo antes de publicar."}
                   </p>
                 </div>
@@ -438,14 +438,14 @@ function AuthTemplate() {
                   {!entrar && (
                     <>
                       <div>
-                        <label htmlFor={`${pre}-nome`} className="block text-[0.75rem] font-medium text-foreground mb-1">Seu nome</label>
+                        <label htmlFor={`${pre}-nome`} className="block text-label font-medium text-foreground mb-1">Seu nome</label>
                         <div className="relative">
                           <User aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                           <input id={`${pre}-nome`} required type="text" autoComplete="name" placeholder="Ana Oliveira" className={`${campo} pl-8`} />
                         </div>
                       </div>
                       <div>
-                        <label htmlFor={`${pre}-loja`} className="block text-[0.75rem] font-medium text-foreground mb-1">Nome da loja</label>
+                        <label htmlFor={`${pre}-loja`} className="block text-label font-medium text-foreground mb-1">Nome da loja</label>
                         <div className="relative">
                           <Store aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                           <input id={`${pre}-loja`} required type="text" autoComplete="organization" placeholder="Ateliê Aurora" className={`${campo} pl-8`} />
@@ -454,7 +454,7 @@ function AuthTemplate() {
                     </>
                   )}
                   <div>
-                    <label htmlFor={`${pre}-email`} className="block text-[0.75rem] font-medium text-foreground mb-1">E-mail</label>
+                    <label htmlFor={`${pre}-email`} className="block text-label font-medium text-foreground mb-1">E-mail</label>
                     <div className="relative">
                       <Mail aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                       <input id={`${pre}-email`} required type="email" autoComplete="email" placeholder="ana@atelieaurora.com.br" className={`${campo} pl-8`} />
@@ -462,8 +462,8 @@ function AuthTemplate() {
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label htmlFor={`${pre}-senha`} className="text-[0.75rem] font-medium text-foreground">Senha</label>
-                      {entrar && <button type="button" className={`text-[0.6875rem] hover:underline rounded-[4px] ${textoMarca} ${foco}`}>Esqueci minha senha</button>}
+                      <label htmlFor={`${pre}-senha`} className="text-label font-medium text-foreground">Senha</label>
+                      {entrar && <button type="button" className={`text-caption hover:underline rounded-sm ${textoMarca} ${foco}`}>Esqueci minha senha</button>}
                     </div>
                     <div className="relative">
                       <Lock aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
@@ -487,26 +487,26 @@ function AuthTemplate() {
                         {showPass ? <EyeOff aria-hidden className="h-3.5 w-3.5" /> : <Eye aria-hidden className="h-3.5 w-3.5" />}
                       </button>
                     </div>
-                    {!entrar && <p id={`${pre}-senha-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Use pelo menos 8 caracteres.</p>}
+                    {!entrar && <p id={`${pre}-senha-dica`} className="mt-1 text-caption text-muted-foreground">Use pelo menos 8 caracteres.</p>}
                   </div>
 
                   {!entrar && (
                     <div className="flex items-start gap-2">
-                      <input id={`${pre}-termos`} type="checkbox" required className="mt-0.5 h-3.5 w-3.5 rounded accent-[var(--primary)] shrink-0" />
-                      <label htmlFor={`${pre}-termos`} className="text-[0.6875rem] text-muted-foreground leading-snug cursor-pointer">
+                      <input id={`${pre}-termos`} type="checkbox" required className="mt-1 h-3.5 w-3.5 rounded-sm accent-[var(--primary)] shrink-0" />
+                      <label htmlFor={`${pre}-termos`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                         Li e aceito os <span className={`underline underline-offset-2 ${textoMarca}`}>Termos de uso</span> e a <span className={`underline underline-offset-2 ${textoMarca}`}>Política de privacidade</span>.
                       </label>
                     </div>
                   )}
 
-                  <button type="submit" className={`w-full h-9 rounded-sm bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 mt-1 ${foco}`}>
+                  <button type="submit" className={`w-full h-9 rounded-sm bg-primary text-primary-foreground text-body-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1 mt-1 ${foco}`}>
                     {entrar ? <LogIn aria-hidden className="h-3.5 w-3.5" /> : <Store aria-hidden className="h-3.5 w-3.5" />}
                     {entrar ? "Entrar" : "Cadastrar minha loja"}
                   </button>
 
-                  <p className="text-center text-[0.6875rem] text-muted-foreground pt-1">
+                  <p className="text-center text-caption text-muted-foreground pt-1">
                     {entrar ? "Sua loja ainda não está na FindLook? " : "Já tem conta? "}
-                    <button type="button" onClick={() => trocar(entrar ? "criar" : "entrar")} className={`font-semibold hover:underline rounded-[4px] ${textoMarca} ${foco}`}>
+                    <button type="button" onClick={() => trocar(entrar ? "criar" : "entrar")} className={`font-semibold hover:underline rounded-sm ${textoMarca} ${foco}`}>
                       {entrar ? "Cadastre sua loja" : "Entrar"}
                     </button>
                   </p>
@@ -592,7 +592,7 @@ function TeamTemplate() {
               aria-controls={`${pre}-convite`}
               onClick={() => setConvidando(v => !v)}
               // Um botão principal por área visível: com o convite aberto, o principal é "Enviar convite"; este vira secundário.
-              className={`h-10 px-4 rounded-md text-[0.875rem] font-semibold flex items-center gap-2 transition-colors ${foco} ${convidando ? "border border-[var(--border-strong)] bg-card text-foreground hover:bg-accent" : "bg-primary text-primary-foreground hover:bg-[var(--primary-hover)]"}`}
+              className={`h-10 px-4 rounded-md text-body-sm font-semibold flex items-center gap-2 transition-colors ${foco} ${convidando ? "border border-[var(--border-strong)] bg-card text-foreground hover:bg-accent" : "bg-primary text-primary-foreground hover:bg-[var(--primary-hover)]"}`}
             >
               <UserPlus aria-hidden className="h-4 w-4" /> Convidar pessoa
             </button>
@@ -604,25 +604,25 @@ function TeamTemplate() {
           <form id={`${pre}-convite`} onSubmit={enviarConvite} className="space-y-4">
             <div className="grid grid-cols-1 @xl:grid-cols-[minmax(0,1fr)_auto] gap-3 items-end">
               <div>
-                <label htmlFor={`${pre}-email`} className="block text-[0.75rem] font-medium text-foreground mb-1">E-mail da pessoa</label>
+                <label htmlFor={`${pre}-email`} className="block text-label font-medium text-foreground mb-1">E-mail da pessoa</label>
                 <input id={`${pre}-email`} type="email" required autoComplete="off" value={emailConvite} onChange={e => setEmailConvite(e.target.value)} placeholder="nome@email.com" className={campo} />
               </div>
               <div className="flex gap-2">
-                <button type="button" onClick={() => setConvidando(false)} className={`h-9 px-3 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
-                <button type="submit" className={`h-9 px-3 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 flex items-center gap-1.5 ${foco}`}>
+                <button type="button" onClick={() => setConvidando(false)} className={`h-9 px-3 rounded-sm border border-border bg-card text-label font-medium text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
+                <button type="submit" className={`h-9 px-3 rounded-sm bg-primary text-primary-foreground text-label font-semibold hover:opacity-90 flex items-center gap-1 ${foco}`}>
                   <Send aria-hidden className="h-3.5 w-3.5" /> Enviar convite
                 </button>
               </div>
             </div>
             <fieldset>
-              <legend className="text-[0.75rem] font-medium text-foreground mb-1.5">O que essa pessoa pode fazer</legend>
+              <legend className="text-label font-medium text-foreground mb-1">O que essa pessoa pode fazer</legend>
               <div className="grid grid-cols-1 @xl:grid-cols-2 gap-2">
                 {(["atendente", "estoquista"] as const).map(p => (
-                  <label key={p} className={`flex items-start gap-2 p-2.5 rounded-md border cursor-pointer bg-card transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring ${papelConvite === p ? "border-primary" : "border-border"}`}>
-                    <input type="radio" name={`${pre}-papel`} value={p} checked={papelConvite === p} onChange={() => setPapelConvite(p)} className="mt-0.5 accent-[var(--primary)]" />
+                  <label key={p} className={`flex items-start gap-2 p-2 rounded-md border cursor-pointer bg-card transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring ${papelConvite === p ? "border-primary" : "border-border"}`}>
+                    <input type="radio" name={`${pre}-papel`} value={p} checked={papelConvite === p} onChange={() => setPapelConvite(p)} className="mt-1 accent-[var(--primary)]" />
                     <span>
-                      <span className="block text-[0.75rem] font-semibold text-foreground">{papeis[p].rotulo}</span>
-                      <span className="block text-[0.6875rem] text-muted-foreground leading-snug">{papeis[p].desc}</span>
+                      <span className="block text-label font-semibold text-foreground">{papeis[p].rotulo}</span>
+                      <span className="block text-caption text-muted-foreground leading-snug">{papeis[p].desc}</span>
                     </span>
                   </label>
                 ))}
@@ -641,17 +641,17 @@ function TeamTemplate() {
               onChange={e => setSearch(e.target.value)}
               placeholder="Buscar pessoa…"
               aria-label="Buscar pessoa por nome ou e-mail"
-              className={`${campo} pl-8 py-1.5 text-[0.75rem]`}
+              className={`${campo} pl-8 py-1 text-label`}
             />
           </div>
-          <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filtrar por papel">
+          <div className="flex flex-wrap gap-1" role="group" aria-label="Filtrar por papel">
             {(["todos", "responsavel", "atendente", "estoquista"] as const).map(f => (
               <button
                 key={f}
                 type="button"
                 aria-pressed={filtro === f}
                 onClick={() => setFiltro(f)}
-                className={`h-7 px-2.5 rounded-full border text-[0.6875rem] font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
+                className={`h-7 px-2 rounded-full border text-caption font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
               >
                 {f === "todos" ? "Todos" : papeis[f].rotulo}
               </button>
@@ -661,7 +661,7 @@ function TeamTemplate() {
 
           <p role="status" className="sr-only">{aviso}</p>
         {aviso && (
-          <div className="mb-4 flex items-center justify-between gap-2 rounded-md border border-success/30 bg-[var(--success-muted)] px-3 py-2 text-[0.75rem] text-foreground shrink-0">
+          <div className="mb-4 flex items-center justify-between gap-2 rounded-md border border-success/30 bg-[var(--success-muted)] px-3 py-2 text-label text-foreground shrink-0">
             <span className="flex items-center gap-2"><CheckCircle aria-hidden className="h-3.5 w-3.5 text-success" /> {aviso}</span>
             <button type="button" onClick={() => setAviso("")} aria-label="Fechar aviso" className={`h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:bg-accent ${foco}`}><X aria-hidden className="h-3.5 w-3.5" /></button>
           </div>
@@ -673,10 +673,10 @@ function TeamTemplate() {
             <caption className="sr-only">Pessoas com acesso ao painel da loja</caption>
             <thead>
               <tr>
-                <th scope="col" className="text-left pr-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Pessoa</th>
-                <th scope="col" className="hidden @md:table-cell text-left px-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Papel</th>
-                <th scope="col" className="hidden @2xl:table-cell text-left px-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Situação</th>
-                <th scope="col" className="hidden @3xl:table-cell text-left px-2 pb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Último acesso</th>
+                <th scope="col" className="text-left pr-2 pb-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">Pessoa</th>
+                <th scope="col" className="hidden @md:table-cell text-left px-2 pb-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">Papel</th>
+                <th scope="col" className="hidden @2xl:table-cell text-left px-2 pb-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">Situação</th>
+                <th scope="col" className="hidden @3xl:table-cell text-left px-2 pb-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">Último acesso</th>
                 <th scope="col" className="pl-2 pb-2"><span className="sr-only">Ações</span></th>
               </tr>
             </thead>
@@ -688,11 +688,11 @@ function TeamTemplate() {
                     <td className="px-2 py-3 first:pl-0 last:pr-0">
                       <div className="flex items-center gap-3">
                         <div className="h-7 w-7 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0" aria-hidden>
-                          <span className={`text-[0.5625rem] font-bold ${textoMarca}`}>{m.iniciais}</span>
+                          <span className={`text-caption font-bold ${textoMarca}`}>{m.iniciais}</span>
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[0.8125rem] font-medium text-foreground break-words">{m.nome}</div>
-                          <div className="text-[0.6875rem] text-muted-foreground break-all">{m.email}</div>
+                          <div className="text-body-sm font-medium text-foreground break-words">{m.nome}</div>
+                          <div className="text-caption text-muted-foreground break-all">{m.email}</div>
                           {/* Card estreito: o papel vem embaixo do e-mail, em vez de uma coluna. */}
                           <div className="@md:hidden mt-1">
                             {editando === m.email ? (
@@ -701,13 +701,13 @@ function TeamTemplate() {
                                 aria-label={`Papel de ${m.nome}`}
                                 value={m.papel}
                                 onChange={e => setPessoas(prev => prev.map(p => p.email === m.email ? { ...p, papel: e.target.value as Papel } : p))}
-                                className={`${campo} py-1 text-[0.75rem] w-auto`}
+                                className={`${campo} py-1 text-label w-auto`}
                               >
                                 <option value="atendente">Atendente</option>
                                 <option value="estoquista">Estoquista</option>
                               </select>
                             ) : (
-                              <span className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[0.625rem] font-semibold ${papeis[m.papel].cor}`}>{papeis[m.papel].rotulo}</span>
+                              <span className={`inline-flex items-center px-2 py-1 rounded-full border text-caption font-semibold ${papeis[m.papel].cor}`}>{papeis[m.papel].rotulo}</span>
                             )}
                           </div>
                         </div>
@@ -720,35 +720,35 @@ function TeamTemplate() {
                           aria-label={`Papel de ${m.nome}`}
                           value={m.papel}
                           onChange={e => setPessoas(prev => prev.map(p => p.email === m.email ? { ...p, papel: e.target.value as Papel } : p))}
-                          className={`${campo} py-1 text-[0.75rem] w-auto`}
+                          className={`${campo} py-1 text-label w-auto`}
                         >
                           <option value="atendente">Atendente</option>
                           <option value="estoquista">Estoquista</option>
                         </select>
                       ) : (
-                        <span title={papeis[m.papel].desc} className={`inline-flex items-center px-2 py-0.5 rounded-full border text-[0.625rem] font-semibold ${papeis[m.papel].cor}`}>
+                        <span title={papeis[m.papel].desc} className={`inline-flex items-center px-2 py-1 rounded-full border text-caption font-semibold ${papeis[m.papel].cor}`}>
                           {papeis[m.papel].rotulo}
                         </span>
                       )}
                     </td>
                     <td className="hidden @2xl:table-cell px-2 py-3">
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[0.625rem] font-medium border border-border bg-card text-foreground">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-caption font-medium border border-border bg-card text-foreground">
                         <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${situacoes[m.situacao].ponto}`} />
                         {situacoes[m.situacao].rotulo}
                       </span>
                     </td>
-                    <td className="hidden @3xl:table-cell px-2 py-3 text-[0.75rem] text-muted-foreground whitespace-nowrap">{m.acesso}</td>
+                    <td className="hidden @3xl:table-cell px-2 py-3 text-label text-muted-foreground whitespace-nowrap">{m.acesso}</td>
                     <td className="px-2 py-3 first:pl-0 last:pr-0">
                       {dono ? (
-                        <span className="block text-right text-[0.6875rem] text-muted-foreground">Você</span>
+                        <span className="block text-right text-caption text-muted-foreground">Você</span>
                       ) : removendo === m.email ? (
-                        <div className="flex flex-wrap items-center gap-1.5 justify-end">
-                          <span className="text-[0.6875rem] text-foreground whitespace-nowrap">Remover acesso?</span>
-                          <button type="button" autoFocus onClick={() => setRemovendo(null)} className={`h-6 px-2 rounded-sm border border-border bg-card text-[0.6875rem] text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
+                        <div className="flex flex-wrap items-center gap-1 justify-end">
+                          <span className="text-caption text-foreground whitespace-nowrap">Remover acesso?</span>
+                          <button type="button" autoFocus onClick={() => setRemovendo(null)} className={`h-6 px-2 rounded-sm border border-border bg-card text-caption text-foreground hover:bg-accent ${foco}`}>Cancelar</button>
                           <button
                             type="button"
                             onClick={() => { setPessoas(prev => prev.filter(p => p.email !== m.email)); setRemovendo(null); setAviso(`${m.nome} não tem mais acesso ao painel.`); }}
-                            className={`h-6 px-2 rounded-sm bg-destructive text-[var(--destructive-foreground)] text-[0.6875rem] font-semibold hover:opacity-90 ${foco}`}
+                            className={`h-6 px-2 rounded-sm bg-destructive text-[var(--destructive-foreground)] text-caption font-semibold hover:opacity-90 ${foco}`}
                           >
                             Remover
                           </button>
@@ -782,13 +782,13 @@ function TeamTemplate() {
           {filtered.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 text-muted-foreground px-6 text-center">
               <Search aria-hidden className="h-6 w-6 mb-2 opacity-30" />
-              <p className="text-[0.8125rem]">
+              <p className="text-body-sm">
                 {termo ? <>Ninguém da equipe encontrado para “<strong className="text-foreground">{search}</strong>”.</> : "Ninguém da equipe com esse papel."}
               </p>
             </div>
           )}
-          <p className="mt-3 text-[0.6875rem] text-muted-foreground @2xl:hidden">Nesta largura, a situação e o último acesso ficam de fora. Abra numa tela maior para ver tudo.</p>
-          <p className="mt-3 hidden text-[0.6875rem] text-muted-foreground @2xl:block @3xl:hidden">Nesta largura, o último acesso fica de fora. Abra numa tela maior para ver tudo.</p>
+          <p className="mt-3 text-caption text-muted-foreground @2xl:hidden">Nesta largura, a situação e o último acesso ficam de fora. Abra numa tela maior para ver tudo.</p>
+          <p className="mt-3 hidden text-caption text-muted-foreground @2xl:block @3xl:hidden">Nesta largura, o último acesso fica de fora. Abra numa tela maior para ver tudo.</p>
         </CardComCabecalho>
       </div>
     </TemplateFrame>
@@ -842,7 +842,7 @@ function InboxTemplate() {
               type="button"
               disabled={unread === 0}
               onClick={() => setItems(prev => prev.map(n => ({ ...n, lida: true })))}
-              className={`h-10 px-4 rounded-md border border-[var(--border-strong)] bg-card flex items-center gap-2 whitespace-nowrap text-[0.875rem] font-medium text-foreground hover:bg-accent disabled:opacity-50 disabled:pointer-events-none ${foco}`}
+              className={`h-10 px-4 rounded-md border border-[var(--border-strong)] bg-card flex items-center gap-2 whitespace-nowrap text-body-sm font-medium text-foreground hover:bg-accent disabled:opacity-50 disabled:pointer-events-none ${foco}`}
             >
               <CheckCheck aria-hidden className="h-4 w-4" /> Marcar todas como lidas
             </button>
@@ -877,16 +877,16 @@ function InboxTemplate() {
                     className={`w-full text-left px-4 py-3 border-b border-border transition-colors flex gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring
                       ${selected === n.id ? "bg-[var(--primary-suave)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
                   >
-                    <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
+                    <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-1 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-3.5 w-3.5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <span className={`block mb-0.5 text-[0.75rem] leading-tight truncate ${!n.lida ? "font-bold text-foreground" : "font-medium text-muted-foreground"}`}>
+                      <span className={`block mb-1 text-label leading-tight truncate ${!n.lida ? "font-bold text-foreground" : "font-medium text-muted-foreground"}`}>
                         {!n.lida && <span className="sr-only">Não lida: </span>}
                         {n.titulo}
                       </span>
-                      <p className="text-[0.625rem] text-muted-foreground leading-tight line-clamp-2">{n.texto}</p>
-                      <span className="text-[0.5625rem] text-muted-foreground">{n.quando}</span>
+                      <p className="text-caption text-muted-foreground leading-tight line-clamp-2">{n.texto}</p>
+                      <span className="text-caption text-muted-foreground">{n.quando}</span>
                     </div>
                     {/* Coluna própria para o ponto de não lida: o texto nunca passa por baixo dele (regra de 24/11/2026). */}
                     <span aria-hidden className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${!n.lida ? "bg-primary" : ""}`} />
@@ -897,7 +897,7 @@ function InboxTemplate() {
             {lista.length === 0 && (
               <li className="flex flex-col items-center justify-center text-center py-12 px-6 text-muted-foreground">
                 <CheckCheck aria-hidden className="h-6 w-6 mb-2 opacity-40" />
-                <p className="text-[0.75rem]">Tudo em dia. Nenhuma notificação não lida.</p>
+                <p className="text-label">Tudo em dia. Nenhuma notificação não lida.</p>
               </li>
             )}
           </ul>
@@ -913,7 +913,7 @@ function InboxTemplate() {
                 <button
                   type="button"
                   onClick={() => setDetalheMobile(false)}
-                  className={`@xl:hidden mb-4 inline-flex items-center gap-1 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground rounded-[4px] ${foco}`}
+                  className={`@xl:hidden mb-4 inline-flex items-center gap-1 text-label font-medium text-muted-foreground hover:text-foreground rounded-sm ${foco}`}
                 >
                   <ChevronRight aria-hidden className="h-3.5 w-3.5 rotate-180" /> Voltar para a lista
                 </button>
@@ -923,8 +923,8 @@ function InboxTemplate() {
                       <Icon aria-hidden className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">
-                      <h2 className="text-[0.9375rem] font-semibold text-foreground">{atual.titulo}</h2>
-                      <span className="text-[0.75rem] text-muted-foreground">{tipo.rotulo} · {atual.quando}</span>
+                      <h2 className="text-body font-semibold text-foreground">{atual.titulo}</h2>
+                      <span className="text-label text-muted-foreground">{tipo.rotulo} · {atual.quando}</span>
                     </div>
                   </div>
                   <button
@@ -936,19 +936,19 @@ function InboxTemplate() {
                     <X aria-hidden className="h-4 w-4" />
                   </button>
                 </div>
-                <p className="text-[0.875rem] text-foreground leading-relaxed mb-3">{atual.texto}</p>
-                <p className="text-[0.75rem] text-muted-foreground leading-relaxed mb-6 flex items-start gap-1.5">
-                  <ShieldCheck aria-hidden className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+                <p className="text-body-sm text-foreground leading-relaxed mb-3">{atual.texto}</p>
+                <p className="text-label text-muted-foreground leading-relaxed mb-6 flex items-start gap-1">
+                  <ShieldCheck aria-hidden className="h-3.5 w-3.5 shrink-0 mt-1" />
                   A FindLook mostra o que aconteceu sem nome nem contato de quem fez a busca ou salvou a peça.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" className={`h-8 px-4 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity ${foco}`}>
+                  <button type="button" className={`h-8 px-4 rounded-sm bg-primary text-primary-foreground text-label font-semibold hover:opacity-90 transition-opacity ${foco}`}>
                     {atual.acao}
                   </button>
                   <button
                     type="button"
                     onClick={() => marcar(atual.id, !atual.lida)}
-                    className={`h-8 px-4 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors inline-flex items-center gap-1.5 ${foco}`}
+                    className={`h-8 px-4 rounded-sm border border-border bg-card text-label font-medium text-foreground hover:bg-accent transition-colors inline-flex items-center gap-1 ${foco}`}
                   >
                     {atual.lida ? <><Mail aria-hidden className="h-3.5 w-3.5" /> Marcar como não lida</> : <><MailOpen aria-hidden className="h-3.5 w-3.5" /> Marcar como lida</>}
                   </button>
@@ -958,7 +958,7 @@ function InboxTemplate() {
           })() : (
             <div className="flex flex-col items-center justify-center h-full text-muted-foreground px-6 text-center">
               <Inbox aria-hidden className="h-8 w-8 mb-2 opacity-30" />
-              <p className="text-[0.875rem]">Escolha uma notificação para ver os detalhes.</p>
+              <p className="text-body-sm">Escolha uma notificação para ver os detalhes.</p>
             </div>
           )}
         </div>
@@ -980,7 +980,7 @@ function InboxTemplate() {
 function ChaveParaQuem({ ligado, onChange }: { ligado: boolean; onChange: (v: boolean) => void }) {
   const { t } = useI18n();
   return (
-    <div className="mb-4 flex items-center gap-2.5">
+    <div className="mb-4 flex items-center gap-2">
       <button
         type="button"
         role="switch"
@@ -992,7 +992,7 @@ function ChaveParaQuem({ ligado, onChange }: { ligado: boolean; onChange: (v: bo
       >
         <span className={`absolute h-4 w-4 rounded-full bg-white transition-all ${ligado ? "left-[22px]" : "left-0.5"}`} />
       </button>
-      <span id="rotulo-chave-para-quem" className="text-[0.8125rem] font-medium text-foreground">Página Planos e assinatura: mostrar “Para quem”</span>
+      <span id="rotulo-chave-para-quem" className="text-body-sm font-medium text-foreground">Página Planos e assinatura: mostrar “Para quem”</span>
     </div>
   );
 }
@@ -1032,7 +1032,7 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
           descricao={t("Choose the plan that fits your store. Change whenever you need.", "Escolha o plano que combina com a sua loja. Troque quando precisar.")}
           acoes={
           <div className="inline-flex items-center gap-3">
-            <span className={`text-[0.75rem] font-medium ${!annual ? "text-foreground" : "text-muted-foreground"}`}>{t("Monthly", "Mensal")}</span>
+            <span className={`text-label font-medium ${!annual ? "text-foreground" : "text-muted-foreground"}`}>{t("Monthly", "Mensal")}</span>
             <button
               type="button"
               role="switch"
@@ -1044,9 +1044,9 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
             >
               <span className={`absolute h-4 w-4 rounded-full bg-white transition-all ${annual ? "left-[22px]" : "left-0.5"}`} />
             </button>
-            <span className={`text-[0.75rem] font-medium ${annual ? "text-foreground" : "text-muted-foreground"}`}>
+            <span className={`text-label font-medium ${annual ? "text-foreground" : "text-muted-foreground"}`}>
               {t("Yearly", "Anual")}
-              <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-success/10 text-success text-[0.5625rem] font-bold">-20%</span>
+              <span className="ml-1 px-1 py-1 rounded-full bg-success/10 text-success text-caption font-bold">-20%</span>
             </span>
           </div>
           }
@@ -1149,14 +1149,14 @@ function ContactTemplate() {
               <div className="h-16 w-16 rounded-full bg-success/10 flex items-center justify-center mb-4">
                 <CheckCircle aria-hidden className="h-8 w-8 text-success" />
               </div>
-              <h3 className="text-[1.0625rem] font-bold text-foreground mb-2">Recebemos sua mensagem</h3>
-              <p className="text-[0.875rem] text-muted-foreground max-w-xs mb-6">
+              <h3 className="text-subtitle font-bold text-foreground mb-2">Recebemos sua mensagem</h3>
+              <p className="text-body-sm text-muted-foreground max-w-xs mb-6">
                 Vamos responder em até 1 dia útil no e-mail informado. Assunto: {subject.toLowerCase()}.
               </p>
               <button
                 type="button"
                 onClick={() => setSent(false)}
-                className={`h-9 px-5 rounded-md border border-border bg-card text-[0.875rem] font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
+                className={`h-9 px-5 rounded-md border border-border bg-card text-body-sm font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
               >
                 Enviar outra mensagem
               </button>
@@ -1166,14 +1166,14 @@ function ContactTemplate() {
 
               <div className="grid grid-cols-1 @lg:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor={`${pre}-nome`} className="block text-[0.75rem] font-medium text-foreground mb-1">Seu nome</label>
+                  <label htmlFor={`${pre}-nome`} className="block text-label font-medium text-foreground mb-1">Seu nome</label>
                   <div className="relative">
                     <User aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <input id={`${pre}-nome`} required type="text" autoComplete="name" defaultValue="Ana Oliveira" className={`${campo} pl-8`} />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor={`${pre}-email`} className="block text-[0.75rem] font-medium text-foreground mb-1">E-mail para resposta</label>
+                  <label htmlFor={`${pre}-email`} className="block text-label font-medium text-foreground mb-1">E-mail para resposta</label>
                   <div className="relative">
                     <AtSign aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <input id={`${pre}-email`} required type="email" autoComplete="email" defaultValue="ana@atelieaurora.com.br" className={`${campo} pl-8`} />
@@ -1182,7 +1182,7 @@ function ContactTemplate() {
               </div>
 
               <div>
-                <label htmlFor={`${pre}-loja`} className="block text-[0.75rem] font-medium text-foreground mb-1">Loja</label>
+                <label htmlFor={`${pre}-loja`} className="block text-label font-medium text-foreground mb-1">Loja</label>
                 <div className="relative">
                   <Store aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                   <input id={`${pre}-loja`} type="text" autoComplete="organization" defaultValue="Ateliê Aurora" className={`${campo} pl-8`} />
@@ -1190,7 +1190,7 @@ function ContactTemplate() {
               </div>
 
               <div>
-                <label htmlFor={`${pre}-assunto`} className="block text-[0.75rem] font-medium text-foreground mb-1">Assunto</label>
+                <label htmlFor={`${pre}-assunto`} className="block text-label font-medium text-foreground mb-1">Assunto</label>
                 <div className="relative">
                   <select
                     id={`${pre}-assunto`}
@@ -1205,7 +1205,7 @@ function ContactTemplate() {
               </div>
 
               <div>
-                <label htmlFor={`${pre}-msg`} className="block text-[0.75rem] font-medium text-foreground mb-1">Mensagem</label>
+                <label htmlFor={`${pre}-msg`} className="block text-label font-medium text-foreground mb-1">Mensagem</label>
                 <textarea
                   id={`${pre}-msg`}
                   required
@@ -1214,26 +1214,26 @@ function ContactTemplate() {
                   placeholder="Ex.: importei a planilha, mas 3 peças ficaram sem foto."
                   className={`${campo} resize-none`}
                 />
-                <p id={`${pre}-msg-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Não envie senhas nem dados de cartão por aqui.</p>
+                <p id={`${pre}-msg-dica`} className="mt-1 text-caption text-muted-foreground">Não envie senhas nem dados de cartão por aqui.</p>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <input type="checkbox" id={`${pre}-whats`} className="mt-0.5 h-3.5 w-3.5 rounded accent-[var(--primary)] shrink-0" />
-                <label htmlFor={`${pre}-whats`} className="text-[0.6875rem] text-muted-foreground leading-snug cursor-pointer">
+              <div className="flex items-start gap-2">
+                <input type="checkbox" id={`${pre}-whats`} className="mt-1 h-3.5 w-3.5 rounded-sm accent-[var(--primary)] shrink-0" />
+                <label htmlFor={`${pre}-whats`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                   Pode me responder também pelo WhatsApp da loja.
                 </label>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <input type="checkbox" required id={`${pre}-consent`} className="mt-0.5 h-3.5 w-3.5 rounded accent-[var(--primary)] shrink-0" />
-                <label htmlFor={`${pre}-consent`} className="text-[0.6875rem] text-muted-foreground leading-snug cursor-pointer">
+              <div className="flex items-start gap-2">
+                <input type="checkbox" required id={`${pre}-consent`} className="mt-1 h-3.5 w-3.5 rounded-sm accent-[var(--primary)] shrink-0" />
+                <label htmlFor={`${pre}-consent`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                   Concordo com os <span className={`underline underline-offset-2 ${textoMarca}`}>Termos de uso</span> e a <span className={`underline underline-offset-2 ${textoMarca}`}>Política de privacidade</span>.
                 </label>
               </div>
 
               <button
                 type="submit"
-                className={`w-full h-10 rounded-md bg-primary text-primary-foreground text-[0.875rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 ${foco}`}
+                className={`w-full h-10 rounded-md bg-primary text-primary-foreground text-body-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 ${foco}`}
               >
                 <Send aria-hidden className="h-4 w-4" />
                 Enviar mensagem
@@ -1252,9 +1252,9 @@ function ContactTemplate() {
                     <Icon aria-hidden className="h-4 w-4" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[0.6875rem] text-muted-foreground">{ch.rotulo}</div>
-                    <div className="text-[0.75rem] font-semibold text-foreground truncate">{ch.valor}</div>
-                    <div className="text-[0.6875rem] text-muted-foreground">{ch.desc}</div>
+                    <div className="text-caption text-muted-foreground">{ch.rotulo}</div>
+                    <div className="text-label font-semibold text-foreground truncate">{ch.valor}</div>
+                    <div className="text-caption text-muted-foreground">{ch.desc}</div>
                   </div>
                 </li>
               );
@@ -1265,7 +1265,7 @@ function ContactTemplate() {
             <ul className="space-y-1">
               {guiasRapidos.map(g => (
                 <li key={g}>
-                  <button type="button" className={`w-full flex items-center justify-between gap-2 text-left text-[0.8125rem] text-muted-foreground hover:text-foreground py-1.5 rounded-[4px] ${foco}`}>
+                  <button type="button" className={`w-full flex items-center justify-between gap-2 text-left text-body-sm text-muted-foreground hover:text-foreground py-1 rounded-sm ${foco}`}>
                     {g} <ChevronRight aria-hidden className="h-3 w-3 shrink-0" />
                   </button>
                 </li>
@@ -1300,7 +1300,7 @@ function DemoBotoesFlutuantes() {
               <ConteudoFalso titulo="Diga o que procura. A gente mostra onde encontrar." texto={t("Home page content (example).", "Conteúdo da página inicial (exemplo).")} />
             </div>
             <ConteudoFalso titulo={t("Local stores", "Lojas locais")} texto={t("More page content (example).", "Mais conteúdo da página (exemplo).")} />
-            <footer className="mt-6 border-t border-border px-5 py-6 text-[0.75rem] leading-relaxed text-muted-foreground">
+            <footer className="mt-6 border-t border-border px-5 py-6 text-label leading-relaxed text-muted-foreground">
               <p className="font-semibold text-foreground">Seu estilo por perto.</p>
               <p className="mt-1">Privacidade · Termos de uso</p>
               <p className="mt-1">Desenvolvido por Dani Moscatelli • Experience Design Studio</p>
@@ -1319,8 +1319,8 @@ export function TemplatesShowcase() {
   return (
     <div className="space-y-16">
       <div className="mb-2">
-        <h2 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground mb-1">Templates</h2>
-        <p className="text-[0.9375rem] text-muted-foreground">
+        <h2 className="text-h3 font-semibold tracking-[-0.02em] text-foreground mb-1">Templates</h2>
+        <p className="text-body text-muted-foreground">
           Telas prontas do painel da loja e das páginas da FindLook, montadas com os componentes do design system.
         </p>
       </div>
@@ -1328,7 +1328,7 @@ export function TemplatesShowcase() {
       {/* Painel da loja (protótipo) */}
       <section id="template-dashboard">
         <TemplateLabel icon={LayoutDashboard} label="Painel da loja: protótipo navegável" />
-        <p className="-mt-2 mb-4 max-w-2xl text-[0.875rem] leading-relaxed text-muted-foreground">Uma janela só, com rolagem própria. Use o menu lateral, a busca, o sino e o menu da conta para trocar de página, como no painel de verdade. Em telas largas, o botão Recolher menu, no pé do menu, deixa só os ícones (com tooltip) e a escolha fica guardada. O cabeçalho é branco, igual ao menu, com linha fina embaixo, e o perfil fica sempre nele, à direita. Em telas estreitas, o menu abre como gaveta dentro da janela, sempre expandido.</p>
+        <p className="-mt-2 mb-4 max-w-2xl text-body-sm leading-relaxed text-muted-foreground">Uma janela só, com rolagem própria. Use o menu lateral, a busca, o sino e o menu da conta para trocar de página, como no painel de verdade. Em telas largas, o botão Recolher menu, no pé do menu, deixa só os ícones (com tooltip) e a escolha fica guardada. O cabeçalho é branco, igual ao menu, com linha fina embaixo, e o perfil fica sempre nele, à direita. Em telas estreitas, o menu abre como gaveta dentro da janela, sempre expandido.</p>
         <PrototipoComControles />
       </section>
 
@@ -1346,8 +1346,8 @@ export function TemplatesShowcase() {
       {/* 9 — Botões flutuantes (padrão de 16/11/2026) */}
       <section id="template-flutuantes" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">{t("Floating buttons", "Botões flutuantes")}</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5 max-w-2xl">
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">{t("Floating buttons", "Botões flutuantes")}</h2>
+          <p className="text-body-sm text-muted-foreground mt-1 max-w-2xl">
             {t(
               "The landing pages have up to two buttons fixed on the screen: the phone action bar (for example, Find pieces or Register my store) and Back to top. Rules so that one never covers the other or the footer.",
               "As landing pages têm até dois botões fixos na tela: a barra de ação do celular (por exemplo, Encontrar peças ou Cadastrar minha loja) e o Voltar ao topo. Regras para um nunca cobrir o outro nem o rodapé.",
@@ -1367,9 +1367,9 @@ export function TemplatesShowcase() {
           )}
         </Callout>
         <div className="space-y-3">
-          <p className="text-[0.8125rem] font-semibold text-foreground">{t("Try it: end of the page on the phone", "Experimente: fim da página no celular")}</p>
+          <p className="text-body-sm font-semibold text-foreground">{t("Try it: end of the page on the phone", "Experimente: fim da página no celular")}</p>
           <DemoBotoesFlutuantes />
-          <p className="mx-auto max-w-[360px] text-[0.75rem] leading-relaxed text-muted-foreground">{t("The demo starts at the end of the page. Back to top sits above the bar, and the last line of the footer stays visible above both. Tap Back to top to go up.", "A demonstração começa no fim da página. O Voltar ao topo fica acima da barra, e a última linha do rodapé continua visível acima dos dois. Toque no Voltar ao topo para subir.")}</p>
+          <p className="mx-auto max-w-[360px] text-label leading-relaxed text-muted-foreground">{t("The demo starts at the end of the page. Back to top sits above the bar, and the last line of the footer stays visible above both. Tap Back to top to go up.", "A demonstração começa no fim da página. O Voltar ao topo fica acima da barra, e a última linha do rodapé continua visível acima dos dois. Toque no Voltar ao topo para subir.")}</p>
         </div>
         <DoDont
           dos={[
@@ -1398,8 +1398,8 @@ export function TemplatesShowcase() {
       {/* ── Tokens ── */}
       <section id="templates-tokens" className="space-y-5">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-[1.5rem] font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
-          <p className="text-[0.8125rem] text-muted-foreground mt-0.5">{t("Core CSS custom properties shared across all templates.", "Propriedades CSS personalizadas principais compartilhadas por todos os templates.")}</p>
+          <h2 className="font-[family-name:var(--font-display)] text-h3 font-semibold tracking-[-0.02em] text-foreground">Tokens</h2>
+          <p className="text-body-sm text-muted-foreground mt-1">{t("Core CSS custom properties shared across all templates.", "Propriedades CSS personalizadas principais compartilhadas por todos os templates.")}</p>
         </div>
         <TokenTable groups={templatesTokenGroups(t)} />
       </section>
@@ -1537,12 +1537,12 @@ function LandingTemplate() {
           <MarcaFindLook legenda="para lojas" />
           <div className="hidden md:flex items-center gap-4">
             {["Como funciona", "Benefícios", "Planos", "Dúvidas"].map(item => (
-              <button key={item} type="button" className={`text-[0.75rem] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-[4px] ${foco}`}>{item}</button>
+              <button key={item} type="button" className={`text-label font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>{item}</button>
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <button type="button" className={`h-7 px-3 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>Entrar</button>
-            <button type="button" className={`h-7 px-3 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap ${foco}`}>
+            <button type="button" className={`h-7 px-3 text-label font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>Entrar</button>
+            <button type="button" className={`h-7 px-3 rounded-sm bg-primary text-primary-foreground text-label font-semibold hover:opacity-90 transition-opacity whitespace-nowrap ${foco}`}>
               Cadastrar minha loja
             </button>
           </div>
@@ -1554,20 +1554,20 @@ function LandingTemplate() {
           <div className="absolute top-10 left-1/5 w-[220px] h-[220px] rounded-full bg-info/5 blur-3xl pointer-events-none" />
           <div className="absolute top-10 right-1/5 w-[180px] h-[180px] rounded-full bg-warning/4 blur-3xl pointer-events-none" />
           <div className="relative z-10 text-center max-w-2xl mx-auto">
-            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/25 bg-[var(--primary-suave)] text-[0.6875rem] font-semibold mb-5 ${textoMarca}`}>
+            <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full border border-primary/25 bg-[var(--primary-suave)] text-caption font-semibold mb-5 ${textoMarca}`}>
               <Store aria-hidden className="h-3 w-3" /> Para lojas e brechós da sua cidade
             </div>
-            <h1 className="text-[1.875rem] sm:text-[2.25rem] font-black text-foreground tracking-[-0.04em] leading-[1.1] mb-4">
+            <h1 className="text-h2 sm:text-display-md font-black text-foreground tracking-[-0.04em] leading-[1.1] mb-4">
               Sua loja encontrada<br />
               <span className={textoMarca}>por quem já procura</span><br />
               o que você vende
             </h1>
-            <p className="text-[0.9375rem] text-muted-foreground max-w-lg mx-auto leading-relaxed mb-8">
+            <p className="text-body text-muted-foreground max-w-lg mx-auto leading-relaxed mb-8">
               Publique suas peças na FindLook e apareça para pessoas da região que buscam por foto ou descrição. O contato é direto com a sua loja, pelo WhatsApp.
             </p>
             <div className="flex items-center justify-center gap-3 mb-5">
               {subscribed ? (
-                <div role="status" className="flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--success-muted)] border border-success/30 text-foreground text-[0.8125rem] font-medium">
+                <div role="status" className="flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--success-muted)] border border-success/30 text-foreground text-body-sm font-medium">
                   <CheckCircle aria-hidden className="h-4 w-4 text-success" /> Pronto! Enviamos para o seu e-mail um link para continuar o cadastro.
                 </div>
               ) : (
@@ -1576,17 +1576,17 @@ function LandingTemplate() {
                     <label htmlFor={`${pre}-hero-email`} className="sr-only">E-mail da loja</label>
                     <Mail aria-hidden className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <input id={`${pre}-hero-email`} type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail da loja"
-                      className={`${campo} bg-card rounded-sm pl-9 py-2.5`} />
+                      className={`${campo} bg-card rounded-sm pl-9 py-2`} />
                   </div>
-                  <button type="submit" className={`h-10 px-4 rounded-sm bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap flex items-center justify-center gap-1.5 ${foco}`}>
+                  <button type="submit" className={`h-10 px-4 rounded-sm bg-primary text-primary-foreground text-body-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap flex items-center justify-center gap-1 ${foco}`}>
                     <Store aria-hidden className="h-3.5 w-3.5" /> Cadastrar minha loja
                   </button>
                 </form>
               )}
             </div>
-            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-[0.6875rem] text-muted-foreground">
+            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-caption text-muted-foreground">
               {["Contato direto com quem procura", `Planos a partir de ${reais(79)} por mês`, "Troque de plano quando precisar"].map(item => (
-                <li key={item} className="flex items-center gap-1.5"><Check aria-hidden className="h-3 w-3 text-success" />{item}</li>
+                <li key={item} className="flex items-center gap-1"><Check aria-hidden className="h-3 w-3 text-success" />{item}</li>
               ))}
             </ul>
           </div>
@@ -1597,8 +1597,8 @@ function LandingTemplate() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 sm:divide-x divide-border max-w-2xl mx-auto">
             {fatosLanding.map(s => (
               <div key={s.rotulo} className="text-center px-3">
-                <div className="text-[1.0625rem] font-black text-foreground tracking-tight">{s.valor}</div>
-                <div className="text-[0.6875rem] text-muted-foreground">{s.rotulo}</div>
+                <div className="text-subtitle font-black text-foreground tracking-tight">{s.valor}</div>
+                <div className="text-caption text-muted-foreground">{s.rotulo}</div>
               </div>
             ))}
           </div>
@@ -1607,14 +1607,14 @@ function LandingTemplate() {
         {/* ══ PRÉVIA DO PAINEL ══ */}
         <div className="px-4 sm:px-6 py-10">
           <div className="text-center mb-6">
-            <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Painel da loja</p>
-            <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Tudo o que a sua loja precisa, em um só lugar</h2>
-            <p className="text-[0.75rem] text-muted-foreground mt-1">Exemplo ilustrativo com dados fictícios.</p>
+            <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Painel da loja</p>
+            <h2 className="text-h4 font-black text-foreground tracking-tight">Tudo o que a sua loja precisa, em um só lugar</h2>
+            <p className="text-label text-muted-foreground mt-1">Exemplo ilustrativo com dados fictícios.</p>
           </div>
           <div className="max-w-2xl mx-auto rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-xl)" }}>
             <div className="h-8 bg-muted/60 border-b border-border flex items-center px-4 gap-2 shrink-0" aria-hidden>
-              <div className="flex gap-1.5"><div className="h-2 w-2 rounded-full bg-primary/50" /><div className="h-2 w-2 rounded-full bg-warning/50" /><div className="h-2 w-2 rounded-full bg-success/50" /></div>
-              <div className="flex-1 mx-6"><div className="h-4 bg-background/60 rounded-[4px] max-w-[200px] mx-auto flex items-center px-2"><span className="text-[0.5rem] text-muted-foreground/70">Painel da loja · FindLook</span></div></div>
+              <div className="flex gap-1"><div className="h-2 w-2 rounded-full bg-primary/50" /><div className="h-2 w-2 rounded-full bg-warning/50" /><div className="h-2 w-2 rounded-full bg-success/50" /></div>
+              <div className="flex-1 mx-6"><div className="h-4 bg-background/60 rounded-sm max-w-[200px] mx-auto flex items-center px-2"><span className="text-caption text-muted-foreground/70">Painel da loja · FindLook</span></div></div>
             </div>
             <div className="p-4">
               {/* Indicadores */}
@@ -1625,10 +1625,10 @@ function LandingTemplate() {
                   { label: "Contatos",                value: "41",    delta: "+5%"  },
                   { label: "Buscas compatíveis",      value: "318",   delta: "+9%"  },
                 ].map(k => (
-                  <div key={k.label} className="rounded-sm border border-border bg-background p-2.5">
-                    <div className="text-[0.5625rem] text-muted-foreground mb-1">{k.label}</div>
-                    <div className="text-[0.9375rem] font-black text-foreground leading-none">{k.value}</div>
-                    <div className="text-[0.5625rem] flex items-center gap-0.5 mt-1 font-medium text-muted-foreground">
+                  <div key={k.label} className="rounded-sm border border-border bg-background p-2">
+                    <div className="text-caption text-muted-foreground mb-1">{k.label}</div>
+                    <div className="text-body font-black text-foreground leading-none">{k.value}</div>
+                    <div className="text-caption flex items-center gap-1 mt-1 font-medium text-muted-foreground">
                       <TrendingUp aria-hidden className="h-2.5 w-2.5 text-success" />
                       <span className="text-foreground">{k.delta}</span>&nbsp;no mês
                     </div>
@@ -1638,8 +1638,8 @@ function LandingTemplate() {
               {/* Gráfico */}
               <div className="rounded-sm border border-border bg-background p-3 mb-3">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[0.625rem] font-semibold text-foreground">Visualizações das peças — últimos 12 meses</span>
-                  <span className="text-[0.5625rem] px-1.5 py-0.5 rounded-full bg-[var(--success-muted)] text-foreground font-semibold">+12%</span>
+                  <span className="text-caption font-semibold text-foreground">Visualizações das peças — últimos 12 meses</span>
+                  <span className="text-caption px-1 py-1 rounded-full bg-[var(--success-muted)] text-foreground font-semibold">+12%</span>
                 </div>
                 <div className="h-[80px]" role="img" aria-label="Gráfico de área: visualizações das peças crescendo de janeiro a dezembro">
                   <ResponsiveContainer width="100%" height="100%">
@@ -1659,21 +1659,21 @@ function LandingTemplate() {
               </div>
               {/* Peças mais vistas */}
               <div className="rounded-sm border border-border bg-background overflow-hidden">
-                <div className="px-3 py-1.5 border-b border-border text-[0.625rem] font-semibold text-foreground">Peças mais vistas</div>
-                <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 border-b border-border bg-muted/40 px-3 py-1.5">
+                <div className="px-3 py-1 border-b border-border text-caption font-semibold text-foreground">Peças mais vistas</div>
+                <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 border-b border-border bg-muted/40 px-3 py-1">
                   {["Peça", "Categoria", "Visualizações", "Situação"].map(h => (
-                    <div key={h} className="text-[0.5rem] font-semibold uppercase tracking-wide text-muted-foreground truncate">{h}</div>
+                    <div key={h} className="text-caption font-semibold uppercase tracking-wide text-muted-foreground truncate">{h}</div>
                   ))}
                 </div>
                 {pecasMaisVistas.map(r => (
                   <div key={r.nome} className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 px-3 py-2 border-b border-border last:border-0 items-center">
-                    <div className="text-[0.625rem] font-medium text-foreground flex items-center gap-1.5 min-w-0">
+                    <div className="text-caption font-medium text-foreground flex items-center gap-1 min-w-0">
                       <IconeModa nome={r.icone} size={12} className="text-muted-foreground" />
                       <span className="truncate">{r.nome}</span>
                     </div>
-                    <div className="text-[0.5625rem] text-muted-foreground truncate">{r.categoria}</div>
-                    <div className="text-[0.625rem] font-semibold text-foreground">{r.vistas.toLocaleString("pt-BR")}</div>
-                    <div className="text-[0.5625rem] font-medium text-foreground flex items-center gap-1">
+                    <div className="text-caption text-muted-foreground truncate">{r.categoria}</div>
+                    <div className="text-caption font-semibold text-foreground">{r.vistas.toLocaleString("pt-BR")}</div>
+                    <div className="text-caption font-medium text-foreground flex items-center gap-1">
                       <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${r.ponto}`} />{r.situacao}
                     </div>
                   </div>
@@ -1686,8 +1686,8 @@ function LandingTemplate() {
         {/* ══ BENEFÍCIOS ══ */}
         <div className="px-4 sm:px-6 py-10 bg-card/30 border-y border-border">
           <div className="text-center mb-7">
-            <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Benefícios</p>
-            <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Feito para lojas de rua, ateliês e brechós</h2>
+            <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Benefícios</p>
+            <h2 className="text-h4 font-black text-foreground tracking-tight">Feito para lojas de rua, ateliês e brechós</h2>
           </div>
           <GradeDeCards className="max-w-2xl mx-auto sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
@@ -1695,26 +1695,26 @@ function LandingTemplate() {
               <div className="h-8 w-8 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-3">
                 <Search aria-hidden className={`h-4 w-4 ${textoMarca}`} />
               </div>
-              <h3 className="text-[0.875rem] font-bold text-foreground mb-1">Apareça na busca certa</h3>
-              <p className="text-[0.75rem] text-muted-foreground leading-snug mb-3">Quem procura por foto ou descrição encontra as suas peças pelo estilo, pelo tamanho e pela região.</p>
+              <h3 className="text-body-sm font-bold text-foreground mb-1">Apareça na busca certa</h3>
+              <p className="text-label text-muted-foreground leading-snug mb-3">Quem procura por foto ou descrição encontra as suas peças pelo estilo, pelo tamanho e pela região.</p>
               <div className="flex flex-wrap gap-2">
                 {["Busca por foto", "Busca por descrição", "Perto de quem procura"].map(chip => (
-                  <span key={chip} className={`text-[0.5625rem] px-2 py-0.5 rounded-full bg-[var(--primary-suave)] font-medium border border-primary/15 ${textoMarca}`}>{chip}</span>
+                  <span key={chip} className={`text-caption px-2 py-1 rounded-full bg-[var(--primary-suave)] font-medium border border-primary/15 ${textoMarca}`}>{chip}</span>
                 ))}
               </div>
             </div>
             <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between">
               <MessageCircle aria-hidden className="h-5 w-5 text-success mb-2" />
               <div>
-                <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Contato direto</h3>
-                <p className="text-[0.6875rem] text-muted-foreground">A pessoa chama a loja no WhatsApp. A venda é sua.</p>
+                <h3 className="text-body-sm font-bold text-foreground mb-1">Contato direto</h3>
+                <p className="text-caption text-muted-foreground">A pessoa chama a loja no WhatsApp. A venda é sua.</p>
               </div>
             </div>
             <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between">
               <FileSpreadsheet aria-hidden className="h-5 w-5 text-info mb-2" />
               <div>
-                <h3 className="text-[0.8125rem] font-bold text-foreground mb-1">Planilha ou uma a uma</h3>
-                <p className="text-[0.6875rem] text-muted-foreground">Cadastre peças pelo painel ou importe várias de uma vez.</p>
+                <h3 className="text-body-sm font-bold text-foreground mb-1">Planilha ou uma a uma</h3>
+                <p className="text-caption text-muted-foreground">Cadastre peças pelo painel ou importe várias de uma vez.</p>
               </div>
             </div>
             <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
@@ -1722,11 +1722,11 @@ function LandingTemplate() {
               <div className="h-8 w-8 rounded-md bg-[var(--info-muted)] flex items-center justify-center mb-3">
                 <BarChart aria-hidden className="h-4 w-4 text-info" />
               </div>
-              <h3 className="text-[0.875rem] font-bold text-foreground mb-1">Entenda o interesse pelas suas peças</h3>
-              <p className="text-[0.75rem] text-muted-foreground leading-snug mb-3">Veja quais peças são mais vistas, favoritadas e procuradas na sua região. Nos planos Desempenho e Oportunidades.</p>
+              <h3 className="text-body-sm font-bold text-foreground mb-1">Entenda o interesse pelas suas peças</h3>
+              <p className="text-label text-muted-foreground leading-snug mb-3">Veja quais peças são mais vistas, favoritadas e procuradas na sua região. Nos planos Desempenho e Oportunidades.</p>
               <div className="flex flex-wrap gap-2">
                 {["Favoritos", "Reservas", "Contatos", "Buscas compatíveis"].map(chip => (
-                  <span key={chip} className="text-[0.5625rem] px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium border border-border">{chip}</span>
+                  <span key={chip} className="text-caption px-2 py-1 rounded-full bg-muted text-muted-foreground font-medium border border-border">{chip}</span>
                 ))}
               </div>
             </div>
@@ -1738,10 +1738,10 @@ function LandingTemplate() {
           <div className="max-w-2xl mx-auto">
             <div className="flex flex-wrap items-end justify-between gap-3 mb-6">
               <div>
-                <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Acompanhamento</p>
-                <h2 className="text-[1.125rem] font-black text-foreground tracking-tight">Acompanhe o interesse, mês a mês</h2>
+                <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Acompanhamento</p>
+                <h2 className="text-subtitle font-black text-foreground tracking-tight">Acompanhe o interesse, mês a mês</h2>
               </div>
-              <div className="flex gap-3 text-[0.625rem] text-muted-foreground">
+              <div className="flex gap-3 text-caption text-muted-foreground">
                 <span className="flex items-center gap-1"><span aria-hidden className="h-2 w-2 rounded-full bg-primary inline-block" />Buscas compatíveis com as suas peças (exemplo)</span>
               </div>
             </div>
@@ -1764,8 +1764,8 @@ function LandingTemplate() {
         {/* ══ COMO FUNCIONA ══ */}
         <div className="px-4 sm:px-6 py-10 bg-card/30 border-y border-border">
           <div className="text-center mb-8">
-            <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Como funciona</p>
-            <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Do cadastro ao primeiro contato</h2>
+            <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Como funciona</p>
+            <h2 className="text-h4 font-black text-foreground tracking-tight">Do cadastro ao primeiro contato</h2>
           </div>
           <div className="max-w-lg mx-auto relative">
             <div aria-hidden className="absolute left-[19px] top-2 bottom-2 w-px bg-border" />
@@ -1773,12 +1773,12 @@ function LandingTemplate() {
               {passosLanding.map((item, i) => (
                 <li key={item.titulo} className="flex gap-4 relative">
                   <div className={`h-10 w-10 rounded-full flex items-center justify-center shrink-0 z-10 border-2 ${i === 0 ? "bg-primary border-primary text-primary-foreground" : "bg-card border-border text-foreground"}`}>
-                    <span className="text-[0.8125rem] font-bold">{i + 1}</span>
+                    <span className="text-body-sm font-bold">{i + 1}</span>
                   </div>
-                  <div className="pt-1.5 pb-2">
-                    <span className={`text-[0.6875rem] font-semibold ${textoMarca}`}>Passo {i + 1}</span>
-                    <h3 className="text-[0.875rem] font-bold text-foreground mb-0.5">{item.titulo}</h3>
-                    <p className="text-[0.75rem] text-muted-foreground leading-snug">{item.desc}</p>
+                  <div className="pt-1 pb-2">
+                    <span className={`text-caption font-semibold ${textoMarca}`}>Passo {i + 1}</span>
+                    <h3 className="text-body-sm font-bold text-foreground mb-1">{item.titulo}</h3>
+                    <p className="text-label text-muted-foreground leading-snug">{item.desc}</p>
                   </div>
                 </li>
               ))}
@@ -1789,24 +1789,24 @@ function LandingTemplate() {
         {/* ══ COMPARATIVO DE PLANOS ══ */}
         <div className="px-4 sm:px-6 py-10">
           <div className="text-center mb-7">
-            <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Planos</p>
-            <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Compare e escolha o plano da sua loja</h2>
+            <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Planos</p>
+            <h2 className="text-h4 font-black text-foreground tracking-tight">Compare e escolha o plano da sua loja</h2>
           </div>
           {/* Celular: um card por plano, um embaixo do outro (card nunca tem rolagem horizontal). */}
           <ul className="sm:hidden max-w-md mx-auto space-y-3" aria-label="Planos">
             {plans.map(p => (
               <li key={p.id} className={`rounded-lg border p-4 ${p.highlight ? "border-primary/40 bg-[var(--primary-muted)]" : "border-border bg-card"}`} style={{ boxShadow: "var(--shadow-sm)" }}>
-                {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">Recomendado</span>}
+                {p.highlight && <span className="block mb-1 text-caption font-bold uppercase tracking-wide text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">Recomendado</span>}
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className={`text-[0.9375rem] font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</h3>
-                  <span className={`text-[0.75rem] ${p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>{reais(p.price)}/mês</span>
+                  <h3 className={`text-body font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</h3>
+                  <span className={`text-label ${p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>{reais(p.price)}/mês</span>
                 </div>
-                <ul className="mt-3 space-y-1.5">
+                <ul className="mt-3 space-y-1">
                   {pricingFeatures.map((f, i) => {
                     const inclui = i < p.included;
                     return (
-                      <li key={f.pt} className={`flex items-start gap-2 text-[0.75rem] ${inclui ? "text-foreground" : p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>
-                        {inclui ? <Check aria-hidden className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${textoMarca}`} /> : <Minus aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0" />}
+                      <li key={f.pt} className={`flex items-start gap-2 text-label ${inclui ? "text-foreground" : p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>
+                        {inclui ? <Check aria-hidden className={`mt-1 h-3.5 w-3.5 shrink-0 ${textoMarca}`} /> : <Minus aria-hidden className="mt-1 h-3.5 w-3.5 shrink-0" />}
                         <span>{f.pt}<span className="sr-only">{inclui ? ": incluído" : ": não incluído"}</span></span>
                       </li>
                     );
@@ -1815,7 +1815,7 @@ function LandingTemplate() {
                 <button
                   type="button"
                   aria-label={`Escolher o plano ${p.name.pt}`}
-                  className={`mt-4 h-9 w-full rounded-sm text-[0.75rem] font-semibold transition-colors ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
+                  className={`mt-4 h-9 w-full rounded-sm text-label font-semibold transition-colors ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
                 >
                   Escolher
                 </button>
@@ -1828,12 +1828,12 @@ function LandingTemplate() {
               <caption className="sr-only">Comparativo dos planos Visibilidade, Desempenho e Oportunidades</caption>
               <thead>
                 <tr className="border-b border-border bg-muted/40">
-                  <th scope="col" className="px-4 py-3 text-left text-[0.6875rem] font-semibold text-muted-foreground">Recurso</th>
+                  <th scope="col" className="px-4 py-3 text-left text-caption font-semibold text-muted-foreground">Recurso</th>
                   {plans.map(p => (
                     <th key={p.id} scope="col" className={`px-3 py-3 text-center align-top ${p.highlight ? "bg-[var(--primary-muted)]" : ""}`}>
-                      {p.highlight && <span className="block mb-1 text-[0.5625rem] font-bold uppercase tracking-wide text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">Recomendado</span>}
-                      <span className={`block text-[0.75rem] font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</span>
-                      <span className={`block text-[0.6875rem] font-normal ${p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>{reais(p.price)}/mês</span>
+                      {p.highlight && <span className="block mb-1 text-caption font-bold uppercase tracking-wide text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]">Recomendado</span>}
+                      <span className={`block text-label font-bold ${p.highlight ? textoMarca : "text-foreground"}`}>{p.name.pt}</span>
+                      <span className={`block text-caption font-normal ${p.highlight ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground"}`}>{reais(p.price)}/mês</span>
                     </th>
                   ))}
                 </tr>
@@ -1841,11 +1841,11 @@ function LandingTemplate() {
               <tbody>
                 {pricingFeatures.map((f, i) => (
                   <tr key={f.pt} className={`border-b border-border last:border-0 ${i % 2 === 0 ? "bg-card" : "bg-muted/20"}`}>
-                    <th scope="row" className="px-4 py-2.5 text-left text-[0.75rem] font-medium text-foreground">{f.pt}</th>
+                    <th scope="row" className="px-4 py-2 text-left text-label font-medium text-foreground">{f.pt}</th>
                     {plans.map(p => {
                       const inclui = i < p.included;
                       return (
-                        <td key={p.id} className={`px-3 py-2.5 text-center ${p.highlight ? "bg-[var(--primary-muted)]" : ""}`}>
+                        <td key={p.id} className={`px-3 py-2 text-center ${p.highlight ? "bg-[var(--primary-muted)]" : ""}`}>
                           {inclui
                             ? <Check aria-hidden className={`h-3.5 w-3.5 mx-auto ${textoMarca}`} />
                             : <Minus aria-hidden className="h-3.5 w-3.5 mx-auto text-muted-foreground" />}
@@ -1864,7 +1864,7 @@ function LandingTemplate() {
                       <button
                         type="button"
                         aria-label={`Escolher o plano ${p.name.pt}`}
-                        className={`h-7 px-3 rounded-sm text-[0.6875rem] font-semibold transition-colors whitespace-nowrap ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
+                        className={`h-7 px-3 rounded-sm text-caption font-semibold transition-colors whitespace-nowrap ${foco} ${p.highlight ? "bg-primary text-primary-foreground hover:opacity-90" : "border border-border bg-card text-foreground hover:bg-accent"}`}
                       >
                         Escolher
                       </button>
@@ -1879,23 +1879,23 @@ function LandingTemplate() {
         {/* ══ DEPOIMENTOS ══ */}
         <div className="px-4 sm:px-6 py-10 bg-card/30 border-y border-border">
           <div className="text-center mb-7">
-            <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Depoimentos</p>
-            <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Lojas que já estão na FindLook</h2>
-            <p className="text-[0.6875rem] text-muted-foreground mt-1">Textos de exemplo para o template.</p>
+            <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Depoimentos</p>
+            <h2 className="text-h4 font-black text-foreground tracking-tight">Lojas que já estão na FindLook</h2>
+            <p className="text-caption text-muted-foreground mt-1">Textos de exemplo para o template.</p>
           </div>
           <div className="max-w-2xl mx-auto" role="region" aria-roledescription="carrossel" aria-label="Depoimentos de lojas">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4" aria-live="polite">
               {visibleTestimonials.map((tm, i) => (
                 <figure key={`${tm.pessoa}-${slide}-${i}`} className={`p-4 rounded-md border border-border bg-card flex flex-col ${i > 0 ? "hidden sm:flex" : ""}`}>
                   <Store aria-hidden className="h-3.5 w-3.5 text-muted-foreground mb-3" />
-                  <blockquote className="text-[0.75rem] text-muted-foreground leading-snug mb-4 italic">“{tm.texto}”</blockquote>
-                  <figcaption className="flex items-center gap-2.5 mt-auto">
+                  <blockquote className="text-label text-muted-foreground leading-snug mb-4 italic">“{tm.texto}”</blockquote>
+                  <figcaption className="flex items-center gap-2 mt-auto">
                     <div aria-hidden className="h-8 w-8 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0">
-                      <span className={`text-[0.5625rem] font-black ${textoMarca}`}>{tm.iniciais}</span>
+                      <span className={`text-caption font-black ${textoMarca}`}>{tm.iniciais}</span>
                     </div>
                     <div>
-                      <div className="text-[0.75rem] font-bold text-foreground leading-none">{tm.pessoa}</div>
-                      <div className="text-[0.5625rem] text-muted-foreground mt-0.5">{tm.loja} · {tm.bairro}</div>
+                      <div className="text-label font-bold text-foreground leading-none">{tm.pessoa}</div>
+                      <div className="text-caption text-muted-foreground mt-1">{tm.loja} · {tm.bairro}</div>
                     </div>
                   </figcaption>
                 </figure>
@@ -1905,7 +1905,7 @@ function LandingTemplate() {
               <button type="button" onClick={prevSlide} aria-label="Depoimento anterior" className={`h-8 w-8 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors ${foco}`}>
                 <ChevronRight aria-hidden className="h-4 w-4 rotate-180" />
               </button>
-              <div className="flex gap-1.5">
+              <div className="flex gap-1">
                 {depoimentosLanding.map((d, i) => (
                   <button
                     key={d.pessoa}
@@ -1927,8 +1927,8 @@ function LandingTemplate() {
         {/* ══ DÚVIDAS ══ */}
         <div className="px-4 sm:px-6 py-10">
           <div className="text-center mb-7">
-            <p className={`text-[0.6875rem] font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Dúvidas</p>
-            <h2 className="text-[1.25rem] font-black text-foreground tracking-tight">Perguntas frequentes</h2>
+            <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Dúvidas</p>
+            <h2 className="text-h4 font-black text-foreground tracking-tight">Perguntas frequentes</h2>
           </div>
           <div className="max-w-xl mx-auto space-y-2">
             {duvidasLanding.map((item, i) => {
@@ -1942,16 +1942,16 @@ function LandingTemplate() {
                       aria-expanded={aberto}
                       aria-controls={`${pre}-faq-painel-${i}`}
                       onClick={() => setOpenFaq(aberto ? null : i)}
-                      className="w-full flex items-center justify-between px-4 py-3.5 text-left hover:bg-row-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-row-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                     >
-                      <span className="text-[0.875rem] font-semibold text-foreground pr-4">{item.q}</span>
+                      <span className="text-body-sm font-semibold text-foreground pr-4">{item.q}</span>
                       <ChevronRight aria-hidden className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${aberto ? "rotate-90" : ""}`} />
                     </button>
                   </h3>
                   {aberto && (
                     <div id={`${pre}-faq-painel-${i}`} role="region" aria-labelledby={`${pre}-faq-${i}`} className="px-4 pb-4 pt-0">
                       <div className="h-px bg-border mb-3" />
-                      <p className="text-[0.8125rem] text-muted-foreground leading-relaxed">{item.a}</p>
+                      <p className="text-body-sm text-muted-foreground leading-relaxed">{item.a}</p>
                     </div>
                   )}
                 </div>
@@ -1969,14 +1969,14 @@ function LandingTemplate() {
 
           <div className="relative z-10 px-4 sm:px-6 py-12">
             <div className="text-center mb-8">
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/20 bg-[var(--primary-suave)] text-[0.6875rem] font-semibold mb-3 ${textoMarca}`}>
+              <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full border border-primary/20 bg-[var(--primary-suave)] text-caption font-semibold mb-3 ${textoMarca}`}>
                 <MessageCircle aria-hidden className="h-3 w-3" /> Fale com a gente
               </div>
-              <h2 className="text-[1.375rem] font-black text-foreground tracking-[-0.03em] mb-2">
+              <h2 className="text-h3 font-black text-foreground tracking-[-0.03em] mb-2">
                 Sua loja pronta<br />
                 <span className={textoMarca}>para ser encontrada</span>
               </h2>
-              <p className="text-[0.8125rem] text-muted-foreground max-w-sm mx-auto leading-relaxed">
+              <p className="text-body-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
                 Tire dúvidas sobre os planos ou peça ajuda para cadastrar a loja. Escolha o canal ou preencha o formulário.
               </p>
             </div>
@@ -1990,18 +1990,18 @@ function LandingTemplate() {
                 const Icon = ch.icon;
                 return (
                   <li key={ch.label}>
-                    <button type="button" className={`group w-full text-left relative rounded-lg border border-border bg-card p-4 flex flex-col gap-3 hover:border-primary/30 hover:shadow-md transition-all ${foco}`}>
+                    <button type="button" className={`group w-full text-left relative rounded-lg border border-border bg-card p-4 flex flex-col gap-3 hover:border-[var(--border-strong)] hover:shadow-md transition-all ${foco}`}>
                       <div className="flex items-start justify-between w-full">
                         <div className={`h-9 w-9 rounded-md flex items-center justify-center ${ch.iconBg}`}>
                           <Icon aria-hidden style={{ height: 18, width: 18 }} />
                         </div>
-                        <span className="text-[0.5625rem] font-bold px-1.5 py-0.5 rounded-full border border-border bg-muted text-foreground">{ch.badge}</span>
+                        <span className="text-caption font-bold px-1 py-1 rounded-full border border-border bg-muted text-foreground">{ch.badge}</span>
                       </div>
                       <div>
-                        <div className="text-[0.8125rem] font-bold text-foreground mb-0.5">{ch.label}</div>
-                        <div className="text-[0.6875rem] text-muted-foreground">{ch.value}</div>
+                        <div className="text-body-sm font-bold text-foreground mb-1">{ch.label}</div>
+                        <div className="text-caption text-muted-foreground">{ch.value}</div>
                       </div>
-                      <div className={`flex items-center gap-1 text-[0.6875rem] font-medium opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity ${textoMarca}`}>
+                      <div className={`flex items-center gap-1 text-caption font-medium opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity ${textoMarca}`}>
                         Abrir <ArrowRight aria-hidden className="h-3 w-3" />
                       </div>
                     </button>
@@ -2012,7 +2012,7 @@ function LandingTemplate() {
 
             <div className="max-w-2xl mx-auto flex items-center gap-3 mb-8">
               <div className="flex-1 h-px bg-border" />
-              <span className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground px-2">ou envie uma mensagem</span>
+              <span className="text-caption font-semibold uppercase tracking-[0.1em] text-muted-foreground px-2">ou envie uma mensagem</span>
               <div className="flex-1 h-px bg-border" />
             </div>
 
@@ -2020,12 +2020,12 @@ function LandingTemplate() {
               {/* Confiança */}
               <div className="space-y-5">
                 <div>
-                  <h3 className="text-[0.875rem] font-bold text-foreground mb-1">Por que a FindLook?</h3>
-                  <p className="text-[0.75rem] text-muted-foreground leading-relaxed">
+                  <h3 className="text-body-sm font-bold text-foreground mb-1">Por que a FindLook?</h3>
+                  <p className="text-label text-muted-foreground leading-relaxed">
                     A FindLook não vende: ela gera encontros entre quem procura e a sua loja.
                   </p>
                 </div>
-                <ul className="space-y-2.5">
+                <ul className="space-y-2">
                   {[
                     { icon: CheckCircle, text: "Contato direto, sem ninguém no meio da venda", color: "text-success" },
                     { icon: ShieldCheck, text: "Dados de quem procura protegidos, conforme a LGPD", color: "text-info" },
@@ -2034,17 +2034,17 @@ function LandingTemplate() {
                   ].map(item => {
                     const Icon = item.icon;
                     return (
-                      <li key={item.text} className="flex items-start gap-2.5">
-                        <Icon aria-hidden className={`h-3.5 w-3.5 mt-0.5 shrink-0 ${item.color}`} />
-                        <span className="text-[0.75rem] text-muted-foreground leading-snug">{item.text}</span>
+                      <li key={item.text} className="flex items-start gap-2">
+                        <Icon aria-hidden className={`h-3.5 w-3.5 mt-1 shrink-0 ${item.color}`} />
+                        <span className="text-label text-muted-foreground leading-snug">{item.text}</span>
                       </li>
                     );
                   })}
                 </ul>
-                <div className="rounded-md border border-border bg-card p-3.5">
-                  <p className="text-[0.75rem] font-semibold text-foreground mb-0.5">Já tem conta?</p>
-                  <p className="text-[0.6875rem] text-muted-foreground mb-2.5">Entre no painel para atualizar peças e ver os avisos da loja.</p>
-                  <button type="button" className={`h-7 px-3 rounded-sm border border-border bg-background text-[0.6875rem] font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1.5 ${foco}`}>
+                <div className="rounded-md border border-border bg-card p-3">
+                  <p className="text-label font-semibold text-foreground mb-1">Já tem conta?</p>
+                  <p className="text-caption text-muted-foreground mb-2">Entre no painel para atualizar peças e ver os avisos da loja.</p>
+                  <button type="button" className={`h-7 px-3 rounded-sm border border-border bg-background text-caption font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1 ${foco}`}>
                     <LogIn aria-hidden className="h-3 w-3" /> Entrar no painel
                   </button>
                 </div>
@@ -2057,8 +2057,8 @@ function LandingTemplate() {
                     <Send aria-hidden className={`h-4 w-4 ${textoMarca}`} />
                   </div>
                   <div>
-                    <h3 className="text-[0.875rem] font-bold text-foreground">Quero conhecer a FindLook</h3>
-                    <p className="text-[0.6875rem] text-muted-foreground">Respondemos em até 1 dia útil</p>
+                    <h3 className="text-body-sm font-bold text-foreground">Quero conhecer a FindLook</h3>
+                    <p className="text-caption text-muted-foreground">Respondemos em até 1 dia útil</p>
                   </div>
                 </div>
 
@@ -2069,72 +2069,72 @@ function LandingTemplate() {
                         <CheckCircle aria-hidden className="h-7 w-7 text-success" />
                       </div>
                       <div>
-                        <p className="text-[0.9375rem] font-bold text-foreground mb-1">Mensagem enviada!</p>
-                        <p className="text-[0.75rem] text-muted-foreground leading-relaxed max-w-[220px] mx-auto">
+                        <p className="text-body font-bold text-foreground mb-1">Mensagem enviada!</p>
+                        <p className="text-label text-muted-foreground leading-relaxed max-w-[220px] mx-auto">
                           Vamos responder em até 1 dia útil, no e-mail ou no WhatsApp informado.
                         </p>
                       </div>
                       <button
                         type="button"
                         onClick={() => setContactSent(false)}
-                        className={`mt-1 h-8 px-4 rounded-sm border border-border bg-muted text-[0.75rem] font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
+                        className={`mt-1 h-8 px-4 rounded-sm border border-border bg-muted text-label font-medium text-foreground hover:bg-accent transition-colors ${foco}`}
                       >
                         Enviar outra mensagem
                       </button>
                     </div>
                   ) : (
                     <form onSubmit={e => { e.preventDefault(); setContactSent(true); }} className="space-y-3">
-                      <p className="text-[0.625rem] text-muted-foreground"><span className={textoMarca}>*</span> Campo obrigatório</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <p className="text-caption text-muted-foreground"><span className={textoMarca}>*</span> Campo obrigatório</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div className="space-y-1">
-                          <label htmlFor={`${pre}-nome`} className="block text-[0.6875rem] font-semibold text-foreground">
+                          <label htmlFor={`${pre}-nome`} className="block text-caption font-semibold text-foreground">
                             Seu nome <span aria-hidden className={textoMarca}>*</span>
                           </label>
                           <div className="relative">
                             <User aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground pointer-events-none" />
-                            <input id={`${pre}-nome`} required type="text" autoComplete="name" placeholder="Ana Oliveira" className={`${campo} pl-7 text-[0.75rem]`} />
+                            <input id={`${pre}-nome`} required type="text" autoComplete="name" placeholder="Ana Oliveira" className={`${campo} pl-7 text-label`} />
                           </div>
                         </div>
                         <div className="space-y-1">
-                          <label htmlFor={`${pre}-email`} className="block text-[0.6875rem] font-semibold text-foreground">
+                          <label htmlFor={`${pre}-email`} className="block text-caption font-semibold text-foreground">
                             E-mail <span aria-hidden className={textoMarca}>*</span>
                           </label>
                           <div className="relative">
                             <Mail aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground pointer-events-none" />
-                            <input id={`${pre}-email`} required type="email" autoComplete="email" placeholder="voce@email.com" className={`${campo} pl-7 text-[0.75rem]`} />
+                            <input id={`${pre}-email`} required type="email" autoComplete="email" placeholder="voce@email.com" className={`${campo} pl-7 text-label`} />
                           </div>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div className="space-y-1">
-                          <label htmlFor={`${pre}-loja`} className="block text-[0.6875rem] font-semibold text-foreground">
+                          <label htmlFor={`${pre}-loja`} className="block text-caption font-semibold text-foreground">
                             Nome da loja <span aria-hidden className={textoMarca}>*</span>
                           </label>
                           <div className="relative">
                             <Store aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground pointer-events-none" />
-                            <input id={`${pre}-loja`} required type="text" autoComplete="organization" placeholder="Ateliê Aurora" className={`${campo} pl-7 text-[0.75rem]`} />
+                            <input id={`${pre}-loja`} required type="text" autoComplete="organization" placeholder="Ateliê Aurora" className={`${campo} pl-7 text-label`} />
                           </div>
                         </div>
                         <div className="space-y-1">
-                          <label htmlFor={`${pre}-whats`} className="block text-[0.6875rem] font-semibold text-foreground">WhatsApp da loja</label>
+                          <label htmlFor={`${pre}-whats`} className="block text-caption font-semibold text-foreground">WhatsApp da loja</label>
                           <div className="relative">
                             <Phone aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground pointer-events-none" />
-                            <input id={`${pre}-whats`} type="tel" autoComplete="tel" placeholder="(11) 90000-0000" className={`${campo} pl-7 text-[0.75rem]`} />
+                            <input id={`${pre}-whats`} type="tel" autoComplete="tel" placeholder="(11) 90000-0000" className={`${campo} pl-7 text-label`} />
                           </div>
                         </div>
                       </div>
 
-                      <fieldset className="space-y-1.5">
-                        <legend className="block text-[0.6875rem] font-semibold text-foreground mb-1.5">Tipo de negócio</legend>
-                        <div className="flex flex-wrap gap-1.5">
+                      <fieldset className="space-y-1">
+                        <legend className="block text-caption font-semibold text-foreground mb-1">Tipo de negócio</legend>
+                        <div className="flex flex-wrap gap-1">
                           {tiposLoja.map(s => (
                             <button
                               key={s}
                               type="button"
                               aria-pressed={tipoLoja === s}
                               onClick={() => setTipoLoja(s)}
-                              className={`px-2.5 py-1 rounded-full border text-[0.625rem] font-medium transition-all ${foco} ${tipoLoja === s ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
+                              className={`px-2 py-1 rounded-full border text-caption font-medium transition-all ${foco} ${tipoLoja === s ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-muted text-muted-foreground hover:border-[var(--border-strong)] hover:text-foreground"}`}
                             >
                               {tipoLoja === s && <Check aria-hidden className="inline h-2.5 w-2.5 mr-1 -mt-px" />}
                               {s}
@@ -2144,22 +2144,22 @@ function LandingTemplate() {
                       </fieldset>
 
                       <div className="space-y-1">
-                        <label htmlFor={`${pre}-msg`} className="block text-[0.6875rem] font-semibold text-foreground">
+                        <label htmlFor={`${pre}-msg`} className="block text-caption font-semibold text-foreground">
                           Mensagem <span className="font-normal text-muted-foreground">(opcional)</span>
                         </label>
                         <textarea id={`${pre}-msg`} rows={3} placeholder="Conte o que a sua loja vende e em qual bairro fica."
-                          className={`${campo} text-[0.75rem] resize-none`} />
+                          className={`${campo} text-label resize-none`} />
                       </div>
 
-                      <div className="flex flex-wrap items-center justify-between gap-3 pt-0.5">
-                        <div className="flex items-start gap-1.5 flex-1 min-w-[160px]">
-                          <input id={`${pre}-consent`} type="checkbox" required className="mt-0.5 h-3 w-3 rounded accent-[var(--primary)] shrink-0" />
-                          <label htmlFor={`${pre}-consent`} className="text-[0.625rem] text-muted-foreground leading-snug cursor-pointer">
+                      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                        <div className="flex items-start gap-1 flex-1 min-w-[160px]">
+                          <input id={`${pre}-consent`} type="checkbox" required className="mt-1 h-3 w-3 rounded-sm accent-[var(--primary)] shrink-0" />
+                          <label htmlFor={`${pre}-consent`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                             Concordo com os <span className={`underline underline-offset-1 ${textoMarca}`}>Termos</span> e a <span className={`underline underline-offset-1 ${textoMarca}`}>Política de privacidade</span>
                           </label>
                         </div>
                         <button type="submit"
-                          className={`shrink-0 h-8 px-4 rounded-sm bg-primary text-primary-foreground text-[0.75rem] font-bold hover:opacity-90 transition-opacity flex items-center gap-1.5 whitespace-nowrap ${foco}`}>
+                          className={`shrink-0 h-8 px-4 rounded-sm bg-primary text-primary-foreground text-label font-bold hover:opacity-90 transition-opacity flex items-center gap-1 whitespace-nowrap ${foco}`}>
                           <Send aria-hidden className="h-3 w-3" /> Enviar
                         </button>
                       </div>
@@ -2178,15 +2178,15 @@ function LandingTemplate() {
               <MarcaFindLook />
               <div className="flex flex-wrap items-center gap-4">
                 {["Para quem procura", "Para lojas", "Planos", "Ajuda", "Contato"].map(l => (
-                  <button key={l} type="button" className={`text-[0.6875rem] text-muted-foreground hover:text-foreground transition-colors rounded-[4px] ${foco}`}>{l}</button>
+                  <button key={l} type="button" className={`text-caption text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>{l}</button>
                 ))}
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-border">
-              <span className="text-[0.625rem] text-muted-foreground">© 2026 FindLook. Todos os direitos reservados.</span>
+              <span className="text-caption text-muted-foreground">© 2026 FindLook. Todos os direitos reservados.</span>
               <div className="flex items-center gap-3">
                 {["Privacidade", "Termos", "Cookies"].map(l => (
-                  <button key={l} type="button" className={`text-[0.6875rem] text-muted-foreground hover:text-foreground transition-colors rounded-[4px] ${foco}`}>{l}</button>
+                  <button key={l} type="button" className={`text-caption text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>{l}</button>
                 ))}
               </div>
             </div>
