@@ -343,7 +343,7 @@ type ItemDoMenuProps = React.ComponentProps<"a"> & {
 const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function ItemDoMenu({ icone, ativo, contador, rotuloContador = "novos", className, children, ...props }, ref) {
   const { recolhido, dentro } = React.useContext(ContextoDoRecolhido);
   // Visual do menu do site do design system (23/11/2026): ícone de 16 px, nome, cantos de 8 px; o ativo tem o fundo
-  // rosa claro e o texto vermelho (--primary-muted, rosa nível 3, + --primary-text: 5,2:1). Hover: rosa nível 1
+  // rosa mais claro e o texto vermelho (--primary-sutil, rosa nível 1, + --primary-text: 6,0:1). Hover: rosa nível 2 (--primary-suave), um pouco mais escuro (decisão da dona do produto, 27/11/2026)
   // (--primary-sutil; pedido da dona do produto, 27/11/2026: "no menu, use o tom 1 no hover").
   const item = (
     <a
@@ -354,8 +354,8 @@ const ItemDoMenu = React.forwardRef<HTMLAnchorElement, ItemDoMenuProps>(function
         "group relative flex min-h-9 items-center gap-2.5 rounded-sm px-3 py-2 text-[0.875rem] font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ativo
-          ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]"
-          : "text-muted-foreground hover:bg-[var(--primary-sutil)] hover:text-foreground",
+          ? "bg-[var(--primary-sutil)] text-[var(--primary-text,var(--primary))]"
+          : "text-muted-foreground hover:bg-[var(--primary-suave)] hover:text-foreground",
         recolhido && "justify-center px-0",
         className,
       )}
@@ -432,7 +432,7 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
       className={cn(
         "flex min-h-9 w-full items-center gap-2.5 rounded-sm px-3 py-2 text-left text-[0.875rem] font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        destacado ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:bg-[var(--primary-sutil)] hover:text-foreground",
+        destacado ? "bg-[var(--primary-sutil)] text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:bg-[var(--primary-suave)] hover:text-foreground",
         recolhido && "justify-center px-0",
       )}
     >

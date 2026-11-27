@@ -182,7 +182,7 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
       className={cn(
         "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.8125rem] font-medium border transition-all duration-150",
         "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        ativo ? "bg-[var(--primary-suave)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:border-[var(--border-strong)]",
+        ativo ? "bg-[var(--primary-sutil)] text-primary-text border-primary/30" : "bg-card text-foreground border-border hover:bg-[var(--primary-suave)] hover:border-primary/30",
       )}
     >
       {ativo && <Check className="h-3.5 w-3.5" aria-hidden />}
@@ -213,7 +213,7 @@ function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { val
           className={cn(
             buttonVariants({ variant: "outline" }),
             "w-full",
-            selecionado && "border-2 border-primary bg-[var(--primary-muted)] text-primary-text hover:bg-[var(--primary-muted)] hover:text-primary-text",
+            selecionado && "border-2 border-primary bg-[var(--primary-sutil)] text-primary-text hover:bg-[var(--primary-sutil)] hover:text-primary-text",
           )}
         >
           {selecionado ? <><Check aria-hidden /> Selecionado</> : "Selecionar"}

@@ -1041,7 +1041,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
                     <CardFooter>
                       {/* Opção A (27/11/2026): selecionado é contorno de 2 px (a espessura da borda do card) com check, fundo rosa nível 3; só a ação principal da área é preenchida. */}
                       <Button
-                        className={`w-full ${isSelected ? "border-2 border-primary bg-[var(--primary-muted)] text-primary-text hover:bg-[var(--primary-muted)] hover:text-primary-text" : ""}`}
+                        className={`w-full ${isSelected ? "border-2 border-primary bg-[var(--primary-sutil)] text-primary-text hover:bg-[var(--primary-sutil)] hover:text-primary-text" : ""}`}
                         variant="outline"
                         onClick={() => setSelected(index)}
                         aria-pressed={isSelected}

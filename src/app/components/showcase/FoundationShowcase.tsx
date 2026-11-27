@@ -46,9 +46,9 @@ const papeisDoPink = [
 /* Três rosas claros (decisão da dona do produto, 27/11/2026): fundos de estados selecionados, sempre com texto em
    --primary-text. Só a ação principal da etapa é preenchida (Opção A). Contrastes do pink-600 (#BC0A41) sobre cada um. */
 const rosasClaros = [
-  { nivel: "1", token: "--primary-sutil", hex: "#FFF5F8", papel: "Hover e linhas", uso: "Hover dos itens do menu e linha selecionada em listas. O card selecionado continua branco.", contraste: "6,0:1", amostra: "card" as const },
-  { nivel: "2", token: "--primary-suave", hex: "#FFECF0", papel: "Cápsulas", uso: "Chips ativos e badges ou selos como “Recomendado”.", contraste: "5,7:1", amostra: "chip" as const },
-  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Controles selecionados", uso: "Botão “✓ Selecionado”, item ativo do menu, segmento ativo.", contraste: "5,2:1", amostra: "botao" as const },
+  { nivel: "1", token: "--primary-sutil", hex: "#FFF5F8", papel: "Selecionado", uso: "Estado selecionado: item ativo do menu, botão “✓ Selecionado”, segmento ativo, chip ativo e linha selecionada. O card selecionado continua branco.", contraste: "6,0:1", amostra: "card" as const },
+  { nivel: "2", token: "--primary-suave", hex: "#FFECF0", papel: "Hover e selos", uso: "Hover dos itens rosados (menu, chips, botão “Selecionar”), um pouco mais escuro que o selecionado; e selos como “Recomendado”.", contraste: "5,7:1", amostra: "chip" as const },
+  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Bases e destaques", uso: "Base dos ícones na cor da marca e destaques (por exemplo, o plano destacado numa tabela).", contraste: "5,2:1", amostra: "botao" as const },
 ];
 
 const semanticColors = [
@@ -600,9 +600,9 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     tokens: [
       { name: "--primary",            description: t("Brand accent — pink", "Acento da marca — pink"),          light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on primary", "Texto sobre primária"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-sutil",      description: t("Light pink level 1: selected surfaces, menu hover", "Rosa claro nível 1: superfícies selecionadas, hover do menu"), light: "#FFF5F8", dark: "rgba(252,2,86,0.08)", isColor: true },
-      { name: "--primary-suave",      description: t("Light pink level 2: active chips, badges", "Rosa claro nível 2: chips ativos, badges e selos"), light: "#FFECF0", dark: "rgba(252,2,86,0.12)", isColor: true },
-      { name: "--primary-muted",      description: t("Light pink level 3: selected controls, active menu item", "Rosa claro nível 3: controles selecionados, item ativo do menu"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
+      { name: "--primary-sutil",      description: t("Light pink level 1: selected state (active menu item, selected button, active segment and chip, selected row)", "Rosa claro nível 1: estado selecionado (item ativo do menu, botão selecionado, segmento e chip ativos, linha selecionada)"), light: "#FFF5F8", dark: "rgba(252,2,86,0.08)", isColor: true },
+      { name: "--primary-suave",      description: t("Light pink level 2: hover of pink items, badges", "Rosa claro nível 2: hover dos itens rosados e selos"), light: "#FFECF0", dark: "rgba(252,2,86,0.12)", isColor: true },
+      { name: "--primary-muted",      description: t("Light pink level 3: icon bases and highlights", "Rosa claro nível 3: base de ícones e destaques"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
     ],
   },
   {

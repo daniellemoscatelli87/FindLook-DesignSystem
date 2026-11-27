@@ -17,6 +17,10 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Rosas claros: selecionado no mais claro, hover no do meio"),
+    desc: pt("Decisão da dona do produto (27/11/2026): o estado selecionado usa o rosa mais claro (--primary-sutil, nível 1): item ativo do menu, botão “✓ Selecionado”, segmento e chip ativos e linha selecionada. O hover dos itens rosados usa o rosa do meio (--primary-suave, nível 2), um pouco mais escuro. O nível 3 (--primary-muted) fica para bases de ícones e destaques."),
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Linhas no celular: tags e ações abaixo de todo o texto, por padrão"),
     desc: pt("Decisão da dona do produto (27/11/2026). Nas listas, no celular (abaixo de 640 px), as tags e ações vão para uma linha própria, abaixo de todo o bloco de texto, alinhadas à direita; do tablet em diante continuam ao lado do texto. A LinhaDeLista (ui/linha-de-lista.tsx) passa a ter quebraAcoes=\"estreito\" como padrão, e com ela a lista da Tabela de produtos e os exemplos de Dados > Linhas com tags e ações; quebraAcoes={false} é a opção de saída (ao lado do texto também no celular, com o texto na coluna dele) e quebraAcoes as põe abaixo em qualquer largura. A linha selecionada da LinhaDeLista e do ItemDeLoja usa o rosa claro nível 1 (--primary-sutil), como a linha selecionada das tabelas. No cadastro em etapas, os cards de plano (CardDePreco) ficam numa GradeDeCards: mesma altura, com o card selecionado (borda de 2 px e BrilhoDeSelecionado) dentro da grade."),
     page: "data", anchor: "linhas-colunas",

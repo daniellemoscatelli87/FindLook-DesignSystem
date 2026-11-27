@@ -16,7 +16,7 @@ import { BrilhoDeSelecionado } from "./shine-border";
  * Estado selecionado (Opção A, decisões da dona do produto de 27/11/2026: só a ação principal da área é preenchida):
  * o card continua branco, com a borda de 2 px na primária e o brilho animado do design system por cima dela
  * (BrilhoDeSelecionado, de ui/shine-border; parado com "menos movimento"); a ação vira um botão de contorno de 2 px
- * (a mesma espessura da borda do card) com "✓ Plano selecionado", texto --primary-text e fundo rosa nível 3
+ * (a mesma espessura da borda do card) com "✓ Plano selecionado", texto --primary-text e fundo rosa nível 1 (--primary-sutil; hover dos outros no nível 2)
  * (--primary-muted). Nunca só cor: o check e o texto mudam. O plano em destaque também tem a borda de 2 px; o selo "Recomendado" usa o nível 2
  * (--primary-suave).
  *
@@ -84,7 +84,7 @@ export type CardDePrecoProps = {
 const classeDaAcao = (ativo: boolean) =>
   cn(
     "h-10 w-full @[19rem]:w-auto px-4 rounded-md border-primary text-[0.8125rem] font-semibold whitespace-nowrap text-[var(--primary-text,var(--primary))] transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-    ativo ? "border-2 bg-[var(--primary-muted)]" : "border bg-card hover:bg-[var(--primary-sutil)]",
+    ativo ? "border-2 bg-[var(--primary-sutil)]" : "border bg-card hover:bg-[var(--primary-suave)]",
   );
 
 export function CardDePreco({
