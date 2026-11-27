@@ -313,7 +313,7 @@ function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, re
         )}
       >
         <div className="min-w-0">
-          <h2 ref={tituloRef} tabIndex={-1} className="text-h3 font-bold leading-tight tracking-[-0.02em] text-foreground outline-none [text-wrap:balance]">
+          <h2 ref={tituloRef} tabIndex={-1} className="text-h3 font-bold leading-tight tracking-[-0.02em] text-foreground outline-none [text-wrap:pretty]">
             {titulo}
           </h2>
           {explicacao && <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{explicacao}</p>}
@@ -348,9 +348,11 @@ type BarraDaEtapaProps = {
 };
 
 function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carregando = false, textoCarregando = "Salvando…", desativado = false, children, className }: BarraDaEtapaProps) {
-  const botao = "flex-1 @min-[40rem]/etapa:min-w-40 @min-[40rem]/etapa:flex-none";
+  // Os dois botões dividem a linha quando cabem; quando não cabem (rótulo longo no celular), cada um ocupa a largura
+  // toda e o principal fica em cima (27/11/2026: nunca passam da borda nem ficam com larguras diferentes).
+  const botao = "flex-[1_1_auto] @min-[40rem]/etapa:min-w-40 @min-[40rem]/etapa:flex-none";
   return (
-    <div data-slot="barra-da-etapa" className={cn("sticky bottom-0 z-10 flex justify-end gap-3 rounded-b-xl border-t border-border bg-card px-4 py-3 @min-[40rem]/etapa:px-7 @min-[40rem]/etapa:py-4", className)}>
+    <div data-slot="barra-da-etapa" className={cn("sticky bottom-0 z-10 flex flex-wrap-reverse justify-end gap-3 rounded-b-xl border-t border-border bg-card px-4 py-3 @min-[40rem]/etapa:px-7 @min-[40rem]/etapa:py-4", className)}>
       {children ?? (
         <>
           {onVoltar && (

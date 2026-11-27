@@ -529,11 +529,14 @@
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
     line-height: 1.6;
+    /* Todo texto (títulos, rótulos e parágrafos) evita palavra sozinha na última linha (27/11/2026). */
+    text-wrap: pretty;
   }
 
-  /* Títulos equilibram as linhas: sem palavra sozinha na última linha (27/11/2026). */
+  /* Títulos quebram as linhas de forma natural: sem palavra sozinha na última linha e sem primeira linha curta
+     demais (text-wrap: pretty; o balance deixava "Deixar de / receber comunicados", 27/11/2026). */
   h1, h2, h3, h4, h5, h6, [role="heading"] {
-    text-wrap: balance;
+    text-wrap: pretty;
   }
 
   h1 {

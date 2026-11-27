@@ -74,7 +74,7 @@ export function ProductCard({
   const Cta = cta?.href ? "a" : "button";
   const ctaLabel = cta?.label ?? (esgotado ? "Avise-me" : "Ver peça");
   const desconto = typeof preco === "number" && typeof precoAntigo === "number" && precoAntigo > preco ? Math.round((1 - preco / precoAntigo) * 100) : null;
-  const tagCls = "inline-flex items-center gap-1 rounded-full px-2 py-1 text-caption font-bold uppercase tracking-[0.08em] shadow-[var(--shadow-sm)]";
+  const tagCls = "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1 text-caption font-bold uppercase tracking-[0.08em] shadow-[var(--shadow-sm)]";
   // na vertical a tag de estoque fica sobre a imagem; na horizontal (imagem estreita) vai para o conteúdo
   const tagEstoque = escasso ? (
     <span className={cn(tagCls, "bg-primary text-primary-foreground")}><Flame className="h-3.5 w-3.5" aria-hidden />{estoque.quantidade === 1 ? "Última peça" : `Só ${estoque.quantidade} restantes`}</span>

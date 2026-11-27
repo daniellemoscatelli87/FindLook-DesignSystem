@@ -73,7 +73,7 @@ export function PageHeader({
   return (
     <header>
       <p className="text-label font-semibold uppercase tracking-[0.12em] text-primary-text mb-3">{eyebrow}</p>
-      <h1 className={`${display} text-h2 sm:text-h1 font-bold tracking-[-0.035em] leading-none text-foreground mb-4 [text-wrap:balance]`}>{withHighlight(title)}</h1>
+      <h1 className={`${display} text-h2 sm:text-h1 font-bold tracking-[-0.035em] leading-none text-foreground mb-4 [text-wrap:pretty]`}>{withHighlight(title)}</h1>
       <p className="text-body-lg text-muted-foreground max-w-2xl leading-relaxed">{description}</p>
     </header>
   );

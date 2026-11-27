@@ -766,10 +766,11 @@ const COMBINACOES: { etapa: string; titulo: string; formula: string; pecas: Peca
 
 export function CombinacoesDoCadastro() {
   return (
-    <div className="@container/combinacoes min-w-0">
-      <ul className="grid gap-3 @min-[40rem]/combinacoes:grid-cols-2 @min-[58rem]/combinacoes:grid-cols-3">
+    // GradeDeCards do DS (27/11/2026): lado a lado com a mesma altura; se o conteúdo for muito diferente, vira lista
+    <div className="min-w-0">
+      <GradeDeCards role="list" colunas={{ base: 1, md: 2, xl: 3 }} className="gap-3">
         {COMBINACOES.map((c) => (
-          <li key={c.titulo} className="min-w-0 rounded-xl border border-border bg-card p-5">
+          <div role="listitem" key={c.titulo} className="min-w-0 rounded-xl border border-border bg-card p-5">
             <div className="flex items-start gap-3">
               <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-body-sm font-extrabold tabular-nums text-[var(--graphite-600)]">{c.etapa}</span>
               <div className="min-w-0 flex-1">
@@ -795,9 +796,9 @@ export function CombinacoesDoCadastro() {
                 </li>
               ))}
             </ul>
-          </li>
+          </div>
         ))}
-      </ul>
+      </GradeDeCards>
     </div>
   );
 }

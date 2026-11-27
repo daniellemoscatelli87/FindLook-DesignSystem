@@ -361,7 +361,8 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
   return (
     <div data-slot="carrossel-de-dicas" role="region" aria-roledescription="carrossel" aria-label="Dicas para vender mais" className={cn("@container/dicas min-w-0", className)}>
       <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className={cn("relative flex gap-4 rounded-lg border border-border bg-card p-3", onFechar && "pr-12")}>
-        {dica.midia && <div aria-hidden className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] @md/dicas:h-24 @md/dicas:w-24">{dica.midia}</div>}
+        {/* Em espaço estreito (menos de 320 px), a imagem decorativa sai para o texto ter largura */}
+        {dica.midia && <div aria-hidden className="hidden h-16 w-16 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] @xs/dicas:flex @md/dicas:h-24 @md/dicas:w-24">{dica.midia}</div>}
         <div className="min-w-0 flex-1">
           <p className="text-body font-bold text-foreground">{dica.titulo}</p>
           <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{dica.texto}</p>
