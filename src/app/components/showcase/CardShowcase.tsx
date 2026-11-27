@@ -28,6 +28,7 @@ import { LuzesDifusas } from "../ui/luzes-difusas";
 import { resolveCssColor, formatRatio, AA } from "../ui/contrast";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { SegmentedControl } from "../ui/segmented-control";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Slider } from "../ui/slider";
 import { AvatarCircles } from "../ui/avatar-circles";
 import { ArrowUpRight, MapPin, Heart } from "lucide-react";
@@ -45,6 +46,24 @@ import { AndamentoDeTarefa, CardsDeKpi, IndicadoresDoPainel, UsoComLimite } from
 import { WobbleCardConteudo, ShineBorderConteudo, evitarWobble } from "./MotionShowcase";
 import { CanvasRevealCard, evitarCanvasReveal } from "./BackgroundsShowcase";
 
+
+/** Escolha com mais de 3 opções nas demonstrações: rótulo em cima e a lista de seleção do DS (Select). */
+function EscolhaEmLista({ rotulo, value, onValueChange, options }: { rotulo: string; value: string; onValueChange: (v: string) => void; options: { value: string; label: React.ReactNode }[] }) {
+  const id = React.useId();
+  return (
+    <div className="flex min-w-0 flex-col gap-1">
+      <span id={id} className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{rotulo}</span>
+      <Select value={value} onValueChange={onValueChange}>
+        <SelectTrigger aria-labelledby={id} className="w-56 max-w-full bg-card">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
 
 function SpecCard({
   title,
@@ -252,10 +271,8 @@ function GlassFinishPicker() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="flex min-w-0 max-w-full flex-col gap-1 overflow-x-auto">
-          <span className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Finish", "Acabamento")}</span>
-          <SegmentedControl size="sm" aria-label={t("Finish", "Acabamento")} value={finish} onValueChange={setFinish} options={finishes.map(x => ({ value: x.value, label: x.label }))} />
-        </div>
+        {/* Mais de 3 opções: lista de seleção, que cabe em qualquer largura (card nunca rola na horizontal) */}
+        <EscolhaEmLista rotulo={t("Finish", "Acabamento")} value={finish} onValueChange={v => setFinish(v as typeof finish)} options={finishes.map(x => ({ value: x.value, label: x.label }))} />
         <div className="flex flex-col gap-1">
           <span className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Tone", "Tom")}</span>
           <SegmentedControl size="sm" aria-label={t("Tone", "Tom")} value={tone} onValueChange={setTone} options={[{ value: "clara", label: t("Light", "Claro") }, { value: "escura", label: t("Dark", "Escuro") }]} />
@@ -266,16 +283,10 @@ function GlassFinishPicker() {
         </div>
       </div>
       <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
-        <div className="flex min-w-0 max-w-full flex-col gap-1 overflow-x-auto">
-          <span className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Test background", "Fundo de teste")}</span>
-          <SegmentedControl size="sm" aria-label={t("Test background", "Fundo de teste")} value={cena.fundo} onValueChange={v => setCena(c => ({ ...c, fundo: v }))} options={fundos} />
-        </div>
+        <EscolhaEmLista rotulo={t("Test background", "Fundo de teste")} value={cena.fundo} onValueChange={v => setCena(c => ({ ...c, fundo: v as FundoDeTeste }))} options={fundos} />
         {cena.fundo === "solida" && (
-          <div className="flex min-w-0 max-w-full flex-col gap-1 overflow-x-auto">
-            <span className="text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Colour", "Cor")}</span>
-            <SegmentedControl size="sm" aria-label={t("Colour", "Cor")} value={cena.cor} onValueChange={v => setCena(c => ({ ...c, cor: v }))}
-              options={cores.map(x => ({ value: x.value, label: <span className="inline-flex items-center gap-1"><span aria-hidden className="h-3 w-3 rounded-full border border-border" style={{ backgroundColor: coresSolidas[x.value] }} />{x.label}</span> }))} />
-          </div>
+          <EscolhaEmLista rotulo={t("Colour", "Cor")} value={cena.cor} onValueChange={v => setCena(c => ({ ...c, cor: v as CorSolida }))}
+            options={cores.map(x => ({ value: x.value, label: <span className="inline-flex items-center gap-2"><span aria-hidden className="h-3 w-3 rounded-full border border-border" style={{ backgroundColor: coresSolidas[x.value] }} />{x.label}</span> }))} />
         )}
       </div>
       <div className="grid gap-x-8 gap-y-4 rounded-lg border border-border bg-card p-4 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
@@ -821,7 +832,7 @@ export function CardShowcase() {
               )}</p>
             </Callout>
           </GradeDeCards>
-          <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GradeDeCards, ItemDaGrade } from "@/app/components/ui/grade-de-cards";
+          <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GradeDeCards, ItemDaGrade } from "@/app/components/ui/grade-de-cards";
 import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/components/ui/card";
 
 <GradeDeCards colunas={{ base: 1, md: 2, lg: 3 }}>      {/* ou larguraMinima={280} */}
@@ -1230,7 +1241,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
               <div key={a} className="rounded-lg border border-border bg-card p-4"><p className="mb-1 text-body-sm font-semibold text-foreground">{a}</p><p className="text-body-sm leading-relaxed text-muted-foreground">{b}</p></div>
             ))}
           </GradeDeCards>
-          <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { PartnerCard } from "@/app/components/ui/partner-card";
+          <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { PartnerCard } from "@/app/components/ui/partner-card";
 <PartnerCard orientation="horizontal" size="m" eyebrow="…" title="… **destaque** …" description="…" cta={{ label: "…", href: "/…" }} />`}</code></pre>
         </div>
       </section>
@@ -1285,7 +1296,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
               ]}
             />
             <div className="space-y-4">
-              <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { ProductCard } from "@/app/components/ui/product-card";
+              <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { ProductCard } from "@/app/components/ui/product-card";
 
 <ProductCard
   nome="Jaqueta biker em couro" loja="Noir Avenue" estilo="Rock chic"
@@ -1418,7 +1429,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
               [t("Reduced transparency", "Transparência reduzida"), t("With prefers-reduced-transparency the card becomes solid (card or graphite).", "Com prefers-reduced-transparency o card vira sólido (card ou grafite).")],
             ]}
           />
-          <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
+          <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
 
 <GlassCard finish="padrao" intensity="forte">…</GlassCard>   {/* Vidro */}
 <GlassCard finish="fosco" tone="clara" interactive>…</GlassCard>`}</code></pre>
@@ -1526,7 +1537,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
               </GlassCard>
             </GradeDeCards>
           </div>
-          <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
+          <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GlassCard } from "@/app/components/ui/glass-card";
 import { LuzesDifusas } from "@/app/components/ui/luzes-difusas";
 
 <section className="relative isolate overflow-x-clip">

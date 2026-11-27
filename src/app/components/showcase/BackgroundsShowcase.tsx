@@ -1698,7 +1698,7 @@ function DoodleTextureCard() {
             </a>
           ))}
         </div>
-        <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { DoodleTexture } from "@/app/components/ui/doodle-texture";
+        <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { DoodleTexture } from "@/app/components/ui/doodle-texture";
 
 <section className="relative isolate">
   <DoodleTexture scale="m" />              {/* grafite-200 / grafite-800 */}

@@ -104,6 +104,8 @@ type CardIndicadorProps = {
   variacao?: number;
   comparacao?: string;
   explicacao?: React.ReactNode;
+  /** Minigráfico opcional (por exemplo, uma linha de tendência), entre o número e a variação (27/11/2026). */
+  grafico?: React.ReactNode;
   /** "linha": variação abaixo do rótulo; "pilula": variação no canto superior. */
   estilo?: "linha" | "pilula";
   className?: string;
@@ -117,7 +119,7 @@ type CardIndicadorProps = {
  * de cards, os números ficam na mesma altura, tenham eles variação ou não. Em card estreito (menos de 176 px, como na
  * grade 2 × 2 do celular), o ícone sai para o rótulo ter a largura toda e nunca ser cortado.
  */
-function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
+function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, grafico, className }: CardIndicadorProps) {
   const palavras = rotulo.split(" ");
   const ultima = palavras.pop() ?? "";
   return (
@@ -136,6 +138,7 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
         {formatarNumero(valor)}
         {total !== undefined && <span className="ml-1 text-body font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
       </p>
+      {grafico && <div aria-hidden className="mt-4 h-12">{grafico}</div>}
       {variacao !== undefined && <div className="mt-auto pt-3"><Variacao valor={variacao} comparacao={comparacao} /></div>}
     </div>
   );
@@ -299,7 +302,7 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   const ok = estado === "ok";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2 rounded-none px-3 py-2 transition-colors hover:bg-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}>
+      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2 rounded-none px-3 py-2 toque:min-h-11 transition-colors hover:bg-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}>
         {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
         <span className="min-w-0 flex-1 text-body-sm text-foreground">{texto}</span>
@@ -532,7 +535,7 @@ function ConteudoRecolhivel({
           type="button"
           aria-haspopup={onMostrarMais ? undefined : "dialog"}
           onClick={() => (onMostrarMais ? onMostrarMais() : setJanela(true))}
-          className="mt-2 inline-flex min-h-9 items-center gap-1 self-start rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="mt-2 inline-flex min-h-9 toque:min-h-11 items-center gap-1 self-start rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {rotuloMais}
           {onMostrarMais ? <ArrowRight aria-hidden className="h-4 w-4" /> : <ChevronRight aria-hidden className="h-4 w-4" />}

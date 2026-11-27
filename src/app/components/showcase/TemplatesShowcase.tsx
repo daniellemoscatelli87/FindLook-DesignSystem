@@ -28,6 +28,11 @@ import {
 import { useI18n } from "../../i18n";
 import { PrototipoDoPainel, PainelEmbutido } from "./PainelTemplates";
 import { Switch } from "../ui/switch";
+import { Checkbox } from "../ui/checkbox";
+import { Timeline } from "../ui/timeline";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { SegmentedControl } from "../ui/segmented-control";
+import { CartaoDeEscolha, GrupoDeCartoesDeEscolha } from "../ui/cartao-de-escolha";
 import { IconeModa, type NomeIconeModa } from "../ui/fashion-icons";
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
 import { SectionHeader } from "./shared/SectionHeader";
@@ -269,31 +274,17 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
 
           {activeTab === "aparencia" && (
             <CardComCabecalho nivel={3} icone={<Sun />} titulo="Tema do painel" descricao="Escolha como o painel aparece para você.">
-              <div className="grid grid-cols-2 gap-3 max-w-md">
-                {[
-                  { id: "light", label: "Modo claro",  icon: Sun,  active: !darkToggle },
-                  { id: "dark",  label: "Modo escuro", icon: Moon, active: darkToggle },
-                ].map(th => {
-                  const Icon = th.icon;
-                  return (
-                    <button
-                      key={th.id}
-                      type="button"
-                      aria-pressed={th.active}
-                      onClick={() => {
-                        const newDark = th.id === "dark";
-                        document.documentElement.classList.toggle("dark", newDark);
-                      }}
-                      className={`p-3 rounded-md border-2 flex flex-col items-center gap-2 transition-all ${foco}
-                        ${th.active ? "border-primary bg-card" : "border-border bg-card"}`}
-                    >
-                      <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
-                      <span className={`text-label font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
-                      {th.active && <span className={`flex items-center gap-1 text-caption font-semibold ${textoMarca}`}><Check aria-hidden className="h-3 w-3" /> Em uso</span>}
-                    </button>
-                  );
-                })}
-              </div>
+              {/* Cartões de escolha do DS (rádio de verdade), no lugar dos botões feitos à mão (27/11/2026) */}
+              <GrupoDeCartoesDeEscolha
+                aria-label="Tema do painel"
+                colunas={2}
+                className="max-w-md"
+                value={darkToggle ? "dark" : "light"}
+                onValueChange={v => document.documentElement.classList.toggle("dark", v === "dark")}
+              >
+                <CartaoDeEscolha valor="light" icone={<Sun />} titulo="Modo claro" descricao="Fundo branco, o padrão do painel." />
+                <CartaoDeEscolha valor="dark" icone={<Moon />} titulo="Modo escuro" descricao="Fundo grafite, para pouca luz." />
+              </GrupoDeCartoesDeEscolha>
             </CardComCabecalho>
           )}
 
@@ -393,20 +384,14 @@ function AuthTemplate() {
         <div className="flex-1 flex items-center justify-center p-6 sm:p-8">
           <div className="w-full max-w-[300px]">
             <div className="md:hidden mb-5"><MarcaFindLook legenda="Painel da loja" /></div>
-            <div className="flex rounded-md border border-border bg-muted/40 p-1 mb-6" role="group" aria-label="Escolha uma opção">
-              {(["entrar", "criar"] as const).map(tb => (
-                <button
-                  key={tb}
-                  type="button"
-                  aria-pressed={tab === tb}
-                  onClick={() => trocar(tb)}
-                  className={`flex-1 py-1 rounded-sm text-label font-semibold transition-all ${foco}
-                    ${tab === tb ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-                >
-                  {tb === "entrar" ? "Entrar" : "Criar conta"}
-                </button>
-              ))}
-            </div>
+            <SegmentedControl
+              aria-label="Escolha uma opção"
+              fullWidth
+              className="mb-6"
+              value={tab}
+              onValueChange={v => trocar(v as typeof tab)}
+              options={[{ value: "entrar", label: "Entrar" }, { value: "criar", label: "Criar conta" }]}
+            />
 
             {enviado ? (
               <div role="status" className="text-center py-6">
@@ -482,7 +467,8 @@ function AuthTemplate() {
                         onClick={() => setShowPass(v => !v)}
                         aria-label={showPass ? "Ocultar senha" : "Mostrar senha"}
                         aria-pressed={showPass}
-                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors ${foco}`}
+                        data-alvo-compacto
+                        className={`absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors ${foco}`}
                       >
                         {showPass ? <EyeOff aria-hidden className="h-3.5 w-3.5" /> : <Eye aria-hidden className="h-3.5 w-3.5" />}
                       </button>
@@ -492,7 +478,7 @@ function AuthTemplate() {
 
                   {!entrar && (
                     <div className="flex items-start gap-2">
-                      <input id={`${pre}-termos`} type="checkbox" required className="mt-1 h-3.5 w-3.5 rounded-sm accent-[var(--primary)] shrink-0" />
+                      <Checkbox id={`${pre}-termos`} required />
                       <label htmlFor={`${pre}-termos`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                         Li e aceito os <span className={`underline underline-offset-2 ${textoMarca}`}>Termos de uso</span> e a <span className={`underline underline-offset-2 ${textoMarca}`}>Política de privacidade</span>.
                       </label>
@@ -644,19 +630,15 @@ function TeamTemplate() {
               className={`${campo} pl-8 py-1 text-label`}
             />
           </div>
-          <div className="flex flex-wrap gap-1" role="group" aria-label="Filtrar por papel">
-            {(["todos", "responsavel", "atendente", "estoquista"] as const).map(f => (
-              <button
-                key={f}
-                type="button"
-                aria-pressed={filtro === f}
-                onClick={() => setFiltro(f)}
-                className={`h-7 px-2 rounded-full border text-caption font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
-              >
-                {f === "todos" ? "Todos" : papeis[f].rotulo}
-              </button>
-            ))}
-          </div>
+          {/* Filtro por papel: controle segmentado do DS, em 2 colunas iguais no celular (nunca uma opção sozinha) */}
+          <SegmentedControl
+            aria-label="Filtrar por papel"
+            size="sm"
+            className="grid-flow-row grid-cols-2 [&>[data-slot=segmented-item]:nth-child(3)]:border-l-0 [&>[data-slot=segmented-item]:nth-child(n+3)]:border-t sm:grid-flow-col sm:grid-cols-none sm:[&>[data-slot=segmented-item]:nth-child(3)]:border-l sm:[&>[data-slot=segmented-item]:nth-child(n+3)]:border-t-0"
+            value={filtro}
+            onValueChange={v => setFiltro(v as typeof filtro)}
+            options={(["todos", "responsavel", "atendente", "estoquista"] as const).map(f => ({ value: f, label: f === "todos" ? "Todos" : papeis[f].rotulo }))}
+          />
           </div>
 
           <p role="status" className="sr-only">{aviso}</p>
@@ -981,17 +963,7 @@ function ChaveParaQuem({ ligado, onChange }: { ligado: boolean; onChange: (v: bo
   const { t } = useI18n();
   return (
     <div className="mb-4 flex items-center gap-2">
-      <button
-        type="button"
-        role="switch"
-        aria-checked={ligado}
-        aria-labelledby="rotulo-chave-para-quem"
-        onClick={() => onChange(!ligado)}
-        className={`w-10 shrink-0 rounded-full transition-colors relative flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${ligado ? "bg-primary" : "bg-muted-foreground/30"}`}
-        style={{ height: "22px" }}
-      >
-        <span className={`absolute h-4 w-4 rounded-full bg-white transition-all ${ligado ? "left-[22px]" : "left-0.5"}`} />
-      </button>
+      <Switch checked={ligado} onCheckedChange={onChange} aria-labelledby="rotulo-chave-para-quem" />
       <span id="rotulo-chave-para-quem" className="text-body-sm font-medium text-foreground">Página Planos e assinatura: mostrar “Para quem”</span>
     </div>
   );
@@ -1031,24 +1003,15 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
           titulo={t("Plans & Pricing", "Planos e assinatura")}
           descricao={t("Choose the plan that fits your store. Change whenever you need.", "Escolha o plano que combina com a sua loja. Troque quando precisar.")}
           acoes={
-          <div className="inline-flex items-center gap-3">
-            <span className={`text-label font-medium ${!annual ? "text-foreground" : "text-muted-foreground"}`}>{t("Monthly", "Mensal")}</span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={annual}
-              aria-label={t("Yearly billing", "Cobrança anual")}
-              onClick={() => setAnnual(v => !v)}
-              className={`w-10 rounded-full transition-colors relative flex items-center ${annual ? "bg-primary" : "bg-muted-foreground/30"}`}
-              style={{ height: "22px" }}
-            >
-              <span className={`absolute h-4 w-4 rounded-full bg-white transition-all ${annual ? "left-[22px]" : "left-0.5"}`} />
-            </button>
-            <span className={`text-label font-medium ${annual ? "text-foreground" : "text-muted-foreground"}`}>
-              {t("Yearly", "Anual")}
-              <span className="ml-1 px-1 py-1 rounded-full bg-success/10 text-success text-caption font-bold">-20%</span>
-            </span>
-          </div>
+          <SegmentedControl
+            aria-label={t("Billing", "Cobrança")}
+            value={annual ? "anual" : "mensal"}
+            onValueChange={v => setAnnual(v === "anual")}
+            options={[
+              { value: "mensal", label: t("Monthly", "Mensal") },
+              { value: "anual", label: <>{t("Yearly", "Anual")} <span className="ml-1 rounded-full bg-success/10 px-2 py-1 text-caption font-bold text-success-text">-20%</span></> },
+            ]}
+          />
           }
         />
 
@@ -1218,14 +1181,14 @@ function ContactTemplate() {
               </div>
 
               <div className="flex items-start gap-2">
-                <input type="checkbox" id={`${pre}-whats`} className="mt-1 h-3.5 w-3.5 rounded-sm accent-[var(--primary)] shrink-0" />
+                <Checkbox id={`${pre}-whats`} />
                 <label htmlFor={`${pre}-whats`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                   Pode me responder também pelo WhatsApp da loja.
                 </label>
               </div>
 
               <div className="flex items-start gap-2">
-                <input type="checkbox" required id={`${pre}-consent`} className="mt-1 h-3.5 w-3.5 rounded-sm accent-[var(--primary)] shrink-0" />
+                <Checkbox id={`${pre}-consent`} required />
                 <label htmlFor={`${pre}-consent`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                   Concordo com os <span className={`underline underline-offset-2 ${textoMarca}`}>Termos de uso</span> e a <span className={`underline underline-offset-2 ${textoMarca}`}>Política de privacidade</span>.
                 </label>
@@ -1540,9 +1503,9 @@ function LandingTemplate() {
               <button key={item} type="button" className={`text-label font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>{item}</button>
             ))}
           </div>
-          <div className="flex items-center gap-2">
-            <button type="button" className={`h-7 px-3 text-label font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>Entrar</button>
-            <button type="button" className={`h-7 px-3 rounded-sm bg-primary text-primary-foreground text-label font-semibold hover:opacity-90 transition-opacity whitespace-nowrap ${foco}`}>
+          <div className="flex items-center gap-1 sm:gap-2">
+            <button type="button" className={`h-8 px-2 sm:px-3 text-label font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>Entrar</button>
+            <button type="button" className={`h-8 px-2 sm:px-3 rounded-sm bg-primary text-primary-foreground text-label font-semibold hover:bg-[var(--primary-hover)] transition-colors whitespace-nowrap ${foco}`}>
               Cadastrar minha loja
             </button>
           </div>
@@ -1658,21 +1621,21 @@ function LandingTemplate() {
                 </div>
               </div>
               {/* Peças mais vistas */}
-              <div className="rounded-sm border border-border bg-background overflow-hidden">
-                <div className="px-3 py-1 border-b border-border text-caption font-semibold text-foreground">Peças mais vistas</div>
-                <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 border-b border-border bg-muted/40 px-3 py-1">
+              <div className="@container/pecas rounded-sm border border-border bg-background overflow-hidden">
+                <div className="px-3 py-1 border-b border-border text-caption font-semibold text-foreground">Peças mais vistas<span className="font-normal text-muted-foreground @md/pecas:hidden"> · no celular, só peça e situação</span></div>
+                <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.9fr)] @md/pecas:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 border-b border-border bg-muted/40 px-3 py-1">
                   {["Peça", "Categoria", "Visualizações", "Situação"].map(h => (
-                    <div key={h} className="text-caption font-semibold uppercase tracking-wide text-muted-foreground truncate">{h}</div>
+                    <div key={h} className={`text-caption font-semibold uppercase tracking-wide text-muted-foreground ${h === "Categoria" || h === "Visualizações" ? "hidden @md/pecas:block" : ""}`}>{h}</div>
                   ))}
                 </div>
                 {pecasMaisVistas.map(r => (
-                  <div key={r.nome} className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 px-3 py-2 border-b border-border last:border-0 items-center">
+                  <div key={r.nome} className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.9fr)] @md/pecas:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,0.9fr)] gap-2 px-3 py-2 border-b border-border last:border-0 items-center">
                     <div className="text-caption font-medium text-foreground flex items-center gap-1 min-w-0">
                       <IconeModa nome={r.icone} size={12} className="text-muted-foreground" />
                       <span className="truncate">{r.nome}</span>
                     </div>
-                    <div className="text-caption text-muted-foreground truncate">{r.categoria}</div>
-                    <div className="text-caption font-semibold text-foreground">{r.vistas.toLocaleString("pt-BR")}</div>
+                    <div className="hidden text-caption text-muted-foreground truncate @md/pecas:block">{r.categoria}</div>
+                    <div className="hidden text-caption font-semibold text-foreground @md/pecas:block">{r.vistas.toLocaleString("pt-BR")}</div>
                     <div className="text-caption font-medium text-foreground flex items-center gap-1">
                       <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${r.ponto}`} />{r.situacao}
                     </div>
@@ -1767,23 +1730,12 @@ function LandingTemplate() {
             <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Como funciona</p>
             <h2 className="text-h4 font-black text-foreground tracking-tight">Do cadastro ao primeiro contato</h2>
           </div>
-          <div className="max-w-lg mx-auto relative">
-            <div aria-hidden className="absolute left-[19px] top-2 bottom-2 w-px bg-border" />
-            <ol className="space-y-6">
-              {passosLanding.map((item, i) => (
-                <li key={item.titulo} className="flex gap-4 relative">
-                  <div className={`h-10 w-10 rounded-full flex items-center justify-center shrink-0 z-10 border-2 ${i === 0 ? "bg-primary border-primary text-primary-foreground" : "bg-card border-border text-foreground"}`}>
-                    <span className="text-body-sm font-bold">{i + 1}</span>
-                  </div>
-                  <div className="pt-1 pb-2">
-                    <span className={`text-caption font-semibold ${textoMarca}`}>Passo {i + 1}</span>
-                    <h3 className="text-body-sm font-bold text-foreground mb-1">{item.titulo}</h3>
-                    <p className="text-label text-muted-foreground leading-snug">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+          {/* Linha do tempo do DS (antes, montada à mão): um passo por card, com o número no marcador */}
+          <Timeline
+            alternar={false}
+            className="max-w-lg mx-auto"
+            etapas={passosLanding.map((item, i) => ({ titulo: item.titulo, descricao: item.desc, icone: <span className="text-body-sm font-bold">{i + 1}</span> }))}
+          />
         </div>
 
         {/* ══ COMPARATIVO DE PLANOS ══ */}
@@ -1905,7 +1857,7 @@ function LandingTemplate() {
               <button type="button" onClick={prevSlide} aria-label="Depoimento anterior" className={`h-8 w-8 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors ${foco}`}>
                 <ChevronRight aria-hidden className="h-4 w-4 rotate-180" />
               </button>
-              <div className="flex gap-1">
+              <div className="flex">
                 {depoimentosLanding.map((d, i) => (
                   <button
                     key={d.pessoa}
@@ -1913,8 +1865,12 @@ function LandingTemplate() {
                     onClick={() => setSlide(i)}
                     aria-label={`Ir para o depoimento ${i + 1} de ${total}`}
                     aria-current={i === slide ? "true" : undefined}
-                    className={`h-1.5 rounded-full transition-all ${foco} ${i === slide ? "w-5 bg-primary" : "w-1.5 bg-border"}`}
-                  />
+                    data-alvo-compacto
+                    className={`flex h-8 min-w-8 items-center justify-center rounded-full px-1 ${foco}`}
+                  >
+                    {/* O ponto é o desenho; o botão em volta é a área de toque (32 px; as setas ao lado têm 44 px no toque) */}
+                    <span aria-hidden className={`h-2 rounded-full transition-all ${i === slide ? "w-5 bg-primary" : "w-2 bg-[var(--border-strong)]"}`} />
+                  </button>
                 ))}
               </div>
               <button type="button" onClick={nextSlide} aria-label="Próximo depoimento" className={`h-8 w-8 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-foreground transition-colors ${foco}`}>
@@ -1930,34 +1886,15 @@ function LandingTemplate() {
             <p className={`text-caption font-semibold uppercase tracking-[0.1em] mb-1 ${textoMarca}`}>Dúvidas</p>
             <h2 className="text-h4 font-black text-foreground tracking-tight">Perguntas frequentes</h2>
           </div>
-          <div className="max-w-xl mx-auto space-y-2">
-            {duvidasLanding.map((item, i) => {
-              const aberto = openFaq === i;
-              return (
-                <div key={item.q} className="rounded-md border border-border bg-card overflow-hidden">
-                  <h3>
-                    <button
-                      type="button"
-                      id={`${pre}-faq-${i}`}
-                      aria-expanded={aberto}
-                      aria-controls={`${pre}-faq-painel-${i}`}
-                      onClick={() => setOpenFaq(aberto ? null : i)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-row-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-                    >
-                      <span className="text-body-sm font-semibold text-foreground pr-4">{item.q}</span>
-                      <ChevronRight aria-hidden className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${aberto ? "rotate-90" : ""}`} />
-                    </button>
-                  </h3>
-                  {aberto && (
-                    <div id={`${pre}-faq-painel-${i}`} role="region" aria-labelledby={`${pre}-faq-${i}`} className="px-4 pb-4 pt-0">
-                      <div className="h-px bg-border mb-3" />
-                      <p className="text-body-sm text-muted-foreground leading-relaxed">{item.a}</p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          {/* Acordeão do DS (antes, montado à mão) */}
+          <Accordion type="single" collapsible value={openFaq === null ? "" : String(openFaq)} onValueChange={v => setOpenFaq(v === "" ? null : Number(v))} className="max-w-xl mx-auto space-y-2">
+            {duvidasLanding.map((item, i) => (
+              <AccordionItem key={item.q} value={String(i)} className="rounded-md border border-border bg-card last:border-b">
+                <AccordionTrigger className="px-4 py-3 text-body-sm font-semibold text-foreground hover:bg-row-hover hover:no-underline">{item.q}</AccordionTrigger>
+                <AccordionContent className="px-4 text-muted-foreground leading-relaxed">{item.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
 
         {/* ══ CONTATO / CTA FINAL ══ */}
@@ -1991,15 +1928,14 @@ function LandingTemplate() {
                 return (
                   <li key={ch.label}>
                     <button type="button" className={`group w-full text-left relative rounded-lg border border-border bg-card p-4 flex flex-col gap-3 hover:border-[var(--border-strong)] hover:shadow-md transition-all ${foco}`}>
-                      <div className="flex items-start justify-between w-full">
-                        <div className={`h-9 w-9 rounded-md flex items-center justify-center ${ch.iconBg}`}>
-                          <Icon aria-hidden style={{ height: 18, width: 18 }} />
-                        </div>
-                        <span className="text-caption font-bold px-1 py-1 rounded-full border border-border bg-muted text-foreground">{ch.badge}</span>
+                      <div className={`h-9 w-9 rounded-md flex items-center justify-center ${ch.iconBg}`}>
+                        <Icon aria-hidden className="h-5 w-5" />
                       </div>
+                      {/* Prazo embaixo do texto, na mesma borda do título (27/11/2026) */}
                       <div>
                         <div className="text-body-sm font-bold text-foreground mb-1">{ch.label}</div>
                         <div className="text-caption text-muted-foreground">{ch.value}</div>
+                        <span className="mt-2 inline-flex text-caption font-bold px-2 py-1 rounded-full border border-border bg-muted text-foreground">{ch.badge}</span>
                       </div>
                       <div className={`flex items-center gap-1 text-caption font-medium opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity ${textoMarca}`}>
                         Abrir <ArrowRight aria-hidden className="h-3 w-3" />
@@ -2152,8 +2088,8 @@ function LandingTemplate() {
                       </div>
 
                       <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                        <div className="flex items-start gap-1 flex-1 min-w-[160px]">
-                          <input id={`${pre}-consent`} type="checkbox" required className="mt-1 h-3 w-3 rounded-sm accent-[var(--primary)] shrink-0" />
+                        <div className="flex items-start gap-2 flex-1 min-w-[160px]">
+                          <Checkbox id={`${pre}-consent`} required />
                           <label htmlFor={`${pre}-consent`} className="text-caption text-muted-foreground leading-snug cursor-pointer">
                             Concordo com os <span className={`underline underline-offset-1 ${textoMarca}`}>Termos</span> e a <span className={`underline underline-offset-1 ${textoMarca}`}>Política de privacidade</span>
                           </label>
@@ -2176,17 +2112,18 @@ function LandingTemplate() {
           <div className="max-w-2xl mx-auto">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-5">
               <MarcaFindLook />
-              <div className="flex flex-wrap items-center gap-4">
+              {/* Celular: links em 2 colunas iguais, com 44 px de toque; do 640 px em diante, numa linha (27/11/2026) */}
+              <div className="grid w-full grid-cols-2 gap-x-4 sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:gap-4">
                 {["Para quem procura", "Para lojas", "Planos", "Ajuda", "Contato"].map(l => (
-                  <button key={l} type="button" className={`text-caption text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>{l}</button>
+                  <button key={l} type="button" className={`inline-flex min-h-10 items-center text-left text-label text-muted-foreground hover:text-foreground transition-colors rounded-sm toque:min-h-11 ${foco}`}>{l}</button>
                 ))}
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-border">
               <span className="text-caption text-muted-foreground">© 2026 FindLook. Todos os direitos reservados.</span>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 {["Privacidade", "Termos", "Cookies"].map(l => (
-                  <button key={l} type="button" className={`text-caption text-muted-foreground hover:text-foreground transition-colors rounded-sm ${foco}`}>{l}</button>
+                  <button key={l} type="button" className={`inline-flex min-h-10 items-center text-label text-muted-foreground hover:text-foreground transition-colors rounded-sm toque:min-h-11 ${foco}`}>{l}</button>
                 ))}
               </div>
             </div>

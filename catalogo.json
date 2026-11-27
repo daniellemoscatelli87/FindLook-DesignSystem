@@ -7,11 +7,11 @@
   "resumo": {
     "arquivosDeComponentes": 91,
     "componentesExportados": 399,
-    "templatesEPadroesSoEmDemonstracao": 91,
+    "templatesEPadroesSoEmDemonstracao": 89,
     "secoesComMarcacaoAMao": 49,
     "tokens": 167,
     "paginas": 32,
-    "ancoras": 236,
+    "ancoras": 237,
     "propostas": 1
   },
   "componentes": [
@@ -74,6 +74,21 @@
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
           "linha": 650,
           "uso": "direto",
+          "exports": [
+            "Accordion",
+            "AccordionItem",
+            "AccordionTrigger",
+            "AccordionContent"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-landing",
+          "titulo": "Landing page para lojistas",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1304,
+          "uso": "dentro de outro exemplo",
           "exports": [
             "Accordion",
             "AccordionItem",
@@ -488,7 +503,7 @@
           "ancora": "avatar-circles",
           "titulo": "Círculos de avatares",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 664,
+          "linha": 665,
           "uso": "direto",
           "exports": [
             "AvatarCircles"
@@ -500,7 +515,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453,
+          "linha": 1464,
           "uso": "direto",
           "exports": [
             "AvatarCircles"
@@ -551,7 +566,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Badge"
@@ -617,7 +632,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1347,
+          "linha": 1310,
           "uso": "direto",
           "exports": [
             "BarraFixaDoCelular"
@@ -773,7 +788,7 @@
         {
           "nome": "BuscaNoCelular",
           "tipo": "componente",
-          "linha": 273,
+          "linha": 274,
           "descricao": "Barra fixa \"Encontrar peças\" que abre a busca numa gaveta inferior (celular).",
           "props": [
             "aberta",
@@ -873,7 +888,7 @@
           "ancora": "dev-catalogo",
           "titulo": "Consulte o catálogo antes de montar qualquer peça",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 144,
+          "linha": 145,
           "uso": "direto",
           "exports": [
             "Button"
@@ -894,10 +909,22 @@
         {
           "pagina": "motion",
           "paginaRotulo": "Movimento",
+          "ancora": "spring",
+          "titulo": "Física de mola",
+          "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
+          "linha": 269,
+          "uso": "direto",
+          "exports": [
+            "Button"
+          ]
+        },
+        {
+          "pagina": "motion",
+          "paginaRotulo": "Movimento",
           "ancora": "micro",
           "titulo": "Microinterações",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 656,
+          "linha": 654,
           "uso": "direto",
           "exports": [
             "Button"
@@ -909,7 +936,7 @@
           "ancora": "card-anatomy",
           "titulo": "Anatomia do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 599,
+          "linha": 610,
           "uso": "direto",
           "exports": [
             "Button"
@@ -921,7 +948,7 @@
           "ancora": "card-orientacao",
           "titulo": "Vertical e horizontal",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 727,
+          "linha": 738,
           "uso": "direto",
           "exports": [
             "Button"
@@ -933,7 +960,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "direto",
           "exports": [
             "Button"
@@ -945,7 +972,7 @@
           "ancora": "card-actions",
           "titulo": "Botões em cards",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 896,
+          "linha": 907,
           "uso": "direto",
           "exports": [
             "Button"
@@ -957,7 +984,7 @@
           "ancora": "card-ia",
           "titulo": "Arquitetura de informação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963,
+          "linha": 974,
           "uso": "direto",
           "exports": [
             "Button"
@@ -969,7 +996,7 @@
           "ancora": "card-states",
           "titulo": "Estados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1015,
+          "linha": 1026,
           "uso": "direto",
           "exports": [
             "Button"
@@ -981,7 +1008,7 @@
           "ancora": "card-shine",
           "titulo": "Borda brilhante (shine border)",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1124,
+          "linha": 1135,
           "uso": "direto",
           "exports": [
             "Button"
@@ -993,7 +1020,7 @@
           "ancora": "card-produto",
           "titulo": "Card de peça",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1238,
+          "linha": 1249,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1005,7 +1032,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453,
+          "linha": 1464,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1036,12 +1063,24 @@
           ]
         },
         {
+          "pagina": "usability",
+          "paginaRotulo": "Usabilidade",
+          "ancora": "ux-hierarchy",
+          "titulo": "Hierarquia de ações",
+          "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
+          "linha": 279,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Button"
+          ]
+        },
+        {
           "pagina": "motion",
           "paginaRotulo": "Movimento",
           "ancora": "loaders",
           "titulo": "Loaders e progresso",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 815,
+          "linha": 813,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1056,7 +1095,6 @@
           "linha": 209,
           "uso": "dentro de outro exemplo",
           "exports": [
-            "buttonVariants",
             "Button"
           ]
         },
@@ -1066,7 +1104,7 @@
           "ancora": "card-fundos",
           "titulo": "Por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 644,
+          "linha": 655,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1078,7 +1116,7 @@
           "ancora": "card-andamento",
           "titulo": "Andamento de tarefa",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 981,
+          "linha": 992,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1090,7 +1128,7 @@
           "ancora": "card-dica",
           "titulo": "Card de dica",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1326,
+          "linha": 1337,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1490,7 +1528,7 @@
           "ancora": "card-escolher",
           "titulo": "Como escolher",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 576,
+          "linha": 587,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1502,7 +1540,7 @@
           "ancora": "card-solido",
           "titulo": "Card sólido",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 597,
+          "linha": 608,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1514,7 +1552,7 @@
           "ancora": "card-anatomy",
           "titulo": "Anatomia do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 599,
+          "linha": 610,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Card",
@@ -1532,7 +1570,7 @@
           "ancora": "card-fundos",
           "titulo": "Por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 644,
+          "linha": 655,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1544,7 +1582,7 @@
           "ancora": "card-layout",
           "titulo": "Borda, sombra e raio",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 659,
+          "linha": 670,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1556,7 +1594,7 @@
           "ancora": "card-orientacao",
           "titulo": "Vertical e horizontal",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 727,
+          "linha": 738,
           "uso": "direto",
           "exports": [
             "Card",
@@ -1573,7 +1611,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "direto",
           "exports": [
             "Card",
@@ -1591,7 +1629,7 @@
           "ancora": "card-actions",
           "titulo": "Botões em cards",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 896,
+          "linha": 907,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Card",
@@ -1609,7 +1647,7 @@
           "ancora": "card-ia",
           "titulo": "Arquitetura de informação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963,
+          "linha": 974,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Card",
@@ -1627,7 +1665,7 @@
           "ancora": "card-states",
           "titulo": "Estados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1015,
+          "linha": 1026,
           "uso": "direto",
           "exports": [
             "Card",
@@ -1643,7 +1681,7 @@
           "ancora": "card-animacao",
           "titulo": "Animação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1085,
+          "linha": 1096,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1655,7 +1693,7 @@
           "ancora": "card-shine",
           "titulo": "Borda brilhante (shine border)",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1124,
+          "linha": 1135,
           "uso": "direto",
           "exports": [
             "Card",
@@ -1672,7 +1710,7 @@
           "ancora": "card-nested",
           "titulo": "Cards aninhados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1169,
+          "linha": 1180,
           "uso": "direto",
           "exports": [
             "Card",
@@ -1686,7 +1724,7 @@
           "ancora": "card-produto",
           "titulo": "Card de peça",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1238,
+          "linha": 1249,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1698,7 +1736,7 @@
           "ancora": "card-plano",
           "titulo": "Card de plano",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1305,
+          "linha": 1316,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1710,7 +1748,7 @@
           "ancora": "card-dica",
           "titulo": "Card de dica",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1326,
+          "linha": 1337,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1722,7 +1760,7 @@
           "ancora": "card-mostrar-mais",
           "titulo": "Card com Mostrar mais",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1340,
+          "linha": 1351,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1734,7 +1772,7 @@
           "ancora": "card-vidro",
           "titulo": "Card de vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1388,
+          "linha": 1399,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1746,7 +1784,7 @@
           "ancora": "card-glass-escuro",
           "titulo": "Vidro no tema escuro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1495,
+          "linha": 1506,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1758,7 +1796,7 @@
           "ancora": "card-guidelines",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1557,
+          "linha": 1568,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1770,7 +1808,7 @@
           "ancora": "card-accessibility",
           "titulo": "Acessibilidade do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1648,
+          "linha": 1659,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1782,7 +1820,7 @@
           "ancora": "card-tokens",
           "titulo": "Tokens de card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1662,
+          "linha": 1673,
           "uso": "direto",
           "exports": [
             "Card"
@@ -1794,7 +1832,7 @@
           "ancora": "dev-catalogo",
           "titulo": "Consulte o catálogo antes de montar qualquer peça",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 144,
+          "linha": 145,
           "uso": "direto",
           "exports": [
             "Card",
@@ -1802,22 +1840,6 @@
             "CardTitle",
             "CardDescription",
             "CardContent",
-            "CardFooter"
-          ]
-        },
-        {
-          "pagina": "produto",
-          "paginaRotulo": "Padrões do produto",
-          "ancora": "produto-cadastro",
-          "titulo": "Cadastro do lojista",
-          "arquivo": "src/app/components/showcase/ProdutoShowcase.tsx",
-          "linha": 209,
-          "uso": "dentro de outro exemplo",
-          "exports": [
-            "Card",
-            "CardHeader",
-            "CardTitle",
-            "CardDescription",
             "CardFooter"
           ]
         }
@@ -1868,7 +1890,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CardDePreco"
@@ -2063,7 +2085,7 @@
           "ancora": "loaders",
           "titulo": "Loaders e progresso",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 815,
+          "linha": 813,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Carregando"
@@ -2122,6 +2144,32 @@
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
           "linha": 398,
           "uso": "direto",
+          "exports": [
+            "GrupoDeCartoesDeEscolha",
+            "CartaoDeEscolha"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-dashboard",
+          "titulo": "Painel da loja (protótipo)",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1292,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GrupoDeCartoesDeEscolha",
+            "CartaoDeEscolha"
+          ]
+        },
+        {
+          "pagina": "produto",
+          "paginaRotulo": "Padrões do produto",
+          "ancora": "produto-cadastro",
+          "titulo": "Cadastro do lojista",
+          "arquivo": "src/app/components/showcase/ProdutoShowcase.tsx",
+          "linha": 209,
+          "uso": "dentro de outro exemplo",
           "exports": [
             "GrupoDeCartoesDeEscolha",
             "CartaoDeEscolha"
@@ -2246,6 +2294,42 @@
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
           "linha": 278,
           "uso": "direto",
+          "exports": [
+            "Checkbox"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-dashboard",
+          "titulo": "Painel da loja (protótipo)",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1292,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Checkbox"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-auth",
+          "titulo": "Entrar e criar conta",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1298,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Checkbox"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-landing",
+          "titulo": "Landing page para lojistas",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1304,
+          "uso": "dentro de outro exemplo",
           "exports": [
             "Checkbox"
           ]
@@ -2417,7 +2501,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CommandDialog",
@@ -2661,7 +2745,7 @@
           "ancora": "card-vidro",
           "titulo": "Card de vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1388,
+          "linha": 1399,
           "uso": "direto",
           "exports": [
             "AA"
@@ -2673,7 +2757,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390,
+          "linha": 1401,
           "uso": "dentro de outro exemplo",
           "exports": [
             "AA",
@@ -2686,7 +2770,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428,
+          "linha": 1439,
           "uso": "dentro de outro exemplo",
           "exports": [
             "AA",
@@ -2699,7 +2783,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "AA",
@@ -2899,7 +2983,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390,
+          "linha": 1401,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DoodleTexture"
@@ -2911,7 +2995,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428,
+          "linha": 1439,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DoodleTexture"
@@ -2923,7 +3007,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453,
+          "linha": 1464,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DoodleTexture"
@@ -2935,7 +3019,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DoodleTexture"
@@ -3244,7 +3328,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DropdownMenu",
@@ -3350,7 +3434,7 @@
           "ancora": "card-produto",
           "titulo": "Card de peça",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1238,
+          "linha": 1249,
           "uso": "direto",
           "exports": [
             "IconeModa"
@@ -3362,7 +3446,7 @@
           "ancora": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 752,
+          "linha": 753,
           "uso": "direto",
           "exports": [
             "IconeModa"
@@ -3387,7 +3471,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "IconeModa"
@@ -3399,7 +3483,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1341,
+          "linha": 1304,
           "uso": "dentro de outro exemplo",
           "exports": [
             "IconeModa"
@@ -3578,7 +3662,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453,
+          "linha": 1464,
           "uso": "direto",
           "exports": [
             "GlassCard",
@@ -3591,7 +3675,7 @@
           "ancora": "card-glass-escuro",
           "titulo": "Vidro no tema escuro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1495,
+          "linha": 1506,
           "uso": "direto",
           "exports": [
             "GlassCard"
@@ -3603,7 +3687,7 @@
           "ancora": "card-guidelines",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1557,
+          "linha": 1568,
           "uso": "direto",
           "exports": [
             "GlassCard"
@@ -3615,7 +3699,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390,
+          "linha": 1401,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GlassCard",
@@ -3628,7 +3712,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428,
+          "linha": 1439,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GlassCard",
@@ -3641,7 +3725,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GlassCard",
@@ -3802,7 +3886,7 @@
           "ancora": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 308,
+          "linha": 312,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3826,7 +3910,7 @@
           "ancora": "loaders",
           "titulo": "Loaders e progresso",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 815,
+          "linha": 813,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3851,7 +3935,7 @@
           "ancora": "card-anatomy",
           "titulo": "Anatomia do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 599,
+          "linha": 610,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3863,7 +3947,7 @@
           "ancora": "card-fundos",
           "titulo": "Por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 644,
+          "linha": 655,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -3876,7 +3960,7 @@
           "ancora": "card-layout",
           "titulo": "Borda, sombra e raio",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 659,
+          "linha": 670,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3888,7 +3972,7 @@
           "ancora": "card-orientacao",
           "titulo": "Vertical e horizontal",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 727,
+          "linha": 738,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -3901,7 +3985,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "direto",
           "exports": [
             "LIMITE_DE_DIFERENCA",
@@ -3915,7 +3999,7 @@
           "ancora": "card-actions",
           "titulo": "Botões em cards",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 896,
+          "linha": 907,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3927,7 +4011,7 @@
           "ancora": "card-ia",
           "titulo": "Arquitetura de informação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963,
+          "linha": 974,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -3940,7 +4024,7 @@
           "ancora": "card-states",
           "titulo": "Estados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1015,
+          "linha": 1026,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -3953,7 +4037,7 @@
           "ancora": "card-shine",
           "titulo": "Borda brilhante (shine border)",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1124,
+          "linha": 1135,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3965,7 +4049,7 @@
           "ancora": "card-nested",
           "titulo": "Cards aninhados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1169,
+          "linha": 1180,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3977,7 +4061,7 @@
           "ancora": "card-partner",
           "titulo": "Card de convite ao parceiro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1203,
+          "linha": 1214,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -3989,7 +4073,7 @@
           "ancora": "card-produto",
           "titulo": "Card de peça",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1238,
+          "linha": 1249,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4001,7 +4085,7 @@
           "ancora": "card-plano",
           "titulo": "Card de plano",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1305,
+          "linha": 1316,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -4014,7 +4098,7 @@
           "ancora": "card-mostrar-mais",
           "titulo": "Card com Mostrar mais",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1340,
+          "linha": 1351,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4026,7 +4110,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390,
+          "linha": 1401,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -4039,7 +4123,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428,
+          "linha": 1439,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -4052,7 +4136,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453,
+          "linha": 1464,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4064,7 +4148,7 @@
           "ancora": "card-glass-escuro",
           "titulo": "Vidro no tema escuro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1495,
+          "linha": 1506,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4076,7 +4160,7 @@
           "ancora": "card-guidelines",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1557,
+          "linha": 1568,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4160,7 +4244,7 @@
           "ancora": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 752,
+          "linha": 753,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4172,7 +4256,7 @@
           "ancora": "header-scroll",
           "titulo": "Comportamentos de rolagem",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 750,
+          "linha": 744,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4270,7 +4354,7 @@
           "ancora": "grid-evitar",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/GridShowcase.tsx",
-          "linha": 259,
+          "linha": 279,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4282,7 +4366,7 @@
           "ancora": "ux-principles",
           "titulo": "Princípios",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 266,
+          "linha": 270,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4294,7 +4378,7 @@
           "ancora": "ux-errors",
           "titulo": "Erros e microcopy",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 337,
+          "linha": 341,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4330,7 +4414,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4342,7 +4426,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1341,
+          "linha": 1304,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4354,7 +4438,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1347,
+          "linha": 1310,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4390,7 +4474,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4402,7 +4486,7 @@
           "ancora": "card-accessibility",
           "titulo": "Acessibilidade do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1648,
+          "linha": 1659,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -4510,7 +4594,7 @@
           "ancora": "header-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 809,
+          "linha": 803,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6022,7 +6106,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 129,
+          "linha": 130,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "withHighlight"
@@ -6046,7 +6130,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 256,
+          "linha": 260,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "withHighlight"
@@ -6465,7 +6549,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Label"
@@ -6512,7 +6596,7 @@
           "ancora": "card-layout",
           "titulo": "Borda, sombra e raio",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 659,
+          "linha": 670,
           "uso": "dentro de outro exemplo",
           "exports": [
             "LinhaDeLista"
@@ -6604,7 +6688,7 @@
           "ancora": "card-glass-escuro",
           "titulo": "Vidro no tema escuro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1495,
+          "linha": 1506,
           "uso": "direto",
           "exports": [
             "LuzesDifusas"
@@ -7218,7 +7302,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CabecalhoDaPagina",
@@ -7307,7 +7391,7 @@
         {
           "nome": "CardIndicador",
           "tipo": "componente",
-          "linha": 120,
+          "linha": 122,
           "descricao": "Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. Diagramação (21/11/2026 e 27/11/2026, pedidos da dona do produto): o ícone de explicação fica sempre colado à última palavra do …",
           "props": [
             "icone",
@@ -7317,6 +7401,7 @@
             "variacao",
             "comparacao",
             "explicacao",
+            "grafico",
             "className"
           ],
           "reexportaDe": null
@@ -7324,7 +7409,7 @@
         {
           "nome": "GraficoDeDesempenho",
           "tipo": "componente",
-          "linha": 159,
+          "linha": 162,
           "descricao": "",
           "props": [
             "dados",
@@ -7340,7 +7425,7 @@
         {
           "nome": "iniciais",
           "tipo": "utilitário",
-          "linha": 233,
+          "linha": 236,
           "descricao": "Até duas iniciais do nome, sem palavras de ligação (\"Loja da Ana\" → \"LA\"; \"Brechó\" → \"BR\").",
           "props": [],
           "reexportaDe": null
@@ -7348,7 +7433,7 @@
         {
           "nome": "ItemDeAtividade",
           "tipo": "componente",
-          "linha": 245,
+          "linha": 248,
           "descricao": "Item de atividade. icone: o ícone do tipo de evento; ou iniciais (o nome de quem aparece na lista), quando o título do card já diz o tipo e o ícone repetido não ajuda a diferenciar os itens (pedido da dona do produto, 20/11/2026).",
           "props": [
             "icone",
@@ -7363,7 +7448,7 @@
         {
           "nome": "ItemDeAcao",
           "tipo": "componente",
-          "linha": 264,
+          "linha": 267,
           "descricao": "tom: \"marca\" (padrão) para o que convida a agir ou está ativo; \"neutro\" para o que está pausado, encerrado ou é só registro.",
           "props": [
             "midia",
@@ -7379,7 +7464,7 @@
         {
           "nome": "ListaDeTendencias",
           "tipo": "componente",
-          "linha": 283,
+          "linha": 286,
           "descricao": "Lista de tendências",
           "props": [
             "itens",
@@ -7390,7 +7475,7 @@
         {
           "nome": "ItemDeChecklist",
           "tipo": "componente",
-          "linha": 298,
+          "linha": 301,
           "descricao": "Item de checklist",
           "props": [
             "estado",
@@ -7403,7 +7488,7 @@
         {
           "nome": "faixaDaPontuacao",
           "tipo": "utilitário",
-          "linha": 313,
+          "linha": 316,
           "descricao": "Anel de pontuação",
           "props": [],
           "reexportaDe": null
@@ -7411,7 +7496,7 @@
         {
           "nome": "AnelDePontuacao",
           "tipo": "componente",
-          "linha": 319,
+          "linha": 322,
           "descricao": "",
           "props": [
             "valor",
@@ -7424,7 +7509,7 @@
         {
           "nome": "CarrosselDeDicas",
           "tipo": "componente",
-          "linha": 354,
+          "linha": 357,
           "descricao": "Carrossel de dicas (27/11/2026): a dica num card; embaixo dela, alinhados à esquerda com a borda do card da dica, os controles (anterior, \"1 de 3\", próxima).",
           "props": [
             "dicas",
@@ -7436,7 +7521,7 @@
         {
           "nome": "FaixaDeBeneficios",
           "tipo": "componente",
-          "linha": 379,
+          "linha": 382,
           "descricao": "Faixa de benefícios",
           "props": [
             "icone",
@@ -7450,7 +7535,7 @@
         {
           "nome": "CardDoPainel",
           "tipo": "componente",
-          "linha": 402,
+          "linha": 405,
           "descricao": "Card de seção do painel (título, descrição, ação)",
           "props": [
             "icone",
@@ -7467,7 +7552,7 @@
         {
           "nome": "DivisorSuave",
           "tipo": "componente",
-          "linha": 426,
+          "linha": 429,
           "descricao": "Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).",
           "props": [
             "className"
@@ -7477,7 +7562,7 @@
         {
           "nome": "CardComCabecalho",
           "tipo": "componente",
-          "linha": 447,
+          "linha": 450,
           "descricao": "",
           "props": [
             "icone",
@@ -7496,7 +7581,7 @@
         {
           "nome": "ConteudoRecolhivel",
           "tipo": "componente",
-          "linha": 481,
+          "linha": 484,
           "descricao": "Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê.",
           "props": [
             "children",
@@ -7515,7 +7600,7 @@
         {
           "nome": "LinkVerTudo",
           "tipo": "componente",
-          "linha": 561,
+          "linha": 564,
           "descricao": "Link \"ver tudo\" com seta. tom=\"marca\" (padrão) para o principal; tom=\"neutro\" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).",
           "props": [
             "children",
@@ -7530,7 +7615,7 @@
         {
           "nome": "FaixaDeEstado",
           "tipo": "componente",
-          "linha": 587,
+          "linha": 590,
           "descricao": "Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o que vem depois.",
           "props": [
             "estado",
@@ -7545,7 +7630,7 @@
         {
           "nome": "ProgressoRotulado",
           "tipo": "componente",
-          "linha": 606,
+          "linha": 609,
           "descricao": "Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária).",
           "props": [
             "rotulo",
@@ -7558,7 +7643,7 @@
         {
           "nome": "ResumoEmLinha",
           "tipo": "componente",
-          "linha": 626,
+          "linha": 629,
           "descricao": "Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;",
           "props": [
             "itens",
@@ -7569,7 +7654,7 @@
         {
           "nome": "PainelDeUso",
           "tipo": "componente",
-          "linha": 674,
+          "linha": 677,
           "descricao": "Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.",
           "props": [
             "icone",
@@ -7587,7 +7672,7 @@
         {
           "nome": "CardDeUso",
           "tipo": "componente",
-          "linha": 722,
+          "linha": 725,
           "descricao": "Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a porcentagem do limite.",
           "props": [
             "icone",
@@ -7614,7 +7699,7 @@
           "ancora": "faixa-beneficios",
           "titulo": "Faixa de benefícios",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1365,
+          "linha": 1376,
           "uso": "direto",
           "exports": [
             "FaixaDeBeneficios"
@@ -7638,7 +7723,7 @@
           "ancora": "card-layout",
           "titulo": "Borda, sombra e raio",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 659,
+          "linha": 670,
           "uso": "direto",
           "exports": [
             "DivisorSuave"
@@ -7650,7 +7735,7 @@
           "ancora": "card-mostrar-mais",
           "titulo": "Card com Mostrar mais",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1340,
+          "linha": 1351,
           "uso": "direto",
           "exports": [
             "CardDoPainel",
@@ -7676,7 +7761,7 @@
           "ancora": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 752,
+          "linha": 753,
           "uso": "direto",
           "exports": [
             "ItemDeAtividade",
@@ -7702,7 +7787,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "formatarNumero",
@@ -7740,7 +7825,7 @@
           "ancora": "card-ia",
           "titulo": "Arquitetura de informação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963,
+          "linha": 974,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CardIndicador"
@@ -7752,7 +7837,7 @@
           "ancora": "card-uso",
           "titulo": "Uso com limite",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 977,
+          "linha": 988,
           "uso": "dentro de outro exemplo",
           "exports": [
             "PainelDeUso",
@@ -7765,7 +7850,7 @@
           "ancora": "card-andamento",
           "titulo": "Andamento de tarefa",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 981,
+          "linha": 992,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CardDoPainel",
@@ -7781,7 +7866,7 @@
           "ancora": "card-dica",
           "titulo": "Card de dica",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1326,
+          "linha": 1337,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CarrosselDeDicas",
@@ -7953,7 +8038,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "AbasComContador",
@@ -8233,7 +8318,7 @@
           "ancora": "card-plano",
           "titulo": "Card de plano",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1305,
+          "linha": 1316,
           "uso": "direto",
           "exports": [
             "CardDePlano"
@@ -8280,7 +8365,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "MenuLateralProvider",
@@ -8336,7 +8421,7 @@
           "ancora": "card-ia",
           "titulo": "Arquitetura de informação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963,
+          "linha": 974,
           "uso": "direto",
           "exports": [
             "PartnerCard"
@@ -8348,7 +8433,7 @@
           "ancora": "card-partner",
           "titulo": "Card de convite ao parceiro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1203,
+          "linha": 1214,
           "uso": "direto",
           "exports": [
             "PartnerCard"
@@ -8549,7 +8634,7 @@
           "ancora": "card-produto",
           "titulo": "Card de peça",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1238,
+          "linha": 1249,
           "uso": "direto",
           "exports": [
             "ProductCard"
@@ -8764,12 +8849,36 @@
           ]
         },
         {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-dashboard",
+          "titulo": "Painel da loja (protótipo)",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1292,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "SegmentedControl"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-auth",
+          "titulo": "Entrar e criar conta",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1298,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "SegmentedControl"
+          ]
+        },
+        {
           "pagina": "cards",
           "paginaRotulo": "Cards",
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "SegmentedControl"
@@ -8885,7 +8994,52 @@
       ],
       "tipos": [],
       "variantes": {},
-      "ondeVer": []
+      "ondeVer": [
+        {
+          "pagina": "cards",
+          "paginaRotulo": "Cards",
+          "ancora": "card-states",
+          "titulo": "Estados",
+          "arquivo": "src/app/components/showcase/CardShowcase.tsx",
+          "linha": 1026,
+          "uso": "direto",
+          "exports": [
+            "Select"
+          ]
+        },
+        {
+          "pagina": "cards",
+          "paginaRotulo": "Cards",
+          "ancora": "card-glass-teste",
+          "titulo": "Testar o vidro",
+          "arquivo": "src/app/components/showcase/CardShowcase.tsx",
+          "linha": 1562,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Select",
+            "SelectValue",
+            "SelectTrigger",
+            "SelectContent",
+            "SelectItem"
+          ]
+        },
+        {
+          "pagina": "header",
+          "paginaRotulo": "Header e menus",
+          "ancora": "header-demo",
+          "titulo": "Demonstração",
+          "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
+          "linha": 708,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Select",
+            "SelectValue",
+            "SelectTrigger",
+            "SelectContent",
+            "SelectItem"
+          ]
+        }
+      ]
     },
     {
       "arquivo": "src/app/components/ui/selo.tsx",
@@ -8918,7 +9072,7 @@
           "ancora": "selo",
           "titulo": "Selo (tag do hero)",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 543,
+          "linha": 544,
           "uso": "direto",
           "exports": [
             "Selo"
@@ -8930,7 +9084,7 @@
           "ancora": "selo-secao",
           "titulo": "Selo de seção",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 578,
+          "linha": 579,
           "uso": "direto",
           "exports": [
             "Selo"
@@ -8967,7 +9121,7 @@
           "ancora": "selo-secao",
           "titulo": "Selo de seção",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 578,
+          "linha": 579,
           "uso": "direto",
           "exports": [
             "SeloSecao"
@@ -9163,7 +9317,7 @@
           "ancora": "card-shine",
           "titulo": "Borda brilhante (shine border)",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1124,
+          "linha": 1135,
           "uso": "direto",
           "exports": [
             "shinePresets",
@@ -9177,21 +9331,8 @@
           "ancora": "card-states",
           "titulo": "Estados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1015,
+          "linha": 1026,
           "uso": "direto",
-          "exports": [
-            "BrilhoDeSelecionado",
-            "molduraDoSelecionavel"
-          ]
-        },
-        {
-          "pagina": "produto",
-          "paginaRotulo": "Padrões do produto",
-          "ancora": "produto-cadastro",
-          "titulo": "Cadastro do lojista",
-          "arquivo": "src/app/components/showcase/ProdutoShowcase.tsx",
-          "linha": 209,
-          "uso": "dentro de outro exemplo",
           "exports": [
             "BrilhoDeSelecionado",
             "molduraDoSelecionavel"
@@ -9636,7 +9777,7 @@
           "ancora": "card-states",
           "titulo": "Estados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1015,
+          "linha": 1026,
           "uso": "direto",
           "exports": [
             "Skeleton"
@@ -9674,7 +9815,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Slider"
@@ -9853,7 +9994,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Switch"
@@ -9865,7 +10006,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Switch"
@@ -9878,6 +10019,18 @@
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
           "linha": 464,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Switch"
+          ]
+        },
+        {
+          "pagina": "header",
+          "paginaRotulo": "Header e menus",
+          "ancora": "header-demo",
+          "titulo": "Demonstração",
+          "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
+          "linha": 708,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Switch"
@@ -10125,6 +10278,18 @@
           "arquivo": "src/app/components/showcase/TimelineShowcase.tsx",
           "linha": 106,
           "uso": "direto",
+          "exports": [
+            "Timeline"
+          ]
+        },
+        {
+          "pagina": "templates",
+          "paginaRotulo": "Templates",
+          "ancora": "template-landing",
+          "titulo": "Landing page para lojistas",
+          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
+          "linha": 1304,
+          "uso": "dentro de outro exemplo",
           "exports": [
             "Timeline"
           ]
@@ -10479,7 +10644,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329,
+          "linha": 1292,
           "uso": "dentro de outro exemplo",
           "exports": [
             "UploadDropzone",
@@ -10567,7 +10732,7 @@
           "ancora": "card-layout",
           "titulo": "Borda, sombra e raio",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 659,
+          "linha": 670,
           "uso": "direto",
           "exports": [
             "cn"
@@ -10603,7 +10768,7 @@
           "ancora": "card-fundos",
           "titulo": "Por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 644,
+          "linha": 655,
           "uso": "dentro de outro exemplo",
           "exports": [
             "cn"
@@ -10615,7 +10780,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764,
+          "linha": 775,
           "uso": "dentro de outro exemplo",
           "exports": [
             "cn"
@@ -10627,7 +10792,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390,
+          "linha": 1401,
           "uso": "dentro de outro exemplo",
           "exports": [
             "cn"
@@ -10639,7 +10804,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428,
+          "linha": 1439,
           "uso": "dentro de outro exemplo",
           "exports": [
             "cn"
@@ -10651,7 +10816,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453,
+          "linha": 1464,
           "uso": "dentro de outro exemplo",
           "exports": [
             "cn"
@@ -10663,7 +10828,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551,
+          "linha": 1562,
           "uso": "dentro de outro exemplo",
           "exports": [
             "cn"
@@ -10704,7 +10869,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1347,
+          "linha": 1310,
           "uso": "direto",
           "exports": [
             "VoltarAoTopo"
@@ -10716,7 +10881,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1341,
+          "linha": 1304,
           "uso": "dentro de outro exemplo",
           "exports": [
             "VoltarAoTopo"
@@ -10932,7 +11097,7 @@
       "nome": "TargetDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 15,
+      "linha": 16,
       "descricao": "Touch targets",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -10943,7 +11108,7 @@
           "ancora": "ux-targets",
           "titulo": "Tamanho de alvo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 294
+          "linha": 298
         }
       ],
       "usaComponentes": [],
@@ -10953,7 +11118,7 @@
       "nome": "FeedbackDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 45,
+      "linha": 46,
       "descricao": "System status",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -10964,7 +11129,7 @@
           "ancora": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 308
+          "linha": 312
         }
       ],
       "usaComponentes": [],
@@ -10974,7 +11139,7 @@
       "nome": "UndoDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 82,
+      "linha": 83,
       "descricao": "",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -10985,7 +11150,7 @@
           "ancora": "ux-destructive",
           "titulo": "Ações destrutivas",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 361
+          "linha": 365
         }
       ],
       "usaComponentes": [],
@@ -10995,7 +11160,7 @@
       "nome": "StatesDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 146,
+      "linha": 147,
       "descricao": "",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -11006,7 +11171,7 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 328
+          "linha": 332
         }
       ],
       "usaComponentes": [],
@@ -11016,7 +11181,7 @@
       "nome": "HierarchyDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 212,
+      "linha": 213,
       "descricao": "Button hierarchy",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -11027,11 +11192,13 @@
           "ancora": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 275
+          "linha": 279
         }
       ],
-      "usaComponentes": [],
-      "elementosFeitosAMao": 5
+      "usaComponentes": [
+        "Button"
+      ],
+      "elementosFeitosAMao": 1
     },
     {
       "nome": "ContrastTable",
@@ -11329,7 +11496,7 @@
       "nome": "SpringPlayground",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 310,
+      "linha": 308,
       "descricao": "",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11350,7 +11517,7 @@
       "nome": "MagneticButton",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 609,
+      "linha": 607,
       "descricao": "",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11361,7 +11528,7 @@
           "ancora": "hover",
           "titulo": "Interações de hover",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 468
+          "linha": 466
         }
       ],
       "usaComponentes": [],
@@ -11371,7 +11538,7 @@
       "nome": "DemoCarregando",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 962,
+      "linha": 960,
       "descricao": "Carregamento de página (componente Carregando, 21/11/2026): como aparece e o aviso de demora, sem esperar 10 s.",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11382,7 +11549,7 @@
           "ancora": "loaders",
           "titulo": "Loaders e progresso",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 815
+          "linha": 813
         }
       ],
       "usaComponentes": [
@@ -11395,7 +11562,7 @@
       "nome": "StepIndicator",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 985,
+      "linha": 983,
       "descricao": "",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11406,7 +11573,7 @@
           "ancora": "loaders",
           "titulo": "Loaders e progresso",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 815
+          "linha": 813
         }
       ],
       "usaComponentes": [],
@@ -11416,7 +11583,7 @@
       "nome": "DurationBars",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1150,
+      "linha": 1148,
       "descricao": "",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11427,7 +11594,7 @@
           "ancora": "motion-tokens",
           "titulo": "Tokens de movimento",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1121
+          "linha": 1119
         }
       ],
       "usaComponentes": [],
@@ -11437,7 +11604,7 @@
       "nome": "OrbitCanvas",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1497,
+      "linha": 1495,
       "descricao": "",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11448,7 +11615,7 @@
           "ancora": "orbiting-circles",
           "titulo": "Círculos orbitais",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1727
+          "linha": 1725
         }
       ],
       "usaComponentes": [],
@@ -11458,7 +11625,7 @@
       "nome": "AvatarOrbitCanvas",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1645,
+      "linha": 1643,
       "descricao": "",
       "pagina": "motion",
       "paginaRotulo": "Movimento",
@@ -11469,7 +11636,7 @@
           "ancora": "orbiting-circles",
           "titulo": "Círculos orbitais",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1727
+          "linha": 1725
         }
       ],
       "usaComponentes": [],
@@ -11490,7 +11657,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [],
@@ -11511,7 +11678,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
@@ -11539,7 +11706,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
@@ -11568,7 +11735,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
@@ -11635,7 +11802,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [],
@@ -11656,7 +11823,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
@@ -11697,7 +11864,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
@@ -11709,7 +11876,7 @@
       "nome": "SettingsTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 117,
+      "linha": 122,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11720,13 +11887,15 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
         "AbasComContador",
         "CabecalhoDaPagina",
         "CardComCabecalho",
+        "CartaoDeEscolha",
+        "GrupoDeCartoesDeEscolha",
         "Switch"
       ],
       "elementosFeitosAMao": 11
@@ -11735,7 +11904,7 @@
       "nome": "AuthTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 356,
+      "linha": 347,
       "descricao": "3. Entrar e criar conta (loja parceira)",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11746,17 +11915,20 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1335
+          "linha": 1298
         }
       ],
-      "usaComponentes": [],
-      "elementosFeitosAMao": 11
+      "usaComponentes": [
+        "Checkbox",
+        "SegmentedControl"
+      ],
+      "elementosFeitosAMao": 10
     },
     {
       "nome": "TeamTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 550,
+      "linha": 536,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11767,12 +11939,13 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
         "CabecalhoDaPagina",
-        "CardComCabecalho"
+        "CardComCabecalho",
+        "SegmentedControl"
       ],
       "elementosFeitosAMao": 17
     },
@@ -11780,7 +11953,7 @@
       "nome": "InboxTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 820,
+      "linha": 802,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11791,7 +11964,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
@@ -11802,31 +11975,10 @@
       "elementosFeitosAMao": 12
     },
     {
-      "nome": "ChaveParaQuem",
-      "tipo": "padrão de componente",
-      "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 980,
-      "descricao": "Controle só da demonstração: liga e desliga o bloco opcional \"Para quem\" nos cards de preço",
-      "pagina": "templates",
-      "paginaRotulo": "Templates",
-      "onde": [
-        {
-          "pagina": "templates",
-          "paginaRotulo": "Templates",
-          "ancora": "template-dashboard",
-          "titulo": "Painel da loja (protótipo)",
-          "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
-        }
-      ],
-      "usaComponentes": [],
-      "elementosFeitosAMao": 2
-    },
-    {
       "nome": "PricingTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1017,
+      "linha": 989,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11837,13 +11989,14 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
         "CabecalhoDaPagina",
         "CardDePreco",
-        "GradeDeCards"
+        "GradeDeCards",
+        "SegmentedControl"
       ],
       "elementosFeitosAMao": 4
     },
@@ -11851,7 +12004,7 @@
       "nome": "ContactTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1123,
+      "linha": 1086,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11862,12 +12015,13 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         }
       ],
       "usaComponentes": [
         "CabecalhoDaPagina",
-        "CardComCabecalho"
+        "CardComCabecalho",
+        "Checkbox"
       ],
       "elementosFeitosAMao": 6
     },
@@ -11875,7 +12029,7 @@
       "nome": "DemoBotoesFlutuantes",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1287,
+      "linha": 1250,
       "descricao": "Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026).",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11886,7 +12040,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1347
+          "linha": 1310
         }
       ],
       "usaComponentes": [
@@ -11899,7 +12053,7 @@
       "nome": "LandingTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1515,
+      "linha": 1478,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -11910,21 +12064,27 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1341
+          "linha": 1304
         }
       ],
       "usaComponentes": [
+        "Accordion",
+        "AccordionContent",
+        "AccordionItem",
+        "AccordionTrigger",
+        "Checkbox",
         "GradeDeCards",
         "IconeModa",
+        "Timeline",
         "VoltarAoTopo"
       ],
-      "elementosFeitosAMao": 79
+      "elementosFeitosAMao": 77
     },
     {
       "nome": "Chip",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 175,
+      "linha": 176,
       "descricao": "Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo no rosa do selecionado (--primary-suave), texto --primary-text, borda rosa sutil e check; não ativo com o mouse em cima: cinza claro (--accent);",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -11945,7 +12105,7 @@
       "nome": "CadastroEmEtapasDemo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 227,
+      "linha": 196,
       "descricao": "Demonstração",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -11965,20 +12125,16 @@
         "AlertTitle",
         "BarraDaEtapa",
         "BlocoDeRevisao",
-        "BrilhoDeSelecionado",
         "Button",
         "CampoDoCadastro",
-        "Card",
         "CardDePreco",
-        "CardDescription",
-        "CardFooter",
-        "CardHeader",
-        "CardTitle",
+        "CartaoDeEscolha",
         "Checkbox",
         "DivisorSuave",
         "EtapaDoCadastro",
         "GradeDeCampos",
         "GradeDeCards",
+        "GrupoDeCartoesDeEscolha",
         "Heading",
         "ImageUpload",
         "ItemDeAcao",
@@ -11997,7 +12153,7 @@
       "nome": "CombinacoesDoCadastro",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 798,
+      "linha": 767,
       "descricao": "",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -12052,17 +12208,44 @@
           "ancora": "card-animacao",
           "titulo": "Animação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1085
+          "linha": 1096
         }
       ],
       "usaComponentes": [],
       "elementosFeitosAMao": 9
     },
     {
+      "nome": "EscolhaEmLista",
+      "tipo": "padrão de componente",
+      "arquivo": "src/app/components/showcase/CardShowcase.tsx",
+      "linha": 51,
+      "descricao": "Escolha com mais de 3 opções nas demonstrações: rótulo em cima e a lista de seleção do DS (Select).",
+      "pagina": "cards",
+      "paginaRotulo": "Cards",
+      "onde": [
+        {
+          "pagina": "cards",
+          "paginaRotulo": "Cards",
+          "ancora": "card-glass-teste",
+          "titulo": "Testar o vidro",
+          "arquivo": "src/app/components/showcase/CardShowcase.tsx",
+          "linha": 1562
+        }
+      ],
+      "usaComponentes": [
+        "Select",
+        "SelectContent",
+        "SelectItem",
+        "SelectTrigger",
+        "SelectValue"
+      ],
+      "elementosFeitosAMao": 1
+    },
+    {
       "nome": "CenaDoVidro",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 119,
+      "linha": 138,
       "descricao": "Cena do seletor: usa o fundo escolhido; fora do seletor, é a cena padrão (GlassScene).",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12073,7 +12256,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390
+          "linha": 1401
         },
         {
           "pagina": "cards",
@@ -12081,7 +12264,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428
+          "linha": 1439
         },
         {
           "pagina": "cards",
@@ -12089,7 +12272,7 @@
           "ancora": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453
+          "linha": 1464
         },
         {
           "pagina": "cards",
@@ -12097,7 +12280,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551
+          "linha": 1562
         }
       ],
       "usaComponentes": [
@@ -12110,7 +12293,7 @@
       "nome": "GlassTestCard",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 181,
+      "linha": 200,
       "descricao": "Card de teste: título e subtítulo reais sobre o vidro, com avaliação de contraste (WCAG AA) e alerta dentro do card quando a configuração compromete a acessibilidade.",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12121,7 +12304,7 @@
           "ancora": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390
+          "linha": 1401
         },
         {
           "pagina": "cards",
@@ -12129,7 +12312,7 @@
           "ancora": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428
+          "linha": 1439
         },
         {
           "pagina": "cards",
@@ -12137,7 +12320,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551
+          "linha": 1562
         }
       ],
       "usaComponentes": [
@@ -12149,7 +12332,7 @@
       "nome": "GlassFinishPicker",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 219,
+      "linha": 238,
       "descricao": "",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12160,7 +12343,7 @@
           "ancora": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551
+          "linha": 1562
         }
       ],
       "usaComponentes": [
@@ -12169,6 +12352,11 @@
         "GlassScene",
         "GradeDeCards",
         "SegmentedControl",
+        "Select",
+        "SelectContent",
+        "SelectItem",
+        "SelectTrigger",
+        "SelectValue",
         "Slider"
       ],
       "elementosFeitosAMao": 3
@@ -12177,7 +12365,7 @@
       "nome": "DemoCarrosselDeDicas",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 337,
+      "linha": 348,
       "descricao": "",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12188,7 +12376,7 @@
           "ancora": "card-dica",
           "titulo": "Card de dica",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1326
+          "linha": 1337
         }
       ],
       "usaComponentes": [
@@ -12202,7 +12390,7 @@
       "nome": "CardPorFundo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 380,
+      "linha": 391,
       "descricao": "",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12213,7 +12401,7 @@
           "ancora": "card-fundos",
           "titulo": "Por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 644
+          "linha": 655
         }
       ],
       "usaComponentes": [
@@ -12226,7 +12414,7 @@
       "nome": "DemoMesmaAltura",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 405,
+      "linha": 416,
       "descricao": "Dois cards lado a lado; o interruptor põe muito conteúdo no segundo e a GradeDeCards troca para um por linha.",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12237,7 +12425,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764
+          "linha": 775
         }
       ],
       "usaComponentes": [
@@ -12260,7 +12448,7 @@
       "nome": "CardDeExemplo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 477,
+      "linha": 488,
       "descricao": "Card pequeno dos exemplos certo e errado.",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12271,7 +12459,7 @@
           "ancora": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764
+          "linha": 775
         }
       ],
       "usaComponentes": [
@@ -12285,33 +12473,10 @@
       "elementosFeitosAMao": 1
     },
     {
-      "nome": "CardsDeKpi",
-      "tipo": "padrão de componente",
-      "arquivo": "src/app/components/showcase/DataShowcase.tsx",
-      "linha": 581,
-      "descricao": "Cards de KPI: métrica, ícone, minigráfico e tendência (usados na página Cards).",
-      "pagina": "cards",
-      "paginaRotulo": "Cards",
-      "onde": [
-        {
-          "pagina": "cards",
-          "paginaRotulo": "Cards",
-          "ancora": "card-ia",
-          "titulo": "Arquitetura de informação",
-          "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963
-        }
-      ],
-      "usaComponentes": [
-        "GradeDeCards"
-      ],
-      "elementosFeitosAMao": 2
-    },
-    {
       "nome": "AndamentoDeTarefa",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/DataShowcase.tsx",
-      "linha": 672,
+      "linha": 658,
       "descricao": "Andamento de uma tarefa longa (FaixaDeEstado + ProgressoRotulado + ResumoEmLinha), usado na página Cards. Números de exemplo.",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12322,7 +12487,7 @@
           "ancora": "card-andamento",
           "titulo": "Andamento de tarefa",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 981
+          "linha": 992
         }
       ],
       "usaComponentes": [
@@ -12339,7 +12504,7 @@
       "nome": "WobbleCardConteudo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1950,
+      "linha": 1948,
       "descricao": "Card com wobble: demonstração com controles (usada na página Cards).",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12350,7 +12515,7 @@
           "ancora": "card-animacao",
           "titulo": "Animação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1085
+          "linha": 1096
         }
       ],
       "usaComponentes": [],
@@ -12360,7 +12525,7 @@
       "nome": "ShineBorderConteudo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 2054,
+      "linha": 2052,
       "descricao": "Shine Border: velocidades, combinações de cor, tokens e acessibilidade (usado na página Cards).",
       "pagina": "cards",
       "paginaRotulo": "Cards",
@@ -12371,7 +12536,7 @@
           "ancora": "card-shine",
           "titulo": "Borda brilhante (shine border)",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1124
+          "linha": 1135
         }
       ],
       "usaComponentes": [
@@ -12783,7 +12948,7 @@
           "ancora": "skeleton",
           "titulo": "Carregamento (skeleton)",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 438
+          "linha": 439
         }
       ],
       "usaComponentes": [],
@@ -12916,8 +13081,8 @@
       "nome": "Segmentado",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 97,
-      "descricao": "Controles da demonstração",
+      "linha": 102,
+      "descricao": "Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso, lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch.",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
       "onde": [
@@ -12927,38 +13092,23 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 714
+          "linha": 708
         }
       ],
-      "usaComponentes": [],
+      "usaComponentes": [
+        "Select",
+        "SelectContent",
+        "SelectItem",
+        "SelectTrigger",
+        "SelectValue"
+      ],
       "elementosFeitosAMao": 1
-    },
-    {
-      "nome": "Chave",
-      "tipo": "padrão de componente",
-      "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 125,
-      "descricao": "",
-      "pagina": "header",
-      "paginaRotulo": "Header e menus",
-      "onde": [
-        {
-          "pagina": "header",
-          "paginaRotulo": "Header e menus",
-          "ancora": "header-demo",
-          "titulo": "Demonstração",
-          "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 714
-        }
-      ],
-      "usaComponentes": [],
-      "elementosFeitosAMao": 2
     },
     {
       "nome": "Capa",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 155,
+      "linha": 149,
       "descricao": "Fundos por trás do header",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -12969,7 +13119,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 714
+          "linha": 708
         }
       ],
       "usaComponentes": [],
@@ -12979,7 +13129,7 @@
       "nome": "DemoHeader",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 179,
+      "linha": 173,
       "descricao": "Demonstração: janela com rolagem própria",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -12990,7 +13140,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 714
+          "linha": 708
         }
       ],
       "usaComponentes": [],
@@ -13000,7 +13150,7 @@
       "nome": "CardOpcao",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 565,
+      "linha": 559,
       "descricao": "Cards de explicação, com atalho para a demonstração",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -13011,7 +13161,7 @@
           "ancora": "header-models",
           "titulo": "Modelos",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 741
+          "linha": 735
         },
         {
           "pagina": "header",
@@ -13019,7 +13169,7 @@
           "ancora": "header-scroll",
           "titulo": "Comportamentos de rolagem",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 750
+          "linha": 744
         },
         {
           "pagina": "header",
@@ -13027,7 +13177,7 @@
           "ancora": "header-mobile",
           "titulo": "Menus no celular",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 759
+          "linha": 753
         },
         {
           "pagina": "header",
@@ -13035,7 +13185,7 @@
           "ancora": "header-backgrounds",
           "titulo": "Fundos por trás do header",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 768
+          "linha": 762
         }
       ],
       "usaComponentes": [],
@@ -13096,7 +13246,7 @@
       "ancora": "dev-platforms",
       "titulo": "Plataformas",
       "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-      "linha": 227,
+      "linha": 228,
       "elementosFeitosAMao": 3,
       "usaComponentes": []
     },
@@ -13224,7 +13374,7 @@
       "ancora": "tokens-definition",
       "titulo": "Implementação em código",
       "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-      "linha": 619,
+      "linha": 622,
       "elementosFeitosAMao": 12,
       "usaComponentes": []
     },
@@ -13277,8 +13427,10 @@
       "titulo": "Física de mola",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
       "linha": 269,
-      "elementosFeitosAMao": 4,
-      "usaComponentes": []
+      "elementosFeitosAMao": 3,
+      "usaComponentes": [
+        "Button"
+      ]
     },
     {
       "pagina": "motion",
@@ -13286,7 +13438,7 @@
       "ancora": "stagger",
       "titulo": "Stagger e sequências",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 408,
+      "linha": 406,
       "elementosFeitosAMao": 3,
       "usaComponentes": []
     },
@@ -13296,7 +13448,7 @@
       "ancora": "hover",
       "titulo": "Interações de hover",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 468,
+      "linha": 466,
       "elementosFeitosAMao": 8,
       "usaComponentes": []
     },
@@ -13306,7 +13458,7 @@
       "ancora": "micro",
       "titulo": "Microinterações",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 656,
+      "linha": 654,
       "elementosFeitosAMao": 6,
       "usaComponentes": [
         "Button"
@@ -13318,7 +13470,7 @@
       "ancora": "loaders",
       "titulo": "Loaders e progresso",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 815,
+      "linha": 813,
       "elementosFeitosAMao": 13,
       "usaComponentes": [
         "GradeDeCards"
@@ -13330,7 +13482,7 @@
       "ancora": "layout",
       "titulo": "Transições de layout",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1057,
+      "linha": 1055,
       "elementosFeitosAMao": 6,
       "usaComponentes": []
     },
@@ -13340,7 +13492,7 @@
       "ancora": "animated-list",
       "titulo": "Lista animada",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1341,
+      "linha": 1339,
       "elementosFeitosAMao": 7,
       "usaComponentes": []
     },
@@ -13350,7 +13502,7 @@
       "ancora": "orbiting-circles",
       "titulo": "Círculos orbitais",
       "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-      "linha": 1727,
+      "linha": 1725,
       "elementosFeitosAMao": 6,
       "usaComponentes": []
     },
@@ -13382,7 +13534,7 @@
       "ancora": "card-layout",
       "titulo": "Borda, sombra e raio",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 659,
+      "linha": 670,
       "elementosFeitosAMao": 3,
       "usaComponentes": [
         "Card",
@@ -13396,7 +13548,7 @@
       "ancora": "card-states",
       "titulo": "Estados",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 1015,
+      "linha": 1026,
       "elementosFeitosAMao": 3,
       "usaComponentes": [
         "BrilhoDeSelecionado",
@@ -13408,6 +13560,7 @@
         "CardTitle",
         "GradeDeCards",
         "ItemDaGrade",
+        "Select",
         "Skeleton"
       ]
     },
@@ -13417,7 +13570,7 @@
       "ancora": "card-nested",
       "titulo": "Cards aninhados",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 1169,
+      "linha": 1180,
       "elementosFeitosAMao": 5,
       "usaComponentes": [
         "Card",
@@ -13432,7 +13585,7 @@
       "ancora": "card-glass-escuro",
       "titulo": "Vidro no tema escuro",
       "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-      "linha": 1495,
+      "linha": 1506,
       "elementosFeitosAMao": 6,
       "usaComponentes": [
         "Card",
@@ -13509,7 +13662,7 @@
       "ancora": "progress",
       "titulo": "Progresso",
       "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-      "linha": 395,
+      "linha": 396,
       "elementosFeitosAMao": 4,
       "usaComponentes": []
     },
@@ -13519,7 +13672,7 @@
       "ancora": "badges",
       "titulo": "Badges e tags",
       "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-      "linha": 486,
+      "linha": 487,
       "elementosFeitosAMao": 5,
       "usaComponentes": []
     },
@@ -13529,7 +13682,7 @@
       "ancora": "selo",
       "titulo": "Selo (tag do hero)",
       "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-      "linha": 543,
+      "linha": 544,
       "elementosFeitosAMao": 3,
       "usaComponentes": [
         "Selo"
@@ -13541,7 +13694,7 @@
       "ancora": "avatar",
       "titulo": "Avatar",
       "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-      "linha": 617,
+      "linha": 618,
       "elementosFeitosAMao": 4,
       "usaComponentes": []
     },
@@ -13551,7 +13704,7 @@
       "ancora": "empty-states",
       "titulo": "Estados vazios",
       "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-      "linha": 708,
+      "linha": 709,
       "elementosFeitosAMao": 4,
       "usaComponentes": []
     },
@@ -14932,7 +15085,7 @@
         "titulo": "Hierarquia de ações",
         "resumo": "Hierarquia de ações: principal, secundária e terciária",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 275
+        "linha": 279
       },
       {
         "ancora": "card-escolher",
@@ -14941,7 +15094,7 @@
         "titulo": "Como escolher",
         "resumo": "Como escolher o card: pelo fundo, com borda ou com sombra",
         "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-        "linha": 576
+        "linha": 587
       },
       {
         "ancora": "card-layout",
@@ -14950,7 +15103,7 @@
         "titulo": "Borda, sombra e raio",
         "resumo": "Card: borda, sombra e raio",
         "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-        "linha": 659
+        "linha": 670
       },
       {
         "ancora": "card-guidelines",
@@ -14959,7 +15112,7 @@
         "titulo": "O que evitar",
         "resumo": "Card: o que evitar",
         "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-        "linha": 1557
+        "linha": 1568
       },
       {
         "ancora": "alerts",
@@ -15004,7 +15157,7 @@
         "titulo": "O que evitar",
         "resumo": "Grid e espaçamento: o que evitar",
         "arquivo": "src/app/components/showcase/GridShowcase.tsx",
-        "linha": 259
+        "linha": 279
       },
       {
         "ancora": "states-regras",
@@ -15040,7 +15193,7 @@
         "titulo": "Tokens de movimento",
         "resumo": "Durações e curvas oficiais de movimento",
         "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-        "linha": 1121
+        "linha": 1119
       },
       {
         "ancora": "ux-destructive",
@@ -15049,7 +15202,7 @@
         "titulo": "Ações destrutivas",
         "resumo": "Ações destrutivas: confirmação e desfazer",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 361
+        "linha": 365
       },
       {
         "ancora": "voice-microcopy",
@@ -15085,7 +15238,7 @@
         "titulo": "Uso",
         "resumo": "Cabeçalho: uso",
         "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-        "linha": 809
+        "linha": 803
       }
     ],
     "outras": [
@@ -15119,7 +15272,7 @@
         "ancora": "ux-checklist",
         "titulo": "Revisão rápida",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 370
+        "linha": 374
       },
       {
         "pagina": "accessibility",
@@ -15135,7 +15288,7 @@
         "ancora": "card-uso",
         "titulo": "Uso com limite",
         "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-        "linha": 977
+        "linha": 988
       },
       {
         "pagina": "cards",
@@ -15143,7 +15296,7 @@
         "ancora": "card-evitar",
         "titulo": "O que evitar",
         "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-        "linha": 1556
+        "linha": 1567
       },
       {
         "pagina": "sidepanel",
@@ -15264,43 +15417,43 @@
           "id": "dev-catalogo",
           "titulo": "Consulte o catálogo antes de montar qualquer peça",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 144
+          "linha": 145
         },
         {
           "id": "dev-announcements",
           "titulo": "As últimas do desenvolvimento",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 204
+          "linha": 205
         },
         {
           "id": "dev-platforms",
           "titulo": "Plataformas",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 227
+          "linha": 228
         },
         {
           "id": "dev-setup",
           "titulo": "Como os tokens são definidos no código",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 266
+          "linha": 267
         },
         {
           "id": "dev-reference",
           "titulo": "Referência de tokens",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 286
+          "linha": 287
         },
         {
           "id": "dev-workflow",
           "titulo": "Mantendo design e código em sincronia",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 329
+          "linha": 317
         },
         {
           "id": "dev-ai",
           "titulo": "Construindo com IA",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
-          "linha": 362
+          "linha": 350
         }
       ]
     },
@@ -15459,25 +15612,25 @@
           "id": "spacing",
           "titulo": null,
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 545
+          "linha": 548
         },
         {
           "id": "radius",
           "titulo": "Raio",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 550
+          "linha": 553
         },
         {
           "id": "shadows",
           "titulo": "Sombras",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 569
+          "linha": 572
         },
         {
           "id": "colors-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FoundationShowcase.tsx",
-          "linha": 589
+          "linha": 592
         }
       ]
     },
@@ -15523,16 +15676,22 @@
           "linha": 217
         },
         {
+          "id": "grid-celular",
+          "titulo": "Celular: alinhamento e toque",
+          "arquivo": "src/app/components/showcase/GridShowcase.tsx",
+          "linha": 259
+        },
+        {
           "id": "grid-evitar",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/GridShowcase.tsx",
-          "linha": 259
+          "linha": 279
         },
         {
           "id": "grid-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/GridShowcase.tsx",
-          "linha": 276
+          "linha": 297
         }
       ]
     },
@@ -15575,7 +15734,7 @@
           "id": "tokens-definition",
           "titulo": "Implementação em código",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 619
+          "linha": 622
         }
       ]
     },
@@ -15594,49 +15753,49 @@
           "id": "ux-principles",
           "titulo": "Princípios",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 266
+          "linha": 270
         },
         {
           "id": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 275
+          "linha": 279
         },
         {
           "id": "ux-targets",
           "titulo": "Tamanho de alvo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 294
+          "linha": 298
         },
         {
           "id": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 308
+          "linha": 312
         },
         {
           "id": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 328
+          "linha": 332
         },
         {
           "id": "ux-errors",
           "titulo": "Erros e microcopy",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 337
+          "linha": 341
         },
         {
           "id": "ux-destructive",
           "titulo": "Ações destrutivas",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 361
+          "linha": 365
         },
         {
           "id": "ux-checklist",
           "titulo": "Revisão rápida",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 370
+          "linha": 374
         }
       ]
     },
@@ -15833,67 +15992,67 @@
           "id": "stagger",
           "titulo": "Stagger e sequências",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 408
+          "linha": 406
         },
         {
           "id": "hover",
           "titulo": "Interações de hover",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 468
+          "linha": 466
         },
         {
           "id": "micro",
           "titulo": "Microinterações",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 656
+          "linha": 654
         },
         {
           "id": "loaders",
           "titulo": "Loaders e progresso",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 815
+          "linha": 813
         },
         {
           "id": "layout",
           "titulo": "Transições de layout",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1057
+          "linha": 1055
         },
         {
           "id": "motion-tokens",
           "titulo": "Tokens de movimento",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1121
+          "linha": 1119
         },
         {
           "id": "marquee",
           "titulo": "Faixa rolante (marquee)",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1272
+          "linha": 1270
         },
         {
           "id": "animated-list",
           "titulo": "Lista animada",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1341
+          "linha": 1339
         },
         {
           "id": "orbiting-circles",
           "titulo": "Círculos orbitais",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 1727
+          "linha": 1725
         },
         {
           "id": "wobble-card",
           "titulo": "Card com wobble",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 2047
+          "linha": 2045
         },
         {
           "id": "shine-border",
           "titulo": "Shine Border",
           "arquivo": "src/app/components/showcase/MotionShowcase.tsx",
-          "linha": 2144
+          "linha": 2142
         }
       ]
     },
@@ -15906,31 +16065,31 @@
           "id": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1329
+          "linha": 1292
         },
         {
           "id": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1335
+          "linha": 1298
         },
         {
           "id": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1341
+          "linha": 1304
         },
         {
           "id": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1347
+          "linha": 1310
         },
         {
           "id": "templates-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1399
+          "linha": 1362
         }
       ]
     },
@@ -16036,193 +16195,193 @@
           "id": "card-escolher",
           "titulo": "Como escolher",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 576
+          "linha": 587
         },
         {
           "id": "card-solido",
           "titulo": "Card sólido",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 597
+          "linha": 608
         },
         {
           "id": "card-anatomy",
           "titulo": "Anatomia do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 599
+          "linha": 610
         },
         {
           "id": "card-fundos",
           "titulo": "Por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 644
+          "linha": 655
         },
         {
           "id": "card-layout",
           "titulo": "Borda, sombra e raio",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 659
+          "linha": 670
         },
         {
           "id": "card-orientacao",
           "titulo": "Vertical e horizontal",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 727
+          "linha": 738
         },
         {
           "id": "card-mesma-altura",
           "titulo": "Mesma altura ou um por linha",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 764
+          "linha": 775
         },
         {
           "id": "card-actions",
           "titulo": "Botões em cards",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 896
+          "linha": 907
         },
         {
           "id": "card-ia",
           "titulo": "Arquitetura de informação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 963
+          "linha": 974
         },
         {
           "id": "card-uso",
           "titulo": "Uso com limite",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 977
+          "linha": 988
         },
         {
           "id": "card-andamento",
           "titulo": "Andamento de tarefa",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 981
+          "linha": 992
         },
         {
           "id": "card-states",
           "titulo": "Estados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1015
+          "linha": 1026
         },
         {
           "id": "card-animacao",
           "titulo": "Animação",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1085
+          "linha": 1096
         },
         {
           "id": "card-shine",
           "titulo": "Borda brilhante (shine border)",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1124
+          "linha": 1135
         },
         {
           "id": "card-nested",
           "titulo": "Cards aninhados",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1169
+          "linha": 1180
         },
         {
           "id": "card-partner",
           "titulo": "Card de convite ao parceiro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1203
+          "linha": 1214
         },
         {
           "id": "card-produto",
           "titulo": "Card de peça",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1238
+          "linha": 1249
         },
         {
           "id": "card-plano",
           "titulo": "Card de plano",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1305
+          "linha": 1316
         },
         {
           "id": "card-dica",
           "titulo": "Card de dica",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1326
+          "linha": 1337
         },
         {
           "id": "card-mostrar-mais",
           "titulo": "Card com Mostrar mais",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1340
+          "linha": 1351
         },
         {
           "id": "faixa-beneficios",
           "titulo": "Faixa de benefícios",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1365
+          "linha": 1376
         },
         {
           "id": "card-vidro",
           "titulo": "Card de vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1388
+          "linha": 1399
         },
         {
           "id": "card-glass",
           "titulo": "Vidro: acabamentos",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1390
+          "linha": 1401
         },
         {
           "id": "card-glass-fundos",
           "titulo": "Vidro por fundo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1428
+          "linha": 1439
         },
         {
           "id": "card-glass-conteudo",
           "titulo": "Vidro com conteúdo",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1453
+          "linha": 1464
         },
         {
           "id": "card-glass-escuro",
           "titulo": "Vidro no tema escuro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1495
+          "linha": 1506
         },
         {
           "id": "card-testar",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1550
+          "linha": 1561
         },
         {
           "id": "card-glass-teste",
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1551
+          "linha": 1562
         },
         {
           "id": "card-evitar",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1556
+          "linha": 1567
         },
         {
           "id": "card-guidelines",
           "titulo": "O que evitar",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1557
+          "linha": 1568
         },
         {
           "id": "card-accessibility",
           "titulo": "Acessibilidade do card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1648
+          "linha": 1659
         },
         {
           "id": "card-tokens",
           "titulo": "Tokens de card",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
-          "linha": 1662
+          "linha": 1673
         }
       ]
     },
@@ -16435,19 +16594,19 @@
           "id": "progress",
           "titulo": "Progresso",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 395
+          "linha": 396
         },
         {
           "id": "skeleton",
           "titulo": "Carregamento (skeleton)",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 438
+          "linha": 439
         },
         {
           "id": "feedback-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 802
+          "linha": 803
         }
       ]
     },
@@ -16460,55 +16619,55 @@
           "id": "badges",
           "titulo": "Badges e tags",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 486
+          "linha": 487
         },
         {
           "id": "selo",
           "titulo": "Selo (tag do hero)",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 543
+          "linha": 544
         },
         {
           "id": "selo-secao",
           "titulo": "Selo de seção",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 578
+          "linha": 579
         },
         {
           "id": "rotulos-timeline",
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 610
+          "linha": 611
         },
         {
           "id": "avatar",
           "titulo": "Avatar",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 617
+          "linha": 618
         },
         {
           "id": "avatar-circles",
           "titulo": "Círculos de avatares",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 664
+          "linha": 665
         },
         {
           "id": "empty-states",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 708
+          "linha": 709
         },
         {
           "id": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 752
+          "linha": 753
         },
         {
           "id": "badges-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 813
+          "linha": 814
         }
       ]
     },
@@ -16619,49 +16778,49 @@
           "id": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 714
+          "linha": 708
         },
         {
           "id": "header-models",
           "titulo": "Modelos",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 741
+          "linha": 735
         },
         {
           "id": "header-scroll",
           "titulo": "Comportamentos de rolagem",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 750
+          "linha": 744
         },
         {
           "id": "header-mobile",
           "titulo": "Menus no celular",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 759
+          "linha": 753
         },
         {
           "id": "header-backgrounds",
           "titulo": "Fundos por trás do header",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 768
+          "linha": 762
         },
         {
           "id": "header-a11y",
           "titulo": "Checklist de acessibilidade",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 785
+          "linha": 779
         },
         {
           "id": "header-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 809
+          "linha": 803
         },
         {
           "id": "header-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 825
+          "linha": 819
         }
       ]
     },

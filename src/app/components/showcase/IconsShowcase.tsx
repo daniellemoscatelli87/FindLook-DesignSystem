@@ -144,7 +144,7 @@ export function IconsShowcase() {
                 </div>
               ))}
             </div>
-            <pre className="mt-5 overflow-x-auto rounded-md bg-muted p-3 text-label"><code>{`import { IconeModa } from "@/components/ui/fashion-icons";\n\n<IconeModa nome="calca" className="size-4 text-primary" />`}</code></pre>
+            <pre className="mt-5 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted p-3 text-label"><code>{`import { IconeModa } from "@/components/ui/fashion-icons";\n\n<IconeModa nome="calca" className="size-4 text-primary" />`}</code></pre>
           </ShowcaseCard>
         </SubSection>
 

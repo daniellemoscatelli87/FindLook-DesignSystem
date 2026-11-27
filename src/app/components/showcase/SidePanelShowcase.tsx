@@ -264,8 +264,8 @@ export function SidePanelShowcase() {
 
       <section id="sidepanel-usage">
         <SectionHeader title="Uso" description="Composição do componente em código." />
-        <ShowcaseCard className="overflow-x-auto">
-          <pre className="text-label leading-relaxed text-muted-foreground"><code>{`import { SidePanel, SidePanelTrigger, SidePanelContent, SidePanelHeader, SidePanelBody, SidePanelActions, SidePanelFooter } from "@/app/components/ui/side-panel";
+        <ShowcaseCard>
+          <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] text-label leading-relaxed text-muted-foreground"><code>{`import { SidePanel, SidePanelTrigger, SidePanelContent, SidePanelHeader, SidePanelBody, SidePanelActions, SidePanelFooter } from "@/app/components/ui/side-panel";
 
 <SidePanel>
   <SidePanelTrigger asChild><button>Cadastrar minha loja</button></SidePanelTrigger>

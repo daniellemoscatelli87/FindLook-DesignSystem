@@ -11,6 +11,7 @@ import { Label } from "../ui/label";
 import { Heading } from "../ui/heading";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { RadioGroup } from "../ui/radio-group";
+import { CartaoDeEscolha, GrupoDeCartoesDeEscolha } from "../ui/cartao-de-escolha";
 import { SegmentedControl } from "../ui/segmented-control";
 import { CardDePreco } from "../ui/card-de-preco";
 import { GradeDeCards } from "../ui/grade-de-cards";
@@ -188,38 +189,6 @@ function Chip({ ativo, onClick, children, id }: { ativo: boolean; onClick: () =>
       {ativo && <Check className="h-3.5 w-3.5" aria-hidden />}
       {children}
     </button>
-  );
-}
-
-/** Cartão selecionável de Cards › Estados: selecionado com fundo branco, borda de 2 px na primária com o brilho animado
-    (BrilhoDeSelecionado), check no título e o botão "✓ Selecionado" de contorno de 2 px com fundo no rosa do selecionado (--primary-suave).
-    Semântica de rádio: o botão é o item do RadioGroup (role="radio", aria-checked). */
-function CartaoSelecionavel({ valor, titulo, descricao, selecionado, id }: { valor: string; titulo: string; descricao: string; selecionado: boolean; id?: string }) {
-  return (
-    <Card className={cn("relative gap-4 transition-all", molduraDoSelecionavel(selecionado))}>
-      {selecionado && <BrilhoDeSelecionado />}
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-body font-semibold">
-          {titulo}
-          {selecionado && <Check className="h-4 w-4 text-primary" aria-hidden />}
-        </CardTitle>
-        <CardDescription>{descricao}</CardDescription>
-      </CardHeader>
-      <CardFooter>
-        <RadioGroupPrimitive.Item
-          id={id}
-          value={valor}
-          aria-label={titulo}
-          className={cn(
-            buttonVariants({ variant: "outline" }),
-            "w-full",
-            selecionado && "border-2 border-primary bg-[var(--primary-suave)] text-primary-text hover:bg-[var(--primary-suave)] hover:text-primary-text",
-          )}
-        >
-          {selecionado ? <><Check aria-hidden /> Selecionado</> : "Selecionar"}
-        </RadioGroupPrimitive.Item>
-      </CardFooter>
-    </Card>
   );
 }
 
@@ -665,10 +634,10 @@ export function CadastroEmEtapasDemo() {
                   <div className="space-y-6">
                     <div className="@container/formas">
                       <p id={`${base}-forma`} className="mb-2 text-body-sm leading-5 font-semibold text-foreground">Forma de pagamento</p>
-                      <RadioGroup aria-labelledby={`${base}-forma`} value={d.forma} onValueChange={(v) => { mudar("forma", v as Forma); setErros({}); }} className="grid gap-3 @min-[28rem]/formas:grid-cols-2">
-                        <CartaoSelecionavel id={`${base}-forma-cartao`} valor="cartao" titulo="Cartão de crédito" descricao="Cobrança automática a cada período." selecionado={d.forma === "cartao"} />
-                        <CartaoSelecionavel id={`${base}-forma-pix`} valor="pix" titulo="Pix" descricao="Pagamento na hora, pelo app do banco." selecionado={d.forma === "pix"} />
-                      </RadioGroup>
+                      <GrupoDeCartoesDeEscolha aria-labelledby={`${base}-forma`} colunas={2} value={d.forma} onValueChange={(v) => { mudar("forma", v as Forma); setErros({}); }}>
+                        <CartaoDeEscolha id={`${base}-forma-cartao`} valor="cartao" icone={<CreditCard />} titulo="Cartão de crédito" descricao="Cobrança automática a cada período." />
+                        <CartaoDeEscolha id={`${base}-forma-pix`} valor="pix" icone={<QrCode />} titulo="Pix" descricao="Pagamento na hora, pelo app do banco." />
+                      </GrupoDeCartoesDeEscolha>
                     </div>
                     {d.forma === "cartao" ? (
                       <GradeDeCampos>
@@ -776,9 +745,9 @@ const COMBINACOES: { etapa: string; titulo: string; formula: string; pecas: Peca
     ],
   },
   {
-    etapa: "05", titulo: "Pagamento", formula: "Cartões selecionáveis + campos com máscara + Alertas + carregando e sucesso",
+    etapa: "05", titulo: "Pagamento", formula: "Cartões de escolha + campos com máscara + Alertas + carregando e sucesso",
     pecas: [
-      { nome: "Cartão selecionável (Cards › Estados)", por: "Cartão de crédito ou Pix: borda de 2 px, check e Selecionado.", secao: "cards", ancora: "card-states" },
+      { nome: "Cartões de escolha (CartaoDeEscolha)", por: "Cartão de crédito ou Pix: ícone, título, uma frase e o rádio; a escolhida fica com a borda na primária.", secao: "buttons", ancora: "cartoes-de-escolha" },
       { nome: "Alerta (info e aviso)", por: "Explica o Pix e avisa que é demonstração.", secao: "feedback", ancora: "alerts" },
       { nome: "Barra da etapa carregando", por: "Confirmando… com o botão desativado.", secao: "motion", ancora: "micro" },
       { nome: "Sucesso: Alerta de sucesso + Itens de ação", por: "Confirmação e os próximos passos, na mesma moldura.", secao: "badges", ancora: "listas-painel" },

@@ -4,6 +4,7 @@ import { Check, Copy, ArrowRight, ExternalLink, Megaphone, Layers, Sparkles } fr
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { useI18n, type Bi } from "../../i18n";
+import { DataTable } from "./shared/Guidance";
 import { Navigate, PageHeader, PageSection, useGo } from "./GetStartedShowcase";
 
 const display = "font-[family-name:var(--font-display)]";
@@ -38,7 +39,7 @@ function CodeBlock({ file, tag, code }: { file: string; tag: string; code: strin
           <CopyBtn text={code} />
         </div>
       </div>
-      <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto">
+      <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground whitespace-pre-wrap [overflow-wrap:anywhere]">
         <code>{code}</code>
       </pre>
     </div>
@@ -296,29 +297,16 @@ export function DevelopShowcase({ onNavigate }: { onNavigate: Navigate }) {
           </p>
         }
       >
-        <div className="bg-card border border-border rounded-[var(--radius)] overflow-x-auto">
-          <table className="w-full text-left min-w-[560px]">
-            <thead>
-              <tr className="bg-muted border-b border-border">
-                {[t("Category", "Categoria"), t("Design Token", "Design Token"), "CSS / Dev", "Tailwind"].map(h => (
-                  <th key={h} className="px-4 py-3 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map(([cat, design, css, tw]) => (
-                <tr key={css} className="border-b border-border last:border-b-0">
-                  <td className="px-4 py-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t(cat, catPt[cat] ?? cat)}</td>
-                  <td className="px-4 py-2 text-body-sm text-foreground">{design}</td>
-                  <td className="px-4 py-2 text-label font-[family-name:var(--font-mono)] text-primary">{css}</td>
-                  <td className="px-4 py-2 text-label font-[family-name:var(--font-mono)] text-foreground">{tw}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {/* Card nunca rola na horizontal: no espaço estreito, a tabela vira lista (DataTable) */}
+        <DataTable
+          head={[t("Category", "Categoria"), t("Design Token", "Design Token"), "CSS / Dev", "Tailwind"]}
+          rows={rows.map(([cat, design, css, tw]) => [
+            t(cat, catPt[cat] ?? cat),
+            design,
+            <span key="css" className="font-[family-name:var(--font-mono)] text-primary-text">{css}</span>,
+            <span key="tw" className="font-[family-name:var(--font-mono)] text-foreground">{tw}</span>,
+          ])}
+        />
         <div className="mt-4">
           <TextLink onClick={() => go({ page: "tokens", anchor: "tokens-bridge" })}>
             {t("See the full Design ↔ Dev Mapping", "Veja o Mapeamento Design ↔ Dev completo")}

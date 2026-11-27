@@ -182,7 +182,7 @@ export function AlertaComAcaoDoc() {
               <span className="min-w-[7.5rem] text-body-sm font-semibold text-foreground">{c.nome}</span>
               <Mono>{c.token}</Mono>
               <span className="text-body-sm text-muted-foreground">{c.valor}</span>
-              <span className="text-body-sm font-semibold text-foreground sm:ml-auto">{c.contraste} no fundo do alerta</span>
+              <span className="text-body-sm font-semibold text-foreground xl:ml-auto">{c.contraste} no fundo do alerta</span>
             </div>
           ))}
         </Panel>

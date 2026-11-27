@@ -105,7 +105,7 @@ export function StepperShowcase() {
             ],
           }]} />
         </div>
-        <pre className="mt-5 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Stepper } from "@/app/components/ui/stepper";
+        <pre className="mt-5 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Stepper } from "@/app/components/ui/stepper";
 
 <Stepper
   rotulo="Etapas do cadastro da loja"

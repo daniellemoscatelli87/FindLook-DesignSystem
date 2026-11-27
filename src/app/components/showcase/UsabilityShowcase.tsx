@@ -6,6 +6,7 @@ import { PageHeader, PageSection } from "./GetStartedShowcase";
 import { useI18n } from "../../i18n";
 import { Callout, DataTable, DoDont, Mono, Panel, PrincipleGrid, display } from "./shared/Guidance";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { Button } from "../ui/button";
 
 type Bi = { en: string; pt: string };
 
@@ -224,18 +225,21 @@ function HierarchyDemo() {
           </p>
           <div className="rounded-md border border-border bg-background/40 p-4">
             <p className="text-body-sm font-medium text-foreground mb-3">{t("Discard unsaved draft?", "Descartar rascunho não salvo?")}</p>
-            <div className="flex flex-wrap items-center gap-2">
+            {/* Celular: uma ação por linha, todas com a mesma largura. Com espaço, lado a lado (27/11/2026). */}
+            <div className="@container">
+            <div className="grid grid-cols-1 gap-2 @md:flex @md:flex-wrap @md:items-center">
               {c.good ? (
                 <>
-                  <button type="button" className={`h-9 px-4 rounded-md bg-primary text-primary-foreground text-body-sm font-medium ${ring}`}>{t("Save draft", "Salvar rascunho")}</button>
-                  <button type="button" className={`h-9 px-4 rounded-md border border-border bg-card text-foreground text-body-sm font-medium hover:bg-muted ${ring}`}>{t("Keep editing", "Continuar editando")}</button>
-                  <button type="button" className={`h-9 px-3 rounded-md text-body-sm font-medium text-muted-foreground hover:text-foreground ${ring}`}>{t("Discard", "Descartar")}</button>
+                  <Button type="button">{t("Save draft", "Salvar rascunho")}</Button>
+                  <Button type="button" variant="outline">{t("Keep editing", "Continuar editando")}</Button>
+                  <Button type="button" variant="ghost" className="text-muted-foreground">{t("Discard", "Descartar")}</Button>
                 </>
               ) : (
                 [t("Save draft", "Salvar rascunho"), t("Keep editing", "Continuar editando"), t("Discard", "Descartar")].map(l => (
-                  <button key={l} type="button" className={`h-9 px-4 rounded-md bg-primary text-primary-foreground text-body-sm font-medium ${ring}`}>{l}</button>
+                  <Button key={l} type="button">{l}</Button>
                 ))
               )}
+            </div>
             </div>
           </div>
         </div>

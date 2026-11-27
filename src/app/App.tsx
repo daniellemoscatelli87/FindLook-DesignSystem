@@ -257,6 +257,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "grid-larguras", label: "Larguras máximas", sectionId: "grid" },
           { id: "grid-ritmo", label: "Ritmo vertical", sectionId: "grid" },
           { id: "grid-uso", label: "Como usar", sectionId: "grid" },
+          { id: "grid-celular", label: "Celular: alinhamento e toque", sectionId: "grid" },
           { id: "grid-evitar", label: "O que evitar", sectionId: "grid" },
           { id: "grid-tokens", label: "Tokens", sectionId: "grid" },
         ],

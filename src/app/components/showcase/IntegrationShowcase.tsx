@@ -27,7 +27,7 @@ function CodeBlock({ filename, label, children }: { filename: string; label?: st
         </div>
         {label && <span className="text-caption font-bold uppercase tracking-[0.07em] text-muted-foreground/50">{label}</span>}
       </div>
-      <pre className="px-4 py-3 text-caption font-mono leading-relaxed overflow-x-auto" style={{ color: "var(--muted-foreground)" }}>
+      <pre className="px-4 py-3 text-caption font-mono leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]" style={{ color: "var(--muted-foreground)" }}>
         {children}
       </pre>
     </div>

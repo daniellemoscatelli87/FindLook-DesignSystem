@@ -550,7 +550,8 @@ export function TokensShowcase() {
           subtitle={t("Complete map: intent, Figma name, CSS property and Tailwind class. Hover to copy any value.", "Mapa completo: intenção, nome no Figma, propriedade CSS e classe Tailwind. Passe o mouse para copiar qualquer valor.")}
         />
 
-        <div className="flex flex-wrap gap-2">
+        {/* Celular: 3 colunas iguais (6 filtros, nenhum sozinho na linha) */}
+        <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
           {categories.map(cat => (
             <button key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -562,16 +563,18 @@ export function TokensShowcase() {
           ))}
         </div>
 
-        <div className="rounded-lg border border-border bg-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-caption">
+        {/* Card nunca rola na horizontal: no espaço estreito, as colunas Intenção e Tailwind ficam de fora, com aviso. */}
+        <div className="@container rounded-lg border border-border bg-card overflow-hidden">
+          <p className="border-b border-border bg-muted/30 px-4 py-2 text-label text-muted-foreground @2xl:hidden">{t("On narrow screens, the Intent and Tailwind columns are hidden.", "Em telas estreitas, as colunas Intenção e Tailwind ficam de fora.")}</p>
+          <div>
+            <table className="w-full text-caption [&_td]:[overflow-wrap:anywhere]">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="text-left px-4 py-2 font-bold text-muted-foreground w-28">{t("Category", "Categoria")}</th>
-                  <th className="text-left px-3 py-2 font-bold text-muted-foreground">{t("Intent", "Intenção")}</th>
+                  <th className="hidden text-left px-3 py-2 font-bold text-muted-foreground @2xl:table-cell">{t("Intent", "Intenção")}</th>
                   <th className="text-left px-3 py-2 font-bold text-violet">Design Token</th>
                   <th className="text-left px-3 py-2 font-bold text-info">CSS / Dev</th>
-                  <th className="text-left px-3 py-2 font-bold text-muted-foreground">Tailwind</th>
+                  <th className="hidden text-left px-3 py-2 font-bold text-muted-foreground @2xl:table-cell">Tailwind</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/50">
@@ -580,7 +583,7 @@ export function TokensShowcase() {
                     <td className="px-4 py-2">
                       <Pill color={catPill[row.category] ?? "muted"}>{bi(catLabel[row.category])}</Pill>
                     </td>
-                    <td className="px-3 py-2 text-muted-foreground">{bi(row.intent)}</td>
+                    <td className="hidden px-3 py-2 text-muted-foreground @2xl:table-cell">{bi(row.intent)}</td>
                     <td className="px-3 py-2">
                       <div className="flex items-center gap-1">
                         <span className="font-mono text-violet">{row.design}</span>
@@ -597,9 +600,9 @@ export function TokensShowcase() {
                         </span>
                       </div>
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="hidden px-3 py-2 @2xl:table-cell">
                       <div className="flex items-center gap-1">
-                        <span className="font-mono text-success/80">{row.tw}</span>
+                        <span className="font-mono text-success-text">{row.tw}</span>
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity">
                           <CopyBtn text={row.tw} />
                         </span>
@@ -634,7 +637,7 @@ export function TokensShowcase() {
               </div>
               <span className="text-caption font-bold uppercase tracking-[0.07em] text-muted-foreground/60">{t("Definition", "Definição")}</span>
             </div>
-            <pre className="px-4 py-4 text-caption font-mono leading-relaxed overflow-x-auto" style={{ color: "var(--muted-foreground)" }}>
+            <pre className="px-4 py-4 text-caption font-mono leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]" style={{ color: "var(--muted-foreground)" }}>
 {``}<span style={{ color: "var(--muted-foreground)", opacity: 0.45 }}>{"/* 1. Primitives — raw values */"}</span>{`
 `}<span style={{ color: "#3b82f6" }}>:root</span>{` {
   `}<span style={{ color: "#8B5CF6" }}>--pink-550</span>{`: `}<span style={{ color: "var(--success)" }}>#E8004E</span>{`;
@@ -663,7 +666,7 @@ export function TokensShowcase() {
               </div>
               <span className="text-caption font-bold uppercase tracking-[0.07em] text-muted-foreground/60">{t("Tailwind mapping", "Mapeamento Tailwind")}</span>
             </div>
-            <pre className="px-4 py-4 text-caption font-mono leading-relaxed overflow-x-auto" style={{ color: "var(--muted-foreground)" }}>
+            <pre className="px-4 py-4 text-caption font-mono leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]" style={{ color: "var(--muted-foreground)" }}>
 {``}<span style={{ color: "var(--muted-foreground)", opacity: 0.45 }}>{"/* Exposes tokens as Tailwind classes */"}</span>{`
 `}<span style={{ color: "#f59e0b" }}>@theme inline</span>{` {
   `}<span style={{ color: "#8B5CF6" }}>--color-primary</span>{`:

@@ -20,7 +20,7 @@ import { MolduraCelular, ConteudoFalso } from "./shared/MolduraCelular";
 /* Padrões do produto: componentes trazidos do produto FindLook (busca do hero, loja e mapa e cadastro do lojista),
    para o produto copiar daqui. As telas do admin entram só quando a decisão final for tomada no FindLook. Todos os dados desta página são exemplos fictícios. */
 
-const codigo = "overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground";
+const codigo = "whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground";
 
 /* ── Dados de exemplo (fictícios) ── */
 const PINOS: PinoIlustrativo[] = [

@@ -580,42 +580,28 @@ function getDataTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
 /** Cards de KPI: métrica, ícone, minigráfico e tendência (usados na página Cards). */
 export function CardsDeKpi() {
   const { t } = useI18n();
+  // CardIndicador do DS com o minigráfico (antes, montado à mão)
+  const numero = (v: string) => Number(v.replace(/\./g, "").replace(",", "."));
   return (
     <GradeDeCards className="sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {kpis.map((kpi) => {
         const Icon = kpi.icon;
-        const TrendIcon = kpi.trend === "up" ? ArrowUpRight : ArrowDownRight;
-        const trendColor = kpi.trend === "up" ? "text-success" : "text-primary";
         return (
-          <div key={kpi.label} className="bg-card rounded-lg border border-border p-5 flex flex-col gap-4">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-body-sm font-medium text-muted-foreground mb-1">{t(kpi.label, kpi.pt)}</p>
-                <p className="text-h3 font-bold text-foreground tracking-[-0.025em] leading-none">{kpi.value}</p>
-              </div>
-              <div className="h-9 w-9 rounded-md bg-muted flex items-center justify-center">
-                <Icon className="h-4.5 w-4.5 text-muted-foreground" style={{ height: "18px", width: "18px" }} />
-              </div>
-            </div>
-            <div className="h-12">
+          <CardIndicador
+            key={kpi.label}
+            icone={<Icon />}
+            valor={numero(kpi.value)}
+            rotulo={t(kpi.label, kpi.pt)}
+            variacao={numero(kpi.delta.replace("%", "").replace("+", ""))}
+            comparacao={t("vs last month", "vs. mês passado")}
+            grafico={
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={kpi.sparkData.map((v, i) => ({ v, i }))}>
-                  <Line
-                    type="monotone"
-                    dataKey="v"
-                    stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-6)"}
-                    strokeWidth={1.5}
-                    dot={false}
-                  />
+                  <Line type="monotone" dataKey="v" stroke={kpi.trend === "up" ? "var(--chart-1)" : "var(--chart-6)"} strokeWidth={1.5} dot={false} isAnimationActive={false} />
                 </LineChart>
               </ResponsiveContainer>
-            </div>
-            <div className={`flex items-center gap-1 text-body-sm font-semibold ${trendColor}`}>
-              <TrendIcon className="h-3.5 w-3.5" />
-              {kpi.delta}
-              <span className="text-muted-foreground font-normal ml-1">{t("vs last month", "vs mês passado")}</span>
-            </div>
-          </div>
+            }
+          />
         );
       })}
     </GradeDeCards>

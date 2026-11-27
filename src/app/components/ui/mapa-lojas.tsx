@@ -168,7 +168,7 @@ function ConviteAoMapa({
       </p>
       <p className="mt-1 text-body-sm leading-5 text-muted-foreground">{texto}</p>
       {link && (
-        <a href={link.href ?? "#"} onClick={link.onClick} className={cn("mt-2 inline-flex items-center gap-1 rounded-sm text-body-sm leading-5 font-semibold text-primary-text underline-offset-4 hover:underline", foco)}>
+        <a href={link.href ?? "#"} onClick={link.onClick} className={cn("mt-2 inline-flex items-center gap-1 rounded-sm toque:min-h-11 text-body-sm leading-5 font-semibold text-primary-text underline-offset-4 hover:underline", foco)}>
           {link.rotulo} <ArrowRight className="size-4" aria-hidden />
         </a>
       )}

@@ -107,7 +107,7 @@ function ContrastTable() {
                     {bi(p.usage)} · <span className="font-[family-name:var(--font-mono)]">{p.fg} {t("on", "sobre")} {p.bg}</span>
                   </p>
                 </div>
-                <div className="flex flex-wrap md:flex-col md:items-end gap-x-4 gap-y-1">
+                <div className="flex flex-wrap md:flex-col md:items-start gap-x-4 gap-y-1">
                   <span className={`${display} text-subtitle font-semibold text-foreground tabular-nums`}>{r.toFixed(2)}:1</span>
                   <Result ok={r >= 4.5} label={t("Text AA", "Texto AA")} />
                   <Result ok={r >= 3} label={t("UI / large", "UI / grande")} />
@@ -198,7 +198,7 @@ function FocusDemo() {
         <button className="h-10 px-4 rounded-md border border-border bg-card text-foreground text-body-sm font-medium hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
           {t("Secondary", "Secundário")}
         </button>
-        <a href="#a11y-focus" onClick={e => e.preventDefault()} className="text-body-sm font-medium text-primary underline underline-offset-4 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <a href="#a11y-focus" onClick={e => e.preventDefault()} className="inline-flex min-h-10 toque:min-h-11 items-center text-body-sm font-medium text-primary-text underline underline-offset-4 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           {t("Text link", "Link de texto")}
         </a>
         <input
@@ -513,10 +513,10 @@ export function AccessibilityShowcase() {
           <FormDemo />
           <div className="space-y-4 min-w-0">
             <Panel className="overflow-hidden">
-              <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto"><code>{formCode}</code></pre>
+              <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground whitespace-pre-wrap [overflow-wrap:anywhere]"><code>{formCode}</code></pre>
             </Panel>
             <Panel className="overflow-hidden">
-              <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto"><code>{iconButtonCode}</code></pre>
+              <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground whitespace-pre-wrap [overflow-wrap:anywhere]"><code>{iconButtonCode}</code></pre>
             </Panel>
           </div>
         </div>
@@ -555,7 +555,7 @@ export function AccessibilityShowcase() {
         <GradeDeCards className="lg:grid-cols-2 gap-4">
           <MotionDemo />
           <Panel className="overflow-hidden">
-            <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground overflow-x-auto"><code>{motionCode}</code></pre>
+            <pre className="px-4 py-4 text-label leading-relaxed font-[family-name:var(--font-mono)] text-foreground whitespace-pre-wrap [overflow-wrap:anywhere]"><code>{motionCode}</code></pre>
           </Panel>
         </GradeDeCards>
       </PageSection>

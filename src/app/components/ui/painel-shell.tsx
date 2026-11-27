@@ -430,7 +430,7 @@ function GrupoDoMenu({ titulo, children, className, expansivel, icone, padraoAbe
       aria-controls={idFilhos}
       onClick={() => { if (recolhido) { setRecolhido(false); mudar(true); } else mudar(!aberto); }}
       className={cn(
-        "flex min-h-9 w-full items-center gap-2 rounded-sm px-3 py-2 text-left text-body-sm font-medium transition-[background-color,color] duration-150",
+        "flex min-h-9 w-full items-center gap-2 rounded-sm px-3 py-2 toque:min-h-11 text-left text-body-sm font-medium transition-[background-color,color] duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         destacado ? "bg-[var(--primary-suave)] text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:bg-accent hover:text-foreground",
         recolhido && "justify-center px-0",

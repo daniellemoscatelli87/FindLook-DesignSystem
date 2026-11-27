@@ -267,12 +267,10 @@ function SpringPhysics() {
 
   return (
     <Section id="spring" title={t("Spring Physics", "Física de spring")} sub={t("Physics-based animation presets. Click a card to see the spring in action.", "Presets de animação baseados em física. Clique em um card para ver o spring em ação.")}>
-      <div className="flex justify-end">
-        <button onClick={triggerAll} className="flex items-center gap-1 px-3 py-1 rounded-sm border border-border bg-card text-label font-medium text-foreground hover:bg-accent transition-colors">
-          <Play className="h-3.5 w-3.5" /> {t("Play all", "Tocar todos")}
-        </button>
-      </div>
-      <div className="grid grid-cols-3 gap-3">
+      <Button type="button" variant="outline" size="sm" onClick={triggerAll}>
+        <Play aria-hidden className="h-3.5 w-3.5" /> {t("Play all", "Tocar todos")}
+      </Button>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {springPresets.map((p, i) => (
           <div key={p.label} onClick={() => trigger(i)}
             className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4 cursor-pointer hover:border-[var(--border-strong)] transition-all group" style={{ boxShadow: "var(--shadow-xs)" }}>
@@ -341,7 +339,7 @@ function SpringPlayground() {
             </div>
             <input type="range" min={ctrl.min} max={ctrl.max} step={ctrl.step} value={ctrl.value}
               onChange={e => ctrl.set(Number(e.target.value))}
-              className="w-full accent-[var(--primary)] h-1 rounded-full cursor-pointer" />
+              className="w-full accent-[var(--primary)] h-1 rounded-full cursor-pointer toque:h-11" />
           </div>
         ))}
       </div>
@@ -412,7 +410,7 @@ function StaggerSection() {
             <label className="text-caption font-semibold text-foreground">{t("Stagger delay", "Atraso do stagger")}</label>
             <input type="range" min={0.02} max={0.2} step={0.01} value={staggerDelay}
               onChange={e => setStaggerDelay(Number(e.target.value))}
-              className="w-28 accent-[var(--primary)] h-1 rounded-full cursor-pointer" />
+              className="w-28 accent-[var(--primary)] h-1 rounded-full cursor-pointer toque:h-11" />
             <span className="text-caption font-mono text-primary">{staggerDelay}s</span>
           </div>
           <button onClick={() => setKey(k => k + 1)}
@@ -2119,7 +2117,7 @@ export function ShineBorderConteudo() {
             );
           })}
         </div>
-        <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`<ShineBorder preset="dourada" borderWidth={2} />
+        <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`<ShineBorder preset="dourada" borderWidth={2} />
 <ShineBorder shineColor={["var(--warning)", "var(--primary)", "var(--warning)"]} />`}</code></pre>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

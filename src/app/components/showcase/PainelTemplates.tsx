@@ -373,7 +373,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
 ───────────────────────────────────────────── */
 function BotaoContorno({ children, onClick, href = "#", externo }: { children: React.ReactNode; onClick?: React.MouseEventHandler<HTMLAnchorElement>; href?: string; externo?: boolean }) {
   return (
-    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-transparent px-4 text-button font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <a href={href} onClick={onClick} target={externo ? "_blank" : undefined} rel={externo ? "noreferrer" : undefined} className="inline-flex h-10 toque:h-11 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-transparent px-4 text-button font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
       {children}
     </a>
   );
@@ -440,7 +440,7 @@ function PaginaInicio() {
         <GradeDeCards className="gap-4 @min-[44rem]:grid-cols-2 @6xl:grid-cols-1">
           <CardDoPainel icone={<Target />} titulo="O que estão procurando na sua região" descricao="Buscas em alta que podem ser oportunidades para a sua loja.">
             <ListaDeTendencias itens={[{ termo: "Vestido midi", variacao: 62 }, { termo: "Calça wide leg", variacao: 48 }, { termo: "Blazer feminino", variacao: 37 }, { termo: "Saia de linho", variacao: 29 }]} />
-            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 items-center justify-center gap-1 rounded-md border border-[var(--border-strong)] text-button font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
+            <a href="#buscas" onClick={irPara(ir, "buscas")} className="mt-3 flex h-10 toque:h-11 items-center justify-center gap-1 rounded-md border border-[var(--border-strong)] text-button font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Ver mais oportunidades</a>
           </CardDoPainel>
           <CardDoPainel icone={<ClipboardList />} titulo="Próximas ações" descricao="O que fazer agora para ser mais encontrada.">
             <div className="space-y-2">

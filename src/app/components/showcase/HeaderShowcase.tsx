@@ -13,6 +13,9 @@ import logoSobreEscuro from "../../../imports/svg/findlook-horizontal-sobre-graf
 import logoIcone from "../../../imports/svg/findlook-simbolo.svg";
 import { SectionHeader } from "./shared/SectionHeader";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { SegmentedControl } from "../ui/segmented-control";
+import { Switch } from "../ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 /* ─────────────────────────────────────────────────────────────
    Header e menus
@@ -94,30 +97,31 @@ const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring
 const textoMarca = "text-[var(--primary-text,var(--primary))]";
 
 /* ── Controles da demonstração ── */
+/* Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso,
+   lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch. */
 function Segmentado<T extends string>({ rotulo, valor, opcoes, onChange }: {
   rotulo: string; valor: T; opcoes: { id: T; rotulo: string; Icone: React.ElementType }[]; onChange: (v: T) => void;
 }) {
+  const id = React.useId();
   return (
     <div className="min-w-0">
-      <p className="mb-1 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{rotulo}</p>
-      <div role="group" aria-label={rotulo} className="inline-flex max-w-full flex-wrap gap-1 rounded-md bg-muted p-1">
-        {opcoes.map(o => {
-          const ativo = o.id === valor;
-          return (
-            <button
-              key={o.id}
-              type="button"
-              aria-pressed={ativo}
-              onClick={() => onChange(o.id)}
-              className={`inline-flex h-8 items-center gap-1 rounded-sm px-2 text-label font-medium transition-colors ${foco}
-                ${ativo ? "bg-card text-foreground shadow-[var(--shadow-xs)]" : "text-muted-foreground hover:text-foreground"}`}
-            >
-              <o.Icone aria-hidden className="h-3.5 w-3.5" />
-              {o.rotulo}
-            </button>
-          );
-        })}
-      </div>
+      <p id={id} className="mb-1 text-caption font-semibold uppercase tracking-[0.08em] text-muted-foreground">{rotulo}</p>
+      {opcoes.length <= 3 ? (
+        <SegmentedControl<T>
+          size="sm"
+          aria-labelledby={id}
+          value={valor}
+          onValueChange={onChange}
+          options={opcoes.map(o => ({ value: o.id, label: o.rotulo, icon: <o.Icone className="h-3.5 w-3.5" /> }))}
+        />
+      ) : (
+        <Select value={valor} onValueChange={v => onChange(v as T)}>
+          <SelectTrigger aria-labelledby={id} className="w-56 max-w-full bg-card"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            {opcoes.map(o => <SelectItem key={o.id} value={o.id}><o.Icone aria-hidden className="h-4 w-4" />{o.rotulo}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      )}
     </div>
   );
 }
@@ -125,17 +129,7 @@ function Segmentado<T extends string>({ rotulo, valor, opcoes, onChange }: {
 function Chave({ id, rotulo, ligado, onChange }: { id: string; rotulo: string; ligado: boolean; onChange: (v: boolean) => void }) {
   return (
     <div className="flex items-center gap-2">
-      <button
-        type="button"
-        role="switch"
-        aria-checked={ligado}
-        aria-labelledby={id}
-        onClick={() => onChange(!ligado)}
-        className={`relative flex w-10 shrink-0 items-center rounded-full transition-colors ${foco} ${ligado ? "bg-primary" : "bg-muted-foreground/30"}`}
-        style={{ height: "22px" }}
-      >
-        <span className={`absolute h-4 w-4 rounded-full bg-white transition-all ${ligado ? "left-[22px]" : "left-0.5"}`} />
-      </button>
+      <Switch checked={ligado} onCheckedChange={onChange} aria-labelledby={id} />
       <span id={id} className="text-body-sm font-medium text-foreground">{rotulo}</span>
     </div>
   );

@@ -87,7 +87,7 @@ export function TimelineShowcase() {
             <Callout title={t("Inner scroll containers", "Contêineres com rolagem própria")}>
               <p>{t("The component listens to scroll in capture mode, so it also works inside a panel that scrolls on its own, like this design system. The threshold is measured against the window height.", "O componente escuta a rolagem em modo de captura, então funciona também dentro de um painel com rolagem própria, como este design system. O limite é medido contra a altura da janela.")}</p>
             </Callout>
-            <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Timeline } from "@/app/components/ui/timeline";
+            <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Timeline } from "@/app/components/ui/timeline";
 import { Target, Search } from "lucide-react";
 
 <Timeline

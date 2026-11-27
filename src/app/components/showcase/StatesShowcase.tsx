@@ -129,7 +129,7 @@ export function StatesShowcase() {
               </div>
             </div>
           </div>
-          <div className="rounded-md bg-muted/60 border border-border p-4 text-body-sm text-muted-foreground font-mono leading-relaxed overflow-x-auto">
+          <div className="rounded-md bg-muted/60 border border-border p-4 text-body-sm text-muted-foreground font-mono leading-relaxed [overflow-wrap:anywhere]">
             {'<StatusChip state="confirmado" />  // confirmado | a-confirmar | esgotado | sugerido-ia | desatualizado'}
           </div>
         </div>
@@ -152,7 +152,7 @@ export function StatesShowcase() {
             <p className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-3">Com motivo</p>
             <StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />
           </div>
-          <div className="rounded-md bg-muted/60 border border-border p-4 text-body-sm text-muted-foreground font-mono leading-relaxed overflow-x-auto">
+          <div className="rounded-md bg-muted/60 border border-border p-4 text-body-sm text-muted-foreground font-mono leading-relaxed [overflow-wrap:anywhere]">
             {'<StatusDePublicacao status="pendente" motivo="Foto em baixa qualidade" />  // publicado | pendente | esgotado | reservado | rascunho'}
           </div>
         </div>

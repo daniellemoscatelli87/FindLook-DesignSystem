@@ -228,8 +228,9 @@ function BuscaDePecas({
         <SegmentedControl<CondicaoDaPeca>
           aria-label={tx.condicao}
           fullWidth
-          // As três opções dividem a largura igualmente; o rótulo nunca quebra dentro do segmento (27/11/2026).
-          className="auto-cols-[minmax(0,1fr)] [&_[data-slot=segmented-item]]:px-2"
+          // As três opções ocupam a largura toda, cada uma com pelo menos o tamanho do rótulo, que nunca quebra nem é
+          // cortado dentro do segmento (27/11/2026).
+          className="[&_[data-slot=segmented-item]]:px-2"
           value={condicao}
           onValueChange={setCondicao}
           options={[

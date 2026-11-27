@@ -290,7 +290,7 @@ export function FormShowcase() {
                 <PasswordConfirm semConfirmacao senha={senhaUnica} confirmacao="" onSenhaChange={setSenhaUnica} onConfirmacaoChange={() => {}} />
               </div>
             </div>
-            <pre className="mt-6 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { PasswordConfirm } from "@/app/components/ui/password-field";
+            <pre className="mt-6 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { PasswordConfirm } from "@/app/components/ui/password-field";
 
 const [senha, setSenha] = useState("");
 const [confirmacao, setConfirmacao] = useState("");
@@ -496,7 +496,7 @@ const [confirmacao, setConfirmacao] = useState("");
                 <SegmentedControl aria-label={t("Delivery", "Entrega")} options={[{ value: "retirar", label: "Retirar na loja" }, { value: "entrega", label: "Entrega", disabled: true }]} />
               </div>
             </div>
-            <pre className="mt-5 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { SegmentedControl } from "@/app/components/ui/segmented-control";
+            <pre className="mt-5 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { SegmentedControl } from "@/app/components/ui/segmented-control";
 
 <SegmentedControl
   aria-label="Condição"

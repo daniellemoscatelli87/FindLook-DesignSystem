@@ -256,6 +256,26 @@ export function GridShowcase() {
         </div>
       </section>
 
+      <section id="grid-celular" className="scroll-mt-32">
+        <SectionHeader
+          title={t("Phone: alignment, touch and what does not fit", "Celular: alinhamento, toque e o que não cabe")}
+          description={t("Rules of 27/11/2026, applied in the components themselves, so every page that uses them follows them.", "Regras de 27/11/2026, aplicadas dentro dos próprios componentes, para toda página que os usa já seguir.")}
+        />
+        <DataTable
+          head={[t("Subject", "Assunto"), t("Rule", "Regra")]}
+          rows={[
+            [t("One left edge", "Uma borda esquerda só"), t("On the phone, the icon goes on the title line, centred with it, and the text, tags and buttons below start at the same left edge. Nothing comes back to the edge of the icon after a column of text, and nothing is pushed alone to the far right after a wrap. Used by AlertaComAcao, LinhaDeLista, the product table, the card header with an action and the \"See in\" notices.", "No celular, o ícone fica na linha do título, centralizado com ele, e o texto, as tags e os botões embaixo começam na mesma borda esquerda. Nada volta para a borda do ícone depois de uma coluna de texto e nada fica sozinho encostado à direita depois de quebrar a linha. Vale para o AlertaComAcao, a LinhaDeLista, a tabela de produtos, o cabeçalho de card com ação e os avisos \"Ver em\".")],
+            [t("Groups of buttons", "Grupos de botões"), t("Buttons of a group stay on one row while they fit. When they do not fit, each one takes the full width, one per row, all the same width; never a staircase of different widths and never a link alone under a button. On narrow cards, the secondary link becomes an outline button of the same width.", "Os botões de um grupo ficam numa linha enquanto cabem. Quando não cabem, cada um ocupa a largura toda, um por linha, todos com a mesma largura; nunca uma escada de larguras diferentes e nunca um link sozinho embaixo do botão. Em card estreito, o link secundário vira botão de contorno da mesma largura.")],
+            [t("Touch (44 px)", "Toque (44 px)"), t("On the phone (below 640 px) and on any screen used with a finger, buttons, fields, tabs and lists are at least 44 px tall; on the computer with a mouse, 40 px. Checkbox, radio and switch keep their drawing and grow only the touch area around it. In the code: the toque: variant (for example h-10 toque:h-11).", "No celular (abaixo de 640 px) e em qualquer tela usada com o dedo, botões, campos, abas e listas têm pelo menos 44 px de altura; no computador com mouse, 40 px. Caixa de seleção, rádio e interruptor mantêm o desenho e só crescem a área de toque em volta. No código: a variante toque: (por exemplo, h-10 toque:h-11).")],
+            [t("Tabs", "Abas"), t("Tabs never wrap into uneven rows (2 + 2 + 1). When they do not fit in one row, they become a selection list with the same options and counts (AbasComContador does it on its own).", "As abas nunca quebram em linhas irregulares (2 + 2 + 1). Quando não cabem numa linha, viram uma lista de seleção com as mesmas opções e quantidades (o AbasComContador faz isso sozinho).")],
+            [t("Pagination", "Paginação"), t("Never wraps: an arrow alone on the line below is confusing. On the phone, \"Page 4 of 12\" between the arrows (PaginationStatus); from 640 px, the numbers.", "Nunca quebra de linha: uma seta sozinha na linha de baixo confunde. No celular, \"Página 4 de 12\" entre as setas (PaginationStatus); do 640 px em diante, os números.")],
+            [t("Tables inside cards", "Tabelas dentro de cards"), t("A card never scrolls sideways. The table shows the columns that fit and says which ones were left out, or turns into a list: each row becomes a block, with the first value in bold and the others with the column name in front.", "Card nunca rola na horizontal. A tabela mostra as colunas que cabem e avisa quais ficaram de fora, ou vira lista: cada linha vira um bloco, com o primeiro valor em destaque e os outros com o nome da coluna na frente.")],
+            [t("Short labels", "Rótulos curtos"), t("Segment labels, badges and chips never break inside (\"Second hand\", \"Only 2 left\"). With more than 3 options, use a selection list instead of a segmented control.", "Rótulos de segmento, selos e chips nunca quebram por dentro (\"Segunda mão\", \"Só 2 restantes\"). Com mais de 3 opções, use a lista de seleção no lugar do controle segmentado.")],
+            [t("Titles", "Títulos"), t("Titles balance their lines (text-wrap: balance), so no word is left alone on the last line.", "Os títulos equilibram as linhas (text-wrap: balance), para nenhuma palavra ficar sozinha na última linha.")],
+          ]}
+        />
+      </section>
+
       <section id="grid-evitar" className="scroll-mt-32">
         <SectionHeader title={t("What to avoid", "O que evitar")} />
         <DoDont
@@ -266,6 +286,7 @@ export function GridShowcase() {
           ]}
           donts={[
             t("Use values outside the scale (13 px, 18 px, 30 px).", "Não use valores fora da escala (13 px, 18 px, 30 px)."),
+            t("Use half steps of the scale (2, 6, 10 or 14 px, the classes ending in .5): they break the 4/8 px rhythm. Since 27/11/2026 the components use only whole steps; a half step goes to the nearest one (6 → 4, 10 → 8, 14 → 12, 2 → 4).", "Não use meios passos da escala (2, 6, 10 ou 14 px, as classes terminadas em .5): eles quebram o ritmo de 4/8 px. Desde 27/11/2026 os componentes usam só passos inteiros; o meio passo vai para o mais perto (6 → 4, 10 → 8, 14 → 12, 2 → 4)."),
             t("Let text lines run the full width of a large screen: use the reading width.", "Não deixe linhas de texto ocuparem a largura toda de uma tela grande: use a largura de leitura."),
             t("Use a span larger than the columns of the screen (more than 4 on phone, 8 on tablet).", "Não use span maior que as colunas da tela (mais de 4 no celular, 8 no tablet)."),
             t("Remove the side margin to gain space on the phone.", "Não tire a margem lateral para ganhar espaço no celular."),

@@ -88,7 +88,7 @@ export function TokenTable({ groups }: { groups: TokenGroup[] }) {
           <span className="text-caption font-semibold uppercase tracking-[0.07em] text-muted-foreground">
             {t("Value", "Valor")}
           </span>
-          <span className="inline-flex items-center px-1 py-1 rounded-sm text-caption font-semibold uppercase tracking-wide bg-primary/10 text-primary">
+          <span className="inline-flex items-center px-2 py-1 rounded-sm text-caption font-semibold uppercase tracking-wide bg-[var(--primary-muted)] text-primary-text">
             {isDark ? t("Dark", "Escuro") : t("Light", "Claro")}
           </span>
         </div>

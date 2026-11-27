@@ -254,8 +254,8 @@ export function UploadShowcase() {
 
       <section id="upload-usage">
         <SectionHeader title={t("Usage", "Uso")} description={t("Composition in code. The product owns the upload call and updates the item status.", "Composição em código. O produto faz a chamada de envio e atualiza o estado de cada item.")} />
-        <ShowcaseCard className="overflow-x-auto">
-          <pre className="text-label leading-relaxed text-muted-foreground"><code>{`import { UploadDropzone, UploadList, ImageUpload, ImageGrid, type UploadFile } from "@/app/components/ui/upload";
+        <ShowcaseCard>
+          <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] text-label leading-relaxed text-muted-foreground"><code>{`import { UploadDropzone, UploadList, ImageUpload, ImageGrid, type UploadFile } from "@/app/components/ui/upload";
 
 <UploadDropzone accept={["image/*", ".pdf"]} maxSize={10 * 1024 * 1024} maxFiles={6}
   onFiles={files => enviar(files)} onError={setErro} error={erro} />

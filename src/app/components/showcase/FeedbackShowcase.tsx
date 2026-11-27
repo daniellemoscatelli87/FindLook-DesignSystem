@@ -354,7 +354,8 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <SubSection title={t("Try it", "Experimente")}>
           <ShowcaseCard>
             <p className="mb-3 text-body-sm text-muted-foreground">{t("Each button shows a real notification in the corner of the screen (ui/sonner).", "Cada botão mostra uma notificação de verdade no canto da tela (ui/sonner).")}</p>
-            <div className="flex flex-wrap gap-2">
+            {/* Celular: 2 colunas iguais (4 botões, nenhum sozinho na linha) */}
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
               {toastTypes.map(tt => (
                 <Button key={tt.tipo} variant="outline" onClick={() => {
                   const msg = bi(tt.msg);
@@ -568,7 +569,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               <li>• {t("Dot or one icon in the primary color, never both.", "Ponto ou um ícone na cor primária, nunca os dois.")}</li>
               <li>• {t("It is not interactive. For filters use chips; for status use badges or the status chip.", "Não é interativo. Para filtros use chips; para status use badges ou o chip de status.")}</li>
             </ul>
-            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
+            <pre className="mt-4 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Selo } from "@/app/components/ui/selo";
 <Selo>Moda local em Curitiba</Selo>
 <Selo icon={<MapPin />}>Moda local em Curitiba</Selo>`}</code></pre>
           </ShowcaseCard>
@@ -590,7 +591,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               <SeloSecao size="sm">{t("Compact", "Compacto")} · sm</SeloSecao>
               <SeloSecao icon={<Sparkles />}>{t("With icon", "Com ícone")}</SeloSecao>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
+            <pre className="mt-4 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { SeloSecao } from "@/app/components/ui/selo-secao";
 
 <SeloSecao>Cenário atual</SeloSecao>
 <h2>…</h2>`}</code></pre>
@@ -682,7 +683,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
                 </p>
               </div>
             </div>
-            <pre className="mt-4 overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
+            <pre className="mt-4 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { AvatarCircles } from "@/app/components/ui/avatar-circles";
 
 <AvatarCircles
   numPeople={99}

@@ -245,7 +245,7 @@ export function FoundationShowcase() {
               <li>• {t("Plus Jakarta Sans Bold (700), as on the site hero. Hero: tracking -0.03em, line height 1.1. Page: -0.035em. Section: -0.02em.", "Plus Jakarta Sans Bold (700), como no hero do site. Hero: tracking -0,03em, entrelinha 1,1. Página: -0,035em. Seção: -0,02em.")}</li>
               <li>• {t("Large text, so the primary color passes contrast on light and dark backgrounds.", "Texto grande, então a cor primária passa no contraste nos fundos claro e escuro.")}</li>
             </ul>
-            <pre className="overflow-x-auto rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Heading } from "@/app/components/ui/heading";
+            <pre className="whitespace-pre-wrap [overflow-wrap:anywhere] rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { Heading } from "@/app/components/ui/heading";
 <Heading level={1} size="hero">Uma cidade. **Muitos estilos.**</Heading>`}</code></pre>
           </div>
         </SubSection>
@@ -337,6 +337,9 @@ export function FoundationShowcase() {
             <h3 className="text-label font-bold text-foreground uppercase tracking-[0.07em]">Plus Jakarta Sans — {t("Type scale", "Escala tipográfica")}</h3>
             <div className="h-px flex-1 bg-border" />
           </div>
+          <p className="max-w-3xl text-body-sm leading-relaxed text-muted-foreground">
+            {t("Every size of this scale is a token (since 27/11/2026): --text-h1, --text-body-sm, --text-caption and the others, used as classes (text-h1, text-body-sm, text-caption). Only the size: the line height comes from the element. Sizes outside the scale are not used; they go to the nearest step (13 px → 14 px, 15 px → 16 px, or 14 px in buttons, 10 px → 11 px). The button text uses --text-button (14 px).", "Cada tamanho desta escala é um token (desde 27/11/2026): --text-h1, --text-body-sm, --text-caption e os outros, usados como classes (text-h1, text-body-sm, text-caption). Só o tamanho: a altura da linha vem do elemento. Tamanhos fora da escala não são usados; vão para o passo mais perto (13 px → 14 px, 15 px → 16 px, ou 14 px nos botões, 10 px → 11 px). O texto do botão usa --text-button (14 px).")}
+          </p>
           <div className="bg-card rounded-lg border border-border overflow-hidden" style={{ boxShadow: "var(--shadow-xs)" }}>
             {typeScaleItems.map((item, i) => (
               <div
