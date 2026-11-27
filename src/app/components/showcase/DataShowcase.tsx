@@ -20,6 +20,7 @@ import { Rosca, BarrasHorizontais, MapaCoropletico } from "../ui/graficos";
 import { TabelaDeProdutos, CelulaDeProduto, MedidorDeDesempenho, BarraDeAcoesEmLote } from "../ui/painel-produtos";
 import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemplates";
 import { SectionHeader } from "./shared/SectionHeader";
+import { RegraDasLinhas } from "./shared/RegraDasLinhas";
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -449,7 +450,7 @@ export function DataShowcase() {
                 {tableData.map((row, i) => (
                   <tr
                     key={row.id}
-                    className={`border-b border-border/50 hover:bg-muted/20 transition-colors ${i === tableData.length - 1 ? "border-b-0" : ""}`}
+                    className={`border-b border-border/50 hover:bg-row-hover transition-colors ${i === tableData.length - 1 ? "border-b-0" : ""}`}
                   >
                     <td className="w-full max-w-0 px-3 sm:px-6 py-4">
                       <div className="flex min-w-0 items-center gap-3">
@@ -498,6 +499,18 @@ export function DataShowcase() {
         </ShowcaseCard>
       </section>
 
+
+      {/* ── LINHAS COM TAGS E AÇÕES (regras da dona do produto, 24/11/2026) ── */}
+      <section id="linhas-colunas" className="scroll-mt-32">
+        <SectionHeader
+          title={t("Rows with tags and actions", "Linhas com tags e ações")}
+          description={t(
+            "Lists, tables, grids and card lists: the text never goes past the tags or actions column, and the row hover covers the whole row, square.",
+            "Listas, tabelas, grades e listas de cards: o texto nunca ultrapassa a coluna de tags ou ações, e o hover cobre a linha inteira, sem cantos.",
+          )}
+        />
+        <RegraDasLinhas />
+      </section>
 
       {/* ── TABELA DE PRODUTOS ── */}
       <section id="tabela-produtos">

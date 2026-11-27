@@ -876,16 +876,15 @@ function InboxTemplate() {
                       <Icon aria-hidden className="h-3.5 w-3.5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-1 mb-0.5">
-                        <span className={`text-[0.75rem] leading-tight truncate ${!n.lida ? "font-bold text-foreground" : "font-medium text-muted-foreground"}`}>
-                          {!n.lida && <span className="sr-only">Não lida: </span>}
-                          {n.titulo}
-                        </span>
-                        {!n.lida && <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary shrink-0 mt-1" />}
-                      </div>
+                      <span className={`block mb-0.5 text-[0.75rem] leading-tight truncate ${!n.lida ? "font-bold text-foreground" : "font-medium text-muted-foreground"}`}>
+                        {!n.lida && <span className="sr-only">Não lida: </span>}
+                        {n.titulo}
+                      </span>
                       <p className="text-[0.625rem] text-muted-foreground leading-tight line-clamp-2">{n.texto}</p>
                       <span className="text-[0.5625rem] text-muted-foreground">{n.quando}</span>
                     </div>
+                    {/* Coluna própria para o ponto de não lida: o texto nunca passa por baixo dele (regra de 24/11/2026). */}
+                    <span aria-hidden className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${!n.lida ? "bg-primary" : ""}`} />
                   </button>
                 </li>
               );

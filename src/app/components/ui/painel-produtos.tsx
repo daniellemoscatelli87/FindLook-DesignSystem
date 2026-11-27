@@ -5,6 +5,7 @@ import { IconeModa, type NomeIconeModa } from "./fashion-icons";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./dropdown-menu";
 import { formatarNumero, formatarPreco, superficieDoCard } from "./painel-dados";
 import { Checkbox } from "./checkbox";
+import { LinhaDeLista } from "./linha-de-lista";
 
 /**
  * Produtos no painel da loja (FindLook)
@@ -301,23 +302,26 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
         </table>
       </div>
 
-      {/* Lista (quadros estreitos): cada produto vira um item com as mesmas informações */}
+      {/* Lista (quadros estreitos): cada produto vira um item com as mesmas informações. Linha de lista: o texto
+          fica na coluna dele e nunca passa por baixo do menu de ações (regra da dona do produto, 24/11/2026). */}
       <ul className="divide-y divide-border/50 border-t border-border @2xl:hidden" aria-label="Produtos da loja">
         {visiveis.map(p => {
           const marcado = selecionados.includes(p.id);
           return (
-            <li key={p.id} className={cn("px-4 py-3", marcado && "bg-[var(--primary-muted)]")}>
-              <div className="flex items-center gap-3">
-                {selecionavel && <Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} />}
-                <CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} className="flex-1" />
-                <MenuDaLinha p={p} />
-              </div>
-              <div className={cn("mt-2 flex flex-wrap items-center justify-between gap-2", selecionavel && "pl-7")}>
-                <span className="text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}<span className="ml-1.5 text-[0.75rem] font-normal text-muted-foreground">{p.condicao} · {p.estoque} em estoque</span></span>
+            <LinhaDeLista
+              key={p.id}
+              as="li"
+              selecionada={marcado}
+              inicio={selecionavel ? <span className="flex h-12 items-center"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></span> : undefined}
+              fim={<span className="flex h-12 items-center"><MenuDaLinha p={p} /></span>}
+            >
+              <CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} />
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
+                <span className="min-w-0 text-[0.875rem] font-semibold tabular-nums text-foreground">{formatarPreco(p.preco)}<span className="ml-1.5 text-[0.75rem] font-normal text-muted-foreground">{p.condicao} · {p.estoque} em estoque</span></span>
                 <StatusDePublicacao status={p.status} />
               </div>
-              {p.motivo && <p className={cn("mt-1 text-[0.75rem] text-muted-foreground", selecionavel && "pl-7")}>{p.motivo}</p>}
-            </li>
+              {p.motivo && <p className="mt-1 text-[0.75rem] text-muted-foreground">{p.motivo}</p>}
+            </LinhaDeLista>
           );
         })}
       </ul>

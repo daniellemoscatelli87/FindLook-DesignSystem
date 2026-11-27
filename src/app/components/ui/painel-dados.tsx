@@ -295,7 +295,7 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   const ok = estado === "ok";
   return (
     <li>
-      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-md px-3 py-2.5 transition-colors hover:bg-row-hover", foco, className)}>
+      <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2.5 rounded-none px-3 py-2.5 transition-colors hover:bg-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}>
         {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
         <span className="min-w-0 flex-1 text-[0.8125rem] text-foreground">{texto}</span>
