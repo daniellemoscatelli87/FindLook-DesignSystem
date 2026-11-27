@@ -203,7 +203,7 @@ export function PainelAdminShowcase() {
         <DataTable
           head={["Prop", "O que faz"]}
           rows={[
-            [<Mono>colunas</Mono>, "{ id, titulo, celula, largura (px mínimos), prioridade (1 = mais importante), fixa, alinhar, ordenavel }"],
+            [<Mono>colunas</Mono>, "ColunaDaTabela: { id, titulo, celula, prioridade (1 = mais importante), principal, alinhar, ordenavel, valorParaOrdenar } e, no FindLook, largura (px mínimos)"],
             ["Seleção", "selecionadas e onSelecionadasChange: seleção com caixa de 44 px no toque e Selecionar todas; linha selecionada no rosa do selecionado."],
             [<Mono>ordem</Mono>, "Com onOrdenar: ordenação pelo título da coluna, com aria-sort."],
             ["Lista", "larguraDaLista: quando vira lista (600 px). textos e vazio mudam os textos e o estado vazio."],

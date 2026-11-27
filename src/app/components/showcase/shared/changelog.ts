@@ -17,23 +17,28 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Componentes iguais nos dois design systems"),
+    desc: pt("Os componentes que o FindLook e o Dani Moscatelli têm em comum passam a ter os mesmos nomes, arquivos e props (o DS Dani Moscatelli publicou primeiro): Campo, CampoDeBusca, ChipFiltravel e GrupoDeChipsFiltraveis (ui/chip-filtravel), BotaoDeEnvio (ui/botao-de-envio, no lugar do BotaoComRetorno), EstadoVazio, EstadoFinal e PaginaDeErro, Alert tom, Conversa, BalaoDaConversa, SeparadorDaConversa e IndicadorDeDigitacao, CabecalhoDoSite, MolduraDeConta, Logo, LinkSaibaMais (ui/link-saiba-mais), Prosa, TabelaAdaptavel e ChipDeEstado. O que só o FindLook precisa ficou como props a mais, escritas na documentação de cada um. O Quadro tem o mesmo nome, mas a API do FindLook (move os itens entre as colunas)."),
+    page: "campos", anchor: "campo-padrao",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Componentes do produto: moldura do site"),
     desc: pt("Peças que só existiam no produto FindLook viram componentes (27/11/2026): CabecalhoDoSite e MenuDoCelular (o padrão Header e menus com o comportamento das páginas públicas: transparente na capa, fundo ao rolar, logo que vira símbolo, some ao descer, folha inferior no celular), RodapeDoSite, MolduraDeConta (as telas Entrar, Criar conta e Recuperar acesso; o template Entrar e criar conta passou a usá-la), ProvaSocial, ListaDeVantagens, Logo (a assinatura oficial desenhada no componente), LinkDeTexto, LinkDeVoltar, LinkSaibaMais, LinkPularConteudo e Prosa (Termos de uso e Política de privacidade). Página nova: Moldura do site."),
     page: "site", anchor: "site-cabecalho",
   },
   {
     date: "Nov 2026", kind: "New", title: pt("Campos e formulários: um campo padrão só"),
-    desc: pt("Campo é o campo padrão do DS (rótulo, ajuda, erro com ícone, opcional, ícone e Mostrar senha; 44 px no toque); o CampoDoCadastro passa a ser o mesmo componente. Novos: CampoDeBusca, GrupoDeOpcoes, LinhaDeInterruptor (o nome também liga e desliga; área de 44 px), SeletorDeQuantidade, CaixaDeCodigo e BotaoComRetorno (carregando, check de sucesso e volta sozinho). Textarea ganhou o contador de caracteres (prop contador). Página nova: Campos e formulários."),
+    desc: pt("Campo é o campo padrão do DS (rótulo, ajuda, erro com ícone, opcional, ícone e Mostrar senha; 44 px no toque); o CampoDoCadastro passa a ser o mesmo componente. Novos: CampoDeBusca, GrupoDeOpcoes, LinhaDeInterruptor (o nome também liga e desliga; área de 44 px), SeletorDeQuantidade, CaixaDeCodigo e BotaoDeEnvio (enviando, feito no verde com o check e volta sozinho; erro vira Tentar de novo). Campo ganhou obrigatorio, children em função para outros controles e as máscaras CampoDeTelefone e CampoDeCnpj. Textarea ganhou o contador de caracteres (prop contador). Página nova: Campos e formulários."),
     page: "campos", anchor: "campo-padrao",
   },
   {
     date: "Nov 2026", kind: "New", title: pt("Chips e estados"),
-    desc: pt("ChipDeEstado (mesma API do DS Dani Moscatelli), ChipFiltravel, GrupoDeChips (duas colunas no celular), ChipDeFiltro e ListaDeFiltrosAtivos, EstadoVazio, Avaliacao e TituloDeGrupo. Badge ganhou os tons marca, neutro, sucesso, aviso, erro e info (etiqueta de atributo); IconeComBase ganhou os tons sucesso, aviso, erro e info; Alert ganhou a prop tom (info, sucesso, aviso, erro), que põe o ícone do estado sozinho. O texto do tom aviso leva 15% de --foreground para passar de 4,5:1. Página nova: Chips e estados."),
+    desc: pt("ChipDeEstado, ChipFiltravel e GrupoDeChipsFiltraveis (duas colunas no celular), ChipDeFiltro e ListaDeFiltrosAtivos, EstadoVazio, EstadoFinal e PaginaDeErro, Avaliacao e TituloDeGrupo. Badge ganhou os tons marca, neutro, sucesso, aviso, erro e info (etiqueta de atributo); IconeComBase ganhou os tons sucesso, aviso, erro e info; Alert ganhou a prop tom (neutro, info, sucesso, aviso, erro), que põe o ícone do estado sozinho. O texto do tom aviso leva 15% de --foreground para passar de 4,5:1. Página nova: Chips e estados."),
     page: "chips-e-estados", anchor: "chip-de-estado",
   },
   {
     date: "Nov 2026", kind: "New", title: pt("Quadro, conversa e tabela adaptável"),
-    desc: pt("Quadro (kanban sem rolagem lateral: colunas lado a lado com 896 px ou mais, empilhadas antes disso, mover arrastando ou pelo botão Mover para), as peças da Conversa do WhatsApp (MolduraDeCelular, CabecalhoDaConversa, Conversa, BalaoDeConversa, IndicadorDeDigitacao, AvisoDoSistema, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes), TabelaAdaptavel (colunas que cabem por prioridade, aviso das que ficam de fora, lista abaixo de 600 px, seleção e ordenação) e BarraDeFerramentasDaTabela. BarraDeAcoesEmLote ganhou textos configuráveis (lojas, peças, agendamentos) e, no celular, as ações numa linha própria; CardIndicador ganhou href para virar atalho. Página nova: Quadro, conversa e tabela."),
+    desc: pt("Quadro (kanban sem rolagem lateral: colunas lado a lado com 896 px ou mais, empilhadas antes disso, mover arrastando ou pelo botão Mover para), as peças da Conversa do WhatsApp (Conversa, BalaoDaConversa, SeparadorDaConversa e IndicadorDeDigitacao, mais MolduraDeCelular, CabecalhoDaConversa, BotaoDeResposta, CampoDeMensagem e FolhaDeOpcoes), TabelaAdaptavel (colunas que cabem por prioridade, aviso das que ficam de fora, lista abaixo de 600 px, seleção e ordenação) e BarraDeFerramentasDaTabela. BarraDeAcoesEmLote ganhou textos configuráveis (lojas, peças, agendamentos) e, no celular, as ações numa linha própria; CardIndicador ganhou href para virar atalho. Página nova: Quadro, conversa e tabela."),
     page: "painel-e-admin", anchor: "quadro",
   },
   {
@@ -43,7 +48,7 @@ export const changelog: ChangeEntry[] = [
   },
   {
     date: "Nov 2026", kind: "Updated", title: pt("Demonstrações trocadas pelos componentes novos"),
-    desc: pt("O que era só demonstração agora usa os componentes: chips do cadastro em etapas e de Rótulos › Chips (ChipFiltravel); estados vazios de Rótulos, Usabilidade e Ilustrações (EstadoVazio); estados de chat de Movimento (IndicadorDeDigitacao e BalaoDeConversa); a tabela que vira lista de Gráficos (TabelaAdaptavel); e o template Entrar e criar conta (MolduraDeConta, Campo, SegmentedControl). Os tokens de toque (toque:h-11) e de tamanho de texto (text-body, text-label…) são os mesmos das correções da auditoria."),
+    desc: pt("O que era só demonstração agora usa os componentes: chips do cadastro em etapas e de Rótulos › Chips (ChipFiltravel); estados vazios de Rótulos, Usabilidade e Ilustrações (EstadoVazio); estados de chat de Movimento (IndicadorDeDigitacao e BalaoDaConversa); a tabela que vira lista de Gráficos (TabelaAdaptavel); e o template Entrar e criar conta (MolduraDeConta, Campo, SegmentedControl e EstadoFinal). Os tokens de toque (toque:h-11) e de tamanho de texto (text-body, text-label…) são os mesmos das correções da auditoria."),
   },
   {
     date: "Nov 2026", kind: "Updated", title: pt("Correções da auditoria do celular: tokens de texto, toque de 44 px e componentes alinhados"),

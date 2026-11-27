@@ -184,8 +184,8 @@ function StatesDemo() {
             className="m-auto"
             icone={<Inbox />}
             titulo={t("No projects yet", "Nenhum projeto ainda")}
-            texto={t("Projects you create appear here. Start with a template to see how it works.", "Os projetos que você criar aparecem aqui. Comece com um template para ver como funciona.")}
-            acao={<Button className="h-10 toque:h-11">{t("Create project", "Criar projeto")}</Button>}
+            descricao={t("Projects you create appear here. Start with a template to see how it works.", "Os projetos que você criar aparecem aqui. Comece com um template para ver como funciona.")}
+            acoes={<Button className="h-10 toque:h-11">{t("Create project", "Criar projeto")}</Button>}
           />
         )}
         {view === "error" && (

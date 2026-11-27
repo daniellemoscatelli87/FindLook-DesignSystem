@@ -13,7 +13,7 @@ Seis cópias no produto, com raios de 9/10 px e alturas de 40/44 px.
 Produto FindLook: ListaDeLojas, LojasParceiras, Pecas, FichaDaLoja, Agenda.
 
 ## API
-`rotulo`, `rotuloVisivel`, `valor`, `onValorChange`, `rotuloLimpar`, `classeDoBloco` e as props do Input.
+Mesma API do DS Dani Moscatelli: `valor`, `onValorChange`, `onBusca`, `atraso`, `rotulo`, `resultados` (anunciados), `textos` e as props do <input>. A mais no FindLook: `rotuloVisivel`.
 
 ## Variações e estados
 Lupa à esquerda; Limpar aparece com texto (entrada suave); Esc limpa.

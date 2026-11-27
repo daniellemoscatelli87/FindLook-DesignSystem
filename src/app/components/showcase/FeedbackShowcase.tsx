@@ -710,16 +710,16 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
             moldura="card"
             icone={<SearchX />}
             titulo={t("No results found", "Nenhum resultado encontrado")}
-            texto={t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}
-            acao={<Button variant="outline" className="h-10 toque:h-11">{t("Clear filters", "Limpar filtros")}</Button>}
+            descricao={t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}
+            acoes={<Button variant="outline" className="h-10 toque:h-11">{t("Clear filters", "Limpar filtros")}</Button>}
           />
           <EstadoVazio
             moldura="card"
             icone={<Plus />}
             tom="marca"
             titulo={t("Create your first project", "Crie seu primeiro projeto")}
-            texto={t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}
-            acao={<Button className="h-10 toque:h-11"><Plus aria-hidden /> {t("New Project", "Novo projeto")}</Button>}
+            descricao={t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}
+            acoes={<Button className="h-10 toque:h-11"><Plus aria-hidden /> {t("New Project", "Novo projeto")}</Button>}
           />
         </GradeDeCards>
       </section>

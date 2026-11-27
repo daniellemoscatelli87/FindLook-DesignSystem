@@ -13,7 +13,7 @@ A tabela que vira lista só existia como demonstração (TabelaQueQuebra) e o pr
 Produto FindLook, `admin/ListaDeLojas.tsx`; DS: Gráficos (TabelaQueQuebra, agora usa o componente).
 
 ## API
-`colunas` ({ id, titulo, celula, largura, prioridade, fixa, alinhar, ordenavel }), `linhas`, `chave`, `legenda`, `selecionadas`, `onSelecionadasChange`, `acoes`, `ordem`, `onOrdenar`, `larguraDaLista`, `vazio`, `textoDoAviso`.
+Mesmos nomes do DS Dani Moscatelli: `colunas` (ColunaDaTabela: id, titulo, celula, prioridade, alinhar, principal, ordenavel, valorParaOrdenar), `linhas`, `chave`, `legenda`, `mostrarLegenda`, `acoes`, `vazio`, `ordemInicial`, `textos`. A mais no FindLook: `largura` por coluna (a tabela mede o espaço), `selecionadas`/`onSelecionadasChange`, `ordem`/`onOrdenar` (controlada) e `larguraDaLista`.
 
 ## Variações e estados
 Colunas que cabem por prioridade com aviso das que ficaram de fora; lista abaixo de 600 px; seleção no --primary-suave; hover --row-hover de ponta a ponta.

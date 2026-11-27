@@ -17926,10 +17926,10 @@
       "componente": "BarraDeAcoesEmLote (itemNoSingular, itemNoPlural, selecionadaNoFeminino, textoDaContagem, rotuloDaRegiao, rotuloLimpar, children) e CardIndicador (href, onClick, comoLink) em src/app/components/ui/painel-produtos.tsx e painel-dados.tsx"
     },
     {
-      "arquivo": "propostas/2026-11-27-botao-com-retorno.md",
-      "titulo": "Botão com retorno",
+      "arquivo": "propostas/2026-11-27-botao-de-envio.md",
+      "titulo": "Botão de envio",
       "status": "proposta",
-      "componente": "BotaoComRetorno, useRetornoDoBotao em src/app/components/ui/botao-com-retorno.tsx"
+      "componente": "BotaoDeEnvio, useEstadoDoEnvio em src/app/components/ui/botao-de-envio.tsx"
     },
     {
       "arquivo": "propostas/2026-11-27-cabecalho-do-site.md",
@@ -17968,16 +17968,16 @@
       "componente": "ChipDeEstado em src/app/components/ui/chip-de-estado.tsx"
     },
     {
-      "arquivo": "propostas/2026-11-27-chips.md",
+      "arquivo": "propostas/2026-11-27-chip-filtravel.md",
       "titulo": "Chips de filtro",
       "status": "proposta",
-      "componente": "ChipFiltravel, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chips.tsx"
+      "componente": "ChipFiltravel, GrupoDeChipsFiltraveis, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chip-filtravel.tsx"
     },
     {
       "arquivo": "propostas/2026-11-27-conversa.md",
       "titulo": "Conversa e moldura de celular",
       "status": "proposta",
-      "componente": "MolduraDeCelular, CabecalhoDaConversa, Conversa, BalaoDeConversa, IndicadorDeDigitacao, AvisoDoSistema, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes em src/app/components/ui/conversa.tsx"
+      "componente": "Conversa, BalaoDaConversa, SeparadorDaConversa, IndicadorDeDigitacao, MolduraDeCelular, CabecalhoDaConversa, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes em src/app/components/ui/conversa.tsx"
     },
     {
       "arquivo": "propostas/2026-11-27-demonstracoes.md",
@@ -17987,9 +17987,9 @@
     },
     {
       "arquivo": "propostas/2026-11-27-estado-vazio.md",
-      "titulo": "Estado vazio",
+      "titulo": "Estado vazio, estado final e página de erro",
       "status": "proposta",
-      "componente": "EstadoVazio em src/app/components/ui/estado-vazio.tsx"
+      "componente": "EstadoVazio, EstadoFinal, PaginaDeErro em src/app/components/ui/estado-vazio.tsx"
     },
     {
       "arquivo": "propostas/2026-11-27-grupo-de-opcoes.md",
@@ -17999,9 +17999,9 @@
     },
     {
       "arquivo": "propostas/2026-11-27-links.md",
-      "titulo": "Links de texto",
+      "titulo": "Links de texto e alça Saiba mais",
       "status": "proposta",
-      "componente": "LinkDeTexto, LinkDeVoltar, LinkSaibaMais, LinkPularConteudo em src/app/components/ui/links.tsx"
+      "componente": "LinkDeTexto, LinkDeVoltar, LinkPularConteudo (ui/links) e LinkSaibaMais (ui/link-saiba-mais) em src/app/components/ui/links.tsx e link-saiba-mais.tsx"
     },
     {
       "arquivo": "propostas/2026-11-27-lista-de-vantagens.md",

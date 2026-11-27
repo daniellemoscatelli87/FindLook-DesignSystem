@@ -154,7 +154,7 @@ export function TabelaAdaptavel<T>({
     for (const c of colunas.filter((c) => c.principal)) { cabem.add(c.id); livre -= c.largura ?? 140; }
     const resto = colunas.filter((c) => !c.principal).sort((a, b) => (a.prioridade ?? 99) - (b.prioridade ?? 99));
     for (const c of resto) {
-      if (c.largura <= livre) { cabem.add(c.id); livre -= c.largura ?? 140; }
+      if ((c.largura ?? 140) <= livre) { cabem.add(c.id); livre -= c.largura ?? 140; }
     }
     return cabem;
   }, [largura, colunas, selecionavel, acoes, larguraDasAcoes]);

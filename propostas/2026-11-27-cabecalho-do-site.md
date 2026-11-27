@@ -13,7 +13,7 @@ O padrão Header e menus só existia como demonstração; o produto copiou o pad
 Produto FindLook, `src/components/site/Cabecalho.tsx` (página inicial, página do lojista, termos, privacidade, busca).
 
 ## API
-`links` ({ rotulo, href, atual }), `acaoSecundaria` e `acaoPrincipal` ({ rotulo, href, icone }), `logoHref`, `comoLink` (Link do Next.js), `superficie` (clara/escura), `transparenteNoTopo`, `iconeAoRolar`, `someAoRolar`, `telaLarga` (lg/xl), `posicao` (sticky/fixed), `raiz`, `containerDoMenu`. `MenuDoCelular` (aberto, onAbertoChange, links, ações) pode ser usado sozinho.
+Mesma API do DS Dani Moscatelli: `itens` ({ id, rotulo, href }), `atual`, `acao`, `superficie`, `esconderAoRolar`, `inicioHref`, `rotuloInicio`, `logo`, `raiz`, `posicao` (sticky/fixed/absolute), `tela` (auto/celular/computador), `textos`. A mais no FindLook: `acaoSecundaria`, `transparenteNoTopo`, `iconeAoRolar`, `telaLarga` (lg/xl), `comoLink`, `containerDoMenu`; sem o modelo pílula (o FindLook usa a faixa). `MenuDoCelular` pode ser usado sozinho.
 
 ## Variações e estados
 Transparente no topo da capa; sólido ao rolar (card a 85% com desfoque, borda e --shadow-sm); logo vira o símbolo; some ao descer e volta ao subir ou com foco do teclado. Link atual no rosa do selecionado; hover cinza. Pílulas de contorno e preenchida (Button). Celular: botão Menu de 44 px e folha inferior (Drawer do DS) com links de 48 px e as duas ações lado a lado.

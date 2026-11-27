@@ -114,10 +114,10 @@ export function ChipsEstadosShowcase() {
         <SectionHeader title="Estado vazio" description="O que aparece quando uma lista, uma busca ou uma área ainda não tem nada: o que está vazio, por quê (quando ajuda) e o próximo passo. Com ilustração do mascote, ícone ou só texto." />
         <GradeDeCards className="gap-4 md:grid-cols-2">
           <EstadoVazio moldura="card" ilustracao={`${import.meta.env.BASE_URL}ilustracoes/findlook-sem-lojas-locais.webp`} titulo="Nenhuma loja por perto ainda" descricao="Quando lojas do seu bairro entrarem na FindLook, elas aparecem aqui." acoes={<Button variant="outline" className="h-10 toque:h-11">Indicar uma loja</Button>} />
-          <EstadoVazio moldura="card" icone={<SearchX />} titulo="Nenhuma loja com esses filtros" texto="Tire um filtro ou procure por outro bairro." acao={<Button variant="outline" className="h-10 toque:h-11">Limpar filtros</Button>} />
+          <EstadoVazio moldura="card" icone={<SearchX />} titulo="Nenhuma loja com esses filtros" descricao="Tire um filtro ou procure por outro bairro." acoes={<Button variant="outline" className="h-10 toque:h-11">Limpar filtros</Button>} />
         </GradeDeCards>
         <GradeDeCards className="gap-4 md:grid-cols-2">
-          <EstadoVazio moldura="tracejado" icone={<Plus />} tom="marca" titulo="Cadastre sua primeira peça" texto="Peças publicadas aparecem para quem procura na região." acao={<Button className="h-10 toque:h-11"><Plus aria-hidden /> Cadastrar peça</Button>} />
+          <EstadoVazio moldura="tracejado" icone={<Plus />} tom="marca" titulo="Cadastre sua primeira peça" descricao="Peças publicadas aparecem para quem procura na região." acoes={<Button className="h-10 toque:h-11"><Plus aria-hidden /> Cadastrar peça</Button>} />
           <EstadoVazio moldura="tracejado" tamanho="sm" titulo="Nada agendado para hoje" descricao="Os contatos e visitas marcados aparecem aqui." />
         </GradeDeCards>
         <DataTable head={["Prop", "Valores"]} rows={[[<Mono>variante</Mono>, "pagina (padrão, centralizado) · lista (dentro de um card, como uma linha)"], [<Mono>moldura</Mono>, "FindLook: nenhuma (padrão) · tracejado (no lugar de uma lista) · card (sozinho na página)"], [<Mono>ilustracao · icone · tom</Mono>, "imagem do mascote, ou ícone na base cinza (ou rosa com tom=\"marca\")"], [<Mono>tamanho</Mono>, "md (padrão) · sm (colunas estreitas)"], [<Mono>acoes</Mono>, "botões ou links (um principal no máximo)"], [<Mono>descricao · nivel</Mono>, "a frase de apoio; o nível do título (padrão h2)"]]} />

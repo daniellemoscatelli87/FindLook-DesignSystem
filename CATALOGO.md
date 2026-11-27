@@ -1777,19 +1777,19 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Avaliação](propostas/2026-11-27-avaliacao.md) | `Avaliacao em src/app/components/ui/avaliacao.tsx` | proposta |
 | [Tons do Badge e do IconeComBase](propostas/2026-11-27-badge-tons.md) | `Badge (variantes marca, neutro, sucesso, aviso, erro, info) e IconeComBase (tons sucesso, aviso, erro, info) em src/app/components/ui/badge.tsx e painel-dados.tsx` | proposta |
 | [Textos da barra de ações em lote e card de indicador clicável](propostas/2026-11-27-barra-de-acoes-em-lote.md) | `BarraDeAcoesEmLote (itemNoSingular, itemNoPlural, selecionadaNoFeminino, textoDaContagem, rotuloDaRegiao, rotuloLimpar, children) e CardIndicador (href, onClick, comoLink) em src/app/components/ui/painel-produtos.tsx e painel-dados.tsx` | proposta |
-| [Botão com retorno](propostas/2026-11-27-botao-com-retorno.md) | `BotaoComRetorno, useRetornoDoBotao em src/app/components/ui/botao-com-retorno.tsx` | proposta |
+| [Botão de envio](propostas/2026-11-27-botao-de-envio.md) | `BotaoDeEnvio, useEstadoDoEnvio em src/app/components/ui/botao-de-envio.tsx` | proposta |
 | [Cabeçalho do site e menu do celular](propostas/2026-11-27-cabecalho-do-site.md) | `CabecalhoDoSite, MenuDoCelular, useRolagemDoCabecalho em src/app/components/ui/cabecalho-do-site.tsx` | proposta |
 | [Caixa de código](propostas/2026-11-27-caixa-de-codigo.md) | `CaixaDeCodigo em src/app/components/ui/caixa-de-codigo.tsx` | proposta |
 | [Campo de busca](propostas/2026-11-27-campo-de-busca.md) | `CampoDeBusca em src/app/components/ui/campo-de-busca.tsx` | proposta |
 | [Campo (o campo padrão)](propostas/2026-11-27-campo.md) | `Campo, MensagemDeErro (CampoDoCadastro é o mesmo componente) em src/app/components/ui/campo.tsx` | proposta |
 | [Cartão de escolha](propostas/2026-11-27-cartao-de-escolha.md) | `CartaoDeEscolha e GrupoDeCartoesDeEscolha em src/app/components/ui/cartao-de-escolha.tsx` | proposta |
 | [Chip de estado](propostas/2026-11-27-chip-de-estado.md) | `ChipDeEstado em src/app/components/ui/chip-de-estado.tsx` | proposta |
-| [Chips de filtro](propostas/2026-11-27-chips.md) | `ChipFiltravel, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chips.tsx` | proposta |
-| [Conversa e moldura de celular](propostas/2026-11-27-conversa.md) | `MolduraDeCelular, CabecalhoDaConversa, Conversa, BalaoDeConversa, IndicadorDeDigitacao, AvisoDoSistema, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes em src/app/components/ui/conversa.tsx` | proposta |
+| [Chips de filtro](propostas/2026-11-27-chip-filtravel.md) | `ChipFiltravel, GrupoDeChipsFiltraveis, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chip-filtravel.tsx` | proposta |
+| [Conversa e moldura de celular](propostas/2026-11-27-conversa.md) | `Conversa, BalaoDaConversa, SeparadorDaConversa, IndicadorDeDigitacao, MolduraDeCelular, CabecalhoDaConversa, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes em src/app/components/ui/conversa.tsx` | proposta |
 | [Entrada ao rolar, número animado, cursor e miniatura do painel](propostas/2026-11-27-demonstracoes.md) | `SurgirAoRolar, TituloQueSurge, NumeroAnimado, CursorDeDemonstracao (moverCursor, clicarCursor), MiniaturaDoPainel (IndicadoresDaMiniatura, GraficoDaMiniatura, TabelaDaMiniatura) e os tokens de movimento em JS (movimento.ts) em src/app/components/ui/surgir-ao-rolar.tsx, numero-animado.tsx, cursor-de-demonstracao.tsx, miniatura-do-painel.tsx, movimento.ts` | proposta |
-| [Estado vazio](propostas/2026-11-27-estado-vazio.md) | `EstadoVazio em src/app/components/ui/estado-vazio.tsx` | proposta |
+| [Estado vazio, estado final e página de erro](propostas/2026-11-27-estado-vazio.md) | `EstadoVazio, EstadoFinal, PaginaDeErro em src/app/components/ui/estado-vazio.tsx` | proposta |
 | [Grupo de opções e linha com interruptor](propostas/2026-11-27-grupo-de-opcoes.md) | `GrupoDeOpcoes, LinhaDeInterruptor em src/app/components/ui/grupo-de-opcoes.tsx` | proposta |
-| [Links de texto](propostas/2026-11-27-links.md) | `LinkDeTexto, LinkDeVoltar, LinkSaibaMais, LinkPularConteudo em src/app/components/ui/links.tsx` | proposta |
+| [Links de texto e alça Saiba mais](propostas/2026-11-27-links.md) | `LinkDeTexto, LinkDeVoltar, LinkPularConteudo (ui/links) e LinkSaibaMais (ui/link-saiba-mais) em src/app/components/ui/links.tsx e link-saiba-mais.tsx` | proposta |
 | [Lista de vantagens](propostas/2026-11-27-lista-de-vantagens.md) | `ListaDeVantagens em src/app/components/ui/lista-de-vantagens.tsx` | proposta |
 | [Logo](propostas/2026-11-27-logo.md) | `Logo em src/app/components/ui/logo.tsx` | proposta |
 | [Moldura das telas de conta](propostas/2026-11-27-moldura-de-conta.md) | `MolduraDeConta em src/app/components/ui/moldura-de-conta.tsx` | proposta |

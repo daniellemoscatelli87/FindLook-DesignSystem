@@ -1,7 +1,7 @@
-# Estado vazio
+# Estado vazio, estado final e página de erro
 
 - **Status:** proposta
-- **Componente:** `EstadoVazio` em `src/app/components/ui/estado-vazio.tsx`
+- **Componente:** `EstadoVazio, EstadoFinal, PaginaDeErro` em `src/app/components/ui/estado-vazio.tsx`
 - **Data:** 2026-11-27
 - **Branch:** `claude/componentes-novos`
 - **Documentação:** Chips e estados › Estado vazio (`chips-e-estados#estado-vazio`)
@@ -13,7 +13,7 @@ Só existia em demonstrações (Rótulos › Estados vazios, Usabilidade, Ilustr
 Produto FindLook, `admin/comum.tsx` (Vazio) e listas do painel.
 
 ## API
-`titulo`, `texto`, `ilustracao`, `icone`, `tom`, `acao`, `variante` (tracejado/card/simples), `tamanho` (sm/md), `nivel`.
+Mesma API do DS Dani Moscatelli: `icone`, `titulo`, `descricao`, `acoes`, `tom`, `tamanho`, `variante` (pagina/lista), `nivel`; a mais no FindLook, `ilustracao` e `moldura` (nenhuma/tracejado/card). Também EstadoFinal (fim de fluxo) e PaginaDeErro (404).
 
 ## Variações e estados
 Centralizado, entrada suave; as demonstrações de Rótulos, Usabilidade e Ilustrações passaram a usá-lo.

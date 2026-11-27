@@ -1,7 +1,7 @@
 # Chips de filtro
 
 - **Status:** proposta
-- **Componente:** `ChipFiltravel, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos` em `src/app/components/ui/chips.tsx`
+- **Componente:** `ChipFiltravel, GrupoDeChipsFiltraveis, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos` em `src/app/components/ui/chip-filtravel.tsx`
 - **Data:** 2026-11-27
 - **Branch:** `claude/componentes-novos`
 - **Documentação:** Chips e estados › Chips de filtro (`chips-e-estados#chips-filtro`)
@@ -13,7 +13,7 @@ O chip filtrável só existia na documentação (Rótulos › Chips) e numa cóp
 Produto FindLook: `admin/comum.tsx` (ChipAlternavel), `ListaDeLojas.tsx` (filtros ativos).
 
 ## API
-ChipFiltravel: `ativo`, `onAtivoChange`, `contagem`, `icone`. GrupoDeChips: `rotulo`. ChipDeFiltro: `rotulo`, `onRemover`. ListaDeFiltrosAtivos: `onLimparTudo`, `rotuloLimpar`.
+Mesma API do DS Dani Moscatelli: ChipFiltravel (`ativo`, `onAtivoChange`, `contagem`; a mais `icone`) e GrupoDeChipsFiltraveis (`opcoes`, `valor`, `onValorChange`, `multiplo`, `rotulo`). Do FindLook: GrupoDeChips (`rotulo`, children). ChipDeFiltro: `rotulo`, `onRemover`. ListaDeFiltrosAtivos: `onLimparTudo`, `rotuloLimpar`.
 
 ## Variações e estados
 Ligado no --primary-suave com check (continua rosa no hover); desligado com hover cinza; duas colunas no celular.
