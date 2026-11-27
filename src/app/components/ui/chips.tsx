@@ -35,7 +35,7 @@ export function ChipFiltravel({ ativo, onAtivoChange, contagem, icone, className
       aria-pressed={ativo}
       onClick={(e) => { onAtivoChange?.(!ativo); onClick?.(e); }}
       className={cn(
-        "inline-flex min-h-9 items-center justify-center gap-1.5 rounded-full border px-3.5 text-body-sm font-medium transition-colors duration-[var(--duration-fast)] toque:min-h-11 sm:px-3",
+        "group inline-flex min-h-9 items-center justify-center gap-1.5 rounded-full border px-3.5 text-body-sm font-medium transition-colors duration-[var(--duration-fast)] toque:min-h-11 sm:px-3",
         "disabled:pointer-events-none disabled:border-transparent disabled:bg-disabled disabled:text-disabled-foreground",
         ativo
           ? "border-primary/30 bg-[var(--primary-suave)] text-primary-text"
@@ -52,7 +52,7 @@ export function ChipFiltravel({ ativo, onAtivoChange, contagem, icone, className
       )}
       {children}
       {contagem !== undefined && (
-        <span className={cn("text-label tabular-nums", ativo ? "text-primary-text" : "text-muted-foreground")}>
+        <span className={cn("text-label tabular-nums", ativo ? "text-primary-text" : "text-muted-foreground group-hover:text-foreground")}>
           <span className="sr-only">, </span>{contagem}
         </span>
       )}

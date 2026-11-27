@@ -67,6 +67,9 @@ export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, car
       <div
         role="group"
         aria-label={rotulo}
+        // As colunas são raias de um quadro, não cards lado a lado: têm a mesma altura (a da maior) e o vazio embaixo é
+        // o lugar de soltar um item; a regra "cards da mesma altura ou um por linha" não se aplica a elas.
+        data-cards-ignorar=""
         className="grid grid-cols-1 gap-3 @min-[56rem]:[grid-template-columns:repeat(var(--colunas),minmax(0,1fr))]"
         style={{ "--colunas": colunas.length } as React.CSSProperties}
       >
@@ -102,7 +105,7 @@ export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, car
                 onClick={() => alternar(c.id)}
                 aria-expanded={!fechada}
                 aria-controls={idLista}
-                className={cn("flex min-h-11 items-center gap-2 rounded-md px-2 hover:bg-accent @min-[56rem]:hidden", foco)}
+                className={cn("flex min-h-11 items-center gap-2 px-2 hover:bg-accent @min-[56rem]:hidden", foco)}
               >
                 {cabecalho}
                 <ChevronDown aria-hidden className={cn("size-4 shrink-0 text-muted-foreground transition-transform duration-[var(--duration-normal)] motion-reduce:transition-none", !fechada && "rotate-180")} />

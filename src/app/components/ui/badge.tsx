@@ -22,7 +22,7 @@ const badgeVariants = cva(
         marca: "border-primary/25 bg-[var(--primary-muted)] text-primary-text",
         neutro: "border-border bg-muted text-foreground",
         sucesso: "border-success/30 bg-success-muted text-success-text",
-        aviso: "border-warning/40 bg-warning-muted text-warning-text",
+        aviso: "border-warning/40 bg-warning-muted text-[color:color-mix(in_oklab,var(--warning-text)_85%,var(--foreground))]",
         erro: "border-error/30 bg-error-muted text-error-text",
         info: "border-info/30 bg-info-muted text-info-text",
       },

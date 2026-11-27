@@ -56,7 +56,7 @@ export function LinhaDeInterruptor({ rotulo, ajuda, className, disabled, id: idP
       data-slot="linha-de-interruptor"
       data-desabilitada={disabled ? "" : undefined}
       className={cn(
-        "-mx-3 flex min-h-11 items-center justify-between gap-4 rounded-md px-3 py-1 transition-colors hover:bg-accent data-[desabilitada]:opacity-50 data-[desabilitada]:hover:bg-transparent",
+        "-mx-3 flex min-h-11 items-center justify-between gap-4 px-3 py-1 transition-colors hover:bg-muted data-[desabilitada]:opacity-50 data-[desabilitada]:hover:bg-transparent",
         className,
       )}
     >

@@ -19,7 +19,8 @@ const TONS: Record<TomDoChip, string> = {
   neutro: "border-border bg-muted text-foreground",
   sucesso: "border-success/30 bg-success-muted text-success-text",
   info: "border-info/30 bg-info-muted text-info-text",
-  aviso: "border-warning/40 bg-warning-muted text-warning-text",
+  // aviso: o --warning-text sobre a tinta de aviso fica em 4,4:1; com 15% de --foreground passa de 4,5:1 (5,6:1).
+  aviso: "border-warning/40 bg-warning-muted text-[color:color-mix(in_oklab,var(--warning-text)_85%,var(--foreground))]",
   erro: "border-error/30 bg-error-muted text-error-text",
 };
 

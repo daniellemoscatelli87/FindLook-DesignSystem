@@ -29,7 +29,7 @@ export function Avaliacao({ nota, total, fonte, tamanho = "sm", className }: Ava
   const leitura = `Nota ${n} de 5${total ? `, ${fmtTotal.format(total)} ${total === 1 ? "avaliação" : "avaliações"}` : ""}${fonte ? ` (${fonte})` : ""}`;
   return (
     <span data-slot="avaliacao" className={cn("inline-flex items-center gap-1 whitespace-nowrap text-foreground", tamanho === "sm" ? "text-body-sm" : "text-body", className)}>
-      <Star aria-hidden className={cn("shrink-0 fill-[var(--warning)] text-[var(--warning)]", tamanho === "sm" ? "size-3.5" : "size-4")} />
+      <Star aria-hidden className={cn("shrink-0 fill-[var(--warning)] text-warning-text", tamanho === "sm" ? "size-3.5" : "size-4")} />
       <span aria-hidden className="font-semibold tabular-nums">{n}</span>
       {total ? <span aria-hidden className="tabular-nums text-muted-foreground">({fmtTotal.format(total)})</span> : null}
       <span className="sr-only">{leitura}</span>

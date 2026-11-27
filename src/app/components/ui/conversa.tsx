@@ -298,7 +298,7 @@ export function FolhaDeOpcoes({ titulo, opcoes, aberta, onFechar, onEscolher }: 
                 type="button"
                 data-opcao
                 onClick={() => onEscolher(o)}
-                className={cn("flex min-h-14 w-full flex-col items-start justify-center px-4 py-2 text-left transition-colors hover:bg-accent", foco, "focus-visible:ring-inset focus-visible:ring-offset-0")}
+                className={cn("flex min-h-14 w-full flex-col items-start justify-center px-4 py-2 text-left transition-colors hover:bg-muted", foco, "focus-visible:ring-inset focus-visible:ring-offset-0")}
               >
                 <span className="text-body font-semibold text-foreground">{o.titulo}</span>
                 {o.descricao && <span className="text-body-sm text-muted-foreground">{o.descricao}</span>}

@@ -17,6 +17,35 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Componentes do produto: moldura do site"),
+    desc: pt("Peças que só existiam no produto FindLook viram componentes (27/11/2026): CabecalhoDoSite e MenuDoCelular (o padrão Header e menus com o comportamento das páginas públicas: transparente na capa, fundo ao rolar, logo que vira símbolo, some ao descer, folha inferior no celular), RodapeDoSite, MolduraDeConta (as telas Entrar, Criar conta e Recuperar acesso; o template Entrar e criar conta passou a usá-la), ProvaSocial, ListaDeVantagens, Logo (a assinatura oficial desenhada no componente), LinkDeTexto, LinkDeVoltar, LinkSaibaMais, LinkPularConteudo e Prosa (Termos de uso e Política de privacidade). Página nova: Moldura do site."),
+    page: "site", anchor: "site-cabecalho",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Campos e formulários: um campo padrão só"),
+    desc: pt("Campo é o campo padrão do DS (rótulo, ajuda, erro com ícone, opcional, ícone e Mostrar senha; 44 px no toque); o CampoDoCadastro passa a ser o mesmo componente. Novos: CampoDeBusca, GrupoDeOpcoes, LinhaDeInterruptor (o nome também liga e desliga; área de 44 px), SeletorDeQuantidade, CaixaDeCodigo e BotaoComRetorno (carregando, check de sucesso e volta sozinho). Textarea ganhou o contador de caracteres (prop contador). Página nova: Campos e formulários."),
+    page: "campos", anchor: "campo-padrao",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Chips e estados"),
+    desc: pt("ChipDeEstado (mesma API do DS Dani Moscatelli), ChipFiltravel, GrupoDeChips (duas colunas no celular), ChipDeFiltro e ListaDeFiltrosAtivos, EstadoVazio, Avaliacao e TituloDeGrupo. Badge ganhou os tons marca, neutro, sucesso, aviso, erro e info (etiqueta de atributo); IconeComBase ganhou os tons sucesso, aviso, erro e info; Alert ganhou a prop tom (info, sucesso, aviso, erro), que põe o ícone do estado sozinho. O texto do tom aviso leva 15% de --foreground para passar de 4,5:1. Página nova: Chips e estados."),
+    page: "chips-e-estados", anchor: "chip-de-estado",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Quadro, conversa e tabela adaptável"),
+    desc: pt("Quadro (kanban sem rolagem lateral: colunas lado a lado com 896 px ou mais, empilhadas antes disso, mover arrastando ou pelo botão Mover para), as peças da Conversa do WhatsApp (MolduraDeCelular, CabecalhoDaConversa, Conversa, BalaoDeConversa, IndicadorDeDigitacao, AvisoDoSistema, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes), TabelaAdaptavel (colunas que cabem por prioridade, aviso das que ficam de fora, lista abaixo de 600 px, seleção e ordenação) e BarraDeFerramentasDaTabela. BarraDeAcoesEmLote ganhou textos configuráveis (lojas, peças, agendamentos) e, no celular, as ações numa linha própria; CardIndicador ganhou href para virar atalho. Página nova: Quadro, conversa e tabela."),
+    page: "painel-e-admin", anchor: "quadro",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Demonstrações animadas e tokens de movimento em JavaScript"),
+    desc: pt("SurgirAoRolar e TituloQueSurge (mesma API do DS Dani Moscatelli, com os tokens da FindLook), NumeroAnimado, CursorDeDemonstracao (com moverCursor e clicarCursor) e MiniaturaDoPainel (com os cards, o gráfico e a tabela em miniatura). movimento.ts exporta DURACAO, CURVA, CURVA_SNAPPY e useMenosMovimento, para o produto não copiar números. Tudo respeita menos movimento. Página nova: Demonstrações animadas."),
+    page: "demonstracoes", anchor: "surgir-ao-rolar",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Demonstrações trocadas pelos componentes novos"),
+    desc: pt("O que era só demonstração agora usa os componentes: chips do cadastro em etapas, de Rótulos › Chips e dos filtros da Equipe (ChipFiltravel); estados vazios de Rótulos, Usabilidade e Ilustrações (EstadoVazio); estados de chat de Movimento (IndicadorDeDigitacao e BalaoDeConversa); a tabela que vira lista de Gráficos (TabelaAdaptavel); e o template Entrar e criar conta (MolduraDeConta, Campo, SegmentedControl). Os tokens de toque (toque:h-11) e de tamanho de texto (text-body, text-label…) são os mesmos das correções da auditoria."),
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Regra dos rosas claros: selecionado no rosa do meio, hover cinza claro"),
     desc: pt("Decisão da dona do produto (27/11/2026), igual nos dois design systems: \"o estado selecionado fica com a mesma cor do estado hover [o rosa do meio]. E o hover passa a ser cinza claro\". SELECIONADO --primary-suave #FFECF0 (item ativo do menu, botão \"✓ Selecionado\", segmento, chip, linha e loja selecionados; continua rosa com o mouse em cima; --primary-text 5,7:1). HOVER cinza claro, nunca rosa: --accent (graphite-100 #E9E9EC) nos itens, com o texto passando a --foreground (17:1), porque o --muted (graphite-50) é claro demais no branco para um item pequeno; nos cards inteiros com texto cinza (ItemDeAcao, CardDePreco), o --muted com a borda mudando (texto cinza 5,0:1; no --accent seria 4,46:1). DESTAQUE --primary-muted #FEDFE6 (bases de ícones, destaques). --primary-sutil deixa de ser usado para seleção. Aplicado ao menu do painel e ao menu deste site, LinhaDeLista, SegmentedControl, CardDePreco, ItemDeLoja, tabela de produtos, ItemDeAcao, chips, cadastro em etapas, Cards › Estados e demonstrações; hovers rosa de upload, botões de contorno e links viraram cinza. Documentado em Fundamentos › Cores › Rosas claros."),
   },
