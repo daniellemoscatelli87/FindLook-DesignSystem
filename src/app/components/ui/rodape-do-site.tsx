@@ -88,7 +88,7 @@ export function RodapeDoSite({ marca, superficie = "clara", logoHref = "/", colu
                 {convite.texto && <p className="m-0 text-body-sm leading-relaxed text-muted-foreground">{convite.texto}</p>}
               </CardHeader>
               <CardFooter className="justify-end border-t pt-4 [.border-t]:pt-4">
-                <Link href={convite.acao.href} className={cn(buttonVariants({ variant: "outline" }), "h-auto min-h-10 whitespace-normal text-left toque:min-h-11")}>
+                <Link href={convite.acao.href} className={cn(buttonVariants({ variant: "outline" }), "h-auto min-h-10 min-w-0 max-w-full shrink whitespace-normal py-2 text-left toque:min-h-11")}>
                   {convite.acao.rotulo} <ArrowUpRight aria-hidden />
                 </Link>
               </CardFooter>
@@ -120,10 +120,10 @@ export function RodapeDoSite({ marca, superficie = "clara", logoHref = "/", colu
         {creditos && (
           <div className={cn("flex flex-col gap-2 pt-4 text-label text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:gap-4", !linhaFinal?.length && !faixa && "mt-12 border-t border-border pt-5")}>
             {creditos.links && creditos.links.length > 0 && (
-              <p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1">
+              <p className="m-0 leading-loose">
                 {creditos.links.map((l, i) => (
                   <React.Fragment key={l.rotulo}>
-                    {i > 0 && <span aria-hidden>·</span>}
+                    {i > 0 && <span aria-hidden className="mx-2">·</span>}
                     <LinkOuTexto link={l} comoLink={comoLink} />
                   </React.Fragment>
                 ))}

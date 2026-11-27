@@ -125,7 +125,6 @@ export function BalaoDeConversa({ de, autor, hora, estado, citacao, imagem, acoe
           className={cn(
             "rounded-lg px-3 py-2 text-body-sm leading-snug",
             eu ? "rounded-tr-sm bg-primary text-primary-foreground" : "rounded-tl-sm border border-border bg-card text-foreground",
-            estado === "erro" && "opacity-80",
           )}
         >
           <span className="sr-only">{autor ?? (eu ? "Você" : "Mensagem")}: </span>
@@ -138,7 +137,7 @@ export function BalaoDeConversa({ de, autor, hora, estado, citacao, imagem, acoe
           {imagem && <img src={imagem.src} alt={imagem.alt} loading="lazy" className="mb-2 max-h-56 w-full rounded-md bg-muted object-cover" />}
           {children && <div className="m-0 whitespace-pre-line [overflow-wrap:anywhere]">{children}</div>}
           {(hora || IconeDoEstado) && (
-            <span className={cn("mt-1 flex items-center justify-end gap-1 text-caption", eu ? "text-primary-foreground" : "text-muted-foreground")}>
+            <span className={cn("mt-1 flex items-center gap-1 text-caption", eu ? "text-primary-foreground" : "text-muted-foreground")}>
               {hora}
               {eu && IconeDoEstado && estado && (
                 <>

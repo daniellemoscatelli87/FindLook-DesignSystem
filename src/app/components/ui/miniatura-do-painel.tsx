@@ -146,20 +146,20 @@ export type LinhaDaMiniatura = { nome: string; detalhe?: string; foto?: string; 
 export function TabelaDaMiniatura({ colunas = ["Peça", "Qtd.", "Preço", "Situação"], linhas, className }: { colunas?: [string, string, string, string]; linhas: LinhaDaMiniatura[]; className?: string }) {
   return (
     <div className={cn("rounded-md border border-border bg-card", className)}>
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-3 border-b border-border px-3 py-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground sm:grid-cols-[minmax(0,1fr)_2.5rem_4.5rem_auto]">
-        <span>{colunas[0]}</span><span className="hidden sm:block">{colunas[1]}</span><span>{colunas[2]}</span><span>{colunas[3]}</span>
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-border px-3 py-2 text-caption font-semibold uppercase tracking-[0.06em] text-muted-foreground sm:grid-cols-[minmax(0,1fr)_2.5rem_4.5rem_auto]">
+        <span>{colunas[0]}</span><span className="hidden sm:block">{colunas[1]}</span><span className="hidden sm:block">{colunas[2]}</span><span>{colunas[3]}</span>
       </div>
       {linhas.map((l) => (
-        <div key={l.nome} className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_2.5rem_4.5rem_auto]">
+        <div key={l.nome} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_2.5rem_4.5rem_auto]">
           <span className="flex min-w-0 items-center gap-2">
-            {l.foto ? <img src={l.foto} alt="" className="size-8 shrink-0 rounded-sm object-cover" /> : <span className="size-8 shrink-0 rounded-sm bg-muted" />}
+            {l.foto && <img src={l.foto} alt="" className="size-8 shrink-0 rounded-sm object-cover" />}
             <span className="min-w-0">
               <span className="block truncate text-label font-semibold text-foreground">{l.nome}</span>
               {l.detalhe && <span className="block truncate text-caption text-muted-foreground">{l.detalhe}</span>}
             </span>
           </span>
           <span className="hidden text-label tabular-nums text-foreground sm:block">{l.quantidade}</span>
-          <span className="text-label tabular-nums text-foreground">{l.preco}</span>
+          <span className="hidden text-label tabular-nums text-foreground sm:block">{l.preco}</span>
           <span>{l.situacao}</span>
         </div>
       ))}

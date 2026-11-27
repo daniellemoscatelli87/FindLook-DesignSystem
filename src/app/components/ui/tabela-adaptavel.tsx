@@ -18,8 +18,9 @@ import { cn } from "./utils";
  * cabeçalho; linha selecionada no rosa do selecionado (--primary-suave); hover da linha cinza (--row-hover), de ponta
  * a ponta e sem cantos. Ordenação (opcional): botão no título da coluna com a seta da direção e aria-sort.
  * Vazio: `vazio` (use o EstadoVazio).
- * BarraDeFerramentasDaTabela: a faixa de cima (busca à esquerda; filtros, colunas e exportar à direita) e, embaixo,
- * os filtros aplicados. Quando a tabela é estreita, os botões descem para baixo da busca, alinhados à esquerda.
+ * BarraDeFerramentasDaTabela: a faixa de cima (busca à esquerda; até três botões de ferramenta à direita) e, embaixo,
+ * os filtros aplicados. Quando a tabela é estreita, os botões descem para baixo da busca, numa linha só, com a mesma
+ * largura; com mais de dois botões no celular, ponha os outros num menu "Mais".
  */
 
 export type ColunaAdaptavel<T> = {
@@ -271,7 +272,7 @@ export function BarraDeFerramentasDaTabela({ busca, children, filtrosAtivos, cla
     <div data-slot="barra-de-ferramentas-da-tabela" className={cn("@container border-b border-border", className)}>
       <div className="flex flex-col gap-3 px-4 py-4 @3xl:flex-row @3xl:items-center @3xl:justify-between">
         {busca && <div className="min-w-0 flex-1 @3xl:max-w-sm">{busca}</div>}
-        {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
+        {children && <div className="grid auto-cols-fr grid-flow-col gap-2 @3xl:flex @3xl:flex-wrap @3xl:items-center">{children}</div>}
       </div>
       {filtrosAtivos && <div className="px-4 pb-3">{filtrosAtivos}</div>}
     </div>

@@ -36,6 +36,15 @@ import { CardComCabecalho } from "../ui/painel-dados";
 import { AbasComContador } from "../ui/painel-produtos";
 import { GradeDeCards } from "../ui/grade-de-cards";
 import { CardDePreco } from "../ui/card-de-preco";
+import { ChipFiltravel, GrupoDeChips } from "../ui/chips";
+import { MolduraDeConta } from "../ui/moldura-de-conta";
+import { Campo } from "../ui/campo";
+import { ListaDeVantagens } from "../ui/lista-de-vantagens";
+import { LinkDeTexto } from "../ui/links";
+import { EstadoVazio } from "../ui/estado-vazio";
+import { SegmentedControl } from "../ui/segmented-control";
+import { Checkbox } from "../ui/checkbox";
+import { Button } from "../ui/button";
 import { plans, pricingFeatures } from "./shared/planos";
 
 type L = { en: string; pt: string };
@@ -354,9 +363,9 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
    3. Entrar e criar conta (loja parceira)
 ───────────────────────────────────────────── */
 function AuthTemplate() {
+  // MolduraDeConta, Campo, SegmentedControl e EstadoVazio do DS (27/11/2026): o template é feito só de componentes.
   const uid = useId();
   const pre = `auth${uid.replace(/:/g, "")}`;
-  const [showPass, setShowPass] = useState(false);
   const [tab, setTab] = useState<"entrar" | "criar">("entrar");
   const [enviado, setEnviado] = useState(false);
   const entrar = tab === "entrar";
@@ -365,157 +374,77 @@ function AuthTemplate() {
 
   return (
     <TemplateFrame url="FindLook · Entrar">
-      <div className="bg-background flex min-h-[540px] overflow-hidden">
-        {/* Painel da marca */}
-        <div className="hidden md:flex w-[44%] bg-card border-r border-border flex-col items-center justify-center p-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-primary/8 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-info/6 blur-3xl" />
-          <div className="relative z-10 max-w-[240px]">
-            <div className="mb-5"><MarcaFindLook tamanho="md" legenda="Painel da loja" /></div>
-            <h2 className="text-[1.125rem] font-bold text-foreground leading-snug mb-2">
-              Sua loja encontrada por quem já procura o que você vende.
-            </h2>
-            <p className="text-[0.8125rem] text-muted-foreground leading-relaxed">
-              Publique suas peças e receba contatos de pessoas da sua região.
-            </p>
-            <ul className="mt-6 space-y-2">
-              {["Vitrine pesquisável por foto e descrição", "Contato direto pelo WhatsApp", "Veja quais peças despertam interesse"].map(f => (
-                <li key={f} className="flex items-start gap-2 text-[0.75rem] text-muted-foreground">
-                  <Check aria-hidden className="h-3.5 w-3.5 text-success shrink-0 mt-0.5" />
-                  {f}
-                </li>
-              ))}
-            </ul>
+      <MolduraDeConta
+        altura="conteudo"
+        idDoConteudo={`${pre}-conteudo`}
+        logoHref="#template-auth"
+        voltar={{ rotulo: "Voltar ao início", href: "#template-auth" }}
+        titulo={entrar ? "Que bom ter você de volta" : "Cadastre sua loja"}
+        explicacao={entrar ? "Entre no painel da sua loja." : "Leva poucos minutos. Você revisa tudo antes de publicar."}
+        lateral={
+          <div className="space-y-5">
+            <p className="m-0 text-h4 font-bold leading-snug text-foreground">Sua loja encontrada por quem já procura o que você vende.</p>
+            <ListaDeVantagens itens={["Vitrine pesquisável por foto e descrição", "Contato direto pelo WhatsApp", "Veja quais peças despertam interesse"]} />
           </div>
-        </div>
-
-        {/* Formulário */}
-        <div className="flex-1 flex items-center justify-center p-6 sm:p-8">
-          <div className="w-full max-w-[300px]">
-            <div className="md:hidden mb-5"><MarcaFindLook legenda="Painel da loja" /></div>
-            <div className="flex rounded-md border border-border bg-muted/40 p-0.5 mb-6" role="group" aria-label="Escolha uma opção">
-              {(["entrar", "criar"] as const).map(tb => (
-                <button
-                  key={tb}
-                  type="button"
-                  aria-pressed={tab === tb}
-                  onClick={() => trocar(tb)}
-                  className={`flex-1 py-1.5 rounded-sm text-[0.75rem] font-semibold transition-all ${foco}
-                    ${tab === tb ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-                >
-                  {tb === "entrar" ? "Entrar" : "Criar conta"}
-                </button>
-              ))}
-            </div>
-
-            {enviado ? (
-              <div role="status" className="text-center py-6">
-                <div className="h-12 w-12 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-3">
-                  <CheckCircle aria-hidden className="h-6 w-6 text-success" />
-                </div>
-                <p className="text-[0.9375rem] font-bold text-foreground mb-1">{entrar ? "Tudo certo!" : "Conta criada!"}</p>
-                <p className="text-[0.75rem] text-muted-foreground leading-relaxed mb-5">
-                  {entrar
-                    ? "Abrindo o painel do Ateliê Aurora."
-                    : "Enviamos um e-mail para confirmar o endereço. Depois é só cadastrar as primeiras peças."}
-                </p>
-                <button type="button" onClick={() => setEnviado(false)} className={`h-8 px-4 rounded-sm border border-border bg-card text-[0.75rem] font-medium text-foreground hover:bg-accent ${foco}`}>
-                  Voltar
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={e => { e.preventDefault(); setEnviado(true); }}>
-                <div className="mb-5">
-                  <h1 className="text-[1.125rem] font-bold text-foreground">
-                    {entrar ? "Que bom ter você de volta" : "Cadastre sua loja"}
-                  </h1>
-                  <p className="text-[0.75rem] text-muted-foreground mt-0.5">
-                    {entrar ? "Entre no painel da sua loja." : "Leva poucos minutos. Você revisa tudo antes de publicar."}
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  {!entrar && (
-                    <>
-                      <div>
-                        <label htmlFor={`${pre}-nome`} className="block text-[0.75rem] font-medium text-foreground mb-1">Seu nome</label>
-                        <div className="relative">
-                          <User aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
-                          <input id={`${pre}-nome`} required type="text" autoComplete="name" placeholder="Ana Oliveira" className={`${campo} pl-8`} />
-                        </div>
-                      </div>
-                      <div>
-                        <label htmlFor={`${pre}-loja`} className="block text-[0.75rem] font-medium text-foreground mb-1">Nome da loja</label>
-                        <div className="relative">
-                          <Store aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
-                          <input id={`${pre}-loja`} required type="text" autoComplete="organization" placeholder="Ateliê Aurora" className={`${campo} pl-8`} />
-                        </div>
-                      </div>
-                    </>
-                  )}
-                  <div>
-                    <label htmlFor={`${pre}-email`} className="block text-[0.75rem] font-medium text-foreground mb-1">E-mail</label>
-                    <div className="relative">
-                      <Mail aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
-                      <input id={`${pre}-email`} required type="email" autoComplete="email" placeholder="ana@atelieaurora.com.br" className={`${campo} pl-8`} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <label htmlFor={`${pre}-senha`} className="text-[0.75rem] font-medium text-foreground">Senha</label>
-                      {entrar && <button type="button" className={`text-[0.6875rem] hover:underline rounded-[4px] ${textoMarca} ${foco}`}>Esqueci minha senha</button>}
-                    </div>
-                    <div className="relative">
-                      <Lock aria-hidden className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
-                      <input
-                        id={`${pre}-senha`}
-                        required
-                        minLength={entrar ? undefined : 8}
-                        type={showPass ? "text" : "password"}
-                        autoComplete={entrar ? "current-password" : "new-password"}
-                        aria-describedby={entrar ? undefined : `${pre}-senha-dica`}
-                        placeholder="••••••••"
-                        className={`${campo} pl-8 pr-9`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPass(v => !v)}
-                        aria-label={showPass ? "Ocultar senha" : "Mostrar senha"}
-                        aria-pressed={showPass}
-                        className={`absolute right-1.5 top-1/2 -translate-y-1/2 h-6 w-6 rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors ${foco}`}
-                      >
-                        {showPass ? <EyeOff aria-hidden className="h-3.5 w-3.5" /> : <Eye aria-hidden className="h-3.5 w-3.5" />}
-                      </button>
-                    </div>
-                    {!entrar && <p id={`${pre}-senha-dica`} className="mt-1 text-[0.6875rem] text-muted-foreground">Use pelo menos 8 caracteres.</p>}
-                  </div>
-
-                  {!entrar && (
-                    <div className="flex items-start gap-2">
-                      <input id={`${pre}-termos`} type="checkbox" required className="mt-0.5 h-3.5 w-3.5 rounded accent-[var(--primary)] shrink-0" />
-                      <label htmlFor={`${pre}-termos`} className="text-[0.6875rem] text-muted-foreground leading-snug cursor-pointer">
-                        Li e aceito os <span className={`underline underline-offset-2 ${textoMarca}`}>Termos de uso</span> e a <span className={`underline underline-offset-2 ${textoMarca}`}>Política de privacidade</span>.
-                      </label>
-                    </div>
-                  )}
-
-                  <button type="submit" className={`w-full h-9 rounded-sm bg-primary text-primary-foreground text-[0.8125rem] font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 mt-1 ${foco}`}>
-                    {entrar ? <LogIn aria-hidden className="h-3.5 w-3.5" /> : <Store aria-hidden className="h-3.5 w-3.5" />}
-                    {entrar ? "Entrar" : "Cadastrar minha loja"}
-                  </button>
-
-                  <p className="text-center text-[0.6875rem] text-muted-foreground pt-1">
-                    {entrar ? "Sua loja ainda não está na FindLook? " : "Já tem conta? "}
-                    <button type="button" onClick={() => trocar(entrar ? "criar" : "entrar")} className={`font-semibold hover:underline rounded-[4px] ${textoMarca} ${foco}`}>
-                      {entrar ? "Cadastre sua loja" : "Entrar"}
-                    </button>
-                  </p>
-                </div>
-              </form>
+        }
+        rodape={
+          <p className="m-0">
+            {entrar ? "Sua loja ainda não está na FindLook? " : "Já tem conta? "}
+            <LinkDeTexto href="#template-auth" onClick={(e) => { e.preventDefault(); trocar(entrar ? "criar" : "entrar"); }}>{entrar ? "Cadastre sua loja" : "Entrar"}</LinkDeTexto>
+          </p>
+        }
+      >
+        <SegmentedControl<"entrar" | "criar">
+          aria-label="Escolha uma opção"
+          fullWidth
+          className="mb-6"
+          options={[{ value: "entrar", label: "Entrar" }, { value: "criar", label: "Criar conta" }]}
+          value={tab}
+          onValueChange={trocar}
+        />
+        {enviado ? (
+          <EstadoVazio
+            variante="simples"
+            icone={<CheckCircle />}
+            tom="marca"
+            titulo={entrar ? "Tudo certo!" : "Conta criada!"}
+            texto={entrar ? "Abrindo o painel do Ateliê Aurora." : "Enviamos um e-mail para confirmar o endereço. Depois é só cadastrar as primeiras peças."}
+            acao={<Button variant="outline" className="h-10 toque:h-11" onClick={() => setEnviado(false)}>Voltar</Button>}
+          />
+        ) : (
+          <form className="space-y-5" onSubmit={e => { e.preventDefault(); setEnviado(true); }}>
+            {!entrar && (
+              <>
+                <Campo id={`${pre}-nome`} rotulo="Seu nome" icone={<User />} required autoComplete="name" placeholder="Ana Oliveira" />
+                <Campo id={`${pre}-loja`} rotulo="Nome da loja" icone={<Store />} required autoComplete="organization" placeholder="Ateliê Aurora" />
+              </>
             )}
-          </div>
-        </div>
-      </div>
+            <Campo id={`${pre}-email`} rotulo="E-mail" type="email" icone={<Mail />} required autoComplete="email" placeholder="ana@atelieaurora.com.br" />
+            <Campo
+              id={`${pre}-senha`}
+              rotulo="Senha"
+              type="password"
+              icone={<Lock />}
+              required
+              minLength={entrar ? undefined : 8}
+              autoComplete={entrar ? "current-password" : "new-password"}
+              ajuda={entrar ? <LinkDeTexto href="#template-auth">Esqueci minha senha</LinkDeTexto> : "Use pelo menos 8 caracteres."}
+            />
+            {!entrar && (
+              <div className="flex items-start gap-3">
+                <Checkbox id={`${pre}-termos`} required className="mt-0.5" />
+                <label htmlFor={`${pre}-termos`} className="text-body-sm leading-snug text-muted-foreground">
+                  Li e aceito os <LinkDeTexto href="#template-auth">Termos de uso</LinkDeTexto> e a <LinkDeTexto href="#template-auth">Política de privacidade</LinkDeTexto>.
+                </label>
+              </div>
+            )}
+            <Button type="submit" className="h-10 w-full toque:h-11">
+              {entrar ? <LogIn aria-hidden /> : <Store aria-hidden />}
+              {entrar ? "Entrar" : "Cadastrar minha loja"}
+            </Button>
+          </form>
+        )}
+      </MolduraDeConta>
     </TemplateFrame>
   );
 }
@@ -644,19 +573,14 @@ function TeamTemplate() {
               className={`${campo} pl-8 py-1.5 text-[0.75rem]`}
             />
           </div>
-          <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filtrar por papel">
+          {/* ChipFiltravel do DS (ui/chips, 27/11/2026): duas colunas no celular, lado a lado do 640 px em diante. */}
+          <GrupoDeChips rotulo="Filtrar por papel">
             {(["todos", "responsavel", "atendente", "estoquista"] as const).map(f => (
-              <button
-                key={f}
-                type="button"
-                aria-pressed={filtro === f}
-                onClick={() => setFiltro(f)}
-                className={`h-7 px-2.5 rounded-full border text-[0.6875rem] font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
-              >
+              <ChipFiltravel key={f} ativo={filtro === f} onAtivoChange={() => setFiltro(f)}>
                 {f === "todos" ? "Todos" : papeis[f].rotulo}
-              </button>
+              </ChipFiltravel>
             ))}
-          </div>
+          </GrupoDeChips>
           </div>
 
           <p role="status" className="sr-only">{aviso}</p>

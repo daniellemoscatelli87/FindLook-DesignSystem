@@ -32,7 +32,6 @@ export function LinkDeTexto({ href, comoLink, externo = false, forte = true, cla
       className={cn(
         "rounded-sm underline decoration-1 underline-offset-[3px] transition-colors [overflow-wrap:anywhere] hover:decoration-2",
         forte ? "font-semibold text-primary-text" : "text-foreground",
-        externo && "inline-flex items-center gap-1",
         foco,
         className,
       )}
@@ -41,7 +40,7 @@ export function LinkDeTexto({ href, comoLink, externo = false, forte = true, cla
       {children}
       {externo && (
         <>
-          <ExternalLink aria-hidden className="size-3.5 shrink-0" />
+          <ExternalLink aria-hidden className="ml-1 inline size-3.5 align-[-0.125em]" />
           <span className="sr-only"> (abre em nova aba)</span>
         </>
       )}

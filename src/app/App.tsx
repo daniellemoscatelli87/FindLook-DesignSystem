@@ -8,6 +8,7 @@ import {
   TableProperties, Box,
   Search, X, Code2, Shapes, LayoutTemplate, Wind, Image, Fingerprint, Coins, Plug, Rocket, Accessibility, Compass, Lightbulb, Home, MessageCircle, BadgeCheck,
   PanelRight, PanelTop, UploadCloud, Milestone, Brush, ListOrdered, LibraryBig, Blocks, ChartNoAxesCombined,
+  AppWindow, TextCursorInput, Tags, SquareKanban, Sparkles,
 } from "lucide-react";
 import { I18nProvider, useI18n } from "./i18n";
 import { FoundationShowcase } from "./components/showcase/FoundationShowcase";
@@ -42,6 +43,11 @@ import { Toaster } from "./components/ui/sonner";
 import { CatalogoShowcase } from "./components/showcase/CatalogoShowcase";
 import { ProdutoShowcase } from "./components/showcase/ProdutoShowcase";
 import { GraficosShowcase } from "./components/showcase/GraficosShowcase";
+import { SiteShowcase } from "./components/showcase/SiteShowcase";
+import { CamposShowcase } from "./components/showcase/CamposShowcase";
+import { ChipsEstadosShowcase } from "./components/showcase/ChipsEstadosShowcase";
+import { PainelAdminShowcase } from "./components/showcase/PainelAdminShowcase";
+import { DemonstracoesShowcase } from "./components/showcase/DemonstracoesShowcase";
 
 /* ── pt-BR labels for nav (keys are the English labels) ── */
 const ptLabels: Record<string, string> = {
@@ -561,6 +567,54 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "upload-tokens",   label: "Tokens",                    sectionId: "upload" },
         ],
       },
+      { id: "site", label: "Moldura do site", icon: AppWindow,
+        items: [
+          { id: "site-cabecalho", label: "Cabeçalho e menu do celular", sectionId: "site" },
+          { id: "site-rodape",    label: "Rodapé do site",              sectionId: "site" },
+          { id: "site-conta",     label: "Moldura das telas de conta",  sectionId: "site" },
+          { id: "site-hero",      label: "Vantagens e prova social",    sectionId: "site" },
+          { id: "site-logo",      label: "Logo",                        sectionId: "site" },
+          { id: "site-links",     label: "Links de texto",              sectionId: "site" },
+          { id: "site-prosa",     label: "Prosa (textos longos)",       sectionId: "site" },
+        ],
+      },
+      { id: "campos", label: "Campos e formulários", icon: TextCursorInput,
+        items: [
+          { id: "campo-padrao",          label: "Campo (o campo padrão)",      sectionId: "campos" },
+          { id: "campo-de-busca",        label: "Campo de busca",              sectionId: "campos" },
+          { id: "campo-texto-longo",     label: "Texto longo com contador",    sectionId: "campos" },
+          { id: "grupo-de-opcoes",       label: "Grupo de opções e interruptor", sectionId: "campos" },
+          { id: "seletor-de-quantidade", label: "Seletor de quantidade",       sectionId: "campos" },
+          { id: "caixa-de-codigo",       label: "Caixa de código",             sectionId: "campos" },
+          { id: "botao-com-retorno",     label: "Botão com retorno",           sectionId: "campos" },
+        ],
+      },
+      { id: "chips-e-estados", label: "Chips e estados", icon: Tags,
+        items: [
+          { id: "chip-de-estado",     label: "Chip de estado",               sectionId: "chips-e-estados" },
+          { id: "chips-filtro",       label: "Chips de filtro",              sectionId: "chips-e-estados" },
+          { id: "etiquetas-tons",     label: "Etiquetas e bases por tom",    sectionId: "chips-e-estados" },
+          { id: "alerta-tom",         label: "Alerta com tom",               sectionId: "chips-e-estados" },
+          { id: "estado-vazio",       label: "Estado vazio",                 sectionId: "chips-e-estados" },
+          { id: "avaliacao-e-grupos", label: "Avaliação e título de grupo",  sectionId: "chips-e-estados" },
+        ],
+      },
+      { id: "painel-e-admin", label: "Quadro, conversa e tabela", icon: SquareKanban,
+        items: [
+          { id: "quadro",              label: "Quadro (kanban)",              sectionId: "painel-e-admin" },
+          { id: "conversa",            label: "Conversa e celular",           sectionId: "painel-e-admin" },
+          { id: "tabela-adaptavel",    label: "Tabela adaptável",             sectionId: "painel-e-admin" },
+          { id: "card-indicador-link", label: "Card de indicador clicável",   sectionId: "painel-e-admin" },
+        ],
+      },
+      { id: "demonstracoes", label: "Demonstrações animadas", icon: Sparkles,
+        items: [
+          { id: "surgir-ao-rolar",         label: "Entrada ao rolar",       sectionId: "demonstracoes" },
+          { id: "numero-animado",          label: "Número animado",         sectionId: "demonstracoes" },
+          { id: "cursor-de-demonstracao",  label: "Cursor de demonstração", sectionId: "demonstracoes" },
+          { id: "miniatura-do-painel",     label: "Miniatura do painel",    sectionId: "demonstracoes" },
+        ],
+      },
     ],
   },
 ];
@@ -601,6 +655,11 @@ const sectionComponents: Record<string, React.ReactNode> = {
   motion:      <MotionShowcase />,
   backgrounds: <BackgroundsShowcase />,
   templates:   <TemplatesShowcase />,
+  site:        <SiteShowcase />,
+  campos:      <CamposShowcase />,
+  "chips-e-estados": <ChipsEstadosShowcase />,
+  "painel-e-admin":  <PainelAdminShowcase />,
+  demonstracoes:     <DemonstracoesShowcase />,
 };
 
 const sectionLabels: Record<string, string> = {
@@ -634,6 +693,11 @@ const sectionLabels: Record<string, string> = {
   motion:      "Motion Design",
   backgrounds: "Backgrounds",
   templates:   "Templates",
+  site:        "Moldura do site",
+  campos:      "Campos e formulários",
+  "chips-e-estados": "Chips e estados",
+  "painel-e-admin":  "Quadro, conversa e tabela",
+  demonstracoes:     "Demonstrações animadas",
 };
 
 function AppShell() {

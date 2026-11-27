@@ -5,6 +5,8 @@ import { DataTable, display } from "./shared/Guidance";
 import { PageHeader } from "./GetStartedShowcase";
 import { SectionHeader } from "./shared/SectionHeader";
 import { GradeDeCards, ItemDaGrade } from "../ui/grade-de-cards";
+import { EstadoVazio } from "../ui/estado-vazio";
+import { Button } from "../ui/button";
 
 /* ══════════════════════════════════════
    MASCOTE & ILUSTRAÇÕES — parte da identidade da marca FindLook
@@ -157,12 +159,15 @@ function EmptyStateMock({ src, alt, mobile = false }: { src: string; alt: string
   return (
     <div className={mobile ? "mx-auto w-[300px] rounded-[28px] border-[6px] border-[var(--graphite-900)] bg-white p-4 pt-8 shadow-[var(--shadow-md)]" : "rounded-lg border border-border bg-white p-8 shadow-[var(--shadow-xs)]"}>
       {!mobile && <div className="mb-6 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[var(--graphite-300)]" /><span className="h-2 w-16 rounded-full bg-[var(--graphite-200)]" /><span className="ml-auto h-2 w-10 rounded-full bg-[var(--graphite-200)]" /></div>}
-      <div className={`flex flex-col items-center text-center ${mobile ? "gap-3" : "gap-4"}`}>
-        <img src={src} alt={alt} className={mobile ? "w-[180px] h-auto" : "w-[300px] h-auto"} />
-        <span className={`${display} ${mobile ? "text-[1rem]" : "text-[1.25rem]"} font-semibold tracking-[-0.01em] text-[var(--graphite-950)]`}>{t("Empty state title", "Título do estado vazio")}</span>
-        <span className={`${mobile ? "text-[0.75rem]" : "text-[0.875rem]"} max-w-[28ch] leading-relaxed text-[var(--graphite-500)]`}>{t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}</span>
-        <span className={`inline-flex items-center rounded-full bg-primary ${mobile ? "h-9 px-4 text-[0.75rem]" : "h-10 px-5 text-[0.875rem]"} font-semibold text-primary-foreground`}>{t("Primary action", "Ação principal")}</span>
-      </div>
+      {/* EstadoVazio do DS (ui/estado-vazio, 27/11/2026); os textos são marcadores, não copy do produto. */}
+      <EstadoVazio
+        variante="simples"
+        className="p-0"
+        ilustracao={src}
+        titulo={t("Empty state title", "Título do estado vazio")}
+        texto={t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}
+        acao={<Button tabIndex={-1} className="h-10 toque:h-11">{t("Primary action", "Ação principal")}</Button>}
+      />
       {mobile && <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-[var(--graphite-200)]" />}
     </div>
   );

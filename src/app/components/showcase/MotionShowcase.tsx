@@ -11,6 +11,7 @@ import { Carregando } from "../ui/carregando";
 import { Button } from "../ui/button";
 import { ShineBorder, shinePresets, type ShinePreset } from "../ui/shine-border";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { BalaoDeConversa, IndicadorDeDigitacao } from "../ui/conversa";
 
 /* ── Section wrapper ── */
 function Section({ id, title, sub, children }: { id: string; title: string; sub: string; children: React.ReactNode }) {
@@ -929,28 +930,10 @@ function LoadersSection() {
         {/* Typing dots */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
           <div className="text-[0.75rem] font-bold text-foreground">{t("Chat States", "Estados de chat")}</div>
+          {/* IndicadorDeDigitacao e BalaoDeConversa do DS (ui/conversa, 27/11/2026). */}
           <div className="space-y-3">
-            <div className="flex items-end gap-2">
-              <div className="h-6 w-6 rounded-full bg-muted shrink-0" />
-              <div className="rounded-md rounded-bl-[2px] bg-muted px-3 py-2 flex gap-1 items-center">
-                {[0, 1, 2].map(i => (
-                  <motion.div key={i}
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 0.5, delay: i * 0.1, repeat: Infinity }}
-                    className="h-1.5 w-1.5 rounded-full bg-muted-foreground"
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="flex items-end gap-2 justify-end">
-              <motion.div
-                animate={{ opacity: [0, 1], y: [6, 0] }}
-                transition={{ duration: 0.3 }}
-                className="rounded-md rounded-br-[2px] bg-primary px-3 py-2 max-w-[140px]"
-              >
-                <p className="text-[0.6875rem] text-primary-foreground">{t("Message sent ✓", "Mensagem enviada ✓")}</p>
-              </motion.div>
-            </div>
+            <IndicadorDeDigitacao />
+            <BalaoDeConversa de="eu" autor="Você" hora="10:05" estado="enviada">{t("Message sent", "Mensagem enviada")}</BalaoDeConversa>
           </div>
         </div>
       </GradeDeCards>

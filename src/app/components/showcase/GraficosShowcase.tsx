@@ -13,6 +13,7 @@ import {
   Pizza, Waffle, Piramide, Dispersao, MatrizDeCorrelacao, Radar, CoordenadasParalelas, Sankey, RedeDeConexoes,
   Histograma, BoxPlot, Violino, Densidade, MapaDePontos, MapaDeBolhas, resumoDaDistribuicao,
 } from "../ui/graficos-catalogo";
+import { TabelaAdaptavel, type ColunaAdaptavel } from "../ui/tabela-adaptavel";
 import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* Gráficos e visualizações (19/11/2026). Todos os números desta página são dados de exemplo, fictícios:
@@ -381,24 +382,14 @@ function SecaoCores() {
   );
 }
 
-/** Tabela que vira lista no celular (card nunca rola na horizontal). */
+/** Tabela que vira lista no celular (card nunca rola na horizontal): a TabelaAdaptavel do DS (27/11/2026). */
 function TabelaQueQuebra({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
+  const colunas: ColunaAdaptavel<{ i: number; c: React.ReactNode[] }>[] = head.map((h, j) => ({
+    id: String(j), titulo: h, fixa: j === 0, largura: 180, prioridade: j, celula: (l) => l.c[j],
+  }));
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-card">
-      <div className="hidden grid-cols-[1.2fr_1fr_1.3fr] gap-4 border-b border-border bg-muted/50 px-4 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-muted-foreground md:grid">
-        {head.map(h => <span key={h}>{h}</span>)}
-      </div>
-      <ul className="m-0 list-none p-0">
-        {rows.map((r, i) => (
-          <li key={i} className="grid grid-cols-1 gap-1 border-b border-border px-4 py-3 text-[0.8125rem] last:border-0 md:grid-cols-[1.2fr_1fr_1.3fr] md:gap-4">
-            {r.map((c, j) => (
-              <span key={j} className={j === 0 ? "font-semibold text-foreground" : "text-muted-foreground [overflow-wrap:anywhere]"}>
-                <span className="mr-1 font-medium text-foreground md:hidden">{j > 0 ? `${head[j]}:` : ""}</span>{c}
-              </span>
-            ))}
-          </li>
-        ))}
-      </ul>
+      <TabelaAdaptavel legenda={head.join(", ")} colunas={colunas} linhas={rows.map((c, i) => ({ i, c }))} chave={(l) => String(l.i)} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "./utils";
 
 /**
- * Textarea. `contador` (com maxLength) mostra "120 de 500" embaixo, à direita: cinza enquanto há folga, no tom de aviso
+ * Textarea. `contador` (com maxLength) mostra "120 de 500" embaixo, alinhado à borda esquerda do campo: cinza enquanto há folga, no tom de aviso
  * quando faltam 10% ou menos e no tom de erro no limite. Para leitores de tela, o aviso só fala quando faltam 20
  * caracteres ou menos ("Restam 12 caracteres"), para não anunciar cada letra.
  */
@@ -39,7 +39,7 @@ function Textarea({ className, contador = false, maxLength, onChange, "aria-desc
   return (
     <div data-slot="textarea-com-contador" className="grid gap-1">
       {campo}
-      <p className={cn("m-0 justify-self-end text-label tabular-nums transition-colors", tom)}>
+      <p className={cn("m-0 text-label tabular-nums transition-colors", tom)}>
         <span aria-hidden>{quantos} de {maxLength}</span>
         <span id={idContador} className="sr-only">Até {maxLength} caracteres.</span>
         <span className="sr-only" aria-live="polite">{restam <= 20 ? (restam <= 0 ? "Limite de caracteres atingido." : `Restam ${restam} caracteres.`) : ""}</span>

@@ -20,7 +20,7 @@ export type ProvaSocialProps = {
   className?: string;
 };
 
-export function ProvaSocial({ avatares, maisPessoas, destaque, texto, tamanho = "md", className }: ProvaSocialProps) {
+export function ProvaSocial({ avatares, maisPessoas, destaque, texto, tamanho = "lg", className }: ProvaSocialProps) {
   return (
     <div data-slot="prova-social" className={cn("flex flex-wrap items-center gap-x-4 gap-y-3", className)}>
       <AvatarCircles numPeople={maisPessoas} avatarUrls={avatares} size={tamanho} />

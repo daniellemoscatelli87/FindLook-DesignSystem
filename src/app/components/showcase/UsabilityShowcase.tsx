@@ -6,6 +6,8 @@ import { PageHeader, PageSection } from "./GetStartedShowcase";
 import { useI18n } from "../../i18n";
 import { Callout, DataTable, DoDont, Mono, Panel, PrincipleGrid, display } from "./shared/Guidance";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { EstadoVazio } from "../ui/estado-vazio";
+import { Button } from "../ui/button";
 
 type Bi = { en: string; pt: string };
 
@@ -178,12 +180,14 @@ function StatesDemo() {
           </div>
         )}
         {view === "empty" && (
-          <div className="m-auto text-center max-w-xs">
-            <Inbox className="h-6 w-6 text-muted-foreground mx-auto mb-3" aria-hidden />
-            <p className={`${display} text-[1rem] font-semibold text-foreground mb-1`}>{t("No projects yet", "Nenhum projeto ainda")}</p>
-            <p className="text-[0.8125rem] text-muted-foreground mb-4">{t("Projects you create appear here. Start with a template to see how it works.", "Os projetos que você criar aparecem aqui. Comece com um template para ver como funciona.")}</p>
-            <button type="button" className={`h-9 px-4 rounded-md bg-primary text-primary-foreground text-[0.8125rem] font-medium ${ring}`}>{t("Create project", "Criar projeto")}</button>
-          </div>
+          <EstadoVazio
+            variante="simples"
+            className="m-auto"
+            icone={<Inbox />}
+            titulo={t("No projects yet", "Nenhum projeto ainda")}
+            texto={t("Projects you create appear here. Start with a template to see how it works.", "Os projetos que você criar aparecem aqui. Comece com um template para ver como funciona.")}
+            acao={<Button className="h-10 toque:h-11">{t("Create project", "Criar projeto")}</Button>}
+          />
         )}
         {view === "error" && (
           <div role="alert" className="m-auto text-center max-w-xs">

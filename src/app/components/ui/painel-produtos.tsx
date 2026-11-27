@@ -159,16 +159,19 @@ function BarraDeAcoesEmLote({ selecionados, onLimpar, acoes, className, itemNoSi
   const contagem = textoDaContagem ? textoDaContagem(selecionados) : `${selecionados} ${selecionados === 1 ? `${itemNoSingular} ${sel}` : `${itemNoPlural} ${sel}s`}`;
   return (
     <div data-slot="acoes-em-lote" role="region" aria-label={rotuloDaRegiao ?? `Ações para os ${itemNoPlural} ${sel}s`} className={cn("flex flex-wrap items-center gap-2 rounded-md border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
+      {/* No celular: a contagem e o X na primeira linha, as ações numa linha própria embaixo, alinhadas à esquerda. */}
       <p className="mr-auto text-[0.8125rem] font-semibold text-foreground" aria-live="polite">{contagem}</p>
-      {(acoes ?? []).map(a => (
-        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-11 items-center sm:h-8 gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
-          {a.icone}{a.rotulo}
-        </button>
-      ))}
-      {children}
-      <button type="button" onClick={onLimpar} aria-label={rotuloLimpar} className={cn("flex size-11 items-center sm:size-8 justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground", foco)}>
+      <button type="button" onClick={onLimpar} aria-label={rotuloLimpar} className={cn("order-2 flex size-8 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground toque:size-11 sm:order-3", foco)}>
         <X aria-hidden className="h-4 w-4" />
       </button>
+      <div className="order-3 flex w-full flex-wrap items-center gap-2 sm:order-2 sm:w-auto">
+        {(acoes ?? []).map(a => (
+          <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted toque:h-11 [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
+            {a.icone}{a.rotulo}
+          </button>
+        ))}
+        {children}
+      </div>
     </div>
   );
 }

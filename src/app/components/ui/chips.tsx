@@ -10,7 +10,8 @@ import { cn } from "./utils";
  *   (--primary-suave), texto --primary-text, borda rosa e o check, e continua rosa com o mouse em cima; desligado com o
  *   mouse em cima: cinza claro (--accent), nunca rosa. Nunca preenchido de pink. `contagem` mostra quantos itens o
  *   filtro traz (lida junto: "Brechó, 12").
- * - GrupoDeChips: os chips lado a lado, quebrando de linha (nunca rolando para o lado), com um nome para o grupo.
+ * - GrupoDeChips: os chips lado a lado, quebrando de linha (nunca rolando para o lado), com um nome para o grupo. No
+ *   celular, em duas colunas de mesma largura (bordas alinhadas, nada solto); prefira um número par de opções.
  *   Quem escolhe uma opção só usa o SegmentedControl ou o RadioGroup, não chips.
  * - ChipDeFiltro: um filtro já aplicado, que se remove com um toque ("Bairro: Batel ×"). O nome lido é "Remover filtro:
  *   …". Com `onLimparTudo`, a ListaDeFiltrosAtivos mostra "Limpar filtros" no fim, na mesma linha.
@@ -34,7 +35,7 @@ export function ChipFiltravel({ ativo, onAtivoChange, contagem, icone, className
       aria-pressed={ativo}
       onClick={(e) => { onAtivoChange?.(!ativo); onClick?.(e); }}
       className={cn(
-        "inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3.5 text-body-sm font-medium transition-colors duration-[var(--duration-fast)] toque:min-h-11 sm:px-3",
+        "inline-flex min-h-9 items-center justify-center gap-1.5 rounded-full border px-3.5 text-body-sm font-medium transition-colors duration-[var(--duration-fast)] toque:min-h-11 sm:px-3",
         "disabled:pointer-events-none disabled:border-transparent disabled:bg-disabled disabled:text-disabled-foreground",
         ativo
           ? "border-primary/30 bg-[var(--primary-suave)] text-primary-text"
@@ -61,7 +62,7 @@ export function ChipFiltravel({ ativo, onAtivoChange, contagem, icone, className
 
 export function GrupoDeChips({ rotulo, className, children }: { rotulo: string; className?: string; children: React.ReactNode }) {
   return (
-    <div role="group" aria-label={rotulo} data-slot="grupo-de-chips" className={cn("flex flex-wrap gap-2", className)}>
+    <div role="group" aria-label={rotulo} data-slot="grupo-filtravel" className={cn("grid grid-cols-2 gap-2 sm:flex sm:flex-wrap", className)}>
       {children}
     </div>
   );
