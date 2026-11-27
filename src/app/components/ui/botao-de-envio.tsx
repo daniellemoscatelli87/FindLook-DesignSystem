@@ -56,7 +56,7 @@ function BotaoDeEnvio({ estado = "parado", children, textos, icone, voltarApos =
         "relative grid place-items-center [grid-template-areas:'x'] *:[grid-area:x]",
         estado === "enviando" && "disabled:cursor-wait",
         estado === "enviando" && cheio && "disabled:bg-primary disabled:text-primary-foreground disabled:hover:bg-primary disabled:hover:text-primary-foreground",
-        estado === "enviando" && !cheio && "disabled:border-[var(--border-strong)] disabled:bg-background disabled:text-foreground",
+        estado === "enviando" && !cheio && "disabled:border-input disabled:bg-background disabled:text-foreground",
         estado === "feito" && "border-transparent bg-success text-success-foreground hover:bg-success hover:text-success-foreground",
         className,
       )}

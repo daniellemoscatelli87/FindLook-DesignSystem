@@ -9,8 +9,10 @@ import { GraficoDeRosca } from "./graficos-inteligencia";
  *
  * Rosca: partes de um todo (até 5 partes), com o total ou o número de partes no centro e legenda com a porcentagem.
  * BarrasHorizontais: compara grupos numa medida; cada linha pode ter uma parte (barra simples) ou várias (barra empilhada).
- * MapaCoropletico: regiões de um mapa (bairros, por exemplo) pintadas por um valor, na escala de calor da paleta de
- * gráficos (--chart-seq-1 a 4 = tons 6, 4, 2 e 1, do cinza ao rosa), com legenda, marcadores opcionais e escolha de uma região por clique ou toque. As formas vêm de quem usa.
+ * MapaCoropletico: regiões de um mapa (bairros, por exemplo) pintadas por um valor, em 5 faixas com tokens próprios
+ * (--mapa-1 a --mapa-5 = tons 7, 6, 4, 2 e 1 da paleta, do cinza ao rosa; sem valor, --mapa-vazio; borda --mapa-borda;
+ * escolhida, contorno --mapa-escolhida de 7 unidades), com legenda, marcadores opcionais e escolha de uma região por
+ * clique ou toque. As formas vêm de quem usa. faixaDoMapa(n, maximo) diz a faixa de um valor (para a lista ao lado).
  *
  * Regras (método de dataviz do DS): cor por token da paleta da FindLook (--chart-1 a --chart-7; decisão da dona do
  * produto, 21/11/2026), fixa por categoria e em ordem de importância: o principal no tom 1, as outras séries pelos tons
@@ -143,10 +145,11 @@ function BarrasHorizontais({
 /* ── Mapa coroplético ────────────────────────────────────────── */
 type RegiaoDoMapa = { nome: string; d: string; cx?: number; cy?: number };
 
-/** Escala contínua da paleta de gráficos (--chart-seq-1 a 4, do cinza ao rosa conforme o valor sobe; a mesma do MapaDeCalorPorRegiao). */
-const ESCALA_DO_MAPA = ["var(--chart-seq-1)", "var(--chart-seq-2)", "var(--chart-seq-3)", "var(--chart-seq-4)"];
-const corDoMapa = (n: number, maximo: number) =>
-  n <= 0 ? "var(--card)" : ESCALA_DO_MAPA[Math.min(ESCALA_DO_MAPA.length - 1, Math.floor((n / Math.max(1, maximo)) * ESCALA_DO_MAPA.length))]!;
+/** As 5 faixas do mapa (tokens --mapa-1 a --mapa-5, do cinza ao rosa conforme o valor sobe), sem valor em --mapa-vazio. */
+const ESCALA_DO_MAPA = ["var(--mapa-1)", "var(--mapa-2)", "var(--mapa-3)", "var(--mapa-4)", "var(--mapa-5)"];
+/** Faixa (0 a 4) de um valor: divide de 0 ao máximo em 5 partes iguais; -1 quando não há valor. */
+export const faixaDoMapa = (n: number, maximo: number) => (n <= 0 ? -1 : Math.min(ESCALA_DO_MAPA.length - 1, Math.floor((n / Math.max(1, maximo)) * ESCALA_DO_MAPA.length)));
+const corDoMapa = (n: number, maximo: number) => { const f = faixaDoMapa(n, maximo); return f < 0 ? "var(--mapa-vazio)" : ESCALA_DO_MAPA[f]!; };
 
 function MapaCoropletico({
   viewBox,
@@ -197,7 +200,7 @@ function MapaCoropletico({
               key={r.nome}
               d={r.d}
               fill={corDoMapa(n, maximo)}
-              stroke={ativa ? "var(--foreground)" : "var(--border-strong)"}
+              stroke={ativa ? "var(--mapa-escolhida)" : "var(--mapa-borda)"}
               strokeWidth={ativa ? 7 : 2}
               className={cn("transition-[fill,stroke-width] duration-200", onEscolher ? "cursor-pointer hover:opacity-85" : "cursor-default")}
               onClick={onEscolher ? () => onEscolher(ativa ? null : r.nome) : undefined}

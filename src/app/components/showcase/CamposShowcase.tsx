@@ -11,11 +11,13 @@ import { SeletorDeQuantidade } from "../ui/seletor-de-quantidade";
 import { CaixaDeCodigo } from "../ui/caixa-de-codigo";
 import { BotaoDeEnvio, useEstadoDoEnvio } from "../ui/botao-de-envio";
 import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
 import { GradeDeCampos } from "../ui/cadastro-lojista";
 
 /* Campos e formulários: o campo padrão e as peças de formulário que o produto montava à mão (27/11/2026). */
 
 export function CamposShowcase() {
+  const [data, setData] = useState<Date | undefined>(new Date(2026, 10, 27));
   const [email, setEmail] = useState("ana@");
   const [busca, setBusca] = useState("");
   const [cnpj, setCnpj] = useState("");
@@ -135,6 +137,15 @@ export function CamposShowcase() {
           </div>
         </Panel>
         <DataTable head={["Estado", "O botão mostra"]} rows={[["parado", "ícone e texto da ação"], ["enviando", "ícone girando e \"Enviando…\" (textos.enviando); ocupado"], ["feito", "check e \"Enviado\" no verde; voltarApos (2,4 s) chama onVoltar"], ["erro", "\"Tentar de novo\"; diga o motivo perto do botão"]]} />
+      </section>
+
+      <section id="calendario" className="scroll-mt-32 space-y-6">
+        <SectionHeader title="Seletor de data (Calendar)" description="O mês para escolher uma data num campo. Com mouse, dias de 32 px; no toque, dias de 40 px com área de toque de 44 px, para o mês inteiro caber em 304 px e entrar num card de celular a partir de 320 px. O dia escolhido fica no rosa de selecionado e hoje tem contorno." />
+        <Panel className="p-6 sm:p-8">
+          <div className="mx-auto w-fit rounded-xl border border-border bg-card">
+            <Calendar mode="single" selected={data} onSelect={setData} defaultMonth={new Date(2026, 10, 1)} />
+          </div>
+        </Panel>
       </section>
     </div>
   );

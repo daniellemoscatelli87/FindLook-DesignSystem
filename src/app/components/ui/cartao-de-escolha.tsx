@@ -36,6 +36,10 @@ type GrupoDeCartoesDeEscolhaProps = Omit<React.ComponentProps<typeof RadioGroup>
   onValueChange?: (valor: string) => void;
   /** 1 (padrão): um cartão por linha. 2: dois lado a lado quando o espaço do grupo tem 28 rem (448 px) ou mais. */
   colunas?: 1 | 2;
+  /** Nome do grupo de rádios (padrão: um nome gerado). Mesmas props do DS Dani Moscatelli. */
+  name?: string;
+  disabled?: boolean;
+  required?: boolean;
 };
 
 function GrupoDeCartoesDeEscolha({ value, defaultValue, onValueChange, colunas = 1, className, ...props }: GrupoDeCartoesDeEscolhaProps) {

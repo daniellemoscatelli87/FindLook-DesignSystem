@@ -166,9 +166,12 @@
   --card-foreground:  var(--graphite-950);
   --popover:          #FFFFFF;
   --popover-foreground: var(--graphite-950);
-  --input:            var(--border-strong);   /* borda clara dos campos (decisão de 16/11/2026) */
+  /* Contorno das peças em que se clica ou digita (27/11/2026, WCAG 1.4.11: pelo menos 3:1): campos, seleção, caixa de
+     marcar, opção, botão de contorno, chip e o interruptor desligado. Grafite 400: 3,49:1 no branco e 3,24:1 no cinza
+     --muted (#F6F6F7). Antes era o --border-strong (1,53:1), que continua só nos cards e divisores, que não são campos. */
+  --input:            var(--graphite-400);
   --input-background: #FFFFFF;
-  --switch-background: var(--graphite-200);
+  --switch-background: var(--graphite-400);   /* interruptor desligado: trilho 3,49:1 no branco; bolinha branca 3,49:1 no trilho */
   --ring:             rgba(252, 2, 86, 0.40);
 
   --radius: 0.75rem;
@@ -204,6 +207,18 @@
   --chart-seq-2: var(--chart-4); --chart-seq-2-texto: var(--foreground);
   --chart-seq-3: var(--chart-2); --chart-seq-3-texto: var(--foreground);
   --chart-seq-4: var(--chart-1); --chart-seq-4-texto: var(--foreground);
+  /* Mapa coroplético (27/11/2026, proposta propostas/2026-11-27-tons-do-mapa.md): 5 faixas, da que tem menos à que tem
+     mais, e a região escolhida. Só apelidos de tons que já existem na paleta de gráficos (nenhuma cor nova), para o
+     produto parar de usar --pink-700, --pink-400 e --graphite-300 no mapa. O número de cada região continua escrito
+     na dica e na lista ao lado (a cor nunca é a única pista). */
+  --mapa-vazio: var(--card);
+  --mapa-1: var(--chart-7);
+  --mapa-2: var(--chart-6);
+  --mapa-3: var(--chart-4);
+  --mapa-4: var(--chart-2);
+  --mapa-5: var(--chart-1);
+  --mapa-borda: var(--border-strong);
+  --mapa-escolhida: var(--foreground);
   --chart-1-texto: var(--foreground);
   --chart-2-texto: var(--foreground);
   --chart-4-texto: var(--foreground);
@@ -220,6 +235,11 @@
   --sidebar-accent-foreground: var(--graphite-950);
   --sidebar-border:            rgba(0, 0, 0, 0.10);
   --sidebar-ring:              rgba(252, 2, 86, 0.40);
+
+  /* Sobreposição (27/11/2026): o véu atrás de janelas, gavetas, folhas, do painel lateral e do menu do celular. Antes cada
+     peça tinha o seu (preto a 50%, grafite a 40% com desfoque, a 30%). Mesmo nome e mesma regra do DS Dani Moscatelli:
+     grafite 950 a 50%, sem desfoque, igual no tema escuro. */
+  --sobreposicao: color-mix(in srgb, var(--graphite-950) 50%, transparent);
 }
 
 /* ── DARK MODE ── */
@@ -395,6 +415,7 @@
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
+  --color-sobreposicao: var(--sobreposicao);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);

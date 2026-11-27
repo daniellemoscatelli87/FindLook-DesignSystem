@@ -2,57 +2,162 @@
 
 import * as React from "react";
 import { ChevronDown, MoveRight } from "lucide-react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { cn } from "./utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./dropdown-menu";
 
 /**
- * Quadro (kanban). O nome e a ideia são os do Quadro do design system Dani Moscatelli, mas a API é a do produto
- * FindLook, que move os itens entre as colunas: os itens vêm numa lista só, com `coluna(item)` e `cartao(item)`, e
- * `onMover` (no DS Dani Moscatelli, cada coluna traz os próprios cartões prontos e não há mover).
- * Itens em colunas por etapa (A contatar → Contato → Visita → Cadastro). Card nunca rola para o lado
- * (regra da dona do produto, 18/11/2026): quando o próprio quadro tem 56rem (896 px) ou mais, as colunas ficam lado a
- * lado, dividindo a largura; antes disso, uma embaixo da outra, e o título de cada coluna abre e fecha a lista (as
- * que têm itens começam abertas). A largura é a do quadro, não a da tela.
- * Mover um item: arrastar com o mouse (a coluna que aceita fica tracejada e, embaixo do item, no rosa de destaque) ou
- * o botão "Mover para" de cada cartão (teclado, toque e leitores de tela), que lista só as colunas permitidas.
- * Cartões: card só de borda, hover com a borda mais forte; o conteúdo vem de `cartao` (use LinhaDeLista, ChipDeEstado,
- * LinkDeTexto). Coluna vazia: o texto de `vazio`, tracejado. `rodape` da coluna: "Ver todas as 32", por exemplo.
- * `limitarAltura`: cada coluna mostra até 24rem e rola por dentro (só na vertical); por padrão a coluna cresce.
+ * Quadro (colunas de etapas com cartões, estilo kanban). O mesmo arquivo nos dois DS (FindLook e Dani Moscatelli,
+ * 27/11/2026), com dois jeitos de usar e as mesmas props:
+ *
+ * 1. Cartões prontos (quadro de leitura, como o da Rede de Parceiros): cada coluna traz `cartoes` (título, uma linha de
+ *    apoio, etiqueta e pessoa; com `href` ou `onClick` o cartão vira link ou botão). As colunas ficam lado a lado
+ *    quando cabem (cada uma precisa de 14rem) e, no estreito, uma embaixo da outra: 2 colunas a partir de 28rem; 3 a
+ *    partir de 42rem; 4 em duas por linha a partir de 28rem e as quatro a partir de 56rem; 5 a partir de 70rem.
+ *    Cartões entram em sequência quando o quadro aparece na tela (parados com "menos movimento").
+ * 2. Itens que mudam de etapa (acompanhamento, como a Ativação de lojas): `itens` numa lista só, com `chave(item)`,
+ *    `coluna(item)`, `cartao(item)` e `onMover`. Com o quadro de 56rem ou mais, as colunas lado a lado; antes disso,
+ *    uma embaixo da outra, e o título de cada coluna abre e fecha a lista (as que têm itens começam abertas). Mover:
+ *    arrastar com o mouse (a coluna que aceita fica tracejada e, embaixo do item, no rosa de destaque) ou o botão
+ *    "Mover para" de cada cartão (teclado, toque e leitores de tela), que lista só as colunas permitidas (`podeMover`).
+ *    `limitarAltura`: cada coluna mostra até 24rem e rola por dentro (só na vertical).
+ *
+ * Nos dois: card nunca rola para o lado; a largura que vale é a do quadro, não a da tela. Ponto colorido (`tom`) antes
+ * do título, nunca a única pista (o título diz a etapa). Coluna vazia com o texto de `vazio` (ou `textos.vazio`),
+ * tracejado. Cada coluna é uma seção com o título e a contagem para leitores de tela; os cartões são uma lista.
  */
 
-export type ColunaDoQuadro<K extends string> = {
+export type CartaoDoQuadro = {
+  id: string;
+  titulo: React.ReactNode;
+  descricao?: React.ReactNode;
+  /** ChipDeEstado ou Badge. */
+  etiqueta?: React.ReactNode;
+  /** Avatar da pessoa responsável. */
+  pessoa?: React.ReactNode;
+  href?: string;
+  onClick?: () => void;
+};
+
+export type ColunaDoQuadro<K extends string = string> = {
   id: K;
   titulo: string;
-  /** Ponto colorido antes do título (mesmo sinal do Quadro do DS Dani Moscatelli). O texto continua dizendo a etapa. */
+  /** Cor do ponto da coluna (nunca a única pista: o título diz a etapa). */
   tom?: "marca" | "neutro" | "sucesso" | "info" | "aviso";
+  /** Cartões prontos da coluna (jeito 1). */
+  cartoes?: CartaoDoQuadro[];
+  /** Quantidade mostrada (jeito 2; padrão: os itens da coluna). */
   quantidade?: number;
   icone?: React.ReactNode;
   /** Linha curta embaixo do título ("62% avançaram da etapa anterior"). */
   subtitulo?: React.ReactNode;
-  vazio: string;
+  /** Texto da coluna vazia. */
+  vazio?: string;
+  /** Embaixo da lista ("Ver todas as 32"). */
   rodape?: React.ReactNode;
 };
 
-export type QuadroProps<K extends string, T> = {
+export type QuadroProps<K extends string = string, T = unknown> = {
   colunas: ColunaDoQuadro<K>[];
-  itens: T[];
-  chave: (item: T) => string;
-  coluna: (item: T) => K;
-  cartao: (item: T) => React.ReactNode;
-  onMover?: (item: T, para: K) => void;
-  podeMover?: (item: T, para: K) => boolean;
   /** Nome do quadro para leitores de tela ("Ativação das lojas"). */
   rotulo: string;
-  /** Nome do item no botão "Mover <nome>". */
-  rotuloItem: (item: T) => string;
-  limitarAltura?: boolean;
+  textos?: { item?: string; itens?: string; vazio?: string; mover?: string; moverPara?: string };
   className?: string;
+  /** Jeito 2: os itens, numa lista só. */
+  itens?: T[];
+  chave?: (item: T) => string;
+  coluna?: (item: T) => K;
+  cartao?: (item: T) => React.ReactNode;
+  onMover?: (item: T, para: K) => void;
+  podeMover?: (item: T, para: K) => boolean;
+  /** Nome do item no botão "Mover <nome>". */
+  rotuloItem?: (item: T) => string;
+  limitarAltura?: boolean;
 };
 
 const PONTO = { marca: "bg-primary", neutro: "bg-muted-foreground", sucesso: "bg-success", info: "bg-info", aviso: "bg-warning" } as const;
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+const COLUNAS: Record<number, string> = {
+  1: "",
+  2: "@min-[28rem]/quadro:grid-cols-2",
+  3: "@min-[42rem]/quadro:grid-cols-3",
+  4: "@min-[28rem]/quadro:grid-cols-2 @min-[56rem]/quadro:grid-cols-4",
+  5: "@min-[42rem]/quadro:grid-cols-3 @min-[70rem]/quadro:grid-cols-5",
+};
+const TEXTOS = { item: "item", itens: "itens", vazio: "Nada nesta etapa", mover: "Mover", moverPara: "Mover para" };
 
-export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, cartao, onMover, podeMover = () => true, rotulo, rotuloItem, limitarAltura = false, className }: QuadroProps<K, T>) {
+function Quadro<K extends string = string, T = unknown>(props: QuadroProps<K, T>) {
+  const { itens, chave, coluna, cartao } = props;
+  if (itens && chave && coluna && cartao) return <QuadroDeItens {...props} itens={itens} chave={chave} coluna={coluna} cartao={cartao} />;
+  return <QuadroDeCartoes colunas={props.colunas} rotulo={props.rotulo} textos={props.textos} className={props.className} />;
+}
+
+function QuadroDeCartoes({ colunas, rotulo, textos, className }: Pick<QuadroProps, "colunas" | "rotulo" | "textos" | "className">) {
+  const tx = { ...TEXTOS, ...textos };
+  const ref = React.useRef<HTMLDivElement>(null);
+  const visivel = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
+  const reduzir = useReducedMotion();
+  let ordem = 0;
+  return (
+    <div ref={ref} role="region" aria-label={rotulo} data-slot="quadro" className={cn("@container/quadro", className)}>
+      <div className={cn("grid items-start gap-4", COLUNAS[colunas.length] ?? COLUNAS[5])}>
+        {colunas.map(c => (
+          <section key={c.id} aria-label={`${c.titulo}, ${(c.cartoes ?? []).length} ${(c.cartoes ?? []).length === 1 ? tx.item : tx.itens}`} className="min-w-0 rounded-lg bg-muted p-3">
+            <header className="mb-3 flex items-center gap-2 px-1">
+              <span aria-hidden className={cn("size-2 shrink-0 rounded-full", PONTO[c.tom ?? "neutro"])} />
+              <h3 className="min-w-0 flex-1 truncate text-body-sm font-semibold text-foreground">{c.titulo}</h3>
+              <span aria-hidden className="rounded-full bg-card px-2 text-label font-semibold tabular-nums text-muted-foreground">{(c.cartoes ?? []).length}</span>
+            </header>
+            {(c.cartoes ?? []).length === 0 ? (
+              <p className="rounded-md border border-dashed border-[var(--border-strong)] px-3 py-4 text-center text-body-sm text-muted-foreground">{c.vazio ?? tx.vazio}</p>
+            ) : (
+              <ul className="grid gap-2">
+                {(c.cartoes ?? []).map(k => {
+                  const i = ordem++;
+                  const conteudo = (
+                    <>
+                      <span className="block text-body-sm font-semibold leading-snug text-foreground [overflow-wrap:anywhere]">{k.titulo}</span>
+                      {k.descricao && <span className="mt-1 block text-body-sm text-muted-foreground [overflow-wrap:anywhere]">{k.descricao}</span>}
+                      {(k.etiqueta || k.pessoa) && (
+                        <span className="mt-3 flex flex-wrap items-center gap-2">
+                          {k.pessoa && <span className="shrink-0">{k.pessoa}</span>}
+                          {k.etiqueta && <span className="min-w-0">{k.etiqueta}</span>}
+                        </span>
+                      )}
+                    </>
+                  );
+                  const classe = "block w-full rounded-md border border-border bg-card p-3 text-left";
+                  const interativo = "transition-colors duration-[var(--duration-fast)] hover:border-[var(--border-strong)] hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+                  return (
+                    <motion.li
+                      key={k.id}
+                      initial={reduzir ? false : { opacity: 0, y: 8 }}
+                      animate={visivel || reduzir ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                      transition={{ duration: 0.3, delay: reduzir ? 0 : 0.05 * i, ease: [0, 0, 0.58, 1] }}
+                    >
+                      {k.href ? (
+                        <a href={k.href} className={cn(classe, interativo)}>{conteudo}</a>
+                      ) : k.onClick ? (
+                        <button type="button" onClick={k.onClick} className={cn(classe, interativo)}>{conteudo}</button>
+                      ) : (
+                        <div className={classe}>{conteudo}</div>
+                      )}
+                    </motion.li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function QuadroDeItens<K extends string, T>({
+  colunas, itens, chave, coluna, cartao, onMover, podeMover = () => true, rotulo, rotuloItem = chave, limitarAltura = false, textos, className,
+}: QuadroProps<K, T> & { itens: T[]; chave: (item: T) => string; coluna: (item: T) => K; cartao: (item: T) => React.ReactNode }) {
+  const tx = { ...TEXTOS, ...textos };
   const [arrastando, setArrastando] = React.useState<string | null>(null);
   const [alvo, setAlvo] = React.useState<K | null>(null);
   const quantas = (c: ColunaDoQuadro<K>) => c.quantidade ?? itens.filter((t) => coluna(t) === c.id).length;
@@ -123,7 +228,7 @@ export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, car
                 {c.subtitulo && <p className="m-0 mb-2 px-2 text-label leading-snug text-muted-foreground">{c.subtitulo}</p>}
                 <ul className={cn("m-0 flex min-h-16 list-none flex-col gap-2 p-0", limitarAltura && "max-h-96 overflow-y-auto overscroll-contain p-0.5 [scrollbar-width:thin]")}>
                   {daColuna.length === 0 && (
-                    <li className="rounded-md border border-dashed border-[var(--border-strong)] px-3 py-4 text-center text-label text-muted-foreground">{c.vazio}</li>
+                    <li className="rounded-md border border-dashed border-[var(--border-strong)] px-3 py-4 text-center text-label text-muted-foreground">{c.vazio ?? tx.vazio}</li>
                   )}
                   {daColuna.map((t) => {
                     const destinos = onMover ? colunas.filter((d) => d.id !== c.id && podeMover(t, d.id)) : [];
@@ -147,13 +252,13 @@ export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, car
                         {destinos.length > 0 && (
                           <DropdownMenu>
                             <DropdownMenuTrigger
-                              aria-label={`Mover ${rotuloItem(t)}`}
+                              aria-label={`${tx.mover} ${rotuloItem(t)}`}
                               className={cn("-mr-1 -mt-1 flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground toque:size-11", foco)}
                             >
                               <MoveRight aria-hidden className="size-4" />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Mover para</DropdownMenuLabel>
+                              <DropdownMenuLabel>{tx.moverPara}</DropdownMenuLabel>
                               {destinos.map((d) => (
                                 <DropdownMenuItem key={d.id} onSelect={() => onMover?.(t, d.id)}>{d.titulo}</DropdownMenuItem>
                               ))}
@@ -173,3 +278,5 @@ export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, car
     </div>
   );
 }
+
+export { Quadro };

@@ -6,12 +6,12 @@
   "regra": "antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.",
   "resumo": {
     "arquivosDeComponentes": 119,
-    "componentesExportados": 453,
+    "componentesExportados": 454,
     "templatesEPadroesSoEmDemonstracao": 89,
     "secoesComMarcacaoAMao": 48,
-    "tokens": 167,
+    "tokens": 176,
     "paginas": 37,
-    "ancoras": 265,
+    "ancoras": 266,
     "propostas": 28
   },
   "componentes": [
@@ -54,10 +54,12 @@
         {
           "nome": "AccordionContent",
           "tipo": "componente",
-          "linha": 51,
-          "descricao": "",
+          "linha": 60,
+          "descricao": "AccordionContent (a resposta que abre e fecha) - `className` vai para o bloco de dentro (o texto, com o respiro de baixo pb-4): é onde você muda respiro, cor e tamanho do texto.",
           "props": [
             "className",
+            "classeDaRegiao",
+            "manterNoHtml",
             "children"
           ],
           "reexportaDe": null
@@ -72,7 +74,7 @@
           "ancora": "accordion",
           "titulo": "Sanfona (accordion)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 650,
+          "linha": 697,
           "uso": "direto",
           "exports": [
             "Accordion",
@@ -107,7 +109,7 @@
         {
           "nome": "Alert",
           "tipo": "componente",
-          "linha": 61,
+          "linha": 62,
           "descricao": "",
           "props": [
             "className",
@@ -121,7 +123,7 @@
         {
           "nome": "AlertTitle",
           "tipo": "componente",
-          "linha": 87,
+          "linha": 88,
           "descricao": "",
           "props": [
             "className"
@@ -131,7 +133,7 @@
         {
           "nome": "AlertDescription",
           "tipo": "componente",
-          "linha": 100,
+          "linha": 101,
           "descricao": "",
           "props": [
             "className"
@@ -330,7 +332,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 321,
+          "linha": 361,
           "uso": "na página, fora das seções",
           "exports": [
             "AlertDialog",
@@ -785,7 +787,7 @@
           "ancora": "botao-de-envio",
           "titulo": "Botão de envio",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 128,
+          "linha": 130,
           "uso": "direto",
           "exports": [
             "BotaoDeEnvio"
@@ -879,7 +881,7 @@
           "ancora": "breadcrumb",
           "titulo": "Trilha de navegação (breadcrumb)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 337,
+          "linha": 377,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Breadcrumb",
@@ -983,12 +985,13 @@
         {
           "nome": "Button",
           "tipo": "componente",
-          "linha": 42,
+          "linha": 55,
           "descricao": "",
           "props": [
             "className",
             "variant",
             "size",
+            "forma",
             "asChild"
           ],
           "reexportaDe": null
@@ -1007,7 +1010,11 @@
           "default",
           "sm",
           "lg",
-          "icon"
+          "icon-lg"
+        ],
+        "forma": [
+          "padrao",
+          "pilula"
         ]
       },
       "ondeVer": [
@@ -1018,7 +1025,7 @@
           "titulo": "Variantes de botão",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
           "linha": 126,
-          "uso": "dentro de outro exemplo",
+          "uso": "direto",
           "exports": [
             "Button"
           ]
@@ -1233,7 +1240,7 @@
           "ancora": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 115,
+          "linha": 117,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1317,7 +1324,7 @@
           "ancora": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 281,
+          "linha": 285,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1329,7 +1336,7 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 334,
+          "linha": 338,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1408,6 +1415,18 @@
           ]
         },
         {
+          "pagina": "overlays",
+          "paginaRotulo": "Sobreposições (overlays)",
+          "ancora": "dialogs",
+          "titulo": "Diálogos",
+          "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
+          "linha": 610,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Button"
+          ]
+        },
+        {
           "pagina": "demonstracoes",
           "paginaRotulo": "Demonstrações animadas",
           "ancora": "cursor-de-demonstracao",
@@ -1415,18 +1434,6 @@
           "arquivo": "src/app/components/showcase/DemonstracoesShowcase.tsx",
           "linha": 107,
           "uso": "dentro de outro exemplo",
-          "exports": [
-            "Button"
-          ]
-        },
-        {
-          "pagina": "overlays",
-          "paginaRotulo": "Sobreposições (overlays)",
-          "ancora": null,
-          "titulo": null,
-          "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 321,
-          "uso": "na página, fora das seções",
           "exports": [
             "Button"
           ]
@@ -1468,7 +1475,7 @@
         {
           "nome": "CabecalhoDoSite",
           "tipo": "componente",
-          "linha": 166,
+          "linha": 171,
           "descricao": "",
           "props": [
             "itens",
@@ -1615,7 +1622,7 @@
         {
           "nome": "BarraDaEtapa",
           "tipo": "componente",
-          "linha": 273,
+          "linha": 278,
           "descricao": "",
           "props": [
             "onVoltar",
@@ -1624,6 +1631,7 @@
             "carregando",
             "textoCarregando",
             "desativado",
+            "descricaoDoContinuar",
             "children",
             "className"
           ],
@@ -1632,7 +1640,7 @@
         {
           "nome": "LateralDaEtapa",
           "tipo": "componente",
-          "linha": 320,
+          "linha": 325,
           "descricao": "",
           "props": [
             "icone",
@@ -1648,7 +1656,7 @@
         {
           "nome": "ListaDeRevisao",
           "tipo": "componente",
-          "linha": 340,
+          "linha": 345,
           "descricao": "Revisão",
           "props": [
             "children",
@@ -1660,7 +1668,7 @@
         {
           "nome": "BlocoDeRevisao",
           "tipo": "componente",
-          "linha": 363,
+          "linha": 368,
           "descricao": "",
           "props": [
             "valor",
@@ -1677,7 +1685,7 @@
         {
           "nome": "LinhaDeDado",
           "tipo": "componente",
-          "linha": 387,
+          "linha": 392,
           "descricao": "",
           "props": [
             "rotulo",
@@ -1755,7 +1763,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 35,
+          "linha": 37,
           "uso": "direto",
           "exports": [
             "GradeDeCampos"
@@ -1796,7 +1804,7 @@
           "ancora": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 115,
+          "linha": 117,
           "uso": "direto",
           "exports": [
             "CaixaDeCodigo"
@@ -1807,13 +1815,13 @@
     {
       "arquivo": "src/app/components/ui/calendar.tsx",
       "nome": "calendar",
-      "quandoUsar": "Calendário mensal para escolher uma data ou um intervalo.",
-      "fonteDescricao": "catálogo do site",
+      "quandoUsar": "Calendar (seletor de data de um campo; para ver o mês com compromissos, use a AgendaDoMes)",
+      "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "Calendar",
           "tipo": "componente",
-          "linha": 10,
+          "linha": 22,
           "descricao": "",
           "props": [
             "className",
@@ -1825,7 +1833,32 @@
       ],
       "tipos": [],
       "variantes": {},
-      "ondeVer": []
+      "ondeVer": [
+        {
+          "pagina": "campos",
+          "paginaRotulo": "Campos e formulários",
+          "ancora": "calendario",
+          "titulo": "Seletor de data (Calendar)",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 142,
+          "uso": "direto",
+          "exports": [
+            "Calendar"
+          ]
+        },
+        {
+          "pagina": "overlays",
+          "paginaRotulo": "Sobreposições (overlays)",
+          "ancora": "dialogs",
+          "titulo": "Diálogos",
+          "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
+          "linha": 610,
+          "uso": "direto",
+          "exports": [
+            "Calendar"
+          ]
+        }
+      ]
     },
     {
       "arquivo": "src/app/components/ui/campo.tsx",
@@ -1836,7 +1869,7 @@
         {
           "nome": "Campo",
           "tipo": "componente",
-          "linha": 53,
+          "linha": 62,
           "descricao": "",
           "props": [
             "rotulo",
@@ -1854,6 +1887,7 @@
             "opcional",
             "acaoDoRotulo",
             "textosDaSenha",
+            "manterAjudaNoErro",
             "type"
           ],
           "reexportaDe": null
@@ -1861,7 +1895,7 @@
         {
           "nome": "MensagemDeErro",
           "tipo": "componente",
-          "linha": 107,
+          "linha": 119,
           "descricao": "Texto de erro de um campo ou grupo: ícone + texto na cor de texto do erro (nunca só a cor).",
           "props": [
             "id",
@@ -1873,7 +1907,7 @@
         {
           "nome": "GradeDeCampos",
           "tipo": "componente",
-          "linha": 116,
+          "linha": 128,
           "descricao": "Grade dos campos: um por linha; dois por linha só a partir de 31rem (cada campo com 240 px ou mais).",
           "props": [
             "children",
@@ -1884,7 +1918,7 @@
         {
           "nome": "ResumoDeErros",
           "tipo": "componente",
-          "linha": 127,
+          "linha": 139,
           "descricao": "Resumo dos erros (use com 2 erros ou mais): Alerta de erro com um link para cada campo.",
           "props": [
             "erros",
@@ -1897,7 +1931,7 @@
         {
           "nome": "mascaraTelefone",
           "tipo": "utilitário",
-          "linha": 158,
+          "linha": 170,
           "descricao": "(41) 99999-9999 ou (41) 3333-3333, enquanto a pessoa digita.",
           "props": [],
           "reexportaDe": null
@@ -1905,7 +1939,7 @@
         {
           "nome": "mascaraCnpj",
           "tipo": "utilitário",
-          "linha": 167,
+          "linha": 179,
           "descricao": "12.345.678/0001-90, enquanto a pessoa digita.",
           "props": [],
           "reexportaDe": null
@@ -1913,7 +1947,7 @@
         {
           "nome": "cnpjValido",
           "tipo": "utilitário",
-          "linha": 177,
+          "linha": 189,
           "descricao": "Confere os dígitos verificadores do CNPJ (só o formato; não consulta a Receita).",
           "props": [],
           "reexportaDe": null
@@ -1921,7 +1955,7 @@
         {
           "nome": "CampoDeTelefone",
           "tipo": "componente",
-          "linha": 192,
+          "linha": 204,
           "descricao": "Telefone com DDD; teclado numérico no celular.",
           "props": [
             "valor",
@@ -1933,7 +1967,7 @@
         {
           "nome": "CampoDeCnpj",
           "tipo": "componente",
-          "linha": 197,
+          "linha": 209,
           "descricao": "CNPJ com a máscara; teclado numérico no celular. A validação (cnpjValido) fica a cargo do formulário.",
           "props": [
             "valor",
@@ -1956,7 +1990,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 35,
+          "linha": 37,
           "uso": "direto",
           "exports": [
             "Campo",
@@ -1970,7 +2004,7 @@
           "ancora": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 66,
+          "linha": 68,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -1982,7 +2016,7 @@
           "ancora": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 74,
+          "linha": 76,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -2029,7 +2063,7 @@
     {
       "arquivo": "src/app/components/ui/campo-de-busca.tsx",
       "nome": "campo-de-busca",
-      "quandoUsar": "CampoDeBusca (buscar numa lista): mesma API do CampoDeBusca do design system Dani Moscatelli. O campo de busca das listas do painel e da administração (lojas, peças, agenda): lupa à esquerda, o texto e o botão Limpar (×) quando há texto, que devolve o foco ao campo. Enter não envia formulário; Esc limpa. Para buscar no site inteiro, use a BuscaDePecas; para os comandos do painel, o CampoDeBuscaGlobal.",
+      "quandoUsar": "CampoDeBusca (buscar numa lista): mesma API nos dois DS (FindLook e Dani Moscatelli, 27/11/2026). O campo de busca das listas do painel e da administração (lojas, peças, agenda): lupa à esquerda, o texto e o botão Limpar (×) quando há texto, que devolve o foco ao campo. Enter não envia formulário; Esc limpa. Para buscar no site inteiro, use a BuscaDePecas; para os comandos do painel, o CampoDeBuscaGlobal.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
@@ -2064,7 +2098,7 @@
           "ancora": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 66,
+          "linha": 68,
           "uso": "direto",
           "exports": [
             "CampoDeBusca"
@@ -2522,9 +2556,21 @@
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
+          "nome": "ListaDeRecursos",
+          "tipo": "componente",
+          "linha": 64,
+          "descricao": "ListaDeRecursos: a lista de recursos de um plano (incluído com check na base rosa de destaque; não incluído com traço na base cinza e o texto em cinza), a mesma do CardDePreco.",
+          "props": [
+            "recursos",
+            "textos",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
           "nome": "CardDePreco",
           "tipo": "componente",
-          "linha": 93,
+          "linha": 122,
           "descricao": "",
           "props": [
             "valor",
@@ -2784,7 +2830,7 @@
         {
           "nome": "GrupoDeCartoesDeEscolha",
           "tipo": "componente",
-          "linha": 41,
+          "linha": 45,
           "descricao": "",
           "props": [
             "value",
@@ -2798,7 +2844,7 @@
         {
           "nome": "CartaoDeEscolha",
           "tipo": "componente",
-          "linha": 77,
+          "linha": 81,
           "descricao": "",
           "props": [
             "valor",
@@ -2824,7 +2870,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 398,
+          "linha": 409,
           "uso": "direto",
           "exports": [
             "GrupoDeCartoesDeEscolha",
@@ -2974,7 +3020,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 278,
+          "linha": 290,
           "uso": "direto",
           "exports": [
             "Checkbox"
@@ -3197,7 +3243,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 84,
+          "linha": 86,
           "uso": "direto",
           "exports": [
             "ChipFiltravel"
@@ -4013,10 +4059,14 @@
           "ancora": "dialogs",
           "titulo": "Diálogos",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 570,
+          "linha": 610,
           "uso": "direto",
           "exports": [
-            "Dialog"
+            "Dialog",
+            "DialogClose",
+            "DialogContent",
+            "DialogTitle",
+            "DialogDescription"
           ]
         }
       ]
@@ -4407,7 +4457,7 @@
           "ancora": "barra-superior",
           "titulo": "Barra superior",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 419,
+          "linha": 459,
           "uso": "direto",
           "exports": [
             "DropdownMenu",
@@ -4424,7 +4474,7 @@
           "ancora": "dropdown",
           "titulo": "Menu suspenso (dropdown)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 522,
+          "linha": 562,
           "uso": "direto",
           "exports": [
             "DropdownMenu",
@@ -4456,7 +4506,7 @@
     {
       "arquivo": "src/app/components/ui/estado-vazio.tsx",
       "nome": "estado-vazio",
-      "quandoUsar": "EstadoVazio, EstadoFinal e PaginaDeErro: as três telas \"sem conteúdo\" do DS, com a mesma API do design system Dani Moscatelli.",
+      "quandoUsar": "EstadoVazio, EstadoFinal e PaginaDeErro: as três telas \"sem conteúdo\" do DS. Mesma API nos dois DS (FindLook e Dani Moscatelli, 27/11/2026).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
@@ -4575,7 +4625,7 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 334,
+          "linha": 338,
           "uso": "dentro de outro exemplo",
           "exports": [
             "EstadoVazio"
@@ -4991,13 +5041,13 @@
     {
       "arquivo": "src/app/components/ui/grade-de-cards.tsx",
       "nome": "grade-de-cards",
-      "quandoUsar": "GradeDeCards (regra da dona do produto, 27/11/2026): \"Cards lado a lado nunca têm tamanhos diferentes. Se a diferença for muito grande, a ponto de um card ficar com uma área branca vertical muito grande, o sistema passa a usar cards horizontais, um por linha.\"",
+      "quandoUsar": "No servidor (renderização no servidor) não existe layout: useEffect lá, useLayoutEffect no navegador (27/11/2026).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "LIMITE_DE_DIFERENCA",
           "tipo": "utilitário",
-          "linha": 48,
+          "linha": 51,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -5005,7 +5055,7 @@
         {
           "nome": "FATOR_DE_VOLTA",
           "tipo": "utilitário",
-          "linha": 50,
+          "linha": 53,
           "descricao": "Para voltar de lista para grade, a diferença precisa cair abaixo de 75% do limite.",
           "props": [],
           "reexportaDe": null
@@ -5013,7 +5063,7 @@
         {
           "nome": "passaDoLimite",
           "tipo": "utilitário",
-          "linha": 53,
+          "linha": 56,
           "descricao": "A diferença entre o card mais alto e o mais baixo de uma linha passa do limite?",
           "props": [],
           "reexportaDe": null
@@ -5021,7 +5071,7 @@
         {
           "nome": "useOrientacaoDoCard",
           "tipo": "utilitário",
-          "linha": 60,
+          "linha": 63,
           "descricao": "Orientação pedida pela GradeDeCards mais próxima: \"horizontal\" quando ela virou lista; null fora de uma grade.",
           "props": [],
           "reexportaDe": null
@@ -5029,7 +5079,7 @@
         {
           "nome": "SemOrientacaoHerdada",
           "tipo": "componente",
-          "linha": 65,
+          "linha": 68,
           "descricao": "Zera a orientação herdada: um card dentro de outro card não herda a orientação da grade de fora.",
           "props": [
             "children"
@@ -5039,7 +5089,7 @@
         {
           "nome": "GradeDeCards",
           "tipo": "componente",
-          "linha": 100,
+          "linha": 103,
           "descricao": "",
           "props": [
             "colunas",
@@ -5056,7 +5106,7 @@
         {
           "nome": "ItemDaGrade",
           "tipo": "componente",
-          "linha": 263,
+          "linha": 266,
           "descricao": "ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.",
           "props": [
             "className"
@@ -5127,7 +5177,7 @@
           "ancora": "tokens-intro",
           "titulo": "O que são tokens",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 116,
+          "linha": 115,
           "uso": "direto",
           "exports": [
             "GradeDeCards",
@@ -5140,7 +5190,7 @@
           "ancora": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 314,
+          "linha": 318,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -5680,7 +5730,7 @@
           "ancora": "ux-principles",
           "titulo": "Princípios",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 272,
+          "linha": 276,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5692,7 +5742,7 @@
           "ancora": "ux-errors",
           "titulo": "Erros e microcopy",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 343,
+          "linha": 347,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5776,7 +5826,7 @@
           "ancora": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 209,
+          "linha": 221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5968,7 +6018,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 35,
+          "linha": 37,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5980,7 +6030,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 84,
+          "linha": 86,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6093,7 +6143,7 @@
         {
           "nome": "Rosca",
           "tipo": "componente",
-          "linha": 44,
+          "linha": 46,
           "descricao": "Rosca Desde 19/11/2026 a rosca do DS é a redesenhada (GraficoDeRosca, em graficos-inteligencia.tsx): anel fino, tons por importância (coresPorImportancia) da maior para a menor parte, \"Outros\" em cinza e por último, percentual escrito …",
           "props": [
             "partes",
@@ -6107,7 +6157,7 @@
         {
           "nome": "BarrasHorizontais",
           "tipo": "componente",
-          "linha": 83,
+          "linha": 85,
           "descricao": "",
           "props": [
             "linhas",
@@ -6119,9 +6169,17 @@
           "reexportaDe": null
         },
         {
+          "nome": "faixaDoMapa",
+          "tipo": "utilitário",
+          "linha": 151,
+          "descricao": "Faixa (0 a 4) de um valor: divide de 0 ao máximo em 5 partes iguais; -1 quando não há valor.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
           "nome": "MapaCoropletico",
           "tipo": "componente",
-          "linha": 151,
+          "linha": 154,
           "descricao": "",
           "props": [
             "viewBox",
@@ -6724,21 +6782,21 @@
     {
       "arquivo": "src/app/components/ui/graficos-inteligencia.tsx",
       "nome": "graficos-inteligencia",
-      "quandoUsar": "Os tons da paleta, do destaque (1) ao contexto (o último). Para escolher tons, use coresPorImportancia.",
+      "quandoUsar": "No servidor (renderização no servidor) não existe layout: useEffect lá, useLayoutEffect no navegador (27/11/2026).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "CORES_GRAFICO",
           "tipo": "utilitário",
-          "linha": 40,
-          "descricao": "",
+          "linha": 43,
+          "descricao": "Os tons da paleta, do destaque (1) ao contexto (o último). Para escolher tons, use coresPorImportancia.",
           "props": [],
           "reexportaDe": null
         },
         {
           "nome": "COR_NEUTRA",
           "tipo": "utilitário",
-          "linha": 42,
+          "linha": 45,
           "descricao": "Cinza de contexto (o último tom): \"Outros\" e informação sem destaque, sempre por último.",
           "props": [],
           "reexportaDe": null
@@ -6746,7 +6804,7 @@
         {
           "nome": "corDoTom",
           "tipo": "utilitário",
-          "linha": 45,
+          "linha": 48,
           "descricao": "Tom da paleta (1 ao último) como cor CSS.",
           "props": [],
           "reexportaDe": null
@@ -6754,7 +6812,7 @@
         {
           "nome": "coresPorImportancia",
           "tipo": "utilitário",
-          "linha": 51,
+          "linha": 54,
           "descricao": "Índices dos tons para `n` séries, da mais importante para a mais contextual (tabela em graficos-paleta.ts). Acima do número de tons, as séries a mais ficam no último tom (agrupe-as em \"Outros\").",
           "props": [],
           "reexportaDe": null
@@ -6762,7 +6820,7 @@
         {
           "nome": "coresDasSeries",
           "tipo": "utilitário",
-          "linha": 60,
+          "linha": 63,
           "descricao": "Cores de séries já ordenadas por importância. Quando há partes `neutro` (\"Outros\"), as outras usam os tons de n + 1 séries sem o último, e \"Outros\" fica no cinza seguinte, sem saltos (tomDosOutros em graficos-paleta.ts): no tom 6 quando as …",
           "props": [],
           "reexportaDe": null
@@ -6770,7 +6828,7 @@
         {
           "nome": "coresDeFoco",
           "tipo": "utilitário",
-          "linha": 77,
+          "linha": 80,
           "descricao": "Gráficos de um foco só (barras ordenadas, pirulito, inclinação, halteres, ranking, destaques): o 1º destaque no tom 1, um 2º destaque no tom 2 (nunca mais de 2 tons intensos), destaques além disso na faixa de apoio (3 a 5) e todo o …",
           "props": [],
           "reexportaDe": null
@@ -6778,7 +6836,7 @@
         {
           "nome": "coresDeContexto",
           "tipo": "utilitário",
-          "linha": 83,
+          "linha": 86,
           "descricao": "Tons de contexto para `n` séries sem destaque que precisam ser diferenciadas (tonsDeContexto em graficos-paleta.ts).",
           "props": [],
           "reexportaDe": null
@@ -6786,7 +6844,7 @@
         {
           "nome": "COR_GRADE",
           "tipo": "utilitário",
-          "linha": 88,
+          "linha": 91,
           "descricao": "Linhas de grade.",
           "props": [],
           "reexportaDe": null
@@ -6794,7 +6852,7 @@
         {
           "nome": "TRACO_DA_GRADE",
           "tipo": "utilitário",
-          "linha": 90,
+          "linha": 93,
           "descricao": "Grade horizontal tracejada dos gráficos de área (sem linhas de eixo).",
           "props": [],
           "reexportaDe": null
@@ -6802,7 +6860,7 @@
         {
           "nome": "LINHA_DA_AREA",
           "tipo": "utilitário",
-          "linha": 99,
+          "linha": 102,
           "descricao": "Estilo das áreas (aprovado pela dona do produto, 20/11/2026, o mesmo de \"Visão geral das buscas\"): linha fina (1,5 px) na cor da série no topo de cada área ou camada e preenchimento em degradê vertical transparente da mesma cor.",
           "props": [],
           "reexportaDe": null
@@ -6810,7 +6868,7 @@
         {
           "nome": "DegradeDaArea",
           "tipo": "componente",
-          "linha": 100,
+          "linha": 103,
           "descricao": "",
           "props": [
             "id",
@@ -6824,7 +6882,7 @@
         {
           "nome": "useIdDoSvg",
           "tipo": "utilitário",
-          "linha": 111,
+          "linha": 114,
           "descricao": "Id de SVG único por instância, sem os caracteres que o React põe no useId (quebram o `url(#…)`).",
           "props": [],
           "reexportaDe": null
@@ -6832,7 +6890,7 @@
         {
           "nome": "curvaMonotona",
           "tipo": "utilitário",
-          "linha": 120,
+          "linha": 123,
           "descricao": "Curva suave monotônica em X (como a \"monotone\" do Recharts/d3): passa por todos os pontos e não ultrapassa os dados entre eles (sem picos falsos nem valores abaixo de zero). Os pontos podem vir da esquerda para a direita ou ao contrário.",
           "props": [],
           "reexportaDe": null
@@ -6840,7 +6898,7 @@
         {
           "nome": "ESCALA_SEQUENCIAL",
           "tipo": "utilitário",
-          "linha": 151,
+          "linha": 154,
           "descricao": "Escala contínua (do menor para o maior), pelos tokens --chart-seq-* de cada DS: do cinza (tom 6) ao vermelho (tom 1); os tons de cada passo estão em TONS_DA_ESCALA (graficos-paleta.ts).",
           "props": [],
           "reexportaDe": null
@@ -6848,7 +6906,7 @@
         {
           "nome": "PontoDaCor",
           "tipo": "componente",
-          "linha": 159,
+          "linha": 162,
           "descricao": "Ponto na cor da marca, antes de um valor escrito fora dela (liga o número à parte).",
           "props": [
             "cor",
@@ -6859,7 +6917,7 @@
         {
           "nome": "formatarNumero",
           "tipo": "utilitário",
-          "linha": 168,
+          "linha": 171,
           "descricao": "Número no formato da localidade (padrão pt-BR), sem casas decimais por padrão.",
           "props": [],
           "reexportaDe": null
@@ -6867,7 +6925,7 @@
         {
           "nome": "formatarPercentual",
           "tipo": "utilitário",
-          "linha": 172,
+          "linha": 175,
           "descricao": "Percentual já calculado (0 a 100).",
           "props": [],
           "reexportaDe": null
@@ -6875,7 +6933,7 @@
         {
           "nome": "soma",
           "tipo": "utilitário",
-          "linha": 176,
+          "linha": 179,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -6883,7 +6941,7 @@
         {
           "nome": "useLargura",
           "tipo": "utilitário",
-          "linha": 179,
+          "linha": 182,
           "descricao": "Largura real do elemento, atualizada quando muda (0 até medir).",
           "props": [],
           "reexportaDe": null
@@ -6891,7 +6949,7 @@
         {
           "nome": "marcasDoEixo",
           "tipo": "utilitário",
-          "linha": 195,
+          "linha": 198,
           "descricao": "Marcas de eixo \"redondas\" entre 0 (ou mínimo) e o máximo.",
           "props": [],
           "reexportaDe": null
@@ -6899,7 +6957,7 @@
         {
           "nome": "afastar",
           "tipo": "utilitário",
-          "linha": 208,
+          "linha": 211,
           "descricao": "Afasta rótulos verticais que se sobrepõem (mantém a ordem, distância mínima `gap`).",
           "props": [],
           "reexportaDe": null
@@ -6907,7 +6965,7 @@
         {
           "nome": "larguraTexto",
           "tipo": "utilitário",
-          "linha": 221,
+          "linha": 224,
           "descricao": "Largura aproximada de um texto (Plus Jakarta / Inter em px).",
           "props": [],
           "reexportaDe": null
@@ -6915,7 +6973,7 @@
         {
           "nome": "fmtPadrao",
           "tipo": "utilitário",
-          "linha": 231,
+          "linha": 234,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -6923,7 +6981,7 @@
         {
           "nome": "TabelaDeDados",
           "tipo": "componente",
-          "linha": 238,
+          "linha": 241,
           "descricao": "Tabela de dados (alternativa acessível ao gráfico e detalhamento para quem quer conferir).",
           "props": [
             "dados",
@@ -6935,7 +6993,7 @@
         {
           "nome": "DescobertaVisual",
           "tipo": "componente",
-          "linha": 295,
+          "linha": 298,
           "descricao": "Card de descoberta: conclusão, gráfico, por que importa, próximo passo e dados (recolhidos).",
           "props": [
             "tema",
@@ -6955,7 +7013,7 @@
         {
           "nome": "LegendaDoGrafico",
           "tipo": "componente",
-          "linha": 352,
+          "linha": 355,
           "descricao": "Legenda compacta (sempre junto de rótulos diretos, nunca sozinha)",
           "props": [
             "itens",
@@ -6966,7 +7024,7 @@
         {
           "nome": "arco",
           "tipo": "utilitário",
-          "linha": 384,
+          "linha": 387,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -6974,7 +7032,7 @@
         {
           "nome": "GraficoDeRosca",
           "tipo": "componente",
-          "linha": 396,
+          "linha": 399,
           "descricao": "Rosca de participação, no traço fino do DS: as partes nos tons por importância (da maior para a menor; a maior no tom 1), \"Outros\" em cinza de contexto no fim, percentuais escritos junto de cada parte e lista com nome, quantidade e …",
           "props": [
             "partes",
@@ -6990,7 +7048,7 @@
         {
           "nome": "BarrasOrdenadas",
           "tipo": "componente",
-          "linha": 494,
+          "linha": 497,
           "descricao": "Barras horizontais ordenadas, com o nome em cima e o valor escrito no fim de cada barra.",
           "props": [
             "itens",
@@ -7007,7 +7065,7 @@
         {
           "nome": "faixa",
           "tipo": "utilitário",
-          "linha": 550,
+          "linha": 553,
           "descricao": "Faixa da escala sequencial (0 a 3) para um valor.",
           "props": [],
           "reexportaDe": null
@@ -7015,7 +7073,7 @@
         {
           "nome": "LegendaSequencial",
           "tipo": "componente",
-          "linha": 555,
+          "linha": 558,
           "descricao": "",
           "props": [
             "menos",
@@ -7026,7 +7084,7 @@
         {
           "nome": "MapaDeCalorPorRegiao",
           "tipo": "componente",
-          "linha": 573,
+          "linha": 576,
           "descricao": "Mapa de calor esquemático: cada região é um bloco numa grade, na posição aproximada (não é mapa em escala). As posições vêm por props; nada de dados geográficos é buscado. O nome fica escrito acima de cada bloco, fora da cor;",
           "props": [
             "regioes",
@@ -7043,7 +7101,7 @@
         {
           "nome": "GraficoDeHalteres",
           "tipo": "componente",
-          "linha": 639,
+          "linha": 642,
           "descricao": "Halteres: para cada item, um ponto para cada medida ligados por uma linha; os valores ficam escritos nos pontos.",
           "props": [
             "itens",
@@ -7059,7 +7117,7 @@
         {
           "nome": "GraficoDeLinhas",
           "tipo": "componente",
-          "linha": 722,
+          "linha": 725,
           "descricao": "Linhas finas com o nome e o último valor escritos no fim de cada linha; passe o cursor para ler cada ponto. Cores: com uma série em `destaque`, ela fica no tom 1 e as outras no contexto (do tom 6 em diante);",
           "props": [
             "series",
@@ -7076,7 +7134,7 @@
         {
           "nome": "GraficoDeInclinacao",
           "tipo": "componente",
-          "linha": 833,
+          "linha": 836,
           "descricao": "Duas colunas (antes e agora) ligadas por linhas: o destaque no tom 1 (um 2º no tom 2), o restante no cinza de contexto.",
           "props": [
             "itens",
@@ -7092,7 +7150,7 @@
         {
           "nome": "Mosaico",
           "tipo": "componente",
-          "linha": 924,
+          "linha": 927,
           "descricao": "Mosaico (treemap): a área de cada bloco é a fatia do total. Tons por importância, do maior bloco (tom 1) ao menor; \"Outros\" em cinza de contexto.",
           "props": [
             "itens",
@@ -7106,7 +7164,7 @@
         {
           "nome": "BarrasEmpilhadas100",
           "tipo": "componente",
-          "linha": 990,
+          "linha": 993,
           "descricao": "Barras 100%: cada linha soma 100%; o percentual de cada parte fica escrito logo acima dela. Categorias em ordem de importância.",
           "props": [
             "categorias",
@@ -7121,7 +7179,7 @@
         {
           "nome": "GraficoDeBolhas",
           "tipo": "componente",
-          "linha": 1037,
+          "linha": 1040,
           "descricao": "Bolhas: posição em dois eixos e tamanho como terceira medida. O destaque no tom 1; o restante no cinza de contexto.",
           "props": [
             "itens",
@@ -7138,7 +7196,7 @@
         {
           "nome": "MapaDeCalorMatricial",
           "tipo": "componente",
-          "linha": 1116,
+          "linha": 1119,
           "descricao": "Matriz com a cor de cada célula pela escala sequencial. É uma tabela de verdade: as células não mostram o número (ele fica para leitores de tela, na dica ao passar o cursor e em Ver dados);",
           "props": [
             "linhas",
@@ -7156,7 +7214,7 @@
         {
           "nome": "GraficoDeRanking",
           "tipo": "componente",
-          "linha": 1178,
+          "linha": 1181,
           "descricao": "Bump chart: como a posição de cada item muda ao longo dos períodos. O destaque no tom 1 (um 2º no tom 2), o restante no cinza de contexto.",
           "props": [
             "series",
@@ -7169,7 +7227,7 @@
         {
           "nome": "Funil",
           "tipo": "componente",
-          "linha": 1246,
+          "linha": 1249,
           "descricao": "Funil: etapas da jornada com o valor escrito e, entre elas, quanto seguiu para a próxima. A maior perda fica marcada: a etapa logo depois dela é o ponto de atenção (tom 1) e as outras ficam no cinza de contexto. Sem a marca, todas no tom 1.",
           "props": [
             "etapas",
@@ -7502,7 +7560,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 84,
+          "linha": 86,
           "uso": "direto",
           "exports": [
             "GrupoDeOpcoes",
@@ -7658,7 +7716,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 262,
+          "linha": 266,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "withHighlight"
@@ -7956,7 +8014,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 252,
+          "linha": 264,
           "uso": "direto",
           "exports": [
             "Input"
@@ -7992,7 +8050,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 321,
+          "linha": 361,
           "uso": "na página, fora das seções",
           "exports": [
             "Input"
@@ -8358,7 +8416,7 @@
         {
           "nome": "Logo",
           "tipo": "componente",
-          "linha": 71,
+          "linha": 72,
           "descricao": "",
           "props": [
             "variante",
@@ -9202,7 +9260,7 @@
           "ancora": "pagination",
           "titulo": "Paginação",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 351,
+          "linha": 391,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Pagination",
@@ -9232,7 +9290,7 @@
         {
           "nome": "CabecalhoDaPagina",
           "tipo": "componente",
-          "linha": 45,
+          "linha": 47,
           "descricao": "Cabeçalho da página fora do card (Opção A): título, descrição, ações e, opcionalmente, as abas da página. O conteúdo vem embaixo, em cards com cabeçalho de ícone (CardComCabecalho).",
           "props": [
             "saudacao",
@@ -9241,6 +9299,7 @@
             "acoes",
             "abas",
             "nivel",
+            "idDoTitulo",
             "className"
           ],
           "reexportaDe": null
@@ -9248,7 +9307,7 @@
         {
           "nome": "periodosPadrao",
           "tipo": "utilitário",
-          "linha": 71,
+          "linha": 73,
           "descricao": "Seletor de período",
           "props": [],
           "reexportaDe": null
@@ -9256,7 +9315,7 @@
         {
           "nome": "SeletorDePeriodo",
           "tipo": "componente",
-          "linha": 78,
+          "linha": 80,
           "descricao": "",
           "props": [
             "valor",
@@ -9269,7 +9328,7 @@
         {
           "nome": "BotaoDividido",
           "tipo": "componente",
-          "linha": 107,
+          "linha": 109,
           "descricao": "",
           "props": [
             "rotulo",
@@ -9284,7 +9343,7 @@
         {
           "nome": "BannerPromocional",
           "tipo": "componente",
-          "linha": 145,
+          "linha": 147,
           "descricao": "",
           "props": [
             "titulo",
@@ -9307,7 +9366,7 @@
           "ancora": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 521,
+          "linha": 532,
           "uso": "direto",
           "exports": [
             "BotaoDividido"
@@ -9319,7 +9378,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 540,
+          "linha": 551,
           "uso": "direto",
           "exports": [
             "SeletorDePeriodo"
@@ -9343,7 +9402,7 @@
           "ancora": "cabecalho-pagina",
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 464,
+          "linha": 504,
           "uso": "direto",
           "exports": [
             "CabecalhoDaPagina",
@@ -9962,7 +10021,7 @@
           "ancora": "cabecalho-pagina",
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 464,
+          "linha": 504,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CardComCabecalho"
@@ -9973,13 +10032,13 @@
     {
       "arquivo": "src/app/components/ui/painel-produtos.tsx",
       "nome": "painel-produtos",
-      "quandoUsar": "Produtos no painel da loja (FindLook): AbasComContador (filtro por status, com quantidade), CelulaDeProduto (foto ou ícone, nome e detalhes), MedidorDeDesempenho (barrinhas + número em texto), StatusDePublicacao (com motivo), BarraDeAcoesEmLote e TabelaDeProdutos (busca, filtros, seleção, ações por linha, rodapé; vira lista de cards em telas estreitas).",
+      "quandoUsar": "No servidor (renderização no servidor) não existe layout: useEffect lá, useLayoutEffect no navegador (27/11/2026).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "AbasComContador",
           "tipo": "componente",
-          "linha": 38,
+          "linha": 41,
           "descricao": "estilo \"pagina\" (Opção A, 23/11/2026): abas da página, logo abaixo do título, sem linha de base de ponta a ponta; só a aba ativa tem o sublinhado. \"sublinhado\" mantém a linha de base (abas dentro de um card, como na tabela).",
           "props": [
             "abas",
@@ -9995,7 +10054,7 @@
         {
           "nome": "CelulaDeProduto",
           "tipo": "componente",
-          "linha": 135,
+          "linha": 138,
           "descricao": "",
           "props": [
             "nome",
@@ -10009,7 +10068,7 @@
         {
           "nome": "MedidorDeDesempenho",
           "tipo": "componente",
-          "linha": 149,
+          "linha": 152,
           "descricao": "nivel de 0 a 5. Sempre acompanhado do número em texto.",
           "props": [
             "nivel",
@@ -10022,7 +10081,7 @@
         {
           "nome": "statusInfo",
           "tipo": "utilitário",
-          "linha": 172,
+          "linha": 175,
           "descricao": "Mesmas cores e formato do Chip de status (Estados de informação).",
           "props": [],
           "reexportaDe": null
@@ -10030,7 +10089,7 @@
         {
           "nome": "StatusDePublicacao",
           "tipo": "componente",
-          "linha": 180,
+          "linha": 183,
           "descricao": "",
           "props": [
             "status",
@@ -10042,7 +10101,7 @@
         {
           "nome": "BarraDeAcoesEmLote",
           "tipo": "componente",
-          "linha": 209,
+          "linha": 212,
           "descricao": "",
           "props": [
             "selecionados",
@@ -10062,7 +10121,7 @@
         {
           "nome": "TabelaDeProdutos",
           "tipo": "componente",
-          "linha": 278,
+          "linha": 281,
           "descricao": "",
           "props": [
             "produtos",
@@ -10154,7 +10213,7 @@
           "ancora": "cabecalho-pagina",
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 464,
+          "linha": 504,
           "uso": "dentro de outro exemplo",
           "exports": [
             "AbasComContador"
@@ -10433,7 +10492,7 @@
           "ancora": "menu-painel",
           "titulo": "Menu do painel",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 365,
+          "linha": 405,
           "uso": "direto",
           "exports": [
             "MenuLateralProvider",
@@ -10454,7 +10513,7 @@
           "ancora": "barra-superior",
           "titulo": "Barra superior",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 419,
+          "linha": 459,
           "uso": "direto",
           "exports": [
             "CampoDeBuscaGlobal",
@@ -10627,7 +10686,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 278,
+          "linha": 290,
           "uso": "direto",
           "exports": [
             "PasswordConfirm"
@@ -10692,7 +10751,22 @@
       ],
       "tipos": [],
       "variantes": {},
-      "ondeVer": []
+      "ondeVer": [
+        {
+          "pagina": "overlays",
+          "paginaRotulo": "Sobreposições (overlays)",
+          "ancora": "dialogs",
+          "titulo": "Diálogos",
+          "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
+          "linha": 610,
+          "uso": "direto",
+          "exports": [
+            "Popover",
+            "PopoverTrigger",
+            "PopoverContent"
+          ]
+        }
+      ]
     },
     {
       "arquivo": "src/app/components/ui/product-card.tsx",
@@ -10770,7 +10844,7 @@
     {
       "arquivo": "src/app/components/ui/prosa.tsx",
       "nome": "prosa",
-      "quandoUsar": "Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API da Prosa do design system Dani Moscatelli. Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong, blockquote, table, hr), sem classes em cada elemento.",
+      "quandoUsar": "Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API nos dois DS (FindLook e Dani Moscatelli, 27/11/2026). Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong, blockquote, table, hr), sem classes em cada elemento.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
@@ -10850,27 +10924,27 @@
     {
       "arquivo": "src/app/components/ui/quadro.tsx",
       "nome": "quadro",
-      "quandoUsar": "Quadro (kanban). O nome e a ideia são os do Quadro do design system Dani Moscatelli, mas a API é a do produto FindLook, que move os itens entre as colunas: os itens vêm numa lista só, com `coluna(item)` e `cartao(item)`, e `onMover` (no DS Dani Moscatelli, cada coluna traz os próprios cartões prontos e não há mover). Itens em colunas por etapa (A contatar → Contato → Visita → Cadastro).",
+      "quandoUsar": "Quadro (colunas de etapas com cartões, estilo kanban). O mesmo arquivo nos dois DS (FindLook e Dani Moscatelli, 27/11/2026), com dois jeitos de usar e as mesmas props:",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "Quadro",
           "tipo": "componente",
-          "linha": 55,
+          "linha": 89,
           "descricao": "",
           "props": [
             "colunas",
+            "rotulo",
+            "textos",
+            "className",
             "itens",
-            "chave",
-            "coluna",
-            "cartao",
-            "onMover",
-            "podeMover"
+            "chave"
           ],
           "reexportaDe": null
         }
       ],
       "tipos": [
+        "CartaoDoQuadro",
         "ColunaDoQuadro",
         "QuadroProps"
       ],
@@ -10926,7 +11000,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 278,
+          "linha": 290,
           "uso": "direto",
           "exports": [
             "RadioGroup",
@@ -11103,7 +11177,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 398,
+          "linha": 409,
           "uso": "direto",
           "exports": [
             "SegmentedControl"
@@ -11257,6 +11331,22 @@
       "variantes": {},
       "ondeVer": [
         {
+          "pagina": "buttons",
+          "paginaRotulo": "Botões",
+          "ancora": "password",
+          "titulo": "Senha",
+          "arquivo": "src/app/components/showcase/FormShowcase.tsx",
+          "linha": 290,
+          "uso": "direto",
+          "exports": [
+            "Select",
+            "SelectValue",
+            "SelectTrigger",
+            "SelectContent",
+            "SelectItem"
+          ]
+        },
+        {
           "pagina": "cards",
           "paginaRotulo": "Cards",
           "ancora": "card-states",
@@ -11337,7 +11427,7 @@
           "ancora": "seletor-de-quantidade",
           "titulo": "Seletor de quantidade",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 101,
+          "linha": 103,
           "uso": "direto",
           "exports": [
             "SeletorDeQuantidade"
@@ -11548,7 +11638,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 321,
+          "linha": 361,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "Sheet",
@@ -12365,7 +12455,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 540,
+          "linha": 551,
           "uso": "direto",
           "exports": [
             "Switch"
@@ -12401,7 +12491,7 @@
           "ancora": "cabecalho-pagina",
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 464,
+          "linha": 504,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Switch"
@@ -12424,7 +12514,7 @@
     {
       "arquivo": "src/app/components/ui/tabela-adaptavel.tsx",
       "nome": "tabela-adaptavel",
-      "quandoUsar": "Tabela adaptável: mesma API (nomes e props) da TabelaAdaptavel do design system Dani Moscatelli, com o que o FindLook precisa a mais: seleção, ordem controlada (ordem + onOrdenar) e a medida da largura (`largura`). A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026).",
+      "quandoUsar": "Tabela adaptável: o mesmo componente nos dois DS (FindLook e Dani Moscatelli, 27/11/2026): seleção, ordem controlada (ordem + onOrdenar) ou da própria tabela, e as colunas que cabem pela medida da largura (`largura`). A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
@@ -12456,7 +12546,7 @@
         {
           "nome": "BarraDeFerramentasDaTabela",
           "tipo": "componente",
-          "linha": 298,
+          "linha": 299,
           "descricao": "Barra de ferramentas",
           "props": [
             "busca",
@@ -12701,7 +12791,7 @@
           "ancora": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 35,
+          "linha": 37,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -12713,7 +12803,7 @@
           "ancora": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 74,
+          "linha": 76,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -12725,7 +12815,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 321,
+          "linha": 361,
           "uso": "na página, fora das seções",
           "exports": [
             "Textarea"
@@ -12974,7 +13064,7 @@
           "ancora": "tooltips",
           "titulo": "Dica de contexto (tooltip)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 507,
+          "linha": 547,
           "uso": "direto",
           "exports": [
             "Tooltip",
@@ -13041,7 +13131,7 @@
         {
           "nome": "UploadItem",
           "tipo": "componente",
-          "linha": 177,
+          "linha": 179,
           "descricao": "Item e lista",
           "props": [
             "item",
@@ -13054,7 +13144,7 @@
         {
           "nome": "UploadList",
           "tipo": "componente",
-          "linha": 219,
+          "linha": 221,
           "descricao": "",
           "props": [
             "items",
@@ -13067,7 +13157,7 @@
         {
           "nome": "ImageUpload",
           "tipo": "componente",
-          "linha": 225,
+          "linha": 227,
           "descricao": "Imagem única com prévia",
           "props": [
             "value",
@@ -13086,7 +13176,7 @@
         {
           "nome": "ImageGrid",
           "tipo": "componente",
-          "linha": 293,
+          "linha": 296,
           "descricao": "",
           "props": [
             "images",
@@ -13659,7 +13749,7 @@
           "ancora": "ux-targets",
           "titulo": "Tamanho de alvo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 300
+          "linha": 304
         }
       ],
       "usaComponentes": [],
@@ -13680,7 +13770,7 @@
           "ancora": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 314
+          "linha": 318
         }
       ],
       "usaComponentes": [],
@@ -13701,7 +13791,7 @@
           "ancora": "ux-destructive",
           "titulo": "Ações destrutivas",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 367
+          "linha": 371
         }
       ],
       "usaComponentes": [],
@@ -13722,20 +13812,20 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 334
+          "linha": 338
         }
       ],
       "usaComponentes": [
         "Button",
         "EstadoVazio"
       ],
-      "elementosFeitosAMao": 5
+      "elementosFeitosAMao": 4
     },
     {
       "nome": "HierarchyDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 215,
+      "linha": 219,
       "descricao": "Button hierarchy",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -13746,7 +13836,7 @@
           "ancora": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 281
+          "linha": 285
         }
       ],
       "usaComponentes": [
@@ -14725,7 +14815,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 252
+          "linha": 264
         }
       ],
       "usaComponentes": [
@@ -15547,7 +15637,7 @@
       "nome": "DrawerDemo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 144,
+      "linha": 147,
       "descricao": "Drawer",
       "pagina": "overlays",
       "paginaRotulo": "Sobreposições (overlays)",
@@ -15567,7 +15657,7 @@
       "nome": "ExemploMenuRecolhivel",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 198,
+      "linha": 201,
       "descricao": "Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão \"≡ Menu\" no topo, que recolhe e expande.",
       "pagina": "overlays",
       "paginaRotulo": "Sobreposições (overlays)",
@@ -15578,7 +15668,7 @@
           "ancora": "menu-painel",
           "titulo": "Menu do painel",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 365
+          "linha": 405
         }
       ],
       "usaComponentes": [
@@ -15597,7 +15687,7 @@
       "nome": "ExemploOpcaoA",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 247,
+      "linha": 250,
       "descricao": "Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias.",
       "pagina": "overlays",
       "paginaRotulo": "Sobreposições (overlays)",
@@ -15608,7 +15698,7 @@
           "ancora": "cabecalho-pagina",
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 464
+          "linha": 504
         }
       ],
       "usaComponentes": [
@@ -15898,7 +15988,7 @@
       "ancora": "tokens-intro",
       "titulo": "O que são tokens",
       "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-      "linha": 116,
+      "linha": 115,
       "elementosFeitosAMao": 8,
       "usaComponentes": [
         "GradeDeCards",
@@ -15911,7 +16001,7 @@
       "ancora": "tokens-hierarchy",
       "titulo": "As três camadas",
       "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-      "linha": 206,
+      "linha": 205,
       "elementosFeitosAMao": 21,
       "usaComponentes": []
     },
@@ -15921,7 +16011,7 @@
       "ancora": "tokens-design",
       "titulo": "Guia para designers",
       "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-      "linha": 337,
+      "linha": 336,
       "elementosFeitosAMao": 3,
       "usaComponentes": []
     },
@@ -15931,7 +16021,7 @@
       "ancora": "tokens-ia",
       "titulo": "IA e tokens",
       "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-      "linha": 416,
+      "linha": 415,
       "elementosFeitosAMao": 8,
       "usaComponentes": []
     },
@@ -15941,7 +16031,7 @@
       "ancora": "tokens-definition",
       "titulo": "Implementação em código",
       "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-      "linha": 622,
+      "linha": 621,
       "elementosFeitosAMao": 12,
       "usaComponentes": []
     },
@@ -16094,7 +16184,7 @@
       "ancora": "botao-principal",
       "titulo": "Um botão principal",
       "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-      "linha": 209,
+      "linha": 221,
       "elementosFeitosAMao": 5,
       "usaComponentes": []
     },
@@ -16287,7 +16377,7 @@
       "ancora": "barra-superior",
       "titulo": "Barra superior",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 419,
+      "linha": 459,
       "elementosFeitosAMao": 4,
       "usaComponentes": [
         "BotaoDeNotificacoes",
@@ -16307,7 +16397,7 @@
       "ancora": "tooltips",
       "titulo": "Dica de contexto (tooltip)",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 507,
+      "linha": 547,
       "elementosFeitosAMao": 3,
       "usaComponentes": [
         "Tooltip"
@@ -16319,7 +16409,7 @@
       "ancora": "dropdown",
       "titulo": "Menu suspenso (dropdown)",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 522,
+      "linha": 562,
       "elementosFeitosAMao": 4,
       "usaComponentes": [
         "DropdownMenu",
@@ -16335,10 +16425,12 @@
       "ancora": "dialogs",
       "titulo": "Diálogos",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 570,
+      "linha": 610,
       "elementosFeitosAMao": 3,
       "usaComponentes": [
-        "Dialog"
+        "Calendar",
+        "Dialog",
+        "Popover"
       ]
     },
     {
@@ -16347,7 +16439,7 @@
       "ancora": "accordion",
       "titulo": "Sanfona (accordion)",
       "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-      "linha": 650,
+      "linha": 697,
       "elementosFeitosAMao": 8,
       "usaComponentes": [
         "Accordion",
@@ -17516,9 +17608,9 @@
       },
       {
         "nome": "--input",
-        "claro": "var(--border-strong)",
+        "claro": "var(--graphite-400)",
         "escuro": "rgba(25, 25, 28, 0.6)",
-        "papel": "borda clara dos campos (decisão de 16/11/2026)",
+        "papel": "",
         "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
       },
       {
@@ -17530,15 +17622,71 @@
       },
       {
         "nome": "--switch-background",
-        "claro": "var(--graphite-200)",
+        "claro": "var(--graphite-400)",
         "escuro": "var(--graphite-600)",
-        "papel": "",
+        "papel": "interruptor desligado: trilho 3,49:1 no branco; bolinha branca 3,49:1 no trilho",
         "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
       },
       {
         "nome": "--ring",
         "claro": "rgba(252, 2, 86, 0.40)",
         "escuro": "rgba(252, 2, 86, 0.45)",
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-vazio",
+        "claro": "var(--card)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-1",
+        "claro": "var(--chart-7)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-2",
+        "claro": "var(--chart-6)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-3",
+        "claro": "var(--chart-4)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-4",
+        "claro": "var(--chart-2)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-5",
+        "claro": "var(--chart-1)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-borda",
+        "claro": "var(--border-strong)",
+        "escuro": null,
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--mapa-escolhida",
+        "claro": "var(--foreground)",
+        "escuro": null,
         "papel": "",
         "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
       },
@@ -17553,6 +17701,13 @@
         "nome": "--destructive-foreground",
         "claro": "#FFFFFF",
         "escuro": "#000000",
+        "papel": "",
+        "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
+      },
+      {
+        "nome": "--sobreposicao",
+        "claro": "color-mix(in srgb, var(--graphite-950) 50%, transparent)",
+        "escuro": null,
         "papel": "",
         "grupoCss": "LIGHT MODE SEMANTIC TOKENS"
       }
@@ -17639,7 +17794,7 @@
         "titulo": "Um botão principal",
         "resumo": "Um só botão principal (cheio) por área; o resto em contorno, ghost ou link",
         "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-        "linha": 209
+        "linha": 221
       },
       {
         "ancora": "ux-hierarchy",
@@ -17648,7 +17803,7 @@
         "titulo": "Hierarquia de ações",
         "resumo": "Hierarquia de ações: principal, secundária e terciária",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 281
+        "linha": 285
       },
       {
         "ancora": "card-escolher",
@@ -17765,7 +17920,7 @@
         "titulo": "Ações destrutivas",
         "resumo": "Ações destrutivas: confirmação e desfazer",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 367
+        "linha": 371
       },
       {
         "ancora": "voice-microcopy",
@@ -17827,7 +17982,7 @@
         "ancora": "tokens-hierarchy",
         "titulo": "As três camadas",
         "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-        "linha": 206
+        "linha": 205
       },
       {
         "pagina": "usability",
@@ -17835,7 +17990,7 @@
         "ancora": "ux-checklist",
         "titulo": "Revisão rápida",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 376
+        "linha": 380
       },
       {
         "pagina": "accessibility",
@@ -18429,37 +18584,37 @@
           "id": "tokens-intro",
           "titulo": "O que são tokens",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 116
+          "linha": 115
         },
         {
           "id": "tokens-hierarchy",
           "titulo": "As três camadas",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 206
+          "linha": 205
         },
         {
           "id": "tokens-design",
           "titulo": "Guia para designers",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 337
+          "linha": 336
         },
         {
           "id": "tokens-ia",
           "titulo": "IA e tokens",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 416
+          "linha": 415
         },
         {
           "id": "tokens-bridge",
           "titulo": "Mapeamento Design ↔ Dev",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 546
+          "linha": 545
         },
         {
           "id": "tokens-definition",
           "titulo": "Implementação em código",
           "arquivo": "src/app/components/showcase/TokensShowcase.tsx",
-          "linha": 622
+          "linha": 621
         }
       ]
     },
@@ -18478,49 +18633,49 @@
           "id": "ux-principles",
           "titulo": "Princípios",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 272
+          "linha": 276
         },
         {
           "id": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 281
+          "linha": 285
         },
         {
           "id": "ux-targets",
           "titulo": "Tamanho de alvo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 300
+          "linha": 304
         },
         {
           "id": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 314
+          "linha": 318
         },
         {
           "id": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 334
+          "linha": 338
         },
         {
           "id": "ux-errors",
           "titulo": "Erros e microcopy",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 343
+          "linha": 347
         },
         {
           "id": "ux-destructive",
           "titulo": "Ações destrutivas",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 367
+          "linha": 371
         },
         {
           "id": "ux-checklist",
           "titulo": "Revisão rápida",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 376
+          "linha": 380
         }
       ]
     },
@@ -18871,43 +19026,43 @@
           "id": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 209
+          "linha": 221
         },
         {
           "id": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 252
+          "linha": 264
         },
         {
           "id": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 278
+          "linha": 290
         },
         {
           "id": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 398
+          "linha": 409
         },
         {
           "id": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 521
+          "linha": 532
         },
         {
           "id": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 540
+          "linha": 551
         },
         {
           "id": "buttons-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 594
+          "linha": 605
         }
       ]
     },
@@ -19436,61 +19591,61 @@
           "id": "breadcrumb",
           "titulo": "Trilha de navegação (breadcrumb)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 337
+          "linha": 377
         },
         {
           "id": "pagination",
           "titulo": "Paginação",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 351
+          "linha": 391
         },
         {
           "id": "menu-painel",
           "titulo": "Menu do painel",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 365
+          "linha": 405
         },
         {
           "id": "barra-superior",
           "titulo": "Barra superior",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 419
+          "linha": 459
         },
         {
           "id": "cabecalho-pagina",
           "titulo": "Cabeçalho da página",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 464
+          "linha": 504
         },
         {
           "id": "tooltips",
           "titulo": "Dica de contexto (tooltip)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 507
+          "linha": 547
         },
         {
           "id": "dropdown",
           "titulo": "Menu suspenso (dropdown)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 522
+          "linha": 562
         },
         {
           "id": "dialogs",
           "titulo": "Diálogos",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 570
+          "linha": 610
         },
         {
           "id": "accordion",
           "titulo": "Sanfona (accordion)",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 650
+          "linha": 697
         },
         {
           "id": "overlays-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/OverlaysShowcase.tsx",
-          "linha": 728
+          "linha": 775
         }
       ]
     },
@@ -19773,43 +19928,49 @@
           "id": "campo-padrao",
           "titulo": "Campo (o campo padrão)",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 35
+          "linha": 37
         },
         {
           "id": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 66
+          "linha": 68
         },
         {
           "id": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 74
+          "linha": 76
         },
         {
           "id": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 84
+          "linha": 86
         },
         {
           "id": "seletor-de-quantidade",
           "titulo": "Seletor de quantidade",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 101
+          "linha": 103
         },
         {
           "id": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 115
+          "linha": 117
         },
         {
           "id": "botao-de-envio",
           "titulo": "Botão de envio",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 128
+          "linha": 130
+        },
+        {
+          "id": "calendario",
+          "titulo": "Seletor de data (Calendar)",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 142
         }
       ]
     },

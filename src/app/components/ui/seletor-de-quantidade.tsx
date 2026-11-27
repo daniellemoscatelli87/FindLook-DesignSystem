@@ -26,7 +26,7 @@ export function SeletorDeQuantidade({ valor, onValorChange, rotulo, min = 0, max
   const nome = rotulo.charAt(0).toLowerCase() + rotulo.slice(1);
   const botao = "size-10 rounded-md toque:size-11";
   return (
-    <div role="group" aria-label={rotulo} data-slot="seletor-de-quantidade" className={cn("inline-flex items-center rounded-md border border-[var(--border-strong)] bg-card", desabilitado && "opacity-50", className)}>
+    <div role="group" aria-label={rotulo} data-slot="seletor-de-quantidade" className={cn("inline-flex items-center rounded-md border border-input bg-card", desabilitado && "opacity-50", className)}>
       <Button type="button" variant="ghost" size="icon" className={botao} aria-label={`Diminuir a ${nome}`} disabled={desabilitado || valor - passo < min} onClick={() => onValorChange(Math.max(min, valor - passo))}>
         <Minus aria-hidden />
       </Button>

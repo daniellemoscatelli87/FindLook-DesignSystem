@@ -1,21 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { AlertTriangle, CheckCircle2, Info, XCircle } from "lucide-react";
+import { CheckCircle2, Info, XCircle, AlertCircle } from "lucide-react";
 import { cn } from "./utils";
 import { IconeComBase } from "./painel-dados";
 
 /**
- * EstadoVazio, EstadoFinal e PaginaDeErro: as três telas "sem conteúdo" do DS, com a mesma API do design system
- * Dani Moscatelli.
+ * EstadoVazio, EstadoFinal e PaginaDeErro: as três telas "sem conteúdo" do DS. Mesma API nos dois DS (FindLook e
+ * Dani Moscatelli, 27/11/2026).
  *
  * EstadoVazio — uma lista, tabela ou área que ainda não tem nada (ou que o filtro esvaziou). Ícone na base, título,
  *   uma frase que explica o porquê e, quando houver, a próxima ação. tom "neutro" (padrão: nada a fazer agora, ou
  *   "nenhum resultado") ou "marca" (convite a começar: "Cadastre sua primeira peça"). variante "pagina" (padrão,
  *   centralizado no lugar da lista) ou "lista" (dentro de um card, alinhado à esquerda como uma linha da lista).
- *   A mais no FindLook: `ilustracao` (imagem do mascote, Mascote & Ilustrações › Estados vazios, no lugar do ícone)
- *   e `moldura` ("nenhuma", padrão; "tracejado" no lugar de uma lista; "card" sozinho na página).
- * EstadoFinal — o fim de um fluxo (cadastro enviado, peça publicada): ícone de estado que entra com um pequeno
+ *   `ilustracao`: imagem decorativa no lugar do ícone (no FindLook, o mascote de Mascote & Ilustrações › Estados
+ *   vazios). `moldura`: "nenhuma" (padrão), "tracejado" (no lugar de uma lista) ou "card" (sozinho na página).
+ * EstadoFinal — o fim de um fluxo (cadastro enviado, pesquisa concluída, peça publicada): ícone de estado que entra com um pequeno
  *   movimento, título, texto, um resumo opcional (children) e as ações. tom "sucesso" (padrão), "info", "aviso" ou
  *   "erro"; o ícone e o texto dizem o estado, nunca só a cor.
  * PaginaDeErro — página inteira de erro (404, sem acesso, fora do ar): código grande ou ilustração, título, texto e
@@ -58,9 +58,9 @@ export type EstadoVazioProps = Omit<React.ComponentProps<"div">, "title"> & {
   tamanho?: "sm" | "md";
   variante?: "pagina" | "lista";
   nivel?: Nivel;
-  /** FindLook: imagem do mascote no lugar do ícone (decorativa). */
+  /** Imagem decorativa no lugar do ícone. */
   ilustracao?: string;
-  /** FindLook: borda em volta (só na variante "pagina"). */
+  /** Borda em volta (só na variante "pagina"). */
   moldura?: keyof typeof MOLDURA;
 };
 
@@ -108,7 +108,7 @@ function EstadoVazio({ icone, titulo: t, descricao, acoes, tom = "neutro", taman
 const TONS_FINAIS = {
   sucesso: { Icone: CheckCircle2, base: "bg-success-muted text-success-text" },
   info: { Icone: Info, base: "bg-info-muted text-info-text" },
-  aviso: { Icone: AlertTriangle, base: "bg-warning-muted text-warning-text" },
+  aviso: { Icone: AlertCircle, base: "bg-warning-muted text-warning-text" },
   erro: { Icone: XCircle, base: "bg-error-muted text-error-text" },
 } as const;
 

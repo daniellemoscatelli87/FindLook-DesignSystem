@@ -81,7 +81,7 @@ export function Carregando({ mensagem = "Carregando", detalhe, variante = "pagin
             <Button
               type="button"
               variant="outline"
-              className="mt-3 h-11 border-[var(--border-strong)]"
+              className="mt-3 h-11 border-input"
               onClick={() => (onTentarDeNovo ? onTentarDeNovo() : window.location.reload())}
             >
               <RotateCw aria-hidden /> Tentar de novo

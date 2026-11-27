@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AlertCircle, Check, CheckCheck, Clock, Eye, Loader2, MousePointerClick, Paperclip, SendHorizontal, X } from "lucide-react";
+import { Check, CheckCheck, Clock, Eye, Loader2, MousePointerClick, Paperclip, SendHorizontal, X, XCircle } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Input } from "./input";
@@ -114,7 +114,7 @@ const ESTADOS = {
   lida: { Icone: CheckCheck, texto: "Lida" },
   aberto: { Icone: Eye, texto: "Aberto" },
   clicado: { Icone: MousePointerClick, texto: "Clicado" },
-  erro: { Icone: AlertCircle, texto: "Não enviada" },
+  erro: { Icone: XCircle, texto: "Não enviada" },
 } as const;
 
 export type BalaoDaConversaProps = Omit<React.ComponentProps<"div">, "children"> & {
@@ -236,7 +236,7 @@ export function BotaoDeResposta({ className, icone, children, ...props }: React.
       type="button"
       data-slot="botao-de-resposta"
       className={cn(
-        "flex min-h-11 w-full items-center justify-center gap-2 rounded-md border border-border bg-card px-3 text-body-sm font-semibold text-primary-text transition-[background-color,transform] duration-[var(--duration-fast)] hover:bg-accent active:scale-[0.98] motion-reduce:active:scale-100",
+        "flex min-h-11 w-full items-center justify-center gap-2 rounded-md border border-input bg-card px-3 text-body-sm font-semibold text-primary-text transition-[background-color,transform] duration-[var(--duration-fast)] hover:bg-accent active:scale-[0.98] motion-reduce:active:scale-100",
         "disabled:cursor-not-allowed disabled:border-transparent disabled:bg-disabled disabled:text-disabled-foreground disabled:active:scale-100",
         "[&_svg]:size-4 [&_svg]:shrink-0",
         foco,
@@ -309,7 +309,7 @@ export function FolhaDeOpcoes({ titulo, opcoes, aberta, onFechar, onEscolher }: 
   }, [aberta]);
   if (!aberta) return null;
   return (
-    <div data-slot="folha-de-opcoes" className="absolute inset-0 z-10 flex items-end bg-foreground/30 motion-safe:animate-in motion-safe:fade-in" onClick={onFechar}>
+    <div data-slot="folha-de-opcoes" className="absolute inset-0 z-10 flex items-end bg-sobreposicao motion-safe:animate-in motion-safe:fade-in" onClick={onFechar}>
       <div
         ref={ref}
         role="dialog"

@@ -2,15 +2,15 @@ import * as React from "react";
 import { cn } from "./utils";
 
 /**
- * Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API da Prosa do design system
- * Dani Moscatelli. Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong,
+ * Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API nos dois DS (FindLook e
+ * Dani Moscatelli, 27/11/2026). Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong,
  * blockquote, table, hr), sem classes em cada elemento.
  * - Coluna de leitura de até 768 px (--content-reading), texto de 16 px com entrelinha 1,7, parágrafos a 16 px um do
  *   outro, títulos com respiro acima maior que abaixo.
  * - Links sublinhados em --primary-text (6,4:1), com foco visível. Tabelas quebram o texto e nunca rolam para o lado.
  * - tamanho "sm" para notas e rodapés legais (14 px).
- * - A mais no FindLook: `html` (o HTML convertido do Markdown dos textos jurídicos do próprio site; nunca texto de
- *   quem usa o site), para a página não precisar de dangerouslySetInnerHTML.
+ * - `html`: o HTML convertido do Markdown dos textos jurídicos do próprio site (nunca texto de quem usa o site), para
+ *   a página não precisar de dangerouslySetInnerHTML.
  */
 export type ProsaProps = React.ComponentProps<"div"> & { tamanho?: "sm" | "md"; html?: string };
 

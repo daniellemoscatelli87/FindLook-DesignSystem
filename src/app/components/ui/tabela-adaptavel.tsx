@@ -6,8 +6,8 @@ import { ArrowDown, ArrowUp, ArrowUpDown, CheckIcon, EyeOff, MinusIcon } from "l
 import { cn } from "./utils";
 
 /**
- * Tabela adaptável: mesma API (nomes e props) da TabelaAdaptavel do design system Dani Moscatelli, com o que o
- * FindLook precisa a mais: seleção, ordem controlada (ordem + onOrdenar) e a medida da largura (`largura`).
+ * Tabela adaptável: o mesmo componente nos dois DS (FindLook e Dani Moscatelli, 27/11/2026): seleção, ordem
+ * controlada (ordem + onOrdenar) ou da própria tabela, e as colunas que cabem pela medida da largura (`largura`).
  * A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da
  * dona do produto, 18/11/2026). Ela mede a própria largura e:
  * - mostra as colunas que cabem, da mais importante para a menos importante (`prioridade`, menor = mais importante);
@@ -29,15 +29,15 @@ export type ColunaDaTabela<T> = {
   id: string;
   titulo: string;
   celula: (linha: T) => React.ReactNode;
-  /** 1 = mais importante. No FindLook, qualquer número: a tabela mede a largura e põe as que cabem, por ordem. */
+  /** 1 = mais importante; qualquer número: a tabela mede a largura e põe as que cabem, por ordem. */
   prioridade?: number;
   alinhar?: "inicio" | "fim";
   /** A coluna principal (o nome): aparece sempre e vira o título de cada item na lista. */
   principal?: boolean;
   ordenavel?: boolean;
-  /** Valor usado para ordenar (padrão: o texto da célula não é usado; sem isto, a coluna não ordena sozinha). */
+  /** Valor usado para ordenar (padrão: o texto da célula, quando for texto ou número). */
   valorParaOrdenar?: (linha: T) => string | number;
-  /** FindLook: largura mínima da coluna, em px (padrão 140), para medir quais cabem. */
+  /** Largura mínima da coluna, em px (padrão 140), para medir quais cabem. */
   largura?: number;
 };
 /** Nome antigo (FindLook), mesmo tipo. */
@@ -83,7 +83,7 @@ function CaixaDeSelecao({ marcada, onMarcadaChange, rotulo }: { marcada: boolean
     >
       <span
         aria-hidden
-        className="flex size-5 items-center justify-center rounded-sm border border-[var(--border-strong)] bg-input-background text-primary-foreground transition-colors group-data-[state=checked]/caixa:border-primary group-data-[state=checked]/caixa:bg-primary group-data-[state=indeterminate]/caixa:border-primary group-data-[state=indeterminate]/caixa:bg-primary"
+        className="flex size-5 items-center justify-center rounded-sm border border-input bg-input-background text-primary-foreground transition-colors group-data-[state=checked]/caixa:border-primary group-data-[state=checked]/caixa:bg-primary group-data-[state=indeterminate]/caixa:border-primary group-data-[state=indeterminate]/caixa:bg-primary"
       >
         <CheckIcon className="hidden size-3.5 group-data-[state=checked]/caixa:block" strokeWidth={3} />
         <MinusIcon className="hidden size-3.5 group-data-[state=indeterminate]/caixa:block" strokeWidth={3} />
@@ -134,8 +134,9 @@ export function TabelaAdaptavel<T>({
   const linhasNaOrdem = React.useMemo(() => {
     if (onOrdenar || !ordemPropria) return linhas;
     const col = colunas.find((c) => c.id === ordemPropria.coluna);
-    if (!col?.valorParaOrdenar) return linhas;
-    const v = col.valorParaOrdenar;
+    if (!col) return linhas;
+    // Sem valorParaOrdenar, ordena pelo texto da célula quando ela é texto ou número (como no DS Dani Moscatelli).
+    const v = col.valorParaOrdenar ?? ((l: T) => { const x = col.celula(l); return typeof x === "string" || typeof x === "number" ? x : ""; });
     return [...linhas].sort((a, b) => {
       const x = v(a), y = v(b);
       const r = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y), "pt-BR", { numeric: true });
@@ -172,7 +173,7 @@ export function TabelaAdaptavel<T>({
   const nome = (l: T) => rotuloDaLinha?.(l) ?? chave(l);
 
   const cabecalhoDaColuna = (c: ColunaAdaptavel<T>) => {
-    if (!c.ordenavel || (!onOrdenar && !c.valorParaOrdenar)) return c.titulo;
+    if (!c.ordenavel) return c.titulo;
     const atual = ordemAtual?.coluna === c.id ? ordemAtual.direcao : null;
     const Seta = atual === "asc" ? ArrowUp : atual === "desc" ? ArrowDown : ArrowUpDown;
     return (

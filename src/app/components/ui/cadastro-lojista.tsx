@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowLeft, ArrowRight, Check, Loader2, Store, TriangleAlert, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2, Store, X, XCircle } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Stepper, type StepperEtapa } from "./stepper";
@@ -243,7 +243,7 @@ function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, re
           {obrigatorios && <p className="mt-5 text-body-sm leading-5 text-muted-foreground">{obrigatorios}</p>}
           {erro && (
             <Alert variant="error" className="mt-5">
-              <TriangleAlert aria-hidden />
+              <XCircle aria-hidden />
               <AlertDescription>{erro}</AlertDescription>
             </Alert>
           )}
@@ -265,12 +265,17 @@ type BarraDaEtapaProps = {
   carregando?: boolean;
   textoCarregando?: string;
   desativado?: boolean;
+  /**
+   * id do texto que explica o Continuar (por exemplo, "Você revisa tudo antes de publicar" ou o motivo de estar
+   * desativado): vira o aria-describedby do botão principal (27/11/2026).
+   */
+  descricaoDoContinuar?: string;
   /** Troca os botões padrão. */
   children?: React.ReactNode;
   className?: string;
 };
 
-function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carregando = false, textoCarregando = "Salvando…", desativado = false, children, className }: BarraDaEtapaProps) {
+function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carregando = false, textoCarregando = "Salvando…", desativado = false, descricaoDoContinuar, children, className }: BarraDaEtapaProps) {
   // Os dois botões dividem a linha quando cabem; quando não cabem (rótulo longo no celular), cada um ocupa a largura
   // toda e o principal fica em cima (27/11/2026: nunca passam da borda nem ficam com larguras diferentes).
   const botao = "flex-[1_1_auto] @min-[40rem]/etapa:min-w-40 @min-[40rem]/etapa:flex-none";
@@ -283,7 +288,7 @@ function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carr
               <ArrowLeft aria-hidden className="@min-[40rem]/etapa:hidden" /> {rotuloVoltar}
             </Button>
           )}
-          <Button type="submit" size="lg" className={botao} disabled={desativado || carregando} aria-busy={carregando || undefined}>
+          <Button type="submit" size="lg" className={botao} disabled={desativado || carregando} aria-busy={carregando || undefined} aria-describedby={descricaoDoContinuar}>
             {carregando ? (
               <>
                 <Loader2 className="motion-safe:animate-spin" aria-hidden /> {textoCarregando}

@@ -109,7 +109,7 @@ export function PartnerCard({
               className={cn(
                 "inline-flex items-center justify-center rounded-full border font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 ctaSize[size],
-                dark ? "border-white/30 text-white/90 hover:bg-white/10" : "border-[var(--border-strong)] bg-card text-foreground hover:bg-accent",
+                dark ? "border-white/30 text-white/90 hover:bg-white/10" : "border-input bg-card text-foreground hover:bg-accent",
                 // Card largo: vira link discreto, na linha do botão, com a mesma altura de toque
                 "@sm/parceiro:h-auto @sm/parceiro:min-h-11 @sm/parceiro:rounded-sm @sm/parceiro:border-0 @sm/parceiro:bg-transparent @sm/parceiro:px-1 @sm/parceiro:underline-offset-4 @sm/parceiro:hover:bg-transparent @sm/parceiro:hover:underline",
                 !dark && "@sm/parceiro:text-[var(--primary-text,var(--primary))]",

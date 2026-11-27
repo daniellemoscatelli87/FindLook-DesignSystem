@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AlertCircle, ChevronRight, ImagePlus, Info, Lightbulb, MessageCircleQuestion, Search, X } from "lucide-react";
+import { ChevronRight, ImagePlus, Info, Lightbulb, MessageCircleQuestion, Search, X, XCircle } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Label } from "./label";
@@ -170,7 +170,7 @@ function BuscaDePecas({
         </div>
         {erroDescricao && (
           <p id={idErro} role="alert" className="flex items-start gap-1 text-body-sm leading-5 font-medium text-primary-text">
-            <AlertCircle className="mt-1 size-4 shrink-0" aria-hidden />
+            <XCircle className="mt-1 size-4 shrink-0" aria-hidden />
             {erroDescricao}
           </p>
         )}
@@ -217,7 +217,7 @@ function BuscaDePecas({
         )}
         {previa && erroFoto && (
           <p role="alert" className="mt-2 flex items-start gap-1 text-body-sm leading-5 font-medium text-primary-text">
-            <AlertCircle className="mt-1 size-4 shrink-0" aria-hidden />
+            <XCircle className="mt-1 size-4 shrink-0" aria-hidden />
             {erroFoto}
           </p>
         )}

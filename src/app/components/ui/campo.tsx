@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AlertCircle, Eye, EyeOff, TriangleAlert } from "lucide-react";
+import { Eye, EyeOff, XCircle } from "lucide-react";
 import { cn } from "./utils";
 import { Input } from "./input";
 import { Label } from "./label";
@@ -16,9 +16,13 @@ import { Alert, AlertDescription, AlertTitle } from "./alert";
  * - Com children em função: entrega { id, "aria-invalid", "aria-describedby", required } para outro controle do DS
  *   (Select, Textarea, PasswordInput…):  <Campo rotulo="Mensagem" erro={erro}>{p => <Textarea {...p} />}</Campo>
  * - obrigatorio: acrescenta " *" ao rótulo (o aviso "* Campos obrigatórios" fica no topo do formulário) e required.
- * - Ajuda embaixo; com erro, o erro ocupa o lugar da ajuda (ícone + texto na cor de erro, nunca só a cor).
- * A mais no FindLook: `opcional` ("(opcional)" depois do rótulo), `acaoDoRotulo` (link curto à direita do rótulo) e,
- * com type="password", o botão Mostrar senha / Ocultar senha (`textosDaSenha`), com 44 px no toque.
+ * - Ajuda embaixo; com erro, o erro ocupa o lugar da ajuda (ícone + texto na cor de erro, nunca só a cor). Com
+ *   `manterAjudaNoErro`, a ajuda continua, embaixo do erro (decisão de 27/11/2026: o erro primeiro, colado ao campo,
+ *   porque é o que a pessoa precisa resolver; a ajuda depois, porque continua valendo).
+ * - aria-describedby: o que você passar é somado ao do Campo (erro, ajuda e o seu, nessa ordem), nunca trocado; use
+ *   para ligar o conteúdo de `depois` (por exemplo, os requisitos da senha) ao campo.
+ * - `opcional` ("(opcional)" depois do rótulo), `acaoDoRotulo` (link curto à direita do rótulo) e, com
+ *   type="password", o botão Mostrar senha / Ocultar senha (`textosDaSenha`), com 44 px no toque.
  * Altura do campo: 44 px no toque (variante toque) e 40 px no computador.
  *
  * Também aqui: MensagemDeErro, GradeDeCampos (um campo por linha; dois só quando cada um fica com 240 px ou mais),
@@ -42,24 +46,32 @@ export type CampoProps = Omit<React.ComponentProps<typeof Input>, "children"> & 
   classeDoBloco?: string;
   /** Outro controle do DS no lugar do Input. */
   children?: (props: PropsDoControle) => React.ReactNode;
-  /** FindLook: "(opcional)" depois do rótulo. */
+  /** "(opcional)" depois do rótulo. */
   opcional?: boolean;
-  /** FindLook: link curto à direita do rótulo ("Esqueci minha senha"). */
+  /** Link curto à direita do rótulo ("Esqueci minha senha"). */
   acaoDoRotulo?: React.ReactNode;
-  /** FindLook: textos do botão da senha. */
+  /** Textos do botão da senha (com type="password"). */
   textosDaSenha?: { mostrar: string; ocultar: string };
+  /**
+   * Com erro, a ajuda continua visível, embaixo do erro (padrão: o erro ocupa o lugar da ajuda). Use quando a ajuda
+   * ainda serve para corrigir ("Use pelo menos 8 caracteres", o formato do CNPJ).
+   */
+  manterAjudaNoErro?: boolean;
 };
 
 function Campo({
   rotulo, ajuda, erro, icone, obrigatorio, inteiro, depois, classeDoBloco, className, id: idProp, children, required,
-  opcional, acaoDoRotulo, textosDaSenha = { mostrar: "Mostrar senha", ocultar: "Ocultar senha" }, type, ...props
+  opcional, acaoDoRotulo, textosDaSenha = { mostrar: "Mostrar senha", ocultar: "Ocultar senha" }, manterAjudaNoErro = false, type,
+  "aria-describedby": descritosDeFora, ...props
 }: CampoProps) {
   const autoId = React.useId();
   const id = idProp ?? autoId;
   const [visivel, setVisivel] = React.useState(false);
   const senha = type === "password";
-  const mostrarAjuda = Boolean(ajuda) && !erro;
-  const descritores = [mostrarAjuda ? `${id}-ajuda` : null, erro ? `${id}-erro` : null].filter(Boolean).join(" ") || undefined;
+  const mostrarAjuda = Boolean(ajuda) && (!erro || manterAjudaNoErro);
+  // O aria-describedby de quem usa (por exemplo, os requisitos da senha passados em `depois`) é somado ao do Campo:
+  // primeiro o erro, depois a ajuda, depois o de fora.
+  const descritores = [erro ? `${id}-erro` : null, mostrarAjuda ? `${id}-ajuda` : null, descritosDeFora].filter(Boolean).join(" ") || undefined;
   const controle: PropsDoControle = { id, "aria-invalid": erro ? true : undefined, "aria-describedby": descritores, required: required ?? obrigatorio };
   return (
     <div data-slot="campo" className={cn("min-w-0 space-y-2", inteiro && "col-span-full", classeDoBloco)}>
@@ -97,8 +109,8 @@ function Campo({
         </div>
       )}
       {depois}
-      {mostrarAjuda && <p id={`${id}-ajuda`} className="m-0 text-body-sm leading-5 text-muted-foreground">{ajuda}</p>}
       {erro && <MensagemDeErro id={`${id}-erro`}>{erro}</MensagemDeErro>}
+      {mostrarAjuda && <p id={`${id}-ajuda`} className="m-0 text-body-sm leading-5 text-muted-foreground">{ajuda}</p>}
     </div>
   );
 }
@@ -107,7 +119,7 @@ function Campo({
 function MensagemDeErro({ id, children, className }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
     <p id={id} data-slot="mensagem-de-erro" className={cn("m-0 flex items-start gap-2 text-body-sm leading-5 font-medium text-error-text motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-1", className)}>
-      <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden /> <span className="min-w-0">{children}</span>
+      <XCircle className="mt-0.5 size-4 shrink-0" aria-hidden /> <span className="min-w-0">{children}</span>
     </p>
   );
 }
@@ -133,7 +145,7 @@ function ResumoDeErros({ erros, titulo, onIrPara, className }: { erros: ErroDoRe
   };
   return (
     <Alert variant="error" data-slot="resumo-de-erros" className={className}>
-      <TriangleAlert aria-hidden />
+      <XCircle aria-hidden />
       <AlertTitle>{titulo ?? `Confira ${erros.length} campos antes de continuar`}</AlertTitle>
       <AlertDescription>
         <ul className="grid gap-1">

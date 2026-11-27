@@ -331,7 +331,7 @@ export function PrototipoDoPainel({ paginas = {}, inicial = "inicio" }: Prototip
 
             {/* Gaveta (telas estreitas), dentro da janela do protótipo, embaixo da barra superior */}
             <div className={`absolute inset-0 z-30 @4xl/painel:hidden ${gaveta ? "" : "pointer-events-none"}`} aria-hidden={!gaveta}>
-              <div onClick={() => setGaveta(false)} className={`absolute inset-0 bg-black/40 transition-opacity duration-200 ${gaveta ? "opacity-100" : "opacity-0"}`} />
+              <div onClick={() => setGaveta(false)} className={`absolute inset-0 bg-sobreposicao transition-opacity duration-200 ${gaveta ? "opacity-100" : "opacity-0"}`} />
               <div
                 role="dialog"
                 aria-modal="true"

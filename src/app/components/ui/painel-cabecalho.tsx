@@ -35,6 +35,8 @@ type CabecalhoDaPaginaProps = {
   acoes?: React.ReactNode;
   /** Nível do título (padrão h1; use 2 ou 3 quando já houver um h1 na página). */
   nivel?: 1 | 2 | 3;
+  /** id do título: recebe o foco ao trocar de página (tabIndex -1). Mesma prop do DS Dani Moscatelli. */
+  idDoTitulo?: string;
   className?: string;
 };
 
@@ -42,7 +44,7 @@ type CabecalhoDaPaginaProps = {
  * Cabeçalho da página fora do card (Opção A): título, descrição, ações e, opcionalmente, as abas da página.
  * O conteúdo vem embaixo, em cards com cabeçalho de ícone (CardComCabecalho).
  */
-function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, abas, nivel = 1, className }: CabecalhoDaPaginaProps) {
+function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, abas, nivel = 1, idDoTitulo, className }: CabecalhoDaPaginaProps) {
   const Titulo = `h${nivel}` as "h1" | "h2" | "h3";
   const topo = (
     // Texto primeiro, com largura garantida (base de 36rem): as ações ficam no alto, à direita, quando cabem na mesma
@@ -50,7 +52,7 @@ function CabecalhoDaPagina({ saudacao, titulo, descricao, acoes, abas, nivel = 1
     <header data-slot="cabecalho-da-pagina" className={cn("flex flex-wrap items-start justify-between gap-x-8 gap-y-4", !abas && className)}>
       <div className="min-w-0 flex-[1_1_36rem]">
         {saudacao && <p className="mb-1 text-body font-bold text-[var(--primary-text,var(--primary))]">{saudacao}</p>}
-        <Titulo className={`${display} text-h3 @xl:text-h2 font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground`}>{destacar(titulo)}</Titulo>
+        <Titulo id={idDoTitulo} tabIndex={idDoTitulo ? -1 : undefined} className={`${display} text-h3 @xl:text-h2 font-extrabold leading-[1.1] tracking-[-0.025em] text-foreground outline-none`}>{destacar(titulo)}</Titulo>
         {descricao && <p className="mt-2 max-w-[65ch] text-body leading-relaxed text-muted-foreground">{descricao}</p>}
       </div>
       {/* Celular (abaixo de 640 px, 27/11/2026): as ações ficam uma por linha, todas com a largura toda, na mesma borda
@@ -82,7 +84,7 @@ function SeletorDePeriodo({ valor, onChange, periodos = periodosPadrao, classNam
       <DropdownMenuTrigger
         aria-label={`Período: ${atual.rotulo}. Trocar período`}
         className={cn(
-          "inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-[var(--border-strong)] bg-card px-3 text-button font-semibold text-foreground transition-colors hover:bg-accent toque:h-11",
+          "inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md border border-input bg-card px-3 text-button font-semibold text-foreground transition-colors hover:bg-accent toque:h-11",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className,
         )}
@@ -155,7 +157,7 @@ function BannerPromocional({ titulo, texto, acao, onAcao, onFechar, imagem, clas
           onClick={onAcao}
           // "Um botão principal por área visível" (decisão da dona do produto, 23/11/2026): o banner usa o botão
           // secundário (contorno, fundo branco); o botão principal fica com a ação da página.
-          className="mt-3 inline-flex h-10 items-center gap-1 rounded-md border border-[var(--border-strong)] bg-card px-4 text-button font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="mt-3 inline-flex h-10 items-center gap-1 rounded-md border border-input bg-card px-4 text-button font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {acao} <ArrowRight aria-hidden className="h-4 w-4" />
         </button>

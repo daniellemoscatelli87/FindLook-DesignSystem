@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CalendarDays, CalendarPlus, Check, Filter, MoreHorizontal, Sparkles, Star, Store, TriangleAlert } from "lucide-react";
+import { CalendarDays, CalendarPlus, Check, Filter, MoreHorizontal, Sparkles, Star, Store } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { PageHeader } from "./GetStartedShowcase";
 import { SectionHeader } from "./shared/SectionHeader";

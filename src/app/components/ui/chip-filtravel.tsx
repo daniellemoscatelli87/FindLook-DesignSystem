@@ -42,7 +42,7 @@ export function ChipFiltravel({ ativo, onAtivoChange, contagem, icone, className
         "disabled:pointer-events-none disabled:border-transparent disabled:bg-disabled disabled:text-disabled-foreground",
         ativo
           ? "border-primary/30 bg-[var(--primary-suave)] text-primary-text"
-          : "border-[var(--border-strong)] bg-card text-foreground hover:bg-accent",
+          : "border-input bg-card text-foreground hover:bg-accent",
         foco,
         className,
       )}

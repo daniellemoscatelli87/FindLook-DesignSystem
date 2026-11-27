@@ -3,7 +3,7 @@ import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { Selo } from "@/app/components/ui/selo";
 import { SeloSecao } from "@/app/components/ui/selo-secao";
 import { AvatarCircles } from "@/app/components/ui/avatar-circles";
-import { MapPin, Sparkles, SearchX, Plus } from "lucide-react";
+import { MapPin, Sparkles, SearchX, Plus, XCircle, AlertCircle } from "lucide-react";
 import {
   CheckCircle, CheckCircle2, AlertCircle, AlertTriangle, TriangleAlert, Info, X,
   Loader2, Clock, Check,
@@ -74,7 +74,7 @@ const alertConfig: Record<AlertKind, { icon: React.ElementType; title: Bi; msg: 
     border: "border-warning/20", iconColor: "text-warning-text", titleColor: "text-foreground",
   },
   error: {
-    icon: TriangleAlert, title: { en: "Photo not sent", pt: "Não foi possível enviar a foto" },
+    icon: XCircle, title: { en: "Photo not sent", pt: "Não foi possível enviar a foto" },
     msg: { en: "Check your connection and try again.", pt: "Verifique sua conexão e tente de novo." },
     bg: "bg-[var(--error-muted,rgba(140,27,27,0.07))]",
     border: "border-primary/20", iconColor: "text-primary", titleColor: "text-foreground",
@@ -105,8 +105,8 @@ function Alert({ kind, dismissible = false }: { kind: AlertKind; dismissible?: b
 /* ── Toast ── */
 const toastTypes = [
   { label: { en: "Success", pt: "Sucesso" }, tipo: "success", icon: CheckCircle, color: "text-success", bg: "bg-card", msg: { en: "Item saved.", pt: "Peça salva." } },
-  { label: { en: "Error", pt: "Erro" },      tipo: "error",   icon: AlertCircle, color: "text-error-text",   bg: "bg-card", msg: { en: "Could not save the item. Try again.", pt: "Não foi possível salvar a peça. Tente de novo." } },
-  { label: { en: "Warning", pt: "Aviso" },   tipo: "warning", icon: AlertTriangle, color: "text-warning-text", bg: "bg-card", msg: { en: "2 items without size.", pt: "2 peças sem tamanho." } },
+  { label: { en: "Error", pt: "Erro" },      tipo: "error",   icon: XCircle, color: "text-error-text",   bg: "bg-card", msg: { en: "Could not save the item. Try again.", pt: "Não foi possível salvar a peça. Tente de novo." } },
+  { label: { en: "Warning", pt: "Aviso" },   tipo: "warning", icon: AlertCircle, color: "text-warning-text", bg: "bg-card", msg: { en: "2 items without size.", pt: "2 peças sem tamanho." } },
   { label: "Loading",                         tipo: "loading", icon: Loader2,     color: "text-info",    bg: "bg-card", msg: { en: "Sending photos…", pt: "Enviando fotos…" } },
 ];
 
@@ -329,7 +329,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
               Quando a mensagem cabe numa frase, use o Alert sem AlertTitle. A frase passa a ser a informação principal: fica na cor do texto principal, centralizada na altura do ícone e com a quebra de linha equilibrada. É automático: basta não usar o título.
             </p>
             <div className="space-y-3">
-              <UiAlert variant="error"><TriangleAlert aria-hidden /><AlertDescription>E-mail ou senha incorretos. Confira e tente de novo.</AlertDescription></UiAlert>
+              <UiAlert variant="error"><XCircle aria-hidden /><AlertDescription>E-mail ou senha incorretos. Confira e tente de novo.</AlertDescription></UiAlert>
               <UiAlert variant="success"><CheckCircle2 aria-hidden /><AlertDescription>Alterações salvas.</AlertDescription></UiAlert>
               <UiAlert variant="info"><Info aria-hidden /><AlertDescription>A disponibilidade das peças deve ser confirmada com a loja.</AlertDescription></UiAlert>
             </div>

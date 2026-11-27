@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, TriangleAlert, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Seta, Info, X, AlertCircle } from "lucide-react";
 import { cn } from "./utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Progress } from "./progress";
@@ -342,7 +342,7 @@ function ItemDeChecklist({ estado, texto, href = "#", className }: { estado: "ok
   return (
     <li>
       <a data-slot="item-de-checklist" href={href} className={cn("flex items-center gap-2 rounded-none px-3 py-2 toque:min-h-11 transition-colors hover:bg-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}>
-        {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <TriangleAlert aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
+        {ok ? <CheckCircle2 aria-hidden className="h-4 w-4 shrink-0 text-success" /> : <AlertCircle aria-hidden className="h-4 w-4 shrink-0 text-warning-text" />}
         <span className="sr-only">{ok ? "Em dia:" : "Precisa de atenção:"}</span>
         <span className="min-w-0 flex-1 text-body-sm text-foreground">{texto}</span>
         <ChevronRight aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -739,7 +739,7 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
           </p>
           {selo && (
             <p data-tom={alerta ? "alerta" : "neutro"} className={cn("inline-flex items-center gap-1 text-body-sm", alerta ? "font-semibold text-destructive" : "text-muted-foreground")}>
-              <span aria-hidden className="shrink-0 [&>svg]:h-4 [&>svg]:w-4">{selo.icone ?? (alerta ? <TriangleAlert /> : <CheckCircle2 className="text-success" />)}</span>
+              <span aria-hidden className="shrink-0 [&>svg]:h-4 [&>svg]:w-4">{selo.icone ?? (alerta ? <AlertCircle /> : <CheckCircle2 className="text-success" />)}</span>
               <span><span className={alerta ? "" : "font-medium text-foreground"}>{selo.titulo}</span>{selo.texto ? ` · ${selo.texto}` : ""}</span>
             </p>
           )}

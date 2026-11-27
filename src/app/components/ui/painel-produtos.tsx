@@ -10,6 +10,9 @@ import { Checkbox } from "./checkbox";
 import { LinhaDeLista } from "./linha-de-lista";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
+
+// No servidor (renderização no servidor) não existe layout: useEffect lá, useLayoutEffect no navegador (27/11/2026).
+const useLayoutSeguro = typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 /**
  * Produtos no painel da loja (FindLook)
  *
@@ -41,7 +44,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
   const lista = React.useRef<HTMLDivElement>(null);
   const [emLista, setEmLista] = React.useState(false);
   // Mede a largura natural das abas (numa linha só) contra o espaço disponível.
-  React.useLayoutEffect(() => {
+  useLayoutSeguro(() => {
     const c = caixa.current, l = lista.current;
     if (!c || !l || typeof ResizeObserver === "undefined") return;
     const medir = () => setEmLista(l.scrollWidth > c.clientWidth + 1);
@@ -271,7 +274,7 @@ const abasStatus: { valor: "todos" | StatusProduto; rotulo: string }[] = [
 ];
 
 /** Botão de ferramenta da tabela: mesmo desenho dos botões Filtrar/Exportar da Tabela de dados. */
-const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1 rounded-sm border border-border bg-card px-3 text-body-sm font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
+const botaoFerramenta = cn("inline-flex h-9 shrink-0 items-center gap-1 rounded-sm border border-input bg-card px-3 text-body-sm font-medium text-muted-foreground transition-colors hover:bg-accent", foco);
 const th = "px-4 py-3 text-left text-label font-semibold uppercase tracking-[0.06em] text-muted-foreground whitespace-nowrap";
 const etiqueta = "inline-flex items-center rounded-sm border border-border bg-muted/40 px-2 py-1 text-label font-medium text-foreground";
 
@@ -316,7 +319,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
           <div className="relative min-w-0 flex-1 @2xl:w-60 @2xl:flex-none">
             <label htmlFor={idBusca} className="sr-only">Buscar produto</label>
             <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-border bg-input-background pl-9 pr-3 text-body-sm text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
+            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-input bg-input-background pl-9 pr-3 text-body-sm text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
           </div>
           <button type="button" className={botaoFerramenta}><SlidersHorizontal aria-hidden className="h-4 w-4" />Filtros</button>
         </div>

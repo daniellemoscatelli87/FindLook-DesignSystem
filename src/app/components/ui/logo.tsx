@@ -15,7 +15,8 @@ import { cn } from "./utils";
  * Tamanho pela altura (className; padrão h-10). Não recolorir, esticar nem aplicar sombra (Marca › Regras).
  * Acessibilidade: com `rotulo`, o SVG é uma imagem com nome; sem rotulo, é decorativo (o link em volta tem o nome).
  * A mais no FindLook: `href` (e `comoLink`, para o Link do Next.js) põe o logo num link de 44 px de toque, com o nome
- * "FindLook, página inicial" (ou `rotulo`).
+ * "FindLook, página inicial" (ou `rotulo`). Mesma API do Logo do DS Dani Moscatelli. fill-rule evenodd por padrão
+ * (27/11/2026), igual nos dois DS; os furos das letras saem iguais aos dos arquivos oficiais de src/imports/svg/.
  */
 export type LogoProps = Omit<React.SVGProps<SVGSVGElement>, "children"> & {
   variante?: "horizontal" | "simbolo";
@@ -39,7 +40,7 @@ function Desenho({ variante, superficie, corDoSimbolo, className, acessivel, ext
   const circulo = corDoSimbolo === "marca" ? "fill-[var(--brand-white)]" : "hidden";
   if (variante === "simbolo") {
     return (
-      <svg data-slot="logo" data-variante="simbolo" viewBox="0 0 1130.37 1427.63" xmlns="http://www.w3.org/2000/svg" className={cn("block h-10 w-auto shrink-0", extra, className)} focusable="false" {...acessivel} {...props}>
+      <svg data-slot="logo" data-variante="simbolo" viewBox="0 0 1130.37 1427.63" xmlns="http://www.w3.org/2000/svg" className={cn("block h-10 w-auto shrink-0", extra, className)} focusable="false" fillRule="evenodd" clipRule="evenodd" {...acessivel} {...props}>
         <circle cx="565.18" cy="565.18" r="500.18" className={circulo} />
         <path className={look} d="M528.96,1.18c292.08-19.7,550.49,209.55,594.08,492.83,28.09,182.54-25.6,349.34-144.42,487.3-122.39,142.11-250.45,279.97-368.14,426.35-38.47,32.68-73.68,22.56-105.96-10.85-42.61-44.1-84.96-97.57-125.29-144.58-82.33-95.97-168.03-192.06-247.22-290.35C17.76,820.05-25.43,639.51,14.64,460.6,66.96,226.98,285.34,17.61,528.96,1.18ZM552.72,214.82c-61.93,6.36-119.22,54.35-136.71,113.75-16.47,55.95-10.94,82,53.97,75.5,42-4.21,28-29.27,38.92-56.07,22.23-54.56,103.5-53.56,126.1-.85,17.67,41.22-1.59,73.06-35.82,95.36-114.39,74.52-246.54,134.78-359.87,210.18-113.95,75.81-69.41,232.89,60.09,252.03l529.24.11c127.98-12.78,181.22-172.37,72.96-252.17l-231.76-146.06c26.54-21.31,50.32-48.94,60.31-82.14,34.51-114.66-60.68-221.64-177.44-209.64Z" />
         <path className={look} d="M576.41,562.02c3.15-.8,5.8-.41,8.54,1.28l259.83,163.4c28.33,22.57,20.79,65.72-12.51,78.18-172.69,6.48-346.82.84-520.04,2.85-41.84-3.74-56.49-54.16-22.41-78.67l286.58-167.04Z" />
@@ -49,7 +50,7 @@ function Desenho({ variante, superficie, corDoSimbolo, className, acessivel, ext
   const find = superficie === "escura" ? "fill-[var(--brand-white)]" : "fill-[var(--brand-graphite)]";
   const lookTexto = "fill-[var(--brand-pink)]";
   return (
-    <svg data-slot="logo" data-variante="horizontal" data-superficie={superficie} viewBox="0 0 2980.3 970.94" xmlns="http://www.w3.org/2000/svg" className={cn("block h-10 w-auto shrink-0", extra, className)} focusable="false" {...acessivel} {...props}>
+    <svg data-slot="logo" data-variante="horizontal" data-superficie={superficie} viewBox="0 0 2980.3 970.94" xmlns="http://www.w3.org/2000/svg" className={cn("block h-10 w-auto shrink-0", extra, className)} focusable="false" fillRule="evenodd" clipRule="evenodd" {...acessivel} {...props}>
       <circle cx="385.47" cy="397.28" r="310.4" className={circulo} />
       <path className={look} d="M362.99,47.27c181.26-12.23,341.62,130.04,368.68,305.84,17.43,113.28-15.89,216.79-89.62,302.41-75.96,88.19-155.43,173.74-228.46,264.59-23.87,20.28-45.72,14-65.75-6.73-26.44-27.37-52.72-60.55-77.75-89.72-51.09-59.55-104.28-119.19-153.42-180.19-70.91-88.02-97.72-200.05-72.85-311.08C76.28,187.39,211.8,57.47,362.99,47.27ZM377.73,179.85c-38.43,3.95-73.99,33.73-84.84,70.59-10.22,34.72-6.79,50.88,33.49,46.85,26.07-2.61,17.38-18.16,24.15-34.79,13.79-33.86,64.23-33.24,78.26-.53,10.97,25.58-.98,45.34-22.23,59.18-70.99,46.24-153,83.64-223.33,130.43-70.72,47.05-43.07,144.52,37.29,156.41l328.44.07c79.42-7.93,112.46-106.97,45.28-156.49l-143.83-90.64c16.47-13.23,31.22-30.37,37.43-50.97,21.42-71.16-37.66-137.54-110.11-130.1Z" />
       <path className={look} d="M392.43,395.31c1.95-.5,3.6-.26,5.3.79l161.25,101.4c17.58,14.01,12.9,40.78-7.76,48.52-107.17,4.02-215.23.52-322.73,1.77-25.96-2.32-35.06-33.61-13.9-48.82l177.84-103.66Z" />

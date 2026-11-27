@@ -535,7 +535,7 @@ function CardDeAjuda({ titulo = "Precisa de ajuda?", texto = "Acesse a central d
           target="_blank"
           rel="noreferrer"
           className={cn(
-            "mx-auto flex h-10 w-10 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground",
+            "mx-auto flex h-10 w-10 items-center justify-center rounded-md border border-input bg-card text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             className,
           )}
@@ -578,7 +578,7 @@ function CampoDeBuscaGlobal({ placeholder = "Buscar no painel (produtos, pedidos
       onClick={onAbrir}
       aria-keyshortcuts={atalho === "Ctrl + K" ? "Control+K" : undefined}
       className={cn(
-        "flex h-10 w-full items-center gap-3 rounded-md border border-border bg-card px-3 text-left text-body-sm text-muted-foreground transition-colors hover:bg-muted/60",
+        "flex h-10 w-full items-center gap-3 rounded-md border border-input bg-card px-3 text-left text-body-sm text-muted-foreground transition-colors hover:bg-muted/60",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}

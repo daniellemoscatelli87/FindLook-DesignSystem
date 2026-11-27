@@ -38,7 +38,9 @@ export function CaixaDeCodigo({ codigo, instrucao, validade, copiar = true, acoe
   return (
     <div data-slot="caixa-de-codigo" className={cn("rounded-lg border border-border bg-card p-4 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-slow)] sm:p-5", className)}>
       {instrucao && <p className="m-0 text-body-sm text-muted-foreground">{instrucao}</p>}
-      <p className={cn("m-0 rounded-md bg-[var(--primary-muted)] px-4 py-3 font-mono text-h3 font-bold tracking-[0.1em] text-foreground [overflow-wrap:anywhere]", instrucao && "mt-2")}>{codigo}</p>
+      {/* Código em --foreground sobre o rosa de destaque (19:1). Texto de apoio dentro dele (um rótulo, uma parte do código
+          em cinza) usa o cinza com 15% de --foreground, a regra do rosa de destaque: 5,56:1 (o cinza puro dá 4,35:1). */}
+      <p className={cn("m-0 rounded-md bg-[var(--primary-muted)] px-4 py-3 font-mono text-h3 font-bold tracking-[0.1em] text-foreground [overflow-wrap:anywhere] [&_.text-muted-foreground]:text-[color:color-mix(in_srgb,var(--muted-foreground)_85%,var(--foreground))]", instrucao && "mt-2")}>{codigo}</p>
       {validade && (
         <p className="m-0 mt-2 flex items-center gap-1.5 text-label text-muted-foreground">
           <Clock aria-hidden className="size-3.5 shrink-0" /> {validade}

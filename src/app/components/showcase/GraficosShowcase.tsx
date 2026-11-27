@@ -1,5 +1,5 @@
 import React from "react";
-import { ChartColumnBig, ChartLine, ChartPie, ChartScatter, ChartSpline, MapPinned, Check, X, MessageSquareText, ChartColumn, AlertTriangle, ChevronDown } from "lucide-react";
+import { ChartColumnBig, ChartLine, ChartPie, ChartScatter, ChartSpline, MapPinned, Check, X, MessageSquareText, ChartColumn, ChevronDown, AlertCircle } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { VejaEm } from "./shared/VejaEm";
 import { Callout, DoDont } from "./shared/Guidance";
@@ -635,7 +635,7 @@ function CartaoDoCatalogo({ nome, componente, quando, cuidado, dados, children }
       <div className="mt-5 min-w-0 flex-1">{children}</div>
       {cuidado && (
         <p className="mt-4 flex gap-2 rounded-md bg-[var(--warning-muted)] px-3 py-2 text-body-sm leading-relaxed text-foreground">
-          <AlertTriangle aria-hidden className="mt-1 h-4 w-4 shrink-0 text-warning-text" />
+          <AlertCircle aria-hidden className="mt-1 h-4 w-4 shrink-0 text-warning-text" />
           <span><span className="font-semibold">Cuidado: </span>{cuidado}</span>
         </p>
       )}

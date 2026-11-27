@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Eye, Compass, Undo2, MessageSquare, Gauge, Layers, Check, Loader2, Trash2, Inbox, AlertTriangle, RotateCcw, FileText,
+  Eye, Compass, Undo2, MessageSquare, Gauge, Layers, Check, Loader2, Trash2, Inbox, RotateCcw, FileText, XCircle,
 } from "lucide-react";
 import { PageHeader, PageSection } from "./GetStartedShowcase";
 import { useI18n } from "../../i18n";
@@ -189,11 +189,15 @@ function StatesDemo() {
           />
         )}
         {view === "error" && (
-          <div role="alert" className="m-auto text-center max-w-xs">
-            <AlertTriangle className="h-6 w-6 text-[var(--error-text)] mx-auto mb-3" aria-hidden />
-            <p className={`${display} text-body font-semibold text-foreground mb-1`}>{t("We couldn't load your projects", "Não foi possível carregar seus projetos")}</p>
-            <p className="text-body-sm text-muted-foreground mb-4">{t("Check your connection and try again. Your work is safe.", "Verifique sua conexão e tente novamente. Seu trabalho está seguro.")}</p>
-            <button type="button" className={`h-9 px-4 rounded-md border border-border bg-card text-foreground text-body-sm font-medium hover:bg-muted ${ring}`}>{t("Try again", "Tentar novamente")}</button>
+          <div role="alert" className="m-auto w-full">
+            <EstadoVazio
+              tamanho="sm"
+              nivel={3}
+              icone={<XCircle />}
+              titulo={t("We couldn't load your projects", "Não foi possível carregar seus projetos")}
+              descricao={t("Check your connection and try again. Your work is safe.", "Verifique sua conexão e tente novamente. Seu trabalho está seguro.")}
+              acoes={<Button variant="outline">{t("Try again", "Tentar novamente")}</Button>}
+            />
           </div>
         )}
         {view === "content" && (

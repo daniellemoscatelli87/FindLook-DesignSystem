@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AlertCircle, CheckCircle2, ClipboardCheck, Circle, GraduationCap, Info, Lock, MapPin, MessageCircle, Plus, SearchX, Sparkles, Star, Store, TriangleAlert, XCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2, ClipboardCheck, Circle, GraduationCap, Info, Lock, MapPin, MessageCircle, Plus, SearchX, Sparkles, Star, Store, XCircle } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
 import { ChipDeEstado } from "../ui/chip-de-estado";
@@ -78,7 +78,7 @@ export function ChipsEstadosShowcase() {
             <div className="flex flex-wrap gap-2">
               <Badge variant="marca"><Sparkles aria-hidden /> Nova</Badge>
               <Badge variant="neutro"><Lock aria-hidden /> Editada à mão</Badge>
-              <Badge variant="aviso"><TriangleAlert aria-hidden /> Revisar tipo</Badge>
+              <Badge variant="aviso"><AlertCircle aria-hidden /> Revisar tipo</Badge>
               <Badge variant="erro"><XCircle aria-hidden /> Fechada</Badge>
               <Badge variant="sucesso"><CheckCircle2 aria-hidden /> Conferida</Badge>
               <Badge variant="info"><Info aria-hidden /> Google</Badge>
@@ -91,7 +91,7 @@ export function ChipsEstadosShowcase() {
               <IconeComBase tom="neutro"><Store /></IconeComBase>
               <IconeComBase tom="sucesso"><CheckCircle2 /></IconeComBase>
               <IconeComBase tom="aviso"><AlertCircle /></IconeComBase>
-              <IconeComBase tom="erro"><TriangleAlert /></IconeComBase>
+              <IconeComBase tom="erro"><XCircle /></IconeComBase>
               <IconeComBase tom="info"><Info /></IconeComBase>
             </div>
           </div>

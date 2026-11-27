@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SectionHeader } from "./shared/SectionHeader";
-import { Check, ChevronRight, Image, LayoutPanelTop, MousePointer2, ShieldCheck, Sparkles } from "lucide-react";
+import { Check, ChevronRight, Image, LayoutPanelTop, MousePointer2, ShieldCheck, Sparkles, AlertCircle } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { ResumoDaRegraDasLinhas } from "./shared/RegraDasLinhas";
 import {
@@ -223,7 +223,7 @@ function GlassTestCard({ finish, tone = "clara", intensity = "media", opacity, b
       {/* avaliação de contraste: sempre visível; vira alerta quando abaixo do mínimo AA */}
       {result && (
         <div role={ok ? undefined : "alert"} className={cn("mt-3 flex items-start gap-2 rounded-md border px-2 py-1 text-caption leading-snug", ok ? "border-border/60 bg-card/80 text-muted-foreground" : "border-[var(--warning)] bg-card text-foreground shadow-[var(--shadow-sm)]")}>
-          {ok ? <CheckCircle2 className="mt-px h-3.5 w-3.5 shrink-0 text-[var(--success)]" aria-hidden /> : <AlertTriangle className="mt-px h-3.5 w-3.5 shrink-0 text-[var(--warning)]" aria-hidden />}
+          {ok ? <CheckCircle2 className="mt-px h-3.5 w-3.5 shrink-0 text-[var(--success)]" aria-hidden /> : <AlertCircle className="mt-px h-3.5 w-3.5 shrink-0 text-[var(--warning)]" aria-hidden />}
           <span>
             {ok ? t("Contrast OK", "Contraste OK") : t("Accessibility compromised", "Acessibilidade comprometida")}{" "}<span className="opacity-70">({naFoto ? t("worst case: any area of the photo, from black to white", "pior caso: qualquer área da foto, do preto ao branco") : comTextura ? t("worst case: text over the background or a texture stroke", "pior caso: texto sobre o fundo ou um traço da textura") : t("solid background", "fundo sólido")})</span>
             {" · "}{t("title", "título")} <strong className={result.titleOk ? "" : "text-[var(--error-text,var(--destructive))]"}>{formatRatio(result.title)}</strong> ({t("min.", "mín.")} {AA.large}:1)

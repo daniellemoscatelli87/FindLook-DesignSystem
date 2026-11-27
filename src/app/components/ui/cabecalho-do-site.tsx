@@ -20,7 +20,7 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } fr
  *   secundária (FindLook: pílula de contorno) e a `acao` principal (pílula preenchida). Celular (abaixo de `telaLarga`,
  *   ou `tela="celular"`): logo e o botão Menu (44 px), que abre o MenuDoCelular em folha inferior.
  * - superficie "escura": logo da versão sobre grafite (página do lojista, tema escuro).
- * Props a mais no FindLook: acaoSecundaria, transparenteNoTopo, iconeAoRolar, telaLarga ("lg" 1024 px ou "xl"
+ * Props em comum com o DS Dani Moscatelli (27/11/2026; lá, com o modelo pílula ou faixa): acaoSecundaria, transparenteNoTopo, iconeAoRolar, telaLarga ("lg" 1024 px ou "xl"
  * 1280 px), comoLink (o Link do Next.js) e containerDoMenu (demonstrações).
  * Movimento: --duration-slow com --ease-snappy; com "menos movimento", troca sem transição.
  */
@@ -155,8 +155,13 @@ export type CabecalhoDoSiteProps = {
   transparenteNoTopo?: boolean;
   /** FindLook: o logo vira o símbolo ao rolar (padrão: sim). */
   iconeAoRolar?: boolean;
-  /** FindLook: a partir de qual largura os itens aparecem na faixa ("lg", padrão, ou "xl"). */
-  telaLarga?: "lg" | "xl";
+  /** A partir de qual largura os itens aparecem na faixa ("md", "lg", padrão, ou "xl"). */
+  telaLarga?: "md" | "lg" | "xl";
+  /**
+   * Modelo do cabeçalho no computador. Prop em comum com o DS Dani Moscatelli (27/11/2026), que tem a pílula e a faixa;
+   * o FindLook tem só a faixa (o modelo da marca), então qualquer valor mostra a faixa.
+   */
+  modelo?: "faixa" | "pilula";
   /** FindLook: o link do produto (Next.js) no lugar do <a>. */
   comoLink?: React.ElementType;
   /** FindLook: onde a folha do menu é montada (demonstrações). */
@@ -190,9 +195,9 @@ export function CabecalhoDoSite({
   const transparente = transparenteNoTopo && !rolado && !aberto;
   const some = esconderAoRolar && escondido && !aberto;
   const soIcone = iconeAoRolar && rolado;
-  const naTela = tela === "computador" ? "flex" : tela === "celular" ? "hidden" : telaLarga === "xl" ? "hidden xl:flex" : "hidden lg:flex";
-  const noCelular = tela === "computador" ? "hidden" : tela === "celular" ? "flex" : telaLarga === "xl" ? "flex xl:hidden" : "flex lg:hidden";
-  const alto = tela === "computador" ? "h-18 px-6" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-18 xl:px-6" : "lg:h-18 lg:px-6";
+  const naTela = tela === "computador" ? "flex" : tela === "celular" ? "hidden" : telaLarga === "xl" ? "hidden xl:flex" : telaLarga === "md" ? "hidden md:flex" : "hidden lg:flex";
+  const noCelular = tela === "computador" ? "hidden" : tela === "celular" ? "flex" : telaLarga === "xl" ? "flex xl:hidden" : telaLarga === "md" ? "flex md:hidden" : "flex lg:hidden";
+  const alto = tela === "computador" ? "h-18 px-6" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-18 xl:px-6" : telaLarga === "md" ? "md:h-18 md:px-6" : "lg:h-18 lg:px-6";
   const pilula = "rounded-full px-5";
 
   return (
@@ -213,7 +218,7 @@ export function CabecalhoDoSite({
         <Link href={inicioHref} aria-label={rotuloInicio} className={cn("inline-flex min-h-11 min-w-11 shrink-0 items-center rounded-sm", foco)}>
           {soIcone
             ? (logo?.simbolo ?? <Logo variante="simbolo" className="h-10 motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95" />)
-            : (logo?.completo ?? <Logo superficie={superficie} className={cn("h-9", tela === "computador" ? "h-11" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-11" : "lg:h-11")} />)}
+            : (logo?.completo ?? <Logo superficie={superficie} className={cn("h-9", tela === "computador" ? "h-11" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-11" : telaLarga === "md" ? "md:h-11" : "lg:h-11")} />)}
         </Link>
 
         <nav aria-label={textos?.principal ?? "Principal"} className={cn(naTela, "min-w-0 items-center gap-1")}>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { AlertCircle, CheckCircle2, Info, TriangleAlert } from "lucide-react";
+import { AlertCircle, CheckCircle2, Info, XCircle } from "lucide-react";
 
 import { cn } from "./utils";
 
@@ -55,8 +55,9 @@ const alertVariants = cva(
  */
 type TomDoAlerta = "neutro" | "info" | "sucesso" | "aviso" | "erro";
 const VARIANTE_DO_TOM = { neutro: "default", info: "info", sucesso: "success", aviso: "warning", erro: "error" } as const;
-// Ícones do FindLook: os mesmos do AlertaComAcao deste DS (no DS Dani Moscatelli, aviso usa TriangleAlert e erro CircleAlert).
-const ICONE_DO_TOM = { neutro: Info, info: Info, sucesso: CheckCircle2, aviso: AlertCircle, erro: TriangleAlert } as const;
+// Ícones de estado (27/11/2026, iguais nos dois DS e no AlertaComAcao, EstadoFinal e Conversa): aviso = AlertCircle
+// ("!" no círculo, atenção), erro = XCircle ("X" no círculo, algo falhou). O triângulo não é usado para estado.
+const ICONE_DO_TOM = { neutro: Info, info: Info, sucesso: CheckCircle2, aviso: AlertCircle, erro: XCircle } as const;
 
 function Alert({
   className,

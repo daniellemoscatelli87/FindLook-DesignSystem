@@ -5,7 +5,7 @@ import { Search, X } from "lucide-react";
 import { cn } from "./utils";
 
 /**
- * CampoDeBusca (buscar numa lista): mesma API do CampoDeBusca do design system Dani Moscatelli.
+ * CampoDeBusca (buscar numa lista): mesma API nos dois DS (FindLook e Dani Moscatelli, 27/11/2026).
  * O campo de busca das listas do painel e da administração (lojas, peças, agenda): lupa à esquerda, o texto e o
  * botão Limpar (×) quando há texto, que devolve o foco ao campo. Enter não envia formulário; Esc limpa. Para
  * buscar no site inteiro, use a BuscaDePecas; para os comandos do painel, o CampoDeBuscaGlobal.
@@ -13,7 +13,7 @@ import { cn } from "./utils";
  * - role="searchbox" e nome acessível (`rotulo`, que também vira o texto de exemplo se você não passar outro).
  * - `resultados`: quantos itens a busca achou, anunciados ("12 resultados") numa região aria-live.
  * - `atraso` (ms, padrão 0): espera a pessoa parar de digitar antes de chamar onBusca (onValorChange é imediato).
- * - A mais no FindLook: `rotuloVisivel` mostra o rótulo em cima do campo.
+ * - `rotuloVisivel` mostra o rótulo em cima do campo (sem ele, o rótulo fica só para leitores de tela).
  * - 44 px no toque e 40 px no computador; Limpar com 44 px no toque.
  */
 
@@ -26,7 +26,7 @@ export type CampoDeBuscaProps = Omit<React.ComponentProps<"input">, "value" | "o
   rotulo?: string;
   resultados?: number;
   textos?: { limpar?: string; resultado?: string; resultados?: string; nenhum?: string };
-  /** FindLook: o rótulo visível em cima do campo. */
+  /** O rótulo visível em cima do campo. */
   rotuloVisivel?: boolean;
 };
 

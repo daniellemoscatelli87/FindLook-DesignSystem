@@ -56,6 +56,35 @@ const textosPadrao: TextosDoCardDePreco = {
   selecionado: "Plano selecionado",
 };
 
+/**
+ * ListaDeRecursos: a lista de recursos de um plano (incluído com check na base rosa de destaque; não incluído com traço
+ * na base cinza e o texto em cinza), a mesma do CardDePreco. Use na revisão do cadastro e na comparação de planos, para
+ * o mesmo recurso ter sempre o mesmo sinal. Leitores de tela ouvem "Incluído:" ou "Não incluído:" antes de cada item.
+ */
+export function ListaDeRecursos({ recursos, textos, className, ...props }: Omit<React.ComponentProps<"ul">, "children"> & {
+  recursos: RecursoDoPlano[];
+  textos?: { incluido?: string; naoIncluido?: string };
+}) {
+  const tx = { incluido: "Incluído:", naoIncluido: "Não incluído:", ...textos };
+  return (
+    <ul data-slot="lista-de-recursos" className={cn("m-0 list-none space-y-2 p-0", className)} {...props}>
+      {recursos.map((r) => (
+        <li key={r.texto} className={`flex items-start gap-2 text-body-sm leading-snug ${r.incluido ? "text-foreground" : "text-muted-foreground"}`}>
+          <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${r.incluido ? "bg-[var(--primary-muted)]" : "bg-muted"}`}>
+            {r.incluido
+              ? <Check className="h-2.5 w-2.5 text-[var(--primary-text,var(--primary))]" strokeWidth={3} />
+              : <Minus className="h-2.5 w-2.5 text-muted-foreground" strokeWidth={3} />}
+          </span>
+          <span>
+            <span className="sr-only">{(r.incluido ? tx.incluido : tx.naoIncluido).trim()} </span>
+            {r.texto}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export type CardDePrecoProps = {
   /** Identifica o plano (vira o value do rádio no modo "radio"). */
   valor: string;
@@ -168,21 +197,7 @@ export function CardDePreco({
       </button>
 
       {aberto ? (
-        <ul id={idLista} className="space-y-2 flex-1 mb-5">
-          {recursos.map((r) => (
-            <li key={r.texto} className={`flex items-start gap-2 text-body-sm leading-snug ${r.incluido ? "text-foreground" : "text-muted-foreground"}`}>
-              <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${r.incluido ? "bg-[var(--primary-muted)]" : "bg-muted"}`}>
-                {r.incluido
-                  ? <Check className="h-2.5 w-2.5 text-[var(--primary-text,var(--primary))]" strokeWidth={3} />
-                  : <Minus className="h-2.5 w-2.5 text-muted-foreground" strokeWidth={3} />}
-              </span>
-              <span>
-                <span className="sr-only">{r.incluido ? tx.incluido : tx.naoIncluido}</span>
-                {r.texto}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <ListaDeRecursos id={idLista} recursos={recursos} textos={{ incluido: tx.incluido, naoIncluido: tx.naoIncluido }} className="flex-1 mb-5" />
       ) : (
         <div id={idLista} className="flex-1 mb-2" />
       )}

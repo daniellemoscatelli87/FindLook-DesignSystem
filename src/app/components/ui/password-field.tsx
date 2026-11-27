@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Eye, EyeOff, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Eye, EyeOff, CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "./utils";
 
 /**
@@ -86,7 +86,7 @@ export function PasswordInput({ label, value, onValueChange, textos, invalido, d
           aria-describedby={describedBy}
           spellCheck={false}
           autoCapitalize="none"
-          className={cn(inputCls, invalido ? "border-[var(--error)] focus-visible:ring-[var(--error)]/30" : "border-border hover:border-[var(--border-strong)]")}
+          className={cn(inputCls, invalido ? "border-[var(--error)] focus-visible:ring-[var(--error)]/30" : "border-input")}
           style={{ boxShadow: "var(--shadow-xs)" }}
           {...props}
         />
@@ -96,7 +96,7 @@ export function PasswordInput({ label, value, onValueChange, textos, invalido, d
           aria-pressed={visivel}
           aria-label={visivel ? textos.ocultar : textos.mostrar}
           aria-controls={inputId}
-          className="absolute right-1 top-1/2 inline-flex h-9 w-9 toque:right-0 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="absolute right-1.5 top-1/2 inline-flex h-9 w-9 toque:right-0 toque:h-11 toque:w-11 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {visivel ? <EyeOff className="h-5 w-5" aria-hidden /> : <Eye className="h-5 w-5" aria-hidden />}
         </button>
@@ -156,7 +156,7 @@ export function PasswordConfirm({ senha, confirmacao, onSenhaChange, onConfirmac
         />
         {erroSenha && (
           <p id={erroId} className="flex items-start gap-1 text-body-sm leading-5 font-medium text-[var(--error-text)]">
-            <AlertCircle className="mt-1 h-4 w-4 shrink-0" aria-hidden /> <span className="min-w-0">{erroSenha}</span>
+            <XCircle className="mt-1 h-4 w-4 shrink-0" aria-hidden /> <span className="min-w-0">{erroSenha}</span>
           </p>
         )}
 
@@ -206,14 +206,14 @@ export function PasswordConfirm({ senha, confirmacao, onSenhaChange, onConfirmac
           />
           {erroConfirmacao && !mostrarConf && (
             <p id={erroConfId} className="flex items-start gap-1 text-body-sm leading-5 font-medium text-[var(--error-text)]">
-              <AlertCircle className="mt-1 h-4 w-4 shrink-0" aria-hidden /> <span className="min-w-0">{erroConfirmacao}</span>
+              <XCircle className="mt-1 h-4 w-4 shrink-0" aria-hidden /> <span className="min-w-0">{erroConfirmacao}</span>
             </p>
           )}
           <p id={confId} aria-live="polite" className="min-h-[1.25rem] text-body-sm">
             {mostrarConf && (coincidem ? (
               <span className="inline-flex items-center gap-1 text-foreground"><CheckCircle2 className="h-4 w-4 text-[var(--success-text)]" aria-hidden />{textos.coincidem}</span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-[var(--error-text)]"><AlertCircle className="h-4 w-4" aria-hidden />{textos.naoCoincidem}</span>
+              <span className="inline-flex items-center gap-1 text-[var(--error-text)]"><XCircle className="h-4 w-4" aria-hidden />{textos.naoCoincidem}</span>
             ))}
           </p>
         </div>

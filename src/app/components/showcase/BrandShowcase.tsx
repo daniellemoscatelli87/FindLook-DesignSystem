@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CheckCircle, XCircle, Copy, Check, Download, Monitor, Tablet, Smartphone, Globe, Share2, Image as ImageIcon, UserCircle2, LayoutDashboard, AlertTriangle } from "lucide-react";
+import { CheckCircle, XCircle, Copy, Check, Download, Monitor, Tablet, Smartphone, Globe, Share2, Image as ImageIcon, UserCircle2, LayoutDashboard, AlertCircle } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 
 import pngSimbolo from "@/imports/findlook/findlook-simbolo.png";
@@ -448,7 +448,7 @@ export function BrandShowcase() {
           ))}
         </div>
         <div className="mt-4 flex items-start gap-3 rounded-lg border border-border bg-card px-5 py-4 text-body-sm text-muted-foreground">
-          <AlertTriangle className="h-4 w-4 text-warning-text shrink-0 mt-1" aria-hidden />
+          <AlertCircle className="h-4 w-4 text-warning-text shrink-0 mt-1" aria-hidden />
           <p>Sobre o pink, o símbolo pink some. Use a versão monocromática branca. Em fotografia, aplique uma faixa grafite ou branca atrás da marca.</p>
         </div>
       </div>
