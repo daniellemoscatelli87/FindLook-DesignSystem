@@ -17,6 +17,7 @@ import { LayoutGrid, List, Map as MapIcon, FileSpreadsheet, Camera } from "lucid
 import { BotaoDividido, SeletorDePeriodo, periodosPadrao } from "@/app/components/ui/painel-cabecalho";
 import { SectionHeader } from "./shared/SectionHeader";
 import { DoDont } from "./shared/Guidance";
+import { ControlesDeConfiguracao } from "./ControlesDeConfiguracao";
 
 const periodosProprios = [{ valor: "hoje", rotulo: "Hoje" }, { valor: "semana", rotulo: "Esta semana" }, { valor: "mes", rotulo: "Este mês" }, { valor: "ano", rotulo: "Este ano" }];
 
@@ -501,6 +502,8 @@ const [confirmacao, setConfirmacao] = useState("");
             </div>
           </ShowcaseCard>
         </SubSection>
+
+        <ControlesDeConfiguracao />
 
         <SubSection title={t("Search Bar", "Barra de busca")}>
           <ShowcaseCard>

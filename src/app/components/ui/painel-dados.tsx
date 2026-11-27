@@ -19,15 +19,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/* ── Ícone com base (regra do DS, revista em 25/11/2026: Ícones › Base do ícone) ── */
 /**
- * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
- *        próxima ação, atividade, algo ativo ou em andamento).
- * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
- *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * marca: base rosa + ícone vermelho. Ação de card clicável (o card ou item leva a algum lugar ou faz algo).
+ * informativo: base cinza clara + ícone vermelho. Identifica ou explica uma informação, sem ação (títulos de card,
+ *        indicadores, itens explicativos, atividade, etapas). É o padrão dos cards e listas que não são clicáveis.
+ * neutro: base cinza + ícone cinza. Informação desabilitada (pausada, encerrada, inativa ou bloqueada).
  * Ícone sem base (inline, ao lado do texto) não usa este componente.
  */
-type TomDoIcone = "marca" | "neutro";
+type TomDoIcone = "marca" | "informativo" | "neutro";
 const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
 function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
   return (
@@ -38,7 +38,7 @@ function IconeComBase({ tom, tamanho = "md", redonda = false, children, classNam
       className={cn(
         "flex shrink-0 items-center justify-center",
         redonda ? "rounded-full" : "rounded-md",
-        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : tom === "informativo" ? "bg-muted text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
         TAMANHO_DA_BASE[tamanho],
         className,
       )}
