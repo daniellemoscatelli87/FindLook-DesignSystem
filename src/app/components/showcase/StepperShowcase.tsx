@@ -47,8 +47,8 @@ export function StepperShowcase() {
         </div>
         <p className="mt-3 text-[0.8125rem] text-muted-foreground">
           {t(
-            "Try it: Continue and Back move between steps; done steps can be reopened by clicking the marker. Below 640 px, only “Step X of N” and the current step name are shown.",
-            "Experimente: Continuar e Voltar mudam de etapa; etapas concluídas podem ser reabertas pelo marcador. Abaixo de 640 px, aparecem só “Etapa X de N” e o nome da etapa atual.",
+            "Try it: Continue and Back move between steps; done steps can be reopened by clicking the marker. When the full names do not fit in the Stepper's own width, only “Step X of N”, the current step name and the numbers are shown; names are never cut.",
+            "Experimente: Continuar e Voltar mudam de etapa; etapas concluídas podem ser reabertas pelo marcador. Quando os nomes inteiros não cabem na largura do próprio Stepper, aparecem só “Etapa X de N”, o nome da etapa atual e os números; o nome nunca é cortado com reticências.",
           )}
         </p>
       </section>
@@ -74,7 +74,7 @@ export function StepperShowcase() {
             <li>{t("Each marker says its state in text for screen readers (done, current step, pending).", "Cada marcador diz o estado em texto para leitores de tela (concluída, etapa atual, pendente).")}</li>
             <li>{t("Current has an underline and a dark name; done and pending differ by a dark or light fill: visible without color.", "A atual tem sublinhado e nome escuro; concluída e pendente se diferenciam pelo preenchimento escuro ou claro: visível sem cor.")}</li>
             <li>{t("Reopenable steps are buttons, reachable by keyboard, with a visible focus ring.", "Etapas que podem ser reabertas são botões, alcançáveis pelo teclado, com anel de foco visível.")}</li>
-            <li>{t("On phones the other names leave the screen but stay for screen readers.", "No celular, os nomes das outras etapas saem da tela, mas continuam para leitores de tela.")}</li>
+            <li>{t("Without room (phone, narrow card), the other names leave the screen but stay for screen readers.", "Sem espaço (celular, card estreito), os nomes das outras etapas saem da tela, mas continuam para leitores de tela.")}</li>
           </ul>
         </Callout>
       </section>
@@ -101,7 +101,7 @@ export function StepperShowcase() {
               { name: "--foreground · --background", description: t("Done marker", "Marcador concluído"), light: "var(--foreground)", isColor: false },
               { name: "--secondary · --border", description: t("Pending marker · base line", "Marcador pendente · linha de base"), light: "var(--secondary)", isColor: false },
               { name: "--ring", description: t("Focus ring", "Anel de foco"), light: "var(--ring)", isColor: false },
-              { name: "marker", description: t("Marker size", "Tamanho do marcador"), light: "38 px · 32 px (< 640 px)" },
+              { name: "marker", description: t("Marker size", "Tamanho do marcador"), light: "38 px · 32 px (compacto)" },
             ],
           }]} />
         </div>

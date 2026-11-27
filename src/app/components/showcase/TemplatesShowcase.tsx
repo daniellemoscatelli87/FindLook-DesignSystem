@@ -33,6 +33,8 @@ import { CabecalhoDaPagina } from "../ui/painel-cabecalho";
 import { CardComCabecalho } from "../ui/painel-dados";
 import { AbasComContador } from "../ui/painel-produtos";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { CardDePreco } from "../ui/card-de-preco";
+import { plans, pricingFeatures } from "./shared/planos";
 
 type L = { en: string; pt: string };
 
@@ -281,7 +283,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
                         document.documentElement.classList.toggle("dark", newDark);
                       }}
                       className={`p-3 rounded-md border-2 flex flex-col items-center gap-2 transition-all ${foco}
-                        ${th.active ? "border-primary bg-[var(--primary-muted)]" : "border-border bg-card"}`}
+                        ${th.active ? "border-primary bg-card" : "border-border bg-card"}`}
                     >
                       <Icon aria-hidden className={`h-5 w-5 ${th.active ? textoMarca : "text-muted-foreground"}`} />
                       <span className={`text-[0.75rem] font-medium ${th.active ? textoMarca : "text-muted-foreground"}`}>{th.label}</span>
@@ -524,7 +526,7 @@ type Situacao = "ativo" | "pendente" | "pausado";
 type Pessoa = { nome: string; email: string; papel: Papel; situacao: Situacao; iniciais: string; acesso: string };
 
 const papeis: Record<Papel, { rotulo: string; desc: string; cor: string }> = {
-  responsavel: { rotulo: "Responsável", desc: "Cuida do plano, da equipe e de todos os dados da loja.", cor: `bg-[var(--primary-muted)] ${textoMarca} border-primary/20` },
+  responsavel: { rotulo: "Responsável", desc: "Cuida do plano, da equipe e de todos os dados da loja.", cor: `bg-[var(--primary-suave)] ${textoMarca} border-primary/20` },
   atendente:   { rotulo: "Atendente",   desc: "Responde contatos e pedidos de reserva.",                cor: "bg-[var(--info-muted)] text-foreground border-info/30" },
   estoquista:  { rotulo: "Estoquista",  desc: "Cadastra peças, fotos, tamanhos e estoque.",             cor: "bg-muted text-foreground border-border" },
 };
@@ -647,7 +649,7 @@ function TeamTemplate() {
                 type="button"
                 aria-pressed={filtro === f}
                 onClick={() => setFiltro(f)}
-                className={`h-7 px-2.5 rounded-full border text-[0.6875rem] font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-muted)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
+                className={`h-7 px-2.5 rounded-full border text-[0.6875rem] font-medium transition-colors ${foco} ${filtro === f ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground"}`}
               >
                 {f === "todos" ? "Todos" : papeis[f].rotulo}
               </button>
@@ -871,7 +873,7 @@ function InboxTemplate() {
                     aria-current={selected === n.id ? "true" : undefined}
                     onClick={() => { setSelected(n.id); marcar(n.id, true); setDetalheMobile(true); }}
                     className={`w-full text-left px-4 py-3 border-b border-border transition-colors flex gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring
-                      ${selected === n.id ? "bg-[var(--primary-muted)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
+                      ${selected === n.id ? "bg-[var(--primary-sutil)] border-l-2 border-l-primary" : "hover:bg-row-hover border-l-2 border-l-transparent"}`}
                   >
                     <div className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 mt-0.5 ${tipo.cor}`}>
                       <Icon aria-hidden className="h-3.5 w-3.5" />
@@ -970,54 +972,7 @@ function InboxTemplate() {
 /* ─────────────────────────────────────────────
    6. Pricing / Plans Template
 ───────────────────────────────────────────── */
-const pricingFeatures = [
-  { en: "Searchable public storefront", pt: "Vitrine pública pesquisável" },
-  { en: "Product, variant and stock management", pt: "Gestão de produtos, variantes e estoque" },
-  { en: "Catalog import and updates", pt: "Importação e atualização do catálogo" },
-  { en: "Promotions and contact requests", pt: "Promoções e solicitações de contato" },
-  { en: "Findability tasks", pt: "Tarefas de encontrabilidade" },
-  { en: "Interest indicators per product", pt: "Indicadores de interesse por produto" },
-  { en: "Store discovery funnel", pt: "Funil de descoberta da loja" },
-  { en: "Performance-based recommendations", pt: "Recomendações baseadas no desempenho" },
-  { en: "Searches with no results and regional gaps", pt: "Buscas sem resultado e lacunas regionais" },
-  { en: "Market trends and comparisons", pt: "Tendências e comparativos de mercado" },
-];
-
-// "Para quem" (forWhom) é opcional: plano sem esse texto não mostra o bloco.
-type Plano = { id: string; name: L; price: number; forWhom?: L; desc: L; included: number; highlight: boolean; icon: typeof Package };
-
-const plans: Plano[] = [
-  {
-    id: "basico",
-    name: { en: "Visibility", pt: "Visibilidade" },
-    price: 79,
-    forWhom: { en: "Stores and brands that want to showcase their products and win more customers in their area.", pt: "Lojas e marcas que querem destacar seus produtos e conquistar mais clientes na região." },
-    desc: { en: "Your searchable storefront, organized products and more ways to be contacted.", pt: "Sua vitrine pesquisável, produtos organizados e mais possibilidades de contato." },
-    included: 5,
-    highlight: false,
-    icon: Package,
-  },
-  {
-    id: "intermediario",
-    name: { en: "Performance", pt: "Desempenho" },
-    price: 149,
-    forWhom: { en: "Businesses that want to understand consumer interest and improve their results.", pt: "Negócios que desejam entender o interesse dos consumidores e melhorar seus resultados." },
-    desc: { en: "Everything in the Visibility plan, plus interest and performance analysis and recommendations for your store.", pt: "Todos os recursos do plano Visibilidade, com análise de interesse, desempenho e recomendações para a sua loja." },
-    included: 8,
-    highlight: true,
-    icon: Zap,
-  },
-  {
-    id: "premium",
-    name: { en: "Opportunities", pt: "Oportunidades" },
-    price: 299,
-    forWhom: { en: "Brands that want to identify market demand and discover growth opportunities.", pt: "Marcas que querem identificar demandas do mercado e descobrir oportunidades de crescimento." },
-    desc: { en: "All the store's intelligence, with an aggregated view of searches and of offer gaps in the local market.", pt: "Toda a inteligência da loja, com visão agregada das buscas e das lacunas de oferta do mercado local." },
-    included: 10,
-    highlight: false,
-    icon: Building2,
-  },
-];
+/* Recursos e planos de exemplo: em shared/planos.ts (também usados no cadastro em etapas, Padrões do produto). */
 
 /* Controle só da demonstração: liga e desliga o bloco opcional "Para quem" nos cards de preço */
 function ChaveParaQuem({ ligado, onChange }: { ligado: boolean; onChange: (v: boolean) => void }) {
@@ -1101,106 +1056,34 @@ function PricingTemplate({ mostrarParaQuem = true }: { mostrarParaQuem?: boolean
           {plans.map(plan => {
             const Icon = plan.icon;
             const valor = annual ? Math.round(plan.price * 0.8) : plan.price;
-            const forWhom = mostrarParaQuem && plan.forWhom ? bi(plan.forWhom) : null;
-            const idLista = `recursos-${plan.id}`;
-            const ativo = selecionado === plan.id;
             return (
-              <div
+              <CardDePreco
                 key={plan.id}
-                className={`@container relative rounded-[20px] bg-card p-4 sm:p-6 flex flex-col transition-shadow
-                  ${plan.highlight || ativo ? "border-2 border-primary" : "border border-border"}
-                  ${ativo ? "ring-4 ring-primary/20" : ""}`}
-              >
-                {/* Topo: ícone do plano e, no destacado, o selo no estilo do card com wobble */}
-                <div className="mb-4 flex items-center justify-between gap-2">
-                  <div className="h-8 w-8 rounded-full flex items-center justify-center bg-[var(--primary-muted)] dark:bg-muted shrink-0">
-                    <Icon aria-hidden className="h-4 w-4 text-[var(--primary-text,var(--primary))] dark:text-muted-foreground" />
-                  </div>
-                  {plan.highlight && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-[var(--primary-muted)] px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
-                      <Star aria-hidden className="h-3 w-3 fill-current" />
-                      {t("Recommended", "Recomendado")}
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="mb-2 text-[1.5rem] font-black leading-tight tracking-[-0.03em] text-foreground">{bi(plan.name)}</h3>
-                <p className="mb-4 text-[0.8125rem] leading-relaxed text-muted-foreground">{bi(plan.desc)}</p>
-
-                {/* "Para quem": no máximo 4 linhas, sem reticências; altura de 4 linhas em todos os cards (só cresce, em vez de vazar, quando o card fica estreito demais). Caixa neutra em cinza, nos dois temas: é uma dica, não um aviso (decisão da dona do produto, 20/11/2026) */}
-                {forWhom && (
-                <div className="mb-5 flex gap-2 sm:gap-2.5 rounded-md border border-border bg-muted px-2.5 sm:px-3 py-2.5">
-                  <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                  <p className="min-h-[5.5em] text-[0.8125rem] leading-snug text-foreground">
-                    <strong className="font-bold">{t("Who it's for:", "Para quem:")}</strong> {forWhom}
-                  </p>
-                </div>
-                )}
-
-                {/* Ocultar / expandir os recursos do plano */}
-                <button
-                  type="button"
-                  aria-expanded={recursosAbertos}
-                  aria-controls={idLista}
-                  onClick={() => setRecursosAbertos(v => !v)}
-                  className="mb-3 -mx-1 flex items-center justify-between gap-2 rounded-sm px-1 py-1.5 text-left text-[0.8125rem] font-semibold text-foreground transition-colors hover:text-[var(--primary-text,var(--primary))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <span>{recursosAbertos ? t("Hide plan features", "Ocultar recursos do plano") : t("Show plan features", "Ver recursos do plano")}</span>
-                  <span className="flex items-center gap-1.5 text-[0.75rem] font-medium text-muted-foreground whitespace-nowrap">
-                    {t(`${plan.included} of ${pricingFeatures.length}`, `${plan.included} de ${pricingFeatures.length}`)}
-                    <ChevronDown aria-hidden className={`h-4 w-4 transition-transform ${recursosAbertos ? "rotate-180" : ""}`} />
-                  </span>
-                </button>
-
-                {recursosAbertos ? (
-                <ul id={idLista} className="space-y-2.5 flex-1 mb-5">
-                  {pricingFeatures.map((f, i) => {
-                    const inclui = i < plan.included;
-                    return (
-                      <li key={f.en} className={`flex items-start gap-2.5 text-[0.8125rem] leading-snug ${inclui ? "text-foreground" : "text-muted-foreground"}`}>
-                        <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${inclui ? "bg-[var(--primary-muted)]" : "bg-muted"}`}>
-                          {inclui
-                            ? <Check className="h-2.5 w-2.5 text-[var(--primary-text,var(--primary))]" strokeWidth={3} />
-                            : <Minus className="h-2.5 w-2.5 text-muted-foreground" strokeWidth={3} />}
-                        </span>
-                        <span>
-                          <span className="sr-only">{inclui ? t("Included: ", "Incluído: ") : t("Not included: ", "Não incluído: ")}</span>
-                          {bi(f)}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-                ) : (
-                  <div id={idLista} className="flex-1 mb-2" />
-                )}
-
-                <div className="mb-4 border-t border-border" />
-
-                {/* Rodapé no estilo do card com wobble: preço à esquerda e ação à direita; empilha quando o card é estreito */}
-                <div className="flex flex-col gap-3 @[19rem]:flex-row @[19rem]:items-center @[19rem]:justify-between">
-                  <div className="flex items-baseline gap-1 whitespace-nowrap">
-                    <span className="text-[1.625rem] font-black leading-none tracking-[-0.03em] text-foreground">R$ {valor}</span>
-                    <span className="text-[0.75rem] text-muted-foreground">{t("/ month", "/ mês")}</span>
-                  </div>
-                  <button
-                    type="button"
-                    aria-pressed={ativo}
-                    aria-label={ativo
-                      ? `${t("Plan selected", "Plano selecionado")}: ${bi(plan.name)}`
-                      : `${t("Select Plan", "Selecionar Plano")} ${bi(plan.name)}`}
-                    onClick={() => setSelecionado(plan.id)}
-                    className={`h-10 w-full @[19rem]:w-auto px-4 rounded-md border border-primary text-[0.8125rem] font-semibold whitespace-nowrap transition-colors inline-flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                      ${ativo
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-card text-[var(--primary-text,var(--primary))] hover:bg-[var(--primary-muted)]"}`}
-                  >
-                    {ativo && <Check aria-hidden className="h-4 w-4" />}
-                    {ativo ? t("Plan selected", "Plano selecionado") : t("Select Plan", "Selecionar Plano")}
-                    {!ativo && <ArrowRight aria-hidden className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
+                valor={plan.id}
+                nome={bi(plan.name)}
+                descricao={bi(plan.desc)}
+                icone={<Icon aria-hidden />}
+                destaque={plan.highlight}
+                paraQuem={mostrarParaQuem && plan.forWhom ? bi(plan.forWhom) : undefined}
+                recursos={pricingFeatures.map((f, i) => ({ texto: bi(f), incluido: i < plan.included }))}
+                recursosAbertos={recursosAbertos}
+                onRecursosAbertosChange={setRecursosAbertos}
+                preco={`R$ ${valor}`}
+                periodo={t("/ month", "/ mês")}
+                selecionado={selecionado === plan.id}
+                onSelecionar={() => setSelecionado(plan.id)}
+                textos={{
+                  recomendado: t("Recommended", "Recomendado"),
+                  paraQuem: t("Who it's for:", "Para quem:"),
+                  verRecursos: t("Show plan features", "Ver recursos do plano"),
+                  ocultarRecursos: t("Hide plan features", "Ocultar recursos do plano"),
+                  contagem: (i, total) => t(`${i} of ${total}`, `${i} de ${total}`),
+                  incluido: t("Included: ", "Incluído: "),
+                  naoIncluido: t("Not included: ", "Não incluído: "),
+                  selecionar: t("Select Plan", "Selecionar Plano"),
+                  selecionado: t("Plan selected", "Plano selecionado"),
+                }}
+              />
             );
           })}
         </GradeDeCards>
@@ -1513,7 +1396,7 @@ const templatesTokenGroups = (t: (en: string, pt: string) => string): TokenGroup
     tokens: [
       { name: "--primary",            description: t("Primary CTA button / link", "Botão / link CTA primário"),  light: "#E8004E", dark: "#E8004E", isColor: true },
       { name: "--primary-foreground", description: t("Text on CTA", "Texto sobre o CTA"),               light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
-      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "rgba(252,2,86,0.10)", dark: "rgba(252,2,86,0.15)", isColor: true },
+      { name: "--primary-muted",      description: t("Tinted CTA zone", "Área de CTA com tom"),           light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
     ],
   },
   {
@@ -1626,7 +1509,7 @@ function LandingTemplate() {
           <div className="absolute top-10 left-1/5 w-[220px] h-[220px] rounded-full bg-info/5 blur-3xl pointer-events-none" />
           <div className="absolute top-10 right-1/5 w-[180px] h-[180px] rounded-full bg-warning/4 blur-3xl pointer-events-none" />
           <div className="relative z-10 text-center max-w-2xl mx-auto">
-            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/25 bg-[var(--primary-muted)] text-[0.6875rem] font-semibold mb-5 ${textoMarca}`}>
+            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/25 bg-[var(--primary-suave)] text-[0.6875rem] font-semibold mb-5 ${textoMarca}`}>
               <Store aria-hidden className="h-3 w-3" /> Para lojas e brechós da sua cidade
             </div>
             <h1 className="text-[1.875rem] sm:text-[2.25rem] font-black text-foreground tracking-[-0.04em] leading-[1.1] mb-4">
@@ -1771,7 +1654,7 @@ function LandingTemplate() {
               <p className="text-[0.75rem] text-muted-foreground leading-snug mb-3">Quem procura por foto ou descrição encontra as suas peças pelo estilo, pelo tamanho e pela região.</p>
               <div className="flex flex-wrap gap-2">
                 {["Busca por foto", "Busca por descrição", "Perto de quem procura"].map(chip => (
-                  <span key={chip} className={`text-[0.5625rem] px-2 py-0.5 rounded-full bg-[var(--primary-muted)] font-medium border border-primary/15 ${textoMarca}`}>{chip}</span>
+                  <span key={chip} className={`text-[0.5625rem] px-2 py-0.5 rounded-full bg-[var(--primary-suave)] font-medium border border-primary/15 ${textoMarca}`}>{chip}</span>
                 ))}
               </div>
             </div>
@@ -2041,7 +1924,7 @@ function LandingTemplate() {
 
           <div className="relative z-10 px-4 sm:px-6 py-12">
             <div className="text-center mb-8">
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/20 bg-[var(--primary-muted)] text-[0.6875rem] font-semibold mb-3 ${textoMarca}`}>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/20 bg-[var(--primary-suave)] text-[0.6875rem] font-semibold mb-3 ${textoMarca}`}>
                 <MessageCircle aria-hidden className="h-3 w-3" /> Fale com a gente
               </div>
               <h2 className="text-[1.375rem] font-black text-foreground tracking-[-0.03em] mb-2">
@@ -2206,7 +2089,7 @@ function LandingTemplate() {
                               type="button"
                               aria-pressed={tipoLoja === s}
                               onClick={() => setTipoLoja(s)}
-                              className={`px-2.5 py-1 rounded-full border text-[0.625rem] font-medium transition-all ${foco} ${tipoLoja === s ? `border-primary bg-[var(--primary-muted)] ${textoMarca}` : "border-border bg-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
+                              className={`px-2.5 py-1 rounded-full border text-[0.625rem] font-medium transition-all ${foco} ${tipoLoja === s ? `border-primary bg-[var(--primary-suave)] ${textoMarca}` : "border-border bg-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
                             >
                               {tipoLoja === s && <Check aria-hidden className="inline h-2.5 w-2.5 mr-1 -mt-px" />}
                               {s}

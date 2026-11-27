@@ -68,3 +68,16 @@ export function ShineBorder({
     />
   );
 }
+
+/**
+ * Borda do card selecionado (decisão da dona do produto, 27/11/2026): o estado selecionado padrão de cards
+ * selecionáveis (CardDePreco, cartões de Cards › Estados) é a borda de 2 px na primária com o brilho do ShineBorder
+ * (preset "primaria": o --chart-2, #FF6F95, corre por cima da borda).
+ * - O card continua com `border-2 border-primary` (a borda parada); este brilho fica exatamente em cima dela
+ *   (-inset de 2 px), então o card não pode ter overflow-hidden.
+ * - Com "menos movimento", o brilho some e fica só a borda parada de 2 px.
+ * - É decorativo (aria-hidden, sem eventos de ponteiro): o anel de foco e o texto "✓ Selecionado" continuam valendo.
+ */
+export function BrilhoDeSelecionado({ className, ...props }: Omit<ShineBorderProps, "borderWidth" | "preset" | "shineColor">) {
+  return <ShineBorder preset="primaria" borderWidth={2} duration={6} data-slot="brilho-de-selecionado" className={cn("-inset-[2px] size-auto motion-reduce:hidden", className)} {...props} />;
+}

@@ -68,8 +68,15 @@
   --primary:                  var(--pink-550);   /* botão principal: texto branco 4,6:1 (AA para texto normal; decisão de 25/11/2026) */
   --primary-hover:             var(--pink-575);   /* texto branco 5,4:1 */
   --primary-foreground:        #FFFFFF;
-  --primary-muted:             color-mix(in srgb, var(--pink-500) 10%, #FFFFFF); /* opaco (21/11/2026): mesma cor sobre o branco e não escurece sobre o fundo cinza do painel */
-  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 6,4:1 sobre branco, 5,5:1 sobre --primary-muted */
+  /* Três rosas claros (decisão da dona do produto, 27/11/2026), todos opacos e com texto em --primary-text (pink-600):
+     nível 1 --primary-sutil   #FFF5F8  hover e linhas: hover dos itens do menu e linha selecionada em listas (6,0:1); card selecionado fica branco
+     nível 2 --primary-suave   #FFECF0  cápsulas: chips ativos e badges/selos como "Recomendado" (5,7:1)
+     nível 3 --primary-muted   #FEDFE6  controles selecionados: botão "✓ Selecionado", item ativo do menu, segmento ativo (5,2:1)
+     Só a ação principal da etapa é preenchida (pink-550); estados selecionados usam estes fundos (Opção A, 27/11/2026). */
+  --primary-sutil:             #FFF5F8;
+  --primary-suave:             #FFECF0;
+  --primary-muted:             var(--pink-100);   /* #FEDFE6 (antes #FFE6EE, 10% de pink-500 sobre branco) */
+  --primary-muted-foreground:  var(--pink-600);   /* pink para texto corrido: 6,4:1 sobre branco, 5,2:1 sobre --primary-muted */
   --primary-text:              var(--pink-600);   /* texto colorido pequeno: links, item ativo, chips, rótulos */
   /* Destaque colorido em texto GRANDE (≥24 px, ou negrito ≥18,66 px), como "Sua loja merece ser descoberta": o tom forte
      do lenço, 3,98:1 sobre branco (AA para texto grande pede 3:1). Só texto grande; texto pequeno usa --primary-text. */
@@ -188,6 +195,10 @@
   --primary:                  var(--pink-550);   /* texto branco 4,6:1, como no tema claro */
   --primary-hover:             var(--pink-575);   /* texto branco 5,4:1 (o pink-400 não aceita texto branco) */
   --primary-foreground:        #FFFFFF;
+  /* Os três níveis no escuro: o pink-500 em transparência crescente sobre o grafite (8%, 12% e 16%); o texto
+     --primary-text (pink-300) fica em 6,9:1 ou mais nos três (sobre o card grafite). */
+  --primary-sutil:             rgba(252, 2, 86, 0.08);
+  --primary-suave:             rgba(252, 2, 86, 0.12);
   --primary-muted:             rgba(252, 2, 86, 0.16);
   --primary-muted-foreground:  var(--pink-300);   /* pink para texto no escuro: 9,2:1 sobre grafite-950 */
   --primary-text:              var(--pink-300);
@@ -326,6 +337,8 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-muted: var(--primary-muted);
+  --color-primary-sutil: var(--primary-sutil);
+  --color-primary-suave: var(--primary-suave);
   --color-success-muted: var(--success-muted);
   --color-warning-muted: var(--warning-muted);
   --color-error-muted: var(--error-muted);

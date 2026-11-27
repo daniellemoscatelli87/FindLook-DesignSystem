@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { CalendarDays, CalendarPlus, Filter, Info, Lock, MoreHorizontal, Sparkles, Star, Store, TriangleAlert, UserRoundCog, ListChecks } from "lucide-react";
+import React, { useState } from "react";
+import { CalendarDays, CalendarPlus, Check, Filter, MoreHorizontal, Sparkles, Star, Store, TriangleAlert } from "lucide-react";
 import { useI18n } from "../../i18n";
 import { PageHeader } from "./GetStartedShowcase";
 import { SectionHeader } from "./shared/SectionHeader";
@@ -13,9 +13,8 @@ import { CardDeLoja } from "../ui/card-loja";
 import { MapaDeLojas, MapaIlustrativo, ConviteAoMapa, type PinoIlustrativo } from "../ui/mapa-lojas";
 import { FaixaDeParceiros } from "../ui/faixa-parceiros";
 import { GradeDeCards, ItemDaGrade } from "../ui/grade-de-cards";
-import {
-  CampoDoCadastro, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado,
-} from "../ui/cadastro-lojista";
+import { GavetaApresentarLoja } from "../ui/cadastro-lojista";
+import { CadastroEmEtapasDemo, CombinacoesDoCadastro } from "./CadastroEmEtapasDemo";
 
 /* Padrões do produto: componentes trazidos do produto FindLook (busca do hero, loja e mapa e cadastro do lojista),
    para o produto copiar daqui. As telas do admin entram só quando a decisão final for tomada no FindLook. Todos os dados desta página são exemplos fictícios. */
@@ -76,7 +75,6 @@ const VAZIO_FUNIL: Partial<Record<EtapaDaLoja, string>> = {
   sem_interesse: "Nenhuma loja sem interesse.",
 };
 
-const ETAPAS_CADASTRO = [{ titulo: "Responsável" }, { titulo: "Dados da loja" }, { titulo: "Plano" }, { titulo: "Revisão" }, { titulo: "Pagamento" }];
 
 export function ProdutoShowcase() {
   const { t } = useI18n();
@@ -84,17 +82,11 @@ export function ProdutoShowcase() {
   const [lojaSelecionada, setLojaSelecionada] = useState<string | null>("trama");
   const [gaveta, setGaveta] = useState(false);
   const [cadastroEnviado, setCadastroEnviado] = useState<string | null>(null);
-  const [etapa, setEtapa] = useState(0);
-  const tituloEtapa = useRef<HTMLHeadingElement>(null);
   const [lojasQuadro, setLojasQuadro] = useState(LOJAS_QUADRO);
   const [agenda, setAgenda] = useState<Record<string, StatusDoAgendamento>>({ a1: "agendado", a2: "agendado", a3: "feito" });
   const [marcadas, setMarcadas] = useState<string[]>([]);
   const pinoAtual = PINOS.find((p) => p.id === lojaSelecionada);
 
-  const irPara = (i: number) => {
-    setEtapa(i);
-    requestAnimationFrame(() => tituloEtapa.current?.focus());
-  };
   const condicao = { novo: "Nova", usado: "Segunda mão", ambos: "Tanto faz" } as const;
 
   return (
@@ -249,7 +241,8 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
             "O 1º passo na gaveta “Vamos apresentar sua loja?” (nome da loja e e-mail) e as peças do cadastro em 5 etapas: moldura com o Stepper, layout da etapa com coluna lateral, barra de ações e o resumo da revisão.",
           )}
         />
-        <div data-cards-ignorar className="grid min-w-0 gap-6 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-start">
+        {/* Pedido da dona do produto (27/11/2026): a gaveta fica na linha dela e o cadastro em 5 etapas ganha a largura toda. */}
+        <div data-cards-ignorar className="grid min-w-0 gap-6 md:grid-cols-[minmax(0,360px)_minmax(0,1fr)] md:items-start">
           <div className="min-w-0 space-y-3">
             <SubTitle>{t("Drawer (store page, dark theme)", "Gaveta (página do lojista, tema escuro)")}</SubTitle>
             <MolduraCelular escuro rotulo={t("Phone demo of the registration drawer", "Demonstração da gaveta de cadastro no celular")}>
@@ -267,97 +260,38 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
                 </>
               )}
             </MolduraCelular>
+          </div>
+          <div className="min-w-0 space-y-4 md:pt-9">
+            <p className="text-[0.9375rem] leading-relaxed text-foreground">O 1º passo acontece na gaveta “Vamos apresentar sua loja?”: só o nome da loja e o e-mail. Ao continuar, o produto abre o cadastro em 5 etapas, logo abaixo.</p>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> Abre por todos os botões “Cadastrar minha loja”; na página do lojista, tom escuro.</li>
+              <li className="flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> No celular, a barra fixa “Cadastrar minha loja” abre a mesma gaveta.</li>
+              <li className="flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden /> Continuar vazio mostra os erros e leva o foco ao primeiro campo.</li>
+            </ul>
             <p role="status" className="text-[0.8125rem] text-muted-foreground">
-              {cadastroEnviado ? t(`onContinuar received “${cadastroEnviado}”. The product then opens the 5-step registration.`, `onContinuar recebeu “${cadastroEnviado}”. O produto abre então o cadastro em 5 etapas.`) : t("Try it: Continue empty shows the errors.", "Experimente: Continuar vazio mostra os erros.")}
+              {cadastroEnviado ? `onContinuar recebeu “${cadastroEnviado}”. O produto abre então o cadastro em 5 etapas.` : "Experimente: toque em Cadastrar minha loja na moldura."}
             </p>
           </div>
-          <div className="min-w-0 space-y-3">
-            <SubTitle>{t("5-step registration: MolduraDoCadastro + EtapaDoCadastro", "Cadastro em 5 etapas: MolduraDoCadastro + EtapaDoCadastro")}</SubTitle>
-            <div className="rounded-xl bg-muted p-3 sm:p-4">
-              <MolduraDoCadastro etapas={ETAPAS_CADASTRO} atual={etapa} onIrPara={irPara}>
-                {etapa === 0 && (
-                  <EtapaDoCadastro
-                    titulo="Primeiro, seu acesso."
-                    explicacao="Informe os dados de quem será responsável pela conta e pelo contato com a FindLook."
-                    tituloRef={tituloEtapa}
-                    obrigatorios="* Campos obrigatórios"
-                    onSubmit={(e) => { e.preventDefault(); irPara(1); }}
-                    lateral={
-                      <LateralDaEtapa
-                        icone={<UserRoundCog />}
-                        titulo="Quem deve ser o responsável?"
-                        paragrafos={["Cadastre a pessoa que administrará a conta da loja na FindLook. Ela terá acesso às configurações, à assinatura e às informações de cobrança."]}
-                        destaque="Seus dados pessoais não serão exibidos no perfil público da loja."
-                        iconeDestaque={<Lock />}
-                      />
-                    }
-                    barra={<BarraDaEtapa />}
-                  >
-                    <div className="grid gap-x-[18px] gap-y-6 sm:grid-cols-2">
-                      <CampoDoCadastro rotulo="Nome completo *" placeholder="Seu nome completo" autoComplete="name" />
-                      <CampoDoCadastro rotulo="E-mail de acesso *" placeholder="nome@exemplo.com" type="email" ajuda="Vamos enviar um link para confirmar que o e-mail é seu." />
-                    </div>
-                  </EtapaDoCadastro>
-                )}
-                {etapa === 1 && (
-                  <EtapaDoCadastro
-                    titulo="Agora, queremos conhecer sua loja."
-                    explicacao="Comece pelas informações que identificam seu estabelecimento e permitem formalizar seu cadastro na FindLook."
-                    tituloRef={tituloEtapa}
-                    obrigatorios="* Campos obrigatórios"
-                    erro={t("Example of a general error: Could not save the store data. Try again.", "Exemplo de erro geral: Não conseguimos salvar os dados da loja. Tente de novo.")}
-                    onSubmit={(e) => { e.preventDefault(); irPara(2); }}
-                    barra={<BarraDaEtapa onVoltar={() => irPara(0)} />}
-                  >
-                    <div className="grid gap-x-[18px] gap-y-6 sm:grid-cols-2">
-                      <CampoDoCadastro rotulo="Nome da loja *" defaultValue="Brechó Aurora" ajuda="Como sua loja é conhecida pelos clientes." />
-                      <CampoDoCadastro rotulo="CNPJ *" placeholder="00.000.000/0000-00" inputMode="numeric" erro="Confira o CNPJ: os números não conferem." />
-                    </div>
-                  </EtapaDoCadastro>
-                )}
-                {etapa === 2 && (
-                  <EtapaDoCadastro titulo="Escolha como deseja crescer." tituloRef={tituloEtapa} onSubmit={(e) => { e.preventDefault(); irPara(3); }} barra={<BarraDaEtapa onVoltar={() => irPara(1)} />}>
-                    <p className="rounded-md border border-dashed border-border bg-muted px-4 py-5 text-sm text-muted-foreground">{t("Plan cards go here (see Cards › Plan card).", "Aqui entram os cards de plano (ver Cards › Card de plano).")}</p>
-                  </EtapaDoCadastro>
-                )}
-                {etapa === 3 && (
-                  <EtapaDoCadastro
-                    titulo="Revise sua contratação."
-                    explicacao="Confira os dados do responsável, da loja e o plano antes de continuar."
-                    tituloRef={tituloEtapa}
-                    onSubmit={(e) => { e.preventDefault(); irPara(4); }}
-                    lateral={<LateralDaEtapa icone={<ListChecks />} tom="marca" iconeDestaque={<Info />} titulo="Tudo certo para continuar?" destaque="Encontrou alguma informação incorreta? Volte à etapa correspondente para ajustar. Nenhuma cobrança será realizada nesta etapa." />}
-                    barra={<BarraDaEtapa onVoltar={() => irPara(2)} />}
-                  >
-                    <ListaDeRevisao valoresAbertos={["loja"]}>
-                      <BlocoDeRevisao valor="responsavel" titulo="01 · Responsável" nomeEtapa="Responsável" resumo={["Ana Exemplo", "ana@aurora.exemplo.com.br"]} onEditar={() => irPara(0)}>
-                        <LinhaDeDado rotulo="Nome" valor="Ana Exemplo" />
-                        <LinhaDeDado rotulo="E-mail" valor="ana@aurora.exemplo.com.br" />
-                        <LinhaDeDado rotulo="WhatsApp" />
-                      </BlocoDeRevisao>
-                      <BlocoDeRevisao valor="loja" titulo="02 · Dados da loja" nomeEtapa="Dados da loja" resumo={["Brechó Aurora", "São Francisco"]} onEditar={() => irPara(1)}>
-                        <LinhaDeDado rotulo="Nome da loja" valor="Brechó Aurora" />
-                        <LinhaDeDado rotulo="Bairro" valor="São Francisco" />
-                        <LinhaDeDado rotulo="Cidade" valor="Curitiba" />
-                        <LinhaDeDado rotulo="Estado" valor="PR" />
-                      </BlocoDeRevisao>
-                    </ListaDeRevisao>
-                  </EtapaDoCadastro>
-                )}
-                {etapa === 4 && (
-                  <EtapaDoCadastro titulo="Pagamento" explicacao="Conclua sua assinatura e prepare a sua loja para ser descoberta." tituloRef={tituloEtapa} barra={<BarraDaEtapa onVoltar={() => irPara(3)} carregando textoCarregando={t("Loading state (example)", "Estado carregando (exemplo)")} />}>
-                    <p className="rounded-md border border-dashed border-border bg-muted px-4 py-5 text-sm text-muted-foreground">{t("The payment form stays in the product.", "O formulário de pagamento fica no produto.")}</p>
-                  </EtapaDoCadastro>
-                )}
-              </MolduraDoCadastro>
-            </div>
+        </div>
+
+        <div className="min-w-0 space-y-3">
+          <SubTitle>{t("5-step registration: MolduraDoCadastro + EtapaDoCadastro", "Cadastro em 5 etapas: MolduraDoCadastro + EtapaDoCadastro")}</SubTitle>
+          <div className="rounded-xl bg-muted p-2 sm:p-4">
+            <CadastroEmEtapasDemo />
           </div>
+        </div>
+
+        <div id="produto-cadastro-combinacoes" className="min-w-0 scroll-mt-32 space-y-3">
+          <SubTitle>Combinações</SubTitle>
+          <p className="max-w-3xl text-[0.875rem] leading-relaxed text-muted-foreground">Quais componentes do design system cada etapa combina, e por quê. Cada nome leva à documentação do componente.</p>
+          <CombinacoesDoCadastro />
         </div>
         <div className="grid gap-4 lg:grid-cols-2">
           <Callout title={t("When to use", "Quando usar")}>
             <ul className="list-disc space-y-1 pl-5">
               <li>{t("GavetaApresentarLoja opens from every “Register my store” button; on the store page, tom=\"escuro\". On phones, add BarraFixaDoCelular with “Register my store”.", "GavetaApresentarLoja abre por todos os botões “Cadastrar minha loja”; na página do lojista, tom=\"escuro\". No celular, acrescente a BarraFixaDoCelular com “Cadastrar minha loja”.")}</li>
               <li>{t("Each step of the registration is an EtapaDoCadastro inside MolduraDoCadastro; the side column is optional.", "Cada etapa do cadastro é uma EtapaDoCadastro dentro da MolduraDoCadastro; a coluna lateral é opcional.")}</li>
+              <li>Tudo se adapta à largura do próprio cadastro (container queries): a coluna lateral só fica ao lado com 896 px ou mais; os campos, dentro da GradeDeCampos, ficam dois por linha só quando cada um tem 240 px ou mais.</li>
               <li>{t("Data, CNPJ lookup, account creation and payment stay in the product.", "Dados, consulta do CNPJ, criação da conta e pagamento ficam no produto.")}</li>
             </ul>
           </Callout>
@@ -365,19 +299,25 @@ import { FaixaDeParceiros } from "@/app/components/ui/faixa-parceiros";
             <ul className="list-disc space-y-1 pl-5">
               <li>{t("On each step change, move focus to the step title (tituloRef): screen readers announce the new step.", "A cada troca de etapa, leve o foco ao título da etapa (tituloRef): leitores de tela anunciam a nova etapa.")}</li>
               <li>{t("Field errors are linked by aria-describedby and the first invalid field gets focus.", "Erros dos campos ficam ligados por aria-describedby e o primeiro campo inválido recebe o foco.")}</li>
+              <li>Com 2 erros ou mais, o resumo (Alerta de erro, role=&quot;alert&quot;) aparece no topo da etapa, com um link para cada campo.</li>
               <li>{t("Edit reads with the step name (“Edit store data”); the loading button says so in text and is disabled.", "Editar é lido com o nome da etapa (“Editar dados da loja”); o botão em carregamento diz isso em texto e fica desativado.")}</li>
             </ul>
           </Callout>
         </div>
-        <pre className={codigo}><code>{`import { GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa } from "@/app/components/ui/cadastro-lojista";
+        <pre className={codigo}><code>{`import { GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, GradeDeCampos, CampoDoCadastro, BarraDaEtapa, LateralDaEtapa } from "@/app/components/ui/cadastro-lojista";
 
 <GavetaApresentarLoja tom="escuro" aberta={aberta} onAbertaChange={setAberta} onContinuar={({ loja, email }) => seguir(loja, email)} />
 
 <MolduraDoCadastro etapas={etapas} atual={etapa} concluidas={feitas} onIrPara={ir}>
   <EtapaDoCadastro titulo="Agora, queremos conhecer sua loja." tituloRef={titulo} obrigatorios="* Campos obrigatórios"
-    lateral={<LateralDaEtapa icone={<Store />} titulo="Seu cadastro, sua identidade." destaque="…" />}
+    resumoDeErros={erros}   // [{ id, rotulo, mensagem }]; aparece com 2 ou mais
+    lateral={<LateralDaEtapa icone={<Store />} titulo="Seu cadastro, sua vitrine." destaque="…" />}
     barra={<BarraDaEtapa onVoltar={() => ir(0)} carregando={salvando} />} onSubmit={continuar}>
-    {/* campos */}
+    <GradeDeCampos>
+      <CampoDoCadastro id="loja" rotulo="Nome da loja *" erro={erroLoja} />
+      <CampoDoCadastro id="cep" rotulo="CEP *" icone={<MapPin />} />
+      <CampoDoCadastro inteiro rotulo="Rua" />
+    </GradeDeCampos>
   </EtapaDoCadastro>
 </MolduraDoCadastro>`}</code></pre>
       </section>
