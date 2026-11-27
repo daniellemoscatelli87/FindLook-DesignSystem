@@ -13,6 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { RadioGroup } from "../ui/radio-group";
 import { SegmentedControl } from "../ui/segmented-control";
 import { CardDePreco } from "../ui/card-de-preco";
+import { GradeDeCards } from "../ui/grade-de-cards";
 import { BrilhoDeSelecionado } from "../ui/shine-border";
 import { DivisorSuave, ItemDeAcao } from "../ui/painel-dados";
 import { plans, pricingFeatures } from "./shared/planos";
@@ -548,8 +549,11 @@ export function CadastroEmEtapasDemo() {
                         aria-describedby={erros.plano ? `${base}-plano-erro` : undefined}
                         value={d.plano}
                         onValueChange={(v) => mudar("plano", v)}
-                        className="grid grid-cols-1 gap-5 @min-[48rem]/planos:grid-cols-3"
+                        className="block"
                       >
+                        {/* Cards lado a lado com a mesma altura (GradeDeCards, regra de 27/11/2026); o card selecionado
+                            (borda de 2 px e BrilhoDeSelecionado) funciona dentro da grade sem overflow-hidden. */}
+                        <GradeDeCards className="gap-5 @min-[48rem]/planos:grid-cols-3">
                         {plans.map((p, i) => {
                           const Icone = p.icon;
                           return (
@@ -572,6 +576,7 @@ export function CadastroEmEtapasDemo() {
                             />
                           );
                         })}
+                        </GradeDeCards>
                       </RadioGroup>
                     </div>
                     {erros.plano && <MensagemDeErro id={`${base}-plano-erro`}>{erros.plano}</MensagemDeErro>}

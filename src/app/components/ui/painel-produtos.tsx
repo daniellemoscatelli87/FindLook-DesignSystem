@@ -313,7 +313,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
               as="li"
               selecionada={marcado}
               inicio={selecionavel ? <span className="flex h-12 items-center"><Checkbox aria-label={`Selecionar ${p.nome}`} checked={marcado} onCheckedChange={() => alternar(p.id)} /></span> : undefined}
-              fim={<span className="flex h-12 items-center"><MenuDaLinha p={p} /></span>}
+              fim={<span className="flex h-12 items-center max-sm:h-auto"><MenuDaLinha p={p} /></span>}
             >
               <CelulaDeProduto nome={p.nome} detalhes={p.detalhes} icone={p.icone} foto={p.foto} />
               <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">

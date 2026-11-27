@@ -10,8 +10,12 @@ import { cn } from "./utils";
  *    (minmax(0,1fr)) e quebra ou é encurtado ali dentro; a coluna do fim mantém a largura (auto). Sem espaço,
  *    as tags e ações descem para uma linha própria abaixo de todo o texto (quebraAcoes), nunca ao lado de um
  *    texto que continua por baixo delas.
+ *    Decisão da dona do produto (27/11/2026): no celular, as tags e ações descem por padrão para uma linha própria,
+ *    abaixo de todo o bloco de texto (quebraAcoes="estreito" é o padrão). Para mantê-las ao lado do texto também no
+ *    celular, passe quebraAcoes={false}; o texto continua na coluna dele e nunca passa por baixo delas.
  * 2. O hover da linha cobre a linha inteira, de ponta a ponta, sem cantos arredondados (--row-hover). A linha
- *    selecionada tem a mesma forma, e o foco do teclado é um contorno por dentro, também sem cantos.
+ *    selecionada tem a mesma forma, no rosa claro nível 1 (--primary-sutil, decisão de 27/11/2026), e o foco do
+ *    teclado é um contorno por dentro, também sem cantos.
  *
  * Documentação: Dados > Tabelas e Cards > Comportamento responsivo.
  */
@@ -30,7 +34,7 @@ export type LinhaDeListaProps = Omit<React.HTMLAttributes<HTMLElement>, "title">
   descricao?: React.ReactNode;
   /** Coluna do fim: tags, status e ações. Mantém a largura; o texto nunca passa por baixo dela. */
   fim?: React.ReactNode;
-  /** true: as tags e ações ficam sempre numa linha própria, abaixo de todo o texto. "estreito": só no celular (abaixo de 640 px). */
+  /** "estreito" (padrão, decisão da dona do produto de 27/11/2026): no celular (abaixo de 640 px), as tags e ações descem para uma linha própria, abaixo de todo o texto. true: sempre abaixo. false: sempre ao lado do texto (o texto continua na coluna dele). */
   quebraAcoes?: boolean | "estreito";
   /** Lado das tags e ações quando descem para baixo do texto. */
   alinharAcoesAbaixo?: "fim" | "inicio";
@@ -54,7 +58,7 @@ export function LinhaDeLista({
   titulo,
   descricao,
   fim,
-  quebraAcoes = false,
+  quebraAcoes = "estreito",
   alinharAcoesAbaixo = "fim",
   alinhar = "inicio",
   interativa,
@@ -88,7 +92,7 @@ export function LinhaDeLista({
         colunas,
         alinhar === "centro" ? "items-start sm:items-center" : "items-start",
         clicavel && "cursor-pointer transition-colors hover:bg-[var(--row-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
-        selecionada && "bg-[var(--primary-muted)] hover:bg-[var(--primary-muted)]",
+        selecionada && "bg-[var(--primary-sutil)] hover:bg-[var(--primary-sutil)]",
         className,
       )}
       {...props}

@@ -4264,6 +4264,18 @@
           ]
         },
         {
+          "pagina": "produto",
+          "paginaRotulo": "Padrões do produto",
+          "ancora": "produto-cadastro",
+          "titulo": "Cadastro do lojista",
+          "arquivo": "src/app/components/showcase/ProdutoShowcase.tsx",
+          "linha": 236,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
           "pagina": "buttons",
           "paginaRotulo": "Botões",
           "ancora": "botao-principal",
@@ -6373,7 +6385,7 @@
         {
           "nome": "LinhaDeLista",
           "tipo": "componente",
-          "linha": 51,
+          "linha": 55,
           "descricao": "",
           "props": [
             "as",
@@ -6397,6 +6409,18 @@
       ],
       "variantes": {},
       "ondeVer": [
+        {
+          "pagina": "cards",
+          "paginaRotulo": "Cards",
+          "ancora": "card-layout",
+          "titulo": "Borda, sombra e raio",
+          "arquivo": "src/app/components/showcase/CardShowcase.tsx",
+          "linha": 659,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "LinhaDeLista"
+          ]
+        },
         {
           "pagina": "data",
           "paginaRotulo": "Exibição de dados",
@@ -11768,7 +11792,7 @@
       "nome": "Chip",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 174,
+      "linha": 175,
       "descricao": "Chip filtrável de Rótulos › Chips (filtráveis), igual ao da documentação: ativo em rosa nível 2 (--primary-suave), texto --primary-text, borda rosa sutil e check; aria-pressed e anel de foco.",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -11789,7 +11813,7 @@
       "nome": "CartaoSelecionavel",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 196,
+      "linha": 197,
       "descricao": "Cartão selecionável de Cards › Estados: selecionado com fundo branco, borda de 2 px na primária com o brilho animado (BrilhoDeSelecionado), check no título e o botão \"✓ Selecionado\" de contorno de 2 px com fundo rosa nível 3.",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -11817,7 +11841,7 @@
       "nome": "CadastroEmEtapasDemo",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 226,
+      "linha": 227,
       "descricao": "Demonstração",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -11850,6 +11874,7 @@
         "DivisorSuave",
         "EtapaDoCadastro",
         "GradeDeCampos",
+        "GradeDeCards",
         "Heading",
         "ImageUpload",
         "ItemDeAcao",
@@ -11868,7 +11893,7 @@
       "nome": "CombinacoesDoCadastro",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/CadastroEmEtapasDemo.tsx",
-      "linha": 793,
+      "linha": 798,
       "descricao": "",
       "pagina": "produto",
       "paginaRotulo": "Padrões do produto",
@@ -12519,8 +12544,8 @@
       "nome": "ListaCerta",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/shared/RegraDasLinhas.tsx",
-      "linha": 77,
-      "descricao": "Exemplo certo, com LinhaDeLista: texto na coluna dele, hover e seleção na linha inteira, sem cantos.",
+      "linha": 81,
+      "descricao": "Exemplo certo, com LinhaDeLista: no celular, as tags e ações numa linha própria abaixo de todo o texto (padrão, decisão da dona do produto de 27/11/2026), hover e seleção na linha inteira, sem cantos.",
       "pagina": "data",
       "paginaRotulo": "Exibição de dados",
       "onde": [
@@ -12544,7 +12569,7 @@
       "nome": "ListaErrada",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/shared/RegraDasLinhas.tsx",
-      "linha": 121,
+      "linha": 126,
       "descricao": "Exemplo errado (o erro que originou a regra): áreas de grid \"l1 sit\" / \"res res\" no celular. A segunda linha do texto passa por baixo da tag e da lixeira, e o hover é uma caixa cinza arredondada só no bloco do texto.",
       "pagina": "data",
       "paginaRotulo": "Exibição de dados",
