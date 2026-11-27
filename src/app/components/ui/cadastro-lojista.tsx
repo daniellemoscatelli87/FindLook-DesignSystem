@@ -1,10 +1,11 @@
 import * as React from "react";
-import { AlertCircle, ArrowLeft, ArrowRight, Check, Loader2, Store, X } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, Check, Loader2, Store, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Input } from "./input";
 import { Label } from "./label";
 import { Stepper, type StepperEtapa } from "./stepper";
+import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "./drawer";
 
@@ -18,7 +19,14 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, Dr
  * Cadastro em 5 etapas (Responsável · Dados da loja · Plano · Revisão · Pagamento), peças reaproveitáveis:
  * - MolduraDoCadastro: card com o Stepper do design system no topo.
  * - EtapaDoCadastro: título (recebe o foco a cada etapa), explicação, aviso de campos obrigatórios, erro geral,
- *   formulário, coluna lateral (abaixo do formulário no celular) e a barra de ações presa ao pé.
+ *   resumo dos erros (2 ou mais), formulário, coluna lateral e a barra de ações presa ao pé.
+ * - GradeDeCampos: um campo por linha; dois por linha só quando cada campo fica com 240 px ou mais.
+ * - ResumoDeErros: Alerta de erro com a lista dos campos a conferir (cada item leva ao campo).
+ *
+ * Responsivo pela largura do próprio cadastro (container queries, decisão da dona do produto de 27/11/2026), não pela
+ * largura da tela: o mesmo cadastro funciona na página inteira, num card estreito ou ao lado de outra coluna.
+ * - A coluna lateral só fica ao lado do formulário quando a etapa tem 56rem (896 px) ou mais; antes disso, desce para
+ *   baixo do formulário. O formulário é sempre a coluna principal; a lateral tem de 15rem a 18rem.
  * - LateralDaEtapa: ícone, título, explicação e um destaque (informação, marca ou aviso).
  * - BarraDaEtapa: Voltar e Continuar (com estado "carregando").
  * - ListaDeRevisao, BlocoDeRevisao e LinhaDeDado: o resumo da etapa Revisão, em blocos que abrem e fecham,
@@ -31,20 +39,84 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, Dr
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 /* ── Campo com rótulo, ajuda e erro ─────────────────────────────── */
-function CampoDoCadastro({ rotulo, ajuda, erro, className, ...props }: React.ComponentProps<typeof Input> & { rotulo: string; ajuda?: string; erro?: string | null }) {
-  const id = React.useId();
-  const descritores = [ajuda ? `${id}-ajuda` : null, erro ? `${id}-erro` : null].filter(Boolean).join(" ") || undefined;
+type CampoDoCadastroProps = React.ComponentProps<typeof Input> & {
+  rotulo: string;
+  ajuda?: React.ReactNode;
+  erro?: string | null;
+  /** Ícone à esquerda, dentro do campo (16 px), como em Controles de formulário › Com ícone. */
+  icone?: React.ReactNode;
+  /** Dentro da GradeDeCampos, ocupa a linha inteira. */
+  inteiro?: boolean;
+  /** Conteúdo logo abaixo do campo, antes da ajuda (por exemplo, uma caixa de seleção "Não tenho CNPJ"). */
+  depois?: React.ReactNode;
+  classeDoBloco?: string;
+};
+
+function CampoDoCadastro({ rotulo, ajuda, erro, icone, inteiro, depois, classeDoBloco, className, id: idProp, ...props }: CampoDoCadastroProps) {
+  const autoId = React.useId();
+  const id = idProp ?? autoId;
+  // Como em Controles de formulário: com erro, o texto de erro ocupa o lugar da ajuda.
+  const mostrarAjuda = Boolean(ajuda) && !erro;
+  const descritores = [mostrarAjuda ? `${id}-ajuda` : null, erro ? `${id}-erro` : null].filter(Boolean).join(" ") || undefined;
   return (
-    <div className="space-y-1.5">
+    <div data-slot="campo-do-cadastro" className={cn("min-w-0 space-y-1.5", inteiro && "col-span-full", classeDoBloco)}>
       <Label htmlFor={id} className="text-sm font-semibold">{rotulo}</Label>
-      <Input id={id} aria-invalid={erro ? true : undefined} aria-describedby={descritores} className={cn("bg-card", className)} {...props} />
-      {ajuda && <p id={`${id}-ajuda`} className="text-sm text-muted-foreground">{ajuda}</p>}
-      {erro && (
-        <p id={`${id}-erro`} className="flex items-start gap-1.5 text-sm font-medium text-primary-text">
-          <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden /> {erro}
-        </p>
-      )}
+      <div className="relative">
+        {icone && <span aria-hidden className="pointer-events-none absolute left-3 top-1/2 flex -translate-y-1/2 text-muted-foreground [&>svg]:size-4">{icone}</span>}
+        <Input id={id} aria-invalid={erro ? true : undefined} aria-describedby={descritores} className={cn("bg-card", icone && "pl-10", className)} {...props} />
+      </div>
+      {depois}
+      {mostrarAjuda && <p id={`${id}-ajuda`} className="text-sm text-muted-foreground">{ajuda}</p>}
+      {erro && <MensagemDeErro id={`${id}-erro`}>{erro}</MensagemDeErro>}
     </div>
+  );
+}
+
+/** Texto de erro de um campo ou grupo: ícone + texto na cor de texto do erro (nunca só a cor). */
+function MensagemDeErro({ id, children, className }: { id?: string; children: React.ReactNode; className?: string }) {
+  return (
+    <p id={id} data-slot="mensagem-de-erro" className={cn("flex items-start gap-1.5 text-sm font-medium text-error-text", className)}>
+      <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden /> <span className="min-w-0">{children}</span>
+    </p>
+  );
+}
+
+/** Grade dos campos: um por linha; dois por linha só a partir de 31,125rem (cada campo com 240 px ou mais). */
+function GradeDeCampos({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div data-slot="grade-de-campos" className={cn("@container/campos min-w-0", className)}>
+      <div className="grid gap-x-[18px] gap-y-6 @min-[31.125rem]/campos:grid-cols-2">{children}</div>
+    </div>
+  );
+}
+
+type ErroDoResumo = { id: string; rotulo: string; mensagem: string };
+
+/** Resumo dos erros da etapa (use com 2 erros ou mais): Alerta de erro com um link para cada campo. */
+function ResumoDeErros({ erros, titulo, onIrPara, className }: { erros: ErroDoResumo[]; titulo?: string; onIrPara?: (id: string) => void; className?: string }) {
+  const ir = (id: string) => {
+    if (onIrPara) return onIrPara(id);
+    const el = document.getElementById(id);
+    el?.focus();
+    el?.scrollIntoView({ block: "center", behavior: "smooth" });
+  };
+  return (
+    <Alert variant="error" data-slot="resumo-de-erros" className={className}>
+      <TriangleAlert aria-hidden />
+      <AlertTitle>{titulo ?? `Confira ${erros.length} campos antes de continuar`}</AlertTitle>
+      <AlertDescription>
+        <ul className="grid gap-1">
+          {erros.map((e) => (
+            <li key={e.id}>
+              <button type="button" onClick={() => ir(e.id)} className={cn("rounded-sm text-left font-semibold text-error-text underline underline-offset-4", foco)}>
+                {e.rotulo}
+              </button>
+              <span className="text-muted-foreground">: {e.mensagem}</span>
+            </li>
+          ))}
+        </ul>
+      </AlertDescription>
+    </Alert>
   );
 }
 
@@ -201,8 +273,8 @@ type MolduraDoCadastroProps = {
 
 function MolduraDoCadastro({ etapas, atual, concluidas, onIrPara, rotulo = "Etapas do cadastro da loja", children, className }: MolduraDoCadastroProps) {
   return (
-    <div data-slot="moldura-do-cadastro" className={cn("min-w-0 rounded-xl border border-border bg-card", className)}>
-      <div className="px-4 pt-5 sm:px-7 sm:pt-4">
+    <div data-slot="moldura-do-cadastro" className={cn("@container/moldura min-w-0 rounded-xl border border-border bg-card", className)}>
+      <div className="px-4 pt-5 @min-[40rem]/moldura:px-7 @min-[40rem]/moldura:pt-4">
         <Stepper etapas={etapas} atual={atual} concluidas={concluidas} onIrPara={onIrPara} rotulo={rotulo} />
       </div>
       {children}
@@ -217,17 +289,25 @@ type EtapaDoCadastroProps = {
   tituloRef?: React.Ref<HTMLHeadingElement>;
   /** Texto "* Campos obrigatórios" (omita quando a etapa não tem campos). */
   obrigatorios?: string;
+  /** Erro geral da etapa (por exemplo, falha ao salvar), num Alerta de erro. */
   erro?: React.ReactNode;
+  /** Erros dos campos, para o resumo no topo. O resumo só aparece com 2 erros ou mais (com 1, basta o erro no campo). */
+  resumoDeErros?: ErroDoResumo[];
   lateral?: React.ReactNode;
   barra?: React.ReactNode;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   children?: React.ReactNode;
 };
 
-function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, lateral, barra, onSubmit, children }: EtapaDoCadastroProps) {
+function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, resumoDeErros, lateral, barra, onSubmit, children }: EtapaDoCadastroProps) {
   return (
-    <form data-slot="etapa-do-cadastro" onSubmit={(e) => (onSubmit ? onSubmit(e) : e.preventDefault())} noValidate>
-      <div className={cn("grid gap-8 px-4 pt-8 pb-10 sm:px-7 sm:pt-12", lateral && "lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-[34px]")}>
+    <form data-slot="etapa-do-cadastro" onSubmit={(e) => (onSubmit ? onSubmit(e) : e.preventDefault())} noValidate className="@container/etapa">
+      <div
+        className={cn(
+          "grid gap-8 px-4 pt-8 pb-10 @min-[40rem]/etapa:px-7 @min-[40rem]/etapa:pt-12",
+          lateral && "@min-[56rem]/etapa:grid-cols-[minmax(0,1fr)_minmax(15rem,18rem)] @min-[56rem]/etapa:gap-[34px]",
+        )}
+      >
         <div className="min-w-0">
           <h2 ref={tituloRef} tabIndex={-1} className="text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-foreground outline-none [text-wrap:balance]">
             {titulo}
@@ -235,11 +315,12 @@ function EtapaDoCadastro({ titulo, explicacao, tituloRef, obrigatorios, erro, la
           {explicacao && <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{explicacao}</p>}
           {obrigatorios && <p className="mt-5 text-sm text-muted-foreground">{obrigatorios}</p>}
           {erro && (
-            <div role="alert" className="mt-5 flex items-start gap-2 rounded-md border border-error/30 bg-error-muted px-4 py-3 text-sm text-foreground">
-              <AlertCircle className="mt-0.5 size-4 shrink-0 text-primary-text" aria-hidden />
-              <div className="min-w-0">{erro}</div>
-            </div>
+            <Alert variant="error" className="mt-5">
+              <TriangleAlert aria-hidden />
+              <AlertDescription className="mt-0 pt-[3px] text-foreground">{erro}</AlertDescription>
+            </Alert>
           )}
+          {resumoDeErros && resumoDeErros.length >= 2 && <ResumoDeErros erros={resumoDeErros} className="mt-5" />}
           <div className="mt-6">{children}</div>
         </div>
         {lateral}
@@ -263,14 +344,14 @@ type BarraDaEtapaProps = {
 };
 
 function BarraDaEtapa({ onVoltar, rotuloVoltar = "Voltar", rotuloContinuar, carregando = false, textoCarregando = "Salvando…", desativado = false, children, className }: BarraDaEtapaProps) {
-  const botao = "flex-1 sm:min-w-40 sm:flex-none";
+  const botao = "flex-1 @min-[40rem]/etapa:min-w-40 @min-[40rem]/etapa:flex-none";
   return (
-    <div data-slot="barra-da-etapa" className={cn("sticky bottom-0 z-10 flex justify-end gap-3 rounded-b-xl border-t border-border bg-card px-4 py-3 sm:px-7 sm:py-4", className)}>
+    <div data-slot="barra-da-etapa" className={cn("sticky bottom-0 z-10 flex justify-end gap-3 rounded-b-xl border-t border-border bg-card px-4 py-3 @min-[40rem]/etapa:px-7 @min-[40rem]/etapa:py-4", className)}>
       {children ?? (
         <>
           {onVoltar && (
             <Button type="button" variant="outline" size="lg" className={botao} onClick={onVoltar}>
-              <ArrowLeft aria-hidden className="sm:hidden" /> {rotuloVoltar}
+              <ArrowLeft aria-hidden className="@min-[40rem]/etapa:hidden" /> {rotuloVoltar}
             </Button>
           )}
           <Button type="submit" size="lg" className={botao} disabled={desativado || carregando} aria-busy={carregando || undefined}>
@@ -311,16 +392,16 @@ type LateralDaEtapaProps = {
 function LateralDaEtapa({ icone, titulo, paragrafos = [], destaque, tom = "info", iconeDestaque, className }: LateralDaEtapaProps) {
   const id = React.useId();
   return (
-    <aside data-slot="lateral-da-etapa" aria-labelledby={id} className={cn("min-w-0 self-start rounded-xl border border-border bg-card p-6 lg:p-8", className)}>
-      <span aria-hidden className="flex size-16 items-center justify-center rounded-lg bg-primary-muted text-primary-text lg:size-20 lg:rounded-xl [&>svg]:size-7 lg:[&>svg]:size-8">
+    <aside data-slot="lateral-da-etapa" aria-labelledby={id} className={cn("min-w-0 self-start rounded-xl border border-border bg-card p-5 @min-[56rem]/etapa:p-6", className)}>
+      <span aria-hidden className="flex size-12 items-center justify-center rounded-lg bg-primary-muted text-primary-text @min-[56rem]/etapa:size-14 [&>svg]:size-6">
         {icone}
       </span>
-      <h3 id={id} className="mt-6 text-[1.125rem] font-bold tracking-[-0.01em] text-foreground lg:mt-8">{titulo}</h3>
+      <h3 id={id} className="mt-4 text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground @min-[56rem]/etapa:mt-5">{titulo}</h3>
       {paragrafos.map((p) => (
-        <p key={p} className="mt-3 leading-relaxed text-muted-foreground">{p}</p>
+        <p key={p} className="mt-2 text-sm leading-relaxed text-muted-foreground">{p}</p>
       ))}
       {destaque && (
-        <p className={cn("mt-5 flex gap-3 rounded-lg border p-4 text-sm leading-relaxed text-foreground", TONS_LATERAL[tom].caixa)}>
+        <p className={cn("mt-4 flex gap-3 rounded-lg border p-4 text-sm leading-relaxed text-foreground", TONS_LATERAL[tom].caixa)}>
           {iconeDestaque && <span aria-hidden className={cn("mt-0.5 flex shrink-0 [&>svg]:size-4", TONS_LATERAL[tom].icone)}>{iconeDestaque}</span>}
           <span>{destaque}</span>
         </p>
@@ -356,15 +437,15 @@ type BlocoDeRevisaoProps = {
 function BlocoDeRevisao({ valor, titulo, nomeEtapa, resumo = [], onEditar, rotuloEditar = "Editar", depois, children }: BlocoDeRevisaoProps) {
   const texto = resumo.filter(Boolean).join(" · ");
   return (
-    <AccordionItem value={valor} data-slot="bloco-de-revisao" className="rounded-lg border border-border px-5 last:border-b">
-      <AccordionTrigger className="items-center py-4 hover:no-underline [&>svg]:size-5 [&>svg]:text-primary-text">
+    <AccordionItem value={valor} data-slot="bloco-de-revisao" className="@container/revisao rounded-lg border border-border px-5 last:border-b">
+      <AccordionTrigger className="min-w-0 items-center py-4 hover:no-underline [&>svg]:size-5 [&>svg]:text-primary-text">
         <span className="min-w-0">
           <span className="block text-base font-bold text-foreground">{titulo}</span>
           {texto && <span className="mt-1 block truncate text-sm font-normal text-muted-foreground">{texto}</span>}
         </span>
       </AccordionTrigger>
       <AccordionContent>
-        <dl className="grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2">{children}</dl>
+        <dl className="grid gap-x-6 gap-y-3 text-sm @min-[30rem]/revisao:grid-cols-2">{children}</dl>
         {depois}
         {onEditar && (
           <button type="button" onClick={onEditar} className={cn("mt-4 rounded-sm text-sm font-semibold text-primary-text underline underline-offset-4", foco)}>
@@ -387,7 +468,7 @@ function LinhaDeDado({ rotulo, valor, vazio = "Não informado", className }: { r
 }
 
 export {
-  CampoDoCadastro, FormularioApresentarLoja, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa,
-  ListaDeRevisao, BlocoDeRevisao, LinhaDeDado, validarApresentar, textosPadraoApresentar,
+  CampoDoCadastro, MensagemDeErro, GradeDeCampos, ResumoDeErros, FormularioApresentarLoja, GavetaApresentarLoja, MolduraDoCadastro, EtapaDoCadastro,
+  BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao, LinhaDeDado, validarApresentar, textosPadraoApresentar,
 };
-export type { DadosApresentar, ErrosApresentar, TextosApresentar, FormularioApresentarLojaProps, GavetaApresentarLojaProps, EtapaDoCadastroProps, BarraDaEtapaProps, LateralDaEtapaProps, BlocoDeRevisaoProps };
+export type { CampoDoCadastroProps, ErroDoResumo, DadosApresentar, ErrosApresentar, TextosApresentar, FormularioApresentarLojaProps, GavetaApresentarLojaProps, EtapaDoCadastroProps, BarraDaEtapaProps, LateralDaEtapaProps, BlocoDeRevisaoProps };
