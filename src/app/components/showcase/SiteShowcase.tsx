@@ -2,13 +2,14 @@ import React, { useRef } from "react";
 import { AtSign, LogIn, ShieldCheck, Store } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
-import { CabecalhoDoSite, type LinkDoCabecalho } from "../ui/cabecalho-do-site";
+import { CabecalhoDoSite, type ItemDoCabecalho } from "../ui/cabecalho-do-site";
 import { RodapeDoSite } from "../ui/rodape-do-site";
 import { MolduraDeConta } from "../ui/moldura-de-conta";
 import { ProvaSocial } from "../ui/prova-social";
 import { ListaDeVantagens } from "../ui/lista-de-vantagens";
 import { Logo } from "../ui/logo";
-import { LinkDeTexto, LinkDeVoltar, LinkPularConteudo, LinkSaibaMais } from "../ui/links";
+import { LinkDeTexto, LinkDeVoltar, LinkPularConteudo } from "../ui/links";
+import { LinkSaibaMais } from "../ui/link-saiba-mais";
 import { Prosa } from "../ui/prosa";
 import { Campo } from "../ui/campo";
 import { Button } from "../ui/button";
@@ -16,11 +17,11 @@ import { Heading } from "../ui/heading";
 
 /* Moldura do site: as peças das páginas públicas do produto, promovidas a componentes (27/11/2026). */
 
-const links: LinkDoCabecalho[] = [
-  { rotulo: "Como funciona", href: "#site-cabecalho", atual: true },
-  { rotulo: "Lojas locais", href: "#site-cabecalho" },
-  { rotulo: "Novas e usadas", href: "#site-cabecalho" },
-  { rotulo: "Dúvidas", href: "#site-cabecalho" },
+const itens: ItemDoCabecalho[] = [
+  { id: "como-funciona", rotulo: "Como funciona", href: "#site-cabecalho" },
+  { id: "lojas-locais", rotulo: "Lojas locais", href: "#site-cabecalho" },
+  { id: "novas-e-usadas", rotulo: "Novas e usadas", href: "#site-cabecalho" },
+  { id: "duvidas", rotulo: "Dúvidas", href: "#site-cabecalho" },
 ];
 
 const avatares = [1, 2, 3, 4].map((i) => ({ imageUrl: `${import.meta.env.BASE_URL}avatares/avatar-${i}.svg`, profileUrl: "#site-prova-social", name: `Pessoa ${i} (exemplo)` }));
@@ -47,11 +48,13 @@ export function SiteShowcase() {
           <div ref={palco} className="relative h-112 overflow-y-auto overscroll-contain" tabIndex={0} aria-label="Demonstração do cabeçalho: role esta área">
             <CabecalhoDoSite
               raiz={palco}
-              links={links}
+              itens={itens}
+              atual="como-funciona"
+              inicioHref="#site-cabecalho"
               transparenteNoTopo
               telaLarga="xl"
               acaoSecundaria={{ rotulo: "Sou Lojista", href: "#site-cabecalho", icone: <Store aria-hidden /> }}
-              acaoPrincipal={{ rotulo: "Entrar", href: "#site-cabecalho", icone: <LogIn aria-hidden /> }}
+              acao={{ rotulo: "Entrar", href: "#site-cabecalho", icone: <LogIn aria-hidden /> }}
             />
             <div className="-mt-16 bg-gradient-to-b from-muted to-accent px-4 pb-16 pt-28 sm:px-8 xl:-mt-18">
               <Heading level={3} size="section">Diga o que procura. A gente mostra **onde encontrar**.</Heading>
@@ -65,12 +68,12 @@ export function SiteShowcase() {
         <DataTable
           head={["Prop", "O que faz"]}
           rows={[
-            [<Mono>links</Mono>, "Itens do menu ({ rotulo, href, atual }). O atual fica no rosa do selecionado, com aria-current."],
-            [<Mono>acaoSecundaria · acaoPrincipal</Mono>, "As duas pílulas da direita (contorno e preenchida), com ícone. No celular, lado a lado no fim do menu."],
-            [<Mono>transparenteNoTopo · iconeAoRolar · someAoRolar</Mono>, "Os três comportamentos de rolagem (os dois últimos ligados por padrão)."],
-            [<Mono>telaLarga</Mono>, "\"lg\" (1024 px, padrão) ou \"xl\" (1280 px), para menus com mais itens."],
+            [<Mono>itens · atual</Mono>, "Itens do menu ({ id, rotulo, href }) e o id do atual, que fica no rosa do selecionado, com aria-current."],
+            [<Mono>acao</Mono>, "A ação principal (pílula preenchida, \"Entrar\"). No FindLook, acaoSecundaria é a pílula de contorno (\"Sou Lojista\")."],
+            [<Mono>esconderAoRolar</Mono>, "Some ao descer e volta ao subir (padrão: sim). No FindLook, também transparenteNoTopo e iconeAoRolar."],
+            [<Mono>tela</Mono>, "auto (padrão), celular ou computador (demonstrações). No FindLook, telaLarga: lg (1024 px) ou xl (1280 px)."],
             [<Mono>superficie</Mono>, "\"escura\" na página do lojista (logo da versão sobre grafite)."],
-            [<Mono>comoLink · raiz · posicao</Mono>, "Link do produto (Next.js), contêiner com rolagem própria e \"sticky\" ou \"fixed\"."],
+            [<Mono>inicioHref</Mono>, "Destino do logo; com rotuloInicio, logo, raiz, posicao, textos e, no FindLook, comoLink (Next.js)."],
           ]}
         />
         <DoDont
@@ -101,15 +104,14 @@ export function SiteShowcase() {
       </section>
 
       <section id="site-conta" className="scroll-mt-32 space-y-6">
-        <SectionHeader title="Moldura das telas de conta" description="Entrar, criar conta, recuperar acesso, redefinir senha e a área administrativa: fundo cinza, logo e Voltar ao início no topo e um card só de borda com o título, a explicação e o formulário. Com lateral, a coluna da marca aparece do 768 px em diante." />
+        <SectionHeader title="Moldura das telas de conta" description="Entrar, criar conta, recuperar acesso, redefinir senha e a área administrativa: fundo cinza e um card só de borda com o logo (link para o início), o selo opcional, o título, a frase de apoio, o formulário e o rodapé com divisor. Mesma API do DS Dani Moscatelli; no FindLook, com lateral, a coluna da marca aparece do 768 px em diante." />
         <Panel className="overflow-hidden p-0">
           <MolduraDeConta
-            altura="conteudo"
-            idDoConteudo="conteudo-exemplo-conta"
-            voltar={{ rotulo: "Voltar ao início", href: "#site-conta" }}
-            logoHref="#site-conta"
+            telaCheia={false}
+            id="conteudo-exemplo-conta"
+            inicioHref="#site-conta"
             titulo="Que bom ter você de volta"
-            explicacao="Entre no painel da sua loja."
+            descricao="Entre no painel da sua loja."
             lateral={<ListaDeVantagens itens={["Vitrine pesquisável por foto e descrição", "Contato direto pelo WhatsApp", "Veja quais peças despertam interesse"]} />}
             rodape={<p className="m-0">Sua loja ainda não está na FindLook? <LinkDeTexto href="#site-conta">Cadastre sua loja</LinkDeTexto></p>}
           >
@@ -134,7 +136,7 @@ export function SiteShowcase() {
             </Exemplo>
           </div>
           <Exemplo titulo="LinkSaibaMais">
-            <div className="flex justify-center"><LinkSaibaMais href="#site-links" /></div>
+            <div className="flex flex-wrap items-end justify-center gap-8"><LinkSaibaMais href="#site-links" /><LinkSaibaMais href="#site-links" direcao="direita" /></div>
           </Exemplo>
         </Panel>
         <DoDont
@@ -146,11 +148,11 @@ export function SiteShowcase() {
       <section id="site-logo" className="scroll-mt-32 space-y-6">
         <SectionHeader title="Logo" description="A assinatura oficial desenhada no próprio componente: Find na cor do fundo e Look e o símbolo no rosa da marca. Com href, vira o link para a página inicial (44 px de toque)." />
         <div className="grid gap-4 sm:grid-cols-3">
-          <Panel className="flex min-h-32 items-center justify-center p-6"><Logo className="h-10" /></Panel>
-          <Panel className="dark flex min-h-32 items-center justify-center bg-background p-6"><Logo superficie="escura" className="h-10" /></Panel>
-          <Panel className="flex min-h-32 items-center justify-center p-6"><Logo variante="simbolo" className="h-12" /></Panel>
+          <Panel className="flex min-h-32 items-center justify-center p-6"><Logo rotulo="FindLook" className="h-10" /></Panel>
+          <Panel className="dark flex min-h-32 items-center justify-center bg-background p-6"><Logo rotulo="FindLook" superficie="escura" className="h-10" /></Panel>
+          <Panel className="flex min-h-32 items-center justify-center gap-6 p-6"><Logo rotulo="FindLook" variante="simbolo" className="h-12" /><Logo rotulo="FindLook" variante="simbolo" corDoSimbolo="grafite" className="h-12" /></Panel>
         </div>
-        <DataTable head={["Prop", "Valores"]} rows={[[<Mono>variante</Mono>, "horizontal (padrão) · simbolo"], [<Mono>superficie</Mono>, "clara (padrão) · escura"], [<Mono>href · comoLink</Mono>, "vira link; nome lido \"FindLook, página inicial\""], [<Mono>decorativo</Mono>, "escondido dos leitores de tela quando o nome já está ao lado"]]} />
+        <DataTable head={["Prop", "Valores"]} rows={[[<Mono>variante</Mono>, "horizontal (padrão) · simbolo"], [<Mono>superficie</Mono>, "clara (padrão) · escura · auto (segue o tema)"], [<Mono>corDoSimbolo</Mono>, "marca (padrão) · branco · grafite"], [<Mono>rotulo</Mono>, "nome lido; sem ele, o logo é decorativo"], [<Mono>href</Mono>, "FindLook: vira link (com comoLink); nome lido \"FindLook, página inicial\""]]} />
       </section>
 
       <section id="site-links" className="scroll-mt-32 space-y-6">

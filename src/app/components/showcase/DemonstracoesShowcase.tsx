@@ -115,7 +115,7 @@ export function DemonstracoesShowcase() {
         <div className="mx-auto max-w-2xl">
           <MiniaturaDoPainel
             titulo="Painel da loja"
-            logo={<Logo decorativo className="h-full" />}
+            logo={<Logo className="h-full" />}
             menu={[{ rotulo: "Início", icone: <House /> }, { rotulo: "Peças", icone: <Shirt /> }, { rotulo: "Estoque", icone: <Package /> }, { rotulo: "Relatórios", icone: <BarChart3 /> }, { rotulo: "Configurações", icone: <Settings /> }]}
           >
             <IndicadoresDaMiniatura itens={[

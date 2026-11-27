@@ -24,7 +24,7 @@ import {
   CampoDoCadastro, MensagemDeErro, GradeDeCampos, MolduraDoCadastro, EtapaDoCadastro, BarraDaEtapa, LateralDaEtapa, ListaDeRevisao, BlocoDeRevisao,
   LinhaDeDado, type ErroDoResumo,
 } from "../ui/cadastro-lojista";
-import { ChipFiltravel } from "../ui/chips";
+import { ChipFiltravel } from "../ui/chip-filtravel";
 import { navegarPara } from "./shared/VejaEm";
 
 /*
@@ -172,7 +172,7 @@ function Grupo({ titulo, descricao, children }: { titulo: string; descricao?: st
   );
 }
 
-/* Chip filtrável: o ChipFiltravel do DS (ui/chips, 27/11/2026). */
+/* Chip filtrável: o ChipFiltravel do DS (ui/chip-filtravel, 27/11/2026). */
 const Chip = ChipFiltravel;
 
 /* ── Demonstração ── */

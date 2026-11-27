@@ -5,8 +5,8 @@
   "geradoPor": "scripts/gerar-catalogo.mjs",
   "regra": "antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.",
   "resumo": {
-    "arquivosDeComponentes": 118,
-    "componentesExportados": 446,
+    "arquivosDeComponentes": 119,
+    "componentesExportados": 453,
     "templatesEPadroesSoEmDemonstracao": 89,
     "secoesComMarcacaoAMao": 48,
     "tokens": 167,
@@ -87,7 +87,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Accordion",
@@ -107,7 +107,7 @@
         {
           "nome": "Alert",
           "tipo": "componente",
-          "linha": 60,
+          "linha": 61,
           "descricao": "",
           "props": [
             "className",
@@ -121,7 +121,7 @@
         {
           "nome": "AlertTitle",
           "tipo": "componente",
-          "linha": 86,
+          "linha": 87,
           "descricao": "",
           "props": [
             "className"
@@ -131,7 +131,7 @@
         {
           "nome": "AlertDescription",
           "tipo": "componente",
-          "linha": 99,
+          "linha": 100,
           "descricao": "",
           "props": [
             "className"
@@ -140,7 +140,7 @@
         }
       ],
       "tipos": [
-        "TomDoAlert"
+        "TomDoAlerta"
       ],
       "variantes": {
         "variant": [
@@ -720,7 +720,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1241,
+          "linha": 1239,
           "uso": "direto",
           "exports": [
             "BarraFixaDoCelular"
@@ -741,53 +741,54 @@
       ]
     },
     {
-      "arquivo": "src/app/components/ui/botao-com-retorno.tsx",
-      "nome": "botao-com-retorno",
-      "quandoUsar": "Botão com retorno: o botão de uma ação que leva um tempo (Salvar, Enviar, Conferir) mostra o que está acontecendo no próprio botão: carregando (girando, texto \"Salvando…\"), depois sucesso (check, \"Salvo\") e volta sozinho ao estado inicial; com erro, mostra o erro por um instante e volta. Mesmas variantes e tamanhos do Button. - estado: \"parado\" | \"carregando\" | \"sucesso\" | \"erro\" (controlado).",
+      "arquivo": "src/app/components/ui/botao-de-envio.tsx",
+      "nome": "botao-de-envio",
+      "quandoUsar": "BotaoDeEnvio (botão com os estados de envio): mesma API do BotaoDeEnvio do design system Dani Moscatelli. O Button do DS com o retorno de cada envio, sem mudar de tamanho: parado → \"Enviando…\" (girando) → \"Enviado\" com check → volta sozinho ao estado parado; ou \"Tentar de novo\" quando falha.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
-          "nome": "BotaoComRetorno",
+          "nome": "BotaoDeEnvio",
           "tipo": "componente",
-          "linha": 27,
+          "linha": 33,
           "descricao": "",
           "props": [
             "estado",
-            "icone",
-            "textoCarregando",
-            "textoSucesso",
-            "textoErro",
             "children",
+            "textos",
+            "icone",
+            "voltarApos",
+            "onVoltar",
             "className",
-            "disabled"
+            "disabled",
+            "variant"
           ],
           "reexportaDe": null
         },
         {
-          "nome": "useRetornoDoBotao",
+          "nome": "useEstadoDoEnvio",
           "tipo": "utilitário",
-          "linha": 57,
-          "descricao": "Cuida do ciclo do botão: carregando → sucesso (2 s) → parado; ou carregando → erro (2,5 s) → parado.",
+          "linha": 78,
+          "descricao": "FindLook: cuida do ciclo do botão (enviando → feito ou erro). `voltar` vai no onVoltar do botão.",
           "props": [],
           "reexportaDe": null
         }
       ],
       "tipos": [
-        "BotaoComRetornoProps",
-        "EstadoDoBotao"
+        "BotaoDeEnvioProps",
+        "EstadoDoEnvio"
       ],
       "variantes": {},
       "ondeVer": [
         {
           "pagina": "campos",
           "paginaRotulo": "Campos e formulários",
-          "ancora": "botao-com-retorno",
-          "titulo": "Botão com retorno",
+          "ancora": "botao-de-envio",
+          "titulo": "Botão de envio",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 126,
+          "linha": 128,
           "uso": "direto",
           "exports": [
-            "BotaoComRetorno"
+            "BotaoDeEnvio"
           ]
         }
       ]
@@ -1220,7 +1221,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 103,
+          "linha": 106,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1232,7 +1233,7 @@
           "ancora": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 113,
+          "linha": 115,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1268,7 +1269,7 @@
           "ancora": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164,
+          "linha": 163,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1292,7 +1293,7 @@
           "ancora": "mascote-estados-vazios",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 335,
+          "linha": 334,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1304,7 +1305,7 @@
           "ancora": "mascote-estados-erro",
           "titulo": "Estados de erro",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 341,
+          "linha": 340,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1316,7 +1317,7 @@
           "ancora": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 282,
+          "linha": 281,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1328,7 +1329,7 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 335,
+          "linha": 334,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1352,7 +1353,7 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1435,7 +1436,7 @@
     {
       "arquivo": "src/app/components/ui/cabecalho-do-site.tsx",
       "nome": "cabecalho-do-site",
-      "quandoUsar": "Cabeçalho do site (páginas públicas): o padrão \"Header e menus\", modelo Faixa inteira, como componente. Comportamento (o mesmo do produto desde 14/11/2026): - transparenteNoTopo: transparente sobre a capa até a página rolar 8 px; depois, a faixa ganha o fundo do card a 85% com desfoque, a borda e a sombra --shadow-sm. - iconeAoRolar: o logo completo vira o símbolo quando a página rola.",
+      "quandoUsar": "CabecalhoDoSite (cabeçalho das páginas públicas + menu do celular): mesma API do CabecalhoDoSite do design system Dani Moscatelli, no modelo Faixa inteira do padrão \"Header e menus\" (o modelo escolhido pela dona do produto para o FindLook; a pílula flutuante do DS Dani Moscatelli não é usada aqui).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
@@ -1449,16 +1450,17 @@
         {
           "nome": "MenuDoCelular",
           "tipo": "componente",
-          "linha": 80,
-          "descricao": "Menu do celular em folha inferior (padrão do DS): os links um por linha, com 48 px de altura e a seta à direita, e as duas ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um link;",
+          "linha": 89,
+          "descricao": "Menu do celular em folha inferior: os itens um por linha (48 px, seta à direita; o atual no rosa do selecionado) e as ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um item;",
           "props": [
             "aberto",
             "onAbertoChange",
-            "links",
+            "itens",
+            "atual",
+            "acao",
             "acaoSecundaria",
-            "acaoPrincipal",
             "comoLink",
-            "titulo",
+            "textos",
             "container"
           ],
           "reexportaDe": null
@@ -1466,23 +1468,28 @@
         {
           "nome": "CabecalhoDoSite",
           "tipo": "componente",
-          "linha": 157,
+          "linha": 166,
           "descricao": "",
           "props": [
-            "links",
-            "acaoSecundaria",
-            "acaoPrincipal",
-            "logoHref",
-            "comoLink",
+            "itens",
+            "atual",
+            "acao",
             "superficie",
+            "esconderAoRolar",
+            "inicioHref",
+            "rotuloInicio",
+            "logo",
+            "raiz",
+            "posicao",
+            "tela",
+            "textos",
+            "className",
+            "acaoSecundaria",
             "transparenteNoTopo",
             "iconeAoRolar",
-            "someAoRolar",
             "telaLarga",
-            "posicao",
-            "raiz",
-            "containerDoMenu",
-            "className"
+            "comoLink",
+            "containerDoMenu"
           ],
           "reexportaDe": null
         }
@@ -1490,7 +1497,7 @@
       "tipos": [
         "AcaoDoCabecalho",
         "CabecalhoDoSiteProps",
-        "LinkDoCabecalho",
+        "ItemDoCabecalho",
         "MenuDoCelularProps"
       ],
       "variantes": {},
@@ -1501,7 +1508,7 @@
           "ancora": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 41,
+          "linha": 42,
           "uso": "direto",
           "exports": [
             "CabecalhoDoSite"
@@ -1524,33 +1531,9 @@
           "reexportaDe": null
         },
         {
-          "nome": "GradeDeCampos",
-          "tipo": "componente",
-          "linha": 51,
-          "descricao": "Grade dos campos: um por linha; dois por linha só a partir de 31,125rem (cada campo com 240 px ou mais).",
-          "props": [
-            "children",
-            "className"
-          ],
-          "reexportaDe": null
-        },
-        {
-          "nome": "ResumoDeErros",
-          "tipo": "componente",
-          "linha": 62,
-          "descricao": "Resumo dos erros da etapa (use com 2 erros ou mais): Alerta de erro com um link para cada campo.",
-          "props": [
-            "erros",
-            "titulo",
-            "onIrPara",
-            "className"
-          ],
-          "reexportaDe": null
-        },
-        {
           "nome": "textosPadraoApresentar",
           "tipo": "utilitário",
-          "linha": 90,
+          "linha": 51,
           "descricao": "1º passo: Vamos apresentar sua loja?",
           "props": [],
           "reexportaDe": null
@@ -1558,7 +1541,7 @@
         {
           "nome": "validarApresentar",
           "tipo": "utilitário",
-          "linha": 109,
+          "linha": 70,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -1566,7 +1549,7 @@
         {
           "nome": "FormularioApresentarLoja",
           "tipo": "componente",
-          "linha": 132,
+          "linha": 93,
           "descricao": "",
           "props": [
             "variante",
@@ -1583,7 +1566,7 @@
         {
           "nome": "GavetaApresentarLoja",
           "tipo": "componente",
-          "linha": 206,
+          "linha": 167,
           "descricao": "",
           "props": [
             "aberta",
@@ -1597,7 +1580,7 @@
         {
           "nome": "MolduraDoCadastro",
           "tipo": "componente",
-          "linha": 240,
+          "linha": 201,
           "descricao": "",
           "props": [
             "etapas",
@@ -1613,7 +1596,7 @@
         {
           "nome": "EtapaDoCadastro",
           "tipo": "componente",
-          "linha": 268,
+          "linha": 229,
           "descricao": "",
           "props": [
             "titulo",
@@ -1632,7 +1615,7 @@
         {
           "nome": "BarraDaEtapa",
           "tipo": "componente",
-          "linha": 312,
+          "linha": 273,
           "descricao": "",
           "props": [
             "onVoltar",
@@ -1649,7 +1632,7 @@
         {
           "nome": "LateralDaEtapa",
           "tipo": "componente",
-          "linha": 357,
+          "linha": 318,
           "descricao": "",
           "props": [
             "icone",
@@ -1665,7 +1648,7 @@
         {
           "nome": "ListaDeRevisao",
           "tipo": "componente",
-          "linha": 377,
+          "linha": 338,
           "descricao": "Revisão",
           "props": [
             "children",
@@ -1677,7 +1660,7 @@
         {
           "nome": "BlocoDeRevisao",
           "tipo": "componente",
-          "linha": 400,
+          "linha": 361,
           "descricao": "",
           "props": [
             "valor",
@@ -1694,7 +1677,7 @@
         {
           "nome": "LinhaDeDado",
           "tipo": "componente",
-          "linha": 424,
+          "linha": 385,
           "descricao": "",
           "props": [
             "rotulo",
@@ -1705,7 +1688,23 @@
           "reexportaDe": null
         },
         {
+          "nome": "GradeDeCampos",
+          "tipo": "componente",
+          "linha": null,
+          "descricao": "",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
           "nome": "MensagemDeErro",
+          "tipo": "componente",
+          "linha": null,
+          "descricao": "",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "ResumoDeErros",
           "tipo": "componente",
           "linha": null,
           "descricao": "",
@@ -1738,7 +1737,6 @@
           "uso": "direto",
           "exports": [
             "CampoDoCadastro",
-            "GradeDeCampos",
             "GavetaApresentarLoja",
             "MolduraDoCadastro",
             "EtapaDoCadastro",
@@ -1747,6 +1745,7 @@
             "ListaDeRevisao",
             "BlocoDeRevisao",
             "LinhaDeDado",
+            "GradeDeCampos",
             "MensagemDeErro"
           ]
         },
@@ -1797,7 +1796,7 @@
           "ancora": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 113,
+          "linha": 115,
           "uso": "direto",
           "exports": [
             "CaixaDeCodigo"
@@ -1831,13 +1830,38 @@
     {
       "arquivo": "src/app/components/ui/campo.tsx",
       "nome": "campo",
-      "quandoUsar": "Campo: o campo padrão de formulário do DS (decisão de 27/11/2026: um campo só). Rótulo visível em cima, o campo, a ajuda embaixo e, com erro, a mensagem de erro no lugar da ajuda (ícone + texto, nunca só a cor). Tudo ligado por aria-describedby; com erro, aria-invalid. O CampoDoCadastro (cadastro-lojista) é este mesmo componente. - opcional: \"(opcional)\" ao lado do rótulo. Marque o que é opcional, não o obrigatório.",
+      "quandoUsar": "Campo (o campo padrão do formulário): rótulo, controle, ajuda e erro sempre na mesma ordem e com os mesmos vínculos de acessibilidade. Mesma API do Campo do design system Dani Moscatelli (decisão de 27/11/2026: um campo só); o CampoDoCadastro do cadastro do lojista é este mesmo componente.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
+          "nome": "Campo",
+          "tipo": "componente",
+          "linha": 53,
+          "descricao": "",
+          "props": [
+            "rotulo",
+            "ajuda",
+            "erro",
+            "icone",
+            "obrigatorio",
+            "inteiro",
+            "depois",
+            "classeDoBloco",
+            "className",
+            "id",
+            "children",
+            "required",
+            "opcional",
+            "acaoDoRotulo",
+            "textosDaSenha",
+            "type"
+          ],
+          "reexportaDe": null
+        },
+        {
           "nome": "MensagemDeErro",
           "tipo": "componente",
-          "linha": 36,
+          "linha": 107,
           "descricao": "Texto de erro de um campo ou grupo: ícone + texto na cor de texto do erro (nunca só a cor).",
           "props": [
             "id",
@@ -1847,30 +1871,82 @@
           "reexportaDe": null
         },
         {
-          "nome": "Campo",
+          "nome": "GradeDeCampos",
           "tipo": "componente",
-          "linha": 44,
-          "descricao": "",
+          "linha": 116,
+          "descricao": "Grade dos campos: um por linha; dois por linha só a partir de 31rem (cada campo com 240 px ou mais).",
           "props": [
-            "rotulo",
-            "ajuda",
-            "erro",
-            "opcional",
-            "icone",
-            "acaoDoRotulo",
-            "depois",
-            "inteiro",
-            "classeDoBloco",
-            "textosDaSenha",
-            "type",
-            "className",
-            "id"
+            "children",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "ResumoDeErros",
+          "tipo": "componente",
+          "linha": 127,
+          "descricao": "Resumo dos erros (use com 2 erros ou mais): Alerta de erro com um link para cada campo.",
+          "props": [
+            "erros",
+            "titulo",
+            "onIrPara",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "mascaraTelefone",
+          "tipo": "utilitário",
+          "linha": 158,
+          "descricao": "(41) 99999-9999 ou (41) 3333-3333, enquanto a pessoa digita.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "mascaraCnpj",
+          "tipo": "utilitário",
+          "linha": 167,
+          "descricao": "12.345.678/0001-90, enquanto a pessoa digita.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "cnpjValido",
+          "tipo": "utilitário",
+          "linha": 177,
+          "descricao": "Confere os dígitos verificadores do CNPJ (só o formato; não consulta a Receita).",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "CampoDeTelefone",
+          "tipo": "componente",
+          "linha": 192,
+          "descricao": "Telefone com DDD; teclado numérico no celular.",
+          "props": [
+            "valor",
+            "onValorChange",
+            "placeholder"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "CampoDeCnpj",
+          "tipo": "componente",
+          "linha": 197,
+          "descricao": "CNPJ com a máscara; teclado numérico no celular. A validação (cnpjValido) fica a cargo do formulário.",
+          "props": [
+            "valor",
+            "onValorChange",
+            "placeholder"
           ],
           "reexportaDe": null
         }
       ],
       "tipos": [
-        "CampoProps"
+        "CampoProps",
+        "ErroDoResumo",
+        "PropsDoControleDoCampo"
       ],
       "variantes": {},
       "ondeVer": [
@@ -1883,7 +1959,9 @@
           "linha": 35,
           "uso": "direto",
           "exports": [
-            "Campo"
+            "Campo",
+            "cnpjValido",
+            "CampoDeCnpj"
           ]
         },
         {
@@ -1892,7 +1970,19 @@
           "ancora": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 64,
+          "linha": 66,
+          "uso": "direto",
+          "exports": [
+            "Campo"
+          ]
+        },
+        {
+          "pagina": "campos",
+          "paginaRotulo": "Campos e formulários",
+          "ancora": "campo-texto-longo",
+          "titulo": "Texto longo com contador",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 74,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -1904,7 +1994,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 103,
+          "linha": 106,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -1916,7 +2006,7 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Campo"
@@ -1928,7 +2018,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Campo"
@@ -1939,24 +2029,26 @@
     {
       "arquivo": "src/app/components/ui/campo-de-busca.tsx",
       "nome": "campo-de-busca",
-      "quandoUsar": "Campo de busca das listas (lojas, peças, agenda): lupa à esquerda, o texto e, quando há texto, o botão Limpar à direita (44 px no celular), que devolve o foco ao campo. Esc também limpa. O rótulo existe sempre: escondido por padrão (a lupa e o texto de exemplo bastam para quem vê), visível com `rotuloVisivel`. Mesma altura dos botões: 44 px no celular, 40 px do 640 px em diante.",
+      "quandoUsar": "CampoDeBusca (buscar numa lista): mesma API do CampoDeBusca do design system Dani Moscatelli. O campo de busca das listas do painel e da administração (lojas, peças, agenda): lupa à esquerda, o texto e o botão Limpar (×) quando há texto, que devolve o foco ao campo. Enter não envia formulário; Esc limpa. Para buscar no site inteiro, use a BuscaDePecas; para os comandos do painel, o CampoDeBuscaGlobal.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "CampoDeBusca",
           "tipo": "componente",
-          "linha": 24,
+          "linha": 33,
           "descricao": "",
           "props": [
-            "rotulo",
-            "rotuloVisivel",
             "valor",
             "onValorChange",
-            "rotuloLimpar",
-            "classeDoBloco",
+            "onBusca",
+            "atraso",
+            "rotulo",
+            "resultados",
+            "textos",
+            "rotuloVisivel",
+            "placeholder",
             "className",
-            "id",
-            "onKeyDown"
+            "id"
           ],
           "reexportaDe": null
         }
@@ -1972,7 +2064,7 @@
           "ancora": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 64,
+          "linha": 66,
           "uso": "direto",
           "exports": [
             "CampoDeBusca"
@@ -1984,7 +2076,7 @@
           "ancora": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164,
+          "linha": 163,
           "uso": "direto",
           "exports": [
             "CampoDeBusca"
@@ -2468,7 +2560,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CardDePreco"
@@ -2745,7 +2837,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GrupoDeCartoesDeEscolha",
@@ -2894,7 +2986,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Checkbox"
@@ -2906,7 +2998,7 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Checkbox"
@@ -2918,7 +3010,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Checkbox"
@@ -3004,15 +3096,15 @@
       ]
     },
     {
-      "arquivo": "src/app/components/ui/chips.tsx",
-      "nome": "chips",
-      "quandoUsar": "Chips de filtro (Rótulos › Chips filtráveis, como componente). - ChipFiltravel: liga e desliga um filtro ou uma classificação (aria-pressed). Ligado: fundo no rosa do selecionado (--primary-suave), texto --primary-text, borda rosa e o check, e continua rosa com o mouse em cima; desligado com o mouse em cima: cinza claro (--accent), nunca rosa. Nunca preenchido de pink.",
+      "arquivo": "src/app/components/ui/chip-filtravel.tsx",
+      "nome": "chip-filtravel",
+      "quandoUsar": "Chips de filtro (Rótulos › Chips filtráveis, como componente). ChipFiltravel e GrupoDeChipsFiltraveis têm a mesma API do design system Dani Moscatelli; GrupoDeChips, ChipDeFiltro e ListaDeFiltrosAtivos são do FindLook. - ChipFiltravel: liga e desliga um filtro ou uma classificação (aria-pressed).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "ChipFiltravel",
           "tipo": "componente",
-          "linha": 30,
+          "linha": 33,
           "descricao": "",
           "props": [
             "ativo",
@@ -3026,9 +3118,24 @@
           "reexportaDe": null
         },
         {
+          "nome": "GrupoDeChipsFiltraveis",
+          "tipo": "componente",
+          "linha": 79,
+          "descricao": "",
+          "props": [
+            "opcoes",
+            "valor",
+            "onValorChange",
+            "multiplo",
+            "rotulo",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
           "nome": "GrupoDeChips",
           "tipo": "componente",
-          "linha": 63,
+          "linha": 100,
           "descricao": "",
           "props": [
             "rotulo",
@@ -3040,7 +3147,7 @@
         {
           "nome": "ChipDeFiltro",
           "tipo": "componente",
-          "linha": 76,
+          "linha": 113,
           "descricao": "",
           "props": [
             "rotulo",
@@ -3052,7 +3159,7 @@
         {
           "nome": "ListaDeFiltrosAtivos",
           "tipo": "componente",
-          "linha": 98,
+          "linha": 135,
           "descricao": "Filtros aplicados, em linha, com \"Limpar filtros\" no fim (mesma linha, quebrando junto).",
           "props": [
             "children",
@@ -3065,25 +3172,12 @@
       ],
       "tipos": [
         "ChipDeFiltroProps",
-        "ChipFiltravelProps"
+        "ChipFiltravelProps",
+        "GrupoDeChipsFiltraveisProps",
+        "OpcaoDoChip"
       ],
       "variantes": {},
       "ondeVer": [
-        {
-          "pagina": "chips-e-estados",
-          "paginaRotulo": "Chips e estados",
-          "ancora": "chips-filtro",
-          "titulo": "Chips de filtro",
-          "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 47,
-          "uso": "direto",
-          "exports": [
-            "ChipFiltravel",
-            "GrupoDeChips",
-            "ChipDeFiltro",
-            "ListaDeFiltrosAtivos"
-          ]
-        },
         {
           "pagina": "badges",
           "paginaRotulo": "Rótulos",
@@ -3103,10 +3197,25 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 82,
+          "linha": 84,
           "uso": "direto",
           "exports": [
             "ChipFiltravel"
+          ]
+        },
+        {
+          "pagina": "chips-e-estados",
+          "paginaRotulo": "Chips e estados",
+          "ancora": "chips-filtro",
+          "titulo": "Chips de filtro",
+          "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
+          "linha": 47,
+          "uso": "direto",
+          "exports": [
+            "ChipFiltravel",
+            "GrupoDeChips",
+            "ChipDeFiltro",
+            "ListaDeFiltrosAtivos"
           ]
         },
         {
@@ -3115,7 +3224,7 @@
           "ancora": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164,
+          "linha": 163,
           "uso": "direto",
           "exports": [
             "ChipDeFiltro",
@@ -3265,7 +3374,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CommandDialog",
@@ -3559,13 +3668,13 @@
     {
       "arquivo": "src/app/components/ui/conversa.tsx",
       "nome": "conversa",
-      "quandoUsar": "Conversa (WhatsApp da loja e simulador do robô): as peças de uma conversa de mensagens, para montar dentro da MolduraDeCelular ou de um card. - MolduraDeCelular: o aparelho (borda grossa no grafite, cantos de 24 px, --shadow-lg), com cabeçalho, conversa e campo empilhados; é o palco das folhas que abrem por baixo (FolhaDeOpcoes).",
+      "quandoUsar": "Conversa (WhatsApp da loja e simulador do robô). Conversa, BalaoDaConversa, SeparadorDaConversa e IndicadorDeDigitacao têm a mesma API do design system Dani Moscatelli: - Conversa: a lista (role=\"log\"). alinhamento \"esquerda\" (padrão: todas na mesma borda, como um histórico) ou \"lados\" (as suas à direita, como num chat: use no WhatsApp).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "MolduraDeCelular",
           "tipo": "componente",
-          "linha": 33,
+          "linha": 31,
           "descricao": "Moldura",
           "props": [
             "className",
@@ -3577,7 +3686,7 @@
         {
           "nome": "CabecalhoDaConversa",
           "tipo": "componente",
-          "linha": 47,
+          "linha": 45,
           "descricao": "Cabeçalho",
           "props": [
             "nome",
@@ -3593,40 +3702,58 @@
         {
           "nome": "Conversa",
           "tipo": "componente",
-          "linha": 69,
-          "descricao": "Área das mensagens",
+          "linha": 79,
+          "descricao": "",
           "props": [
-            "rotulo",
             "className",
-            "children"
+            "children",
+            "rotulo",
+            "alinhamento",
+            "rolagem"
           ],
           "reexportaDe": null
         },
         {
-          "nome": "BalaoDeConversa",
+          "nome": "BalaoDaConversa",
           "tipo": "componente",
-          "linha": 109,
+          "linha": 139,
           "descricao": "",
           "props": [
-            "de",
             "autor",
-            "hora",
+            "nome",
+            "quando",
+            "avatar",
             "estado",
+            "textoDoEstado",
+            "naoLida",
+            "depois",
             "citacao",
             "imagem",
-            "acoes",
-            "className",
-            "children"
+            "children",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "SeparadorDaConversa",
+          "tipo": "componente",
+          "linha": 193,
+          "descricao": "Separador",
+          "props": [
+            "children",
+            "className"
           ],
           "reexportaDe": null
         },
         {
           "nome": "IndicadorDeDigitacao",
           "tipo": "componente",
-          "linha": 158,
+          "linha": 204,
           "descricao": "Digitando",
           "props": [
             "autor",
+            "avatar",
+            "rotulo",
             "texto",
             "icone",
             "className"
@@ -3634,21 +3761,9 @@
           "reexportaDe": null
         },
         {
-          "nome": "AvisoDoSistema",
-          "tipo": "componente",
-          "linha": 181,
-          "descricao": "Aviso do sistema",
-          "props": [
-            "icone",
-            "children",
-            "className"
-          ],
-          "reexportaDe": null
-        },
-        {
           "nome": "BotaoDeResposta",
           "tipo": "componente",
-          "linha": 191,
+          "linha": 233,
           "descricao": "Resposta rápida",
           "props": [
             "className",
@@ -3660,7 +3775,7 @@
         {
           "nome": "CampoDeMensagem",
           "tipo": "componente",
-          "linha": 227,
+          "linha": 269,
           "descricao": "",
           "props": [
             "valor",
@@ -3680,7 +3795,7 @@
         {
           "nome": "FolhaDeOpcoes",
           "tipo": "componente",
-          "linha": 262,
+          "linha": 304,
           "descricao": "",
           "props": [
             "titulo",
@@ -3693,9 +3808,9 @@
         }
       ],
       "tipos": [
-        "BalaoDeConversaProps",
+        "BalaoDaConversaProps",
         "CampoDeMensagemProps",
-        "EstadoDaMensagem",
+        "ConversaProps",
         "OpcaoDaFolha"
       ],
       "variantes": {},
@@ -3712,9 +3827,9 @@
             "MolduraDeCelular",
             "CabecalhoDaConversa",
             "Conversa",
-            "BalaoDeConversa",
+            "BalaoDaConversa",
+            "SeparadorDaConversa",
             "IndicadorDeDigitacao",
-            "AvisoDoSistema",
             "BotaoDeResposta",
             "CampoDeMensagem",
             "FolhaDeOpcoes"
@@ -3729,7 +3844,8 @@
           "linha": 814,
           "uso": "direto",
           "exports": [
-            "BalaoDeConversa",
+            "Conversa",
+            "BalaoDaConversa",
             "IndicadorDeDigitacao"
           ]
         }
@@ -4324,7 +4440,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DropdownMenu",
@@ -4340,31 +4456,68 @@
     {
       "arquivo": "src/app/components/ui/estado-vazio.tsx",
       "nome": "estado-vazio",
-      "quandoUsar": "Estado vazio: o que aparece quando uma lista, uma busca ou uma área ainda não tem nada. Diz o que está vazio, por quê (quando ajuda) e o próximo passo. Centralizado, com uma das três mídias: - ilustracao: imagem do mascote (Mascote & Ilustrações › Estados vazios), 160 px; o texto alternativo fica vazio, porque o título já diz tudo;",
+      "quandoUsar": "EstadoVazio, EstadoFinal e PaginaDeErro: as três telas \"sem conteúdo\" do DS, com a mesma API do design system Dani Moscatelli.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "EstadoVazio",
           "tipo": "componente",
-          "linha": 33,
+          "linha": 67,
           "descricao": "",
           "props": [
-            "titulo",
-            "texto",
-            "ilustracao",
             "icone",
+            "titulo",
+            "descricao",
+            "acoes",
             "tom",
-            "acao",
-            "variante",
             "tamanho",
+            "variante",
             "nivel",
+            "ilustracao",
+            "moldura",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "EstadoFinal",
+          "tipo": "componente",
+          "linha": 127,
+          "descricao": "",
+          "props": [
+            "tom",
+            "icone",
+            "titulo",
+            "descricao",
+            "acoes",
+            "nivel",
+            "focarAoAparecer",
+            "children",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "PaginaDeErro",
+          "tipo": "componente",
+          "linha": 159,
+          "descricao": "",
+          "props": [
+            "codigo",
+            "ilustracao",
+            "titulo",
+            "descricao",
+            "acoes",
+            "telaCheia",
             "className"
           ],
           "reexportaDe": null
         }
       ],
       "tipos": [
-        "EstadoVazioProps"
+        "EstadoFinalProps",
+        "EstadoVazioProps",
+        "PaginaDeErroProps"
       ],
       "variantes": {},
       "ondeVer": [
@@ -4398,7 +4551,7 @@
           "ancora": "mascote-estados-vazios",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 335,
+          "linha": 334,
           "uso": "dentro de outro exemplo",
           "exports": [
             "EstadoVazio"
@@ -4410,7 +4563,7 @@
           "ancora": "mascote-estados-erro",
           "titulo": "Estados de erro",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 341,
+          "linha": 340,
           "uso": "dentro de outro exemplo",
           "exports": [
             "EstadoVazio"
@@ -4422,7 +4575,7 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 335,
+          "linha": 334,
           "uso": "dentro de outro exemplo",
           "exports": [
             "EstadoVazio"
@@ -4434,10 +4587,10 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
-            "EstadoVazio"
+            "EstadoFinal"
           ]
         }
       ]
@@ -4572,7 +4725,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "IconeModa"
@@ -4584,7 +4737,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "IconeModa"
@@ -4926,7 +5079,7 @@
           "ancora": "mascote-personagem",
           "titulo": "Personagem (Nyx)",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 249,
+          "linha": 248,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4938,7 +5091,7 @@
           "ancora": "mascote-diretrizes",
           "titulo": "Diretrizes de uso",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 347,
+          "linha": 346,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -4987,7 +5140,7 @@
           "ancora": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 315,
+          "linha": 314,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -5465,7 +5618,7 @@
           "ancora": "card-indicador-link",
           "titulo": "Card de indicador clicável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 217,
+          "linha": 216,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -5489,7 +5642,7 @@
           "ancora": "mascote-estados-vazios",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 335,
+          "linha": 334,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards",
@@ -5502,7 +5655,7 @@
           "ancora": "mascote-estados-erro",
           "titulo": "Estados de erro",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 341,
+          "linha": 340,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards",
@@ -5527,7 +5680,7 @@
           "ancora": "ux-principles",
           "titulo": "Princípios",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 273,
+          "linha": 272,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5539,7 +5692,7 @@
           "ancora": "ux-errors",
           "titulo": "Erros e microcopy",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 344,
+          "linha": 343,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5575,7 +5728,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5587,7 +5740,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5599,7 +5752,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1241,
+          "linha": 1239,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5779,7 +5932,7 @@
           "ancora": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 41,
+          "linha": 42,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5791,7 +5944,7 @@
           "ancora": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 82,
+          "linha": 85,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5803,7 +5956,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 125,
+          "linha": 127,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5827,7 +5980,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 82,
+          "linha": 84,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -5899,7 +6052,7 @@
           "ancora": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164,
+          "linha": 163,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -7349,7 +7502,7 @@
           "ancora": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 82,
+          "linha": 84,
           "uso": "direto",
           "exports": [
             "GrupoDeOpcoes",
@@ -7421,7 +7574,7 @@
           "ancora": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 41,
+          "linha": 42,
           "uso": "direto",
           "exports": [
             "Heading"
@@ -7493,7 +7646,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 234,
+          "linha": 233,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "withHighlight"
@@ -7505,7 +7658,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 263,
+          "linha": 262,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "withHighlight"
@@ -7919,18 +8072,6 @@
       "variantes": {},
       "ondeVer": [
         {
-          "pagina": "campos",
-          "paginaRotulo": "Campos e formulários",
-          "ancora": "campo-texto-longo",
-          "titulo": "Texto longo com contador",
-          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 72,
-          "uso": "direto",
-          "exports": [
-            "Label"
-          ]
-        },
-        {
           "pagina": "produto",
           "paginaRotulo": "Padrões do produto",
           "ancora": "produto-cadastro",
@@ -8016,6 +8157,46 @@
       ]
     },
     {
+      "arquivo": "src/app/components/ui/link-saiba-mais.tsx",
+      "nome": "link-saiba-mais",
+      "quandoUsar": "LinkSaibaMais (alça \"Saiba mais\" do hero): mesma API do LinkSaibaMais do design system Dani Moscatelli. O link que convida a rolar até a próxima seção, centralizado na base do hero (página do lojista): texto e a seta num círculo de 32 px com borda, que desce 4 px e volta devagar. Com `direcao=\"direita\"`, vira um link de continuação no fim de um bloco (\"Saiba mais →\"). Sem borda nem fundo; 44 px de altura de toque.",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "LinkSaibaMais",
+          "tipo": "componente",
+          "linha": 20,
+          "descricao": "",
+          "props": [
+            "children",
+            "direcao",
+            "sobreEscuro",
+            "comoLink",
+            "className"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "LinkSaibaMaisProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "site",
+          "paginaRotulo": "Moldura do site",
+          "ancora": "site-hero",
+          "titulo": "Vantagens e prova social",
+          "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
+          "linha": 127,
+          "uso": "direto",
+          "exports": [
+            "LinkSaibaMais"
+          ]
+        }
+      ]
+    },
+    {
       "arquivo": "src/app/components/ui/links.tsx",
       "nome": "links",
       "quandoUsar": "Links de texto do site e do painel (um sinal = um sentido: o mesmo desenho para o mesmo tipo de link). - LinkDeTexto: link dentro de uma frase ou numa linha de dados (site, e-mail, Instagram). --primary-text, sublinhado, seminegrito. `externo` abre em outra aba, mostra o ícone de saída e avisa os leitores de tela.",
@@ -8024,7 +8205,7 @@
         {
           "nome": "LinkDeTexto",
           "tipo": "componente",
-          "linha": 25,
+          "linha": 24,
           "descricao": "",
           "props": [
             "href",
@@ -8039,20 +8220,7 @@
         {
           "nome": "LinkDeVoltar",
           "tipo": "componente",
-          "linha": 51,
-          "descricao": "",
-          "props": [
-            "href",
-            "comoLink",
-            "className",
-            "children"
-          ],
-          "reexportaDe": null
-        },
-        {
-          "nome": "LinkSaibaMais",
-          "tipo": "componente",
-          "linha": 70,
+          "linha": 50,
           "descricao": "",
           "props": [
             "href",
@@ -8065,7 +8233,7 @@
         {
           "nome": "LinkPularConteudo",
           "tipo": "componente",
-          "linha": 89,
+          "linha": 69,
           "descricao": "",
           "props": [
             "href",
@@ -8084,7 +8252,7 @@
           "ancora": "site-links",
           "titulo": "Links de texto",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 156,
+          "linha": 158,
           "uso": "direto",
           "exports": [
             "LinkDeTexto",
@@ -8098,22 +8266,10 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 103,
+          "linha": 106,
           "uso": "direto",
           "exports": [
             "LinkDeTexto"
-          ]
-        },
-        {
-          "pagina": "site",
-          "paginaRotulo": "Moldura do site",
-          "ancora": "site-hero",
-          "titulo": "Vantagens e prova social",
-          "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 125,
-          "uso": "direto",
-          "exports": [
-            "LinkSaibaMais"
           ]
         },
         {
@@ -8122,7 +8278,7 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
             "LinkDeTexto"
@@ -8161,7 +8317,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 103,
+          "linha": 106,
           "uso": "direto",
           "exports": [
             "ListaDeVantagens"
@@ -8173,7 +8329,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 125,
+          "linha": 127,
           "uso": "direto",
           "exports": [
             "ListaDeVantagens"
@@ -8185,7 +8341,7 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
             "ListaDeVantagens"
@@ -8196,21 +8352,21 @@
     {
       "arquivo": "src/app/components/ui/logo.tsx",
       "nome": "logo",
-      "quandoUsar": "Logo da FindLook: a assinatura horizontal oficial (Marca › Assinatura horizontal) desenhada no próprio componente, sem depender de arquivo. \"Find\" na cor do fundo (grafite sobre claro, branco sobre escuro) e \"Look\" e o símbolo no rosa da marca (--brand-pink), como manda a grafia da marca. `variante=\"simbolo\"` mostra só o pin com cabide (cabeçalho rolado, espaços pequenos).",
+      "quandoUsar": "Logo da FindLook: mesma API do Logo do design system Dani Moscatelli. É o desenho oficial (os mesmos traços dos arquivos de src/imports/svg/, conferidos caminho a caminho) em SVG dentro do código: chega ao produto pela sincronização, sem arquivo nem <img> com caminho próprio.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "Logo",
           "tipo": "componente",
-          "linha": 50,
+          "linha": 71,
           "descricao": "",
           "props": [
             "variante",
             "superficie",
+            "rotulo",
+            "corDoSimbolo",
             "href",
             "comoLink",
-            "rotulo",
-            "decorativo",
             "className"
           ],
           "reexportaDe": null
@@ -8227,7 +8383,7 @@
           "ancora": "site-logo",
           "titulo": "Logo",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 146,
+          "linha": 148,
           "uso": "direto",
           "exports": [
             "Logo"
@@ -8667,26 +8823,27 @@
     {
       "arquivo": "src/app/components/ui/moldura-de-conta.tsx",
       "nome": "moldura-de-conta",
-      "quandoUsar": "Moldura das telas de conta (Entrar, Criar conta, Recuperar acesso, Redefinir senha, Minha conta, Área administrativa): o template Entrar e criar conta como componente. Fundo cinza da página, no topo o logo e \"Voltar ao início\", e no meio um card só de borda (sem sombra sobre o cinza) com o título da tela (h1, 24 px), a explicação e o conteúdo (formulário com Campo, Alert e Button).",
+      "quandoUsar": "MolduraDeConta (telas de conta): mesma API da MolduraDeConta do design system Dani Moscatelli. A moldura de Entrar, Criar conta, Recuperar acesso, Redefinir senha, Minha conta e Área administrativa: página inteira no cinza da página (--muted), com um card só de borda (sem sombra sobre o cinza) centralizado: logo (link para o início), selo opcional (\"Área administrativa\"), título (h1, 24 px), uma frase de apoio, o …",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "MolduraDeConta",
           "tipo": "componente",
-          "linha": 30,
+          "linha": 36,
           "descricao": "",
           "props": [
             "titulo",
-            "explicacao",
+            "descricao",
+            "selo",
+            "logo",
+            "inicioHref",
+            "rotuloInicio",
             "rodape",
+            "telaCheia",
             "lateral",
-            "logoHref",
-            "voltar",
             "comoLink",
-            "altura",
-            "idDoConteudo",
-            "className",
-            "children"
+            "children",
+            "className"
           ],
           "reexportaDe": null
         }
@@ -8702,7 +8859,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 103,
+          "linha": 106,
           "uso": "direto",
           "exports": [
             "MolduraDeConta"
@@ -8714,7 +8871,7 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229,
+          "linha": 1227,
           "uso": "dentro de outro exemplo",
           "exports": [
             "MolduraDeConta"
@@ -9200,7 +9357,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CabecalhoDaPagina",
@@ -9625,7 +9782,7 @@
           "ancora": "card-indicador-link",
           "titulo": "Card de indicador clicável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 217,
+          "linha": 216,
           "uso": "direto",
           "exports": [
             "CardIndicador"
@@ -9713,7 +9870,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "formatarNumero",
@@ -9972,7 +10129,7 @@
           "ancora": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164,
+          "linha": 163,
           "uso": "direto",
           "exports": [
             "BarraDeAcoesEmLote"
@@ -9984,7 +10141,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "AbasComContador",
@@ -10311,7 +10468,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "MenuLateralProvider",
@@ -10613,17 +10770,17 @@
     {
       "arquivo": "src/app/components/ui/prosa.tsx",
       "nome": "prosa",
-      "quandoUsar": "Prosa: tipografia de texto longo (Termos de uso, Política de privacidade, páginas de ajuda). Envolve o HTML que vem de um texto em Markdown e dá a ele a escala do DS: título da página 32 px, seções 20 px, texto 16 px com entrelinha 1,7, listas com respiro, links em --primary-text sublinhados, citação como um card cinza só de borda e tabelas que quebram o texto (nunca rolam para o lado: as células quebram a palavra …",
+      "quandoUsar": "Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API da Prosa do design system Dani Moscatelli. Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong, blockquote, table, hr), sem classes em cada elemento.",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "Prosa",
           "tipo": "componente",
-          "linha": 31,
+          "linha": 17,
           "descricao": "",
           "props": [
+            "tamanho",
             "html",
-            "as",
             "className",
             "children"
           ],
@@ -10641,7 +10798,7 @@
           "ancora": "site-prosa",
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 172,
+          "linha": 174,
           "uso": "direto",
           "exports": [
             "Prosa"
@@ -10682,7 +10839,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 125,
+          "linha": 127,
           "uso": "direto",
           "exports": [
             "ProvaSocial"
@@ -10693,13 +10850,13 @@
     {
       "arquivo": "src/app/components/ui/quadro.tsx",
       "nome": "quadro",
-      "quandoUsar": "Quadro (kanban): itens em colunas por etapa (A contatar → Contato → Visita → Cadastro). Card nunca rola para o lado (regra da dona do produto, 18/11/2026): quando o próprio quadro tem 56rem (896 px) ou mais, as colunas ficam lado a lado, dividindo a largura; antes disso, uma embaixo da outra, e o título de cada coluna abre e fecha a lista (as que têm itens começam abertas). A largura é a do quadro, não a da tela.",
+      "quandoUsar": "Quadro (kanban). O nome e a ideia são os do Quadro do design system Dani Moscatelli, mas a API é a do produto FindLook, que move os itens entre as colunas: os itens vêm numa lista só, com `coluna(item)` e `cartao(item)`, e `onMover` (no DS Dani Moscatelli, cada coluna traz os próprios cartões prontos e não há mover). Itens em colunas por etapa (A contatar → Contato → Visita → Cadastro).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "Quadro",
           "tipo": "componente",
-          "linha": 49,
+          "linha": 55,
           "descricao": "",
           "props": [
             "colunas",
@@ -10844,7 +11001,7 @@
           "props": [
             "marca",
             "superficie",
-            "logoHref",
+            "inicioHref",
             "colunas",
             "convite",
             "faixa",
@@ -10869,7 +11026,7 @@
           "ancora": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 82,
+          "linha": 85,
           "uso": "direto",
           "exports": [
             "RodapeDoSite"
@@ -10970,7 +11127,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "SegmentedControl"
@@ -11180,7 +11337,7 @@
           "ancora": "seletor-de-quantidade",
           "titulo": "Seletor de quantidade",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 99,
+          "linha": 101,
           "uso": "direto",
           "exports": [
             "SeletorDeQuantidade"
@@ -12220,7 +12377,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Switch"
@@ -12267,20 +12424,22 @@
     {
       "arquivo": "src/app/components/ui/tabela-adaptavel.tsx",
       "nome": "tabela-adaptavel",
-      "quandoUsar": "Tabela adaptável: a tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026). Ela mede a própria largura e: - mostra as colunas que cabem, da mais importante para a menos importante (`prioridade`, menor = mais importante); as colunas `fixa` (nome, por exemplo) aparecem sempre;",
+      "quandoUsar": "Tabela adaptável: mesma API (nomes e props) da TabelaAdaptavel do design system Dani Moscatelli, com o que o FindLook precisa a mais: seleção, ordem controlada (ordem + onOrdenar) e a medida da largura (`largura`). A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026).",
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
           "nome": "TabelaAdaptavel",
           "tipo": "componente",
-          "linha": 100,
+          "linha": 110,
           "descricao": "",
           "props": [
             "colunas",
             "linhas",
             "chave",
             "legenda",
-            "legendaVisivel",
+            "mostrarLegenda",
+            "ordemInicial",
+            "textos",
             "rotuloDaLinha",
             "selecionadas",
             "onSelecionadasChange",
@@ -12290,14 +12449,14 @@
             "onOrdenar",
             "larguraDaLista",
             "vazio",
-            "textoDoAviso"
+            "className"
           ],
           "reexportaDe": null
         },
         {
           "nome": "BarraDeFerramentasDaTabela",
           "tipo": "componente",
-          "linha": 270,
+          "linha": 298,
           "descricao": "Barra de ferramentas",
           "props": [
             "busca",
@@ -12310,6 +12469,7 @@
       ],
       "tipos": [
         "ColunaAdaptavel",
+        "ColunaDaTabela",
         "OrdemDaTabela",
         "TabelaAdaptavelProps"
       ],
@@ -12321,7 +12481,7 @@
           "ancora": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164,
+          "linha": 163,
           "uso": "direto",
           "exports": [
             "TabelaAdaptavel",
@@ -12538,10 +12698,22 @@
         {
           "pagina": "campos",
           "paginaRotulo": "Campos e formulários",
+          "ancora": "campo-padrao",
+          "titulo": "Campo (o campo padrão)",
+          "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
+          "linha": 35,
+          "uso": "direto",
+          "exports": [
+            "Textarea"
+          ]
+        },
+        {
+          "pagina": "campos",
+          "paginaRotulo": "Campos e formulários",
           "ancora": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 72,
+          "linha": 74,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -12619,7 +12791,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Timeline"
@@ -13018,7 +13190,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223,
+          "linha": 1221,
           "uso": "dentro de outro exemplo",
           "exports": [
             "UploadDropzone",
@@ -13243,7 +13415,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1241,
+          "linha": 1239,
           "uso": "direto",
           "exports": [
             "VoltarAoTopo"
@@ -13255,7 +13427,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235,
+          "linha": 1233,
           "uso": "dentro de outro exemplo",
           "exports": [
             "VoltarAoTopo"
@@ -13379,7 +13551,7 @@
           "ancora": "mascote-estados-vazios",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 335
+          "linha": 334
         },
         {
           "pagina": "ilustracoes",
@@ -13387,7 +13559,7 @@
           "ancora": "mascote-estados-erro",
           "titulo": "Estados de erro",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 341
+          "linha": 340
         }
       ],
       "usaComponentes": [
@@ -13400,7 +13572,7 @@
       "nome": "IllustrationCard",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-      "linha": 176,
+      "linha": 175,
       "descricao": "",
       "pagina": "ilustracoes",
       "paginaRotulo": "Mascote & Ilustrações",
@@ -13411,7 +13583,7 @@
           "ancora": "mascote-estados-vazios",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 335
+          "linha": 334
         },
         {
           "pagina": "ilustracoes",
@@ -13419,7 +13591,7 @@
           "ancora": "mascote-estados-erro",
           "titulo": "Estados de erro",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 341
+          "linha": 340
         }
       ],
       "usaComponentes": [
@@ -13487,7 +13659,7 @@
           "ancora": "ux-targets",
           "titulo": "Tamanho de alvo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 301
+          "linha": 300
         }
       ],
       "usaComponentes": [],
@@ -13508,7 +13680,7 @@
           "ancora": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 315
+          "linha": 314
         }
       ],
       "usaComponentes": [],
@@ -13529,7 +13701,7 @@
           "ancora": "ux-destructive",
           "titulo": "Ações destrutivas",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 368
+          "linha": 367
         }
       ],
       "usaComponentes": [],
@@ -13550,7 +13722,7 @@
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 335
+          "linha": 334
         }
       ],
       "usaComponentes": [
@@ -13563,7 +13735,7 @@
       "nome": "HierarchyDemo",
       "tipo": "demonstração de conceito",
       "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-      "linha": 216,
+      "linha": 215,
       "descricao": "Button hierarchy",
       "pagina": "usability",
       "paginaRotulo": "Usabilidade",
@@ -13574,7 +13746,7 @@
           "ancora": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 282
+          "linha": 281
         }
       ],
       "usaComponentes": [
@@ -14039,7 +14211,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [],
@@ -14060,7 +14232,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14088,7 +14260,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14117,7 +14289,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14184,7 +14356,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [],
@@ -14205,7 +14377,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14246,7 +14418,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14269,7 +14441,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14297,14 +14469,14 @@
           "ancora": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229
+          "linha": 1227
         }
       ],
       "usaComponentes": [
         "Button",
         "Campo",
         "Checkbox",
-        "EstadoVazio",
+        "EstadoFinal",
         "LinkDeTexto",
         "ListaDeVantagens",
         "MolduraDeConta"
@@ -14315,7 +14487,7 @@
       "nome": "TeamTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 467,
+      "linha": 465,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -14326,7 +14498,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14340,7 +14512,7 @@
       "nome": "InboxTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 733,
+      "linha": 731,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -14351,7 +14523,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14365,7 +14537,7 @@
       "nome": "PricingTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 920,
+      "linha": 918,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -14376,7 +14548,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14391,7 +14563,7 @@
       "nome": "ContactTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1017,
+      "linha": 1015,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -14402,7 +14574,7 @@
           "ancora": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         }
       ],
       "usaComponentes": [
@@ -14416,7 +14588,7 @@
       "nome": "DemoBotoesFlutuantes",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1181,
+      "linha": 1179,
       "descricao": "Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026).",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -14427,7 +14599,7 @@
           "ancora": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1241
+          "linha": 1239
         }
       ],
       "usaComponentes": [
@@ -14440,7 +14612,7 @@
       "nome": "LandingTemplate",
       "tipo": "template",
       "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-      "linha": 1409,
+      "linha": 1407,
       "descricao": "",
       "pagina": "templates",
       "paginaRotulo": "Templates",
@@ -14451,7 +14623,7 @@
           "ancora": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235
+          "linha": 1233
         }
       ],
       "usaComponentes": [
@@ -15866,7 +16038,8 @@
       "linha": 814,
       "elementosFeitosAMao": 11,
       "usaComponentes": [
-        "BalaoDeConversa",
+        "BalaoDaConversa",
+        "Conversa",
         "GradeDeCards",
         "IndicadorDeDigitacao"
       ]
@@ -17473,7 +17646,7 @@
         "titulo": "Hierarquia de ações",
         "resumo": "Hierarquia de ações: principal, secundária e terciária",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 282
+        "linha": 281
       },
       {
         "ancora": "card-escolher",
@@ -17590,7 +17763,7 @@
         "titulo": "Ações destrutivas",
         "resumo": "Ações destrutivas: confirmação e desfazer",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 368
+        "linha": 367
       },
       {
         "ancora": "voice-microcopy",
@@ -17660,7 +17833,7 @@
         "ancora": "ux-checklist",
         "titulo": "Revisão rápida",
         "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-        "linha": 377
+        "linha": 376
       },
       {
         "pagina": "accessibility",
@@ -18101,43 +18274,43 @@
           "id": "mascote-personagem",
           "titulo": "Personagem (Nyx)",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 249
+          "linha": 248
         },
         {
           "id": "mascote-expressoes",
           "titulo": "Expressões e poses",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 304
+          "linha": 303
         },
         {
           "id": "mascote-estilo",
           "titulo": "Estilo de ilustração",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 322
+          "linha": 321
         },
         {
           "id": "mascote-estados-vazios",
           "titulo": "Estados vazios",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 335
+          "linha": 334
         },
         {
           "id": "mascote-estados-erro",
           "titulo": "Estados de erro",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 341
+          "linha": 340
         },
         {
           "id": "mascote-diretrizes",
           "titulo": "Diretrizes de uso",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 347
+          "linha": 346
         },
         {
           "id": "mascote-ativos",
           "titulo": "Ativos e nomenclatura",
           "arquivo": "src/app/components/showcase/IllustrationsShowcase.tsx",
-          "linha": 376
+          "linha": 375
         }
       ]
     },
@@ -18303,49 +18476,49 @@
           "id": "ux-principles",
           "titulo": "Princípios",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 273
+          "linha": 272
         },
         {
           "id": "ux-hierarchy",
           "titulo": "Hierarquia de ações",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 282
+          "linha": 281
         },
         {
           "id": "ux-targets",
           "titulo": "Tamanho de alvo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 301
+          "linha": 300
         },
         {
           "id": "ux-feedback",
           "titulo": "Status do sistema",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 315
+          "linha": 314
         },
         {
           "id": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 335
+          "linha": 334
         },
         {
           "id": "ux-errors",
           "titulo": "Erros e microcopy",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 344
+          "linha": 343
         },
         {
           "id": "ux-destructive",
           "titulo": "Ações destrutivas",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 368
+          "linha": 367
         },
         {
           "id": "ux-checklist",
           "titulo": "Revisão rápida",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 377
+          "linha": 376
         }
       ]
     },
@@ -18615,31 +18788,31 @@
           "id": "template-dashboard",
           "titulo": "Painel da loja (protótipo)",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1223
+          "linha": 1221
         },
         {
           "id": "template-auth",
           "titulo": "Entrar e criar conta",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1229
+          "linha": 1227
         },
         {
           "id": "template-landing",
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1235
+          "linha": 1233
         },
         {
           "id": "template-flutuantes",
           "titulo": "Botões flutuantes",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1241
+          "linha": 1239
         },
         {
           "id": "templates-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
-          "linha": 1293
+          "linha": 1291
         }
       ]
     },
@@ -19549,43 +19722,43 @@
           "id": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 41
+          "linha": 42
         },
         {
           "id": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 82
+          "linha": 85
         },
         {
           "id": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 103
+          "linha": 106
         },
         {
           "id": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 125
+          "linha": 127
         },
         {
           "id": "site-logo",
           "titulo": "Logo",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 146
+          "linha": 148
         },
         {
           "id": "site-links",
           "titulo": "Links de texto",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 156
+          "linha": 158
         },
         {
           "id": "site-prosa",
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 172
+          "linha": 174
         }
       ]
     },
@@ -19604,37 +19777,37 @@
           "id": "campo-de-busca",
           "titulo": "Campo de busca",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 64
+          "linha": 66
         },
         {
           "id": "campo-texto-longo",
           "titulo": "Texto longo com contador",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 72
+          "linha": 74
         },
         {
           "id": "grupo-de-opcoes",
           "titulo": "Grupo de opções e interruptor",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 82
+          "linha": 84
         },
         {
           "id": "seletor-de-quantidade",
           "titulo": "Seletor de quantidade",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 99
+          "linha": 101
         },
         {
           "id": "caixa-de-codigo",
           "titulo": "Caixa de código",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 113
+          "linha": 115
         },
         {
-          "id": "botao-com-retorno",
-          "titulo": "Botão com retorno",
+          "id": "botao-de-envio",
+          "titulo": "Botão de envio",
           "arquivo": "src/app/components/showcase/CamposShowcase.tsx",
-          "linha": 126
+          "linha": 128
         }
       ]
     },
@@ -19702,13 +19875,13 @@
           "id": "tabela-adaptavel",
           "titulo": "Tabela adaptável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 164
+          "linha": 163
         },
         {
           "id": "card-indicador-link",
           "titulo": "Card de indicador clicável",
           "arquivo": "src/app/components/showcase/PainelAdminShowcase.tsx",
-          "linha": 217
+          "linha": 216
         }
       ]
     },

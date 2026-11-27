@@ -11,7 +11,7 @@ import { Carregando } from "../ui/carregando";
 import { Button } from "../ui/button";
 import { ShineBorder, shinePresets, type ShinePreset } from "../ui/shine-border";
 import { GradeDeCards } from "../ui/grade-de-cards";
-import { BalaoDeConversa, IndicadorDeDigitacao } from "../ui/conversa";
+import { BalaoDaConversa, Conversa, IndicadorDeDigitacao } from "../ui/conversa";
 
 /* ── Section wrapper ── */
 function Section({ id, title, sub, children }: { id: string; title: string; sub: string; children: React.ReactNode }) {
@@ -927,11 +927,11 @@ function LoadersSection() {
         {/* Typing dots */}
         <div className="rounded-lg border border-border bg-card p-5 space-y-4">
           <div className="text-label font-bold text-foreground">{t("Chat States", "Estados de chat")}</div>
-          {/* IndicadorDeDigitacao e BalaoDeConversa do DS (ui/conversa, 27/11/2026). */}
-          <div className="space-y-3">
+          {/* IndicadorDeDigitacao e BalaoDaConversa do DS (ui/conversa, 27/11/2026). */}
+          <Conversa rotulo={t("Chat states", "Estados de chat")} alinhamento="lados">
             <IndicadorDeDigitacao />
-            <BalaoDeConversa de="eu" autor="Você" hora="10:05" estado="enviada">{t("Message sent", "Mensagem enviada")}</BalaoDeConversa>
-          </div>
+            <BalaoDaConversa autor="eu" quando="10:05" estado="enviada">{t("Message sent", "Mensagem enviada")}</BalaoDaConversa>
+          </Conversa>
         </div>
       </GradeDeCards>
       <DemoCarregando />

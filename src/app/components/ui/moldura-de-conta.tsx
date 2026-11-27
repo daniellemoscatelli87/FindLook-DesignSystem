@@ -1,63 +1,86 @@
 import * as React from "react";
 import { cn } from "./utils";
 import { Logo } from "./logo";
-import { LinkDeVoltar } from "./links";
+import { Selo } from "./selo";
 
 /**
- * Moldura das telas de conta (Entrar, Criar conta, Recuperar acesso, Redefinir senha, Minha conta, Área
- * administrativa): o template Entrar e criar conta como componente. Fundo cinza da página, no topo o logo e "Voltar ao
- * início", e no meio um card só de borda (sem sombra sobre o cinza) com o título da tela (h1, 24 px), a explicação e
- * o conteúdo (formulário com Campo, Alert e Button). Embaixo do card, uma linha opcional ("Ainda não tem conta?").
- * `lateral`: a coluna da marca à esquerda do formulário (do 768 px em diante; no celular ela some e fica só o
- * formulário), por exemplo com ListaDeVantagens. `altura="conteudo"` para mostrar a moldura dentro de outra página
- * (demonstrações); o padrão ocupa a tela inteira. `comoLink`: o link do produto (Next.js).
+ * MolduraDeConta (telas de conta): mesma API da MolduraDeConta do design system Dani Moscatelli.
+ * A moldura de Entrar, Criar conta, Recuperar acesso, Redefinir senha, Minha conta e Área administrativa: página
+ * inteira no cinza da página (--muted), com um card só de borda (sem sombra sobre o cinza) centralizado: logo (link
+ * para o início), selo opcional ("Área administrativa"), título (h1, 24 px), uma frase de apoio, o formulário
+ * (children: Campo, Alert, Button) e um rodapé opcional, separado por um divisor ("Ainda não tem conta? Cadastre-se").
+ * Alinhamento: logo, selo, título, texto, formulário e rodapé na mesma borda esquerda; no celular o card ocupa a
+ * largura toda com 16 px de margem.
+ * A mais no FindLook: `lateral` (a coluna da marca à esquerda do formulário, do 768 px em diante; no celular ela
+ * some) e `comoLink` (o Link do Next.js no logo). O template Entrar e criar conta usa esta moldura.
  */
-export type MolduraDeContaProps = {
-  titulo: string;
-  explicacao?: React.ReactNode;
+export type MolduraDeContaProps = Omit<React.ComponentProps<"main">, "title"> & {
+  titulo: React.ReactNode;
+  descricao?: React.ReactNode;
+  /** Selo acima do título, por exemplo "Área administrativa". */
+  selo?: React.ReactNode;
+  /** Logo próprio (padrão: o Logo horizontal do DS). */
+  logo?: React.ReactNode;
+  inicioHref?: string;
+  rotuloInicio?: string;
+  /** Links depois do formulário. */
   rodape?: React.ReactNode;
+  /** Ocupa a altura da tela (padrão) ou só o conteúdo (demonstrações). */
+  telaCheia?: boolean;
+  /** FindLook: coluna da marca ao lado do formulário (768 px ou mais). */
   lateral?: React.ReactNode;
-  logoHref?: string;
-  voltar?: { rotulo: string; href: string } | false;
+  /** FindLook: o link do produto no logo. */
   comoLink?: React.ElementType;
-  altura?: "tela" | "conteudo";
-  /** id do <main> (o destino do "Pular para o conteúdo"). */
-  idDoConteudo?: string;
-  className?: string;
-  children: React.ReactNode;
 };
 
-export function MolduraDeConta({
+function MolduraDeConta({
   titulo,
-  explicacao,
+  descricao,
+  selo,
+  logo,
+  inicioHref = "/",
+  rotuloInicio = "FindLook, página inicial",
   rodape,
+  telaCheia = true,
   lateral,
-  logoHref = "/",
-  voltar = { rotulo: "Voltar ao início", href: "/" },
   comoLink,
-  altura = "tela",
-  idDoConteudo = "conteudo",
-  className,
   children,
+  className,
+  ...props
 }: MolduraDeContaProps) {
-  const largura = lateral ? "max-w-4xl" : "max-w-md";
+  const Link = comoLink ?? "a";
   return (
-    <div data-slot="moldura-de-conta" className={cn("flex flex-col bg-muted", altura === "tela" ? "min-h-dvh" : "min-h-full", className)}>
-      <header className={cn("mx-auto flex w-full items-center justify-between gap-4 px-4 py-4 sm:py-6", largura)}>
-        <Logo href={logoHref} comoLink={comoLink} className="h-8" />
-        {voltar && <LinkDeVoltar href={voltar.href} comoLink={comoLink} className="-mr-2 ml-0">{voltar.rotulo}</LinkDeVoltar>}
-      </header>
-      <main id={idDoConteudo} className={cn("mx-auto w-full flex-1 px-4 pb-12", largura)}>
-        <div className={cn("overflow-hidden rounded-xl border border-border bg-card motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-slow)]", lateral && "md:grid md:grid-cols-[0.9fr_1.1fr]")}>
-          {lateral && <div className="hidden border-r border-border bg-[var(--brand-rose)] p-8 md:flex md:flex-col md:justify-center">{lateral}</div>}
-          <div className="p-6 sm:p-8">
-            <h1 className="m-0 text-h3 font-extrabold leading-tight tracking-[-0.02em] text-foreground [text-wrap:balance]">{titulo}</h1>
-            {explicacao && <div className="mt-2 text-body text-muted-foreground">{explicacao}</div>}
-            <div className="mt-6">{children}</div>
-          </div>
+    <main
+      data-slot="moldura-de-conta"
+      className={cn("flex w-full items-center justify-center bg-muted px-4 py-12", telaCheia && "min-h-svh", className)}
+      {...props}
+    >
+      <div className={cn(
+        "w-full overflow-hidden rounded-xl border border-border bg-card text-card-foreground motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-slow)]",
+        lateral ? "max-w-4xl md:grid md:grid-cols-[0.9fr_1.1fr]" : "max-w-md",
+      )}>
+        {lateral && <div className="hidden border-r border-border bg-[var(--brand-rose)] p-8 md:flex md:flex-col md:justify-center">{lateral}</div>}
+        <div className="p-6 sm:p-8">
+          <Link
+            href={inicioHref}
+            aria-label={rotuloInicio}
+            className="mb-8 inline-flex min-h-11 items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            {logo ?? <Logo variante="horizontal" superficie="auto" className="h-9" />}
+          </Link>
+          {selo && <div className="mb-3">{typeof selo === "string" ? <Selo size="sm">{selo}</Selo> : selo}</div>}
+          <h1 className="m-0 text-h3 font-extrabold leading-tight tracking-[-0.02em] text-foreground text-balance">{titulo}</h1>
+          {descricao && <p className="m-0 mt-2 text-pretty text-body-sm leading-relaxed text-muted-foreground sm:text-body">{descricao}</p>}
+          <div className="mt-6">{children}</div>
+          {rodape && (
+            <div data-slot="moldura-de-conta-rodape" className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border pt-4 text-body-sm">
+              {rodape}
+            </div>
+          )}
         </div>
-        {rodape && <div className="mt-6 text-center text-body-sm text-foreground">{rodape}</div>}
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
+
+export { MolduraDeConta };

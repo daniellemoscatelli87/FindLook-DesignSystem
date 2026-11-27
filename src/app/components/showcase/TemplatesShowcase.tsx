@@ -45,7 +45,7 @@ import { MolduraDeConta } from "../ui/moldura-de-conta";
 import { Campo } from "../ui/campo";
 import { ListaDeVantagens } from "../ui/lista-de-vantagens";
 import { LinkDeTexto } from "../ui/links";
-import { EstadoVazio } from "../ui/estado-vazio";
+import { EstadoFinal } from "../ui/estado-vazio";
 import { Button } from "../ui/button";
 import { plans, pricingFeatures } from "./shared/planos";
 
@@ -351,7 +351,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
    3. Entrar e criar conta (loja parceira)
 ───────────────────────────────────────────── */
 function AuthTemplate() {
-  // MolduraDeConta, Campo, SegmentedControl e EstadoVazio do DS (27/11/2026): o template é feito só de componentes.
+  // MolduraDeConta, Campo, SegmentedControl e EstadoFinal do DS (27/11/2026): o template é feito só de componentes.
   const uid = useId();
   const pre = `auth${uid.replace(/:/g, "")}`;
   const [tab, setTab] = useState<"entrar" | "criar">("entrar");
@@ -363,12 +363,11 @@ function AuthTemplate() {
   return (
     <TemplateFrame url="FindLook · Entrar">
       <MolduraDeConta
-        altura="conteudo"
-        idDoConteudo={`${pre}-conteudo`}
-        logoHref="#template-auth"
-        voltar={{ rotulo: "Voltar ao início", href: "#template-auth" }}
+        telaCheia={false}
+        id={`${pre}-conteudo`}
+        inicioHref="#template-auth"
         titulo={entrar ? "Que bom ter você de volta" : "Cadastre sua loja"}
-        explicacao={entrar ? "Entre no painel da sua loja." : "Leva poucos minutos. Você revisa tudo antes de publicar."}
+        descricao={entrar ? "Entre no painel da sua loja." : "Leva poucos minutos. Você revisa tudo antes de publicar."}
         lateral={
           <div className="space-y-5">
             <p className="m-0 text-h4 font-bold leading-snug text-foreground">Sua loja encontrada por quem já procura o que você vende.</p>
@@ -391,13 +390,12 @@ function AuthTemplate() {
           onValueChange={trocar}
         />
         {enviado ? (
-          <EstadoVazio
-            variante="simples"
-            icone={<CheckCircle />}
-            tom="marca"
+          <EstadoFinal
+            tom="sucesso"
+            className="py-6"
             titulo={entrar ? "Tudo certo!" : "Conta criada!"}
-            texto={entrar ? "Abrindo o painel do Ateliê Aurora." : "Enviamos um e-mail para confirmar o endereço. Depois é só cadastrar as primeiras peças."}
-            acao={<Button variant="outline" className="h-10 toque:h-11" onClick={() => setEnviado(false)}>Voltar</Button>}
+            descricao={entrar ? "Abrindo o painel do Ateliê Aurora." : "Enviamos um e-mail para confirmar o endereço. Depois é só cadastrar as primeiras peças."}
+            acoes={<Button variant="outline" className="h-10 toque:h-11" onClick={() => setEnviado(false)}>Voltar</Button>}
           />
         ) : (
           <form className="space-y-5" onSubmit={e => { e.preventDefault(); setEnviado(true); }}>

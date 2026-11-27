@@ -49,13 +49,14 @@ const alertVariants = cva(
 );
 
 /**
- * tom (27/11/2026): os mesmos nomes do AlertaComAcao (info, sucesso, aviso, erro) ligados à variante e ao ícone de
+ * tom (27/11/2026, mesma API do DS Dani Moscatelli): neutro, info, sucesso, aviso e erro, ligados à variante e ao ícone de
  * cada estado, que o Alert põe sozinho como primeiro filho. Com tom, não ponha outro svg; `icone` troca o ícone
  * (ou `icone={false}` tira). Sem tom, continua como antes: variant + o svg filho.
  */
-type TomDoAlert = "info" | "sucesso" | "aviso" | "erro";
-const VARIANTE_DO_TOM = { info: "info", sucesso: "success", aviso: "warning", erro: "error" } as const;
-const ICONE_DO_TOM = { info: Info, sucesso: CheckCircle2, aviso: AlertCircle, erro: TriangleAlert } as const;
+type TomDoAlerta = "neutro" | "info" | "sucesso" | "aviso" | "erro";
+const VARIANTE_DO_TOM = { neutro: "default", info: "info", sucesso: "success", aviso: "warning", erro: "error" } as const;
+// Ícones do FindLook: os mesmos do AlertaComAcao deste DS (no DS Dani Moscatelli, aviso usa TriangleAlert e erro CircleAlert).
+const ICONE_DO_TOM = { neutro: Info, info: Info, sucesso: CheckCircle2, aviso: AlertCircle, erro: TriangleAlert } as const;
 
 function Alert({
   className,
@@ -64,7 +65,7 @@ function Alert({
   icone,
   children,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants> & { tom?: TomDoAlert; icone?: React.ReactNode | false }) {
+}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants> & { tom?: TomDoAlerta; icone?: React.ReactNode | false }) {
   const v = tom ? VARIANTE_DO_TOM[tom] : variant;
   const urgente = v === "warning" || v === "error" || v === "destructive";
   const Icone = tom ? ICONE_DO_TOM[tom] : null;
@@ -115,4 +116,4 @@ function AlertDescription({
 }
 
 export { Alert, AlertTitle, AlertDescription };
-export type { TomDoAlert };
+export type { TomDoAlerta };

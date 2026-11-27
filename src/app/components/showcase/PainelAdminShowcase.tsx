@@ -3,10 +3,10 @@ import { Archive, CalendarPlus, Circle, ClipboardCheck, Columns3, Eye, Inbox, Li
 import { SectionHeader } from "./shared/SectionHeader";
 import { DataTable, DoDont, Mono, Panel } from "./shared/Guidance";
 import { Quadro, type ColunaDoQuadro } from "../ui/quadro";
-import { AvisoDoSistema, BalaoDeConversa, BotaoDeResposta, CabecalhoDaConversa, CampoDeMensagem, Conversa, FolhaDeOpcoes, IndicadorDeDigitacao, MolduraDeCelular } from "../ui/conversa";
-import { BarraDeFerramentasDaTabela, TabelaAdaptavel, type ColunaAdaptavel, type OrdemDaTabela } from "../ui/tabela-adaptavel";
+import { BalaoDaConversa, BotaoDeResposta, CabecalhoDaConversa, CampoDeMensagem, Conversa, FolhaDeOpcoes, IndicadorDeDigitacao, MolduraDeCelular, SeparadorDaConversa } from "../ui/conversa";
+import { BarraDeFerramentasDaTabela, TabelaAdaptavel, type ColunaDaTabela, type OrdemDaTabela } from "../ui/tabela-adaptavel";
 import { CampoDeBusca } from "../ui/campo-de-busca";
-import { ChipDeFiltro, ListaDeFiltrosAtivos } from "../ui/chips";
+import { ChipDeFiltro, ListaDeFiltrosAtivos } from "../ui/chip-filtravel";
 import { ChipDeEstado } from "../ui/chip-de-estado";
 import { Avaliacao } from "../ui/avaliacao";
 import { BarraDeAcoesEmLote } from "../ui/painel-produtos";
@@ -42,8 +42,8 @@ const ETAPA: Record<Etapa, { rotulo: string; tom: "neutro" | "aviso" | "marca" }
   cadastro: { rotulo: "Cadastro", tom: "marca" },
 };
 
-const COLUNAS_DA_TABELA: ColunaAdaptavel<LojaExemplo>[] = [
-  { id: "nome", titulo: "Loja", fixa: true, largura: 180, ordenavel: true, celula: (l) => l.nome },
+const COLUNAS_DA_TABELA: ColunaDaTabela<LojaExemplo>[] = [
+  { id: "nome", titulo: "Loja", principal: true, largura: 180, ordenavel: true, celula: (l) => l.nome },
   { id: "etapa", titulo: "Etapa", largura: 130, prioridade: 1, celula: (l) => <ChipDeEstado tom={ETAPA[l.etapa].tom}>{ETAPA[l.etapa].rotulo}</ChipDeEstado> },
   { id: "bairro", titulo: "Bairro", largura: 130, prioridade: 2, ordenavel: true, celula: (l) => l.bairro },
   { id: "nota", titulo: "Nota", largura: 110, prioridade: 3, ordenavel: true, celula: (l) => <Avaliacao nota={l.nota} total={l.total} /> },
@@ -112,26 +112,25 @@ export function PainelAdminShowcase() {
             [<Mono>colunas</Mono>, "{ id, titulo, icone, vazio, subtitulo, rodape, quantidade }"],
             [<Mono>itens</Mono>, "Os itens; chave, coluna e cartao dizem a chave de cada um, em que coluna está e o conteúdo do cartão."],
             [<Mono>onMover</Mono>, "Mover para outra coluna; com podeMover, só aparecem as colunas permitidas."],
-            [<Mono>limitarAltura</Mono>, "Coluna com até 24rem e rolagem vertical por dentro (desligado por padrão)."],
+            ["Altura", "limitarAltura: coluna com até 24rem e rolagem vertical por dentro (desligado por padrão)."],
           ]}
         />
         <DoDont dos={["Sempre o botão Mover para, além de arrastar.", "Quatro a seis colunas."]} donts={["Rolagem para o lado no quadro.", "Cartão com mais de três linhas de texto."]} />
       </section>
 
       <section id="conversa" className="scroll-mt-32 space-y-6">
-        <SectionHeader title="Conversa e moldura de celular" description="As peças do WhatsApp da loja e do simulador do robô: cabeçalho, balões (meus à direita, no rosa principal), digitando, aviso do sistema, respostas rápidas, a folha de opções e o campo de mensagem, dentro da moldura de celular." />
+        <SectionHeader title="Conversa e moldura de celular" description="As peças do WhatsApp da loja e do simulador do robô: cabeçalho, balões, digitando, separador, respostas rápidas, a folha de opções e o campo de mensagem, dentro da moldura de celular. Conversa, BalaoDaConversa, SeparadorDaConversa e IndicadorDeDigitacao têm a mesma API do DS Dani Moscatelli." />
         <MolduraDeCelular rotulo="Celular simulado (exemplo)" className="h-144">
           <CabecalhoDaConversa nome="FindLook" status="Robô em teste" digitando={digitando} simbolo={<SimboloFindLook />} />
-          <Conversa rotulo="Conversa com o robô da FindLook">
-            <AvisoDoSistema>Hoje</AvisoDoSistema>
+          <Conversa rotulo="Conversa com o robô da FindLook" alinhamento="lados" rolagem>
+            <SeparadorDaConversa>Hoje</SeparadorDaConversa>
             {mensagens.map((m, i) => (
-              <BalaoDeConversa
+              <BalaoDaConversa
                 key={m.id}
-                de={m.de}
-                autor={m.de === "eu" ? "Você" : "FindLook"}
-                hora={m.hora}
+                autor={m.de}
+                quando={m.hora}
                 estado={m.de === "eu" ? "lida" : undefined}
-                acoes={i === 0 ? (
+                depois={i === 0 ? (
                   <>
                     <BotaoDeResposta disabled={respondida} onClick={() => responder("Procurar uma peça")}>Procurar uma peça</BotaoDeResposta>
                     <BotaoDeResposta disabled={respondida} icone={<ListChecks aria-hidden />} onClick={() => setFolha(true)}>Ver opções</BotaoDeResposta>
@@ -139,9 +138,9 @@ export function PainelAdminShowcase() {
                 ) : undefined}
               >
                 {m.texto}
-              </BalaoDeConversa>
+              </BalaoDaConversa>
             ))}
-            {digitando && <IndicadorDeDigitacao />}
+            {digitando && <IndicadorDeDigitacao rotulo="FindLook está digitando" />}
           </Conversa>
           <CampoDeMensagem valor={texto} onValorChange={setTexto} onEnviar={() => { responder(texto); setTexto(""); }} onAnexar={() => undefined} />
           <FolhaDeOpcoes
@@ -154,11 +153,11 @@ export function PainelAdminShowcase() {
         </MolduraDeCelular>
         <p className="text-body-sm text-muted-foreground">Experimente: escolha uma resposta, abra Ver opções ou escreva uma mensagem. Conversa de exemplo.</p>
         <Panel className="mx-auto max-w-sm space-y-3 bg-muted p-4">
-          <IndicadorDeDigitacao autor="FindLook" />
+          <IndicadorDeDigitacao rotulo="FindLook está digitando" />
           <IndicadorDeDigitacao texto="Procurando peças parecidas…" icone={<ScanSearch />} />
-          <BalaoDeConversa de="eu" autor="Você" hora="10:05" estado="erro" citacao={{ texto: "Vestido midi de linho · R$ 249,90" }}>Ainda tem esse vestido no tamanho P? Posso passar na loja amanhã à tarde.</BalaoDeConversa>
+          <BalaoDaConversa autor="eu" nome="Você" quando="10:05" estado="erro" citacao={{ texto: "Vestido midi de linho · R$ 249,90" }}>Ainda tem esse vestido no tamanho P? Posso passar na loja amanhã à tarde.</BalaoDaConversa>
         </Panel>
-        <DoDont dos={["Meus balões à direita, no rosa principal; os do outro, à esquerda, no card.", "Respostas rápidas embaixo do balão, desabilitadas depois de respondidas."]} donts={["Hover rosa nas respostas (o hover é cinza).", "Mensagem sem a hora."]} />
+        <DoDont dos={["No chat, alinhamento=\"lados\": suas mensagens à direita, no cinza de apoio; as do outro à esquerda, no card.", "Respostas rápidas embaixo do balão (depois), desabilitadas depois de respondidas."]} donts={["Balão na primária cheia ou no rosa de selecionado (balão não é botão nem seleção).", "Hover rosa nas respostas (o hover é cinza).", "Mensagem sem a hora."]} />
       </section>
 
       <section id="tabela-adaptavel" className="scroll-mt-32 space-y-6">
@@ -205,10 +204,10 @@ export function PainelAdminShowcase() {
           head={["Prop", "O que faz"]}
           rows={[
             [<Mono>colunas</Mono>, "{ id, titulo, celula, largura (px mínimos), prioridade (1 = mais importante), fixa, alinhar, ordenavel }"],
-            [<Mono>selecionadas</Mono>, "Com onSelecionadasChange: seleção com caixa de 44 px no toque e Selecionar todas; linha selecionada no rosa do selecionado."],
+            ["Seleção", "selecionadas e onSelecionadasChange: seleção com caixa de 44 px no toque e Selecionar todas; linha selecionada no rosa do selecionado."],
             [<Mono>ordem</Mono>, "Com onOrdenar: ordenação pelo título da coluna, com aria-sort."],
-            [<Mono>larguraDaLista</Mono>, "Quando vira lista (600 px). textoDoAviso e vazio mudam o aviso e o estado vazio."],
-            [<Mono>itemNoPlural</Mono>, "Na BarraDeAcoesEmLote: o texto da lista (com itemNoSingular, selecionadaNoFeminino ou textoDaContagem)."],
+            ["Lista", "larguraDaLista: quando vira lista (600 px). textos e vazio mudam os textos e o estado vazio."],
+            ["Ações em lote", "BarraDeAcoesEmLote: o texto da lista com itemNoSingular, itemNoPlural e selecionadaNoFeminino, ou textoDaContagem."],
           ]}
         />
         <DoDont dos={["A coluna mais importante com prioridade 1.", "Diga as colunas que ficaram de fora (o aviso faz isso)."]} donts={["Rolagem horizontal dentro do card.", "Cortar o nome da loja com reticências quando há espaço na lista."]} />

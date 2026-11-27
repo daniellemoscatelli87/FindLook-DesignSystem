@@ -2,39 +2,42 @@ import * as React from "react";
 import { cn } from "./utils";
 
 /**
- * Prosa: tipografia de texto longo (Termos de uso, Política de privacidade, páginas de ajuda). Envolve o HTML que vem
- * de um texto em Markdown e dá a ele a escala do DS: título da página 32 px, seções 20 px, texto 16 px com entrelinha
- * 1,7, listas com respiro, links em --primary-text sublinhados, citação como um card cinza só de borda e tabelas que
- * quebram o texto (nunca rolam para o lado: as células quebram a palavra quando precisam).
- * Largura de leitura: --content-reading (768 px). Use `<Prosa html={...} />` para HTML pronto ou `<Prosa>` com filhos.
+ * Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API da Prosa do design system
+ * Dani Moscatelli. Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong,
+ * blockquote, table, hr), sem classes em cada elemento.
+ * - Coluna de leitura de até 768 px (--content-reading), texto de 16 px com entrelinha 1,7, parágrafos a 16 px um do
+ *   outro, títulos com respiro acima maior que abaixo.
+ * - Links sublinhados em --primary-text (6,4:1), com foco visível. Tabelas quebram o texto e nunca rolam para o lado.
+ * - tamanho "sm" para notas e rodapés legais (14 px).
+ * - A mais no FindLook: `html` (o HTML convertido do Markdown dos textos jurídicos do próprio site; nunca texto de
+ *   quem usa o site), para a página não precisar de dangerouslySetInnerHTML.
  */
-export type ProsaProps = React.HTMLAttributes<HTMLElement> & {
-  /** HTML já convertido do Markdown (só de arquivos do próprio site, nunca de quem usa o site). */
-  html?: string;
-  as?: "article" | "div" | "section";
-};
+export type ProsaProps = React.ComponentProps<"div"> & { tamanho?: "sm" | "md"; html?: string };
 
-const estilo = [
-  "max-w-[var(--content-reading)] text-body leading-[1.7] text-foreground [overflow-wrap:anywhere]",
-  "[&_h1]:mb-4 [&_h1]:text-h2 [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-[-0.02em] [&_h1]:[text-wrap:balance]",
-  "[&_h2]:mb-3 [&_h2]:mt-10 [&_h2]:text-h4 [&_h2]:font-bold [&_h2]:leading-snug [&_h2]:[text-wrap:balance]",
-  "[&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-body-lg [&_h3]:font-bold [&_h3]:leading-snug",
-  "[&_p]:my-4 [&_strong]:font-semibold",
-  "[&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1 [&_li]:pl-1 [&_li::marker]:text-muted-foreground",
-  "[&_a]:rounded-sm [&_a]:font-semibold [&_a]:text-primary-text [&_a]:underline [&_a]:underline-offset-[3px] [&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-ring",
-  "[&_blockquote]:my-6 [&_blockquote]:rounded-md [&_blockquote]:border [&_blockquote]:border-border [&_blockquote]:bg-muted [&_blockquote]:p-4 [&_blockquote_p]:m-0",
-  "[&_hr]:my-8 [&_hr]:border-border",
-  "[&_table]:my-6 [&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_table]:text-body-sm [&_th]:border [&_th]:border-border [&_th]:bg-muted [&_th]:p-2 [&_th]:text-left [&_th]:font-semibold [&_td]:border [&_td]:border-border [&_td]:p-2 [&_td]:align-top",
-  "[&>*:first-child]:mt-0",
-].join(" ");
-
-export function Prosa({ html, as: Tag = "article", className, children, ...props }: ProsaProps) {
+function Prosa({ tamanho = "md", html, className, children, ...props }: ProsaProps) {
   return (
-    <Tag
+    <div
       data-slot="prosa"
-      className={cn(estilo, className)}
+      className={cn(
+        "max-w-[var(--content-reading)] text-pretty text-foreground [overflow-wrap:anywhere]",
+        tamanho === "sm" ? "text-body-sm leading-relaxed" : "text-body leading-[1.7]",
+        "[&>*+*]:mt-4",
+        "[&_h1]:text-h2 [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-[-0.02em] [&_h1]:text-balance [&_h1+*]:mt-6",
+        "[&_h2]:mt-12 [&_h2]:text-h3 [&_h2]:font-bold [&_h2]:leading-tight [&_h2]:tracking-[-0.02em] [&_h2]:text-balance [&_h2+*]:mt-4",
+        "[&_h3]:mt-8 [&_h3]:text-subtitle [&_h3]:font-semibold [&_h3]:leading-snug [&_h3+*]:mt-2",
+        "[&>:first-child]:mt-0",
+        "[&_p]:text-muted-foreground [&_li]:text-muted-foreground [&_strong]:font-semibold [&_strong]:text-foreground",
+        "[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-6 [&_ol]:pl-6 [&_li+li]:mt-2 [&_li]:marker:text-primary-text",
+        "[&_a]:font-medium [&_a]:text-primary-text [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:decoration-2 [&_a]:rounded-sm [&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-ring",
+        "[&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-4 [&_blockquote]:text-foreground",
+        "[&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_table]:text-body-sm [&_th]:border-b [&_th]:border-border [&_th]:py-2 [&_th]:pr-4 [&_th]:text-left [&_th]:font-semibold [&_td]:border-b [&_td]:border-border [&_td]:py-2 [&_td]:pr-4 [&_td]:align-top",
+        "[&_hr]:my-8 [&_hr]:border-border",
+        className,
+      )}
       {...(html !== undefined ? { dangerouslySetInnerHTML: { __html: html } } : { children })}
       {...props}
     />
   );
 }
+
+export { Prosa };

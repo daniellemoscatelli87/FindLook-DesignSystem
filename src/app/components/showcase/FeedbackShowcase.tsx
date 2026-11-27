@@ -20,7 +20,7 @@ import { AlertaComAcaoDoc } from "./AlertaComAcaoShowcase";
 import { VejaEm } from "./shared/VejaEm";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { ChipFiltravel, GrupoDeChips } from "../ui/chips";
+import { ChipFiltravel, GrupoDeChips } from "../ui/chip-filtravel";
 import { EstadoVazio } from "../ui/estado-vazio";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 import { GradeDeCards } from "../ui/grade-de-cards";
@@ -511,7 +511,7 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         <SubSection title={t("Chips (Filterable)", "Chips (filtráveis)")}>
           <ShowcaseCard>
             <p className="mb-4 max-w-3xl text-body-sm leading-relaxed text-muted-foreground">Chip ativo (regra dos rosas claros da dona do produto, 27/11/2026): fundo no rosa do selecionado (--primary-suave), texto --primary-text (5,7:1), borda rosa sutil e o check, e continua rosa com o mouse em cima; chip não ativo com o mouse em cima: cinza claro (--accent), nunca rosa; nunca preenchido de pink, porque só a ação principal da área é preenchida. aria-pressed diz se está marcado.</p>
-            {/* ChipFiltravel do DS (ui/chips, 27/11/2026). */}
+            {/* ChipFiltravel do DS (ui/chip-filtravel, 27/11/2026). */}
             <GrupoDeChips rotulo={t("Filters", "Filtros")}>
               {chipVariants.map(c => {
                 const active = chipActive.includes(c.label);
@@ -707,14 +707,14 @@ export function FeedbackShowcase({ parte = "feedback" }: { parte?: "feedback" | 
         {/* EstadoVazio do DS (ui/estado-vazio, 27/11/2026); mais exemplos em Chips e estados › Estado vazio. */}
         <GradeDeCards className="md:grid-cols-2 gap-4">
           <EstadoVazio
-            variante="card"
+            moldura="card"
             icone={<SearchX />}
             titulo={t("No results found", "Nenhum resultado encontrado")}
             texto={t("Try adjusting your search or filters to find what you're looking for.", "Tente ajustar sua busca ou os filtros para encontrar o que procura.")}
             acao={<Button variant="outline" className="h-10 toque:h-11">{t("Clear filters", "Limpar filtros")}</Button>}
           />
           <EstadoVazio
-            variante="card"
+            moldura="card"
             icone={<Plus />}
             tom="marca"
             titulo={t("Create your first project", "Crie seu primeiro projeto")}

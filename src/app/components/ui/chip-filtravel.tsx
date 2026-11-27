@@ -5,11 +5,14 @@ import { Check, X } from "lucide-react";
 import { cn } from "./utils";
 
 /**
- * Chips de filtro (Rótulos › Chips filtráveis, como componente).
+ * Chips de filtro (Rótulos › Chips filtráveis, como componente). ChipFiltravel e GrupoDeChipsFiltraveis têm a mesma
+ * API do design system Dani Moscatelli; GrupoDeChips, ChipDeFiltro e ListaDeFiltrosAtivos são do FindLook.
  * - ChipFiltravel: liga e desliga um filtro ou uma classificação (aria-pressed). Ligado: fundo no rosa do selecionado
  *   (--primary-suave), texto --primary-text, borda rosa e o check, e continua rosa com o mouse em cima; desligado com o
  *   mouse em cima: cinza claro (--accent), nunca rosa. Nunca preenchido de pink. `contagem` mostra quantos itens o
  *   filtro traz (lida junto: "Brechó, 12").
+ * - GrupoDeChipsFiltraveis: o grupo pronto a partir das opções ({ valor, rotulo, contagem, desabilitado }), com
+ *   `valor` (lista dos ligados), `onValorChange`, `multiplo` (padrão; false = só um) e `rotulo` do grupo.
  * - GrupoDeChips: os chips lado a lado, quebrando de linha (nunca rolando para o lado), com um nome para o grupo. No
  *   celular, em duas colunas de mesma largura (bordas alinhadas, nada solto); prefira um número par de opções.
  *   Quem escolhe uma opção só usa o SegmentedControl ou o RadioGroup, não chips.
@@ -20,7 +23,7 @@ import { cn } from "./utils";
 
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-export type ChipFiltravelProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> & {
+export type ChipFiltravelProps = Omit<React.ComponentProps<"button">, "onChange"> & {
   ativo: boolean;
   onAtivoChange?: (ativo: boolean) => void;
   contagem?: number;
@@ -57,6 +60,40 @@ export function ChipFiltravel({ ativo, onAtivoChange, contagem, icone, className
         </span>
       )}
     </button>
+  );
+}
+
+export type OpcaoDoChip = { valor: string; rotulo: React.ReactNode; contagem?: number; desabilitado?: boolean };
+
+export type GrupoDeChipsFiltraveisProps = {
+  opcoes: OpcaoDoChip[];
+  valor: string[];
+  onValorChange: (valor: string[]) => void;
+  /** Várias ao mesmo tempo (padrão) ou só uma. */
+  multiplo?: boolean;
+  /** Nome do grupo para leitores de tela ("Filtrar por tipo"). */
+  rotulo: string;
+  className?: string;
+};
+
+export function GrupoDeChipsFiltraveis({ opcoes, valor, onValorChange, multiplo = true, rotulo, className }: GrupoDeChipsFiltraveisProps) {
+  return (
+    <GrupoDeChips rotulo={rotulo} className={className}>
+      {opcoes.map((o) => {
+        const ativo = valor.includes(o.valor);
+        return (
+          <ChipFiltravel
+            key={o.valor}
+            ativo={ativo}
+            contagem={o.contagem}
+            disabled={o.desabilitado}
+            onAtivoChange={(liga) => onValorChange(multiplo ? (liga ? [...valor, o.valor] : valor.filter((v) => v !== o.valor)) : liga ? [o.valor] : [])}
+          >
+            {o.rotulo}
+          </ChipFiltravel>
+        );
+      })}
+    </GrupoDeChips>
   );
 }
 

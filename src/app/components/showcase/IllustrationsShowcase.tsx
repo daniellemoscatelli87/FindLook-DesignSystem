@@ -161,12 +161,11 @@ function EmptyStateMock({ src, alt, mobile = false }: { src: string; alt: string
       {!mobile && <div className="mb-6 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[var(--graphite-300)]" /><span className="h-2 w-16 rounded-full bg-[var(--graphite-200)]" /><span className="ml-auto h-2 w-10 rounded-full bg-[var(--graphite-200)]" /></div>}
       {/* EstadoVazio do DS (ui/estado-vazio, 27/11/2026); os textos são marcadores, não copy do produto. */}
       <EstadoVazio
-        variante="simples"
-        className="p-0"
+        className="py-0"
         ilustracao={src}
         titulo={t("Empty state title", "Título do estado vazio")}
-        texto={t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}
-        acao={<Button tabIndex={-1} className="h-10 toque:h-11">{t("Primary action", "Ação principal")}</Button>}
+        descricao={t("Support text: what the person can do next.", "Texto de apoio: o que a pessoa pode fazer agora.")}
+        acoes={<Button tabIndex={-1} className="h-10 toque:h-11">{t("Primary action", "Ação principal")}</Button>}
       />
       {mobile && <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-[var(--graphite-200)]" />}
     </div>

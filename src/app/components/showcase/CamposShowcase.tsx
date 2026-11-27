@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { ExternalLink, Mail, Save, Search, Store } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
-import { Campo } from "../ui/campo";
+import { Campo, CampoDeCnpj, cnpjValido } from "../ui/campo";
 import { CampoDeBusca } from "../ui/campo-de-busca";
 import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
 import { GrupoDeOpcoes, LinhaDeInterruptor } from "../ui/grupo-de-opcoes";
-import { ChipFiltravel } from "../ui/chips";
+import { ChipFiltravel } from "../ui/chip-filtravel";
 import { SeletorDeQuantidade } from "../ui/seletor-de-quantidade";
 import { CaixaDeCodigo } from "../ui/caixa-de-codigo";
-import { BotaoComRetorno, useRetornoDoBotao } from "../ui/botao-com-retorno";
+import { BotaoDeEnvio, useEstadoDoEnvio } from "../ui/botao-de-envio";
 import { Button } from "../ui/button";
 import { GradeDeCampos } from "../ui/cadastro-lojista";
 
@@ -19,14 +18,15 @@ import { GradeDeCampos } from "../ui/cadastro-lojista";
 export function CamposShowcase() {
   const [email, setEmail] = useState("ana@");
   const [busca, setBusca] = useState("");
+  const [cnpj, setCnpj] = useState("");
   const [descricao, setDescricao] = useState("Vestido midi de linho, com botões na frente e bolsos.");
   const [categorias, setCategorias] = useState<string[]>(["Feminino"]);
   const [novas, setNovas] = useState(true);
   const [aviso, setAviso] = useState(false);
   const [qtd, setQtd] = useState(2);
   const [qtdG, setQtdG] = useState(0);
-  const salvar = useRetornoDoBotao(() => new Promise((r) => setTimeout(r, 1200)));
-  const falhar = useRetornoDoBotao(() => new Promise((_, rej) => setTimeout(rej, 1200)));
+  const salvar = useEstadoDoEnvio(() => new Promise((r) => setTimeout(r, 1200)));
+  const falhar = useEstadoDoEnvio(() => new Promise((_, rej) => setTimeout(rej, 1200)));
   const alternar = (c: string) => setCategorias((l) => (l.includes(c) ? l.filter((x) => x !== c) : [...l, c]));
   const erroEmail = email.includes("@") && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? null : "Confira o e-mail: use o formato nome@exemplo.com.";
 
@@ -39,7 +39,8 @@ export function CamposShowcase() {
         />
         <Panel className="p-6 sm:p-8">
           <GradeDeCampos>
-            <Campo rotulo="Nome da loja" icone={<Store />} placeholder="Ateliê Aurora" ajuda="Como aparece para quem procura." />
+            <Campo rotulo="Nome da loja" obrigatorio icone={<Store />} placeholder="Ateliê Aurora" ajuda="Como aparece para quem procura." />
+            <CampoDeCnpj rotulo="CNPJ" valor={cnpj} onValorChange={setCnpj} erro={cnpj.length === 18 && !cnpjValido(cnpj) ? "Confira o CNPJ: os números não batem." : null} ajuda="Só números; a máscara entra sozinha." />
             <Campo rotulo="E-mail" type="email" icone={<Mail />} value={email} onChange={(e) => setEmail(e.target.value)} erro={erroEmail} />
             <Campo rotulo="Senha" type="password" autoComplete="new-password" ajuda="Use pelo menos 8 caracteres." />
             <Campo rotulo="Instagram" opcional placeholder="@sualoja" />
@@ -49,7 +50,8 @@ export function CamposShowcase() {
           head={["Prop", "O que faz"]}
           rows={[
             [<Mono>rotulo · ajuda · erro</Mono>, "Rótulo visível; ajuda embaixo; o erro substitui a ajuda e liga aria-invalid."],
-            [<Mono>opcional</Mono>, "Escreve \"(opcional)\" depois do rótulo. Marque o que é opcional, não o obrigatório."],
+            [<Mono>obrigatorio</Mono>, "Põe \" *\" no rótulo e required (o aviso \"* Campos obrigatórios\" fica no topo do formulário). No FindLook, opcional escreve \"(opcional)\"."],
+            [<Mono>children</Mono>, "Função que recebe { id, aria-invalid, aria-describedby, required } para outro controle do DS (Textarea, Select, PasswordInput)."],
             [<Mono>icone</Mono>, "Ícone de 16 px dentro do campo, à esquerda."],
             [<Mono>type="password"</Mono>, "Botão Mostrar senha / Ocultar senha (44 px no toque)."],
             [<Mono>acaoDoRotulo · depois · inteiro</Mono>, "Link à direita do rótulo, conteúdo logo abaixo do campo e linha inteira na GradeDeCampos."],
@@ -64,18 +66,18 @@ export function CamposShowcase() {
       <section id="campo-de-busca" className="scroll-mt-32 space-y-6">
         <SectionHeader title="Campo de busca" description="Busca dentro de uma lista (lojas, peças, agenda): lupa, texto e o botão Limpar quando há texto. Esc também limpa. O rótulo existe sempre, escondido por padrão." />
         <Panel className="space-y-6 p-6 sm:p-8">
-          <CampoDeBusca rotulo="Buscar loja" valor={busca} onValorChange={setBusca} placeholder="Nome, bairro, endereço ou Instagram" classeDoBloco="max-w-md" />
-          <CampoDeBusca rotulo="Buscar peça" rotuloVisivel valor={busca} onValorChange={setBusca} placeholder="Ex.: vestido midi" classeDoBloco="max-w-md" />
+          <CampoDeBusca rotulo="Buscar loja" valor={busca} onValorChange={setBusca} placeholder="Nome, bairro, endereço ou Instagram" className="max-w-md" />
+          <CampoDeBusca rotulo="Buscar peça" rotuloVisivel valor={busca} onValorChange={setBusca} placeholder="Ex.: vestido midi" className="max-w-md" />
         </Panel>
       </section>
 
       <section id="campo-texto-longo" className="scroll-mt-32 space-y-6">
         <SectionHeader title="Texto longo com contador" description="Textarea com contador (prop contador e maxLength): cinza com folga, aviso quando faltam 10% e erro no limite. Leitores de tela só ouvem o aviso quando faltam 20 caracteres ou menos." />
         <Panel className="p-6 sm:p-8">
-          <div className="max-w-lg space-y-2">
-            <Label htmlFor="descricao-peca" className="text-body-sm font-semibold">Descrição da peça</Label>
-            <Textarea id="descricao-peca" contador maxLength={120} value={descricao} onChange={(e) => setDescricao(e.target.value)} className="bg-card" />
-          </div>
+          {/* Campo com children em função: o Textarea recebe id e as descrições do Campo. */}
+          <Campo rotulo="Descrição da peça" classeDoBloco="max-w-lg">
+            {(p) => <Textarea {...p} contador maxLength={120} value={descricao} onChange={(e) => setDescricao(e.target.value)} className="bg-card" />}
+          </Campo>
         </Panel>
       </section>
 
@@ -123,16 +125,16 @@ export function CamposShowcase() {
         <p className="text-body-sm text-muted-foreground">Código de exemplo. O botão Copiar vira "Copiado" com o check por 2 segundos.</p>
       </section>
 
-      <section id="botao-com-retorno" className="scroll-mt-32 space-y-6">
-        <SectionHeader title="Botão com retorno (carregando, sucesso e erro)" description="O próprio botão mostra o que acontece: girando e Salvando…, depois o check e Salvo, e volta sozinho. A largura não pula entre os estados." />
+      <section id="botao-de-envio" className="scroll-mt-32 space-y-6">
+        <SectionHeader title="Botão de envio (enviando, feito e erro)" description="O próprio botão mostra o que acontece: girando e Enviando…, depois o check no verde de sucesso, e volta sozinho; com erro, vira Tentar de novo. A largura não pula entre os estados. Mesma API do DS Dani Moscatelli." />
         <Panel className="p-6 sm:p-8">
           <SubTitle>Experimente</SubTitle>
           <div className="flex flex-wrap items-center gap-3">
-            <BotaoComRetorno estado={salvar.estado} onClick={() => void salvar.executar()} icone={<Save aria-hidden />} className="h-10 w-full toque:h-11 sm:w-auto">Salvar alterações</BotaoComRetorno>
-            <BotaoComRetorno variant="outline" estado={falhar.estado} onClick={() => void falhar.executar()} icone={<Search aria-hidden />} textoCarregando="Conferindo…" textoSucesso="Conferido" textoErro="Não deu certo" className="h-10 w-full toque:h-11 sm:w-auto">Conferir de novo (simula erro)</BotaoComRetorno>
+            <BotaoDeEnvio estado={salvar.estado} onVoltar={salvar.voltar} onClick={() => void salvar.enviar()} textos={{ enviando: "Salvando…", feito: "Salvo" }} icone={<Save aria-hidden />} className="h-10 w-full toque:h-11 sm:w-auto">Salvar alterações</BotaoDeEnvio>
+            <BotaoDeEnvio variant="outline" estado={falhar.estado} onVoltar={falhar.voltar} onClick={() => void falhar.enviar()} icone={<Search aria-hidden />} textos={{ enviando: "Conferindo…", feito: "Conferido" }} className="h-10 w-full toque:h-11 sm:w-auto">Conferir de novo (simula erro)</BotaoDeEnvio>
           </div>
         </Panel>
-        <DataTable head={["Estado", "O botão mostra"]} rows={[["parado", "ícone e texto da ação"], ["carregando", "ícone girando e \"Salvando…\"; desabilitado"], ["sucesso", "check e \"Salvo\" por 2 s"], ["erro", "alerta e \"Não deu certo\" por 2,5 s; diga o motivo perto do botão"]]} />
+        <DataTable head={["Estado", "O botão mostra"]} rows={[["parado", "ícone e texto da ação"], ["enviando", "ícone girando e \"Enviando…\" (textos.enviando); ocupado"], ["feito", "check e \"Enviado\" no verde; voltarApos (2,4 s) chama onVoltar"], ["erro", "\"Tentar de novo\"; diga o motivo perto do botão"]]} />
       </section>
     </div>
   );

@@ -13,7 +13,7 @@ import {
   Pizza, Waffle, Piramide, Dispersao, MatrizDeCorrelacao, Radar, CoordenadasParalelas, Sankey, RedeDeConexoes,
   Histograma, BoxPlot, Violino, Densidade, MapaDePontos, MapaDeBolhas, resumoDaDistribuicao,
 } from "../ui/graficos-catalogo";
-import { TabelaAdaptavel, type ColunaAdaptavel } from "../ui/tabela-adaptavel";
+import { TabelaAdaptavel, type ColunaDaTabela } from "../ui/tabela-adaptavel";
 import { GradeDeCards } from "../ui/grade-de-cards";
 
 /* Gráficos e visualizações (19/11/2026). Todos os números desta página são dados de exemplo, fictícios:
@@ -384,8 +384,8 @@ function SecaoCores() {
 
 /** Tabela que vira lista no celular (card nunca rola na horizontal): a TabelaAdaptavel do DS (27/11/2026). */
 function TabelaQueQuebra({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
-  const colunas: ColunaAdaptavel<{ i: number; c: React.ReactNode[] }>[] = head.map((h, j) => ({
-    id: String(j), titulo: h, fixa: j === 0, largura: 180, prioridade: j, celula: (l) => l.c[j],
+  const colunas: ColunaDaTabela<{ i: number; c: React.ReactNode[] }>[] = head.map((h, j) => ({
+    id: String(j), titulo: h, principal: j === 0, largura: 180, prioridade: j, celula: (l) => l.c[j],
   }));
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-card">

@@ -181,7 +181,6 @@ function StatesDemo() {
         )}
         {view === "empty" && (
           <EstadoVazio
-            variante="simples"
             className="m-auto"
             icone={<Inbox />}
             titulo={t("No projects yet", "Nenhum projeto ainda")}

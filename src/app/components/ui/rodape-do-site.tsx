@@ -26,7 +26,7 @@ export type ColunaDoRodape = { titulo: string; links: LinkDoRodape[] };
 export type RodapeDoSiteProps = {
   marca: { slogan?: string; texto?: string; complemento?: React.ReactNode };
   superficie?: "clara" | "escura";
-  logoHref?: string;
+  inicioHref?: string;
   colunas?: ColunaDoRodape[];
   convite?: { selo?: string; titulo: string; texto?: string; acao: LinkDoRodape & { href: string } };
   faixa?: { icone: React.ReactNode; titulo: string; texto?: string; link?: LinkDoRodape & { href: string } };
@@ -51,7 +51,7 @@ function LinkOuTexto({ link, comoLink, className }: { link: LinkDoRodape; comoLi
   );
 }
 
-export function RodapeDoSite({ marca, superficie = "clara", logoHref = "/", colunas = [], convite, faixa, linhaFinal, creditos, comoLink, className }: RodapeDoSiteProps) {
+export function RodapeDoSite({ marca, superficie = "clara", inicioHref = "/", colunas = [], convite, faixa, linhaFinal, creditos, comoLink, className }: RodapeDoSiteProps) {
   const Link = comoLink ?? "a";
   const grade = convite ? "lg:grid-cols-[1.3fr_0.8fr_0.8fr_1.2fr]" : colunas.length >= 2 ? "lg:grid-cols-[1.6fr_1fr_1fr]" : "lg:grid-cols-[1.6fr_1fr]";
   return (
@@ -59,7 +59,7 @@ export function RodapeDoSite({ marca, superficie = "clara", logoHref = "/", colu
       <div className="mx-auto w-full max-w-[var(--content-default)] px-4 pb-6 pt-14 sm:px-6">
         <div className={cn("grid gap-10", grade)}>
           <div className="min-w-0">
-            <Logo href={logoHref} comoLink={comoLink} superficie={superficie} className="h-10" />
+            <Logo href={inicioHref} comoLink={comoLink} superficie={superficie} className="h-10" />
             {marca.slogan && <p className="m-0 mt-6 text-h4 font-bold leading-tight tracking-[-0.015em] text-foreground">{marca.slogan}</p>}
             {marca.texto && <p className="m-0 mt-3 max-w-xs text-body-sm leading-relaxed text-muted-foreground">{marca.texto}</p>}
             {marca.complemento && <div className="mt-5 text-body-sm font-semibold text-primary-text [&_svg]:size-4">{marca.complemento}</div>}

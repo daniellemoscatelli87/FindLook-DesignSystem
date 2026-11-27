@@ -1,62 +1,176 @@
+"use client";
+
 import * as React from "react";
+import { AlertTriangle, CheckCircle2, Info, XCircle } from "lucide-react";
 import { cn } from "./utils";
+import { IconeComBase } from "./painel-dados";
 
 /**
- * Estado vazio: o que aparece quando uma lista, uma busca ou uma área ainda não tem nada. Diz o que está vazio, por quê
- * (quando ajuda) e o próximo passo. Centralizado, com uma das três mídias:
- * - ilustracao: imagem do mascote (Mascote & Ilustrações › Estados vazios), 160 px; o texto alternativo fica vazio,
- *   porque o título já diz tudo;
- * - icone: ícone lucide numa base de 56 px (cinza, ou rosa com tom="marca" quando o vazio convida a criar algo);
- * - nada: só o texto (dentro de colunas de quadro e listas pequenas).
- * Variantes: "tracejado" (borda tracejada, para o lugar de uma lista dentro de um card), "card" (card só de borda,
- * sozinho na página) e "simples" (sem borda, dentro de um card que já tem borda).
- * Tamanhos: "md" (padrão) e "sm" (colunas estreitas, 14 px).
- * Ação: um botão (contorno, ou o principal se for a única ação da área) e, se precisar, um link; lado a lado,
- * centralizados, quebrando só se não couberem. Entrada suave (parada com "menos movimento").
- * Texto: título curto no que a pessoa vê ("Nenhuma loja com esses filtros"), sem "Ops" nem culpa; o texto diz o
- * que fazer. Nunca invente números ou motivos.
+ * EstadoVazio, EstadoFinal e PaginaDeErro: as três telas "sem conteúdo" do DS, com a mesma API do design system
+ * Dani Moscatelli.
+ *
+ * EstadoVazio — uma lista, tabela ou área que ainda não tem nada (ou que o filtro esvaziou). Ícone na base, título,
+ *   uma frase que explica o porquê e, quando houver, a próxima ação. tom "neutro" (padrão: nada a fazer agora, ou
+ *   "nenhum resultado") ou "marca" (convite a começar: "Cadastre sua primeira peça"). variante "pagina" (padrão,
+ *   centralizado no lugar da lista) ou "lista" (dentro de um card, alinhado à esquerda como uma linha da lista).
+ *   A mais no FindLook: `ilustracao` (imagem do mascote, Mascote & Ilustrações › Estados vazios, no lugar do ícone)
+ *   e `moldura` ("nenhuma", padrão; "tracejado" no lugar de uma lista; "card" sozinho na página).
+ * EstadoFinal — o fim de um fluxo (cadastro enviado, peça publicada): ícone de estado que entra com um pequeno
+ *   movimento, título, texto, um resumo opcional (children) e as ações. tom "sucesso" (padrão), "info", "aviso" ou
+ *   "erro"; o ícone e o texto dizem o estado, nunca só a cor.
+ * PaginaDeErro — página inteira de erro (404, sem acesso, fora do ar): código grande ou ilustração, título, texto e
+ *   as ações ("Voltar ao início" em botão cheio). Centralizada na altura da tela.
+ *
+ * Alinhamento (regra do celular): tudo centralizado numa coluna estreita; as ações ficam juntas numa linha
+ * centralizada e, quando não cabem, viram uma coluna de botões da mesma largura.
+ * Acessibilidade: o título é um <h2> (ou o nível de `nivel`); EstadoFinal usa role="status" e recebe o foco no título;
+ * PaginaDeErro tem <h1>. Movimento só com "menos movimento" desligado.
+ * Texto: diga o que está vazio e o próximo passo, sem "Ops" nem culpa; nunca invente números ou motivos.
  */
-export type EstadoVazioProps = {
-  titulo: string;
-  texto?: React.ReactNode;
-  ilustracao?: string;
-  icone?: React.ReactNode;
-  tom?: "neutro" | "marca";
-  acao?: React.ReactNode;
-  variante?: "tracejado" | "card" | "simples";
-  tamanho?: "sm" | "md";
-  /** Nível do título (padrão: um parágrafo em negrito; use 2 ou 3 quando o vazio for o conteúdo principal da página). */
-  nivel?: 2 | 3 | 4;
-  className?: string;
-};
 
-export function EstadoVazio({ titulo, texto, ilustracao, icone, tom = "neutro", acao, variante = "tracejado", tamanho = "md", nivel, className }: EstadoVazioProps) {
-  const Titulo = (nivel ? `h${nivel}` : "p") as React.ElementType;
-  const sm = tamanho === "sm";
+type Nivel = 1 | 2 | 3 | 4;
+const titulo = (n: Nivel) => (`h${n}` as unknown) as React.ElementType;
+
+/* Ações: lado a lado e centralizadas; quando não cabem, uma coluna com os botões na mesma largura. */
+function Acoes({ children, className }: { children?: React.ReactNode; className?: string }) {
+  if (!children) return null;
   return (
-    <div
-      data-slot="estado-vazio"
-      data-variante={variante}
-      className={cn(
-        "flex flex-col items-center text-center motion-safe:animate-in motion-safe:fade-in motion-safe:duration-[var(--duration-slow)]",
-        sm ? "gap-2 px-4 py-6" : "gap-4 px-6 py-10",
-        variante === "tracejado" && "rounded-lg border border-dashed border-[var(--border-strong)]",
-        variante === "card" && "rounded-xl border border-border bg-card",
-        className,
-      )}
-    >
-      {ilustracao ? (
-        <img src={ilustracao} alt="" className={cn("h-auto object-contain", sm ? "w-24" : "w-40")} />
-      ) : icone ? (
-        <span aria-hidden className={cn("flex items-center justify-center rounded-lg", sm ? "size-10 [&>svg]:size-5" : "size-14 [&>svg]:size-6", tom === "marca" ? "bg-[var(--primary-muted)] text-primary-text" : "bg-muted text-muted-foreground")}>
-          {icone}
-        </span>
-      ) : null}
-      <div className="max-w-sm">
-        <Titulo className={cn("m-0 font-bold text-foreground [text-wrap:balance]", sm ? "text-body-sm" : "text-body")}>{titulo}</Titulo>
-        {texto && <p className={cn("m-0 mt-1 text-muted-foreground [text-wrap:pretty]", sm ? "text-label" : "text-body-sm")}>{texto}</p>}
-      </div>
-      {acao && <div className={cn("flex flex-wrap items-center justify-center gap-2", sm ? "mt-1" : "mt-1")}>{acao}</div>}
+    <div data-slot="estado-acoes" className={cn("mt-6 flex w-full flex-col items-stretch justify-center gap-3 min-[26rem]:flex-row min-[26rem]:flex-wrap min-[26rem]:items-center", className)}>
+      {children}
     </div>
   );
 }
+
+const MOLDURA = {
+  nenhuma: "",
+  tracejado: "rounded-lg border border-dashed border-[var(--border-strong)] px-6",
+  card: "rounded-xl border border-border bg-card px-6",
+} as const;
+
+export type EstadoVazioProps = Omit<React.ComponentProps<"div">, "title"> & {
+  icone?: React.ReactNode;
+  titulo: React.ReactNode;
+  descricao?: React.ReactNode;
+  /** Botões ou links (um primário no máximo). */
+  acoes?: React.ReactNode;
+  tom?: "neutro" | "marca";
+  /** "sm" dentro de cards e painéis estreitos; "md" (padrão) no lugar de uma lista ou página. */
+  tamanho?: "sm" | "md";
+  variante?: "pagina" | "lista";
+  nivel?: Nivel;
+  /** FindLook: imagem do mascote no lugar do ícone (decorativa). */
+  ilustracao?: string;
+  /** FindLook: borda em volta (só na variante "pagina"). */
+  moldura?: keyof typeof MOLDURA;
+};
+
+function EstadoVazio({ icone, titulo: t, descricao, acoes, tom = "neutro", tamanho = "md", variante = "pagina", nivel = 2, ilustracao, moldura = "nenhuma", className, ...props }: EstadoVazioProps) {
+  const H = titulo(nivel);
+  if (variante === "lista") {
+    return (
+      <div data-slot="estado-vazio" data-tom={tom} data-variante="lista" className={cn("grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 px-4 py-4", className)} {...props}>
+        {icone ? <IconeComBase tom={tom} tamanho="md">{icone}</IconeComBase> : <span />}
+        <div className="min-w-0 self-center">
+          <H className="m-0 text-body-sm font-semibold text-foreground text-pretty">{t}</H>
+          {descricao && <p className="m-0 mt-1 text-body-sm text-pretty text-muted-foreground">{descricao}</p>}
+          {acoes && <div className="mt-3 flex flex-wrap items-center gap-3">{acoes}</div>}
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div
+      data-slot="estado-vazio"
+      data-tom={tom}
+      data-moldura={moldura}
+      className={cn(
+        "mx-auto flex w-full flex-col items-center text-center motion-safe:animate-in motion-safe:fade-in motion-safe:duration-[var(--duration-slow)]",
+        moldura === "nenhuma" ? "max-w-md" : MOLDURA[moldura],
+        tamanho === "sm" ? "py-6" : "py-12",
+        className,
+      )}
+      {...props}
+    >
+      {ilustracao ? (
+        <img src={ilustracao} alt="" className={cn("h-auto object-contain", tamanho === "sm" ? "mb-3 w-24" : "mb-4 w-40")} />
+      ) : icone ? (
+        <IconeComBase tom={tom} tamanho={tamanho === "sm" ? "md" : "lg"} className={tamanho === "sm" ? "mb-3" : "mb-4"}>
+          {icone}
+        </IconeComBase>
+      ) : null}
+      <H className={cn("m-0 max-w-md font-semibold text-foreground text-balance", tamanho === "sm" ? "text-body" : "text-subtitle")}>{t}</H>
+      {descricao && <p className={cn("m-0 mt-2 max-w-md text-pretty text-muted-foreground", tamanho === "sm" ? "text-body-sm" : "text-body-sm sm:text-body")}>{descricao}</p>}
+      <Acoes className={tamanho === "sm" ? "mt-4" : undefined}>{acoes}</Acoes>
+    </div>
+  );
+}
+
+const TONS_FINAIS = {
+  sucesso: { Icone: CheckCircle2, base: "bg-success-muted text-success-text" },
+  info: { Icone: Info, base: "bg-info-muted text-info-text" },
+  aviso: { Icone: AlertTriangle, base: "bg-warning-muted text-warning-text" },
+  erro: { Icone: XCircle, base: "bg-error-muted text-error-text" },
+} as const;
+
+export type EstadoFinalProps = Omit<React.ComponentProps<"div">, "title"> & {
+  tom?: keyof typeof TONS_FINAIS;
+  /** Troca o ícone padrão do tom (mantenha o mesmo significado). */
+  icone?: React.ReactNode;
+  titulo: React.ReactNode;
+  descricao?: React.ReactNode;
+  acoes?: React.ReactNode;
+  nivel?: Nivel;
+  /** Recebe o foco ao aparecer (troca de tela num fluxo). */
+  focarAoAparecer?: boolean;
+};
+
+function EstadoFinal({ tom = "sucesso", icone, titulo: t, descricao, acoes, nivel = 2, focarAoAparecer = true, children, className, ...props }: EstadoFinalProps) {
+  const H = titulo(nivel);
+  const ref = React.useRef<HTMLHeadingElement>(null);
+  const { Icone, base } = TONS_FINAIS[tom];
+  React.useEffect(() => {
+    if (focarAoAparecer) ref.current?.focus({ preventScroll: true });
+  }, [focarAoAparecer]);
+  return (
+    <div data-slot="estado-final" data-tom={tom} role="status" className={cn("mx-auto flex w-full max-w-lg flex-col items-center py-12 text-center", className)} {...props}>
+      <span aria-hidden className={cn("mb-5 flex size-16 items-center justify-center rounded-full [&_svg]:size-8 motion-safe:animate-in motion-safe:zoom-in-50 motion-safe:duration-[var(--duration-slow)] motion-safe:ease-[var(--ease-back)]", base)}>
+        {icone ?? <Icone />}
+      </span>
+      <H ref={ref} tabIndex={-1} className="m-0 text-h3 font-bold leading-tight tracking-[-0.02em] text-foreground outline-none text-balance">{t}</H>
+      {descricao && <p className="m-0 mt-3 text-pretty text-body leading-relaxed text-muted-foreground">{descricao}</p>}
+      {children && <div className="mt-6 w-full text-left">{children}</div>}
+      <Acoes>{acoes}</Acoes>
+    </div>
+  );
+}
+
+export type PaginaDeErroProps = Omit<React.ComponentProps<"main">, "title"> & {
+  /** "404", "403"… (decorativo; o título diz o que aconteceu). */
+  codigo?: string;
+  /** Ilustração no lugar do código (imagem decorativa; no FindLook, a ilustração 404 do mascote). */
+  ilustracao?: React.ReactNode;
+  titulo: React.ReactNode;
+  descricao?: React.ReactNode;
+  acoes?: React.ReactNode;
+  /** Ocupa a altura da tela (padrão) ou só o conteúdo (demonstrações). */
+  telaCheia?: boolean;
+};
+
+function PaginaDeErro({ codigo, ilustracao, titulo: t, descricao, acoes, telaCheia = true, className, ...props }: PaginaDeErroProps) {
+  return (
+    <main data-slot="pagina-de-erro" className={cn("flex w-full flex-col items-center justify-center px-4 py-16 text-center", telaCheia && "min-h-svh", className)} {...props}>
+      <div className="flex w-full max-w-lg flex-col items-center">
+        {ilustracao ? (
+          <div aria-hidden className="mb-8 w-full max-w-xs">{ilustracao}</div>
+        ) : codigo ? (
+          <p aria-hidden className="m-0 mb-4 text-h1 font-bold leading-none tracking-[-0.04em] text-primary-text tabular-nums sm:text-display-lg">{codigo}</p>
+        ) : null}
+        <h1 className="m-0 text-h2 font-bold leading-tight tracking-[-0.03em] text-foreground text-balance">{t}</h1>
+        {descricao && <p className="m-0 mt-3 text-pretty text-body leading-relaxed text-muted-foreground">{descricao}</p>}
+        <Acoes className="mt-8">{acoes}</Acoes>
+      </div>
+    </main>
+  );
+}
+
+export { EstadoVazio, EstadoFinal, PaginaDeErro };

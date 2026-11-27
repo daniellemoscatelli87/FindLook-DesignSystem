@@ -1,29 +1,27 @@
 "use client";
 
 import * as React from "react";
-import { AlertCircle, Check, CheckCheck, Loader2, Paperclip, SendHorizontal, X } from "lucide-react";
+import { AlertCircle, Check, CheckCheck, Clock, Eye, Loader2, MousePointerClick, Paperclip, SendHorizontal, X } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Input } from "./input";
 
 /**
- * Conversa (WhatsApp da loja e simulador do robô): as peças de uma conversa de mensagens, para montar dentro da
- * MolduraDeCelular ou de um card.
- * - MolduraDeCelular: o aparelho (borda grossa no grafite, cantos de 24 px, --shadow-lg), com cabeçalho, conversa e
- *   campo empilhados; é o palco das folhas que abrem por baixo (FolhaDeOpcoes).
- * - CabecalhoDaConversa: foto ou símbolo, nome e a linha de status ("digitando…" no rosa de texto quando `digitando`).
- * - Conversa: a área das mensagens (role="log": leitores de tela ouvem as novas), rola sozinha para a última mensagem.
- * - BalaoDeConversa: `de="eu"` (à direita, no rosa principal com texto branco, 4,6:1) ou `de="outro"` (à esquerda,
- *   card com borda). Hora e, nas minhas, enviada (✓), lida (✓✓) ou não enviada (!), com nome para leitores de tela.
- *   `citacao` (a peça respondida), `imagem` e, embaixo do balão, `acoes` (BotaoDeResposta). Entra subindo de leve.
- * - IndicadorDeDigitacao: os três pontos que sobem um depois do outro ("FindLook está digitando", para leitores de tela);
- *   com `texto`, vira um balão de etapa ("Procurando peças parecidas…") com o ícone girando devagar.
- * - AvisoDoSistema: pílula central ("Hoje", "O robô foi reiniciado").
- * - BotaoDeResposta: resposta rápida embaixo de um balão (44 px de altura; hover cinza claro; desabilitado depois
- *   de respondido).
- * - CampoDeMensagem: anexar (opcional), o texto e o botão Enviar (o principal da área), todos com 44 px.
- * - FolhaDeOpcoes: lista que abre por baixo dentro da moldura (como a lista do WhatsApp): foco no primeiro item, Esc e
- *   o fundo fecham, Tab circula dentro.
+ * Conversa (WhatsApp da loja e simulador do robô). Conversa, BalaoDaConversa, SeparadorDaConversa e
+ * IndicadorDeDigitacao têm a mesma API do design system Dani Moscatelli:
+ * - Conversa: a lista (role="log"). alinhamento "esquerda" (padrão: todas na mesma borda, como um histórico) ou
+ *   "lados" (as suas à direita, como num chat: use no WhatsApp). A mais no FindLook: `rolagem` (área com rolagem
+ *   própria e fundo cinza, que desce sozinha até a última mensagem).
+ * - BalaoDaConversa: autor "eu" (cinza de apoio, --secondary) ou "outro" (card com borda); nunca a primária cheia nem o
+ *   rosa de selecionado (balão não é botão nem seleção). Nome, texto, hora (`quando`) e o estado do envio em ícone +
+ *   texto (enviando, enviada, lida, aberto, clicado, não enviada), na mesma borda do texto. `depois` vai embaixo do
+ *   balão (as respostas rápidas). A mais no FindLook: `citacao` (a peça respondida) e `imagem`.
+ * - SeparadorDaConversa: "Hoje", "24 de novembro", "O robô foi reiniciado".
+ * - IndicadorDeDigitacao: três pontos que sobem um depois do outro; a mais no FindLook, `texto` e `icone` para um
+ *   balão de etapa ("Procurando peças parecidas…").
+ * Peças do FindLook: MolduraDeCelular (o aparelho, palco da FolhaDeOpcoes), CabecalhoDaConversa, BotaoDeResposta
+ * (resposta rápida, 44 px, hover cinza), CampoDeMensagem (anexar, texto, enviar) e FolhaDeOpcoes (a lista do
+ * WhatsApp, que abre por baixo: foco no primeiro item, Esc e o fundo fecham, Tab circula dentro).
  * Com "menos movimento", balões e folhas aparecem sem deslizar e os pontos ficam parados.
  */
 
@@ -66,124 +64,168 @@ export function CabecalhoDaConversa({ nome, status, digitando = false, foto, sim
 }
 
 /* ── Área das mensagens ── */
-export function Conversa({ rotulo, className, children }: { rotulo: string; className?: string; children: React.ReactNode }) {
+type Autor = "eu" | "outro";
+const AlinhamentoDaConversa = React.createContext<"esquerda" | "lados">("esquerda");
+const apoioNoCinza = "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]";
+
+export type ConversaProps = React.ComponentProps<"div"> & {
+  rotulo?: string;
+  /** "esquerda" (padrão): todas na mesma borda, como um histórico; "lados": as suas à direita, como num chat. */
+  alinhamento?: "esquerda" | "lados";
+  /** FindLook: área com rolagem própria (dentro da MolduraDeCelular), fundo cinza e rolagem até a última mensagem. */
+  rolagem?: boolean;
+};
+
+export function Conversa({ className, children, rotulo = "Conversa", alinhamento = "esquerda", rolagem = false, ...props }: ConversaProps) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const quantas = React.Children.count(children);
   React.useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !rolagem) return;
     const menos = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollTo({ top: el.scrollHeight, behavior: menos ? "auto" : "smooth" });
-  }, [quantas, children]);
+  }, [children, rolagem]);
   return (
-    <div
-      ref={ref}
-      role="log"
-      aria-label={rotulo}
-      aria-live="polite"
-      tabIndex={0}
-      data-slot="conversa"
-      className={cn("flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-contain bg-muted px-3 py-4 [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring", className)}
-    >
-      {children}
-    </div>
+    <AlinhamentoDaConversa.Provider value={alinhamento}>
+      <div
+        ref={ref}
+        role="log"
+        aria-label={rotulo}
+        data-slot="conversa"
+        data-alinhamento={alinhamento}
+        tabIndex={rolagem ? 0 : undefined}
+        className={cn(
+          "flex flex-col gap-3",
+          rolagem && "min-h-0 flex-1 overflow-y-auto overscroll-contain bg-muted px-3 py-4 [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    </AlinhamentoDaConversa.Provider>
   );
 }
 
 /* ── Balão ── */
-export type EstadoDaMensagem = "enviando" | "enviada" | "lida" | "erro";
+/* Estado da mensagem enviada, sempre em ícone + texto visível. */
+const ESTADOS = {
+  enviando: { Icone: Clock, texto: "Enviando" },
+  enviada: { Icone: Check, texto: "Enviada" },
+  lida: { Icone: CheckCheck, texto: "Lida" },
+  aberto: { Icone: Eye, texto: "Aberto" },
+  clicado: { Icone: MousePointerClick, texto: "Clicado" },
+  erro: { Icone: AlertCircle, texto: "Não enviada" },
+} as const;
 
-export type BalaoDeConversaProps = {
-  de: "eu" | "outro";
-  /** Nome lido antes da mensagem por leitores de tela ("Você", "FindLook"). */
-  autor?: string;
-  hora?: string;
-  estado?: EstadoDaMensagem;
+export type BalaoDaConversaProps = Omit<React.ComponentProps<"div">, "children"> & {
+  autor: Autor;
+  nome?: React.ReactNode;
+  quando?: React.ReactNode;
+  avatar?: React.ReactNode;
+  estado?: keyof typeof ESTADOS;
+  /** Troca o texto do estado (por exemplo, "Lida às 10:05"). */
+  textoDoEstado?: string;
+  /** Mensagem recebida que ainda não foi lida: ponto na primária e "Não lida" em texto. */
+  naoLida?: boolean;
+  /** Anexos ou ações depois do balão (no FindLook, as respostas rápidas: BotaoDeResposta). */
+  depois?: React.ReactNode;
+  /** FindLook: a peça respondida, no topo do balão. */
   citacao?: { texto: string; imagem?: string };
+  /** FindLook: foto enviada, antes do texto. */
   imagem?: { src: string; alt: string };
-  acoes?: React.ReactNode;
-  className?: string;
   children?: React.ReactNode;
 };
 
-export function BalaoDeConversa({ de, autor, hora, estado, citacao, imagem, acoes, className, children }: BalaoDeConversaProps) {
-  const eu = de === "eu";
-  const IconeDoEstado = estado === "enviando" ? Loader2 : estado === "enviada" ? Check : estado === "lida" ? CheckCheck : estado === "erro" ? AlertCircle : null;
-  const nomeDoEstado = { enviando: "enviando", enviada: "enviada", lida: "lida", erro: "não enviada" } as const;
+export function BalaoDaConversa({ autor, nome, quando, avatar, estado, textoDoEstado, naoLida, depois, citacao, imagem, children, className, ...props }: BalaoDaConversaProps) {
+  const eu = autor === "eu";
+  const alinhamento = React.useContext(AlinhamentoDaConversa);
+  const aDireita = eu && alinhamento === "lados";
+  const est = estado ? ESTADOS[estado] : null;
   return (
     <div
-      data-slot="balao-de-conversa"
-      data-de={de}
-      className={cn(
-        "flex motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-normal)]",
-        eu ? "justify-end" : "justify-start",
-        className,
-      )}
+      data-slot="balao-da-conversa"
+      data-autor={autor}
+      className={cn("flex items-end gap-2 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-normal)]", aDireita ? "flex-row-reverse" : "flex-row", className)}
+      {...props}
     >
-      <div className={cn("flex max-w-[85%] flex-col gap-2", eu ? "items-end" : "items-stretch")}>
+      {avatar && <span className="shrink-0">{avatar}</span>}
+      <div className={cn("flex min-w-0 max-w-[85%] flex-col gap-2 sm:max-w-[80%]", aDireita ? "items-end" : "items-stretch")}>
         <div
           className={cn(
-            "rounded-lg px-3 py-2 text-body-sm leading-snug",
-            eu ? "rounded-tr-sm bg-primary text-primary-foreground" : "rounded-tl-sm border border-border bg-card text-foreground",
+            "min-w-0 rounded-lg px-4 py-3 text-body-sm leading-relaxed",
+            eu ? "bg-secondary text-secondary-foreground" : "border border-border bg-card text-card-foreground",
+            aDireita ? "rounded-br-sm" : "rounded-bl-sm",
           )}
         >
-          <span className="sr-only">{autor ?? (eu ? "Você" : "Mensagem")}: </span>
+          {(nome || naoLida) && (
+            <p className="m-0 mb-1 flex flex-wrap items-center gap-x-2 text-label font-semibold text-foreground">
+              {nome}
+              {naoLida && <span className="inline-flex items-center gap-1 text-primary-text"><span aria-hidden className="size-2 rounded-full bg-primary" />Não lida</span>}
+            </p>
+          )}
           {citacao && (
-            <span className={cn("mb-2 flex items-center gap-2 rounded-sm border-l-4 py-1 pl-2 pr-1", eu ? "border-primary-foreground bg-primary-foreground/15" : "border-primary bg-muted")}>
+            <span className="mb-2 flex items-center gap-2 rounded-sm border-l-4 border-primary bg-card/60 py-1 pl-2 pr-1">
               <span className="min-w-0 flex-1"><span className="sr-only">Respondendo a: </span><span className="block truncate text-label font-semibold">{citacao.texto}</span></span>
               {citacao.imagem && <img src={citacao.imagem} alt="" className="size-9 shrink-0 rounded-sm object-cover" />}
             </span>
           )}
           {imagem && <img src={imagem.src} alt={imagem.alt} loading="lazy" className="mb-2 max-h-56 w-full rounded-md bg-muted object-cover" />}
-          {children && <div className="m-0 whitespace-pre-line [overflow-wrap:anywhere]">{children}</div>}
-          {(hora || IconeDoEstado) && (
-            <span className={cn("mt-1 flex items-center gap-1 text-caption", eu ? "text-primary-foreground" : "text-muted-foreground")}>
-              {hora}
-              {eu && IconeDoEstado && estado && (
-                <>
-                  <IconeDoEstado aria-hidden className={cn("size-3.5", estado === "enviando" && "animate-spin motion-reduce:animate-none")} />
-                  <span className="sr-only">, {nomeDoEstado[estado]}</span>
-                </>
+          {children && <div className="whitespace-pre-line [overflow-wrap:anywhere]">{children}</div>}
+          {(quando || est) && (
+            <p className={cn("m-0 mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-label", eu ? apoioNoCinza : "text-muted-foreground")}>
+              {quando}
+              {est && (
+                <span className={cn("inline-flex items-center gap-1", estado === "erro" && "font-semibold text-error-text")}>
+                  <est.Icone aria-hidden className={cn("size-3.5", estado === "enviando" && "motion-safe:animate-pulse")} />
+                  <span>{textoDoEstado ?? est.texto}</span>
+                </span>
               )}
-            </span>
+            </p>
           )}
         </div>
-        {acoes && <div className="grid w-full gap-2">{acoes}</div>}
+        {depois && <div className="grid w-full gap-2">{depois}</div>}
       </div>
     </div>
   );
 }
 
-/* ── Digitando ── */
-export function IndicadorDeDigitacao({ autor = "FindLook", texto, icone, className }: { autor?: string; texto?: string; icone?: React.ReactNode; className?: string }) {
+/* ── Separador ── */
+export function SeparadorDaConversa({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div data-slot="indicador-de-digitacao" role="status" className={cn("flex motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-1", className)}>
-      {texto ? (
-        <div className="flex max-w-[85%] items-center gap-2 rounded-lg rounded-tl-sm border border-border bg-card px-3 py-2 text-body-sm text-foreground">
-          {icone && <span aria-hidden className="inline-flex text-primary-text [&>svg]:size-4 [&>svg]:motion-safe:animate-pulse">{icone}</span>}
-          <span key={texto} className="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-1">{texto}</span>
-        </div>
-      ) : (
-        <>
-          <span className="sr-only">{autor} está digitando</span>
-          <div aria-hidden className="flex items-center gap-1 rounded-lg rounded-tl-sm border border-border bg-card px-3.5 py-3">
-            {[0, 1, 2].map((i) => (
-              <span key={i} className="fl-digitando-ponto size-1.5 rounded-full bg-muted-foreground" style={{ animationDelay: `${i * 150}ms` }} />
-            ))}
-          </div>
-        </>
-      )}
+    <div data-slot="separador-da-conversa" role="separator" aria-label={typeof children === "string" ? children : undefined} className={cn("my-2 flex items-center gap-3 text-label font-medium text-muted-foreground", className)}>
+      <span aria-hidden className="h-px flex-1 bg-border" />
+      <span aria-hidden>{children}</span>
+      <span aria-hidden className="h-px flex-1 bg-border" />
     </div>
   );
 }
 
-/* ── Aviso do sistema ── */
-export function AvisoDoSistema({ icone, children, className }: { icone?: React.ReactNode; children: React.ReactNode; className?: string }) {
+/* ── Digitando ── */
+export function IndicadorDeDigitacao({ autor = "outro", avatar, rotulo = "Digitando", texto, icone, className }: {
+  autor?: Autor; avatar?: React.ReactNode; rotulo?: string;
+  /** FindLook: em vez dos pontos, um balão de etapa ("Procurando peças parecidas…") com o ícone pulsando. */
+  texto?: string; icone?: React.ReactNode; className?: string;
+}) {
+  const alinhamento = React.useContext(AlinhamentoDaConversa);
+  const aDireita = autor === "eu" && alinhamento === "lados";
+  const balao = cn("inline-flex min-h-10 items-center gap-2 rounded-lg px-4", autor === "eu" ? "bg-secondary" : "border border-border bg-card", aDireita ? "rounded-br-sm" : "rounded-bl-sm");
   return (
-    <p data-slot="aviso-do-sistema" className={cn("mx-auto my-1 flex w-fit max-w-[90%] items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-center text-label font-medium text-muted-foreground", className)}>
-      {icone && <span aria-hidden className="inline-flex shrink-0 [&>svg]:size-3.5">{icone}</span>}
-      {children}
-    </p>
+    <div data-slot="indicador-de-digitacao" role="status" className={cn("flex items-end gap-2 motion-safe:animate-in motion-safe:fade-in", aDireita ? "flex-row-reverse" : "flex-row", className)}>
+      {avatar && <span className="shrink-0">{avatar}</span>}
+      {texto ? (
+        <span className={cn(balao, "max-w-[85%] py-2 text-body-sm text-foreground")}>
+          {icone && <span aria-hidden className="inline-flex text-primary-text [&>svg]:size-4 [&>svg]:motion-safe:animate-pulse">{icone}</span>}
+          <span key={texto} className="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-1">{texto}</span>
+        </span>
+      ) : (
+        <span className={cn(balao, "gap-1")}>
+          {[0, 1, 2].map((i) => (
+            <span key={i} aria-hidden className="fl-digitando-ponto size-2 rounded-full bg-muted-foreground" style={{ animationDelay: `${i * 150}ms` }} />
+          ))}
+          <span className="sr-only">{rotulo}</span>
+        </span>
+      )}
+    </div>
   );
 }
 

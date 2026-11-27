@@ -7,7 +7,7 @@ import { Button } from "./button";
 import { Stepper, type StepperEtapa } from "./stepper";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { IconeComBase } from "./painel-dados";
-import { Campo, MensagemDeErro, type CampoProps } from "./campo";
+import { Campo, MensagemDeErro, GradeDeCampos, ResumoDeErros, type CampoProps, type ErroDoResumo } from "./campo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "./drawer";
 
@@ -46,45 +46,6 @@ const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring
    componentes, com os nomes de antes para quem já os usa. */
 type CampoDoCadastroProps = CampoProps;
 const CampoDoCadastro = Campo;
-
-/** Grade dos campos: um por linha; dois por linha só a partir de 31,125rem (cada campo com 240 px ou mais). */
-function GradeDeCampos({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div data-slot="grade-de-campos" className={cn("@container/campos min-w-0", className)}>
-      <div className="grid gap-x-4 gap-y-6 @min-[31.125rem]/campos:grid-cols-2">{children}</div>
-    </div>
-  );
-}
-
-type ErroDoResumo = { id: string; rotulo: string; mensagem: string };
-
-/** Resumo dos erros da etapa (use com 2 erros ou mais): Alerta de erro com um link para cada campo. */
-function ResumoDeErros({ erros, titulo, onIrPara, className }: { erros: ErroDoResumo[]; titulo?: string; onIrPara?: (id: string) => void; className?: string }) {
-  const ir = (id: string) => {
-    if (onIrPara) return onIrPara(id);
-    const el = document.getElementById(id);
-    el?.focus();
-    el?.scrollIntoView({ block: "center", behavior: "smooth" });
-  };
-  return (
-    <Alert variant="error" data-slot="resumo-de-erros" className={className}>
-      <TriangleAlert aria-hidden />
-      <AlertTitle>{titulo ?? `Confira ${erros.length} campos antes de continuar`}</AlertTitle>
-      <AlertDescription>
-        <ul className="grid gap-1">
-          {erros.map((e) => (
-            <li key={e.id}>
-              <button type="button" onClick={() => ir(e.id)} className={cn("rounded-sm text-left font-semibold text-error-text underline underline-offset-4", foco)}>
-                {e.rotulo}
-              </button>
-              <span className="text-muted-foreground">: {e.mensagem}</span>
-            </li>
-          ))}
-        </ul>
-      </AlertDescription>
-    </Alert>
-  );
-}
 
 /* ── 1º passo: Vamos apresentar sua loja? ────────────────────────── */
 const textosPadraoApresentar = {

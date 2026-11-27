@@ -587,7 +587,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "grupo-de-opcoes",       label: "Grupo de opções e interruptor", sectionId: "campos" },
           { id: "seletor-de-quantidade", label: "Seletor de quantidade",       sectionId: "campos" },
           { id: "caixa-de-codigo",       label: "Caixa de código",             sectionId: "campos" },
-          { id: "botao-com-retorno",     label: "Botão com retorno",           sectionId: "campos" },
+          { id: "botao-de-envio",        label: "Botão de envio",              sectionId: "campos" },
         ],
       },
       { id: "chips-e-estados", label: "Chips e estados", icon: Tags,

@@ -6,44 +6,55 @@ import { ArrowDown, ArrowUp, ArrowUpDown, CheckIcon, EyeOff, MinusIcon } from "l
 import { cn } from "./utils";
 
 /**
- * Tabela adaptável: a tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da
+ * Tabela adaptável: mesma API (nomes e props) da TabelaAdaptavel do design system Dani Moscatelli, com o que o
+ * FindLook precisa a mais: seleção, ordem controlada (ordem + onOrdenar) e a medida da largura (`largura`).
+ * A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da
  * dona do produto, 18/11/2026). Ela mede a própria largura e:
  * - mostra as colunas que cabem, da mais importante para a menos importante (`prioridade`, menor = mais importante);
- *   as colunas `fixa` (nome, por exemplo) aparecem sempre; as que não couberem são avisadas embaixo da tabela
+ *   a coluna `principal` (o nome) aparece sempre; as que não couberem são avisadas embaixo da tabela
  *   ("Nesta largura ficam de fora: Público, Estilos.");
  * - abaixo de `larguraDaLista` (600 px de largura da própria tabela, padrão), vira lista: cada linha é um bloco com a
- *   primeira coluna fixa como título, as outras como "Rótulo: valor" embaixo, e as ações numa linha própria, alinhadas
+ *   coluna principal como título, as outras como "Rótulo: valor" embaixo, e as ações numa linha própria, alinhadas
  *   à borda esquerda do texto (regra das linhas no celular).
  * Seleção (opcional): caixa de 44 px no celular (a caixa desenhada tem 20 px, como o Checkbox), "selecionar todas" no
  * cabeçalho; linha selecionada no rosa do selecionado (--primary-suave); hover da linha cinza (--row-hover), de ponta
  * a ponta e sem cantos. Ordenação (opcional): botão no título da coluna com a seta da direção e aria-sort.
- * Vazio: `vazio` (use o EstadoVazio).
+ * Ordenação pela própria tabela: `ordemInicial` e `valorParaOrdenar` nas colunas. Textos: `textos`. Vazio: `vazio`.
  * BarraDeFerramentasDaTabela: a faixa de cima (busca à esquerda; até três botões de ferramenta à direita) e, embaixo,
  * os filtros aplicados. Quando a tabela é estreita, os botões descem para baixo da busca, numa linha só, com a mesma
  * largura; com mais de dois botões no celular, ponha os outros num menu "Mais".
  */
 
-export type ColunaAdaptavel<T> = {
+export type ColunaDaTabela<T> = {
   id: string;
   titulo: string;
   celula: (linha: T) => React.ReactNode;
-  /** Largura mínima da coluna, em px (o espaço de que ela precisa para não espremer o conteúdo). */
-  largura: number;
+  /** 1 = mais importante. No FindLook, qualquer número: a tabela mede a largura e põe as que cabem, por ordem. */
   prioridade?: number;
-  fixa?: boolean;
   alinhar?: "inicio" | "fim";
+  /** A coluna principal (o nome): aparece sempre e vira o título de cada item na lista. */
+  principal?: boolean;
   ordenavel?: boolean;
+  /** Valor usado para ordenar (padrão: o texto da célula não é usado; sem isto, a coluna não ordena sozinha). */
+  valorParaOrdenar?: (linha: T) => string | number;
+  /** FindLook: largura mínima da coluna, em px (padrão 140), para medir quais cabem. */
+  largura?: number;
 };
+/** Nome antigo (FindLook), mesmo tipo. */
+export type ColunaAdaptavel<T> = ColunaDaTabela<T>;
 
 export type OrdemDaTabela = { coluna: string; direcao: "asc" | "desc" };
 
 export type TabelaAdaptavelProps<T> = {
-  colunas: ColunaAdaptavel<T>[];
+  colunas: ColunaDaTabela<T>[];
   linhas: T[];
   chave: (linha: T) => string;
-  /** Legenda da tabela (lida por leitores de tela; visível com `legendaVisivel`). */
+  /** Legenda da tabela (lida por leitores de tela; visível com `mostrarLegenda`). */
   legenda: string;
-  legendaVisivel?: boolean;
+  mostrarLegenda?: boolean;
+  /** Ordem inicial quando a própria tabela ordena (colunas com valorParaOrdenar, sem onOrdenar). */
+  ordemInicial?: OrdemDaTabela;
+  textos?: { foraDaTela?: string; acoes?: string; coluna?: string; colunas?: string; ordenar?: string; selecionarTodas?: string };
   /** Nome da linha para leitores de tela ("Selecionar Ateliê Aurora"). */
   rotuloDaLinha?: (linha: T) => string;
   selecionadas?: Set<string>;
@@ -55,7 +66,6 @@ export type TabelaAdaptavelProps<T> = {
   onOrdenar?: (o: OrdemDaTabela) => void;
   larguraDaLista?: number;
   vazio?: React.ReactNode;
-  textoDoAviso?: (fora: string[]) => string;
   className?: string;
 };
 
@@ -102,7 +112,9 @@ export function TabelaAdaptavel<T>({
   linhas,
   chave,
   legenda,
-  legendaVisivel = false,
+  mostrarLegenda = false,
+  ordemInicial,
+  textos,
   rotuloDaLinha,
   selecionadas,
   onSelecionadasChange,
@@ -112,9 +124,24 @@ export function TabelaAdaptavel<T>({
   onOrdenar,
   larguraDaLista = 600,
   vazio,
-  textoDoAviso = (fora) => `Nesta largura ficam de fora: ${fora.join(", ")}.`,
   className,
 }: TabelaAdaptavelProps<T>) {
+  const tx = { foraDaTela: "Nesta largura ficam de fora:", acoes: "Ações", ordenar: "Ordenar por", selecionarTodas: "Selecionar todas", ...textos };
+  // Ordem: controlada (ordem + onOrdenar) ou da própria tabela (ordemInicial + valorParaOrdenar).
+  const [ordemPropria, setOrdemPropria] = React.useState<OrdemDaTabela | undefined>(ordemInicial);
+  const ordemAtual = onOrdenar ? ordem : ordemPropria;
+  const ordenar = onOrdenar ?? setOrdemPropria;
+  const linhasNaOrdem = React.useMemo(() => {
+    if (onOrdenar || !ordemPropria) return linhas;
+    const col = colunas.find((c) => c.id === ordemPropria.coluna);
+    if (!col?.valorParaOrdenar) return linhas;
+    const v = col.valorParaOrdenar;
+    return [...linhas].sort((a, b) => {
+      const x = v(a), y = v(b);
+      const r = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y), "pt-BR", { numeric: true });
+      return ordemPropria.direcao === "asc" ? r : -r;
+    });
+  }, [linhas, colunas, ordemPropria, onOrdenar]);
   const { ref, largura } = useLargura<HTMLDivElement>();
   const selecionavel = Boolean(selecionadas && onSelecionadasChange);
   const lista = largura !== null && largura < larguraDaLista;
@@ -124,10 +151,10 @@ export function TabelaAdaptavel<T>({
     if (largura === null) return new Set(colunas.map((c) => c.id));
     let livre = largura - (selecionavel ? LARGURA_DA_SELECAO : 0) - (acoes ? larguraDasAcoes : 0);
     const cabem = new Set<string>();
-    for (const c of colunas.filter((c) => c.fixa)) { cabem.add(c.id); livre -= c.largura; }
-    const resto = colunas.filter((c) => !c.fixa).sort((a, b) => (a.prioridade ?? 99) - (b.prioridade ?? 99));
+    for (const c of colunas.filter((c) => c.principal)) { cabem.add(c.id); livre -= c.largura ?? 140; }
+    const resto = colunas.filter((c) => !c.principal).sort((a, b) => (a.prioridade ?? 99) - (b.prioridade ?? 99));
     for (const c of resto) {
-      if (c.largura <= livre) { cabem.add(c.id); livre -= c.largura; }
+      if (c.largura <= livre) { cabem.add(c.id); livre -= c.largura ?? 140; }
     }
     return cabem;
   }, [largura, colunas, selecionavel, acoes, larguraDasAcoes]);
@@ -145,13 +172,14 @@ export function TabelaAdaptavel<T>({
   const nome = (l: T) => rotuloDaLinha?.(l) ?? chave(l);
 
   const cabecalhoDaColuna = (c: ColunaAdaptavel<T>) => {
-    if (!c.ordenavel || !onOrdenar) return c.titulo;
-    const atual = ordem?.coluna === c.id ? ordem.direcao : null;
+    if (!c.ordenavel || (!onOrdenar && !c.valorParaOrdenar)) return c.titulo;
+    const atual = ordemAtual?.coluna === c.id ? ordemAtual.direcao : null;
     const Seta = atual === "asc" ? ArrowUp : atual === "desc" ? ArrowDown : ArrowUpDown;
     return (
       <button
         type="button"
-        onClick={() => onOrdenar({ coluna: c.id, direcao: atual === "asc" ? "desc" : "asc" })}
+        onClick={() => ordenar({ coluna: c.id, direcao: atual === "asc" ? "desc" : "asc" })}
+        aria-label={`${tx.ordenar} ${c.titulo}`}
         className={cn("-mx-2 inline-flex min-h-9 items-center gap-1 rounded-sm px-2 uppercase tracking-[0.06em] transition-colors hover:bg-accent hover:text-foreground", atual && "text-foreground", foco)}
       >
         {c.titulo}
@@ -166,18 +194,18 @@ export function TabelaAdaptavel<T>({
         <div className="p-4">{vazio}</div>
       ) : lista ? (
         <>
-          <p className={legendaVisivel ? "m-0 px-4 pb-2 pt-4 text-body-sm font-semibold text-foreground" : "sr-only"}>{legenda}</p>
+          <p className={mostrarLegenda ? "m-0 px-4 pb-2 pt-4 text-body-sm font-semibold text-foreground" : "sr-only"}>{legenda}</p>
           {selecionavel && (
             <div className="flex items-center gap-3 border-b border-border px-4 py-1">
-              <CaixaDeSelecao marcada={todas ? true : algumas ? "indeterminate" : false} onMarcadaChange={marcarTodas} rotulo="Selecionar todas" />
-              <span aria-hidden className="text-body-sm text-muted-foreground">Selecionar todas</span>
+              <CaixaDeSelecao marcada={todas ? true : algumas ? "indeterminate" : false} onMarcadaChange={marcarTodas} rotulo={tx.selecionarTodas} />
+              <span aria-hidden className="text-body-sm text-muted-foreground">{tx.selecionarTodas}</span>
             </div>
           )}
           <ul className="m-0 list-none p-0" aria-label={legenda}>
-            {linhas.map((l) => {
+            {linhasNaOrdem.map((l) => {
               const id = chave(l);
               const marcada = selecionadas?.has(id) ?? false;
-              const [titulo, ...resto] = mostradas.filter((c) => c.fixa).concat(mostradas.filter((c) => !c.fixa).sort((a, b) => (a.prioridade ?? 99) - (b.prioridade ?? 99)));
+              const [titulo, ...resto] = mostradas.filter((c) => c.principal).concat(mostradas.filter((c) => !c.principal).sort((a, b) => (a.prioridade ?? 99) - (b.prioridade ?? 99)));
               return (
                 <li
                   key={id}
@@ -207,34 +235,34 @@ export function TabelaAdaptavel<T>({
       ) : (
         <>
           <table className="w-full table-fixed border-collapse text-body-sm">
-            <caption className={legendaVisivel ? "px-4 pb-2 pt-4 text-left text-body-sm font-semibold text-foreground" : "sr-only"}>{legenda}</caption>
+            <caption className={mostrarLegenda ? "px-4 pb-2 pt-4 text-left text-body-sm font-semibold text-foreground" : "sr-only"}>{legenda}</caption>
             <colgroup>
               {selecionavel && <col style={{ width: LARGURA_DA_SELECAO }} />}
-              {mostradas.map((c) => <col key={c.id} style={c.fixa ? undefined : { width: c.largura }} />)}
+              {mostradas.map((c) => <col key={c.id} style={c.principal ? undefined : { width: c.largura ?? 140 }} />)}
               {acoes && <col style={{ width: larguraDasAcoes }} />}
             </colgroup>
             <thead>
               <tr className="border-b border-border bg-muted">
                 {selecionavel && (
                   <th scope="col" className="px-4 py-2 text-left">
-                    <CaixaDeSelecao marcada={todas ? true : algumas ? "indeterminate" : false} onMarcadaChange={marcarTodas} rotulo="Selecionar todas" />
+                    <CaixaDeSelecao marcada={todas ? true : algumas ? "indeterminate" : false} onMarcadaChange={marcarTodas} rotulo={tx.selecionarTodas} />
                   </th>
                 )}
                 {mostradas.map((c) => (
                   <th
                     key={c.id}
                     scope="col"
-                    aria-sort={ordem?.coluna === c.id ? (ordem.direcao === "asc" ? "ascending" : "descending") : undefined}
+                    aria-sort={ordemAtual?.coluna === c.id ? (ordemAtual.direcao === "asc" ? "ascending" : "descending") : undefined}
                     className={cn("px-4 py-2 text-label font-semibold uppercase tracking-[0.06em] text-muted-foreground", c.alinhar === "fim" ? "text-right" : "text-left")}
                   >
                     {cabecalhoDaColuna(c)}
                   </th>
                 ))}
-                {acoes && <th scope="col" className="px-2 py-2"><span className="sr-only">Ações</span></th>}
+                {acoes && <th scope="col" className="px-2 py-2"><span className="sr-only">{tx.acoes}</span></th>}
               </tr>
             </thead>
             <tbody>
-              {linhas.map((l) => {
+              {linhasNaOrdem.map((l) => {
                 const id = chave(l);
                 const marcada = selecionadas?.has(id) ?? false;
                 return (
@@ -245,7 +273,7 @@ export function TabelaAdaptavel<T>({
                       </td>
                     )}
                     {mostradas.map((c) => (
-                      <td key={c.id} className={cn("px-4 py-3 align-middle text-foreground [overflow-wrap:anywhere]", c.alinhar === "fim" && "text-right", c.fixa && "font-semibold")}>
+                      <td key={c.id} className={cn("px-4 py-3 align-middle text-foreground [overflow-wrap:anywhere]", c.alinhar === "fim" && "text-right", c.principal && "font-semibold")}>
                         {c.celula(l)}
                       </td>
                     ))}
@@ -257,7 +285,7 @@ export function TabelaAdaptavel<T>({
           </table>
           {fora.length > 0 && (
             <p className="m-0 flex items-start gap-1.5 border-t border-border px-4 py-3 text-label text-muted-foreground" data-colunas-fora>
-              <EyeOff aria-hidden className="mt-0.5 size-3.5 shrink-0" /> {textoDoAviso(fora)}
+              <EyeOff aria-hidden className="mt-0.5 size-3.5 shrink-0" /> {tx.foraDaTela} {fora.join(", ")}.
             </p>
           )}
         </>

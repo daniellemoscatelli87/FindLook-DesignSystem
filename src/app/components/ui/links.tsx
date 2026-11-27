@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ArrowDown, ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { cn } from "./utils";
 
 /**
@@ -9,8 +9,7 @@ import { cn } from "./utils";
  *   o link em --foreground (links de rodapé e créditos, que não competem com o conteúdo).
  * - LinkDeVoltar: volta para a tela de onde a pessoa veio ("Lojas mapeadas", "Ativação de lojas"). Seta à esquerda,
  *   no topo da página, alinhado à borda esquerda do título. 44 px de altura no celular (alvo de toque).
- * - LinkSaibaMais: a alça na base do hero ("Saiba mais", seta para baixo, sem borda), centralizada; leva à seção
- *   seguinte. A seta desce e volta devagar (para com "menos movimento").
+ * (A alça "Saiba mais" do hero é o LinkSaibaMais, em ui/link-saiba-mais.)
  * - LinkPularConteudo: o primeiro item da página, para quem usa teclado: só aparece com o foco e leva ao <main>.
  * Todos aceitam `comoLink` para usar o link do produto (por exemplo, o Link do Next.js) no lugar do <a>.
  */
@@ -63,25 +62,6 @@ export function LinkDeVoltar({ href, comoLink, className, children, ...props }: 
     >
       <ArrowLeft aria-hidden className="size-4 shrink-0 transition-transform duration-[var(--duration-fast)] group-hover:-translate-x-0.5 motion-reduce:transition-none" />
       {children}
-    </Comp>
-  );
-}
-
-export function LinkSaibaMais({ href, comoLink, className, children = "Saiba mais", ...props }: Omit<BaseDoLink, "children"> & { children?: React.ReactNode }) {
-  const Comp = comoLink ?? "a";
-  return (
-    <Comp
-      href={href}
-      data-slot="link-saiba-mais"
-      className={cn(
-        "group inline-flex min-h-11 flex-col items-center justify-center gap-1 rounded-md px-4 text-body-sm font-semibold text-muted-foreground transition-colors hover:text-foreground",
-        foco,
-        className,
-      )}
-      {...props}
-    >
-      <span>{children}</span>
-      <ArrowDown aria-hidden className="fl-saiba-mais-seta size-4 group-hover:text-primary-text" />
     </Comp>
   );
 }

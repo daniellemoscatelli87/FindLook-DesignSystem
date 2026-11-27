@@ -6,7 +6,10 @@ import { cn } from "./utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./dropdown-menu";
 
 /**
- * Quadro (kanban): itens em colunas por etapa (A contatar → Contato → Visita → Cadastro). Card nunca rola para o lado
+ * Quadro (kanban). O nome e a ideia são os do Quadro do design system Dani Moscatelli, mas a API é a do produto
+ * FindLook, que move os itens entre as colunas: os itens vêm numa lista só, com `coluna(item)` e `cartao(item)`, e
+ * `onMover` (no DS Dani Moscatelli, cada coluna traz os próprios cartões prontos e não há mover).
+ * Itens em colunas por etapa (A contatar → Contato → Visita → Cadastro). Card nunca rola para o lado
  * (regra da dona do produto, 18/11/2026): quando o próprio quadro tem 56rem (896 px) ou mais, as colunas ficam lado a
  * lado, dividindo a largura; antes disso, uma embaixo da outra, e o título de cada coluna abre e fecha a lista (as
  * que têm itens começam abertas). A largura é a do quadro, não a da tela.
@@ -20,6 +23,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 export type ColunaDoQuadro<K extends string> = {
   id: K;
   titulo: string;
+  /** Ponto colorido antes do título (mesmo sinal do Quadro do DS Dani Moscatelli). O texto continua dizendo a etapa. */
+  tom?: "marca" | "neutro" | "sucesso" | "info" | "aviso";
   quantidade?: number;
   icone?: React.ReactNode;
   /** Linha curta embaixo do título ("62% avançaram da etapa anterior"). */
@@ -44,6 +49,7 @@ export type QuadroProps<K extends string, T> = {
   className?: string;
 };
 
+const PONTO = { marca: "bg-primary", neutro: "bg-muted-foreground", sucesso: "bg-success", info: "bg-info", aviso: "bg-warning" } as const;
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, cartao, onMover, podeMover = () => true, rotulo, rotuloItem, limitarAltura = false, className }: QuadroProps<K, T>) {
@@ -81,6 +87,7 @@ export function Quadro<K extends string, T>({ colunas, itens, chave, coluna, car
           const idLista = `${idBase}-${c.id}`;
           const cabecalho = (
             <>
+              {c.tom && <span aria-hidden className={cn("size-2 shrink-0 rounded-full", PONTO[c.tom])} />}
               {c.icone && <span aria-hidden className="inline-flex shrink-0 text-muted-foreground [&>svg]:size-4">{c.icone}</span>}
               <span className="min-w-0 flex-1 text-left text-body-sm font-bold text-foreground">{c.titulo}</span>
               <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-card px-2 text-label font-semibold tabular-nums text-foreground">{n}</span>

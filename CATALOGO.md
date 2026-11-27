@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 118 arquivos de componentes em `src/app/components/ui/` com 446 componentes exportados · 89 templates e padrões ainda só em demonstração · 48 seções com marcação feita à mão · 167 tokens · 37 páginas e 265 âncoras no site (https://designsystem.findlook.com.br) · 28 propostas de componente.
+**Resumo:** 119 arquivos de componentes em `src/app/components/ui/` com 453 componentes exportados · 89 templates e padrões ainda só em demonstração · 48 seções com marcação feita à mão · 167 tokens · 37 páginas e 265 âncoras no site (https://designsystem.findlook.com.br) · 28 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -126,14 +126,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `BarraFixaDoCelular` (props: `icone`, `oculta`, `somenteCelular`, `reservarEspaco`, `classeDaFaixa`, `className`, `children`)
 - **Onde ver:** Templates › Botões flutuantes (`templates#template-flutuantes`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
 
-### botao-com-retorno
+### botao-de-envio
 
-- **Arquivo:** [src/app/components/ui/botao-com-retorno.tsx](src/app/components/ui/botao-com-retorno.tsx)
-- **Quando usar:** Botão com retorno: o botão de uma ação que leva um tempo (Salvar, Enviar, Conferir) mostra o que está acontecendo no próprio botão: carregando (girando, texto "Salvando…"), depois sucesso (check, "Salvo") e volta sozinho ao estado inicial; com erro, mostra o erro por um instante e volta. Mesmas variantes e tamanhos do Button. - estado: "parado" | "carregando" | "sucesso" | "erro" (controlado).
+- **Arquivo:** [src/app/components/ui/botao-de-envio.tsx](src/app/components/ui/botao-de-envio.tsx)
+- **Quando usar:** BotaoDeEnvio (botão com os estados de envio): mesma API do BotaoDeEnvio do design system Dani Moscatelli. O Button do DS com o retorno de cada envio, sem mudar de tamanho: parado → "Enviando…" (girando) → "Enviado" com check → volta sozinho ao estado parado; ou "Tentar de novo" quando falha.
 - **Componentes:**
-  - `BotaoComRetorno` (props: `estado`, `icone`, `textoCarregando`, `textoSucesso`, `textoErro`, `children`, `className`, `disabled`)
-- **Funções e constantes:** `useRetornoDoBotao`
-- **Onde ver:** Campos e formulários › Botão com retorno (`campos#botao-com-retorno`)
+  - `BotaoDeEnvio` (props: `estado`, `children`, `textos`, `icone`, `voltarApos`, `onVoltar`, `className`, `disabled`, `variant`)
+- **Funções e constantes:** `useEstadoDoEnvio`
+- **Onde ver:** Campos e formulários › Botão de envio (`campos#botao-de-envio`)
 
 ### breadcrumb
 
@@ -172,10 +172,10 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### cabecalho-do-site
 
 - **Arquivo:** [src/app/components/ui/cabecalho-do-site.tsx](src/app/components/ui/cabecalho-do-site.tsx)
-- **Quando usar:** Cabeçalho do site (páginas públicas): o padrão "Header e menus", modelo Faixa inteira, como componente. Comportamento (o mesmo do produto desde 14/11/2026): - transparenteNoTopo: transparente sobre a capa até a página rolar 8 px; depois, a faixa ganha o fundo do card a 85% com desfoque, a borda e a sombra --shadow-sm. - iconeAoRolar: o logo completo vira o símbolo quando a página rola.
+- **Quando usar:** CabecalhoDoSite (cabeçalho das páginas públicas + menu do celular): mesma API do CabecalhoDoSite do design system Dani Moscatelli, no modelo Faixa inteira do padrão "Header e menus" (o modelo escolhido pela dona do produto para o FindLook; a pílula flutuante do DS Dani Moscatelli não é usada aqui).
 - **Componentes:**
-  - `MenuDoCelular` (props: `aberto`, `onAbertoChange`, `links`, `acaoSecundaria`, `acaoPrincipal`, `comoLink`, `titulo`, `container`): Menu do celular em folha inferior (padrão do DS): os links um por linha, com 48 px de altura e a seta à direita, e as duas ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um link;
-  - `CabecalhoDoSite` (props: `links`, `acaoSecundaria`, `acaoPrincipal`, `logoHref`, `comoLink`, `superficie`, `transparenteNoTopo`, `iconeAoRolar`, `someAoRolar`, `telaLarga`, `posicao`, `raiz`, `containerDoMenu`, `className`)
+  - `MenuDoCelular` (props: `aberto`, `onAbertoChange`, `itens`, `atual`, `acao`, `acaoSecundaria`, `comoLink`, `textos`, `container`): Menu do celular em folha inferior: os itens um por linha (48 px, seta à direita; o atual no rosa do selecionado) e as ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um item;
+  - `CabecalhoDoSite` (props: `itens`, `atual`, `acao`, `superficie`, `esconderAoRolar`, `inicioHref`, `rotuloInicio`, `logo`, `raiz`, `posicao`, `tela`, `textos`, `className`, `acaoSecundaria`, `transparenteNoTopo`, `iconeAoRolar`, `telaLarga`, `comoLink`, `containerDoMenu`)
 - **Funções e constantes:** `useRolagemDoCabecalho`
 - **Onde ver:** Moldura do site › Cabeçalho e menu do celular (`site#site-cabecalho`)
 
@@ -184,8 +184,6 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/cadastro-lojista.tsx](src/app/components/ui/cadastro-lojista.tsx)
 - **Quando usar:** Cadastro do lojista (FindLook): 1º passo, na gaveta "Vamos apresentar sua loja?" (página do lojista): - FormularioApresentarLoja: nome da loja e e-mail, botão Continuar e "Sem fidelidade: cancele quando quiser." - GavetaApresentarLoja: a gaveta inferior com o formulário (tom escuro na página do lojista).
 - **Componentes:**
-  - `GradeDeCampos` (props: `children`, `className`): Grade dos campos: um por linha; dois por linha só a partir de 31,125rem (cada campo com 240 px ou mais).
-  - `ResumoDeErros` (props: `erros`, `titulo`, `onIrPara`, `className`): Resumo dos erros da etapa (use com 2 erros ou mais): Alerta de erro com um link para cada campo.
   - `FormularioApresentarLoja` (props: `variante`, `idTitulo`, `valoresIniciais`, `onContinuar`, `validar`, `hrefEntrar`, `textos`, `className`)
   - `GavetaApresentarLoja` (props: `aberta`, `onAbertaChange`, `tom`, `container`, `textos`)
   - `MolduraDoCadastro` (props: `etapas`, `atual`, `concluidas`, `onIrPara`, `rotulo`, `children`, `className`)
@@ -195,7 +193,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `ListaDeRevisao` (props: `children`, `valoresAbertos`, `className`): Revisão
   - `BlocoDeRevisao` (props: `valor`, `titulo`, `nomeEtapa`, `resumo`, `onEditar`, `rotuloEditar`, `depois`, `children`)
   - `LinhaDeDado` (props: `rotulo`, `valor`, `vazio`, `className`)
+  - `GradeDeCampos`
   - `MensagemDeErro`
+  - `ResumoDeErros`
 - **Funções e constantes:** `CampoDoCadastro`, `textosPadraoApresentar`, `validarApresentar`
 - **Onde ver:** Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) · Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`)
 
@@ -218,18 +218,23 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### campo
 
 - **Arquivo:** [src/app/components/ui/campo.tsx](src/app/components/ui/campo.tsx)
-- **Quando usar:** Campo: o campo padrão de formulário do DS (decisão de 27/11/2026: um campo só). Rótulo visível em cima, o campo, a ajuda embaixo e, com erro, a mensagem de erro no lugar da ajuda (ícone + texto, nunca só a cor). Tudo ligado por aria-describedby; com erro, aria-invalid. O CampoDoCadastro (cadastro-lojista) é este mesmo componente. - opcional: "(opcional)" ao lado do rótulo. Marque o que é opcional, não o obrigatório.
+- **Quando usar:** Campo (o campo padrão do formulário): rótulo, controle, ajuda e erro sempre na mesma ordem e com os mesmos vínculos de acessibilidade. Mesma API do Campo do design system Dani Moscatelli (decisão de 27/11/2026: um campo só); o CampoDoCadastro do cadastro do lojista é este mesmo componente.
 - **Componentes:**
+  - `Campo` (props: `rotulo`, `ajuda`, `erro`, `icone`, `obrigatorio`, `inteiro`, `depois`, `classeDoBloco`, `className`, `id`, `children`, `required`, `opcional`, `acaoDoRotulo`, `textosDaSenha`, `type`)
   - `MensagemDeErro` (props: `id`, `children`, `className`): Texto de erro de um campo ou grupo: ícone + texto na cor de texto do erro (nunca só a cor).
-  - `Campo` (props: `rotulo`, `ajuda`, `erro`, `opcional`, `icone`, `acaoDoRotulo`, `depois`, `inteiro`, `classeDoBloco`, `textosDaSenha`, `type`, `className`, `id`)
-- **Onde ver:** Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Campo de busca (`campos#campo-de-busca`) · Moldura do site › Moldura das telas de conta (`site#site-conta`) · e mais 2 seções (ver `catalogo.json`)
+  - `GradeDeCampos` (props: `children`, `className`): Grade dos campos: um por linha; dois por linha só a partir de 31rem (cada campo com 240 px ou mais).
+  - `ResumoDeErros` (props: `erros`, `titulo`, `onIrPara`, `className`): Resumo dos erros (use com 2 erros ou mais): Alerta de erro com um link para cada campo.
+  - `CampoDeTelefone` (props: `valor`, `onValorChange`, `placeholder`): Telefone com DDD; teclado numérico no celular.
+  - `CampoDeCnpj` (props: `valor`, `onValorChange`, `placeholder`): CNPJ com a máscara; teclado numérico no celular. A validação (cnpjValido) fica a cargo do formulário.
+- **Funções e constantes:** `mascaraTelefone`, `mascaraCnpj`, `cnpjValido`
+- **Onde ver:** Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Campo de busca (`campos#campo-de-busca`) · Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · e mais 3 seções (ver `catalogo.json`)
 
 ### campo-de-busca
 
 - **Arquivo:** [src/app/components/ui/campo-de-busca.tsx](src/app/components/ui/campo-de-busca.tsx)
-- **Quando usar:** Campo de busca das listas (lojas, peças, agenda): lupa à esquerda, o texto e, quando há texto, o botão Limpar à direita (44 px no celular), que devolve o foco ao campo. Esc também limpa. O rótulo existe sempre: escondido por padrão (a lupa e o texto de exemplo bastam para quem vê), visível com `rotuloVisivel`. Mesma altura dos botões: 44 px no celular, 40 px do 640 px em diante.
+- **Quando usar:** CampoDeBusca (buscar numa lista): mesma API do CampoDeBusca do design system Dani Moscatelli. O campo de busca das listas do painel e da administração (lojas, peças, agenda): lupa à esquerda, o texto e o botão Limpar (×) quando há texto, que devolve o foco ao campo. Enter não envia formulário; Esc limpa. Para buscar no site inteiro, use a BuscaDePecas; para os comandos do painel, o CampoDeBuscaGlobal.
 - **Componentes:**
-  - `CampoDeBusca` (props: `rotulo`, `rotuloVisivel`, `valor`, `onValorChange`, `rotuloLimpar`, `classeDoBloco`, `className`, `id`, `onKeyDown`)
+  - `CampoDeBusca` (props: `valor`, `onValorChange`, `onBusca`, `atraso`, `rotulo`, `resultados`, `textos`, `rotuloVisivel`, `placeholder`, `className`, `id`)
 - **Onde ver:** Campos e formulários › Campo de busca (`campos#campo-de-busca`) · Quadro, conversa e tabela › Tabela adaptável (`painel-e-admin#tabela-adaptavel`)
 
 ### card
@@ -322,16 +327,17 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `ChipDeEstado` (props: `tom`, `icone`, `tamanho`, `className`, `children`)
 - **Onde ver:** Chips e estados › Chip de estado (`chips-e-estados#chip-de-estado`) · Demonstrações animadas › Miniatura do painel (`demonstracoes#miniatura-do-painel`)
 
-### chips
+### chip-filtravel
 
-- **Arquivo:** [src/app/components/ui/chips.tsx](src/app/components/ui/chips.tsx)
-- **Quando usar:** Chips de filtro (Rótulos › Chips filtráveis, como componente). - ChipFiltravel: liga e desliga um filtro ou uma classificação (aria-pressed). Ligado: fundo no rosa do selecionado (--primary-suave), texto --primary-text, borda rosa e o check, e continua rosa com o mouse em cima; desligado com o mouse em cima: cinza claro (--accent), nunca rosa. Nunca preenchido de pink.
+- **Arquivo:** [src/app/components/ui/chip-filtravel.tsx](src/app/components/ui/chip-filtravel.tsx)
+- **Quando usar:** Chips de filtro (Rótulos › Chips filtráveis, como componente). ChipFiltravel e GrupoDeChipsFiltraveis têm a mesma API do design system Dani Moscatelli; GrupoDeChips, ChipDeFiltro e ListaDeFiltrosAtivos são do FindLook. - ChipFiltravel: liga e desliga um filtro ou uma classificação (aria-pressed).
 - **Componentes:**
   - `ChipFiltravel` (props: `ativo`, `onAtivoChange`, `contagem`, `icone`, `className`, `children`, `onClick`)
+  - `GrupoDeChipsFiltraveis` (props: `opcoes`, `valor`, `onValorChange`, `multiplo`, `rotulo`, `className`)
   - `GrupoDeChips` (props: `rotulo`, `className`, `children`)
   - `ChipDeFiltro` (props: `rotulo`, `onRemover`, `className`)
   - `ListaDeFiltrosAtivos` (props: `children`, `onLimparTudo`, `rotuloLimpar`, `className`): Filtros aplicados, em linha, com "Limpar filtros" no fim (mesma linha, quebrando junto).
-- **Onde ver:** Chips e estados › Chips de filtro (`chips-e-estados#chips-filtro`) · Rótulos › Badges e tags (`badges#badges`) · Campos e formulários › Grupo de opções e interruptor (`campos#grupo-de-opcoes`) · e mais 1 seções (ver `catalogo.json`)
+- **Onde ver:** Rótulos › Badges e tags (`badges#badges`) · Campos e formulários › Grupo de opções e interruptor (`campos#grupo-de-opcoes`) · Chips e estados › Chips de filtro (`chips-e-estados#chips-filtro`) · e mais 1 seções (ver `catalogo.json`)
 
 ### collapsible
 
@@ -391,14 +397,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### conversa
 
 - **Arquivo:** [src/app/components/ui/conversa.tsx](src/app/components/ui/conversa.tsx)
-- **Quando usar:** Conversa (WhatsApp da loja e simulador do robô): as peças de uma conversa de mensagens, para montar dentro da MolduraDeCelular ou de um card. - MolduraDeCelular: o aparelho (borda grossa no grafite, cantos de 24 px, --shadow-lg), com cabeçalho, conversa e campo empilhados; é o palco das folhas que abrem por baixo (FolhaDeOpcoes).
+- **Quando usar:** Conversa (WhatsApp da loja e simulador do robô). Conversa, BalaoDaConversa, SeparadorDaConversa e IndicadorDeDigitacao têm a mesma API do design system Dani Moscatelli: - Conversa: a lista (role="log"). alinhamento "esquerda" (padrão: todas na mesma borda, como um histórico) ou "lados" (as suas à direita, como num chat: use no WhatsApp).
 - **Componentes:**
   - `MolduraDeCelular` (props: `className`, `children`, `rotulo`): Moldura
   - `CabecalhoDaConversa` (props: `nome`, `status`, `digitando`, `foto`, `simbolo`, `acoes`, `className`): Cabeçalho
-  - `Conversa` (props: `rotulo`, `className`, `children`): Área das mensagens
-  - `BalaoDeConversa` (props: `de`, `autor`, `hora`, `estado`, `citacao`, `imagem`, `acoes`, `className`, `children`)
-  - `IndicadorDeDigitacao` (props: `autor`, `texto`, `icone`, `className`): Digitando
-  - `AvisoDoSistema` (props: `icone`, `children`, `className`): Aviso do sistema
+  - `Conversa` (props: `className`, `children`, `rotulo`, `alinhamento`, `rolagem`)
+  - `BalaoDaConversa` (props: `autor`, `nome`, `quando`, `avatar`, `estado`, `textoDoEstado`, `naoLida`, `depois`, `citacao`, `imagem`, `children`, `className`)
+  - `SeparadorDaConversa` (props: `children`, `className`): Separador
+  - `IndicadorDeDigitacao` (props: `autor`, `avatar`, `rotulo`, `texto`, `icone`, `className`): Digitando
   - `BotaoDeResposta` (props: `className`, `icone`, `children`): Resposta rápida
   - `CampoDeMensagem` (props: `valor`, `onValorChange`, `onEnviar`, `onAnexar`, `ocupado`, `placeholder`, `rotulo`, `rotuloAnexar`, `rotuloEnviar`, `podeEnviarSemTexto`, `className`)
   - `FolhaDeOpcoes` (props: `titulo`, `opcoes`, `aberta`, `onFechar`, `onEscolher`)
@@ -489,9 +495,11 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### estado-vazio
 
 - **Arquivo:** [src/app/components/ui/estado-vazio.tsx](src/app/components/ui/estado-vazio.tsx)
-- **Quando usar:** Estado vazio: o que aparece quando uma lista, uma busca ou uma área ainda não tem nada. Diz o que está vazio, por quê (quando ajuda) e o próximo passo. Centralizado, com uma das três mídias: - ilustracao: imagem do mascote (Mascote & Ilustrações › Estados vazios), 160 px; o texto alternativo fica vazio, porque o título já diz tudo;
+- **Quando usar:** EstadoVazio, EstadoFinal e PaginaDeErro: as três telas "sem conteúdo" do DS, com a mesma API do design system Dani Moscatelli.
 - **Componentes:**
-  - `EstadoVazio` (props: `titulo`, `texto`, `ilustracao`, `icone`, `tom`, `acao`, `variante`, `tamanho`, `nivel`, `className`)
+  - `EstadoVazio` (props: `icone`, `titulo`, `descricao`, `acoes`, `tom`, `tamanho`, `variante`, `nivel`, `ilustracao`, `moldura`, `className`)
+  - `EstadoFinal` (props: `tom`, `icone`, `titulo`, `descricao`, `acoes`, `nivel`, `focarAoAparecer`, `children`, `className`)
+  - `PaginaDeErro` (props: `codigo`, `ilustracao`, `titulo`, `descricao`, `acoes`, `telaCheia`, `className`)
 - **Onde ver:** Chips e estados › Estado vazio (`chips-e-estados#estado-vazio`) · Rótulos › Estados vazios (`badges#empty-states`) · Mascote & Ilustrações › Estados vazios (`ilustracoes#mascote-estados-vazios`) · e mais 3 seções (ver `catalogo.json`)
 
 ### faixa-parceiros
@@ -681,7 +689,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Rótulo de campo, ligado ao campo.
 - **Componentes:**
   - `Label` (props: `className`)
-- **Onde ver:** Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`)
+- **Onde ver:** Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`)
 
 ### linha-de-lista
 
@@ -691,6 +699,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `LinhaDeLista` (props: `as`, `inicio`, `titulo`, `descricao`, `fim`, `quebraAcoes`, `alinharAcoesAbaixo`, `alinhar`, `interativa`, `selecionada`, `className`, `children`)
 - **Onde ver:** Cards › Borda, sombra e raio (`cards#card-layout`) · Exibição de dados › Linhas com tags e ações (`data#linhas-colunas`)
 
+### link-saiba-mais
+
+- **Arquivo:** [src/app/components/ui/link-saiba-mais.tsx](src/app/components/ui/link-saiba-mais.tsx)
+- **Quando usar:** LinkSaibaMais (alça "Saiba mais" do hero): mesma API do LinkSaibaMais do design system Dani Moscatelli. O link que convida a rolar até a próxima seção, centralizado na base do hero (página do lojista): texto e a seta num círculo de 32 px com borda, que desce 4 px e volta devagar. Com `direcao="direita"`, vira um link de continuação no fim de um bloco ("Saiba mais →"). Sem borda nem fundo; 44 px de altura de toque.
+- **Componentes:**
+  - `LinkSaibaMais` (props: `children`, `direcao`, `sobreEscuro`, `comoLink`, `className`)
+- **Onde ver:** Moldura do site › Vantagens e prova social (`site#site-hero`)
+
 ### links
 
 - **Arquivo:** [src/app/components/ui/links.tsx](src/app/components/ui/links.tsx)
@@ -698,9 +714,8 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `LinkDeTexto` (props: `href`, `comoLink`, `externo`, `forte`, `className`, `children`)
   - `LinkDeVoltar` (props: `href`, `comoLink`, `className`, `children`)
-  - `LinkSaibaMais` (props: `href`, `comoLink`, `className`, `children`)
   - `LinkPularConteudo` (props: `href`, `children`, `className`)
-- **Onde ver:** Moldura do site › Links de texto (`site#site-links`) · Moldura do site › Moldura das telas de conta (`site#site-conta`) · Moldura do site › Vantagens e prova social (`site#site-hero`) · e mais 1 seções (ver `catalogo.json`)
+- **Onde ver:** Moldura do site › Links de texto (`site#site-links`) · Moldura do site › Moldura das telas de conta (`site#site-conta`) · Templates › Entrar e criar conta (`templates#template-auth`)
 
 ### lista-de-vantagens
 
@@ -713,9 +728,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### logo
 
 - **Arquivo:** [src/app/components/ui/logo.tsx](src/app/components/ui/logo.tsx)
-- **Quando usar:** Logo da FindLook: a assinatura horizontal oficial (Marca › Assinatura horizontal) desenhada no próprio componente, sem depender de arquivo. "Find" na cor do fundo (grafite sobre claro, branco sobre escuro) e "Look" e o símbolo no rosa da marca (--brand-pink), como manda a grafia da marca. `variante="simbolo"` mostra só o pin com cabide (cabeçalho rolado, espaços pequenos).
+- **Quando usar:** Logo da FindLook: mesma API do Logo do design system Dani Moscatelli. É o desenho oficial (os mesmos traços dos arquivos de src/imports/svg/, conferidos caminho a caminho) em SVG dentro do código: chega ao produto pela sincronização, sem arquivo nem <img> com caminho próprio.
 - **Componentes:**
-  - `Logo` (props: `variante`, `superficie`, `href`, `comoLink`, `rotulo`, `decorativo`, `className`)
+  - `Logo` (props: `variante`, `superficie`, `rotulo`, `corDoSimbolo`, `href`, `comoLink`, `className`)
 - **Onde ver:** Moldura do site › Logo (`site#site-logo`) · Demonstrações animadas › Miniatura do painel (`demonstracoes#miniatura-do-painel`)
 
 ### lucide-catalogo
@@ -780,9 +795,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### moldura-de-conta
 
 - **Arquivo:** [src/app/components/ui/moldura-de-conta.tsx](src/app/components/ui/moldura-de-conta.tsx)
-- **Quando usar:** Moldura das telas de conta (Entrar, Criar conta, Recuperar acesso, Redefinir senha, Minha conta, Área administrativa): o template Entrar e criar conta como componente. Fundo cinza da página, no topo o logo e "Voltar ao início", e no meio um card só de borda (sem sombra sobre o cinza) com o título da tela (h1, 24 px), a explicação e o conteúdo (formulário com Campo, Alert e Button).
+- **Quando usar:** MolduraDeConta (telas de conta): mesma API da MolduraDeConta do design system Dani Moscatelli. A moldura de Entrar, Criar conta, Recuperar acesso, Redefinir senha, Minha conta e Área administrativa: página inteira no cinza da página (--muted), com um card só de borda (sem sombra sobre o cinza) centralizado: logo (link para o início), selo opcional ("Área administrativa"), título (h1, 24 px), uma frase de apoio, o …
 - **Componentes:**
-  - `MolduraDeConta` (props: `titulo`, `explicacao`, `rodape`, `lateral`, `logoHref`, `voltar`, `comoLink`, `altura`, `idDoConteudo`, `className`, `children`)
+  - `MolduraDeConta` (props: `titulo`, `descricao`, `selo`, `logo`, `inicioHref`, `rotuloInicio`, `rodape`, `telaCheia`, `lateral`, `comoLink`, `children`, `className`)
 - **Onde ver:** Moldura do site › Moldura das telas de conta (`site#site-conta`) · Templates › Entrar e criar conta (`templates#template-auth`)
 
 ### movimento
@@ -959,9 +974,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### prosa
 
 - **Arquivo:** [src/app/components/ui/prosa.tsx](src/app/components/ui/prosa.tsx)
-- **Quando usar:** Prosa: tipografia de texto longo (Termos de uso, Política de privacidade, páginas de ajuda). Envolve o HTML que vem de um texto em Markdown e dá a ele a escala do DS: título da página 32 px, seções 20 px, texto 16 px com entrelinha 1,7, listas com respiro, links em --primary-text sublinhados, citação como um card cinza só de borda e tabelas que quebram o texto (nunca rolam para o lado: as células quebram a palavra …
+- **Quando usar:** Prosa (texto longo: Termos de uso, Política de privacidade, páginas de ajuda): mesma API da Prosa do design system Dani Moscatelli. Aplica a tipografia do DS a um texto corrido em HTML simples (h1, h2, h3, p, ul, ol, a, strong, blockquote, table, hr), sem classes em cada elemento.
 - **Componentes:**
-  - `Prosa` (props: `html`, `as`, `className`, `children`)
+  - `Prosa` (props: `tamanho`, `html`, `className`, `children`)
 - **Onde ver:** Moldura do site › Prosa (textos longos) (`site#site-prosa`)
 
 ### prova-social
@@ -975,7 +990,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### quadro
 
 - **Arquivo:** [src/app/components/ui/quadro.tsx](src/app/components/ui/quadro.tsx)
-- **Quando usar:** Quadro (kanban): itens em colunas por etapa (A contatar → Contato → Visita → Cadastro). Card nunca rola para o lado (regra da dona do produto, 18/11/2026): quando o próprio quadro tem 56rem (896 px) ou mais, as colunas ficam lado a lado, dividindo a largura; antes disso, uma embaixo da outra, e o título de cada coluna abre e fecha a lista (as que têm itens começam abertas). A largura é a do quadro, não a da tela.
+- **Quando usar:** Quadro (kanban). O nome e a ideia são os do Quadro do design system Dani Moscatelli, mas a API é a do produto FindLook, que move os itens entre as colunas: os itens vêm numa lista só, com `coluna(item)` e `cartao(item)`, e `onMover` (no DS Dani Moscatelli, cada coluna traz os próprios cartões prontos e não há mover). Itens em colunas por etapa (A contatar → Contato → Visita → Cadastro).
 - **Componentes:**
   - `Quadro` (props: `colunas`, `itens`, `chave`, `coluna`, `cartao`, `onMover`, `podeMover`)
 - **Onde ver:** Quadro, conversa e tabela › Quadro (kanban) (`painel-e-admin#quadro`)
@@ -1004,7 +1019,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/rodape-do-site.tsx](src/app/components/ui/rodape-do-site.tsx)
 - **Quando usar:** Rodapé do site (páginas públicas), do protótipo do produto (v8.87) com as regras do DS. Partes, todas opcionais menos a marca: - marca: logo, slogan (20 px, negrito), texto curto e um complemento (por exemplo, o Instagram). - colunas: grupos de links, cada um com título (um <nav> com o nome do grupo). No celular, duas colunas lado a lado.
 - **Componentes:**
-  - `RodapeDoSite` (props: `marca`, `superficie`, `logoHref`, `colunas`, `convite`, `faixa`, `linhaFinal`, `creditos`, `comoLink`, `className`)
+  - `RodapeDoSite` (props: `marca`, `superficie`, `inicioHref`, `colunas`, `convite`, `faixa`, `linhaFinal`, `creditos`, `comoLink`, `className`)
 - **Onde ver:** Moldura do site › Rodapé do site (`site#site-rodape`)
 
 ### scroll-area
@@ -1207,9 +1222,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 ### tabela-adaptavel
 
 - **Arquivo:** [src/app/components/ui/tabela-adaptavel.tsx](src/app/components/ui/tabela-adaptavel.tsx)
-- **Quando usar:** Tabela adaptável: a tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026). Ela mede a própria largura e: - mostra as colunas que cabem, da mais importante para a menos importante (`prioridade`, menor = mais importante); as colunas `fixa` (nome, por exemplo) aparecem sempre;
+- **Quando usar:** Tabela adaptável: mesma API (nomes e props) da TabelaAdaptavel do design system Dani Moscatelli, com o que o FindLook precisa a mais: seleção, ordem controlada (ordem + onOrdenar) e a medida da largura (`largura`). A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026).
 - **Componentes:**
-  - `TabelaAdaptavel` (props: `colunas`, `linhas`, `chave`, `legenda`, `legendaVisivel`, `rotuloDaLinha`, `selecionadas`, `onSelecionadasChange`, `acoes`, `larguraDasAcoes`, `ordem`, `onOrdenar`, `larguraDaLista`, `vazio`, `textoDoAviso`)
+  - `TabelaAdaptavel` (props: `colunas`, `linhas`, `chave`, `legenda`, `mostrarLegenda`, `ordemInicial`, `textos`, `rotuloDaLinha`, `selecionadas`, `onSelecionadasChange`, `acoes`, `larguraDasAcoes`, `ordem`, `onOrdenar`, `larguraDaLista`, `vazio`, `className`)
   - `BarraDeFerramentasDaTabela` (props: `busca`, `children`, `filtrosAtivos`, `className`): Barra de ferramentas
 - **Onde ver:** Quadro, conversa e tabela › Tabela adaptável (`painel-e-admin#tabela-adaptavel`) · Gráficos › Como escolher (`graficos#graficos-escolher`) · Gráficos › Componentes e props (`graficos#graficos-componentes`)
 
@@ -1245,7 +1260,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Textarea. `contador` (com maxLength) mostra "120 de 500" embaixo, alinhado à borda esquerda do campo: cinza enquanto há folga, no tom de aviso quando faltam 10% ou menos e no tom de erro no limite. Para leitores de tela, o aviso só fala quando faltam 20 caracteres ou menos ("Restam 12 caracteres"), para não anunciar cada letra.
 - **Componentes:**
   - `Textarea` (props: `className`, `contador`, `maxLength`, `onChange`)
-- **Onde ver:** Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · Sobreposições (overlays) (`overlays`, fora das seções)
+- **Onde ver:** Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · Sobreposições (overlays) (`overlays`, fora das seções)
 
 ### timeline
 
@@ -1341,12 +1356,12 @@ Telas inteiras montadas nas páginas de demonstração. Para uma tela parecida n
 | Padrão | Onde ver | Arquivo | Usa do DS | Marcação à mão |
 |---|---|---|---|---|
 | `SettingsTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:128](src/app/components/showcase/TemplatesShowcase.tsx#L128) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `CartaoDeEscolha`, `GrupoDeCartoesDeEscolha`, `Switch` | 11 |
-| `AuthTemplate`<br>3. Entrar e criar conta (loja parceira) | Templates › Entrar e criar conta (`templates#template-auth`) | [src/app/components/showcase/TemplatesShowcase.tsx:353](src/app/components/showcase/TemplatesShowcase.tsx#L353) | `Button`, `Campo`, `Checkbox`, `EstadoVazio`, `LinkDeTexto`, `ListaDeVantagens`, `MolduraDeConta` | 0 |
-| `TeamTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:467](src/app/components/showcase/TemplatesShowcase.tsx#L467) | `CabecalhoDaPagina`, `CardComCabecalho`, `SegmentedControl` | 17 |
-| `InboxTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:733](src/app/components/showcase/TemplatesShowcase.tsx#L733) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho` | 12 |
-| `PricingTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:920](src/app/components/showcase/TemplatesShowcase.tsx#L920) | `CabecalhoDaPagina`, `CardDePreco`, `GradeDeCards`, `SegmentedControl` | 4 |
-| `ContactTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:1017](src/app/components/showcase/TemplatesShowcase.tsx#L1017) | `CabecalhoDaPagina`, `CardComCabecalho`, `Checkbox` | 6 |
-| `LandingTemplate` | Templates › Landing page para lojistas (`templates#template-landing`) | [src/app/components/showcase/TemplatesShowcase.tsx:1409](src/app/components/showcase/TemplatesShowcase.tsx#L1409) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger`, `Campo`, `Checkbox`, `GradeDeCards`, `IconeModa` +2 | 77 |
+| `AuthTemplate`<br>3. Entrar e criar conta (loja parceira) | Templates › Entrar e criar conta (`templates#template-auth`) | [src/app/components/showcase/TemplatesShowcase.tsx:353](src/app/components/showcase/TemplatesShowcase.tsx#L353) | `Button`, `Campo`, `Checkbox`, `EstadoFinal`, `LinkDeTexto`, `ListaDeVantagens`, `MolduraDeConta` | 0 |
+| `TeamTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:465](src/app/components/showcase/TemplatesShowcase.tsx#L465) | `CabecalhoDaPagina`, `CardComCabecalho`, `SegmentedControl` | 17 |
+| `InboxTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:731](src/app/components/showcase/TemplatesShowcase.tsx#L731) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho` | 12 |
+| `PricingTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:918](src/app/components/showcase/TemplatesShowcase.tsx#L918) | `CabecalhoDaPagina`, `CardDePreco`, `GradeDeCards`, `SegmentedControl` | 4 |
+| `ContactTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:1015](src/app/components/showcase/TemplatesShowcase.tsx#L1015) | `CabecalhoDaPagina`, `CardComCabecalho`, `Checkbox` | 6 |
+| `LandingTemplate` | Templates › Landing page para lojistas (`templates#template-landing`) | [src/app/components/showcase/TemplatesShowcase.tsx:1407](src/app/components/showcase/TemplatesShowcase.tsx#L1407) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger`, `Campo`, `Checkbox`, `GradeDeCards`, `IconeModa` +2 | 77 |
 
 ### 2.2 Padrões nas páginas de componentes (47)
 
@@ -1361,7 +1376,7 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `BotaoContorno`<br>Páginas | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/PainelTemplates.tsx:374](src/app/components/showcase/PainelTemplates.tsx#L374) |  | 1 |
 | `PaginaInicio` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/PainelTemplates.tsx:382](src/app/components/showcase/PainelTemplates.tsx#L382) | `AnelDePontuacao`, `BannerPromocional`, `BotaoDividido`, `CabecalhoDaPagina`, `CardDoPainel`, `CardIndicador`, `CarrosselDeDicas`, `FaixaDeBeneficios` +11 | 1 |
 | `PaginaEmBreve` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/PainelTemplates.tsx:591](src/app/components/showcase/PainelTemplates.tsx#L591) | `CabecalhoDaPagina` | 3 |
-| `DemoBotoesFlutuantes`<br>Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026). | Templates › Botões flutuantes (`templates#template-flutuantes`) | [src/app/components/showcase/TemplatesShowcase.tsx:1181](src/app/components/showcase/TemplatesShowcase.tsx#L1181) | `BarraFixaDoCelular`, `VoltarAoTopo` | 1 |
+| `DemoBotoesFlutuantes`<br>Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026). | Templates › Botões flutuantes (`templates#template-flutuantes`) | [src/app/components/showcase/TemplatesShowcase.tsx:1179](src/app/components/showcase/TemplatesShowcase.tsx#L1179) | `BarraFixaDoCelular`, `VoltarAoTopo` | 1 |
 | `CadastroEmEtapasDemo`<br>Demonstração | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:179](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L179) | `Alert`, `AlertDescription`, `AlertTitle`, `BarraDaEtapa`, `BlocoDeRevisao`, `Button`, `CardDePreco`, `CartaoDeEscolha` +17 | 2 |
 | `CombinacoesDoCadastro` | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:750](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L750) |  | 4 |
 | `InputField` | Botões › Controles de formulário (`buttons#inputs`) | [src/app/components/showcase/FormShowcase.tsx:70](src/app/components/showcase/FormShowcase.tsx#L70) | `Input` | 1 |
@@ -1413,14 +1428,14 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `ColorChip`<br>Amostra de cor | Marca › Identidade cromática (`brand#brand-paleta`) | [src/app/components/showcase/BrandShowcase.tsx:121](src/app/components/showcase/BrandShowcase.tsx#L121) |  | 2 |
 | `RuleCard`<br>Certo / Errado | Marca › Regras para crescer (`brand#brand-regras`) | [src/app/components/showcase/BrandShowcase.tsx:150](src/app/components/showcase/BrandShowcase.tsx#L150) |  | 2 |
 | `EmptyStateMock`<br>Esqueleto de estado vazio (web e mobile) com a ilustração no lugar: textos são marcadores, não copy do produto. | Mascote & Ilustrações › Estados vazios (`ilustracoes#mascote-estados-vazios`) (+1) | [src/app/components/showcase/IllustrationsShowcase.tsx:157](src/app/components/showcase/IllustrationsShowcase.tsx#L157) | `Button`, `EstadoVazio` | 5 |
-| `IllustrationCard` | Mascote & Ilustrações › Estados vazios (`ilustracoes#mascote-estados-vazios`) (+1) | [src/app/components/showcase/IllustrationsShowcase.tsx:176](src/app/components/showcase/IllustrationsShowcase.tsx#L176) | `Button`, `EstadoVazio`, `GradeDeCards`, `ItemDaGrade` | 1 |
+| `IllustrationCard` | Mascote & Ilustrações › Estados vazios (`ilustracoes#mascote-estados-vazios`) (+1) | [src/app/components/showcase/IllustrationsShowcase.tsx:175](src/app/components/showcase/IllustrationsShowcase.tsx#L175) | `Button`, `EstadoVazio`, `GradeDeCards`, `ItemDaGrade` | 1 |
 | `DemoDoGrid`<br>Demonstração do grid: as colunas, a margem e a calha da tela escolhida, em escala dentro da página. | Grid e espaçamento › Grid de colunas (`grid#grid-colunas`) | [src/app/components/showcase/GridShowcase.tsx:31](src/app/components/showcase/GridShowcase.tsx#L31) |  | 3 |
 | `Bloco`<br>Exemplo de composição sobre o grid: blocos com span por tela. | Grid e espaçamento › Como usar (`grid#grid-uso`) | [src/app/components/showcase/GridShowcase.tsx:55](src/app/components/showcase/GridShowcase.tsx#L55) |  | 1 |
 | `TargetDemo`<br>Touch targets | Usabilidade › Tamanho de alvo (`usability#ux-targets`) | [src/app/components/showcase/UsabilityShowcase.tsx:17](src/app/components/showcase/UsabilityShowcase.tsx#L17) |  | 1 |
 | `FeedbackDemo`<br>System status | Usabilidade › Status do sistema (`usability#ux-feedback`) | [src/app/components/showcase/UsabilityShowcase.tsx:47](src/app/components/showcase/UsabilityShowcase.tsx#L47) |  | 1 |
 | `UndoDemo` | Usabilidade › Ações destrutivas (`usability#ux-destructive`) | [src/app/components/showcase/UsabilityShowcase.tsx:84](src/app/components/showcase/UsabilityShowcase.tsx#L84) |  | 6 |
 | `StatesDemo` | Usabilidade › Estados de conteúdo (`usability#ux-states`) | [src/app/components/showcase/UsabilityShowcase.tsx:148](src/app/components/showcase/UsabilityShowcase.tsx#L148) | `Button`, `EstadoVazio` | 5 |
-| `HierarchyDemo`<br>Button hierarchy | Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) | [src/app/components/showcase/UsabilityShowcase.tsx:216](src/app/components/showcase/UsabilityShowcase.tsx#L216) | `Button` | 1 |
+| `HierarchyDemo`<br>Button hierarchy | Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) | [src/app/components/showcase/UsabilityShowcase.tsx:215](src/app/components/showcase/UsabilityShowcase.tsx#L215) | `Button` | 1 |
 | `ContrastTable` | Acessibilidade › Contraste (`accessibility#a11y-contrast`) | [src/app/components/showcase/AccessibilityShowcase.tsx:70](src/app/components/showcase/AccessibilityShowcase.tsx#L70) |  | 3 |
 | `ContrastChecker` | Acessibilidade › Contraste (`accessibility#a11y-contrast`) | [src/app/components/showcase/AccessibilityShowcase.tsx:124](src/app/components/showcase/AccessibilityShowcase.tsx#L124) |  | 1 |
 | `FocusDemo`<br>Focus | Acessibilidade › Foco (`accessibility#a11y-focus`) | [src/app/components/showcase/AccessibilityShowcase.tsx:187](src/app/components/showcase/AccessibilityShowcase.tsx#L187) |  | 3 |
@@ -1472,7 +1487,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Movimento › Stagger e sequências (`motion#stagger`) | [src/app/components/showcase/MotionShowcase.tsx:407](src/app/components/showcase/MotionShowcase.tsx#L407) |  | 3 |
 | Movimento › Interações de hover (`motion#hover`) | [src/app/components/showcase/MotionShowcase.tsx:467](src/app/components/showcase/MotionShowcase.tsx#L467) |  | 8 |
 | Movimento › Microinterações (`motion#micro`) | [src/app/components/showcase/MotionShowcase.tsx:655](src/app/components/showcase/MotionShowcase.tsx#L655) | `Button` | 6 |
-| Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:814](src/app/components/showcase/MotionShowcase.tsx#L814) | `BalaoDeConversa`, `GradeDeCards`, `IndicadorDeDigitacao` | 11 |
+| Movimento › Loaders e progresso (`motion#loaders`) | [src/app/components/showcase/MotionShowcase.tsx:814](src/app/components/showcase/MotionShowcase.tsx#L814) | `BalaoDaConversa`, `Conversa`, `GradeDeCards`, `IndicadorDeDigitacao` | 11 |
 | Movimento › Transições de layout (`motion#layout`) | [src/app/components/showcase/MotionShowcase.tsx:1038](src/app/components/showcase/MotionShowcase.tsx#L1038) |  | 6 |
 | Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
 | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
@@ -1717,7 +1732,7 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 Regras documentadas no site. Antes de montar uma tela, leia as que valem para ela.
 
 - **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:209](src/app/components/showcase/FormShowcase.tsx#L209)
-- **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:282](src/app/components/showcase/UsabilityShowcase.tsx#L282)
+- **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:281](src/app/components/showcase/UsabilityShowcase.tsx#L281)
 - **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:587](src/app/components/showcase/CardShowcase.tsx#L587)
 - **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:670](src/app/components/showcase/CardShowcase.tsx#L670)
 - **Card: o que evitar** — Cards › O que evitar (`cards#card-guidelines`) · [src/app/components/showcase/CardShowcase.tsx:1568](src/app/components/showcase/CardShowcase.tsx#L1568)
@@ -1730,7 +1745,7 @@ Regras documentadas no site. Antes de montar uma tela, leia as que valem para el
 - **Contraste mínimo (WCAG 2.2 AA)** — Acessibilidade › Contraste (`accessibility#a11y-contrast`) · [src/app/components/showcase/AccessibilityShowcase.tsx:447](src/app/components/showcase/AccessibilityShowcase.tsx#L447)
 - **Respeitar a preferência por menos movimento** — Acessibilidade › Movimento (`accessibility#a11y-motion`) · [src/app/components/showcase/AccessibilityShowcase.tsx:549](src/app/components/showcase/AccessibilityShowcase.tsx#L549)
 - **Durações e curvas oficiais de movimento** — Movimento › Tokens de movimento (`motion#motion-tokens`) · [src/app/components/showcase/MotionShowcase.tsx:1102](src/app/components/showcase/MotionShowcase.tsx#L1102)
-- **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:368](src/app/components/showcase/UsabilityShowcase.tsx#L368)
+- **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:367](src/app/components/showcase/UsabilityShowcase.tsx#L367)
 - **Microcopy: textos de botões, erros e estados** — Tom de voz › Microcopy (`voice#voice-microcopy`) · [src/app/components/showcase/VoiceShowcase.tsx:154](src/app/components/showcase/VoiceShowcase.tsx#L154)
 - **Gráficos: como escolher** — Gráficos › Como escolher (`graficos#graficos-escolher`) · [src/app/components/showcase/GraficosShowcase.tsx:820](src/app/components/showcase/GraficosShowcase.tsx#L820)
 - **Gráficos: cores e ordem dos tons** — Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · [src/app/components/showcase/GraficosShowcase.tsx:254](src/app/components/showcase/GraficosShowcase.tsx#L254)
@@ -1822,7 +1837,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso
 - **Upload** (`upload`): `upload-dropzone` Área de soltar · `upload-list` Lista de arquivos · `upload-image` Imagem única · `upload-gallery` Fotos da peça (galeria) · `upload-sheet` Importar planilha · `upload-states` Estados e mensagens · `upload-a11y` Checklist de acessibilidade · `upload-usage` Uso · `upload-tokens` Tokens
 - **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
-- **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-com-retorno` Botão com retorno
+- **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio
 - **Chips e estados** (`chips-e-estados`): `chip-de-estado` Chip de estado · `chips-filtro` Chips de filtro · `etiquetas-tons` Etiquetas e bases por tom · `alerta-tom` Alerta com tom · `estado-vazio` Estado vazio · `avaliacao-e-grupos` Avaliação e título de grupo
 - **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável
 - **Demonstrações animadas** (`demonstracoes`): `surgir-ao-rolar` Entrada ao rolar · `numero-animado` Número animado · `cursor-de-demonstracao` Cursor de demonstração · `miniatura-do-painel` Miniatura do painel
