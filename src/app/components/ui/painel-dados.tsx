@@ -30,8 +30,22 @@ const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring
  * Ícone sem base (inline, ao lado do texto) não usa este componente.
  */
 type TomDoIcone = "marca" | "neutro";
+/**
+ * Tons de estado da base (27/11/2026): sucesso, aviso, erro e info, para o ícone de um estado (pagamento confirmado,
+ * cadastro pendente, falha na importação, novidade). Tinta -muted do tom com o ícone na cor de texto do tom (3:1 ou mais).
+ * Use só quando o ícone diz o estado; para identificar o tipo de informação, fique no neutro.
+ */
+type TomDaBase = TomDoIcone | "sucesso" | "aviso" | "erro" | "info";
+const CORES_DA_BASE: Record<TomDaBase, string> = {
+  marca: "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]",
+  neutro: "bg-muted text-muted-foreground",
+  sucesso: "bg-success-muted text-success-text",
+  aviso: "bg-warning-muted text-warning-text",
+  erro: "bg-error-muted text-error-text",
+  info: "bg-info-muted text-info-text",
+};
 const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
-function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDoIcone; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
+function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDaBase; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
   return (
     <span
       aria-hidden
@@ -40,7 +54,7 @@ function IconeComBase({ tom, tamanho = "md", redonda = false, children, classNam
       className={cn(
         "flex shrink-0 items-center justify-center",
         redonda ? "rounded-full" : "rounded-md",
-        tom === "marca" ? "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]" : "bg-muted text-muted-foreground",
+        CORES_DA_BASE[tom],
         TAMANHO_DA_BASE[tamanho],
         className,
       )}
@@ -106,6 +120,15 @@ type CardIndicadorProps = {
   explicacao?: React.ReactNode;
   /** "linha": variação abaixo do rótulo; "pilula": variação no canto superior. */
   estilo?: "linha" | "pilula";
+  /**
+   * Card inteiro clicável (27/11/2026): leva à lista filtrada ("48 lojas a contatar" abre a lista delas). Hover cinza
+   * (--muted) com a borda mais forte e a seta aparecendo no canto, como o ItemDeAcao. Com href, a explicação (i) não
+   * aparece: nada clicável dentro de um link; ponha a explicação na página de destino.
+   */
+  href?: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  /** Link do produto (por exemplo, o Link do Next.js) no lugar do <a>. */
+  comoLink?: React.ElementType;
   className?: string;
 };
 
@@ -115,17 +138,28 @@ type CardIndicadorProps = {
  * (não quebra sozinho para outra linha) e o número vai para a base do card, então numa linha de cards os números ficam
  * alinhados mesmo quando um rótulo ocupa duas linhas.
  */
-function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, className }: CardIndicadorProps) {
+function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, href, onClick, comoLink, className }: CardIndicadorProps) {
   const palavras = rotulo.split(" ");
   const ultima = palavras.pop() ?? "";
+  const clicavel = Boolean(href || onClick);
+  const Raiz: React.ElementType = clicavel ? (comoLink ?? "a") : "div";
   return (
-    <div data-slot="card-indicador" className={cn("flex flex-col gap-3 rounded-lg p-5", superficieDoCard, className)}>
+    <Raiz
+      data-slot="card-indicador"
+      {...(clicavel ? { href: href ?? "#", onClick } : {})}
+      className={cn(
+        "flex flex-col gap-3 rounded-lg p-5",
+        superficieDoCard,
+        clicavel && cn("group transition-colors duration-[var(--duration-fast)] hover:border-[var(--border-strong)] hover:bg-muted", foco),
+        className,
+      )}
+    >
       <div className="flex items-start justify-between gap-3">
         <p className="min-w-0 pt-0.5 text-[0.8125rem] font-medium leading-snug text-muted-foreground">
           {palavras.length > 0 && `${palavras.join(" ")} `}
           <span className="whitespace-nowrap">
             {ultima}
-            {explicacao && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
+            {explicacao && !clicavel && <span className="ml-0.5 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
           </span>
         </p>
         <IconeComBase tom="neutro">{icone}</IconeComBase>
@@ -135,9 +169,14 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
           {formatarNumero(valor)}
           {total !== undefined && <span className="ml-1.5 text-[0.9375rem] font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
         </p>
-        {variacao !== undefined && <div className="mt-3"><Variacao valor={variacao} comparacao={comparacao} /></div>}
+        {(variacao !== undefined || clicavel) && (
+          <div className="mt-3 flex items-center justify-between gap-2">
+            {variacao !== undefined ? <Variacao valor={variacao} comparacao={comparacao} /> : <span />}
+            {clicavel && <ArrowRight aria-hidden className="size-4 shrink-0 text-muted-foreground transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5 group-hover:text-foreground motion-reduce:transition-none" />}
+          </div>
+        )}
       </div>
-    </div>
+    </Raiz>
   );
 }
 
@@ -743,6 +782,6 @@ export {
   CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
-export type { TomDoIcone, EstiloDoCabecalhoDoCard };
+export type { TomDoIcone, TomDaBase, EstiloDoCabecalhoDoCard };
 export { superficieDoCard };
 export type { Serie, Dica };

@@ -17,6 +17,14 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        // Tons de etiqueta (27/11/2026): atributos de um item (Nova, Revisar tipo, Editada à mão, Fechada). Retângulo
+        // de cantos suaves, diferente do ChipDeEstado (pílula), que diz o estado. Texto do tom sobre a tinta do tom.
+        marca: "border-primary/25 bg-[var(--primary-muted)] text-primary-text",
+        neutro: "border-border bg-muted text-foreground",
+        sucesso: "border-success/30 bg-success-muted text-success-text",
+        aviso: "border-warning/40 bg-warning-muted text-warning-text",
+        erro: "border-error/30 bg-error-muted text-error-text",
+        info: "border-info/30 bg-info-muted text-info-text",
       },
     },
     defaultVariants: {

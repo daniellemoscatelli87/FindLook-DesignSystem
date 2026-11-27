@@ -138,17 +138,35 @@ function StatusDePublicacao({ status, motivo, className }: { status: StatusProdu
 }
 
 /* ── Barra de ações em lote ──────────────────────────────────── */
-function BarraDeAcoesEmLote({ selecionados, onLimpar, acoes, className }: { selecionados: number; onLimpar: () => void; acoes: { rotulo: string; icone: React.ReactNode; destrutiva?: boolean; onClick?: () => void }[]; className?: string }) {
+/**
+ * Textos configuráveis (27/11/2026), para qualquer lista (lojas, peças, agendamentos): `itemNoSingular` e
+ * `itemNoPlural` formam "1 loja selecionada" / "3 lojas selecionadas" (padrão: produto/produtos, no masculino; para
+ * itens no feminino use `selecionadaNoFeminino`), ou `textoDaContagem` escreve a frase inteira. `rotuloDaRegiao` dá o
+ * nome da barra para leitores de tela (padrão: "Ações para os <plural> selecionados"). `rotuloLimpar` muda o nome do X.
+ */
+type TextosDoLote = {
+  itemNoSingular?: string;
+  itemNoPlural?: string;
+  selecionadaNoFeminino?: boolean;
+  textoDaContagem?: (n: number) => string;
+  rotuloDaRegiao?: string;
+  rotuloLimpar?: string;
+};
+
+function BarraDeAcoesEmLote({ selecionados, onLimpar, acoes, className, itemNoSingular = "produto", itemNoPlural = "produtos", selecionadaNoFeminino = false, textoDaContagem, rotuloDaRegiao, rotuloLimpar = "Limpar seleção", children }: { selecionados: number; onLimpar: () => void; acoes?: { rotulo: string; icone: React.ReactNode; destrutiva?: boolean; onClick?: () => void }[]; className?: string; /** Ações próprias (botões do DS), no lugar de `acoes` ou depois delas. */ children?: React.ReactNode } & TextosDoLote) {
   if (!selecionados) return null;
+  const sel = selecionadaNoFeminino ? "selecionada" : "selecionado";
+  const contagem = textoDaContagem ? textoDaContagem(selecionados) : `${selecionados} ${selecionados === 1 ? `${itemNoSingular} ${sel}` : `${itemNoPlural} ${sel}s`}`;
   return (
-    <div data-slot="acoes-em-lote" role="region" aria-label="Ações para os produtos selecionados" className={cn("flex flex-wrap items-center gap-2 rounded-md border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
-      <p className="mr-auto text-[0.8125rem] font-semibold text-foreground" aria-live="polite">{selecionados} {selecionados === 1 ? "produto selecionado" : "produtos selecionados"}</p>
-      {acoes.map(a => (
-        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-8 items-center gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
+    <div data-slot="acoes-em-lote" role="region" aria-label={rotuloDaRegiao ?? `Ações para os ${itemNoPlural} ${sel}s`} className={cn("flex flex-wrap items-center gap-2 rounded-md border border-primary/25 bg-[var(--primary-muted)] px-3 py-2", className)}>
+      <p className="mr-auto text-[0.8125rem] font-semibold text-foreground" aria-live="polite">{contagem}</p>
+      {(acoes ?? []).map(a => (
+        <button key={a.rotulo} type="button" onClick={a.onClick} className={cn("inline-flex h-11 items-center sm:h-8 gap-1.5 rounded-sm border bg-card px-3 text-[0.8125rem] font-medium transition-colors hover:bg-muted [&>svg]:h-4 [&>svg]:w-4", a.destrutiva ? "border-error/40 text-error-text" : "border-border text-foreground", foco)}>
           {a.icone}{a.rotulo}
         </button>
       ))}
-      <button type="button" onClick={onLimpar} aria-label="Limpar seleção" className={cn("flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground", foco)}>
+      {children}
+      <button type="button" onClick={onLimpar} aria-label={rotuloLimpar} className={cn("flex size-11 items-center sm:size-8 justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground", foco)}>
         <X aria-hidden className="h-4 w-4" />
       </button>
     </div>
@@ -349,4 +367,4 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
 }
 
 export { AbasComContador, CelulaDeProduto, MedidorDeDesempenho, StatusDePublicacao, BarraDeAcoesEmLote, TabelaDeProdutos, statusInfo };
-export type { Produto, StatusProduto, Aba };
+export type { Produto, StatusProduto, Aba, TextosDoLote };

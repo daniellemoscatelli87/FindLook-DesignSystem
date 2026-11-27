@@ -1,14 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { AlertCircle, ArrowLeft, ArrowRight, Check, Loader2, Store, TriangleAlert, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2, Store, TriangleAlert, X } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
-import { Input } from "./input";
-import { Label } from "./label";
 import { Stepper, type StepperEtapa } from "./stepper";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { IconeComBase } from "./painel-dados";
+import { Campo, MensagemDeErro, type CampoProps } from "./campo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "./drawer";
 
@@ -43,47 +42,10 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, Dr
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 /* ── Campo com rótulo, ajuda e erro ─────────────────────────────── */
-type CampoDoCadastroProps = React.ComponentProps<typeof Input> & {
-  rotulo: string;
-  ajuda?: React.ReactNode;
-  erro?: string | null;
-  /** Ícone à esquerda, dentro do campo (16 px), como em Controles de formulário › Com ícone. */
-  icone?: React.ReactNode;
-  /** Dentro da GradeDeCampos, ocupa a linha inteira. */
-  inteiro?: boolean;
-  /** Conteúdo logo abaixo do campo, antes da ajuda (por exemplo, uma caixa de seleção "Não tenho CNPJ"). */
-  depois?: React.ReactNode;
-  classeDoBloco?: string;
-};
-
-function CampoDoCadastro({ rotulo, ajuda, erro, icone, inteiro, depois, classeDoBloco, className, id: idProp, ...props }: CampoDoCadastroProps) {
-  const autoId = React.useId();
-  const id = idProp ?? autoId;
-  // Como em Controles de formulário: com erro, o texto de erro ocupa o lugar da ajuda.
-  const mostrarAjuda = Boolean(ajuda) && !erro;
-  const descritores = [mostrarAjuda ? `${id}-ajuda` : null, erro ? `${id}-erro` : null].filter(Boolean).join(" ") || undefined;
-  return (
-    <div data-slot="campo-do-cadastro" className={cn("min-w-0 space-y-1.5", inteiro && "col-span-full", classeDoBloco)}>
-      <Label htmlFor={id} className="text-sm font-semibold">{rotulo}</Label>
-      <div className="relative">
-        {icone && <span aria-hidden className="pointer-events-none absolute left-3 top-1/2 flex -translate-y-1/2 text-muted-foreground [&>svg]:size-4">{icone}</span>}
-        <Input id={id} aria-invalid={erro ? true : undefined} aria-describedby={descritores} className={cn("bg-card", icone && "pl-10", className)} {...props} />
-      </div>
-      {depois}
-      {mostrarAjuda && <p id={`${id}-ajuda`} className="text-sm text-muted-foreground">{ajuda}</p>}
-      {erro && <MensagemDeErro id={`${id}-erro`}>{erro}</MensagemDeErro>}
-    </div>
-  );
-}
-
-/** Texto de erro de um campo ou grupo: ícone + texto na cor de texto do erro (nunca só a cor). */
-function MensagemDeErro({ id, children, className }: { id?: string; children: React.ReactNode; className?: string }) {
-  return (
-    <p id={id} data-slot="mensagem-de-erro" className={cn("flex items-start gap-1.5 text-sm font-medium text-error-text", className)}>
-      <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden /> <span className="min-w-0">{children}</span>
-    </p>
-  );
-}
+/* Desde 27/11/2026 o campo padrão do DS é o Campo (ui/campo.tsx): CampoDoCadastro e MensagemDeErro são os mesmos
+   componentes, com os nomes de antes para quem já os usa. */
+type CampoDoCadastroProps = CampoProps;
+const CampoDoCadastro = Campo;
 
 /** Grade dos campos: um por linha; dois por linha só a partir de 31,125rem (cada campo com 240 px ou mais). */
 function GradeDeCampos({ children, className }: { children: React.ReactNode; className?: string }) {

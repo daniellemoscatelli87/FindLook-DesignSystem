@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { AlertCircle, CheckCircle2, Info, TriangleAlert } from "lucide-react";
 
 import { cn } from "./utils";
 
@@ -47,20 +48,38 @@ const alertVariants = cva(
   },
 );
 
+/**
+ * tom (27/11/2026): os mesmos nomes do AlertaComAcao (info, sucesso, aviso, erro) ligados à variante e ao ícone de
+ * cada estado, que o Alert põe sozinho como primeiro filho. Com tom, não ponha outro svg; `icone` troca o ícone
+ * (ou `icone={false}` tira). Sem tom, continua como antes: variant + o svg filho.
+ */
+type TomDoAlert = "info" | "sucesso" | "aviso" | "erro";
+const VARIANTE_DO_TOM = { info: "info", sucesso: "success", aviso: "warning", erro: "error" } as const;
+const ICONE_DO_TOM = { info: Info, sucesso: CheckCircle2, aviso: AlertCircle, erro: TriangleAlert } as const;
+
 function Alert({
   className,
   variant,
+  tom,
+  icone,
+  children,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
-  const urgente = variant === "warning" || variant === "error" || variant === "destructive";
+}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants> & { tom?: TomDoAlert; icone?: React.ReactNode | false }) {
+  const v = tom ? VARIANTE_DO_TOM[tom] : variant;
+  const urgente = v === "warning" || v === "error" || v === "destructive";
+  const Icone = tom ? ICONE_DO_TOM[tom] : null;
   return (
     <div
       data-slot="alert"
-      data-variant={variant ?? "default"}
+      data-variant={v ?? "default"}
+      data-tom={tom}
       role={urgente ? "alert" : "status"}
-      className={cn(alertVariants({ variant }), className)}
+      className={cn(alertVariants({ variant: v }), className)}
       {...props}
-    />
+    >
+      {tom && icone !== false && (icone ?? (Icone && <Icone aria-hidden />))}
+      {children}
+    </div>
   );
 }
 
@@ -96,3 +115,4 @@ function AlertDescription({
 }
 
 export { Alert, AlertTitle, AlertDescription };
+export type { TomDoAlert };
