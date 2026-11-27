@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 120 arquivos de componentes em `src/app/components/ui/` com 455 componentes exportados · 89 templates e padrões ainda só em demonstração · 49 seções com marcação feita à mão · 176 tokens · 37 páginas e 267 âncoras no site (https://designsystem.findlook.com.br) · 28 propostas de componente.
+**Resumo:** 120 arquivos de componentes em `src/app/components/ui/` com 455 componentes exportados · 89 templates e padrões ainda só em demonstração · 49 seções com marcação feita à mão · 176 tokens · 37 páginas e 267 âncoras no site (https://designsystem.findlook.com.br) · 31 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -888,9 +888,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `FaixaDeBeneficios` (props: `icone`, `titulo`, `texto`, `beneficios`, `className`): Faixa de benefícios
   - `CardDoPainel` (props: `icone`, `titulo`, `descricao`, `acao`, `children`, `className`, `id`, `nivel`): Card de seção do painel (título, descrição, ação)
   - `DivisorSuave` (props: `className`): Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).
-  - `CardComCabecalho` (props: `icone`, `titulo`, `descricao`, `acao`, `tom`, `cabecalho`, `children`, `className`, `id`, `nivel`)
+  - `CardComCabecalho` (props: `icone`, `titulo`, `descricao`, `acao`, `tom`, `cabecalho`, `children`, `className`, `id`, `nivel`, `sangria`, `idDoTitulo`)
   - `ConteudoRecolhivel` (props: `children`, `titulo`, `descricao`, `altura`, `preencher`, `aberto`, `onAbertoChange`, `onMostrarMais`, `rotuloMais`, `className`): Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê.
-  - `LinkVerTudo` (props: `children`, `href`, `rotulo`, `onClick`, `tom`, `icone`): Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).
+  - `LinkVerTudo` (props: `children`, `href`, `rotulo`, `onClick`, `tom`, `icone`, `as`): Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).
   - `FaixaDeEstado` (props: `estado`, `titulo`, `texto`, `complemento`, `tom`, `className`): Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o que vem depois.
   - `ProgressoRotulado` (props: `rotulo`, `pct`, `texto`, `className`): Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária).
   - `ResumoEmLinha` (props: `itens`, `className`): Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;
@@ -919,20 +919,20 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Estrutura do painel da loja (FindLook): Peças do menu lateral e da barra superior do painel: seletor de loja, item de menu (com contador), grupo do menu, card de plano, card de ajuda, campo de busca que abre a busca global (Ctrl + K), botão de notificações e gatilho do menu da conta. Todas usam só tokens do DS.
 - **Componentes:**
   - `MenuLateralProvider` (props: `children`, `chave`, `padrao`, `recolhido`, `onRecolhidoChange`)
-  - `MenuLateral` (props: `midia`, `className`, `style`, `children`): Coluna do menu lateral fixo (telas largas). Muda de largura entre 256 px e 72 px com os tokens de movimento; com "menos movimento", a troca é instantânea. Use dentro de um MenuLateralProvider.
+  - `MenuLateral` (props: `midia`, `grudarAbaixoDe`, `className`, `style`, `children`): Coluna do menu lateral fixo (telas largas). Muda de largura entre 256 px e 72 px com os tokens de movimento; com "menos movimento", a troca é instantânea. Use dentro de um MenuLateralProvider.
   - `NavDoMenu` (props: `className`): <nav> do menu lateral, com o id que o BotaoRecolherMenu controla e a rolagem própria.
   - `DivisorDoMenu` (props: `className`): Linha fina entre grupos do menu.
-  - `BotaoRecolherMenu` (props: `className`, `onClick`): Botão "≡ Menu" do topo do menu lateral, no estilo do site do design system: recolhe e expande o menu. Só aparece dentro do MenuLateral e em tela larga; na gaveta do celular, não aparece.
+  - `BotaoRecolherMenu` (props: `className`, `onClick`, `rotulo`, `rotuloRecolher`, `rotuloExpandir`)
   - `TopoDoMenu` (props: `className`, `children`): Topo do menu lateral (como no site do DS): o botão "≡ Menu", centralizado quando recolhido.
   - `BarraSuperiorDoPainel` (props: `className`, `children`): Faixa branca de ponta a ponta no alto do painel, acima do menu lateral, com linha fina embaixo. O logo fica à esquerda; busca e notificações à direita; o perfil (GatilhoDaConta) sempre na ponta direita.
   - `AvatarPainel` (props: `nome`, `foto`, `className`)
   - `SeletorDeLoja` (props: `loja`, `foto`, `verificada`, `className`)
-  - `ItemDoMenu` (props: `icone`, `ativo`, `contador`, `rotuloContador`, `className`, `children`)
-  - `GrupoDoMenu` (props: `titulo`, `children`, `className`, `expansivel`, `icone`, `padraoAberto`, `aberto`, `onAbertoChange`)
+  - `ItemDoMenu` (props: `icone`, `ativo`, `contador`, `rotuloContador`, `as`, `className`, `children`)
+  - `GrupoDoMenu` (props: `titulo`, `children`, `className`, `expansivel`, `icone`, `padraoAberto`, `aberto`, `onAbertoChange`, `contador`, `rotuloContador`, `ativo`)
   - `CardDePlano` (props: `compacto`, `plano`, `preco`, `descricao`, `acao`, `onAcao`, `className`)
   - `CardDeAjuda` (props: `titulo`, `texto`, `href`, `className`): Card de ajuda (rodapé do menu)
   - `CampoDeBuscaGlobal` (props: `placeholder`, `atalho`, `onAbrir`, `className`): Barra superior
-  - `BotaoDeNotificacoes` (props: `naoLidas`, `className`)
+  - `BotaoDeNotificacoes` (props: `naoLidas`, `indicador`, `className`): indicador: "ponto" (padrão aqui) ou "numero" (a quantidade num círculo). Mesmas props do DS Dani Moscatelli.
   - `GatilhoDaConta` (props: `nome`, `papel`, `foto`, `className`)
 - **Funções e constantes:** `LARGURA_EXPANDIDO`, `LARGURA_RECOLHIDO`, `useMenuLateral`, `useMenuRecolhido`, `iniciais`
 - **Onde ver:** Cards › Card de plano (`cards#card-plano`) · Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) · Sobreposições (overlays) › Barra superior (`overlays#barra-superior`) · e mais 1 seções (ver `catalogo.json`)
@@ -962,7 +962,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `Popover`
   - `PopoverTrigger`
-  - `PopoverContent` (props: `className`, `align`, `sideOffset`)
+  - `PopoverContent` (props: `className`, `align`, `sideOffset`, `collisionPadding`)
   - `PopoverAnchor`
 - **Onde ver:** Sobreposições (overlays) › Diálogos (`overlays#dialogs`)
 
@@ -1235,7 +1235,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/tabela-adaptavel.tsx](src/app/components/ui/tabela-adaptavel.tsx)
 - **Quando usar:** Tabela adaptável: o mesmo componente nos dois DS (FindLook e Dani Moscatelli, 27/11/2026): seleção, ordem controlada (ordem + onOrdenar) ou da própria tabela, e as colunas que cabem pela medida da largura (`largura`). A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026).
 - **Componentes:**
-  - `TabelaAdaptavel` (props: `colunas`, `linhas`, `chave`, `legenda`, `mostrarLegenda`, `ordemInicial`, `textos`, `rotuloDaLinha`, `selecionadas`, `onSelecionadasChange`, `acoes`, `larguraDasAcoes`, `ordem`, `onOrdenar`, `larguraDaLista`, `vazio`, `className`)
+  - `TabelaAdaptavel` (props: `colunas`, `linhas`, `chave`, `legenda`, `mostrarLegenda`, `ordemInicial`, `textos`, `rotuloDaLinha`, `selecionadas`, `onSelecionadasChange`, `acoes`, `larguraDasAcoes`, `ordem`, `onOrdenar`, `moldura`, `larguraDaLista`, `vazio`, `className`)
   - `BarraDeFerramentasDaTabela` (props: `busca`, `children`, `filtrosAtivos`, `className`): Barra de ferramentas
 - **Onde ver:** Quadro, conversa e tabela › Tabela adaptável (`painel-e-admin#tabela-adaptavel`) · Gráficos › Como escolher (`graficos#graficos-escolher`) · Gráficos › Componentes e props (`graficos#graficos-componentes`)
 
@@ -1271,7 +1271,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Textarea. `contador` (com maxLength) mostra "120 de 500" embaixo, alinhado à borda esquerda do campo: cinza enquanto há folga, no tom de aviso quando faltam 10% ou menos e no tom de erro no limite. Para leitores de tela, o aviso só fala quando faltam 20 caracteres ou menos ("Restam 12 caracteres"), para não anunciar cada letra.
 - **Componentes:**
   - `Textarea` (props: `className`, `contador`, `maxLength`, `onChange`)
-- **Onde ver:** Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · Sobreposições (overlays) (`overlays`, fora das seções)
+- **Onde ver:** Botões › Senha (`buttons#password`) · Campos e formulários › Campo (o campo padrão) (`campos#campo-padrao`) · Campos e formulários › Texto longo com contador (`campos#campo-texto-longo`) · e mais 1 seções (ver `catalogo.json`)
 
 ### timeline
 
@@ -1390,7 +1390,7 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `DemoBotoesFlutuantes`<br>Botões flutuantes no celular: página rolada até o fim, com a barra de ação e o Voltar ao topo (27/11/2026). | Templates › Botões flutuantes (`templates#template-flutuantes`) | [src/app/components/showcase/TemplatesShowcase.tsx:1179](src/app/components/showcase/TemplatesShowcase.tsx#L1179) | `BarraFixaDoCelular`, `VoltarAoTopo` | 1 |
 | `CadastroEmEtapasDemo`<br>Demonstração | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:179](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L179) | `Alert`, `AlertDescription`, `AlertTitle`, `BarraDaEtapa`, `BlocoDeRevisao`, `Button`, `CardDePreco`, `CartaoDeEscolha` +17 | 2 |
 | `CombinacoesDoCadastro` | Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) | [src/app/components/showcase/CadastroEmEtapasDemo.tsx:750](src/app/components/showcase/CadastroEmEtapasDemo.tsx#L750) | `GradeDeCards` | 4 |
-| `InputField` | Botões › Controles de formulário (`buttons#inputs`) | [src/app/components/showcase/FormShowcase.tsx:70](src/app/components/showcase/FormShowcase.tsx#L70) | `Input` | 1 |
+| `InputField` | Botões › Controles de formulário (`buttons#inputs`) | [src/app/components/showcase/FormShowcase.tsx:71](src/app/components/showcase/FormShowcase.tsx#L71) | `Input` | 1 |
 | `CanvasRevealCard`<br>Cards com revelação em canvas (usado na página Cards › Animação). | Cards › Animação (`cards#card-animacao`) | [src/app/components/showcase/BackgroundsShowcase.tsx:498](src/app/components/showcase/BackgroundsShowcase.tsx#L498) |  | 9 |
 | `EscolhaEmLista`<br>Escolha com mais de 3 opções nas demonstrações: rótulo em cima e a lista de seleção do DS (Select). | Cards › Testar o vidro (`cards#card-glass-teste`) | [src/app/components/showcase/CardShowcase.tsx:51](src/app/components/showcase/CardShowcase.tsx#L51) | `Select`, `SelectContent`, `SelectItem`, `SelectTrigger`, `SelectValue` | 1 |
 | `CenaDoVidro`<br>Cena do seletor: usa o fundo escolhido; fora do seletor, é a cena padrão (GlassScene). | Cards › Vidro: acabamentos (`cards#card-glass`) (+3) | [src/app/components/showcase/CardShowcase.tsx:138](src/app/components/showcase/CardShowcase.tsx#L138) | `DoodleTexture`, `GlassScene` | 2 |
@@ -1503,7 +1503,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
 | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
 | Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:142](src/app/components/showcase/CatalogoShowcase.tsx#L142) | `Input` | 5 |
-| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:221](src/app/components/showcase/FormShowcase.tsx#L221) |  | 5 |
+| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:222](src/app/components/showcase/FormShowcase.tsx#L222) |  | 5 |
 | Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:670](src/app/components/showcase/CardShowcase.tsx#L670) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
 | Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1026](src/app/components/showcase/CardShowcase.tsx#L1026) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
 | Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1180](src/app/components/showcase/CardShowcase.tsx#L1180) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
@@ -1752,7 +1752,7 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 
 Regras documentadas no site. Antes de montar uma tela, leia as que valem para ela.
 
-- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:221](src/app/components/showcase/FormShowcase.tsx#L221)
+- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:222](src/app/components/showcase/FormShowcase.tsx#L222)
 - **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:285](src/app/components/showcase/UsabilityShowcase.tsx#L285)
 - **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:587](src/app/components/showcase/CardShowcase.tsx#L587)
 - **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:670](src/app/components/showcase/CardShowcase.tsx#L670)
@@ -1802,10 +1802,12 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Cabeçalho do site e menu do celular](propostas/2026-11-27-cabecalho-do-site.md) | `CabecalhoDoSite, MenuDoCelular, useRolagemDoCabecalho em src/app/components/ui/cabecalho-do-site.tsx` | proposta |
 | [Caixa de código](propostas/2026-11-27-caixa-de-codigo.md) | `CaixaDeCodigo em src/app/components/ui/caixa-de-codigo.tsx` | proposta |
 | [Campo de busca](propostas/2026-11-27-campo-de-busca.md) | `CampoDeBusca em src/app/components/ui/campo-de-busca.tsx` | proposta |
+| [CampoDeEndereco (endereço com sugestões)](propostas/2026-11-27-campo-de-endereco.md) | `CampoDeEndereco, buscaNoPhoton, enderecoDoPhoton, textoDaSugestao em src/app/components/ui/campo-de-endereco.tsx (mesmo arquivo nos dois DS)` | proposta |
 | [Campo (o campo padrão)](propostas/2026-11-27-campo.md) | `Campo, MensagemDeErro (CampoDoCadastro é o mesmo componente) em src/app/components/ui/campo.tsx` | proposta |
 | [Cartão de escolha](propostas/2026-11-27-cartao-de-escolha.md) | `CartaoDeEscolha e GrupoDeCartoesDeEscolha em src/app/components/ui/cartao-de-escolha.tsx` | proposta |
 | [Chip de estado](propostas/2026-11-27-chip-de-estado.md) | `ChipDeEstado em src/app/components/ui/chip-de-estado.tsx` | proposta |
 | [Chips de filtro](propostas/2026-11-27-chip-filtravel.md) | `ChipFiltravel, GrupoDeChipsFiltraveis, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chip-filtravel.tsx` | proposta |
+| [Consistência entre os dois design systems](propostas/2026-11-27-consistencia-entre-ds.md) | — | proposta |
 | [Conversa e moldura de celular](propostas/2026-11-27-conversa.md) | `Conversa, BalaoDaConversa, SeparadorDaConversa, IndicadorDeDigitacao, MolduraDeCelular, CabecalhoDaConversa, BotaoDeResposta, CampoDeMensagem, FolhaDeOpcoes em src/app/components/ui/conversa.tsx` | proposta |
 | [Entrada ao rolar, número animado, cursor e miniatura do painel](propostas/2026-11-27-demonstracoes.md) | `SurgirAoRolar, TituloQueSurge, NumeroAnimado, CursorDeDemonstracao (moverCursor, clicarCursor), MiniaturaDoPainel (IndicadoresDaMiniatura, GraficoDaMiniatura, TabelaDaMiniatura) e os tokens de movimento em JS (movimento.ts) em src/app/components/ui/surgir-ao-rolar.tsx, numero-animado.tsx, cursor-de-demonstracao.tsx, miniatura-do-painel.tsx, movimento.ts` | proposta |
 | [Estado vazio, estado final e página de erro](propostas/2026-11-27-estado-vazio.md) | `EstadoVazio, EstadoFinal, PaginaDeErro em src/app/components/ui/estado-vazio.tsx` | proposta |
@@ -1819,6 +1821,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Quadro (kanban)](propostas/2026-11-27-quadro.md) | `Quadro em src/app/components/ui/quadro.tsx` | proposta |
 | [Rodapé do site](propostas/2026-11-27-rodape-do-site.md) | `RodapeDoSite em src/app/components/ui/rodape-do-site.tsx` | proposta |
 | [Seletor de quantidade](propostas/2026-11-27-seletor-de-quantidade.md) | `SeletorDeQuantidade em src/app/components/ui/seletor-de-quantidade.tsx` | proposta |
+| [Tokens --sobreposicao e --mapa-*](propostas/2026-11-27-sobreposicao-e-tons-do-mapa.md) | — | proposta |
 | [Tabela adaptável e barra de ferramentas](propostas/2026-11-27-tabela-adaptavel.md) | `TabelaAdaptavel, BarraDeFerramentasDaTabela em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
 | [Contador de caracteres no Textarea](propostas/2026-11-27-textarea-contador.md) | `Textarea (prop contador) em src/app/components/ui/textarea.tsx` | proposta |
 | [Título de grupo](propostas/2026-11-27-titulo-de-grupo.md) | `TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx` | proposta |

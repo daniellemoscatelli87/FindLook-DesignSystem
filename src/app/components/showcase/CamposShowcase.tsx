@@ -175,7 +175,7 @@ export function CamposShowcase() {
       <section id="calendario" className="scroll-mt-32 space-y-6">
         <SectionHeader title="Seletor de data (Calendar)" description="O mês para escolher uma data num campo. Com mouse, dias de 32 px; no toque, dias de 40 px com área de toque de 44 px, para o mês inteiro caber em 304 px e entrar num card de celular a partir de 320 px. O dia escolhido fica no rosa de selecionado e hoje tem contorno." />
         <Panel className="p-6 sm:p-8">
-          <div className="mx-auto w-fit rounded-xl border border-border bg-card">
+          <div className="mx-auto w-full rounded-xl border border-border bg-card sm:w-fit">
             <Calendar mode="single" selected={data} onSelect={setData} defaultMonth={new Date(2026, 10, 1)} />
           </div>
         </Panel>

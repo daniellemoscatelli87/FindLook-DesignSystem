@@ -17,6 +17,45 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("Consistência entre os dois design systems"),
+    desc: pt("Os componentes que o FindLook e o Dani Moscatelli têm em comum terminam com os mesmos nomes e as mesmas props (27/11/2026). Quadro aceita os dois jeitos (colunas com cartões prontos ou itens que mudam de etapa, com onMover); CabecalhoDoSite tem as mesmas props nos dois (acaoSecundaria, transparenteNoTopo, iconeAoRolar, telaLarga, comoLink, containerDoMenu e modelo), cada DS com o seu modelo de marca; TabelaAdaptavel mede a largura e mostra as colunas que cabem por qualquer número de prioridade (nova prop moldura); EstadoVazio (ilustracao, moldura), Conversa (rolagem, citacao, imagem, texto e icone no IndicadorDeDigitacao), Logo (href, comoLink), Prosa (html), MolduraDeConta (lateral, comoLink), Campo (opcional, acaoDoRotulo, Mostrar senha), CampoDeBusca (rotuloVisivel), ChipFiltravel (icone), Textarea (contador), PasswordConfirm, Alert (icone), menu lateral do painel e CardComCabecalho com as mesmas props. O script scripts/comparar-ds.mjs confere: 94 arquivos de ui/ em comum, 94 iguais (fora as diferenças de marca listadas em scripts/comparar-ds-marca.json). Tabela completa em propostas/2026-11-27-consistencia-entre-ds.md."),
+    page: "campos",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Bordas de campo com pelo menos 3:1"),
+    desc: pt("O contorno de campos, seleção, caixa de marcar, opção, botão de contorno, chip e do interruptor desligado passa a ser --input = grafite 400 (WCAG 1.4.11). Medido: FindLook #888896, 3,49:1 no branco e 3,24:1 no cinza #F6F6F7; Dani Moscatelli #627288, 4,9:1 no branco e 4,29:1 no fundo #EDF0F5 (antes 1,53:1 e 1,4:1). O --border-strong fica só nos cards e divisores, que não são campos. Trilho do interruptor desligado no mesmo grafite 400."),
+    page: "buttons",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Ícones de estado iguais nos dois DS"),
+    desc: pt("Um sinal só para cada estado (semiótica): aviso = ! no círculo (AlertCircle), erro = X no círculo (XCircle). O triângulo deixa de ser ícone de estado, porque no mundo ele quer dizer atenção, e o FindLook usava para erro enquanto o Dani Moscatelli usava para aviso. Vale para Alert, AlertaComAcao, EstadoVazio e EstadoFinal, BalaoDaConversa, Campo, ResumoDeErros, avisos (toast), Upload, senha, chips de status e para a documentação."),
+    page: "feedback",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Um véu só atrás das janelas"),
+    desc: pt("Dialog, AlertDialog, Sheet, Drawer, SidePanel, o menu do celular e as demonstrações usam o token --sobreposicao (grafite 950 a 50%, sem desfoque), com o mesmo nome e o mesmo valor nos dois DS."),
+    page: "overlays",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Popover dentro de janela, Button com ref, botão pílula e ícone de 44 px"),
+    desc: pt("Button passa a repassar a ref (forwardRef): com React 18, o Popover aberto por um Button dentro de uma janela ficava fora da tela (translate(0, -200%)); agora abre ancorado no campo, com 8 px de folga da borda. Nova demonstração: campo de data dentro de uma janela. Button ganha forma=\"pilula\" e size=\"icon-lg\" (44 px sempre); no celular, o botão tem 44 px também com as variantes do próprio Tailwind (max-sm e pointer-coarse), sem depender do theme.css estar no mesmo CSS do Tailwind."),
+    page: "overlays",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Calendar no celular, em português"),
+    desc: pt("No toque, o mês ocupa a largura que tem (até 320 px), cada dia é um quadrado de até 40 px e a área de toque é sempre de 44 × 44 px; cabe inteiro num card a partir de 320 px de tela (antes pedia cerca de 336 px). Dia escolhido no rosa de selecionado, hoje com contorno; dias da semana e meses em português."),
+    page: "campos",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Tabelas da documentação no celular"),
+    desc: pt("A tabela de documentação (props, teclas, tokens) vira lista no estreito, com o nome em cima e a descrição embaixo; o código nunca quebra no meio da palavra (antes, \"esconderAoRolar\" quebrava em três pedaços)."),
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("CampoDeEndereco, Upload acessível, Stepper com data e outros ajustes"),
+    desc: pt("Novo CampoDeEndereco: sugere endereços enquanto a pessoa digita (combobox com lista, teclado, espera de 350 ms, procurando, nenhum resultado e erro); quem busca é o produto, com buscaNoPhoton() pronto (o mesmo pedido da área restrita em HTML). UploadDropzone sem controle dentro de outro e com campo de arquivo nomeado (axe: 0 falhas de label e nested-interactive). Stepper mede a largura real e aceita uma segunda linha (detalhe, como a data). Menu lateral: os nomes só entram com o esmaecer ao abrir e recolher, não ao mudar a largura da janela. AccordionContent: className documentado e manterNoHtml. Campo: aria-describedby de fora somado ao do Campo e manterAjudaNoErro. BarraDaEtapa: descricaoDoContinuar. Efeitos de layout seguros no servidor. Logo com fill-rule evenodd. Novos: ListaDeRecursos (a lista de recursos do CardDePreco, para a revisão do cadastro e a comparação de planos) e os tokens --mapa-1 a --mapa-5, --mapa-vazio, --mapa-borda e --mapa-escolhida no MapaCoropletico (5 faixas). CaixaDeCodigo: texto cinza sobre o rosa com 15% de --foreground (5,56:1)."),
+    page: "campos",
+  },
+  {
     date: "Nov 2026", kind: "Updated", title: pt("Componentes iguais nos dois design systems"),
     desc: pt("Os componentes que o FindLook e o Dani Moscatelli têm em comum passam a ter os mesmos nomes, arquivos e props (o DS Dani Moscatelli publicou primeiro): Campo, CampoDeBusca, ChipFiltravel e GrupoDeChipsFiltraveis (ui/chip-filtravel), BotaoDeEnvio (ui/botao-de-envio, no lugar do BotaoComRetorno), EstadoVazio, EstadoFinal e PaginaDeErro, Alert tom, Conversa, BalaoDaConversa, SeparadorDaConversa e IndicadorDeDigitacao, CabecalhoDoSite, MolduraDeConta, Logo, LinkSaibaMais (ui/link-saiba-mais), Prosa, TabelaAdaptavel e ChipDeEstado. O que só o FindLook precisa ficou como props a mais, escritas na documentação de cada um. O Quadro tem o mesmo nome, mas a API do FindLook (move os itens entre as colunas)."),
     page: "campos", anchor: "campo-padrao",

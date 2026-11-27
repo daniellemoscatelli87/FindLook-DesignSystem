@@ -96,7 +96,7 @@ function TemplateFrame({ children, className = "", url = "Painel da loja · Find
    Helpers dos templates FindLook
 ───────────────────────────────────────────── */
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-const campo = "w-full bg-background border border-border rounded-sm px-3 py-2 text-body-sm text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all";
+const campo = "w-full bg-background border border-input rounded-sm px-3 py-2 text-body-sm text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all";
 const textoMarca = "text-[var(--primary-text,var(--primary))]";
 
 /* Símbolo + wordmark FindLook, com legenda opcional (ex.: nome da loja) */

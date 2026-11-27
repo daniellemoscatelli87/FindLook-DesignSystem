@@ -487,7 +487,7 @@ function DivisorSuave({ className }: { className?: string }) {
  * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
  */
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2, sangria = false, idDoTitulo }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4 /** O conteúdo vai de ponta a ponta do card (listas com hover de linha inteira). */ sangria?: boolean; /** Id do título (aria-labelledby da seção). */ idDoTitulo?: string }) {
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2, sangria = false, idDoTitulo }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4; /** O conteúdo vai de ponta a ponta do card (listas com hover de linha inteira). */ sangria?: boolean; /** Id do título (aria-labelledby da seção). */ idDoTitulo?: string }) {
   const gerado = React.useId();
   const tid = idDoTitulo ?? gerado;
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";

@@ -12,7 +12,7 @@
     "tokens": 176,
     "paginas": 37,
     "ancoras": 267,
-    "propostas": 28
+    "propostas": 31
   },
   "componentes": [
     {
@@ -1024,7 +1024,7 @@
           "ancora": "buttons",
           "titulo": "Variantes de botão",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 126,
+          "linha": 127,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1821,7 +1821,7 @@
         {
           "nome": "Calendar",
           "tipo": "componente",
-          "linha": 22,
+          "linha": 24,
           "descricao": "",
           "props": [
             "className",
@@ -2957,7 +2957,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 409,
+          "linha": 401,
           "uso": "direto",
           "exports": [
             "GrupoDeCartoesDeEscolha",
@@ -3107,7 +3107,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 290,
+          "linha": 291,
           "uso": "direto",
           "exports": [
             "Checkbox"
@@ -5913,7 +5913,7 @@
           "ancora": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 221,
+          "linha": 222,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -8101,7 +8101,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 264,
+          "linha": 265,
           "uso": "direto",
           "exports": [
             "Input"
@@ -9453,7 +9453,7 @@
           "ancora": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 532,
+          "linha": 524,
           "uso": "direto",
           "exports": [
             "BotaoDividido"
@@ -9465,7 +9465,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 551,
+          "linha": 543,
           "uso": "direto",
           "exports": [
             "SeletorDePeriodo"
@@ -9778,14 +9778,16 @@
             "children",
             "className",
             "id",
-            "nivel"
+            "nivel",
+            "sangria",
+            "idDoTitulo"
           ],
           "reexportaDe": null
         },
         {
           "nome": "ConteudoRecolhivel",
           "tipo": "componente",
-          "linha": 524,
+          "linha": 525,
           "descricao": "Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê.",
           "props": [
             "children",
@@ -9804,7 +9806,7 @@
         {
           "nome": "LinkVerTudo",
           "tipo": "componente",
-          "linha": 604,
+          "linha": 605,
           "descricao": "Link \"ver tudo\" com seta. tom=\"marca\" (padrão) para o principal; tom=\"neutro\" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).",
           "props": [
             "children",
@@ -9812,14 +9814,15 @@
             "rotulo",
             "onClick",
             "tom",
-            "icone"
+            "icone",
+            "as"
           ],
           "reexportaDe": null
         },
         {
           "nome": "FaixaDeEstado",
           "tipo": "componente",
-          "linha": 630,
+          "linha": 631,
           "descricao": "Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o que vem depois.",
           "props": [
             "estado",
@@ -9834,7 +9837,7 @@
         {
           "nome": "ProgressoRotulado",
           "tipo": "componente",
-          "linha": 649,
+          "linha": 650,
           "descricao": "Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária).",
           "props": [
             "rotulo",
@@ -9847,7 +9850,7 @@
         {
           "nome": "ResumoEmLinha",
           "tipo": "componente",
-          "linha": 669,
+          "linha": 670,
           "descricao": "Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;",
           "props": [
             "itens",
@@ -9858,7 +9861,7 @@
         {
           "nome": "PainelDeUso",
           "tipo": "componente",
-          "linha": 717,
+          "linha": 718,
           "descricao": "Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.",
           "props": [
             "icone",
@@ -9876,7 +9879,7 @@
         {
           "nome": "CardDeUso",
           "tipo": "componente",
-          "linha": 765,
+          "linha": 766,
           "descricao": "Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a porcentagem do limite.",
           "props": [
             "icone",
@@ -10363,10 +10366,11 @@
         {
           "nome": "MenuLateral",
           "tipo": "componente",
-          "linha": 141,
+          "linha": 147,
           "descricao": "Coluna do menu lateral fixo (telas largas). Muda de largura entre 256 px e 72 px com os tokens de movimento; com \"menos movimento\", a troca é instantânea. Use dentro de um MenuLateralProvider.",
           "props": [
             "midia",
+            "grudarAbaixoDe",
             "className",
             "style",
             "children"
@@ -10376,7 +10380,7 @@
         {
           "nome": "NavDoMenu",
           "tipo": "componente",
-          "linha": 184,
+          "linha": 197,
           "descricao": "<nav> do menu lateral, com o id que o BotaoRecolherMenu controla e a rolagem própria.",
           "props": [
             "className"
@@ -10386,7 +10390,7 @@
         {
           "nome": "DivisorDoMenu",
           "tipo": "componente",
-          "linha": 199,
+          "linha": 212,
           "descricao": "Linha fina entre grupos do menu.",
           "props": [
             "className"
@@ -10396,18 +10400,21 @@
         {
           "nome": "BotaoRecolherMenu",
           "tipo": "componente",
-          "linha": 222,
-          "descricao": "Botão \"≡ Menu\" do topo do menu lateral, no estilo do site do design system: recolhe e expande o menu. Só aparece dentro do MenuLateral e em tela larga; na gaveta do celular, não aparece.",
+          "linha": 237,
+          "descricao": "",
           "props": [
             "className",
-            "onClick"
+            "onClick",
+            "rotulo",
+            "rotuloRecolher",
+            "rotuloExpandir"
           ],
           "reexportaDe": null
         },
         {
           "nome": "TopoDoMenu",
           "tipo": "componente",
-          "linha": 252,
+          "linha": 270,
           "descricao": "Topo do menu lateral (como no site do DS): o botão \"≡ Menu\", centralizado quando recolhido.",
           "props": [
             "className",
@@ -10418,7 +10425,7 @@
         {
           "nome": "BarraSuperiorDoPainel",
           "tipo": "componente",
-          "linha": 268,
+          "linha": 286,
           "descricao": "Faixa branca de ponta a ponta no alto do painel, acima do menu lateral, com linha fina embaixo. O logo fica à esquerda; busca e notificações à direita; o perfil (GatilhoDaConta) sempre na ponta direita.",
           "props": [
             "className",
@@ -10429,7 +10436,7 @@
         {
           "nome": "iniciais",
           "tipo": "utilitário",
-          "linha": 277,
+          "linha": 295,
           "descricao": "Iniciais para avatar sem foto",
           "props": [],
           "reexportaDe": null
@@ -10437,7 +10444,7 @@
         {
           "nome": "AvatarPainel",
           "tipo": "componente",
-          "linha": 281,
+          "linha": 299,
           "descricao": "",
           "props": [
             "nome",
@@ -10449,7 +10456,7 @@
         {
           "nome": "SeletorDeLoja",
           "tipo": "componente",
-          "linha": 298,
+          "linha": 316,
           "descricao": "",
           "props": [
             "loja",
@@ -10462,13 +10469,14 @@
         {
           "nome": "ItemDoMenu",
           "tipo": "componente",
-          "linha": 355,
+          "linha": 375,
           "descricao": "",
           "props": [
             "icone",
             "ativo",
             "contador",
             "rotuloContador",
+            "as",
             "className",
             "children"
           ],
@@ -10477,7 +10485,7 @@
         {
           "nome": "GrupoDoMenu",
           "tipo": "componente",
-          "linha": 415,
+          "linha": 440,
           "descricao": "",
           "props": [
             "titulo",
@@ -10487,14 +10495,17 @@
             "icone",
             "padraoAberto",
             "aberto",
-            "onAbertoChange"
+            "onAbertoChange",
+            "contador",
+            "rotuloContador",
+            "ativo"
           ],
           "reexportaDe": null
         },
         {
           "nome": "CardDePlano",
           "tipo": "componente",
-          "linha": 480,
+          "linha": 510,
           "descricao": "",
           "props": [
             "compacto",
@@ -10510,7 +10521,7 @@
         {
           "nome": "CardDeAjuda",
           "tipo": "componente",
-          "linha": 539,
+          "linha": 569,
           "descricao": "Card de ajuda (rodapé do menu)",
           "props": [
             "titulo",
@@ -10523,7 +10534,7 @@
         {
           "nome": "CampoDeBuscaGlobal",
           "tipo": "componente",
-          "linha": 585,
+          "linha": 615,
           "descricao": "Barra superior",
           "props": [
             "placeholder",
@@ -10536,10 +10547,11 @@
         {
           "nome": "BotaoDeNotificacoes",
           "tipo": "componente",
-          "linha": 605,
-          "descricao": "",
+          "linha": 636,
+          "descricao": "indicador: \"ponto\" (padrão aqui) ou \"numero\" (a quantidade num círculo). Mesmas props do DS Dani Moscatelli.",
           "props": [
             "naoLidas",
+            "indicador",
             "className"
           ],
           "reexportaDe": null
@@ -10547,7 +10559,7 @@
         {
           "nome": "GatilhoDaConta",
           "tipo": "componente",
-          "linha": 625,
+          "linha": 658,
           "descricao": "",
           "props": [
             "nome",
@@ -10773,7 +10785,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 290,
+          "linha": 291,
           "uso": "direto",
           "exports": [
             "PasswordConfirm"
@@ -10823,14 +10835,15 @@
           "props": [
             "className",
             "align",
-            "sideOffset"
+            "sideOffset",
+            "collisionPadding"
           ],
           "reexportaDe": null
         },
         {
           "nome": "PopoverAnchor",
           "tipo": "componente",
-          "linha": 42,
+          "linha": 45,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -11087,7 +11100,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 290,
+          "linha": 291,
           "uso": "direto",
           "exports": [
             "RadioGroup",
@@ -11264,7 +11277,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 409,
+          "linha": 401,
           "uso": "direto",
           "exports": [
             "SegmentedControl"
@@ -11423,7 +11436,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 290,
+          "linha": 291,
           "uso": "direto",
           "exports": [
             "Select",
@@ -12542,7 +12555,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 551,
+          "linha": 543,
           "uso": "direto",
           "exports": [
             "Switch"
@@ -12607,7 +12620,7 @@
         {
           "nome": "TabelaAdaptavel",
           "tipo": "componente",
-          "linha": 110,
+          "linha": 115,
           "descricao": "",
           "props": [
             "colunas",
@@ -12624,6 +12637,7 @@
             "larguraDasAcoes",
             "ordem",
             "onOrdenar",
+            "moldura",
             "larguraDaLista",
             "vazio",
             "className"
@@ -12633,7 +12647,7 @@
         {
           "nome": "BarraDeFerramentasDaTabela",
           "tipo": "componente",
-          "linha": 299,
+          "linha": 305,
           "descricao": "Barra de ferramentas",
           "props": [
             "busca",
@@ -12872,6 +12886,18 @@
       "tipos": [],
       "variantes": {},
       "ondeVer": [
+        {
+          "pagina": "buttons",
+          "paginaRotulo": "Botões",
+          "ancora": "password",
+          "titulo": "Senha",
+          "arquivo": "src/app/components/showcase/FormShowcase.tsx",
+          "linha": 291,
+          "uso": "direto",
+          "exports": [
+            "Textarea"
+          ]
+        },
         {
           "pagina": "campos",
           "paginaRotulo": "Campos e formulários",
@@ -14891,7 +14917,7 @@
       "nome": "InputField",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-      "linha": 70,
+      "linha": 71,
       "descricao": "",
       "pagina": "buttons",
       "paginaRotulo": "Botões",
@@ -14902,7 +14928,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 264
+          "linha": 265
         }
       ],
       "usaComponentes": [
@@ -16271,7 +16297,7 @@
       "ancora": "botao-principal",
       "titulo": "Um botão principal",
       "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-      "linha": 221,
+      "linha": 222,
       "elementosFeitosAMao": 5,
       "usaComponentes": []
     },
@@ -17894,7 +17920,7 @@
         "titulo": "Um botão principal",
         "resumo": "Um só botão principal (cheio) por área; o resto em contorno, ghost ou link",
         "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-        "linha": 221
+        "linha": 222
       },
       {
         "ancora": "ux-hierarchy",
@@ -18205,6 +18231,12 @@
       "componente": "CampoDeBusca em src/app/components/ui/campo-de-busca.tsx"
     },
     {
+      "arquivo": "propostas/2026-11-27-campo-de-endereco.md",
+      "titulo": "CampoDeEndereco (endereço com sugestões)",
+      "status": "proposta",
+      "componente": "CampoDeEndereco, buscaNoPhoton, enderecoDoPhoton, textoDaSugestao em src/app/components/ui/campo-de-endereco.tsx (mesmo arquivo nos dois DS)"
+    },
+    {
       "arquivo": "propostas/2026-11-27-campo.md",
       "titulo": "Campo (o campo padrão)",
       "status": "proposta",
@@ -18227,6 +18259,12 @@
       "titulo": "Chips de filtro",
       "status": "proposta",
       "componente": "ChipFiltravel, GrupoDeChipsFiltraveis, GrupoDeChips, ChipDeFiltro, ListaDeFiltrosAtivos em src/app/components/ui/chip-filtravel.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-27-consistencia-entre-ds.md",
+      "titulo": "Consistência entre os dois design systems",
+      "status": "proposta",
+      "componente": null
     },
     {
       "arquivo": "propostas/2026-11-27-conversa.md",
@@ -18305,6 +18343,12 @@
       "titulo": "Seletor de quantidade",
       "status": "proposta",
       "componente": "SeletorDeQuantidade em src/app/components/ui/seletor-de-quantidade.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-27-sobreposicao-e-tons-do-mapa.md",
+      "titulo": "Tokens --sobreposicao e --mapa-*",
+      "status": "proposta",
+      "componente": null
     },
     {
       "arquivo": "propostas/2026-11-27-tabela-adaptavel.md",
@@ -19120,49 +19164,49 @@
           "id": "buttons",
           "titulo": "Variantes de botão",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 126
+          "linha": 127
         },
         {
           "id": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 221
+          "linha": 222
         },
         {
           "id": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 264
+          "linha": 265
         },
         {
           "id": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 290
+          "linha": 291
         },
         {
           "id": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 409
+          "linha": 401
         },
         {
           "id": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 532
+          "linha": 524
         },
         {
           "id": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 551
+          "linha": 543
         },
         {
           "id": "buttons-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 605
+          "linha": 597
         }
       ]
     },
