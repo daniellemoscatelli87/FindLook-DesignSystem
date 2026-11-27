@@ -1691,9 +1691,10 @@ function DoodleTextureCard() {
           </div>
         </div>
         <p className="text-body-sm leading-relaxed text-muted-foreground max-w-3xl">{t('A seamless pattern of line icons with fashion pieces only, so it reads as fashion at a glance: dress, pants, skirt, cap, sunglasses, sandal, sneaker and t-shirt. Eight drawings, no loose ornaments, on an 800 px tile.', 'Padrão sem emenda de ícones de traço só com peças de moda, para ler como moda à primeira vista: vestido, calça, saia, boné, óculos de sol, sandália, tênis e camiseta. Oito desenhos, sem enfeites soltos, em um ladrilho de 800 px.')} {t("Strokes are solid colors, never transparent: graphite-200 on the light theme and graphite-800 on the dark theme by default, as in the reference wallpaper. In React the drawing is applied as a mask, so the stroke can take any token.", "Os traços são cores sólidas, nunca transparentes: grafite-200 no tema claro e grafite-800 no escuro por padrão, como no papel de parede de referência. No React o desenho é aplicado como máscara, então o traço aceita qualquer token.")}</p>
-        <div className="flex flex-wrap gap-2">
+        {/* Celular: um arquivo por linha, todos com a mesma largura e 44 px de toque */}
+        <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
           {downloads.map(([label, file]) => (
-            <a key={file} href={base + file} download className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground">
+            <a key={file} href={base + file} download className="inline-flex items-center justify-center gap-1 rounded-full toque:min-h-11 border border-border bg-card px-3 py-1 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground">
               <Download className="h-3.5 w-3.5" aria-hidden /> {label}
             </a>
           ))}

@@ -39,7 +39,7 @@ export function Heading({ level = 2, size, tone = "primary", className, children
   return (
     <Tag
       data-slot="heading"
-      className={cn("text-foreground [text-wrap:balance]", sizes[sz], className)}
+      className={cn("text-foreground [text-wrap:pretty]", sizes[sz], className)}
       style={{ fontFamily: "var(--font-sans)" }}
       {...props}
     >

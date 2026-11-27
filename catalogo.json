@@ -1632,7 +1632,7 @@
         {
           "nome": "LateralDaEtapa",
           "tipo": "componente",
-          "linha": 318,
+          "linha": 320,
           "descricao": "",
           "props": [
             "icone",
@@ -1648,7 +1648,7 @@
         {
           "nome": "ListaDeRevisao",
           "tipo": "componente",
-          "linha": 338,
+          "linha": 340,
           "descricao": "Revisão",
           "props": [
             "children",
@@ -1660,7 +1660,7 @@
         {
           "nome": "BlocoDeRevisao",
           "tipo": "componente",
-          "linha": 361,
+          "linha": 363,
           "descricao": "",
           "props": [
             "valor",
@@ -1677,7 +1677,7 @@
         {
           "nome": "LinhaDeDado",
           "tipo": "componente",
-          "linha": 385,
+          "linha": 387,
           "descricao": "",
           "props": [
             "rotulo",
@@ -4082,7 +4082,7 @@
           "ancora": "doodle-bg",
           "titulo": "Textura doodle",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1771,
+          "linha": 1772,
           "uso": "dentro de outro exemplo",
           "exports": [
             "doodleTextureFiles",
@@ -9579,7 +9579,7 @@
         {
           "nome": "FaixaDeBeneficios",
           "tipo": "componente",
-          "linha": 421,
+          "linha": 422,
           "descricao": "Faixa de benefícios",
           "props": [
             "icone",
@@ -9593,7 +9593,7 @@
         {
           "nome": "CardDoPainel",
           "tipo": "componente",
-          "linha": 444,
+          "linha": 445,
           "descricao": "Card de seção do painel (título, descrição, ação)",
           "props": [
             "icone",
@@ -9610,7 +9610,7 @@
         {
           "nome": "DivisorSuave",
           "tipo": "componente",
-          "linha": 468,
+          "linha": 469,
           "descricao": "Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).",
           "props": [
             "className"
@@ -9620,7 +9620,7 @@
         {
           "nome": "CardComCabecalho",
           "tipo": "componente",
-          "linha": 489,
+          "linha": 490,
           "descricao": "",
           "props": [
             "icone",
@@ -9639,7 +9639,7 @@
         {
           "nome": "ConteudoRecolhivel",
           "tipo": "componente",
-          "linha": 523,
+          "linha": 524,
           "descricao": "Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê.",
           "props": [
             "children",
@@ -9658,7 +9658,7 @@
         {
           "nome": "LinkVerTudo",
           "tipo": "componente",
-          "linha": 603,
+          "linha": 604,
           "descricao": "Link \"ver tudo\" com seta. tom=\"marca\" (padrão) para o principal; tom=\"neutro\" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).",
           "props": [
             "children",
@@ -9673,7 +9673,7 @@
         {
           "nome": "FaixaDeEstado",
           "tipo": "componente",
-          "linha": 629,
+          "linha": 630,
           "descricao": "Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o que vem depois.",
           "props": [
             "estado",
@@ -9688,7 +9688,7 @@
         {
           "nome": "ProgressoRotulado",
           "tipo": "componente",
-          "linha": 648,
+          "linha": 649,
           "descricao": "Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária).",
           "props": [
             "rotulo",
@@ -9701,7 +9701,7 @@
         {
           "nome": "ResumoEmLinha",
           "tipo": "componente",
-          "linha": 668,
+          "linha": 669,
           "descricao": "Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;",
           "props": [
             "itens",
@@ -9712,7 +9712,7 @@
         {
           "nome": "PainelDeUso",
           "tipo": "componente",
-          "linha": 716,
+          "linha": 717,
           "descricao": "Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.",
           "props": [
             "icone",
@@ -9730,7 +9730,7 @@
         {
           "nome": "CardDeUso",
           "tipo": "componente",
-          "linha": 764,
+          "linha": 765,
           "descricao": "Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a porcentagem do limite.",
           "props": [
             "icone",
@@ -13942,7 +13942,7 @@
           "ancora": "gradient-anim-bg",
           "titulo": "Gradiente animado",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1751
+          "linha": 1752
         }
       ],
       "usaComponentes": [],
@@ -13963,7 +13963,7 @@
           "ancora": "gradient-anim-bg",
           "titulo": "Gradiente animado",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1751
+          "linha": 1752
         }
       ],
       "usaComponentes": [],
@@ -13984,7 +13984,7 @@
           "ancora": "vortex-bg",
           "titulo": "Vórtice",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1761
+          "linha": 1762
         }
       ],
       "usaComponentes": [],
@@ -14005,7 +14005,7 @@
           "ancora": "bg-lines-bg",
           "titulo": "Linhas de fundo",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1766
+          "linha": 1767
         }
       ],
       "usaComponentes": [],
@@ -14038,7 +14038,7 @@
           "ancora": "doodle-bg",
           "titulo": "Textura doodle",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1771
+          "linha": 1772
         }
       ],
       "usaComponentes": [
@@ -14705,7 +14705,9 @@
           "linha": 209
         }
       ],
-      "usaComponentes": [],
+      "usaComponentes": [
+        "GradeDeCards"
+      ],
       "elementosFeitosAMao": 4
     },
     {
@@ -15981,7 +15983,7 @@
       "ancora": "section-backgrounds",
       "titulo": "Guia de composição",
       "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-      "linha": 1787,
+      "linha": 1788,
       "elementosFeitosAMao": 8,
       "usaComponentes": []
     },
@@ -18648,43 +18650,43 @@
           "id": "gradient-anim-bg",
           "titulo": "Gradiente animado",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1751
+          "linha": 1752
         },
         {
           "id": "canvas-reveal-bg",
           "titulo": null,
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1756
+          "linha": 1757
         },
         {
           "id": "vortex-bg",
           "titulo": "Vórtice",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1761
+          "linha": 1762
         },
         {
           "id": "bg-lines-bg",
           "titulo": "Linhas de fundo",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1766
+          "linha": 1767
         },
         {
           "id": "doodle-bg",
           "titulo": "Textura doodle",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1771
+          "linha": 1772
         },
         {
           "id": "section-backgrounds",
           "titulo": "Guia de composição",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1787
+          "linha": 1788
         },
         {
           "id": "backgrounds-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/BackgroundsShowcase.tsx",
-          "linha": 1921
+          "linha": 1922
         }
       ]
     },

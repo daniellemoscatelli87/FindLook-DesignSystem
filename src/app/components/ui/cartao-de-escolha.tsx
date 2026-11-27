@@ -103,7 +103,7 @@ function CartaoDeEscolha({ valor, titulo, descricao, icone, desabilitado = false
           </IconeComBase>
         )}
         <span className="min-w-0 flex-1">
-          <span id={idDoTitulo} className={cn("block text-body font-semibold leading-snug text-balance", desabilitado ? "text-disabled-foreground" : "text-foreground")}>
+          <span id={idDoTitulo} className={cn("block text-body font-semibold leading-snug text-pretty", desabilitado ? "text-disabled-foreground" : "text-foreground")}>
             {titulo}
           </span>
           {descricao && (

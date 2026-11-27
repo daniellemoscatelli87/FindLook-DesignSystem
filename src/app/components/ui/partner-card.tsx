@@ -87,7 +87,7 @@ export function PartnerCard({
             )}
           </div>
         )}
-        <h3 className={cn("font-bold [text-wrap:balance]", titleSize[size], dark ? "text-white" : "text-foreground")} style={{ fontFamily: "var(--font-sans)" }}>
+        <h3 className={cn("font-bold [text-wrap:pretty]", titleSize[size], dark ? "text-white" : "text-foreground")} style={{ fontFamily: "var(--font-sans)" }}>
           {/* Destaque no tom do lenço só em texto grande; o título pequeno (18 px) no fundo claro usa o pink de texto (25/11/2026) */}
           {withHighlight(title, size === "p" && !dark ? "text-primary-text" : "text-primary-destaque")}
         </h3>

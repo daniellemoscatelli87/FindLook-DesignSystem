@@ -565,14 +565,14 @@ export function TokensShowcase() {
 
         {/* Card nunca rola na horizontal: no espaço estreito, as colunas Intenção e Tailwind ficam de fora, com aviso. */}
         <div className="@container rounded-lg border border-border bg-card overflow-hidden">
-          <p className="border-b border-border bg-muted/30 px-4 py-2 text-label text-muted-foreground @2xl:hidden">{t("On narrow screens, the Intent and Tailwind columns are hidden.", "Em telas estreitas, as colunas Intenção e Tailwind ficam de fora.")}</p>
+          <p className="border-b border-border bg-muted/30 px-4 py-2 text-label text-muted-foreground @2xl:hidden">{t("On narrow screens, only the category and the CSS variable are shown; Intent, Design Token and Tailwind are hidden.", "Em telas estreitas, aparecem só a categoria e a variável CSS; Intenção, Design Token e Tailwind ficam de fora.")}</p>
           <div>
-            <table className="w-full text-caption [&_td]:[overflow-wrap:anywhere]">
+            <table className="w-full text-caption">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="text-left px-4 py-2 font-bold text-muted-foreground w-28">{t("Category", "Categoria")}</th>
                   <th className="hidden text-left px-3 py-2 font-bold text-muted-foreground @2xl:table-cell">{t("Intent", "Intenção")}</th>
-                  <th className="text-left px-3 py-2 font-bold text-violet">Design Token</th>
+                  <th className="hidden text-left px-3 py-2 font-bold text-violet @2xl:table-cell">Design Token</th>
                   <th className="text-left px-3 py-2 font-bold text-info">CSS / Dev</th>
                   <th className="hidden text-left px-3 py-2 font-bold text-muted-foreground @2xl:table-cell">Tailwind</th>
                 </tr>
@@ -584,7 +584,7 @@ export function TokensShowcase() {
                       <Pill color={catPill[row.category] ?? "muted"}>{bi(catLabel[row.category])}</Pill>
                     </td>
                     <td className="hidden px-3 py-2 text-muted-foreground @2xl:table-cell">{bi(row.intent)}</td>
-                    <td className="px-3 py-2">
+                    <td className="hidden px-3 py-2 @2xl:table-cell">
                       <div className="flex items-center gap-1">
                         <span className="font-mono text-violet">{row.design}</span>
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity">

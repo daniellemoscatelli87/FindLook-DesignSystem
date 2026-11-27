@@ -1450,9 +1450,9 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
             <ItemDaGrade key={nome}>
               <Rotulo>{nome}</Rotulo>
               <CenaDeTesteCtx.Provider value={cena}>
-                <CenaDoVidro className="p-4 sm:p-5">
+                <CenaDoVidro className="h-full p-4 sm:p-5">
                   {cfg
-                    ? <GlassTestCard compact {...cfg} title={nome} subtitle={propsDoVidro(cfg)} />
+                    ? <GlassTestCard compact {...cfg} className="h-full" title={nome} subtitle={propsDoVidro(cfg)} />
                     : <p className="rounded-md bg-card p-4 text-body-sm text-foreground">{t("No approved glass on this background in the current theme: use a solid card.", "Sem vidro aprovado neste fundo no tema atual: use card sólido.")}</p>}
                 </CenaDoVidro>
               </CenaDeTesteCtx.Provider>

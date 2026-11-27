@@ -1818,8 +1818,8 @@ function LandingTemplate() {
           {/* Acordeão do DS (antes, montado à mão) */}
           <Accordion type="single" collapsible value={openFaq === null ? "" : String(openFaq)} onValueChange={v => setOpenFaq(v === "" ? null : Number(v))} className="max-w-xl mx-auto space-y-2">
             {duvidasLanding.map((item, i) => (
-              <AccordionItem key={item.q} value={String(i)} className="rounded-md border border-border bg-card last:border-b">
-                <AccordionTrigger className="px-4 py-3 text-body-sm font-semibold text-foreground hover:bg-row-hover hover:no-underline">{item.q}</AccordionTrigger>
+              <AccordionItem key={item.q} value={String(i)} className="overflow-hidden rounded-md border border-border bg-card last:border-b">
+                <AccordionTrigger className="rounded-none px-4 py-3 text-body-sm font-semibold text-foreground hover:bg-row-hover hover:no-underline focus-visible:ring-inset focus-visible:ring-offset-0">{item.q}</AccordionTrigger>
                 <AccordionContent className="px-4 text-muted-foreground leading-relaxed">{item.a}</AccordionContent>
               </AccordionItem>
             ))}
