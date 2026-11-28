@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { SegmentedControl } from "@/app/components/ui/segmented-control";
 import { Button } from "@/app/components/ui/button";
+import { Campo } from "@/app/components/ui/campo";
 import { Input } from "@/app/components/ui/input";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group";
@@ -20,6 +21,8 @@ import { LayoutGrid, List, Map as MapIcon, FileSpreadsheet, Camera } from "lucid
 import { BotaoDividido, SeletorDePeriodo, periodosPadrao } from "@/app/components/ui/painel-cabecalho";
 import { SectionHeader } from "./shared/SectionHeader";
 import { DoDont } from "./shared/Guidance";
+import { EscolhaObrigatoriaDemo, opcoesDeExemplo } from "./shared/EscolhaObrigatoriaDemo";
+import { SecaoBotaoQuebra } from "./shared/LacunasDocs";
 
 const periodosProprios = [{ valor: "hoje", rotulo: "Hoje" }, { valor: "semana", rotulo: "Esta semana" }, { valor: "mes", rotulo: "Este mês" }, { valor: "ano", rotulo: "Este ano" }];
 
@@ -68,40 +71,10 @@ function Btn({ variant = "primary", size = "md", children, loading = false, disa
   );
 }
 
-function InputField({
-  label, placeholder = "", type = "text", hint, error, leftIcon, rightElement, disabled = false,
-}: {
-  label?: string; placeholder?: string; type?: string; hint?: string; error?: string;
-  leftIcon?: React.ReactNode; rightElement?: React.ReactNode; disabled?: boolean;
-}) {
-  return (
-    <div className="flex flex-col gap-1">
-      {label && <label className="text-body-sm font-medium text-foreground">{label}</label>}
-      <div className="relative">
-        {leftIcon && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">{leftIcon}</span>
-        )}
-        <Input
-          type={type}
-          placeholder={placeholder}
-          disabled={disabled}
-          aria-invalid={error ? true : undefined}
-          className={`${error ? "border-error/60 aria-invalid:border-error/60" : ""} ${leftIcon ? "pl-10" : ""} ${rightElement ? "pr-10" : ""}`}
-        />
-        {rightElement && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">{rightElement}</span>
-        )}
-      </div>
-      {error && <p className="text-body-sm text-primary flex items-center gap-1"><XCircle className="h-3.5 w-3.5" aria-hidden />{error}</p>}
-      {hint && !error && <p className="text-body-sm text-muted-foreground">{hint}</p>}
-    </div>
-  );
-}
 
-export function FormShowcase() {
+function FormShowcaseBase() {
   const { t } = useI18n();
   const formTokenGroups = getFormTokenGroups(t);
-  const [showPwd, setShowPwd] = useState(false);
   const [condicao, setCondicao] = useState("nova");
   const [senha, setSenha] = useState("");
   const [confirmacao, setConfirmacao] = useState("");
@@ -272,21 +245,12 @@ export function FormShowcase() {
         <SubSection title={t("Text Inputs", "Campos de texto")}>
           <ShowcaseCard>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <InputField label={t("Default Input", "Campo padrão")} placeholder={t("Enter text...", "Digite um texto...")} />
-              <InputField label={t("With Icon", "Com ícone")} placeholder={t("Search anything...", "Busque qualquer coisa...")} leftIcon={<Search className="h-4 w-4" />} />
-              <InputField
-                label={t("Password", "Senha")}
-                type={showPwd ? "text" : "password"}
-                placeholder={t("Enter password...", "Digite a senha...")}
-                rightElement={
-                  <button onClick={() => setShowPwd(!showPwd)} className="text-muted-foreground hover:text-foreground">
-                    {showPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                }
-              />
-              <InputField label={t("With Hint", "Com dica")} placeholder={t("Enter your email...", "Digite seu e-mail...")} type="email" hint={t("We'll never share your email with anyone.", "Nunca compartilharemos seu e-mail com ninguém.")} />
-              <InputField label={t("Error State", "Estado de erro")} placeholder={t("Enter value...", "Digite um valor...")} error={t("This field is required.", "Este campo é obrigatório.")} />
-              <InputField label={t("Disabled", "Desabilitado")} placeholder={t("Disabled input...", "Campo desabilitado...")} disabled />
+              <Campo rotulo={t("Default Input", "Campo padrão")} placeholder={t("Enter text...", "Digite um texto...")} />
+              <Campo rotulo={t("With Icon", "Com ícone")} placeholder={t("Search anything...", "Busque qualquer coisa...")} icone={<Search />} />
+              <Campo rotulo={t("Password", "Senha")} type="password" placeholder={t("Enter password...", "Digite a senha...")} />
+              <Campo rotulo={t("With Hint", "Com dica")} placeholder={t("Enter your email...", "Digite seu e-mail...")} type="email" ajuda={t("We'll never share your email with anyone.", "Nunca compartilharemos seu e-mail com ninguém.")} />
+              <Campo rotulo={t("Error State", "Estado de erro")} placeholder={t("Enter value...", "Digite um valor...")} erro={t("This field is required.", "Este campo é obrigatório.")} />
+              <Campo rotulo={t("Disabled", "Desabilitado")} placeholder={t("Disabled input...", "Campo desabilitado...")} disabled />
             </div>
           </ShowcaseCard>
         </SubSection>
@@ -433,6 +397,10 @@ const [confirmacao, setConfirmacao] = useState("");
                 <CartaoDeEscolha valor="lojista" icone={<Store />} titulo="Tenho uma loja ou brechó" descricao="Mostrar meu catálogo" />
               </GrupoDeCartoesDeEscolha>
               <p className="mt-3 text-label text-muted-foreground">A mesma pergunta com dois lado a lado (colunas=2): vale quando o espaço do grupo tem 448 px ou mais e o número de opções é par; abaixo disso, volta a um por linha.</p>
+            </div>
+            <div id="cartoes-de-escolha-obrigatorio" className="mt-8 min-w-0 scroll-mt-32 border-t border-border pt-8">
+              <p className="mb-4 max-w-3xl text-body-sm leading-relaxed text-muted-foreground">Num formulário, com escolha obrigatória (<code className="text-foreground">required</code>): toque em Continuar sem escolher. O erro aparece abaixo da pergunta, ligado ao grupo, e os cartões continuam do mesmo tamanho.</p>
+              <EscolhaObrigatoriaDemo pergunta="Como você vai usar a FindLook?" opcoes={opcoesDeExemplo("FL")} />
             </div>
             <pre className="mt-6 whitespace-pre-wrap break-words rounded-md bg-muted/60 p-3 text-label text-muted-foreground"><code>{`import { GrupoDeCartoesDeEscolha, CartaoDeEscolha } from "@/app/components/ui/cartao-de-escolha";
 
@@ -627,8 +595,9 @@ function getFormTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
   {
     group: t("Input & Form", "Input e formulário"),
     tokens: [
-      { name: "--input",            description: t("Outline of fields, outline buttons and chips (at least 3:1)", "Contorno de campos, botões de contorno e chips (pelo menos 3:1)"), light: "var(--graphite-400)",         dark: "rgba(25,25,28,0.60)", isColor: true },
+      { name: "--input",            description: t("Outline of fields, outline buttons and chips (at least 3:1)", "Contorno de campos, botões de contorno e chips (pelo menos 3:1)"), light: "var(--graphite-400)",         dark: "var(--graphite-500)", isColor: true },
       { name: "--input-background", description: t("Input field background", "Fundo do campo de input"),      light: "#FFFFFF",             dark: "rgba(25,25,28,0.60)", isColor: true },
+      { name: "--input-fundo",      description: t("Field fill in the dark theme (the outline is --input)", "Preenchimento dos campos no tema escuro (o contorno é o --input; 28/11/2026)"), light: "#FFFFFF", dark: "rgba(25,25,28,0.60)", isColor: true },
       { name: "--ring",             description: t("Focus ring", "Anel de foco"),                  light: "rgba(252,2,86,0.40)", dark: "rgba(252,2,86,0.45)", isColor: true },
       { name: "--border",           description: t("Default border", "Borda padrão"),              light: "rgba(25,25,28,0.09)", dark: "rgba(255,255,255,0.07)", isColor: true },
       { name: "--border-strong",    description: t("Card border on hover (decorative, not for fields)", "Borda de card no hover (decorativa, não vale para campos)"),       light: "rgba(25,25,28,0.16)", dark: "rgba(255,255,255,0.12)", isColor: true },
@@ -653,4 +622,18 @@ function getFormTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
     ],
   },
 ];
+}
+
+/* Peças de 28/11/2026 (shared/LacunasDocs): a mesma documentação nos dois design systems. */
+export function FormShowcase() {
+  return (
+    <>
+      <FormShowcaseBase />
+      {(
+        <div className="mt-20 space-y-20">
+        <SecaoBotaoQuebra />
+        </div>
+      )}
+    </>
+  );
 }

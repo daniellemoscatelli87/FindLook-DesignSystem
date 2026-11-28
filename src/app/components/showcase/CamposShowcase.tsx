@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { CampoDeEndereco, type SugestaoDeEndereco } from "../ui/campo-de-endereco";
 import { GradeDeCampos } from "../ui/cadastro-lojista";
+import { SecaoCamposComAfixo, SecaoEscolhaOrdenada, SecaoEscalaDeNotas } from "./shared/LacunasDocs";
 
 /* Campos e formulários: o campo padrão e as peças de formulário que o produto montava à mão (27/11/2026). */
 
@@ -49,7 +50,7 @@ function DemoEndereco() {
   );
 }
 
-export function CamposShowcase() {
+function CamposShowcaseBase() {
   const [data, setData] = useState<Date | undefined>(new Date(2026, 10, 27));
   const [email, setEmail] = useState("ana@");
   const [busca, setBusca] = useState("");
@@ -189,5 +190,21 @@ export function CamposShowcase() {
         <DataTable head={["Prop", "O que faz"]} rows={[[<Mono>buscar(texto, sinal)</Mono>, "Devolve as sugestões { id, titulo, linha }; use o sinal para cancelar o pedido anterior."], [<Mono>valor · onValorChange</Mono>, "O texto do campo (a pessoa pode escrever o endereço inteiro sem escolher sugestão)."], [<Mono>onEscolher</Mono>, "Chamado ao escolher uma sugestão."], [<Mono>atraso · minimo</Mono>, "Espera depois da última tecla (350 ms) e letras mínimas para buscar (3)."], [<Mono>rotulo · ajuda · erro</Mono>, "Os mesmos do Campo."]]} />
       </section>
     </div>
+  );
+}
+
+/* Peças de 28/11/2026 (shared/LacunasDocs): a mesma documentação nos dois design systems. */
+export function CamposShowcase() {
+  return (
+    <>
+      <CamposShowcaseBase />
+      {(
+        <div className="mt-20 space-y-20">
+        <SecaoCamposComAfixo />
+        <SecaoEscolhaOrdenada />
+        <SecaoEscalaDeNotas />
+        </div>
+      )}
+    </>
   );
 }

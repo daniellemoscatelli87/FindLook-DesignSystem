@@ -3,7 +3,7 @@
 import * as React from "react";
 import { ChevronRight, Menu } from "lucide-react";
 import { cn } from "./utils";
-import { Button, buttonVariants } from "./button";
+import { Button } from "./button";
 import { Logo } from "./logo";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } from "./drawer";
 
@@ -57,12 +57,15 @@ export function useRolagemDoCabecalho(raiz?: React.RefObject<HTMLElement | null>
   return { rolado, escondido, mostrar: () => setEscondido(false) };
 }
 
-/** Uma ação como link (href) ou botão (onClick), com o desenho que vier em `classe`. */
-function Acao({ acao, classe, comoLink, envolver }: { acao: AcaoDoCabecalho; classe: string; comoLink?: React.ElementType; envolver?: (el: React.ReactElement) => React.ReactElement }) {
+/**
+ * Uma ação como link (href) ou botão (onClick), desenhada pelo Button do DS em pílula (forma="pilula", 28/11/2026;
+ * antes as pílulas tinham classes próprias). `variant`: "default" (cheia) ou "outline" (contorno).
+ */
+function Acao({ acao, variant = "default", className, comoLink, envolver }: { acao: AcaoDoCabecalho; variant?: "default" | "outline"; className?: string; comoLink?: React.ElementType; envolver?: (el: React.ReactElement) => React.ReactElement }) {
   const Link = comoLink ?? "a";
   const el = acao.href
-    ? <Link href={acao.href} onClick={acao.onClick} className={classe}>{acao.icone}{acao.rotulo}</Link>
-    : <button type="button" onClick={acao.onClick} className={classe}>{acao.icone}{acao.rotulo}</button>;
+    ? <Button asChild variant={variant} forma="pilula" quebra="nunca" className={className}><Link href={acao.href} onClick={acao.onClick}>{acao.icone}{acao.rotulo}</Link></Button>
+    : <Button type="button" variant={variant} forma="pilula" quebra="nunca" onClick={acao.onClick} className={className}>{acao.icone}{acao.rotulo}</Button>;
   return envolver ? envolver(el) : el;
 }
 
@@ -79,19 +82,37 @@ export type MenuDoCelularProps = {
   textos?: { principal?: string; menu?: string };
   /** Onde a folha é montada (padrão: body). Demonstrações dentro de uma moldura. */
   container?: HTMLElement | null;
+  /** O botão que abriu o menu: o foco volta para ele ao fechar (28/11/2026). */
+  retornarFocoPara?: React.RefObject<HTMLElement | null>;
 };
 
 /**
  * Menu do celular em folha inferior: os itens um por linha (48 px, seta à direita; o atual no rosa do selecionado)
- * e as ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um item; o foco
- * volta ao botão Menu.
+ * e as ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um item.
+ * Foco (28/11/2026): ao abrir, vai para o item da página atual (ou o primeiro item) e fica preso na folha enquanto ela
+ * está aberta; ao fechar, volta ao botão Menu (`retornarFocoPara`). Antes ficava no botão Menu, atrás da folha.
  */
-export function MenuDoCelular({ aberto, onAbertoChange, itens, atual, acao, acaoSecundaria, comoLink, textos, container }: MenuDoCelularProps) {
+export function MenuDoCelular({ aberto, onAbertoChange, itens, atual, acao, acaoSecundaria, comoLink, textos, container, retornarFocoPara }: MenuDoCelularProps) {
   const Link = comoLink ?? "a";
   const fechar = (el: React.ReactElement) => <DrawerClose asChild>{el}</DrawerClose>;
   return (
-    <Drawer open={aberto} onOpenChange={onAbertoChange}>
-      <DrawerContent container={container} className="max-h-[85%] px-4 pb-[max(1rem,env(safe-area-inset-bottom))]" data-slot="menu-do-celular">
+    <Drawer open={aberto} onOpenChange={onAbertoChange} autoFocus>
+      <DrawerContent
+        container={container}
+        className="max-h-[85%] px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
+        data-slot="menu-do-celular"
+        onOpenAutoFocus={(e) => {
+          // O evento nasce na própria folha (FocusScope do Radix).
+          const folha = e.target as HTMLElement | null;
+          const alvo = folha?.querySelector<HTMLElement>('nav [aria-current="page"]') ?? folha?.querySelector<HTMLElement>("nav a, nav button");
+          if (alvo) { e.preventDefault(); alvo.focus(); }
+        }}
+        onCloseAutoFocus={(e) => {
+          if (!retornarFocoPara?.current) return;
+          e.preventDefault();
+          retornarFocoPara.current.focus();
+        }}
+      >
         <DrawerTitle className="sr-only">{textos?.menu ?? "Menu"}</DrawerTitle>
         <DrawerDescription className="sr-only">Links do site e acesso à sua conta.</DrawerDescription>
         <nav aria-label={textos?.principal ?? "Principal"} className="mt-3 overflow-y-auto">
@@ -118,8 +139,8 @@ export function MenuDoCelular({ aberto, onAbertoChange, itens, atual, acao, acao
         </nav>
         {(acaoSecundaria || acao) && (
           <div className={cn("mt-4 grid gap-2 border-t border-border pt-4", acaoSecundaria && acao && "grid-cols-2")}>
-            {acaoSecundaria && <Acao acao={acaoSecundaria} comoLink={comoLink} envolver={fechar} classe={cn(buttonVariants({ variant: "outline" }), "h-12 w-full rounded-full")} />}
-            {acao && <Acao acao={acao} comoLink={comoLink} envolver={fechar} classe={cn(buttonVariants(), "h-12 w-full rounded-full")} />}
+            {acaoSecundaria && <Acao acao={acaoSecundaria} variant="outline" comoLink={comoLink} envolver={fechar} className="h-12 w-full" />}
+            {acao && <Acao acao={acao} comoLink={comoLink} envolver={fechar} className="h-12 w-full" />}
           </div>
         )}
       </DrawerContent>
@@ -198,7 +219,7 @@ export function CabecalhoDoSite({
   const naTela = tela === "computador" ? "flex" : tela === "celular" ? "hidden" : telaLarga === "xl" ? "hidden xl:flex" : telaLarga === "md" ? "hidden md:flex" : "hidden lg:flex";
   const noCelular = tela === "computador" ? "hidden" : tela === "celular" ? "flex" : telaLarga === "xl" ? "flex xl:hidden" : telaLarga === "md" ? "flex md:hidden" : "flex lg:hidden";
   const alto = tela === "computador" ? "h-18 px-6" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-18 xl:px-6" : telaLarga === "md" ? "md:h-18 md:px-6" : "lg:h-18 lg:px-6";
-  const pilula = "rounded-full px-5";
+  const botaoDoMenu = React.useRef<HTMLButtonElement>(null);
 
   return (
     <header
@@ -239,9 +260,10 @@ export function CabecalhoDoSite({
         </nav>
 
         <div className="flex items-center gap-2">
-          {acaoSecundaria && <Acao acao={acaoSecundaria} comoLink={comoLink} classe={cn(buttonVariants({ variant: "outline" }), pilula, naTela)} />}
-          {acao && <Acao acao={acao} comoLink={comoLink} classe={cn(buttonVariants(), pilula, naTela)} />}
+          {acaoSecundaria && <Acao acao={acaoSecundaria} variant="outline" comoLink={comoLink} className={cn("px-5", naTela)} />}
+          {acao && <Acao acao={acao} comoLink={comoLink} className={cn("px-5", naTela)} />}
           <Button
+            ref={botaoDoMenu}
             type="button"
             variant="ghost"
             size="icon"
@@ -264,6 +286,7 @@ export function CabecalhoDoSite({
         comoLink={comoLink}
         textos={textos}
         container={containerDoMenu}
+        retornarFocoPara={botaoDoMenu}
       />
     </header>
   );

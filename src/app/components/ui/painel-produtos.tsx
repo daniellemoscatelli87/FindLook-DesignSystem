@@ -97,7 +97,7 @@ function AbasComContador({ abas, valor, onChange, estilo = "pilula", rotulo = "F
                 "inline-flex shrink-0 items-center gap-2 whitespace-nowrap font-medium transition-[color,box-shadow]",
                 foco,
                 estilo === "pilula"
-                  ? cn("h-8 rounded-lg border border-transparent px-3 text-body-sm toque:h-10", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input/30" : "text-foreground dark:text-muted-foreground")
+                  ? cn("h-8 rounded-lg border border-transparent px-3 text-body-sm toque:h-10", ativa ? "bg-card text-foreground shadow-sm dark:border-input dark:bg-input-fundo/30" : "text-foreground dark:text-muted-foreground")
                   : estilo === "pagina"
                     // Aba ativa: só o sublinhado e a cor do texto, sem caixa. Foco só pelo teclado (:focus-visible), com o anel
                     // sutil do DS colado ao rótulo (sem afastamento), nunca depois de um clique (pedido de 23/11/2026).
@@ -319,7 +319,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
           <div className="relative min-w-0 flex-1 @2xl:w-60 @2xl:flex-none">
             <label htmlFor={idBusca} className="sr-only">Buscar produto</label>
             <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-input bg-input-background pl-9 pr-3 text-body-sm text-foreground placeholder:text-muted-foreground dark:bg-input/30", foco)} />
+            <input id={idBusca} type="search" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produto ou SKU" className={cn("h-9 w-full rounded-sm border border-input bg-input-background pl-9 pr-3 text-body-sm text-foreground placeholder:text-muted-foreground dark:bg-input-fundo/30", foco)} />
           </div>
           <button type="button" className={botaoFerramenta}><SlidersHorizontal aria-hidden className="h-4 w-4" />Filtros</button>
         </div>

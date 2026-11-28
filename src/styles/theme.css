@@ -171,6 +171,9 @@
      --muted (#F6F6F7). Antes era o --border-strong (1,53:1), que continua só nos cards e divisores, que não são campos. */
   --input:            var(--graphite-400);
   --input-background: #FFFFFF;
+  /* Preenchimento dos campos no tema escuro (28/11/2026): o --input passou a ser só o contorno. No claro, igual ao
+     --input-background. Campo, seleção, caixa de marcar e botão de contorno usam dark:bg-input-fundo/30. */
+  --input-fundo:       #FFFFFF;
   --switch-background: var(--graphite-400);   /* interruptor desligado: trilho 3,49:1 no branco; bolinha branca 3,49:1 no trilho */
   --ring:             rgba(252, 2, 86, 0.40);
 
@@ -306,9 +309,12 @@
   --card-foreground:  #F6F6F7;
   --popover:          rgba(25, 25, 28, 0.97);
   --popover-foreground: #F6F6F7;
-  --input:            rgba(25, 25, 28, 0.6);
+  /* Contorno dos campos no escuro (28/11/2026): grafite 500, 3,41:1 no card, 3,38:1 no campo e 3,89:1 no fundo
+     (antes rgba(25, 25, 28, 0.6), que também era o preenchimento: 1,03:1). O preenchimento é o --input-fundo. */
+  --input:            var(--graphite-500);
   --input-background: rgba(25, 25, 28, 0.6);
-  --switch-background: var(--graphite-600);
+  --input-fundo:       rgba(25, 25, 28, 0.6);
+  --switch-background: var(--graphite-500);   /* interruptor desligado no escuro: o mesmo grafite do contorno (28/11/2026) */
   --ring:             rgba(252, 2, 86, 0.45);
 
   --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.4);
@@ -413,6 +419,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-input-background: var(--input-background);
+  --color-input-fundo: var(--input-fundo);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
   --color-sobreposicao: var(--sobreposicao);

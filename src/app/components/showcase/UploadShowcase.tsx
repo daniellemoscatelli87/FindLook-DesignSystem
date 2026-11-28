@@ -5,6 +5,7 @@ import { TokenTable, type TokenGroup } from "./shared/TokenTable";
 import { UploadDropzone, UploadList, ImageUpload, ImageGrid, formatBytes, type UploadFile, type GalleryImage } from "@/app/components/ui/upload";
 import { SectionHeader } from "./shared/SectionHeader";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { SecaoRecorteDeFoto } from "./shared/LacunasDocs";
 
 /* Troque para true no FindLook Design System: muda só os exemplos. */
 const FINDLOOK = true;
@@ -44,7 +45,7 @@ function useSimulatedUpload() {
   return { items, add, remove, retry, setItems };
 }
 
-export function UploadShowcase() {
+function UploadShowcaseBase() {
   const { t } = useI18n();
   const docs = useSimulatedUpload();
   const [docsError, setDocsError] = useState<string | null>(null);
@@ -272,5 +273,19 @@ export function UploadShowcase() {
         <TokenTable groups={tokenGroups} />
       </section>
     </div>
+  );
+}
+
+/* Peças de 28/11/2026 (shared/LacunasDocs): a mesma documentação nos dois design systems. */
+export function UploadShowcase() {
+  return (
+    <>
+      <UploadShowcaseBase />
+      {(
+        <div className="mt-20 space-y-20">
+        <SecaoRecorteDeFoto />
+        </div>
+      )}
+    </>
   );
 }

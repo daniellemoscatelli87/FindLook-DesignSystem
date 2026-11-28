@@ -76,7 +76,7 @@ export function LinhaDeInterruptor({ rotulo, ajuda, className, disabled, id: idP
         {/* Mesmo desenho do Switch do DS (ui/switch); a área de toque tem 44 px. */}
         <span
           aria-hidden
-          className="inline-flex h-6 w-11 items-center rounded-full border border-transparent bg-switch-background transition-colors group-data-[state=checked]/interruptor:bg-primary dark:bg-input/80"
+          className="inline-flex h-6 w-11 items-center rounded-full border border-transparent bg-switch-background transition-colors group-data-[state=checked]/interruptor:bg-primary"
         >
           <span className="block size-4.5 translate-x-0.5 rounded-full bg-card shadow-sm transition-transform duration-[var(--duration-fast)] group-data-[state=checked]/interruptor:translate-x-[1.3125rem] dark:group-data-[state=checked]/interruptor:bg-primary-foreground" />
         </span>

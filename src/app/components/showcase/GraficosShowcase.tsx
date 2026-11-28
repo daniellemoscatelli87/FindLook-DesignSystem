@@ -15,6 +15,7 @@ import {
 } from "../ui/graficos-catalogo";
 import { TabelaAdaptavel, type ColunaDaTabela } from "../ui/tabela-adaptavel";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { SecaoBarrasEFunil } from "./shared/LacunasDocs";
 
 /* Gráficos e visualizações (19/11/2026). Todos os números desta página são dados de exemplo, fictícios:
    nenhum descreve lojas, bairros ou buscas reais. */
@@ -813,7 +814,7 @@ function SecaoCatalogo() {
   );
 }
 
-export function GraficosShowcase() {
+function GraficosShowcaseBase() {
   return (
     <div className="space-y-16 pb-16">
       {/* ── COMO ESCOLHER ── */}
@@ -1204,5 +1205,19 @@ export function GraficosShowcase() {
         </GradeDeCards>
       </section>
     </div>
+  );
+}
+
+/* Peças de 28/11/2026 (shared/LacunasDocs): a mesma documentação nos dois design systems. */
+export function GraficosShowcase() {
+  return (
+    <>
+      <GraficosShowcaseBase />
+      {(
+        <div className="mt-20 space-y-20">
+        <SecaoBarrasEFunil />
+        </div>
+      )}
+    </>
   );
 }

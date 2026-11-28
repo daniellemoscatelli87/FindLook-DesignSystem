@@ -115,6 +115,12 @@ type CardIndicadorProps = {
   /** Total de que o valor faz parte (por exemplo, 48 de 75 bairros): aparece "de 75", menor, ao lado do número. */
   total?: number;
   rotulo: string;
+  /**
+   * Como o número aparece (28/11/2026): "numero" (padrão, 1.234) ou "percentual" (o valor em pontos: 67 vira "67%").
+   * Para outro formato (moeda, horas), passe `formatar`, que recebe o número e devolve o texto; ele vale também para o total.
+   */
+  formato?: "numero" | "percentual";
+  formatar?: (n: number) => string;
   variacao?: number;
   comparacao?: string;
   explicacao?: React.ReactNode;
@@ -142,7 +148,8 @@ type CardIndicadorProps = {
  * de cards, os números ficam na mesma altura, tenham eles variação ou não. Em card estreito (menos de 176 px, como na
  * grade 2 × 2 do celular), o ícone sai para o rótulo ter a largura toda e nunca ser cortado.
  */
-function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, explicacao, grafico, href, onClick, comoLink, className }: CardIndicadorProps) {
+function CardIndicador({ icone, valor, total, rotulo, formato = "numero", formatar, variacao, comparacao, explicacao, grafico, href, onClick, comoLink, className }: CardIndicadorProps) {
+  const mostrar = (n: number) => (formatar ? formatar(n) : formato === "percentual" ? `${formatarNumero(n)}%` : formatarNumero(n));
   const palavras = rotulo.split(" ");
   const ultima = palavras.pop() ?? "";
   const clicavel = Boolean(href || onClick);
@@ -169,8 +176,8 @@ function CardIndicador({ icone, valor, total, rotulo, variacao, comparacao, expl
         <IconeComBase tom="neutro" className="@max-[11rem]/indicador:hidden">{icone}</IconeComBase>
       </div>
       <p className="mt-2 text-h3 font-bold leading-none tracking-[-0.025em] text-foreground">
-        {formatarNumero(valor)}
-        {total !== undefined && <span className="ml-1 text-body font-semibold tracking-normal text-muted-foreground">de {formatarNumero(total)}</span>}
+        {mostrar(valor)}
+        {total !== undefined && <span className="ml-1 text-body font-semibold tracking-normal text-muted-foreground">de {mostrar(total)}</span>}
       </p>
       {grafico && <div aria-hidden className="mt-4 h-12">{grafico}</div>}
       {(variacao !== undefined || clicavel) && (
