@@ -682,9 +682,10 @@ export function AndamentoDeTarefa() {
               { icone: <CircleDashed />, valor: "27", rotulo: "bairros restantes" },
             ]}
           />
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-border pt-4">
+          {/* Linha da ação à direita (regra da ação nos cards, 28/11/2026) */}
+          <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 border-t border-border pt-4">
             <LinkVerTudo icone={<ListTree />} onClick={() => {}}>Ver resultados por bairro</LinkVerTudo>
-            <LinkVerTudo tom="neutro" href="#card-andamento" className="ml-auto">Ver todas as buscas</LinkVerTudo>
+            <LinkVerTudo tom="neutro" href="#card-andamento">Ver todas as buscas</LinkVerTudo>
           </div>
         </div>
       </CardDoPainel>
