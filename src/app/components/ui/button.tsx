@@ -17,10 +17,10 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input-fundo/30 dark:border-input dark:hover:bg-input-fundo/50",
+          "border border-input bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input-fundo/30 dark:border-input dark:hover:bg-input-fundo/50",
         // O botão secundário do DS é o de contorno (decisão da dona do produto, 20/11/2026)
         secondary:
-          "border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input-fundo/30 dark:border-input dark:hover:bg-input-fundo/50",
+          "border border-input bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input-fundo/30 dark:border-input dark:hover:bg-input-fundo/50",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 disabled:bg-transparent disabled:hover:bg-transparent dark:disabled:bg-transparent",
         link: "text-primary-text underline-offset-4 hover:underline disabled:bg-transparent disabled:hover:bg-transparent disabled:no-underline",
