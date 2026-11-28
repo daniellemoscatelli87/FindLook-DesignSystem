@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, CheckCheck, Clock, Eye, Loader2, MousePointerClick, Paperclip, SendHorizontal, X, XCircle } from "lucide-react";
+import { Check, CheckCheck, Clock, Eye, MousePointerClick, Paperclip, SendHorizontal, X, XCircle } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
 import { Input } from "./input";
@@ -291,8 +291,9 @@ export function CampoDeMensagem({ valor, onValorChange, onEnviar, onAnexar, ocup
         maxLength={2000}
         className="h-11 min-w-0 flex-1 rounded-full bg-background px-4 text-body"
       />
-      <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full transition-transform active:scale-95 motion-reduce:active:scale-100" aria-label={rotuloEnviar} disabled={!pode}>
-        {ocupado ? <Loader2 aria-hidden className="size-5 animate-spin motion-reduce:animate-none" /> : <SendHorizontal aria-hidden className="size-5" />}
+      {/* Enviando: o Button carregando (28/11/2026), na cor do botão e um pouco esmaecido, com o giro no lugar do ícone; o cinza fica só para "ainda não dá para enviar". */}
+      <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full transition-transform active:scale-95 motion-reduce:active:scale-100 [&_svg[data-giro]]:!size-5" aria-label={rotuloEnviar} disabled={!ocupado && !pode} carregando={ocupado}>
+        <SendHorizontal aria-hidden className="size-5" />
       </Button>
     </form>
   );

@@ -124,9 +124,11 @@
   --secondary-hover:      var(--graphite-200);
   --secondary-foreground: var(--graphite-950);
 
-  /* Desabilitado: fundo --graphite-100 (#E9E9EC, decisão da dona do produto, 23/11/2026), com forma de botão e texto
-     apagado mas legível (3,6:1); decisão anterior de 20/11/2026 */
-  --disabled:            var(--graphite-100);
+  /* Desabilitado: fundo um pouco mais claro (decisão da dona do produto, 28/11/2026: "o fundo do cinza quero um pouco
+     mais claro"), a meio caminho entre o --graphite-100 e o --graphite-50: ≈ #F0F0F2. Ainda tem forma de botão no branco
+     (1,14:1); texto apagado mas legível sobre ele: 3,9:1. Antes: --graphite-100 (#E9E9EC, 23/11/2026, 3,6:1) e a decisão
+     de 20/11/2026. Carregando não usa este cinza: veja ui/button.tsx. */
+  --disabled:            color-mix(in srgb, var(--graphite-100) 50%, var(--graphite-50));
   --disabled-foreground: color-mix(in srgb, var(--graphite-500) 55%, var(--graphite-400));
   --muted:            var(--graphite-50);
   /* Hover de linha ou item dentro de um card (listas, tabelas, avisos): o cinza mais claro (23/11/2026) */

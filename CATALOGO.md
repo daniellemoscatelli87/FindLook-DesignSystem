@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 131 arquivos de componentes em `src/app/components/ui/` com 468 componentes exportados · 91 templates e padrões ainda só em demonstração · 53 seções com marcação feita à mão · 179 tokens · 38 páginas e 279 âncoras no site (https://designsystem.findlook.com.br) · 38 propostas de componente.
+**Resumo:** 131 arquivos de componentes em `src/app/components/ui/` com 468 componentes exportados · 90 templates e padrões ainda só em demonstração · 53 seções com marcação feita à mão · 179 tokens · 38 páginas e 279 âncoras no site (https://designsystem.findlook.com.br) · 38 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -40,7 +40,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `Alert` (props: `className`, `variant`, `tom`, `icone`, `children`)
   - `AlertTitle` (props: `className`)
   - `AlertDescription` (props: `className`)
-- **Variantes:** `variant` = `destructive` · `success` · `info` · `warning` · `error`
+- **Variantes:** `variant` = `default` · `destructive` · `success` · `info` · `warning` · `error`
 - **Onde ver:** Feedback › Alertas (`feedback#alerts`) · Feedback › Alerta só com descrição (`feedback#alerta-sem-titulo`) · Chips e estados › Alerta com tom (`chips-e-estados#alerta-tom`) · e mais 2 seções (ver `catalogo.json`)
 
 ### alert-dialog
@@ -114,7 +114,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `Badge` (props: `className`, `variant`, `asChild`): forwardRef (28/11/2026): funciona como filho de um Radix com asChild (TooltipTrigger, PopoverTrigger).
 - **Funções e constantes:** `badgeVariants`
-- **Variantes:** `variant` = `default` · `secondary` · `destructive` · `outline` · `neutro` · `sucesso` · `aviso` · `erro` · `info`
+- **Variantes:** `variant` = `default` · `secondary` · `destructive` · `outline` · `marca` · `neutro` · `sucesso` · `aviso` · `erro` · `info`
 - **Onde ver:** Chips e estados › Etiquetas e bases por tom (`chips-e-estados#etiquetas-tons`) · Fundos › Gradiente animado (`backgrounds#gradient-anim-bg`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) · e mais 1 seções (ver `catalogo.json`)
 
 ### barra-fixa-celular
@@ -131,9 +131,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/botao-de-envio.tsx](src/app/components/ui/botao-de-envio.tsx)
 - **Quando usar:** BotaoDeEnvio (botão com os estados de envio): mesma API do BotaoDeEnvio do design system Dani Moscatelli. O Button do DS com o retorno de cada envio, sem mudar de tamanho: parado → "Enviando…" (girando) → "Enviado" com check → volta sozinho ao estado parado; ou "Tentar de novo" quando falha.
 - **Componentes:**
-  - `BotaoDeEnvio` (props: `estado`, `children`, `textos`, `icone`, `voltarApos`, `onVoltar`, `className`, `disabled`, `variant`)
+  - `BotaoDeEnvio` (props: `estado`, `children`, `textos`, `icone`, `voltarApos`, `onVoltar`, `className`, `variant`, `onClick`)
 - **Funções e constantes:** `useEstadoDoEnvio`
-- **Onde ver:** Campos e formulários › Botão de envio (`campos#botao-de-envio`)
+- **Onde ver:** Campos e formulários › Botão de envio (`campos#botao-de-envio`) · Usabilidade › Status do sistema (`usability#ux-feedback`)
 
 ### breadcrumb
 
@@ -164,10 +164,10 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/button.tsx](src/app/components/ui/button.tsx)
 - **Quando usar:** Padrão único (decisão de 16/11/2026): botão de 40 px, mesma altura do campo de texto. Forma: pílula (28/11/2026). Texto no token do botão (14 px, seminegrito; escala tipográfica de 27/11/2026). No toque (celular ou tela de dedo), todo botão tem 44 px de altura (decisão de 27/11/2026); no computador com mouse, 40 px (sm: 32 px).
 - **Componentes:**
-  - `Button` (props: `className`, `variant`, `size`, `forma`, `quebra`, `asChild`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
-- **Funções e constantes:** `buttonVariants`
-- **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon-lg`; `forma` = `pilula` · `quadrado` · `padrao`; `quebra` = `celular` · `nunca` · `sempre`
-- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 46 seções (ver `catalogo.json`)
+  - `Button` (props: `className`, `variant`, `size`, `forma`, `quebra`, `asChild`, `carregando`, `textoCarregando`, `children`, `onClick`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
+- **Funções e constantes:** `buttonVariants`, `classeDoCarregando`
+- **Variantes:** `variant` = `default` · `destructive` · `secondary` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon` · `icon-lg`; `forma` = `pilula` · `quadrado` · `padrao`; `quebra` = `celular` · `nunca` · `sempre`; `camadas` = `sim` · `nao`
+- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · e mais 46 seções (ver `catalogo.json`)
 
 ### cabecalho-do-site
 
@@ -1522,7 +1522,7 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `Recheio`<br>Blocos neutros para dar rolagem às demonstrações (decorativos). | Navegação de landing page › Hero com a aba Saiba mais (`navegacao-landing#nav-hero-aba`) (+2) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:101](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L101) |  | 2 |
 | `DemoDoCursor` | Demonstrações animadas › Cursor de demonstração (`demonstracoes#cursor-de-demonstracao`) | [src/app/components/showcase/DemonstracoesShowcase.tsx:21](src/app/components/showcase/DemonstracoesShowcase.tsx#L21) | `Button`, `CursorDeDemonstracao`, `Input` | 2 |
 
-### 2.3 Demonstrações nas páginas de fundamentos e diretrizes (36)
+### 2.3 Demonstrações nas páginas de fundamentos e diretrizes (35)
 
 Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, tokens). Normalmente não vão para o produto como estão; servem de referência de comportamento.
 
@@ -1537,11 +1537,10 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `DemoDoGrid`<br>Demonstração do grid: as colunas, a margem e a calha da tela escolhida, em escala dentro da página. | Grid e espaçamento › Grid de colunas (`grid#grid-colunas`) | [src/app/components/showcase/GridShowcase.tsx:32](src/app/components/showcase/GridShowcase.tsx#L32) |  | 3 |
 | `Bloco`<br>Exemplo de composição sobre o grid: blocos com span por tela. | Grid e espaçamento › Como usar (`grid#grid-uso`) | [src/app/components/showcase/GridShowcase.tsx:56](src/app/components/showcase/GridShowcase.tsx#L56) |  | 1 |
 | `PaginaAbaixoDoCabecalho` | Grid e espaçamento › Espaço abaixo do cabeçalho (`grid#grid-cabecalho`) (+1) | [src/app/components/showcase/shared/PaginaAbaixoDoCabecalho.tsx:25](src/app/components/showcase/shared/PaginaAbaixoDoCabecalho.tsx#L25) | `Button`, `CabecalhoDoSite`, `PaginaDeErro`, `SegmentedControl` | 2 |
-| `TargetDemo`<br>Touch targets | Usabilidade › Tamanho de alvo (`usability#ux-targets`) | [src/app/components/showcase/UsabilityShowcase.tsx:17](src/app/components/showcase/UsabilityShowcase.tsx#L17) |  | 1 |
-| `FeedbackDemo`<br>System status | Usabilidade › Status do sistema (`usability#ux-feedback`) | [src/app/components/showcase/UsabilityShowcase.tsx:47](src/app/components/showcase/UsabilityShowcase.tsx#L47) |  | 1 |
-| `UndoDemo` | Usabilidade › Ações destrutivas (`usability#ux-destructive`) | [src/app/components/showcase/UsabilityShowcase.tsx:84](src/app/components/showcase/UsabilityShowcase.tsx#L84) |  | 6 |
-| `StatesDemo` | Usabilidade › Estados de conteúdo (`usability#ux-states`) | [src/app/components/showcase/UsabilityShowcase.tsx:148](src/app/components/showcase/UsabilityShowcase.tsx#L148) | `Button`, `EstadoVazio` | 4 |
-| `HierarchyDemo`<br>Button hierarchy | Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) | [src/app/components/showcase/UsabilityShowcase.tsx:219](src/app/components/showcase/UsabilityShowcase.tsx#L219) | `Button` | 1 |
+| `TargetDemo`<br>Touch targets | Usabilidade › Tamanho de alvo (`usability#ux-targets`) | [src/app/components/showcase/UsabilityShowcase.tsx:18](src/app/components/showcase/UsabilityShowcase.tsx#L18) |  | 1 |
+| `UndoDemo` | Usabilidade › Ações destrutivas (`usability#ux-destructive`) | [src/app/components/showcase/UsabilityShowcase.tsx:83](src/app/components/showcase/UsabilityShowcase.tsx#L83) |  | 6 |
+| `StatesDemo` | Usabilidade › Estados de conteúdo (`usability#ux-states`) | [src/app/components/showcase/UsabilityShowcase.tsx:147](src/app/components/showcase/UsabilityShowcase.tsx#L147) | `Button`, `EstadoVazio` | 4 |
+| `HierarchyDemo`<br>Button hierarchy | Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) | [src/app/components/showcase/UsabilityShowcase.tsx:218](src/app/components/showcase/UsabilityShowcase.tsx#L218) | `Button` | 1 |
 | `ContrastTable` | Acessibilidade › Contraste (`accessibility#a11y-contrast`) | [src/app/components/showcase/AccessibilityShowcase.tsx:70](src/app/components/showcase/AccessibilityShowcase.tsx#L70) |  | 3 |
 | `ContrastChecker` | Acessibilidade › Contraste (`accessibility#a11y-contrast`) | [src/app/components/showcase/AccessibilityShowcase.tsx:124](src/app/components/showcase/AccessibilityShowcase.tsx#L124) |  | 1 |
 | `FocusDemo`<br>Focus | Acessibilidade › Foco (`accessibility#a11y-focus`) | [src/app/components/showcase/AccessibilityShowcase.tsx:187](src/app/components/showcase/AccessibilityShowcase.tsx#L187) |  | 3 |
@@ -1598,7 +1597,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
 | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
 | Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:142](src/app/components/showcase/CatalogoShowcase.tsx#L142) | `Input` | 5 |
-| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:202](src/app/components/showcase/FormShowcase.tsx#L202) |  | 5 |
+| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:248](src/app/components/showcase/FormShowcase.tsx#L248) |  | 5 |
 | Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
 | Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1025](src/app/components/showcase/CardShowcase.tsx#L1025) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
 | Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1179](src/app/components/showcase/CardShowcase.tsx#L1179) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
@@ -1672,7 +1671,7 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 | `--secondary` | `--graphite-100 (#E9E9EC)` | `rgba(44, 44, 51, 0.85)` |  |
 | `--secondary-hover` | `--graphite-200 (#D4D4D9)` | `rgba(44, 44, 51, 1)` |  |
 | `--secondary-foreground` | `--graphite-950 (#000000)` | `#F6F6F7` |  |
-| `--disabled` | `--graphite-100 (#E9E9EC)` | `color-mix(in srgb, var(--graphite-700) 60%, var(--graphite-800))` |  |
+| `--disabled` | `color-mix(in srgb, var(--graphite-100) 50%, var(--graphite-50))` | `color-mix(in srgb, var(--graphite-700) 60%, var(--graphite-800))` |  |
 | `--disabled-foreground` | `color-mix(in srgb, var(--graphite-500) 55%, var(--graphite-400))` | `color-mix(in srgb, var(--graphite-300) 60%, var(--graphite-400))` |  |
 | `--muted` | `--graphite-50 (#F6F6F7)` | `rgba(44, 44, 51, 0.6)` |  |
 | `--row-hover` | `--graphite-50 (#F6F6F7)` | `rgba(255, 255, 255, 0.04)` |  |
@@ -1854,8 +1853,8 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 
 Regras documentadas no site. Antes de montar uma tela, leia as que valem para ela.
 
-- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:202](src/app/components/showcase/FormShowcase.tsx#L202)
-- **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:285](src/app/components/showcase/UsabilityShowcase.tsx#L285)
+- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:248](src/app/components/showcase/FormShowcase.tsx#L248)
+- **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:284](src/app/components/showcase/UsabilityShowcase.tsx#L284)
 - **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:586](src/app/components/showcase/CardShowcase.tsx#L586)
 - **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669)
 - **Card: o que evitar** — Cards › O que evitar (`cards#card-guidelines`) · [src/app/components/showcase/CardShowcase.tsx:1567](src/app/components/showcase/CardShowcase.tsx#L1567)
@@ -1868,7 +1867,7 @@ Regras documentadas no site. Antes de montar uma tela, leia as que valem para el
 - **Contraste mínimo (WCAG 2.2 AA)** — Acessibilidade › Contraste (`accessibility#a11y-contrast`) · [src/app/components/showcase/AccessibilityShowcase.tsx:447](src/app/components/showcase/AccessibilityShowcase.tsx#L447)
 - **Respeitar a preferência por menos movimento** — Acessibilidade › Movimento (`accessibility#a11y-motion`) · [src/app/components/showcase/AccessibilityShowcase.tsx:549](src/app/components/showcase/AccessibilityShowcase.tsx#L549)
 - **Durações e curvas oficiais de movimento** — Movimento › Tokens de movimento (`motion#motion-tokens`) · [src/app/components/showcase/MotionShowcase.tsx:1102](src/app/components/showcase/MotionShowcase.tsx#L1102)
-- **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:371](src/app/components/showcase/UsabilityShowcase.tsx#L371)
+- **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:370](src/app/components/showcase/UsabilityShowcase.tsx#L370)
 - **Microcopy: textos de botões, erros e estados** — Tom de voz › Microcopy (`voice#voice-microcopy`) · [src/app/components/showcase/VoiceShowcase.tsx:154](src/app/components/showcase/VoiceShowcase.tsx#L154)
 - **Gráficos: como escolher** — Gráficos › Como escolher (`graficos#graficos-escolher`) · [src/app/components/showcase/GraficosShowcase.tsx:821](src/app/components/showcase/GraficosShowcase.tsx#L821)
 - **Gráficos: cores e ordem dos tons** — Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · [src/app/components/showcase/GraficosShowcase.tsx:255](src/app/components/showcase/GraficosShowcase.tsx#L255)
