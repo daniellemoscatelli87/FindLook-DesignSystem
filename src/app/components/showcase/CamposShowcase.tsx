@@ -15,6 +15,7 @@ import { Calendar } from "../ui/calendar";
 import { CampoDeEndereco, type SugestaoDeEndereco } from "../ui/campo-de-endereco";
 import { GradeDeCampos } from "../ui/cadastro-lojista";
 import { SecaoCamposComAfixo, SecaoEscolhaOrdenada, SecaoEscalaDeNotas } from "./shared/LacunasDocs";
+import { SecaoCaixaDeConsentimento } from "./shared/SecaoCaixaDeConsentimento";
 
 /* Campos e formulários: o campo padrão e as peças de formulário que o produto montava à mão (27/11/2026). */
 
@@ -133,6 +134,8 @@ function CamposShowcaseBase() {
         </Panel>
         <DoDont dos={["Legenda curta, com a ajuda dizendo quantas escolher."]} donts={["Fieldset sem legenda.", "Interruptor sem nome ao lado (o nome é o rótulo lido)."]} />
       </section>
+
+      <SecaoCaixaDeConsentimento />
 
       <section id="seletor-de-quantidade" className="scroll-mt-32 space-y-6">
         <SectionHeader title="Seletor de quantidade" description="Menos, o número e mais: estoque por tamanho. O menos para no mínimo e o mais no máximo; o número pulsa de leve a cada mudança e é anunciado." />

@@ -88,6 +88,7 @@ const displayScaleItems = [
 ];
 
 const radiusScale = [
+  { name: "XS — 6px",   value: "6px",   cls: "rounded-xs" },
   { name: "SM — 8px",   value: "8px",   cls: "rounded-sm" },
   { name: "MD — 12px",  value: "12px",  cls: "rounded-md" },
   { name: "LG — 16px",  value: "16px",  cls: "rounded-lg" },
@@ -666,6 +667,7 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
     group: t("Shape", "Forma"),
     tokens: [
       { name: "--radius",    description: t("Base border radius", "Raio de borda base"),    light: "0.75rem",                   dark: undefined },
+      { name: "--radius-xs", description: t("Só a caixa de marcar (6 px, 28/11/2026)", "Só a caixa de marcar (6 px, 28/11/2026)"),   light: "calc(0.75rem - 6px)",        dark: undefined },
       { name: "--radius-sm", description: t("Small radius (card)", "Raio pequeno (card)"),   light: "calc(0.75rem - 4px)",        dark: undefined },
       { name: "--radius-md", description: t("Medium radius", "Raio médio"),         light: "0.75rem",                   dark: undefined },
       { name: "--radius-lg", description: t("Large radius (dialog)", "Raio grande (diálogo)"), light: "calc(0.75rem + 4px)",        dark: undefined },

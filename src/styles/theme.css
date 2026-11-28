@@ -483,6 +483,9 @@
   --color-pink-900: var(--pink-900);
   --color-pink-950: var(--pink-950);
 
+  /* 6 px (28/11/2026): só a caixa de marcar (Checkbox e CaixaDeConsentimento). Com o --radius-sm (8 px), a caixa de
+     20 px parecia redonda e se confundia com o rádio; nenhum passo da escala dava um quadrado claro. */
+  --radius-xs: calc(var(--radius) - 6px);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
@@ -666,6 +669,12 @@
 
   --section-space: 64px;
   --section-space-hero: 96px;
+
+  /* Espaço abaixo do cabeçalho (28/11/2026): a distância entre o fim do cabeçalho do site e o começo do conteúdo, em
+     toda página cujo conteúdo começa logo abaixo dele (página de erro, telas de conta, páginas internas). 32 px no
+     celular e no tablet; 64 px do desktop (1024 px, o mesmo ponto do grid de 12 colunas) em diante. Uso: a classe
+     .ds-abaixo-do-cabecalho, pt-[var(--espaco-abaixo-do-cabecalho)] ou a prop abaixoDoCabecalho da PaginaDeErro. */
+  --espaco-abaixo-do-cabecalho: var(--space-8);
 }
 /* tablet: 8 colunas */
 @media (min-width: 640px) {
@@ -681,6 +690,7 @@
     --grid-columns: 12;
     --grid-margin: 32px;
     --section-space: 80px;
+    --espaco-abaixo-do-cabecalho: var(--space-16);
   }
 }
 
@@ -707,6 +717,9 @@
 /* Ritmo vertical entre seções de página */
 .ds-section { padding-block: var(--section-space); }
 .ds-section-hero { padding-block: var(--section-space-hero); }
+
+/* Conteúdo que começa logo abaixo do cabeçalho do site (32 px no celular, 64 px do desktop em diante) */
+.ds-abaixo-do-cabecalho { padding-top: var(--espaco-abaixo-do-cabecalho); }
 
 /* ── Movimento ──
    Durações e curvas oficiais (documentadas em Movimento > Tokens). As curvas --ease-out, --ease-in e --ease-in-out

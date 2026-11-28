@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { AtSign, LogIn, ShieldCheck, Store } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
-import { DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
+import { Callout, DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
+import { PaginaAbaixoDoCabecalho } from "./shared/PaginaAbaixoDoCabecalho";
 import { CabecalhoDoSite, type ItemDoCabecalho } from "../ui/cabecalho-do-site";
 import { RodapeDoSite } from "../ui/rodape-do-site";
 import { MolduraDeConta } from "../ui/moldura-de-conta";
@@ -122,6 +123,30 @@ export function SiteShowcase() {
             </form>
           </MolduraDeConta>
         </Panel>
+      </section>
+
+      <section id="site-erro" className="scroll-mt-32 space-y-6">
+        <SectionHeader
+          title="Página de erro (404)"
+          description="A página padrão para qualquer endereço quebrado, inclusive um link que chega incompleto (um link de e-mail sem o código, por exemplo). No FindLook: a ilustração 404 da Nyx, o título e Voltar ao início, começando à distância padrão abaixo do cabeçalho do site (--espaco-abaixo-do-cabecalho: 32 px no celular, 64 px a partir de 1024 px)."
+        />
+        <Callout title="Regra (decisão da dona do produto, 28/11/2026)">
+          Link quebrado ou incompleto = página 404 padrão; nunca mostrar formulário com botão desativado e aviso, nem uma página ou variante "link incompleto".
+        </Callout>
+        <PaginaAbaixoDoCabecalho />
+        <DataTable
+          head={["Prop", "O que faz"]}
+          rows={[
+            [<Mono>ilustracao</Mono>, "A ilustração 404 (decorativa, alt vazio): no FindLook, no lugar do número."],
+            [<Mono>titulo · descricao · acoes</Mono>, "Título (h1), frase opcional e a ação: Voltar ao início, em botão cheio."],
+            [<Mono>abaixoDoCabecalho</Mono>, "Com o cabeçalho do site em cima: começa a --espaco-abaixo-do-cabecalho dele, em vez de ficar no meio da altura da tela."],
+            [<Mono>moldura · selo · codigo</Mono>, "moldura=\"card\" (card branco com o selo \"Erro 404\") é o modelo do site Dani Moscatelli; no FindLook, sem moldura, com a ilustração."],
+          ]}
+        />
+        <DoDont
+          dos={["Mandar todo link quebrado ou incompleto para esta página.", "Uma ação só: Voltar ao início.", "Manter o cabeçalho do site em cima."]}
+          donts={["Formulário com botão desativado e aviso quando o link estiver incompleto.", "Uma página ou variante \"link incompleto\" separada.", "Usar a ilustração 404 em erro de sistema (500) ou falha de conexão."]}
+        />
       </section>
 
       <section id="site-hero" className="scroll-mt-32 space-y-6">

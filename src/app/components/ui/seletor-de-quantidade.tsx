@@ -24,10 +24,11 @@ export type SeletorDeQuantidadeProps = {
 
 export function SeletorDeQuantidade({ valor, onValorChange, rotulo, min = 0, max = 999, passo = 1, desabilitado = false, className }: SeletorDeQuantidadeProps) {
   const nome = rotulo.charAt(0).toLowerCase() + rotulo.slice(1);
-  const botao = "size-10 rounded-md toque:size-11";
+  // Botões dentro de um campo: a exceção forma="quadrado" do Button (28/11/2026, "pílula como padrão").
+  const botao = "size-10 toque:size-11";
   return (
     <div role="group" aria-label={rotulo} data-slot="seletor-de-quantidade" className={cn("inline-flex items-center rounded-md border border-input bg-card", desabilitado && "opacity-50", className)}>
-      <Button type="button" variant="ghost" size="icon" className={botao} aria-label={`Diminuir a ${nome}`} disabled={desabilitado || valor - passo < min} onClick={() => onValorChange(Math.max(min, valor - passo))}>
+      <Button type="button" variant="ghost" size="icon" forma="quadrado" className={botao} aria-label={`Diminuir a ${nome}`} disabled={desabilitado || valor - passo < min} onClick={() => onValorChange(Math.max(min, valor - passo))}>
         <Minus aria-hidden />
       </Button>
       <span
@@ -37,7 +38,7 @@ export function SeletorDeQuantidade({ valor, onValorChange, rotulo, min = 0, max
       >
         {valor}
       </span>
-      <Button type="button" variant="ghost" size="icon" className={botao} aria-label={`Aumentar a ${nome}`} disabled={desabilitado || valor + passo > max} onClick={() => onValorChange(Math.min(max, valor + passo))}>
+      <Button type="button" variant="ghost" size="icon" forma="quadrado" className={botao} aria-label={`Aumentar a ${nome}`} disabled={desabilitado || valor + passo > max} onClick={() => onValorChange(Math.min(max, valor + passo))}>
         <Plus aria-hidden />
       </Button>
     </div>

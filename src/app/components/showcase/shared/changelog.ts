@@ -17,6 +17,21 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Caixa de consentimento e caixa de marcar quadrada"),
+    desc: pt("CaixaDeConsentimento (28/11/2026, aprovada pela dona do produto; mesma API nos dois DS): um sim de consentimento num card que se marca inteiro (caixa nativa dentro de um label): caixa quadrada de 22 px com cantos de 6 px, título de 16 px seminegrito, texto de 14 px em cinza escuro (grafite 600, 7,8:1) com links em --primary-text; marcado = fundo --primary-suave e borda --primary; anel de foco, erro (borda --error e MensagemDeErro) e desativado. paragrafos põe cada frase numa linha nova. A Checkbox fica claramente quadrada: cantos de 6 px (novo --radius-xs) no lugar de 8 px, que deixavam a caixa de 20 px com cara de redonda, como um rádio."),
+    page: "campos", anchor: "caixa-de-consentimento",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Pílula como forma padrão do botão"),
+    desc: pt("Decisão da dona do produto (28/11/2026), nos dois DS: \"Pílula como padrão em ambos os projetos\". O Button é pílula (rounded-full) em qualquer variante e tamanho, com 4 px a mais de cada lado; o botão só de ícone é um círculo. forma=\"quadrado\" (cantos de 12 px) fica para casos raros (botão colado a um campo ou numa barra de ferramentas de cantos retos); forma=\"padrao\" é o nome antigo e continua valendo. A mesma regra nos componentes que desenham botões: janelas, calendário (dias e setas), paginação, BotaoDoAlerta e LinkDoAlerta, SegmentedControl (trilho em pílula), os botões de fechar das janelas e gavetas, o olho da senha e o botão de ajuda do painel. Campos, cards e chips mantêm a forma."),
+    page: "buttons",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Página 404 padrão e espaço abaixo do cabeçalho"),
+    desc: pt("Decisões da dona do produto (28/11/2026). Regra: link quebrado ou incompleto (um link de e-mail sem o código, por exemplo) = página 404 padrão; nunca formulário com botão desativado e aviso, nunca uma página \"link incompleto\". Novo token --espaco-abaixo-do-cabecalho (32 px no celular e no tablet, 64 px a partir de 1024 px, o ponto do desktop do grid) e a classe .ds-abaixo-do-cabecalho, iguais nos dois DS: toda página cujo conteúdo começa logo abaixo do cabeçalho do site usa. PaginaDeErro ganha abaixoDoCabecalho e elemento (\"div\" nas demonstrações) (e, como no DS Dani Moscatelli, moldura=\"card\" e selo); a 404 do FindLook continua com a ilustração da Nyx e Voltar ao início. Documentação: Moldura do site › Página de erro (404) e Grid e espaçamento › Espaço abaixo do cabeçalho, com exemplos ao vivo."),
+    page: "site", anchor: "site-erro",
+  },
+  {
     date: "Nov 2026", kind: "New", title: { en: "Escolha ordenada e escala de notas", pt: "Escolha ordenada e escala de notas" },
     desc: { en: "Peças da pesquisa Moda em Curitiba, iguais nos dois DS (28/11/2026). EscolhaOrdenada: escolher até N opções na ordem dos toques (1º, 2º, 3º; tocar de novo tira e as de depois sobem; no máximo, as outras travam; a opção exclusiva fica sozinha); caixas de marcar nativas com a posição no nome e anúncio para leitores de tela. EscalaDeNotas e GrupoDeEscalas: nota de 1 a 10 (também 0 a 10 e NPS) em rádios nativos numerados, metade por linha no estreito e todos numa linha a partir de 34 rem, pontas escritas embaixo e erro por aspecto. Escolhido no rosa de selecionado com a borda primária; hover cinza.", pt: "Peças da pesquisa Moda em Curitiba, iguais nos dois DS (28/11/2026). EscolhaOrdenada: escolher até N opções na ordem dos toques (1º, 2º, 3º; tocar de novo tira e as de depois sobem; no máximo, as outras travam; a opção exclusiva fica sozinha); caixas de marcar nativas com a posição no nome e anúncio para leitores de tela. EscalaDeNotas e GrupoDeEscalas: nota de 1 a 10 (também 0 a 10 e NPS) em rádios nativos numerados, metade por linha no estreito e todos numa linha a partir de 34 rem, pontas escritas embaixo e erro por aspecto. Escolhido no rosa de selecionado com a borda primária; hover cinza." },
     page: "campos",

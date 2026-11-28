@@ -53,7 +53,7 @@ const variantesUi: Record<string, "default" | "outline" | "ghost" | "link" | "se
   primary: "default", outline: "outline", ghost: "ghost", link: "link", secondary: "secondary", destructive: "destructive", "pink-outline": "outline",
 };
 const tamanhosUi: Record<string, "sm" | "default" | "lg" | "icon"> = { sm: "sm", md: "default", lg: "lg", xl: "lg", "icon-sm": "icon", icon: "icon", "icon-lg": "icon" };
-const tamanhoExtra: Record<string, string> = { xl: "h-13 px-7 rounded-lg", "icon-sm": "size-8 rounded-sm", "icon-lg": "size-11" };
+const tamanhoExtra: Record<string, string> = { xl: "h-13 px-7", "icon-sm": "size-8", "icon-lg": "size-11" };
 
 function Btn({ variant = "primary", size = "md", children, loading = false, disabled = false, icon, iconOnly = false, className = "" }:
   { variant?: "primary"|"outline"|"ghost"|"link"|"secondary"|"destructive"|"pink-outline"; size?: "sm"|"md"|"lg"|"xl"|"icon-sm"|"icon"|"icon-lg"; children?: React.ReactNode; loading?: boolean; disabled?: boolean; icon?: React.ReactNode; iconOnly?: boolean; className?: string }) {
@@ -166,17 +166,20 @@ function FormShowcaseBase() {
           </ShowcaseCard>
         </SubSection>
 
-        <SubSection title={t("Pill shape and 44 px icon", "Forma pílula e ícone de 44 px")}>
+        <SubSection title={t("Forma: pílula como padrão, quadrado como exceção rara", "Forma: pílula como padrão, quadrado como exceção rara")}>
           <ShowcaseCard>
-            <p className="mb-4 max-w-2xl text-body-sm text-muted-foreground">{t("forma=\"pilula\" rounds the button fully; use it only where the brand asks for it (the site header). size=\"icon\" is 40 px with a mouse and 44 px on touch; size=\"icon-lg\" is always 44 px. Every button is 44 px tall on phones (below 640 px) and on touch screens.", "forma=\"pilula\" arredonda o botão inteiro; use só onde a marca pede (o cabeçalho do site). size=\"icon\" tem 40 px com mouse e 44 px no toque; size=\"icon-lg\" tem 44 px sempre. Todo botão tem 44 px de altura no celular (abaixo de 640 px) e em telas de toque.")}</p>
+            <p className="mb-4 max-w-2xl text-body-sm text-muted-foreground">{t("Decisão da dona do produto (28/11/2026), igual nos dois design systems: \"Pílula como padrão em ambos os projetos\". Todo botão é pílula, em qualquer variante e tamanho, e o botão só de ícone é um círculo; os componentes que desenham botões (janelas, calendário, paginação, botões do alerta, controle segmentado) seguem a mesma regra. forma=\"quadrado\" (cantos de 12 px) é exceção rara: um botão colado a um campo ou dentro de uma barra de ferramentas de cantos retos. size=\"icon\" tem 40 px com mouse e 44 px no toque; size=\"icon-lg\" tem 44 px sempre. Todo botão tem 44 px de altura no celular (abaixo de 640 px) e em telas de toque.", "Decisão da dona do produto (28/11/2026), igual nos dois design systems: \"Pílula como padrão em ambos os projetos\". Todo botão é pílula, em qualquer variante e tamanho, e o botão só de ícone é um círculo; os componentes que desenham botões (janelas, calendário, paginação, botões do alerta, controle segmentado) seguem a mesma regra. forma=\"quadrado\" (cantos de 12 px) é exceção rara: um botão colado a um campo ou dentro de uma barra de ferramentas de cantos retos. size=\"icon\" tem 40 px com mouse e 44 px no toque; size=\"icon-lg\" tem 44 px sempre. Todo botão tem 44 px de altura no celular (abaixo de 640 px) e em telas de toque.")}</p>
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-              <Button forma="pilula" variant="outline">{t("Outline", "Contorno")}</Button>
-              <Button forma="pilula">{t("Filled", "Preenchida")}</Button>
+              <Button variant="outline">{t("Contorno", "Contorno")}</Button>
+              <Button>{t("Preenchida", "Preenchida")}</Button>
+              <Button size="icon" variant="outline" aria-label={t("Editar", "Editar")}><Edit3 aria-hidden /></Button>
+              <Button size="icon-lg" variant="ghost" aria-label={t("Mais opções", "Mais opções")}><MoreHorizontal aria-hidden /></Button>
               </div>
+              <p className="text-label font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t("Exceção: forma=\"quadrado\"", "Exceção: forma=\"quadrado\"")}</p>
               <div className="flex flex-wrap items-center gap-3">
-              <Button size="icon" variant="outline" aria-label={t("Edit", "Editar")}><Edit3 aria-hidden /></Button>
-              <Button size="icon-lg" variant="ghost" aria-label={t("More options", "Mais opções")}><MoreHorizontal aria-hidden /></Button>
+              <Button forma="quadrado" variant="outline">{t("Contorno", "Contorno")}</Button>
+              <Button forma="quadrado">{t("Preenchida", "Preenchida")}</Button>
               </div>
             </div>
           </ShowcaseCard>
@@ -609,7 +612,7 @@ function getFormTokenGroups(t: (en: string, pt: string) => string): TokenGroup[]
     group: t("Shape", "Forma"),
     tokens: [
       { name: "--radius-sm", description: t("Small inputs / badges", "Inputs pequenos / badges"),     light: "calc(0.75rem - 4px)" },
-      { name: "--radius-md", description: t("Buttons, text inputs", "Botões, campos de texto"),      light: "0.75rem" },
+      { name: "--radius-md", description: t("Campos de texto (botões são pílula desde 28/11/2026)", "Campos de texto (botões são pílula desde 28/11/2026)"),      light: "0.75rem" },
       { name: "--radius-lg", description: t("Large controls", "Controles grandes"),            light: "calc(0.75rem + 4px)" },
     ],
   },

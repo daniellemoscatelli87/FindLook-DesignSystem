@@ -210,13 +210,13 @@ export function IconsShowcase() {
         <SubSection title={t("In context", "Em contexto")}>
           <ShowcaseCard>
             <div className="flex flex-wrap gap-3">
-              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md bg-primary text-primary-foreground text-button font-semibold hover:opacity-90 transition-opacity">
+              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-full bg-primary text-primary-foreground text-button font-semibold hover:opacity-90 transition-opacity">
                 <Plus className="w-4 h-4" strokeWidth={2} /> {t("New", "Novo")}
               </button>
-              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border bg-card text-foreground text-button font-semibold hover:bg-accent transition-colors">
+              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-border bg-card text-foreground text-button font-semibold hover:bg-accent transition-colors">
                 <Download className="w-4 h-4" strokeWidth={1.75} /> {t("Export", "Exportar")}
               </button>
-              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-md border border-border bg-card text-foreground text-button font-semibold hover:bg-accent transition-colors">
+              <button className="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-border bg-card text-foreground text-button font-semibold hover:bg-accent transition-colors">
                 <Filter className="w-4 h-4" strokeWidth={1.75} /> {t("Filter", "Filtrar")}
               </button>
               {([Search, Settings, Bell, MoreHorizontal] as React.ElementType[]).map((Icon, i) => (
