@@ -40,7 +40,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `Alert` (props: `className`, `variant`, `tom`, `icone`, `children`)
   - `AlertTitle` (props: `className`)
   - `AlertDescription` (props: `className`)
-- **Variantes:** `variant` = `destructive` · `success` · `info` · `warning` · `error`
+- **Variantes:** `variant` = `default` · `destructive` · `success` · `info` · `warning` · `error`
 - **Onde ver:** Feedback › Alertas (`feedback#alerts`) · Feedback › Alerta só com descrição (`feedback#alerta-sem-titulo`) · Chips e estados › Alerta com tom (`chips-e-estados#alerta-tom`) · e mais 2 seções (ver `catalogo.json`)
 
 ### alert-dialog
@@ -114,7 +114,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `Badge` (props: `className`, `variant`, `asChild`): forwardRef (28/11/2026): funciona como filho de um Radix com asChild (TooltipTrigger, PopoverTrigger).
 - **Funções e constantes:** `badgeVariants`
-- **Variantes:** `variant` = `default` · `secondary` · `destructive` · `outline` · `neutro` · `sucesso` · `aviso` · `erro` · `info`
+- **Variantes:** `variant` = `default` · `secondary` · `destructive` · `outline` · `marca` · `neutro` · `sucesso` · `aviso` · `erro` · `info`
 - **Onde ver:** Chips e estados › Etiquetas e bases por tom (`chips-e-estados#etiquetas-tons`) · Fundos › Gradiente animado (`backgrounds#gradient-anim-bg`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) · e mais 1 seções (ver `catalogo.json`)
 
 ### barra-fixa-celular
@@ -166,8 +166,8 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `Button` (props: `className`, `variant`, `size`, `forma`, `quebra`, `asChild`, `carregando`, `textoCarregando`, `children`, `onClick`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
 - **Funções e constantes:** `buttonVariants`, `classeDoCarregando`
-- **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon-lg`; `forma` = `pilula` · `quadrado` · `padrao`; `quebra` = `celular` · `nunca` · `sempre`; `camadas` = `sim` · `nao`
-- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 44 seções (ver `catalogo.json`)
+- **Variantes:** `variant` = `default` · `destructive` · `secondary` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon` · `icon-lg`; `forma` = `pilula` · `quadrado` · `padrao`; `quebra` = `celular` · `nunca` · `sempre`; `camadas` = `sim` · `nao`
+- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · e mais 44 seções (ver `catalogo.json`)
 
 ### cabecalho-do-site
 
@@ -1544,7 +1544,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
 | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
 | Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:142](src/app/components/showcase/CatalogoShowcase.tsx#L142) | `Input` | 5 |
-| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:249](src/app/components/showcase/FormShowcase.tsx#L249) |  | 5 |
+| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:248](src/app/components/showcase/FormShowcase.tsx#L248) |  | 5 |
 | Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
 | Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1025](src/app/components/showcase/CardShowcase.tsx#L1025) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
 | Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1179](src/app/components/showcase/CardShowcase.tsx#L1179) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
@@ -1797,7 +1797,7 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 
 Regras documentadas no site. Antes de montar uma tela, leia as que valem para ela.
 
-- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:249](src/app/components/showcase/FormShowcase.tsx#L249)
+- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:248](src/app/components/showcase/FormShowcase.tsx#L248)
 - **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:284](src/app/components/showcase/UsabilityShowcase.tsx#L284)
 - **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:586](src/app/components/showcase/CardShowcase.tsx#L586)
 - **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669)

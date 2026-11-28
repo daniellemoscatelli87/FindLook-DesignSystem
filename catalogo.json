@@ -146,6 +146,7 @@
       ],
       "variantes": {
         "variant": [
+          "default",
           "destructive",
           "success",
           "info",
@@ -671,6 +672,7 @@
           "secondary",
           "destructive",
           "outline",
+          "marca",
           "neutro",
           "sucesso",
           "aviso",
@@ -1042,7 +1044,7 @@
         {
           "nome": "buttonVariants",
           "tipo": "utilitário",
-          "linha": 12,
+          "linha": 16,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -1050,7 +1052,7 @@
         {
           "nome": "classeDoCarregando",
           "tipo": "utilitário",
-          "linha": 104,
+          "linha": 108,
           "descricao": "Carregando (decisão da dona do produto, 28/11/2026: \"o botão loading é colorido, porém levemente esmaecido\"). O botão que está trabalhando fica na cor da própria variante (o vermelho do principal, o contorno do secundário), a 80% de …",
           "props": [],
           "reexportaDe": null
@@ -1058,7 +1060,7 @@
         {
           "nome": "Button",
           "tipo": "componente",
-          "linha": 122,
+          "linha": 126,
           "descricao": "forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …",
           "props": [
             "className",
@@ -1080,6 +1082,7 @@
         "variant": [
           "default",
           "destructive",
+          "secondary",
           "outline",
           "ghost",
           "link"
@@ -1088,6 +1091,7 @@
           "default",
           "sm",
           "lg",
+          "icon",
           "icon-lg"
         ],
         "forma": [
@@ -1125,6 +1129,18 @@
           "titulo": "Consulte o catálogo antes de montar qualquer peça",
           "arquivo": "src/app/components/showcase/DevelopShowcase.tsx",
           "linha": 145,
+          "uso": "direto",
+          "exports": [
+            "Button"
+          ]
+        },
+        {
+          "pagina": "usability",
+          "paginaRotulo": "Usabilidade",
+          "ancora": "ux-hierarchy",
+          "titulo": "Hierarquia de ações",
+          "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
+          "linha": 284,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1481,18 +1497,6 @@
         {
           "pagina": "usability",
           "paginaRotulo": "Usabilidade",
-          "ancora": "ux-hierarchy",
-          "titulo": "Hierarquia de ações",
-          "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
-          "linha": 284,
-          "uso": "dentro de outro exemplo",
-          "exports": [
-            "Button"
-          ]
-        },
-        {
-          "pagina": "usability",
-          "paginaRotulo": "Usabilidade",
           "ancora": "ux-states",
           "titulo": "Estados de conteúdo",
           "arquivo": "src/app/components/showcase/UsabilityShowcase.tsx",
@@ -1568,7 +1572,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 419,
+          "linha": 418,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -2353,7 +2357,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 292,
+          "linha": 291,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -2401,7 +2405,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 419,
+          "linha": 418,
           "uso": "dentro de outro exemplo",
           "exports": [
             "MensagemDeErro"
@@ -3411,7 +3415,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 419,
+          "linha": 418,
           "uso": "direto",
           "exports": [
             "GrupoDeCartoesDeEscolha",
@@ -3561,7 +3565,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 309,
+          "linha": 308,
           "uso": "direto",
           "exports": [
             "Checkbox"
@@ -6605,7 +6609,7 @@
           "ancora": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 249,
+          "linha": 248,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -8931,7 +8935,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 292,
+          "linha": 291,
           "uso": "direto",
           "exports": [
             "Input"
@@ -10297,7 +10301,7 @@
           "ancora": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 546,
+          "linha": 545,
           "uso": "direto",
           "exports": [
             "BotaoDividido"
@@ -10309,7 +10313,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 565,
+          "linha": 564,
           "uso": "direto",
           "exports": [
             "SeletorDePeriodo"
@@ -11669,7 +11673,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 309,
+          "linha": 308,
           "uso": "direto",
           "exports": [
             "PasswordConfirm"
@@ -11984,7 +11988,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 309,
+          "linha": 308,
           "uso": "direto",
           "exports": [
             "RadioGroup",
@@ -12220,7 +12224,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 419,
+          "linha": 418,
           "uso": "direto",
           "exports": [
             "SegmentedControl"
@@ -12487,7 +12491,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 309,
+          "linha": 308,
           "uso": "direto",
           "exports": [
             "Select",
@@ -13654,7 +13658,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 565,
+          "linha": 564,
           "uso": "direto",
           "exports": [
             "Switch"
@@ -14006,7 +14010,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 309,
+          "linha": 308,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -17348,7 +17352,7 @@
       "ancora": "botao-principal",
       "titulo": "Um botão principal",
       "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-      "linha": 249,
+      "linha": 248,
       "elementosFeitosAMao": 5,
       "usaComponentes": []
     },
@@ -19004,7 +19008,7 @@
         "titulo": "Um botão principal",
         "resumo": "Um só botão principal (cheio) por área; o resto em contorno, ghost ou link",
         "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-        "linha": 249
+        "linha": 248
       },
       {
         "ancora": "ux-hierarchy",
@@ -20288,43 +20292,43 @@
           "id": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 249
+          "linha": 248
         },
         {
           "id": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 292
+          "linha": 291
         },
         {
           "id": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 309
+          "linha": 308
         },
         {
           "id": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 419
+          "linha": 418
         },
         {
           "id": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 546
+          "linha": 545
         },
         {
           "id": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 565
+          "linha": 564
         },
         {
           "id": "buttons-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 619
+          "linha": 618
         },
         {
           "id": "botao-quebra",
