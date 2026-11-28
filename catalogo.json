@@ -2957,7 +2957,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 401,
+          "linha": 405,
           "uso": "direto",
           "exports": [
             "GrupoDeCartoesDeEscolha",
@@ -3107,7 +3107,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 291,
+          "linha": 295,
           "uso": "direto",
           "exports": [
             "Checkbox"
@@ -5913,7 +5913,7 @@
           "ancora": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 222,
+          "linha": 226,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -8101,7 +8101,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 265,
+          "linha": 269,
           "uso": "direto",
           "exports": [
             "Input"
@@ -9453,7 +9453,7 @@
           "ancora": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 524,
+          "linha": 528,
           "uso": "direto",
           "exports": [
             "BotaoDividido"
@@ -9465,7 +9465,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 543,
+          "linha": 547,
           "uso": "direto",
           "exports": [
             "SeletorDePeriodo"
@@ -10785,7 +10785,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 291,
+          "linha": 295,
           "uso": "direto",
           "exports": [
             "PasswordConfirm"
@@ -11100,7 +11100,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 291,
+          "linha": 295,
           "uso": "direto",
           "exports": [
             "RadioGroup",
@@ -11277,7 +11277,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 401,
+          "linha": 405,
           "uso": "direto",
           "exports": [
             "SegmentedControl"
@@ -11436,7 +11436,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 291,
+          "linha": 295,
           "uso": "direto",
           "exports": [
             "Select",
@@ -12555,7 +12555,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 543,
+          "linha": 547,
           "uso": "direto",
           "exports": [
             "Switch"
@@ -12892,7 +12892,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 291,
+          "linha": 295,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -14928,7 +14928,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 265
+          "linha": 269
         }
       ],
       "usaComponentes": [
@@ -16297,7 +16297,7 @@
       "ancora": "botao-principal",
       "titulo": "Um botão principal",
       "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-      "linha": 222,
+      "linha": 226,
       "elementosFeitosAMao": 5,
       "usaComponentes": []
     },
@@ -17920,7 +17920,7 @@
         "titulo": "Um botão principal",
         "resumo": "Um só botão principal (cheio) por área; o resto em contorno, ghost ou link",
         "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-        "linha": 222
+        "linha": 226
       },
       {
         "ancora": "ux-hierarchy",
@@ -19170,43 +19170,43 @@
           "id": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 222
+          "linha": 226
         },
         {
           "id": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 265
+          "linha": 269
         },
         {
           "id": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 291
+          "linha": 295
         },
         {
           "id": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 401
+          "linha": 405
         },
         {
           "id": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 524
+          "linha": 528
         },
         {
           "id": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 543
+          "linha": 547
         },
         {
           "id": "buttons-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 597
+          "linha": 601
         }
       ]
     },
