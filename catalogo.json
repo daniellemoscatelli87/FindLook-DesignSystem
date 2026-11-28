@@ -5,14 +5,14 @@
   "geradoPor": "scripts/gerar-catalogo.mjs",
   "regra": "antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.",
   "resumo": {
-    "arquivosDeComponentes": 125,
-    "componentesExportados": 461,
+    "arquivosDeComponentes": 126,
+    "componentesExportados": 462,
     "templatesEPadroesSoEmDemonstracao": 88,
-    "secoesComMarcacaoAMao": 50,
+    "secoesComMarcacaoAMao": 51,
     "tokens": 179,
     "paginas": 37,
-    "ancoras": 270,
-    "propostas": 37
+    "ancoras": 272,
+    "propostas": 38
   },
   "componentes": [
     {
@@ -455,6 +455,72 @@
             "AlertaComAcao",
             "BotaoDoAlerta",
             "LinkDoAlerta"
+          ]
+        }
+      ]
+    },
+    {
+      "arquivo": "src/app/components/ui/alternador-compacto.tsx",
+      "nome": "alternador-compacto",
+      "quandoUsar": "AlternadorCompacto (28/11/2026, pedido da dona do produto: \"esse componente de claro/escuro – português/inglês é um switch que deve estar disponível no DS para outros usos\")",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "AlternadorCompacto",
+          "tipo": "componente",
+          "linha": 61,
+          "descricao": "",
+          "props": [
+            "options",
+            "value",
+            "defaultValue",
+            "onValueChange",
+            "rotuloVisivel",
+            "className"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "AlternadorCompactoProps",
+        "OpcaoDoAlternador"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "buttons",
+          "paginaRotulo": "Botões",
+          "ancora": "alternador-compacto",
+          "titulo": "Alternador compacto",
+          "arquivo": "src/app/components/showcase/FormShowcase.tsx",
+          "linha": 535,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "AlternadorCompacto"
+          ]
+        },
+        {
+          "pagina": "header",
+          "paginaRotulo": "Header e menus",
+          "ancora": "header-logo-celular",
+          "titulo": "Logo no celular",
+          "arquivo": "src/app/components/showcase/shared/LogoNoCelularDocs.tsx",
+          "linha": 23,
+          "uso": "direto",
+          "exports": [
+            "AlternadorCompacto"
+          ]
+        },
+        {
+          "pagina": "header",
+          "paginaRotulo": "Header e menus",
+          "ancora": "header-mobile",
+          "titulo": "Menus no celular",
+          "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
+          "linha": 755,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "AlternadorCompacto"
           ]
         }
       ]
@@ -1084,7 +1150,7 @@
           "ancora": "buttons",
           "titulo": "Variantes de botão",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 100,
+          "linha": 101,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1324,7 +1390,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1540,7 +1606,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 372,
+          "linha": 373,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1624,7 +1690,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1653,7 +1719,7 @@
         {
           "nome": "useRolagemDoCabecalho",
           "tipo": "utilitário",
-          "linha": 37,
+          "linha": 39,
           "descricao": "Rolagem do cabeçalho: se a página já rolou e se ele deve estar escondido (desceu) ou à mostra (subiu).",
           "props": [],
           "reexportaDe": null
@@ -1661,7 +1727,7 @@
         {
           "nome": "MenuDoCelular",
           "tipo": "componente",
-          "linha": 95,
+          "linha": 97,
           "descricao": "Menu do celular em folha inferior: os itens um por linha (48 px, seta à direita; o atual no rosa do selecionado) e as ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um item.",
           "props": [
             "aberto",
@@ -1680,7 +1746,7 @@
         {
           "nome": "CabecalhoDoSite",
           "tipo": "componente",
-          "linha": 192,
+          "linha": 194,
           "descricao": "",
           "props": [
             "itens",
@@ -1744,7 +1810,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CabecalhoDoSite"
@@ -2325,7 +2391,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 245,
+          "linha": 246,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -2337,7 +2403,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -2373,7 +2439,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 372,
+          "linha": 373,
           "uso": "dentro de outro exemplo",
           "exports": [
             "MensagemDeErro"
@@ -3383,7 +3449,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 372,
+          "linha": 373,
           "uso": "direto",
           "exports": [
             "GrupoDeCartoesDeEscolha",
@@ -3533,7 +3599,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 262,
+          "linha": 263,
           "uso": "direto",
           "exports": [
             "Checkbox"
@@ -5303,7 +5369,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "PaginaDeErro"
@@ -6334,7 +6400,7 @@
           "ancora": "header-scroll",
           "titulo": "Comportamentos de rolagem",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 744,
+          "linha": 746,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -6577,7 +6643,19 @@
           "ancora": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 202,
+          "linha": 203,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "buttons",
+          "paginaRotulo": "Botões",
+          "ancora": "alternador-compacto",
+          "titulo": "Alternador compacto",
+          "arquivo": "src/app/components/showcase/FormShowcase.tsx",
+          "linha": 535,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6754,10 +6832,34 @@
         {
           "pagina": "header",
           "paginaRotulo": "Header e menus",
+          "ancora": "header-mobile",
+          "titulo": "Menus no celular",
+          "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
+          "linha": 755,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "header",
+          "paginaRotulo": "Header e menus",
           "ancora": "header-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 803,
+          "linha": 806,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "header",
+          "paginaRotulo": "Header e menus",
+          "ancora": "header-logo-celular",
+          "titulo": "Logo no celular",
+          "arquivo": "src/app/components/showcase/shared/LogoNoCelularDocs.tsx",
+          "linha": 23,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6817,7 +6919,7 @@
           "ancora": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 86,
+          "linha": 87,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6829,7 +6931,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6841,7 +6943,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -8903,7 +9005,7 @@
           "ancora": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 245,
+          "linha": 246,
           "uso": "direto",
           "exports": [
             "Input"
@@ -9149,7 +9251,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "direto",
           "exports": [
             "LinkSaibaMais"
@@ -9213,7 +9315,7 @@
           "ancora": "site-links",
           "titulo": "Links de texto",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 183,
+          "linha": 184,
           "uso": "direto",
           "exports": [
             "LinkDeTexto",
@@ -9227,7 +9329,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "LinkDeTexto"
@@ -9278,7 +9380,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "ListaDeVantagens"
@@ -9290,7 +9392,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "direto",
           "exports": [
             "ListaDeVantagens"
@@ -9344,7 +9446,19 @@
           "ancora": "site-logo",
           "titulo": "Logo",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 173,
+          "linha": 174,
+          "uso": "direto",
+          "exports": [
+            "Logo"
+          ]
+        },
+        {
+          "pagina": "site",
+          "paginaRotulo": "Moldura do site",
+          "ancora": "site-cabecalho",
+          "titulo": "Cabeçalho e menu do celular",
+          "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
+          "linha": 43,
           "uso": "direto",
           "exports": [
             "Logo"
@@ -9820,7 +9934,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "MolduraDeConta"
@@ -10269,7 +10383,7 @@
           "ancora": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 499,
+          "linha": 500,
           "uso": "direto",
           "exports": [
             "BotaoDividido"
@@ -10281,7 +10395,7 @@
           "ancora": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 518,
+          "linha": 519,
           "uso": "direto",
           "exports": [
             "SeletorDePeriodo"
@@ -11641,7 +11755,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 262,
+          "linha": 263,
           "uso": "direto",
           "exports": [
             "PasswordConfirm"
@@ -11828,7 +11942,7 @@
           "ancora": "site-prosa",
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 199,
+          "linha": 200,
           "uso": "direto",
           "exports": [
             "Prosa"
@@ -11869,7 +11983,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "direto",
           "exports": [
             "ProvaSocial"
@@ -11956,7 +12070,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 262,
+          "linha": 263,
           "uso": "direto",
           "exports": [
             "RadioGroup",
@@ -12115,7 +12229,7 @@
           "ancora": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 86,
+          "linha": 87,
           "uso": "direto",
           "exports": [
             "RodapeDoSite"
@@ -12163,9 +12277,17 @@
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
+          "nome": "useEscolhaSegmentada",
+          "tipo": "utilitário",
+          "linha": 52,
+          "descricao": "Lógica de seleção em comum entre o SegmentedControl e o AlternadorCompacto (28/11/2026): valor controlado ou não, sempre uma opção selecionada, e as setas selecionando a próxima opção habilitada (como em um grupo de rádio), com volta ao …",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
           "nome": "SegmentedControl",
           "tipo": "componente",
-          "linha": 47,
+          "linha": 87,
           "descricao": "",
           "props": [
             "options",
@@ -12192,7 +12314,7 @@
           "ancora": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 372,
+          "linha": 373,
           "uso": "direto",
           "exports": [
             "SegmentedControl"
@@ -12336,7 +12458,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "SegmentedControl"
@@ -12459,7 +12581,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 262,
+          "linha": 263,
           "uso": "direto",
           "exports": [
             "Select",
@@ -12503,7 +12625,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 708,
+          "linha": 710,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Select",
@@ -13623,10 +13745,10 @@
         {
           "pagina": "buttons",
           "paginaRotulo": "Botões",
-          "ancora": "seletor-periodo",
-          "titulo": "Seletor de período",
+          "ancora": "alternador-compacto",
+          "titulo": "Alternador compacto",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 518,
+          "linha": 535,
           "uso": "direto",
           "exports": [
             "Switch"
@@ -13674,7 +13796,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 708,
+          "linha": 710,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Switch"
@@ -13978,7 +14100,7 @@
           "ancora": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 262,
+          "linha": 263,
           "uso": "direto",
           "exports": [
             "Textarea"
@@ -14907,7 +15029,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128
+          "linha": 129
         }
       ],
       "usaComponentes": [
@@ -16870,7 +16992,7 @@
       "nome": "Segmentado",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 102,
+      "linha": 103,
       "descricao": "Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso, lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch.",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -16881,7 +17003,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 708
+          "linha": 710
         }
       ],
       "usaComponentes": [
@@ -16897,7 +17019,7 @@
       "nome": "Capa",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 149,
+      "linha": 150,
       "descricao": "Fundos por trás do header",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -16908,7 +17030,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 708
+          "linha": 710
         }
       ],
       "usaComponentes": [],
@@ -16918,7 +17040,7 @@
       "nome": "DemoHeader",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 173,
+      "linha": 174,
       "descricao": "Demonstração: janela com rolagem própria",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -16929,7 +17051,7 @@
           "ancora": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 708
+          "linha": 710
         }
       ],
       "usaComponentes": [],
@@ -16939,7 +17061,7 @@
       "nome": "CardOpcao",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-      "linha": 559,
+      "linha": 561,
       "descricao": "Cards de explicação, com atalho para a demonstração",
       "pagina": "header",
       "paginaRotulo": "Header e menus",
@@ -16950,7 +17072,7 @@
           "ancora": "header-models",
           "titulo": "Modelos",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 735
+          "linha": 737
         },
         {
           "pagina": "header",
@@ -16958,7 +17080,7 @@
           "ancora": "header-scroll",
           "titulo": "Comportamentos de rolagem",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 744
+          "linha": 746
         },
         {
           "pagina": "header",
@@ -16966,7 +17088,7 @@
           "ancora": "header-mobile",
           "titulo": "Menus no celular",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 753
+          "linha": 755
         },
         {
           "pagina": "header",
@@ -16974,7 +17096,7 @@
           "ancora": "header-backgrounds",
           "titulo": "Fundos por trás do header",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 762
+          "linha": 765
         }
       ],
       "usaComponentes": [],
@@ -17341,7 +17463,7 @@
       "ancora": "botao-principal",
       "titulo": "Um botão principal",
       "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-      "linha": 202,
+      "linha": 203,
       "elementosFeitosAMao": 5,
       "usaComponentes": []
     },
@@ -17615,6 +17737,18 @@
         "AccordionContent",
         "AccordionItem",
         "AccordionTrigger"
+      ]
+    },
+    {
+      "pagina": "header",
+      "paginaRotulo": "Header e menus",
+      "ancora": "header-logo-celular",
+      "titulo": "Logo no celular",
+      "arquivo": "src/app/components/showcase/shared/LogoNoCelularDocs.tsx",
+      "linha": 23,
+      "elementosFeitosAMao": 3,
+      "usaComponentes": [
+        "AlternadorCompacto"
       ]
     },
     {
@@ -18997,7 +19131,7 @@
         "titulo": "Um botão principal",
         "resumo": "Um só botão principal (cheio) por área; o resto em contorno, ghost ou link",
         "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-        "linha": 202
+        "linha": 203
       },
       {
         "ancora": "ux-hierarchy",
@@ -19159,7 +19293,7 @@
         "titulo": "Uso",
         "resumo": "Cabeçalho: uso",
         "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-        "linha": 803
+        "linha": 806
       }
     ],
     "outras": [
@@ -19436,6 +19570,12 @@
       "titulo": "Título de grupo",
       "status": "proposta",
       "componente": "TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-alternador-compacto.md",
+      "titulo": "Alternador compacto",
+      "status": "proposta",
+      "componente": "AlternadorCompacto em src/app/components/ui/alternador-compacto.tsx (o mesmo arquivo nos dois DS)"
     },
     {
       "arquivo": "propostas/2026-11-28-caixa-de-consentimento.md",
@@ -20275,49 +20415,55 @@
           "id": "buttons",
           "titulo": "Variantes de botão",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 100
+          "linha": 101
         },
         {
           "id": "botao-principal",
           "titulo": "Um botão principal",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 202
+          "linha": 203
         },
         {
           "id": "inputs",
           "titulo": "Controles de formulário",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 245
+          "linha": 246
         },
         {
           "id": "password",
           "titulo": "Senha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 262
+          "linha": 263
         },
         {
           "id": "cartoes-de-escolha",
           "titulo": "Cartões de escolha",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 372
+          "linha": 373
         },
         {
           "id": "botao-dividido",
           "titulo": "Botão dividido",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 499
+          "linha": 500
         },
         {
           "id": "seletor-periodo",
           "titulo": "Seletor de período",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 518
+          "linha": 519
+        },
+        {
+          "id": "alternador-compacto",
+          "titulo": "Alternador compacto",
+          "arquivo": "src/app/components/showcase/FormShowcase.tsx",
+          "linha": 535
         },
         {
           "id": "buttons-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FormShowcase.tsx",
-          "linha": 572
+          "linha": 580
         },
         {
           "id": "botao-quebra",
@@ -20937,49 +21083,55 @@
           "id": "header-demo",
           "titulo": "Demonstração",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 708
+          "linha": 710
         },
         {
           "id": "header-models",
           "titulo": "Modelos",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 735
+          "linha": 737
         },
         {
           "id": "header-scroll",
           "titulo": "Comportamentos de rolagem",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 744
+          "linha": 746
         },
         {
           "id": "header-mobile",
           "titulo": "Menus no celular",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 753
+          "linha": 755
         },
         {
           "id": "header-backgrounds",
           "titulo": "Fundos por trás do header",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 762
+          "linha": 765
         },
         {
           "id": "header-a11y",
           "titulo": "Checklist de acessibilidade",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 779
+          "linha": 782
         },
         {
           "id": "header-usage",
           "titulo": "Uso",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 803
+          "linha": 806
         },
         {
           "id": "header-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/HeaderShowcase.tsx",
-          "linha": 819
+          "linha": 822
+        },
+        {
+          "id": "header-logo-celular",
+          "titulo": "Logo no celular",
+          "arquivo": "src/app/components/showcase/shared/LogoNoCelularDocs.tsx",
+          "linha": 23
         }
       ]
     },
@@ -21122,43 +21274,43 @@
           "id": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 86
+          "linha": 87
         },
         {
           "id": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107
+          "linha": 108
         },
         {
           "id": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128
+          "linha": 129
         },
         {
           "id": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152
+          "linha": 153
         },
         {
           "id": "site-logo",
           "titulo": "Logo",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 173
+          "linha": 174
         },
         {
           "id": "site-links",
           "titulo": "Links de texto",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 183
+          "linha": 184
         },
         {
           "id": "site-prosa",
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 199
+          "linha": 200
         }
       ]
     },

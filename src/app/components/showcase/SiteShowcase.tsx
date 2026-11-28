@@ -75,6 +75,7 @@ export function SiteShowcase() {
             [<Mono>tela</Mono>, "auto (padrão), celular ou computador (demonstrações). No FindLook, telaLarga: lg (1024 px) ou xl (1280 px)."],
             [<Mono>superficie</Mono>, "\"escura\" na página do lojista (logo da versão sobre grafite)."],
             [<Mono>inicioHref</Mono>, "Destino do logo; com rotuloInicio, logo, raiz, posicao, textos e, no FindLook, comoLink (Next.js)."],
+            [<Mono>logo</Mono>, "Logo no celular (28/11/2026, padrão, sem prop): abaixo de 640 px, só o símbolo; a partir de 640 px, o logo completo; ao rolar, o símbolo (iconeAoRolar). Ver Header e menus › Logo no celular."],
           ]}
         />
         <DoDont

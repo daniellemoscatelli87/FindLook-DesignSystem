@@ -17,6 +17,16 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Alternador compacto"),
+    desc: pt("AlternadorCompacto (28/11/2026, pedido da dona do produto: \"esse componente de claro/escuro – português/inglês é um switch que deve estar disponível no DS para outros usos\"; mesma API e mesmo arquivo nos dois DS): de duas a quatro opções curtas num trilho cinza em pílula (36 px: h-9, p-1, gap-1), com a opção escolhida em branco, borda e sombra leve, num polegar que desliza até a nova escolha (--duration-normal, --ease-snappy; com menos movimento, troca sem deslizar). Opções de 28 px com área de toque invisível de 44 px de altura. Ícones opcionais; rotuloVisivel sempre | sm | nunca (no celular, só o ícone, e o texto continua para o leitor de tela); nome dá o nome completo de uma sigla. role=radiogroup, setas e Tab como no SegmentedControl, que passa a dividir a lógica com ele (useEscolhaSegmentada). Os seletores de idioma e tema do cabeçalho deste site agora são o componente, sem mudança visual (o trilho ficou 2 px mais largo: as duas opções reservam a borda, e o texto não pula mais 1 px ao trocar). Em Controles de formulário › Alternador compacto."),
+    page: "buttons", anchor: "alternador-compacto",
+  },
+  {
+    date: "Nov 2026", kind: "Updated", title: pt("Logo no celular: só o símbolo"),
+    desc: pt("Pedido da dona do produto (28/11/2026), a mesma regra nos dois DS: no celular (abaixo de 640 px), o cabeçalho mostra só o símbolo; o nome aparece a partir de 640 px. Documentado em Header e menus › Logo no celular, com exemplo ao vivo e faça/não faça; a demonstração do header passou a usar o símbolo no celular em qualquer modelo. O cabeçalho deste site passa a mostrar só o símbolo abaixo de 640 px (antes, \"FindLook\" aparecia ao lado), e o CabecalhoDoSite também, por padrão e sem prop nova (tela=\"celular\" mostra o símbolo; a partir de 640 px, o logo completo). O cabeçalho próprio do produto FindLook ainda não usa o CabecalhoDoSite."),
+    page: "header", anchor: "header-logo-celular",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Caixa de consentimento e caixa de marcar quadrada"),
     desc: pt("CaixaDeConsentimento (28/11/2026, aprovada pela dona do produto; mesma API nos dois DS): um sim de consentimento num card que se marca inteiro (caixa nativa dentro de um label): caixa quadrada de 22 px com cantos de 6 px, título de 16 px seminegrito, texto de 14 px em cinza escuro (grafite 600, 7,8:1) com links em --primary-text; marcado = fundo --primary-suave e borda --primary; anel de foco, erro (borda --error e MensagemDeErro) e desativado. paragrafos põe cada frase numa linha nova. A Checkbox fica claramente quadrada: cantos de 6 px (novo --radius-xs) no lugar de 8 px, que deixavam a caixa de 20 px com cara de redonda, como um rádio."),
     page: "campos", anchor: "caixa-de-consentimento",

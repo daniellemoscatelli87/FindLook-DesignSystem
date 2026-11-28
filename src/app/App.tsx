@@ -40,6 +40,7 @@ import { UploadShowcase } from "./components/showcase/UploadShowcase";
 import { VoiceShowcase } from "./components/showcase/VoiceShowcase";
 import { StatesShowcase } from "./components/showcase/StatesShowcase";
 import { Toaster } from "./components/ui/sonner";
+import { AlternadorCompacto } from "./components/ui/alternador-compacto";
 import { CatalogoShowcase } from "./components/showcase/CatalogoShowcase";
 import { ProdutoShowcase } from "./components/showcase/ProdutoShowcase";
 import { GraficosShowcase } from "./components/showcase/GraficosShowcase";
@@ -408,6 +409,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "password",       label: "Senha",           sectionId: "buttons" },
           { id: "cartoes-de-escolha", label: "Cartões de escolha", sectionId: "buttons" },
           { id: "segmented",      label: "Controle segmentado", sectionId: "buttons" },
+          { id: "alternador-compacto", label: "Alternador compacto", sectionId: "buttons" },
           { id: "botao-dividido", label: "Botão dividido",      sectionId: "buttons" },
           { id: "seletor-periodo", label: "Seletor de período",  sectionId: "buttons" },
           { id: "botao-quebra", label: "Texto longo no botão", sectionId: "buttons" },
@@ -528,6 +530,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "header-models",      label: "Modelos",                     sectionId: "header" },
           { id: "header-scroll",      label: "Comportamentos de rolagem",   sectionId: "header" },
           { id: "header-mobile",      label: "Menus no celular",            sectionId: "header" },
+          { id: "header-logo-celular", label: "Logo no celular",           sectionId: "header" },
           { id: "header-backgrounds", label: "Fundos por trás do header",   sectionId: "header" },
           { id: "header-a11y",        label: "Checklist de acessibilidade", sectionId: "header" },
           { id: "header-usage",       label: "Uso",                         sectionId: "header" },
@@ -947,7 +950,9 @@ function AppShell() {
         `}</style>
         <button type="button" onClick={() => navigateTo("overview")} aria-label={tl("Home")} className="flex items-center gap-2 min-w-0 text-left">
           <img src={logoSimbolo} alt="" className="h-[34px] w-auto object-contain shrink-0" />
-          <div className="flex items-center gap-0">
+          {/* Celular (28/11/2026, pedido da dona do produto): abaixo de 640 px, só o símbolo, como no DS Dani Moscatelli;
+              o nome e "| Design System" aparecem a partir de 640 px (não encostam na busca em nenhuma largura). */}
+          <div className="hidden sm:flex items-center gap-0">
             <span
               className="ds-wordmark text-subtitle font-extrabold tracking-[-0.03em] whitespace-nowrap"
               style={{ fontFamily: "var(--font-sans)" }}
@@ -987,31 +992,17 @@ function AppShell() {
         </button>
 
 
-        {/* Dark/Light segmented pill */}
-        <div className="flex items-center h-9 p-1 rounded-full bg-muted border border-border gap-1">
-          <button
-            onClick={() => setDark(false)}
-            data-alvo-compacto className={`relative flex items-center gap-1 h-7 px-3 rounded-full text-label font-medium transition-all duration-150 after:absolute after:inset-x-0 after:-inset-y-2 after:content-[''] ${
-              !dark
-                ? "bg-card text-foreground shadow-sm border border-border"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Sun style={{ height: "13px", width: "13px" }} />
-            <span className="hidden sm:inline">{t("Light", "Claro")}</span>
-          </button>
-          <button
-            onClick={() => setDark(true)}
-            data-alvo-compacto className={`relative flex items-center gap-1 h-7 px-3 rounded-full text-label font-medium transition-all duration-150 after:absolute after:inset-x-0 after:-inset-y-2 after:content-[''] ${
-              dark
-                ? "bg-card text-foreground shadow-sm border border-border"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Moon style={{ height: "13px", width: "13px" }} />
-            <span className="hidden sm:inline">{t("Dark", "Escuro")}</span>
-          </button>
-        </div>
+        {/* Tema: o AlternadorCompacto do DS (28/11/2026), o mesmo desenho do seletor feito à mão antes */}
+        <AlternadorCompacto
+          aria-label={t("Theme", "Tema")}
+          value={dark ? "escuro" : "claro"}
+          onValueChange={(v) => setDark(v === "escuro")}
+          rotuloVisivel="sm"
+          options={[
+            { value: "claro", label: t("Light", "Claro"), icon: <Sun /> },
+            { value: "escuro", label: t("Dark", "Escuro"), icon: <Moon /> },
+          ]}
+        />
       </header>
 
       <div className="flex flex-1 pt-16">

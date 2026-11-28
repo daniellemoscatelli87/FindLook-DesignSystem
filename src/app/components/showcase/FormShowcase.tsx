@@ -5,6 +5,7 @@ import {
   Search, Eye, EyeOff, ChevronDown, Plus, Send, Upload, Loader2, Trash2, Edit3, Copy, Share, MoreHorizontal,
   ArrowRight, Check, X, Zap, Star, XCircle,
 } from "lucide-react";
+import { AlternadorCompactoDocs } from "./shared/AlternadorCompactoDocs";
 import { SegmentedControl } from "@/app/components/ui/segmented-control";
 import { Button } from "@/app/components/ui/button";
 import { Campo } from "@/app/components/ui/campo";
@@ -527,6 +528,13 @@ const [confirmacao, setConfirmacao] = useState("");
                 <div><SeletorDePeriodo valor={periodoCurto} onChange={setPeriodoCurto} periodos={[{ valor: "hoje", rotulo: "Hoje" }, { valor: "semana", rotulo: "Esta semana" }, { valor: "mes", rotulo: "Este mês" }]} /></div>
               </div>
             </div>
+          </ShowcaseCard>
+        </SubSection>
+
+        <SubSection title={t("Compact switch", "Alternador compacto")}>
+          <div id="alternador-compacto" className="scroll-mt-32" />
+          <ShowcaseCard>
+            <AlternadorCompactoDocs />
           </ShowcaseCard>
         </SubSection>
 

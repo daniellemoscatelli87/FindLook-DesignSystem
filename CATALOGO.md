@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 125 arquivos de componentes em `src/app/components/ui/` com 461 componentes exportados · 88 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 270 âncoras no site (https://designsystem.findlook.com.br) · 37 propostas de componente.
+**Resumo:** 126 arquivos de componentes em `src/app/components/ui/` com 462 componentes exportados · 88 templates e padrões ainda só em demonstração · 51 seções com marcação feita à mão · 179 tokens · 37 páginas e 272 âncoras no site (https://designsystem.findlook.com.br) · 38 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -72,6 +72,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Funções e constantes:** `variaveisDoAlerta`
 - **Variantes:** `tom` = `info` · `sucesso` · `aviso` · `erro`
 - **Onde ver:** Feedback › Alerta com ação (`feedback#alerta-com-acao`) · Rótulos (`badges`, fora das seções)
+
+### alternador-compacto
+
+- **Arquivo:** [src/app/components/ui/alternador-compacto.tsx](src/app/components/ui/alternador-compacto.tsx)
+- **Quando usar:** AlternadorCompacto (28/11/2026, pedido da dona do produto: "esse componente de claro/escuro – português/inglês é um switch que deve estar disponível no DS para outros usos")
+- **Componentes:**
+  - `AlternadorCompacto` (props: `options`, `value`, `defaultValue`, `onValueChange`, `rotuloVisivel`, `className`)
+- **Onde ver:** Botões › Alternador compacto (`buttons#alternador-compacto`) · Header e menus › Logo no celular (`header#header-logo-celular`) · Header e menus › Menus no celular (`header#header-mobile`)
 
 ### aspect-ratio
 
@@ -597,7 +605,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 89 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 92 seções (ver `catalogo.json`)
 
 ### graficos
 
@@ -777,7 +785,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Logo da FindLook: mesma API do Logo do design system Dani Moscatelli. É o desenho oficial (os mesmos traços dos arquivos de src/imports/svg/, conferidos caminho a caminho) em SVG dentro do código: chega ao produto pela sincronização, sem arquivo nem <img> com caminho próprio.
 - **Componentes:**
   - `Logo` (props: `variante`, `superficie`, `rotulo`, `corDoSimbolo`, `href`, `comoLink`, `className`)
-- **Onde ver:** Moldura do site › Logo (`site#site-logo`) · Demonstrações animadas › Miniatura do painel (`demonstracoes#miniatura-do-painel`)
+- **Onde ver:** Moldura do site › Logo (`site#site-logo`) · Moldura do site › Cabeçalho e menu do celular (`site#site-cabecalho`) · Demonstrações animadas › Miniatura do painel (`demonstracoes#miniatura-do-painel`)
 
 ### lucide-catalogo
 
@@ -1091,6 +1099,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** SegmentedControl (controle segmentado): Opções acopladas, uma selecionada por vez, que se tocam como botões. Use para escolhas curtas e exclusivas (2 a 5 opções, rótulos de uma ou duas palavras): filtro, condição, período, modo de exibição. Sempre há uma opção selecionada. Teclado: setas movem a seleção; Tab entra e sai do grupo.
 - **Componentes:**
   - `SegmentedControl` (props: `options`, `value`, `defaultValue`, `onValueChange`, `variant`, `size`, `fullWidth`, `className`)
+- **Funções e constantes:** `useEscolhaSegmentada`
 - **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Linha do tempo › Demonstração (`timeline#timeline-demo`) · Upload › Recorte de foto (`upload#recorte-de-foto`) · e mais 10 seções (ver `catalogo.json`)
 
 ### select
@@ -1271,7 +1280,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Interruptor: trilho de 44 × 24 px; no toque, a área clicável tem 44 px de altura, sem mudar o desenho (27/11/2026).
 - **Componentes:**
   - `Switch` (props: `className`)
-- **Onde ver:** Botões › Seletor de período (`buttons#seletor-periodo`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) · e mais 2 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Alternador compacto (`buttons#alternador-compacto`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) · e mais 2 seções (ver `catalogo.json`)
 
 ### tabela-adaptavel
 
@@ -1462,10 +1471,10 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `DrawerDemo`<br>Drawer | Sobreposições (overlays) | [src/app/components/showcase/OverlaysShowcase.tsx:147](src/app/components/showcase/OverlaysShowcase.tsx#L147) | `Button`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle` | 3 |
 | `ExemploMenuRecolhivel`<br>Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. | Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) | [src/app/components/showcase/OverlaysShowcase.tsx:201](src/app/components/showcase/OverlaysShowcase.tsx#L201) | `BarraSuperiorDoPainel`, `GatilhoDaConta`, `GrupoDoMenu`, `ItemDoMenu`, `MenuLateral`, `MenuLateralProvider`, `NavDoMenu`, `TopoDoMenu` | 4 |
 | `ExemploOpcaoA`<br>Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. | Sobreposições (overlays) › Cabeçalho da página (`overlays#cabecalho-pagina`) | [src/app/components/showcase/OverlaysShowcase.tsx:250](src/app/components/showcase/OverlaysShowcase.tsx#L250) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 1 |
-| `Segmentado`<br>Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso, lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch. | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:102](src/app/components/showcase/HeaderShowcase.tsx#L102) | `Select`, `SelectContent`, `SelectItem`, `SelectTrigger`, `SelectValue` | 1 |
-| `Capa`<br>Fundos por trás do header | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:149](src/app/components/showcase/HeaderShowcase.tsx#L149) |  | 4 |
-| `DemoHeader`<br>Demonstração: janela com rolagem própria | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:173](src/app/components/showcase/HeaderShowcase.tsx#L173) |  | 39 |
-| `CardOpcao`<br>Cards de explicação, com atalho para a demonstração | Header e menus › Modelos (`header#header-models`) (+3) | [src/app/components/showcase/HeaderShowcase.tsx:559](src/app/components/showcase/HeaderShowcase.tsx#L559) |  | 3 |
+| `Segmentado`<br>Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso, lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch. | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:103](src/app/components/showcase/HeaderShowcase.tsx#L103) | `Select`, `SelectContent`, `SelectItem`, `SelectTrigger`, `SelectValue` | 1 |
+| `Capa`<br>Fundos por trás do header | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:150](src/app/components/showcase/HeaderShowcase.tsx#L150) |  | 4 |
+| `DemoHeader`<br>Demonstração: janela com rolagem própria | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:174](src/app/components/showcase/HeaderShowcase.tsx#L174) |  | 39 |
+| `CardOpcao`<br>Cards de explicação, com atalho para a demonstração | Header e menus › Modelos (`header#header-models`) (+3) | [src/app/components/showcase/HeaderShowcase.tsx:561](src/app/components/showcase/HeaderShowcase.tsx#L561) |  | 3 |
 | `StorePanelDemo`<br>Variante: formulário "Cadastrar minha loja" (demonstração) | Painel lateral › Comportamento (`sidepanel#sidepanel-behavior`) (+1) | [src/app/components/showcase/SidePanelShowcase.tsx:37](src/app/components/showcase/SidePanelShowcase.tsx#L37) | `SidePanel`, `SidePanelActions`, `SidePanelBody`, `SidePanelContent`, `SidePanelFooter`, `SidePanelHeader`, `SidePanelTrigger` | 6 |
 | `DemoDoCursor` | Demonstrações animadas › Cursor de demonstração (`demonstracoes#cursor-de-demonstracao`) | [src/app/components/showcase/DemonstracoesShowcase.tsx:21](src/app/components/showcase/DemonstracoesShowcase.tsx#L21) | `Button`, `CursorDeDemonstracao`, `Input` | 2 |
 
@@ -1512,7 +1521,7 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `OrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1478](src/app/components/showcase/MotionShowcase.tsx#L1478) |  | 1 |
 | `AvatarOrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1626](src/app/components/showcase/MotionShowcase.tsx#L1626) |  | 3 |
 
-### 2.4 Seções com marcação feita à mão no próprio corpo (50)
+### 2.4 Seções com marcação feita à mão no próprio corpo (51)
 
 Seções que montam peças direto na página, sem componente local, com 3 ou mais elementos de estilo próprio. Antes de copiar uma delas, confira se a peça já existe na seção 1.
 
@@ -1545,7 +1554,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
 | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
 | Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:142](src/app/components/showcase/CatalogoShowcase.tsx#L142) | `Input` | 5 |
-| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:202](src/app/components/showcase/FormShowcase.tsx#L202) |  | 5 |
+| Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:203](src/app/components/showcase/FormShowcase.tsx#L203) |  | 5 |
 | Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
 | Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1025](src/app/components/showcase/CardShowcase.tsx#L1025) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
 | Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1179](src/app/components/showcase/CardShowcase.tsx#L1179) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
@@ -1566,6 +1575,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Sobreposições (overlays) › Menu suspenso (dropdown) (`overlays#dropdown`) | [src/app/components/showcase/OverlaysShowcase.tsx:562](src/app/components/showcase/OverlaysShowcase.tsx#L562) | `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuTrigger` | 4 |
 | Sobreposições (overlays) › Diálogos (`overlays#dialogs`) | [src/app/components/showcase/OverlaysShowcase.tsx:610](src/app/components/showcase/OverlaysShowcase.tsx#L610) | `Calendar`, `Dialog`, `Popover` | 3 |
 | Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:697](src/app/components/showcase/OverlaysShowcase.tsx#L697) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
+| Header e menus › Logo no celular (`header#header-logo-celular`) | [src/app/components/showcase/shared/LogoNoCelularDocs.tsx:23](src/app/components/showcase/shared/LogoNoCelularDocs.tsx#L23) | `AlternadorCompacto` | 3 |
 | Painel lateral › Anatomia (`sidepanel#sidepanel-anatomy`) | [src/app/components/showcase/SidePanelShowcase.tsx:158](src/app/components/showcase/SidePanelShowcase.tsx#L158) |  | 3 |
 | Etapas (Stepper) › Demonstração (`stepper#stepper-demo`) | [src/app/components/showcase/StepperShowcase.tsx:26](src/app/components/showcase/StepperShowcase.tsx#L26) | `Button`, `Stepper` | 3 |
 
@@ -1798,7 +1808,7 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 
 Regras documentadas no site. Antes de montar uma tela, leia as que valem para ela.
 
-- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:202](src/app/components/showcase/FormShowcase.tsx#L202)
+- **Um só botão principal (cheio) por área; o resto em contorno, ghost ou link** — Botões › Um botão principal (`buttons#botao-principal`) · [src/app/components/showcase/FormShowcase.tsx:203](src/app/components/showcase/FormShowcase.tsx#L203)
 - **Hierarquia de ações: principal, secundária e terciária** — Usabilidade › Hierarquia de ações (`usability#ux-hierarchy`) · [src/app/components/showcase/UsabilityShowcase.tsx:285](src/app/components/showcase/UsabilityShowcase.tsx#L285)
 - **Como escolher o card: pelo fundo, com borda ou com sombra** — Cards › Como escolher (`cards#card-escolher`) · [src/app/components/showcase/CardShowcase.tsx:586](src/app/components/showcase/CardShowcase.tsx#L586)
 - **Card: borda, sombra e raio** — Cards › Borda, sombra e raio (`cards#card-layout`) · [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669)
@@ -1816,7 +1826,7 @@ Regras documentadas no site. Antes de montar uma tela, leia as que valem para el
 - **Microcopy: textos de botões, erros e estados** — Tom de voz › Microcopy (`voice#voice-microcopy`) · [src/app/components/showcase/VoiceShowcase.tsx:154](src/app/components/showcase/VoiceShowcase.tsx#L154)
 - **Gráficos: como escolher** — Gráficos › Como escolher (`graficos#graficos-escolher`) · [src/app/components/showcase/GraficosShowcase.tsx:821](src/app/components/showcase/GraficosShowcase.tsx#L821)
 - **Gráficos: cores e ordem dos tons** — Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · [src/app/components/showcase/GraficosShowcase.tsx:255](src/app/components/showcase/GraficosShowcase.tsx#L255)
-- **Cabeçalho: uso** — Header e menus › Uso (`header#header-usage`) · [src/app/components/showcase/HeaderShowcase.tsx:803](src/app/components/showcase/HeaderShowcase.tsx#L803)
+- **Cabeçalho: uso** — Header e menus › Uso (`header#header-usage`) · [src/app/components/showcase/HeaderShowcase.tsx:806](src/app/components/showcase/HeaderShowcase.tsx#L806)
 
 Regras de trabalho do repositório: [`CLAUDE.md`](CLAUDE.md), [`guidelines/Guidelines.md`](guidelines/Guidelines.md), [`propostas/README.md`](propostas/README.md).
 
@@ -1870,6 +1880,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Tabela adaptável e barra de ferramentas](propostas/2026-11-27-tabela-adaptavel.md) | `TabelaAdaptavel, BarraDeFerramentasDaTabela em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
 | [Contador de caracteres no Textarea](propostas/2026-11-27-textarea-contador.md) | `Textarea (prop contador) em src/app/components/ui/textarea.tsx` | proposta |
 | [Título de grupo](propostas/2026-11-27-titulo-de-grupo.md) | `TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx` | proposta |
+| [Alternador compacto](propostas/2026-11-28-alternador-compacto.md) | `AlternadorCompacto em src/app/components/ui/alternador-compacto.tsx (o mesmo arquivo nos dois DS)` | proposta |
 | [Caixa de consentimento](propostas/2026-11-28-caixa-de-consentimento.md) | `CaixaDeConsentimento em src/app/components/ui/caixa-de-consentimento.tsx (mesmo arquivo e API no DS Dani Moscatelli)` | aprovada (dona do produto, 28/11/2026; publicação com o "sim" dela) |
 | [Confete](propostas/2026-11-28-confete.md) | `Confete, dispararConfete e EstadoFinal comemorar em src/app/components/ui/confete.tsx` | proposta |
 | [Escala de notas](propostas/2026-11-28-escala-de-notas.md) | `EscalaDeNotas e GrupoDeEscalas em src/app/components/ui/escala-de-notas.tsx` | proposta |
@@ -1898,7 +1909,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Templates** (`templates`): `template-dashboard` Painel da loja (protótipo) · `template-auth` Entrar e criar conta · `template-landing` Landing page para lojistas · `template-flutuantes` Botões flutuantes · `templates-tokens` Tokens
 - **Catálogo de componentes** (`catalogo`): `catalogo-lista` Todos os componentes
 - **Padrões do produto** (`produto`): `produto-busca` Busca do hero · `produto-loja-mapa` Card de loja e mapa · `produto-cadastro` Cadastro do lojista
-- **Botões** (`buttons`): `buttons` Variantes de botão · `botao-principal` Um botão principal · `inputs` Controles de formulário · `password` Senha · `cartoes-de-escolha` Cartões de escolha · `botao-dividido` Botão dividido · `seletor-periodo` Seletor de período · `buttons-tokens` Tokens · `botao-quebra` Texto longo no botão
+- **Botões** (`buttons`): `buttons` Variantes de botão · `botao-principal` Um botão principal · `inputs` Controles de formulário · `password` Senha · `cartoes-de-escolha` Cartões de escolha · `botao-dividido` Botão dividido · `seletor-periodo` Seletor de período · `alternador-compacto` Alternador compacto · `buttons-tokens` Tokens · `botao-quebra` Texto longo no botão
 - **Cards** (`cards`): `card-escolher` Como escolher · `card-solido` Card sólido · `card-anatomy` Anatomia do card · `card-fundos` Por fundo · `card-layout` Borda, sombra e raio · `card-orientacao` Vertical e horizontal · `card-mesma-altura` Mesma altura ou um por linha · `card-actions` Botões em cards · `card-ia` Arquitetura de informação · `card-uso` Uso com limite · `card-andamento` Andamento de tarefa · `card-states` Estados · `card-animacao` Animação · `card-shine` Borda brilhante (shine border) · `card-nested` Cards aninhados · `card-partner` Card de convite ao parceiro · `card-produto` Card de peça · `card-plano` Card de plano · `card-dica` Card de dica · `card-mostrar-mais` Card com Mostrar mais · `faixa-beneficios` Faixa de benefícios · `card-vidro` Card de vidro · `card-glass` Vidro: acabamentos · `card-glass-fundos` Vidro por fundo · `card-glass-conteudo` Vidro com conteúdo · `card-glass-escuro` Vidro no tema escuro · `card-testar` Testar o vidro · `card-glass-teste` Testar o vidro · `card-evitar` O que evitar · `card-guidelines` O que evitar · `card-accessibility` Acessibilidade do card · `card-tokens` Tokens de card
 - **Gráficos** (`graficos`): `graficos-cores` Cores dos gráficos · `graficos-catalogo` Catálogo completo · `graficos-catalogo-comparacao` · `graficos-catalogo-tempo` · `graficos-catalogo-composicao` · `graficos-catalogo-relacoes` · `graficos-catalogo-distribuicao` · `graficos-catalogo-geografia` · `graficos-escolher` Como escolher · `graficos-rosca` Rosca · `graficos-recomendados` Gráficos recomendados · `graficos-inteligencia` Design de inteligência · `graficos-componentes` Componentes e props · `graficos-acessibilidade` Acessibilidade dos gráficos · `barras-destaque-e-funil` Escala em ordem e funil
 - **Exibição de dados** (`data`): `kpi-cards` Cards de KPI · `kpi-painel` Indicador do painel · `charts` Gráficos · `grafico-desempenho` Gráfico de desempenho · `grafico-participacao` Rosca, barras e mapa · `grafico-anel` Gráfico de anel · `table` Tabela · `linhas-colunas` Linhas com tags e ações · `tabela-produtos` Tabela de produtos · `data-tokens` Tokens
@@ -1906,7 +1917,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Rótulos** (`badges`): `badges` Badges e tags · `selo` Selo (tag do hero) · `selo-secao` Selo de seção · `rotulos-timeline` · `avatar` Avatar · `avatar-circles` Círculos de avatares · `empty-states` Estados vazios · `listas-painel` Listas de atividade e ações · `badges-tokens` Tokens
 - **Ícones** (`icons`): `icon-sizes` Tamanhos e cores · `icon-base` Base do ícone · `icon-library` Biblioteca · `icons-tokens` Tokens
 - **Sobreposições (overlays)** (`overlays`): `breadcrumb` Trilha de navegação (breadcrumb) · `pagination` Paginação · `menu-painel` Menu do painel · `barra-superior` Barra superior · `cabecalho-pagina` Cabeçalho da página · `tooltips` Dica de contexto (tooltip) · `dropdown` Menu suspenso (dropdown) · `dialogs` Diálogos · `accordion` Sanfona (accordion) · `overlays-tokens` Tokens
-- **Header e menus** (`header`): `header-demo` Demonstração · `header-models` Modelos · `header-scroll` Comportamentos de rolagem · `header-mobile` Menus no celular · `header-backgrounds` Fundos por trás do header · `header-a11y` Checklist de acessibilidade · `header-usage` Uso · `header-tokens` Tokens
+- **Header e menus** (`header`): `header-demo` Demonstração · `header-models` Modelos · `header-scroll` Comportamentos de rolagem · `header-mobile` Menus no celular · `header-backgrounds` Fundos por trás do header · `header-a11y` Checklist de acessibilidade · `header-usage` Uso · `header-tokens` Tokens · `header-logo-celular` Logo no celular
 - **Painel lateral** (`sidepanel`): `sidepanel-anatomy` Anatomia · `sidepanel-behavior` Comportamento · `sidepanel-store` Formulário em painel · `sidepanel-a11y` Checklist de acessibilidade · `sidepanel-usage` Uso · `sidepanel-tokens` Tokens
 - **Linha do tempo** (`timeline`): `timeline-demo` Demonstração · `timeline-anatomy` Anatomia · `timeline-motion` Movimento: indicador de etapas · `timeline-usage` Uso
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso

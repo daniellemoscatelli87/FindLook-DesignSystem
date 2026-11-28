@@ -15,6 +15,8 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } fr
  * - transparenteNoTopo (FindLook): transparente sobre a capa até a página rolar 8 px; depois, fundo do card a 85% com
  *   desfoque, borda e --shadow-sm.
  * - iconeAoRolar (FindLook): o logo completo vira o símbolo quando a página rola.
+ * - Logo no celular (28/11/2026, pedido da dona do produto; a mesma regra do DS Dani Moscatelli): abaixo de 640 px, só
+ *   o símbolo; o logo completo (com o nome) a partir de 640 px. É o padrão, sem prop; tela="celular" mostra o símbolo.
  * - esconderAoRolar: some ao descer (mais de 6 px) e volta ao subir ou quando algo dentro dele recebe o foco.
  * - Computador: logo, links (`itens`; o `atual` no rosa do selecionado, com aria-current; hover cinza), a ação
  *   secundária (FindLook: pílula de contorno) e a `acao` principal (pílula preenchida). Celular (abaixo de `telaLarga`,
@@ -220,6 +222,10 @@ export function CabecalhoDoSite({
   const noCelular = tela === "computador" ? "hidden" : tela === "celular" ? "flex" : telaLarga === "xl" ? "flex xl:hidden" : telaLarga === "md" ? "flex md:hidden" : "flex lg:hidden";
   const alto = tela === "computador" ? "h-18 px-6" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-18 xl:px-6" : telaLarga === "md" ? "md:h-18 md:px-6" : "lg:h-18 lg:px-6";
   const botaoDoMenu = React.useRef<HTMLButtonElement>(null);
+  const simbolo = logo?.simbolo ?? <Logo variante="simbolo" className="h-10" />;
+  const completo = logo?.completo ?? (
+    <Logo superficie={superficie} className={cn("h-9", tela === "computador" ? "h-11" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-11" : telaLarga === "md" ? "md:h-11" : "lg:h-11")} />
+  );
 
   return (
     <header
@@ -237,9 +243,19 @@ export function CabecalhoDoSite({
     >
       <div className={cn("mx-auto flex h-16 w-full max-w-[var(--content-wide)] items-center justify-between gap-3 px-4", alto)}>
         <Link href={inicioHref} aria-label={rotuloInicio} className={cn("inline-flex min-h-11 min-w-11 shrink-0 items-center rounded-sm", foco)}>
-          {soIcone
-            ? (logo?.simbolo ?? <Logo variante="simbolo" className="h-10 motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95" />)
-            : (logo?.completo ?? <Logo superficie={superficie} className={cn("h-9", tela === "computador" ? "h-11" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-11" : telaLarga === "md" ? "md:h-11" : "lg:h-11")} />)}
+          {soIcone ? (
+            (logo?.simbolo ?? <Logo variante="simbolo" className="h-10 motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95" />)
+          ) : tela === "celular" ? (
+            simbolo
+          ) : tela === "computador" ? (
+            completo
+          ) : (
+            // Celular (28/11/2026, pedido da dona do produto): abaixo de 640 px, só o símbolo; o nome a partir de 640 px.
+            <>
+              <span className="inline-flex sm:hidden">{simbolo}</span>
+              <span className="hidden sm:inline-flex">{completo}</span>
+            </>
+          )}
         </Link>
 
         <nav aria-label={textos?.principal ?? "Principal"} className={cn(naTela, "min-w-0 items-center gap-1")}>
