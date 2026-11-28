@@ -5,14 +5,14 @@
   "geradoPor": "scripts/gerar-catalogo.mjs",
   "regra": "antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.",
   "resumo": {
-    "arquivosDeComponentes": 125,
-    "componentesExportados": 461,
-    "templatesEPadroesSoEmDemonstracao": 88,
-    "secoesComMarcacaoAMao": 50,
+    "arquivosDeComponentes": 131,
+    "componentesExportados": 468,
+    "templatesEPadroesSoEmDemonstracao": 91,
+    "secoesComMarcacaoAMao": 53,
     "tokens": 179,
-    "paginas": 37,
-    "ancoras": 270,
-    "propostas": 37
+    "paginas": 38,
+    "ancoras": 279,
+    "propostas": 38
   },
   "componentes": [
     {
@@ -1625,6 +1625,30 @@
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
           "linha": 128,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Button"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Button"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -4557,6 +4581,68 @@
       ]
     },
     {
+      "arquivo": "src/app/components/ui/curva-secao.tsx",
+      "nome": "curva-secao",
+      "quandoUsar": "CurvaSecao (divisor curvo entre seções): Borda curva e suave entre uma seção clara e uma escura (trazida do DS Dani Moscatelli em 28/11/2026, mesma API). É um SVG decorativo, de ponta a ponta, que se estica na largura (preserveAspectRatio=\"none\") e fica dentro da seção, por cima do fundo dela:",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "CurvaSecao",
+          "tipo": "componente",
+          "linha": 34,
+          "descricao": "",
+          "props": [
+            "posicao",
+            "cor",
+            "className"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "CurvaSecaoProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "direto",
+          "exports": [
+            "CurvaSecao"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-curva",
+          "titulo": "Curva entre seções",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 305,
+          "uso": "direto",
+          "exports": [
+            "CurvaSecao"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599,
+          "uso": "direto",
+          "exports": [
+            "CurvaSecao"
+          ]
+        }
+      ]
+    },
+    {
       "arquivo": "src/app/components/ui/dialog.tsx",
       "nome": "dialog",
       "quandoUsar": "Janela modal para tarefas que pedem foco.",
@@ -4788,6 +4874,30 @@
           "titulo": "Testar o vidro",
           "arquivo": "src/app/components/showcase/CardShowcase.tsx",
           "linha": 1561,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "DoodleTexture"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "DoodleTexture"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348,
           "uso": "dentro de outro exemplo",
           "exports": [
             "DoodleTexture"
@@ -6848,6 +6958,90 @@
           ]
         },
         {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-curva",
+          "titulo": "Curva entre seções",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 305,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-menu-ancoras",
+          "titulo": "Menu de âncoras",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 391,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-progresso",
+          "titulo": "Progresso de leitura",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 481,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-secao-fixa",
+          "titulo": "Seção fixa",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 514,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-surgir",
+          "titulo": "Surgir ao rolar e voltar ao topo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 562,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
           "pagina": "campos",
           "paginaRotulo": "Campos e formulários",
           "ancora": "campo-padrao",
@@ -8541,7 +8735,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/HomeShowcase.tsx",
-          "linha": 59,
+          "linha": 61,
           "uso": "na página, fora das seções",
           "exports": [
             "withHighlight"
@@ -8653,6 +8847,94 @@
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "withHighlight"
+          ]
+        }
+      ]
+    },
+    {
+      "arquivo": "src/app/components/ui/hero-com-aba.tsx",
+      "nome": "hero-com-aba",
+      "quandoUsar": "HeroComAba e AbaSaibaMais (hero com a aba \"Saiba mais\"): O hero das páginas do site do estúdio Dani Moscatelli (página inicial, Projeto Piloto e Rede de Parceiros), trazido como está para as landings da FindLook: um painel grande e arredondado com uma aba branca recortada no centro da base, com \"Saiba mais\" e a seta numa cápsula. A aba tem a cor da seção seguinte, então ela e a seção viram uma peça só.",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "AbaSaibaMais",
+          "tipo": "componente",
+          "linha": 41,
+          "descricao": "",
+          "props": [
+            "rotulo",
+            "alvo",
+            "raiz",
+            "deslocamento",
+            "href",
+            "onClick",
+            "className"
+          ],
+          "reexportaDe": null
+        },
+        {
+          "nome": "HeroComAba",
+          "tipo": "componente",
+          "linha": 81,
+          "descricao": "",
+          "props": [
+            "rotulo",
+            "alvo",
+            "corDaAba",
+            "fundo",
+            "telaCheia",
+            "tela",
+            "raiz",
+            "deslocamento",
+            "classNamePainel",
+            "className",
+            "style",
+            "children"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "AbaSaibaMaisProps",
+        "HeroComAbaProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226,
+          "uso": "direto",
+          "exports": [
+            "HeroComAba"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "direto",
+          "exports": [
+            "HeroComAba"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599,
+          "uso": "direto",
+          "exports": [
+            "HeroComAba"
           ]
         }
       ]
@@ -9519,6 +9801,117 @@
             "MapaDeLojas",
             "MapaIlustrativo",
             "ConviteAoMapa"
+          ]
+        }
+      ]
+    },
+    {
+      "arquivo": "src/app/components/ui/menu-de-ancoras.tsx",
+      "nome": "menu-de-ancoras",
+      "quandoUsar": "MenuDeAncoras (menu da página, com a seção em leitura marcada): Os links para as seções de uma página longa (landing, página de apresentação). Conforme a pessoa rola, o item da seção em leitura fica marcado: rosa de selecionado (--primary-suave), borda na cor da marca e aria-current=\"true\" (nunca só cor).",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "alturaDoCabecalho",
+          "tipo": "utilitário",
+          "linha": 35,
+          "descricao": "Altura do cabeçalho fixo do site: a variável --altura-cabecalho, quando a página a define, ou o CabecalhoDoSite fixo (sticky ou fixed). Dentro de uma caixa com rolagem própria, 0.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "alturaDoMenuFixo",
+          "tipo": "utilitário",
+          "linha": 49,
+          "descricao": "Altura do MenuDeAncoras fixo quando ele é uma faixa por cima do conteúdo (chips ou lista de seleção); a lista vertical do computador fica ao lado do texto e não cobre nada.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "resolverDeslocamento",
+          "tipo": "utilitário",
+          "linha": 58,
+          "descricao": "Quanto do topo fica coberto: o número dado ou (auto) o cabeçalho fixo do site mais o menu de âncoras fixo.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "rolarAte",
+          "tipo": "utilitário",
+          "linha": 64,
+          "descricao": "Rola até o elemento, com o deslocamento do topo, suave (ou instantâneo com \"menos movimento\"), e põe o foco nele.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "useSecaoAtiva",
+          "tipo": "utilitário",
+          "linha": 91,
+          "descricao": "Seção em leitura: a última cujo topo já passou da linha de leitura (o deslocamento + 1/4 da altura que sobra). No fim da rolagem, a última seção.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "MenuDeAncoras",
+          "tipo": "componente",
+          "linha": 158,
+          "descricao": "",
+          "props": [
+            "itens",
+            "rotulo",
+            "orientacao",
+            "noCelular",
+            "fixo",
+            "deslocamento",
+            "raiz",
+            "tela",
+            "aoMudar",
+            "className",
+            "style"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "ItemDeAncora",
+        "MenuDeAncorasProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-menu-ancoras",
+          "titulo": "Menu de âncoras",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 391,
+          "uso": "direto",
+          "exports": [
+            "MenuDeAncoras"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "direto",
+          "exports": [
+            "MenuDeAncoras"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599,
+          "uso": "direto",
+          "exports": [
+            "MenuDeAncoras"
           ]
         }
       ]
@@ -11502,6 +11895,74 @@
       ]
     },
     {
+      "arquivo": "src/app/components/ui/parallax.tsx",
+      "nome": "parallax",
+      "quandoUsar": "Parallax (fundo que anda mais devagar que o conteúdo): Um bloco (faixa de foto, hero, seção de destaque) cuja camada de fundo desliza mais devagar que a página, dando profundidade. Só a camada de fundo se move, nunca o texto nem os botões, e o movimento é pequeno.",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "Parallax",
+          "tipo": "componente",
+          "linha": 38,
+          "descricao": "",
+          "props": [
+            "imagem",
+            "posicaoImagem",
+            "fundo",
+            "velocidade",
+            "desligarNoToque",
+            "raiz",
+            "className",
+            "style",
+            "children"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "ParallaxProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348,
+          "uso": "direto",
+          "exports": [
+            "Parallax"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599,
+          "uso": "direto",
+          "exports": [
+            "Parallax"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Parallax"
+          ]
+        }
+      ]
+    },
+    {
       "arquivo": "src/app/components/ui/partner-card.tsx",
       "nome": "partner-card",
       "quandoUsar": "PartnerCard (card de convite ao parceiro): Card que convida ao cadastro: selo, título com destaque, texto curto, ação principal e link secundário opcional. Vertical ou horizontal; tamanhos p, m e g. Sem orientation, segue a GradeDeCards: horizontal quando a grade virou lista (regra da dona do produto, 27/11/2026). Fundo de card com um brilho suave na cor primária no canto, como o hero do site.",
@@ -11796,6 +12257,70 @@
       "tipos": [],
       "variantes": {},
       "ondeVer": []
+    },
+    {
+      "arquivo": "src/app/components/ui/progresso-de-leitura.tsx",
+      "nome": "progresso-de-leitura",
+      "quandoUsar": "ProgressoDeLeitura (barra de leitura no topo): Uma barra fina (4 px) no topo da tela, na cor da marca, que enche da esquerda para a direita conforme a pessoa rola a página ou um texto longo (artigo, termos). É só um sinal visual: fica fora da leitura de tela (aria-hidden).",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "ProgressoDeLeitura",
+          "tipo": "componente",
+          "linha": 30,
+          "descricao": "",
+          "props": [
+            "alvo",
+            "raiz",
+            "posicao",
+            "topo",
+            "className"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "ProgressoDeLeituraProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-progresso",
+          "titulo": "Progresso de leitura",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 481,
+          "uso": "direto",
+          "exports": [
+            "ProgressoDeLeitura"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "direto",
+          "exports": [
+            "ProgressoDeLeitura"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599,
+          "uso": "direto",
+          "exports": [
+            "ProgressoDeLeitura"
+          ]
+        }
+      ]
     },
     {
       "arquivo": "src/app/components/ui/prosa.tsx",
@@ -12155,6 +12680,71 @@
       "tipos": [],
       "variantes": {},
       "ondeVer": []
+    },
+    {
+      "arquivo": "src/app/components/ui/secao-fixa.tsx",
+      "nome": "secao-fixa",
+      "quandoUsar": "SecaoFixa (título ou imagem parado enquanto o texto rola): Uma seção em duas colunas para conteúdo longo (etapas de um método, perguntas, uma história em partes): no computador (a partir de 1024 px), a coluna `fixo` (o título com a introdução, ou uma imagem) fica parada ao lado enquanto a coluna de texto rola; quando a seção acaba, as duas saem juntas.",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "SecaoFixa",
+          "tipo": "componente",
+          "linha": 28,
+          "descricao": "",
+          "props": [
+            "fixo",
+            "children",
+            "lado",
+            "topo",
+            "className",
+            "style"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "SecaoFixaProps"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-secao-fixa",
+          "titulo": "Seção fixa",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 514,
+          "uso": "direto",
+          "exports": [
+            "SecaoFixa"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "direto",
+          "exports": [
+            "SecaoFixa"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599,
+          "uso": "direto",
+          "exports": [
+            "SecaoFixa"
+          ]
+        }
+      ]
     },
     {
       "arquivo": "src/app/components/ui/segmented-control.tsx",
@@ -12652,6 +13242,30 @@
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
           "linha": 574,
           "uso": "direto",
+          "exports": [
+            "SeloSecao"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "SeloSecao"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226,
+          "uso": "dentro de outro exemplo",
           "exports": [
             "SeloSecao"
           ]
@@ -13586,6 +14200,18 @@
       "variantes": {},
       "ondeVer": [
         {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-surgir",
+          "titulo": "Surgir ao rolar e voltar ao topo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 562,
+          "uso": "direto",
+          "exports": [
+            "SurgirAoRolar"
+          ]
+        },
+        {
           "pagina": "demonstracoes",
           "paginaRotulo": "Demonstrações animadas",
           "ancora": "surgir-ao-rolar",
@@ -13596,6 +14222,18 @@
           "exports": [
             "SurgirAoRolar",
             "TituloQueSurge"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
+          "uso": "direto",
+          "exports": [
+            "SurgirAoRolar"
           ]
         }
       ]
@@ -14650,6 +15288,18 @@
       "variantes": {},
       "ondeVer": [
         {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-surgir",
+          "titulo": "Surgir ao rolar e voltar ao topo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 562,
+          "uso": "direto",
+          "exports": [
+            "VoltarAoTopo"
+          ]
+        },
+        {
           "pagina": "templates",
           "paginaRotulo": "Templates",
           "ancora": "template-flutuantes",
@@ -14668,6 +15318,18 @@
           "titulo": "Landing page para lojistas",
           "arquivo": "src/app/components/showcase/TemplatesShowcase.tsx",
           "linha": 1233,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "VoltarAoTopo"
+          ]
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163,
           "uso": "dentro de outro exemplo",
           "exports": [
             "VoltarAoTopo"
@@ -17018,6 +17680,144 @@
       "elementosFeitosAMao": 6
     },
     {
+      "nome": "FundoDeExemplo",
+      "tipo": "padrão de componente",
+      "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+      "linha": 22,
+      "descricao": "Camada de fundo do parallax nas demonstrações: o rosa de destaque com a textura de moda.",
+      "pagina": "navegacao-landing",
+      "paginaRotulo": "Navegação de landing page",
+      "onde": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348
+        }
+      ],
+      "usaComponentes": [
+        "DoodleTexture",
+        "Parallax"
+      ],
+      "elementosFeitosAMao": 1
+    },
+    {
+      "nome": "CaixaDeRolagem",
+      "tipo": "padrão de componente",
+      "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+      "linha": 54,
+      "descricao": "Caixa de demonstração com rolagem própria (região rolável, alcançável pelo teclado).",
+      "pagina": "navegacao-landing",
+      "paginaRotulo": "Navegação de landing page",
+      "onde": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-menu-ancoras",
+          "titulo": "Menu de âncoras",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 391
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-progresso",
+          "titulo": "Progresso de leitura",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 481
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-secao-fixa",
+          "titulo": "Seção fixa",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 514
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-surgir",
+          "titulo": "Surgir ao rolar e voltar ao topo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 562
+        }
+      ],
+      "usaComponentes": [],
+      "elementosFeitosAMao": 2
+    },
+    {
+      "nome": "Recheio",
+      "tipo": "padrão de componente",
+      "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+      "linha": 101,
+      "descricao": "Blocos neutros para dar rolagem às demonstrações (decorativos).",
+      "pagina": "navegacao-landing",
+      "paginaRotulo": "Navegação de landing page",
+      "onde": [
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348
+        },
+        {
+          "pagina": "navegacao-landing",
+          "paginaRotulo": "Navegação de landing page",
+          "ancora": "nav-secao-fixa",
+          "titulo": "Seção fixa",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 514
+        }
+      ],
+      "usaComponentes": [],
+      "elementosFeitosAMao": 2
+    },
+    {
       "nome": "DemoDoCursor",
       "tipo": "padrão de componente",
       "arquivo": "src/app/components/showcase/DemonstracoesShowcase.tsx",
@@ -17050,7 +17850,7 @@
       "ancora": "whats-new",
       "titulo": "Novidades",
       "arquivo": "src/app/components/showcase/HomeShowcase.tsx",
-      "linha": 127,
+      "linha": 129,
       "elementosFeitosAMao": 3,
       "usaComponentes": []
     },
@@ -17638,6 +18438,47 @@
       "usaComponentes": [
         "Button",
         "Stepper"
+      ]
+    },
+    {
+      "pagina": "navegacao-landing",
+      "paginaRotulo": "Navegação de landing page",
+      "ancora": "nav-exemplo",
+      "titulo": "Página de exemplo",
+      "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+      "linha": 163,
+      "elementosFeitosAMao": 5,
+      "usaComponentes": [
+        "CurvaSecao",
+        "HeroComAba",
+        "MenuDeAncoras",
+        "ProgressoDeLeitura",
+        "SecaoFixa",
+        "SurgirAoRolar"
+      ]
+    },
+    {
+      "pagina": "navegacao-landing",
+      "paginaRotulo": "Navegação de landing page",
+      "ancora": "nav-curva",
+      "titulo": "Curva entre seções",
+      "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+      "linha": 305,
+      "elementosFeitosAMao": 4,
+      "usaComponentes": [
+        "CurvaSecao"
+      ]
+    },
+    {
+      "pagina": "navegacao-landing",
+      "paginaRotulo": "Navegação de landing page",
+      "ancora": "nav-menu-ancoras",
+      "titulo": "Menu de âncoras",
+      "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+      "linha": 391,
+      "elementosFeitosAMao": 4,
+      "usaComponentes": [
+        "MenuDeAncoras"
       ]
     }
   ],
@@ -19462,6 +20303,12 @@
       "componente": "EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx"
     },
     {
+      "arquivo": "propostas/2026-11-28-navegacao-landing.md",
+      "titulo": "Navegação de landing page",
+      "status": "em revisão",
+      "componente": "HeroComAba e AbaSaibaMais (ui/hero-com-aba.tsx), Parallax (ui/parallax.tsx), MenuDeAncoras e useSecaoAtiva (ui/menu-de-ancoras.tsx), ProgressoDeLeitura (ui/progresso-de-leitura.tsx), SecaoFixa (ui/secao-fixa.tsx), CurvaSecao (ui/curva-secao.tsx, nova aqui, mesma API do DS Dani Moscatelli); classes de CSS puro no bloco @ds-css-puro:navegacao-landing do src/styles/theme.css"
+    },
+    {
       "arquivo": "propostas/2026-11-28-pagina-404-padrao.md",
       "titulo": "Página 404 padrão e espaço abaixo do cabeçalho",
       "status": "aprovada (decisões da dona do produto de 28/11/2026; publicação com o \"sim\" dela)",
@@ -19484,19 +20331,19 @@
           "id": "home-publicos",
           "titulo": null,
           "arquivo": "src/app/components/showcase/HomeShowcase.tsx",
-          "linha": 110
+          "linha": 112
         },
         {
           "id": "whats-new",
           "titulo": "Novidades",
           "arquivo": "src/app/components/showcase/HomeShowcase.tsx",
-          "linha": 127
+          "linha": 129
         },
         {
           "id": "home-explore",
           "titulo": "Tudo no sistema",
           "arquivo": "src/app/components/showcase/HomeShowcase.tsx",
-          "linha": 163
+          "linha": 165
         }
       ]
     },
@@ -21159,6 +22006,67 @@
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
           "linha": 199
+        }
+      ]
+    },
+    {
+      "id": "navegacao-landing",
+      "rotulo": "Navegação de landing page",
+      "grupo": "Componentes",
+      "ancoras": [
+        {
+          "id": "nav-exemplo",
+          "titulo": "Página de exemplo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 163
+        },
+        {
+          "id": "nav-hero-aba",
+          "titulo": "Hero com a aba Saiba mais",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 226
+        },
+        {
+          "id": "nav-curva",
+          "titulo": "Curva entre seções",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 305
+        },
+        {
+          "id": "nav-parallax",
+          "titulo": "Parallax",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 348
+        },
+        {
+          "id": "nav-menu-ancoras",
+          "titulo": "Menu de âncoras",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 391
+        },
+        {
+          "id": "nav-progresso",
+          "titulo": "Progresso de leitura",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 481
+        },
+        {
+          "id": "nav-secao-fixa",
+          "titulo": "Seção fixa",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 514
+        },
+        {
+          "id": "nav-surgir",
+          "titulo": "Surgir ao rolar e voltar ao topo",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 562
+        },
+        {
+          "id": "nav-classes",
+          "titulo": "Classes de CSS puro",
+          "arquivo": "src/app/components/showcase/NavegacaoLandingShowcase.tsx",
+          "linha": 599
         }
       ]
     },

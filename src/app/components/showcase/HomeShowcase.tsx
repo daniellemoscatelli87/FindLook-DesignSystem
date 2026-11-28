@@ -1,4 +1,5 @@
 import React from "react";
+import { Mouse } from "lucide-react";
 import { ChevronRight, Sparkles, Fingerprint, Layers, Coins, Compass, Accessibility, Image, Wind, LayoutTemplate, Component, Plug, Rocket, Lightbulb, Code2, MessageCircle, BadgeCheck, Search, Store, AppWindow } from "lucide-react";
 import logoSimbolo from "../../../imports/findlook/findlook-simbolo.png";
 import { SectionLabel, CardGrid, useGo, type Navigate, type CardItem } from "./GetStartedShowcase";
@@ -48,6 +49,7 @@ const explore: { label: string; items: CardItem[] }[] = [
       { icon: Wind, title: "Motion", desc: "Presets, easing, física de spring e tokens de movimento.", target: { page: "motion" } },
       { icon: Component, title: "Componentes", desc: "Botões, cards, exibição de dados, feedback, rótulos, ícones e overlays.", target: { page: "buttons" } },
       { icon: AppWindow, title: "Componentes do produto", desc: "Moldura do site, campos, chips e estados, quadro, conversa, tabela adaptável e demonstrações animadas.", target: { page: "site" } },
+      { icon: Mouse, title: "Navegação de landing page", desc: "Hero com a aba Saiba mais, curvas, parallax, menu de âncoras, barra de leitura e seção fixa.", target: { page: "navegacao-landing" } },
       { icon: LayoutTemplate, title: "Templates", desc: "Dashboard, autenticação, configurações, lista e landing page.", target: { page: "templates" } },
     ],
   },

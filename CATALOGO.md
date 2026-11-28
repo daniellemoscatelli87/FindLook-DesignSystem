@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 125 arquivos de componentes em `src/app/components/ui/` com 461 componentes exportados · 88 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 270 âncoras no site (https://designsystem.findlook.com.br) · 37 propostas de componente.
+**Resumo:** 131 arquivos de componentes em `src/app/components/ui/` com 468 componentes exportados · 91 templates e padrões ainda só em demonstração · 53 seções com marcação feita à mão · 179 tokens · 38 páginas e 279 âncoras no site (https://designsystem.findlook.com.br) · 38 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -167,7 +167,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `Button` (props: `className`, `variant`, `size`, `forma`, `quebra`, `asChild`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
 - **Funções e constantes:** `buttonVariants`
 - **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon-lg`; `forma` = `pilula` · `quadrado` · `padrao`; `quebra` = `celular` · `nunca` · `sempre`
-- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 44 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 46 seções (ver `catalogo.json`)
 
 ### cabecalho-do-site
 
@@ -446,6 +446,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Funções e constantes:** `moverCursor`, `clicarCursor`
 - **Onde ver:** Demonstrações animadas › Cursor de demonstração (`demonstracoes#cursor-de-demonstracao`)
 
+### curva-secao
+
+- **Arquivo:** [src/app/components/ui/curva-secao.tsx](src/app/components/ui/curva-secao.tsx)
+- **Quando usar:** CurvaSecao (divisor curvo entre seções): Borda curva e suave entre uma seção clara e uma escura (trazida do DS Dani Moscatelli em 28/11/2026, mesma API). É um SVG decorativo, de ponta a ponta, que se estica na largura (preserveAspectRatio="none") e fica dentro da seção, por cima do fundo dela:
+- **Componentes:**
+  - `CurvaSecao` (props: `posicao`, `cor`, `className`)
+- **Onde ver:** Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) · Navegação de landing page › Curva entre seções (`navegacao-landing#nav-curva`) · Navegação de landing page › Classes de CSS puro (`navegacao-landing#nav-classes`)
+
 ### dialog
 
 - **Arquivo:** [src/app/components/ui/dialog.tsx](src/app/components/ui/dialog.tsx)
@@ -478,7 +486,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `DoodleTexture` (props: `scale`, `color`, `position`, `className`, `style`)
 - **Funções e constantes:** `doodleTextureFiles`
-- **Onde ver:** Fundos › Textura doodle (`backgrounds#doodle-bg`) · Cards › Vidro: acabamentos (`cards#card-glass`) · Cards › Vidro por fundo (`cards#card-glass-fundos`) · e mais 2 seções (ver `catalogo.json`)
+- **Onde ver:** Fundos › Textura doodle (`backgrounds#doodle-bg`) · Cards › Vidro: acabamentos (`cards#card-glass`) · Cards › Vidro por fundo (`cards#card-glass-fundos`) · e mais 4 seções (ver `catalogo.json`)
 
 ### drawer
 
@@ -597,7 +605,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 89 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 96 seções (ver `catalogo.json`)
 
 ### graficos
 
@@ -692,6 +700,15 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `Destaque` (props: `children`, `className`): Só o destaque, para usar dentro de um título já existente (texto grande: 24 px, ou negrito de 18,66 px ou mais).
 - **Funções e constantes:** `withHighlight`
 - **Onde ver:** Fundamentos › Tipografia (`colors#typography`) · Moldura do site › Cabeçalho e menu do celular (`site#site-cabecalho`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`) · e mais 10 seções (ver `catalogo.json`)
+
+### hero-com-aba
+
+- **Arquivo:** [src/app/components/ui/hero-com-aba.tsx](src/app/components/ui/hero-com-aba.tsx)
+- **Quando usar:** HeroComAba e AbaSaibaMais (hero com a aba "Saiba mais"): O hero das páginas do site do estúdio Dani Moscatelli (página inicial, Projeto Piloto e Rede de Parceiros), trazido como está para as landings da FindLook: um painel grande e arredondado com uma aba branca recortada no centro da base, com "Saiba mais" e a seta numa cápsula. A aba tem a cor da seção seguinte, então ela e a seção viram uma peça só.
+- **Componentes:**
+  - `AbaSaibaMais` (props: `rotulo`, `alvo`, `raiz`, `deslocamento`, `href`, `onClick`, `className`)
+  - `HeroComAba` (props: `rotulo`, `alvo`, `corDaAba`, `fundo`, `telaCheia`, `tela`, `raiz`, `deslocamento`, `classNamePainel`, `className`, `style`, `children`)
+- **Onde ver:** Navegação de landing page › Hero com a aba Saiba mais (`navegacao-landing#nav-hero-aba`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) · Navegação de landing page › Classes de CSS puro (`navegacao-landing#nav-classes`)
 
 ### hover-card
 
@@ -803,6 +820,15 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `MapaIlustrativo` (props: `pinos`, `selecionada`, `onSelecionar`, `rotulo`, `selo`, `detalhe`, `onFecharDetalhe`, `className`)
   - `ConviteAoMapa` (props: `titulo`, `texto`, `link`, `className`)
 - **Onde ver:** Padrões do produto › Card de loja e mapa (`produto#produto-loja-mapa`)
+
+### menu-de-ancoras
+
+- **Arquivo:** [src/app/components/ui/menu-de-ancoras.tsx](src/app/components/ui/menu-de-ancoras.tsx)
+- **Quando usar:** MenuDeAncoras (menu da página, com a seção em leitura marcada): Os links para as seções de uma página longa (landing, página de apresentação). Conforme a pessoa rola, o item da seção em leitura fica marcado: rosa de selecionado (--primary-suave), borda na cor da marca e aria-current="true" (nunca só cor).
+- **Componentes:**
+  - `MenuDeAncoras` (props: `itens`, `rotulo`, `orientacao`, `noCelular`, `fixo`, `deslocamento`, `raiz`, `tela`, `aoMudar`, `className`, `style`)
+- **Funções e constantes:** `alturaDoCabecalho`, `alturaDoMenuFixo`, `resolverDeslocamento`, `rolarAte`, `useSecaoAtiva`
+- **Onde ver:** Navegação de landing page › Menu de âncoras (`navegacao-landing#nav-menu-ancoras`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) · Navegação de landing page › Classes de CSS puro (`navegacao-landing#nav-classes`)
 
 ### menubar
 
@@ -972,6 +998,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Funções e constantes:** `LARGURA_EXPANDIDO`, `LARGURA_RECOLHIDO`, `useMenuLateral`, `useMenuRecolhido`, `iniciais`
 - **Onde ver:** Cards › Card de plano (`cards#card-plano`) · Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) · Sobreposições (overlays) › Barra superior (`overlays#barra-superior`) · e mais 1 seções (ver `catalogo.json`)
 
+### parallax
+
+- **Arquivo:** [src/app/components/ui/parallax.tsx](src/app/components/ui/parallax.tsx)
+- **Quando usar:** Parallax (fundo que anda mais devagar que o conteúdo): Um bloco (faixa de foto, hero, seção de destaque) cuja camada de fundo desliza mais devagar que a página, dando profundidade. Só a camada de fundo se move, nunca o texto nem os botões, e o movimento é pequeno.
+- **Componentes:**
+  - `Parallax` (props: `imagem`, `posicaoImagem`, `fundo`, `velocidade`, `desligarNoToque`, `raiz`, `className`, `style`, `children`)
+- **Onde ver:** Navegação de landing page › Parallax (`navegacao-landing#nav-parallax`) · Navegação de landing page › Classes de CSS puro (`navegacao-landing#nav-classes`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`)
+
 ### partner-card
 
 - **Arquivo:** [src/app/components/ui/partner-card.tsx](src/app/components/ui/partner-card.tsx)
@@ -1016,6 +1050,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `Progress` (props: `className`, `value`)
 - **Onde ver:** nenhuma página do site importa este componente (sem demonstração).
+
+### progresso-de-leitura
+
+- **Arquivo:** [src/app/components/ui/progresso-de-leitura.tsx](src/app/components/ui/progresso-de-leitura.tsx)
+- **Quando usar:** ProgressoDeLeitura (barra de leitura no topo): Uma barra fina (4 px) no topo da tela, na cor da marca, que enche da esquerda para a direita conforme a pessoa rola a página ou um texto longo (artigo, termos). É só um sinal visual: fica fora da leitura de tela (aria-hidden).
+- **Componentes:**
+  - `ProgressoDeLeitura` (props: `alvo`, `raiz`, `posicao`, `topo`, `className`)
+- **Onde ver:** Navegação de landing page › Progresso de leitura (`navegacao-landing#nav-progresso`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) · Navegação de landing page › Classes de CSS puro (`navegacao-landing#nav-classes`)
 
 ### prosa
 
@@ -1085,6 +1127,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `ScrollBar` (props: `className`, `orientation`)
 - **Onde ver:** nenhuma página do site importa este componente (sem demonstração).
 
+### secao-fixa
+
+- **Arquivo:** [src/app/components/ui/secao-fixa.tsx](src/app/components/ui/secao-fixa.tsx)
+- **Quando usar:** SecaoFixa (título ou imagem parado enquanto o texto rola): Uma seção em duas colunas para conteúdo longo (etapas de um método, perguntas, uma história em partes): no computador (a partir de 1024 px), a coluna `fixo` (o título com a introdução, ou uma imagem) fica parada ao lado enquanto a coluna de texto rola; quando a seção acaba, as duas saem juntas.
+- **Componentes:**
+  - `SecaoFixa` (props: `fixo`, `children`, `lado`, `topo`, `className`, `style`)
+- **Onde ver:** Navegação de landing page › Seção fixa (`navegacao-landing#nav-secao-fixa`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) · Navegação de landing page › Classes de CSS puro (`navegacao-landing#nav-classes`)
+
 ### segmented-control
 
 - **Arquivo:** [src/app/components/ui/segmented-control.tsx](src/app/components/ui/segmented-control.tsx)
@@ -1132,7 +1182,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** SeloSecao (selo de seção): Padrão das seções da página Experience Intelligence 2 do site do estúdio ("Cenário Atual", "O Desafio", "Método"…): pílula preenchida com o tom claro da primária, borda fina na primária, texto na cor primária de texto, em caixa alta com espaçamento largo (0,2em), sem ponto. Fica centralizada acima do título da seção.
 - **Componentes:**
   - `SeloSecao` (props: `className`, `icon`, `size`, `children`)
-- **Onde ver:** Rótulos › Selo de seção (`badges#selo-secao`) · Feedback (`feedback`, fora das seções)
+- **Onde ver:** Rótulos › Selo de seção (`badges#selo-secao`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) · Navegação de landing page › Hero com a aba Saiba mais (`navegacao-landing#nav-hero-aba`) · e mais 1 seções (ver `catalogo.json`)
 
 ### separator
 
@@ -1263,7 +1313,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `SurgirAoRolar` (props: `as`, `efeito`, `escalonar`, `passo`, `atraso`, `raiz`, `limiar`, `margem`, `repetir`, `duracao`, `className`, `style`, `children`)
   - `TituloQueSurge` (props: `as`, `children`, `passo`, `atraso`, `destaque`, `raiz`, `limiar`, `margem`, `repetir`, `duracao`, `className`, `style`)
 - **Funções e constantes:** `useSurgirAoRolar`
-- **Onde ver:** Demonstrações animadas › Entrada ao rolar (`demonstracoes#surgir-ao-rolar`)
+- **Onde ver:** Navegação de landing page › Surgir ao rolar e voltar ao topo (`navegacao-landing#nav-surgir`) · Demonstrações animadas › Entrada ao rolar (`demonstracoes#surgir-ao-rolar`) · Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`)
 
 ### switch
 
@@ -1395,7 +1445,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Voltar ao topo: Botão redondo de 48 px, secundário (superfície branca, borda, seta na cor de texto da marca e a sombra dos elementos que flutuam, --shadow-lg), que aparece quando a pessoa chega ao fim da página e a leva de volta ao topo. É secundário de propósito (27/11/2026): ao lado da barra de ação do celular, que é preenchida, só a ação principal fica cheia. Fica fixo no canto inferior direito.
 - **Componentes:**
   - `VoltarAoTopo` (props: `rolagem`, `limiar`, `rotulo`, `focoEm`, `comBarraFixa`, `className`)
-- **Onde ver:** Templates › Botões flutuantes (`templates#template-flutuantes`) · Templates › Landing page para lojistas (`templates#template-landing`)
+- **Onde ver:** Navegação de landing page › Surgir ao rolar e voltar ao topo (`navegacao-landing#nav-surgir`) · Templates › Botões flutuantes (`templates#template-flutuantes`) · Templates › Landing page para lojistas (`templates#template-landing`) · e mais 1 seções (ver `catalogo.json`)
 
 ## 2. Padrões ainda só em demonstração (não importáveis)
 
@@ -1417,7 +1467,7 @@ Telas inteiras montadas nas páginas de demonstração. Para uma tela parecida n
 | `ContactTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:1015](src/app/components/showcase/TemplatesShowcase.tsx#L1015) | `CabecalhoDaPagina`, `CardComCabecalho`, `Checkbox` | 6 |
 | `LandingTemplate` | Templates › Landing page para lojistas (`templates#template-landing`) | [src/app/components/showcase/TemplatesShowcase.tsx:1407](src/app/components/showcase/TemplatesShowcase.tsx#L1407) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger`, `Campo`, `Checkbox`, `GradeDeCards`, `IconeModa` +2 | 77 |
 
-### 2.2 Padrões nas páginas de componentes (45)
+### 2.2 Padrões nas páginas de componentes (48)
 
 Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentro das páginas de componentes. São as primeiras candidatas a virar componente.
 
@@ -1467,6 +1517,9 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `DemoHeader`<br>Demonstração: janela com rolagem própria | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:173](src/app/components/showcase/HeaderShowcase.tsx#L173) |  | 39 |
 | `CardOpcao`<br>Cards de explicação, com atalho para a demonstração | Header e menus › Modelos (`header#header-models`) (+3) | [src/app/components/showcase/HeaderShowcase.tsx:559](src/app/components/showcase/HeaderShowcase.tsx#L559) |  | 3 |
 | `StorePanelDemo`<br>Variante: formulário "Cadastrar minha loja" (demonstração) | Painel lateral › Comportamento (`sidepanel#sidepanel-behavior`) (+1) | [src/app/components/showcase/SidePanelShowcase.tsx:37](src/app/components/showcase/SidePanelShowcase.tsx#L37) | `SidePanel`, `SidePanelActions`, `SidePanelBody`, `SidePanelContent`, `SidePanelFooter`, `SidePanelHeader`, `SidePanelTrigger` | 6 |
+| `FundoDeExemplo`<br>Camada de fundo do parallax nas demonstrações: o rosa de destaque com a textura de moda. | Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) (+1) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:22](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L22) | `DoodleTexture`, `Parallax` | 1 |
+| `CaixaDeRolagem`<br>Caixa de demonstração com rolagem própria (região rolável, alcançável pelo teclado). | Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) (+6) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:54](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L54) |  | 2 |
+| `Recheio`<br>Blocos neutros para dar rolagem às demonstrações (decorativos). | Navegação de landing page › Hero com a aba Saiba mais (`navegacao-landing#nav-hero-aba`) (+2) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:101](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L101) |  | 2 |
 | `DemoDoCursor` | Demonstrações animadas › Cursor de demonstração (`demonstracoes#cursor-de-demonstracao`) | [src/app/components/showcase/DemonstracoesShowcase.tsx:21](src/app/components/showcase/DemonstracoesShowcase.tsx#L21) | `Button`, `CursorDeDemonstracao`, `Input` | 2 |
 
 ### 2.3 Demonstrações nas páginas de fundamentos e diretrizes (36)
@@ -1512,13 +1565,13 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `OrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1478](src/app/components/showcase/MotionShowcase.tsx#L1478) |  | 1 |
 | `AvatarOrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1626](src/app/components/showcase/MotionShowcase.tsx#L1626) |  | 3 |
 
-### 2.4 Seções com marcação feita à mão no próprio corpo (50)
+### 2.4 Seções com marcação feita à mão no próprio corpo (53)
 
 Seções que montam peças direto na página, sem componente local, com 3 ou mais elementos de estilo próprio. Antes de copiar uma delas, confira se a peça já existe na seção 1.
 
 | Seção | Arquivo | Usa do DS | Marcação à mão |
 |---|---|---|---|
-| Início › Novidades (`overview#whats-new`) | [src/app/components/showcase/HomeShowcase.tsx:127](src/app/components/showcase/HomeShowcase.tsx#L127) |  | 3 |
+| Início › Novidades (`overview#whats-new`) | [src/app/components/showcase/HomeShowcase.tsx:129](src/app/components/showcase/HomeShowcase.tsx#L129) |  | 3 |
 | Desenvolvimento › Plataformas (`develop#dev-platforms`) | [src/app/components/showcase/DevelopShowcase.tsx:228](src/app/components/showcase/DevelopShowcase.tsx#L228) |  | 3 |
 | Marca › Quando usar o símbolo (`brand#brand-uso-simbolo`) | [src/app/components/showcase/BrandShowcase.tsx:326](src/app/components/showcase/BrandShowcase.tsx#L326) |  | 5 |
 | Marca › Escala e legibilidade (`brand#brand-responsivo`) | [src/app/components/showcase/BrandShowcase.tsx:384](src/app/components/showcase/BrandShowcase.tsx#L384) |  | 7 |
@@ -1568,6 +1621,9 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:697](src/app/components/showcase/OverlaysShowcase.tsx#L697) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
 | Painel lateral › Anatomia (`sidepanel#sidepanel-anatomy`) | [src/app/components/showcase/SidePanelShowcase.tsx:158](src/app/components/showcase/SidePanelShowcase.tsx#L158) |  | 3 |
 | Etapas (Stepper) › Demonstração (`stepper#stepper-demo`) | [src/app/components/showcase/StepperShowcase.tsx:26](src/app/components/showcase/StepperShowcase.tsx#L26) | `Button`, `Stepper` | 3 |
+| Navegação de landing page › Página de exemplo (`navegacao-landing#nav-exemplo`) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:163](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L163) | `CurvaSecao`, `HeroComAba`, `MenuDeAncoras`, `ProgressoDeLeitura`, `SecaoFixa`, `SurgirAoRolar` | 5 |
+| Navegação de landing page › Curva entre seções (`navegacao-landing#nav-curva`) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:305](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L305) | `CurvaSecao` | 4 |
+| Navegação de landing page › Menu de âncoras (`navegacao-landing#nav-menu-ancoras`) | [src/app/components/showcase/NavegacaoLandingShowcase.tsx:391](src/app/components/showcase/NavegacaoLandingShowcase.tsx#L391) | `MenuDeAncoras` | 4 |
 
 ## 3. Tokens
 
@@ -1874,6 +1930,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Confete](propostas/2026-11-28-confete.md) | `Confete, dispararConfete e EstadoFinal comemorar em src/app/components/ui/confete.tsx` | proposta |
 | [Escala de notas](propostas/2026-11-28-escala-de-notas.md) | `EscalaDeNotas e GrupoDeEscalas em src/app/components/ui/escala-de-notas.tsx` | proposta |
 | [Escolha ordenada](propostas/2026-11-28-escolha-ordenada.md) | `EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx` | proposta |
+| [Navegação de landing page](propostas/2026-11-28-navegacao-landing.md) | `HeroComAba e AbaSaibaMais (ui/hero-com-aba.tsx), Parallax (ui/parallax.tsx), MenuDeAncoras e useSecaoAtiva (ui/menu-de-ancoras.tsx), ProgressoDeLeitura (ui/progresso-de-leitura.tsx), SecaoFixa (ui/secao-fixa.tsx), CurvaSecao (ui/curva-secao.tsx, nova aqui, mesma API do DS Dani Moscatelli); classes de CSS puro no bloco @ds-css-puro:navegacao-landing do src/styles/theme.css` | em revisão |
 | [Página 404 padrão e espaço abaixo do cabeçalho](propostas/2026-11-28-pagina-404-padrao.md) | `PaginaDeErro (nova prop abaixoDoCabecalho; a variante moldura="card" é o modelo do Dani Moscatelli) em src/app/components/ui/estado-vazio.tsx; token --espaco-abaixo-do-cabecalho e classe .ds-abaixo-do-cabecalho em src/styles/theme.css` | aprovada (decisões da dona do produto de 28/11/2026; publicação com o "sim" dela) |
 | [Recorte de foto](propostas/2026-11-28-recorte-de-foto.md) | `RecorteDeFoto em src/app/components/ui/recorte-de-foto.tsx` | proposta |
 
@@ -1912,6 +1969,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso
 - **Upload** (`upload`): `upload-dropzone` Área de soltar · `recorte-de-foto` Recorte de foto
 - **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-erro` Página de erro (404) · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
+- **Navegação de landing page** (`navegacao-landing`): `nav-exemplo` Página de exemplo · `nav-hero-aba` Hero com a aba Saiba mais · `nav-curva` Curva entre seções · `nav-parallax` Parallax · `nav-menu-ancoras` Menu de âncoras · `nav-progresso` Progresso de leitura · `nav-secao-fixa` Seção fixa · `nav-surgir` Surgir ao rolar e voltar ao topo · `nav-classes` Classes de CSS puro
 - **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar) · `campo-de-endereco` Endereço com sugestões (CampoDeEndereco) · `campo-com-prefixo` Prefixo, sufixo e desabilitado · `escolha-ordenada` Escolha ordenada · `escala-de-notas` Escala de notas · `caixa-de-consentimento` Caixa de consentimento
 - **Chips e estados** (`chips-e-estados`): `chip-de-estado` Chip de estado · `chips-filtro` Chips de filtro · `etiquetas-tons` Etiquetas e bases por tom · `alerta-tom` Alerta com tom · `estado-vazio` Estado vazio · `avaliacao-e-grupos` Avaliação e título de grupo
 - **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável

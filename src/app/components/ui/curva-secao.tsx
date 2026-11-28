@@ -1,0 +1,51 @@
+import * as React from "react";
+import { cn } from "./utils";
+
+/**
+ * CurvaSecao (divisor curvo entre seções)
+ *
+ * Borda curva e suave entre uma seção clara e uma escura (trazida do DS Dani Moscatelli em 28/11/2026, mesma API). É um SVG
+ * decorativo, de ponta a ponta, que se estica na largura (preserveAspectRatio="none") e fica dentro da seção, por
+ * cima do fundo dela:
+ *
+ * topo — no alto da seção, pintado com a cor da seção de CIMA: a seção anterior "desce" em curva sobre esta.
+ * base — no pé da seção, pintado com a cor da seção de BAIXO: a próxima seção "sobe" em curva sobre esta.
+ *
+ * A seção precisa de position relative e overflow hidden, e de respiro extra no topo/base para o conteúdo não
+ * ficar sob a curva (no site, +3rem / +5rem / +6rem conforme a tela, a mesma altura da curva).
+ * Altura padrão: 48 px, 80 px a partir de 640 px e 96 px a partir de 1024 px.
+ *
+ * Classe de CSS puro (páginas em HTML, 28/11/2026): svg.ds-curva-secao com data-posicao="topo" ou "base" e o mesmo
+ * viewBox e caminho; a classe é a fonte única do tamanho e da posição (página Navegação de landing page). Mesma API
+ * no DS Dani Moscatelli.
+ */
+
+export type CurvaSecaoProps = Omit<React.SVGProps<SVGSVGElement>, "children"> & {
+  posicao?: "topo" | "base";
+  /** Cor da seção vizinha, sempre por token (por exemplo "var(--background)" ou "var(--card)"). */
+  cor?: string;
+};
+
+const CAMINHOS = {
+  topo: "M0 0H1440V24C1080 96 360 96 0 24Z",
+  base: "M0 96H1440V72C1080 0 360 0 0 72Z",
+};
+
+function CurvaSecao({ posicao = "topo", cor = "var(--background)", className, ...props }: CurvaSecaoProps) {
+  return (
+    <svg
+      aria-hidden
+      focusable="false"
+      data-slot="curva-secao"
+      viewBox="0 0 1440 96"
+      preserveAspectRatio="none"
+      data-posicao={posicao}
+      className={cn("ds-curva-secao", className)}
+      {...props}
+    >
+      <path fill={cor} d={CAMINHOS[posicao]} />
+    </svg>
+  );
+}
+
+export { CurvaSecao };

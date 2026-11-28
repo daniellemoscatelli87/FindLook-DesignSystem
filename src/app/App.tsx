@@ -44,6 +44,8 @@ import { CatalogoShowcase } from "./components/showcase/CatalogoShowcase";
 import { ProdutoShowcase } from "./components/showcase/ProdutoShowcase";
 import { GraficosShowcase } from "./components/showcase/GraficosShowcase";
 import { SiteShowcase } from "./components/showcase/SiteShowcase";
+import { NavegacaoLandingShowcase } from "./components/showcase/NavegacaoLandingShowcase";
+import { Mouse as IconeNavegacaoLanding } from "lucide-react";
 import { CamposShowcase } from "./components/showcase/CamposShowcase";
 import { ChipsEstadosShowcase } from "./components/showcase/ChipsEstadosShowcase";
 import { PainelAdminShowcase } from "./components/showcase/PainelAdminShowcase";
@@ -586,6 +588,19 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "site-prosa",     label: "Prosa (textos longos)",       sectionId: "site" },
         ],
       },
+      { id: "navegacao-landing", label: "Navegação de landing page", icon: IconeNavegacaoLanding,
+        items: [
+          { id: "nav-exemplo",       label: "Página de exemplo",                sectionId: "navegacao-landing" },
+          { id: "nav-hero-aba",      label: "Hero com a aba Saiba mais",        sectionId: "navegacao-landing" },
+          { id: "nav-curva",         label: "Curva entre seções",               sectionId: "navegacao-landing" },
+          { id: "nav-parallax",      label: "Parallax",                         sectionId: "navegacao-landing" },
+          { id: "nav-menu-ancoras",  label: "Menu de âncoras",                  sectionId: "navegacao-landing" },
+          { id: "nav-progresso",     label: "Progresso de leitura",             sectionId: "navegacao-landing" },
+          { id: "nav-secao-fixa",    label: "Seção fixa",                       sectionId: "navegacao-landing" },
+          { id: "nav-surgir",        label: "Surgir ao rolar e voltar ao topo", sectionId: "navegacao-landing" },
+          { id: "nav-classes",       label: "Classes de CSS puro",              sectionId: "navegacao-landing" },
+        ],
+      },
       { id: "campos", label: "Campos e formulários", icon: TextCursorInput,
         items: [
           { id: "campo-padrao",          label: "Campo (o campo padrão)",      sectionId: "campos" },
@@ -668,6 +683,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   backgrounds: <BackgroundsShowcase />,
   templates:   <TemplatesShowcase />,
   site:        <SiteShowcase />,
+  "navegacao-landing": <NavegacaoLandingShowcase />,
   campos:      <CamposShowcase />,
   "chips-e-estados": <ChipsEstadosShowcase />,
   "painel-e-admin":  <PainelAdminShowcase />,
@@ -706,6 +722,7 @@ const sectionLabels: Record<string, string> = {
   backgrounds: "Backgrounds",
   templates:   "Templates",
   site:        "Moldura do site",
+  "navegacao-landing": "Navegação de landing page",
   campos:      "Campos e formulários",
   "chips-e-estados": "Chips e estados",
   "painel-e-admin":  "Quadro, conversa e tabela",
