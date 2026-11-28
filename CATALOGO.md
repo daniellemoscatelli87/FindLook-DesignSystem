@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 129 arquivos de componentes em `src/app/components/ui/` com 469 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 177 tokens · 37 páginas e 278 âncoras no site (https://designsystem.findlook.com.br) · 35 propostas de componente.
+**Resumo:** 129 arquivos de componentes em `src/app/components/ui/` com 469 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 177 tokens · 37 páginas e 278 âncoras no site (https://designsystem.findlook.com.br) · 47 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -1903,10 +1903,22 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Tabela adaptável e barra de ferramentas](propostas/2026-11-27-tabela-adaptavel.md) | `TabelaAdaptavel, BarraDeFerramentasDaTabela em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
 | [Contador de caracteres no Textarea](propostas/2026-11-27-textarea-contador.md) | `Textarea (prop contador) em src/app/components/ui/textarea.tsx` | proposta |
 | [Título de grupo](propostas/2026-11-27-titulo-de-grupo.md) | `TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx` | proposta |
+| [Barras com link por linha](propostas/2026-11-28-barras-com-link.md) | `BarrasOrdenadas (graficos-inteligencia.tsx, nos dois DS) e BarrasHorizontais (graficos.tsx, só no FindLook): href/onClick por item e comoLink` | proposta |
+| [Calendário no react-day-picker 9](propostas/2026-11-28-calendario-v9.md) | `Calendar em src/app/components/ui/calendar.tsx` | proposta |
+| [Campo de mensagem com ref, anexar desligado e fotos](propostas/2026-11-28-campo-de-mensagem-fotos.md) | `CampoDeMensagem (forwardRef, anexarDesativado, fotos, onRemoverFoto, tituloDasFotos, descricaoDasFotos, rotuloRemoverFoto) em src/app/components/ui/conversa.tsx` | proposta |
+| [Cartão de peça do painel](propostas/2026-11-28-cartao-de-peca-do-painel.md) | `CartaoDePecaDoPainel em src/app/components/ui/cartao-de-peca-do-painel.tsx` | proposta |
 | [Confete](propostas/2026-11-28-confete.md) | `Confete, dispararConfete e EstadoFinal comemorar em src/app/components/ui/confete.tsx` | proposta |
 | [Escala de notas](propostas/2026-11-28-escala-de-notas.md) | `EscalaDeNotas e GrupoDeEscalas em src/app/components/ui/escala-de-notas.tsx` | proposta |
 | [Escolha ordenada](propostas/2026-11-28-escolha-ordenada.md) | `EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx` | proposta |
+| [Grade de miniaturas](propostas/2026-11-28-grade-de-miniaturas.md) | `GradeDeMiniaturas em src/app/components/ui/grade-de-miniaturas.tsx` | proposta |
+| [ImageUpload enviando e com iniciais](propostas/2026-11-28-image-upload-ocupado.md) | `ImageUpload (ocupado, textoOcupado, iniciais) em src/app/components/ui/upload.tsx` | proposta |
+| [Item marcável](propostas/2026-11-28-item-marcavel.md) | `ItemMarcavel e ListaMarcavel em src/app/components/ui/item-marcavel.tsx` | proposta |
+| [Lista de passos](propostas/2026-11-28-lista-de-passos.md) | `ListaDePassos, PassoDaLista e NumeroDoPasso em src/app/components/ui/lista-de-passos.tsx` | proposta |
+| [Mapa coroplético com faixas fixas e números](propostas/2026-11-28-mapa-com-faixas.md) | `MapaCoropletico (faixas, etiquetas, semDado, mostrarLegenda), LegendaDoMapa e corDoMapa em src/app/components/ui/graficos.tsx` | proposta |
+| [Quadro com link esticado](propostas/2026-11-28-quadro-link-esticado.md) | `Quadro em src/app/components/ui/quadro.tsx` | proposta |
 | [Recorte de foto](propostas/2026-11-28-recorte-de-foto.md) | `RecorteDeFoto em src/app/components/ui/recorte-de-foto.tsx` | proposta |
+| [Seletor de etapa](propostas/2026-11-28-seletor-de-etapa.md) | `SeletorDeEtapa em src/app/components/ui/seletor-de-etapa.tsx` | proposta |
+| [Linha atual na tabela adaptável](propostas/2026-11-28-tabela-linha-atual.md) | `TabelaAdaptavel (linhaAtual) em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
 
 ## 6. Páginas e âncoras do site
 

@@ -146,7 +146,7 @@ export function SecaoBarrasHorizontaisComLink() {
       </Card>
       <ComoUsar>{`<BarrasHorizontais rotulo="Lojas por bairro" comoLink={Link}
   linhas={[{ rotulo: "Centro", texto: "12 lojas", partes: [...], href: "/admin/lojas/?bairro=Centro" }]} />`}</ComoUsar>
-      <Regras itens={["Nome do link: “Centro, 12 lojas”; a barra é decorativa. Hover cinza de ponta a ponta (--row-hover, sem cantos), foco por dentro, 44 px no toque."]} />
+      <Regras itens={["Nome do link: o texto da linha (“Centro 12 lojas”); a barra é decorativa. Hover cinza de ponta a ponta (--row-hover, sem cantos), foco por dentro, 44 px no toque."]} />
       <DoDont dos={["Leve à lista filtrada pelo que a linha conta."]} donts={["Não misture linhas com e sem link."]} />
     </section>
   );
@@ -210,7 +210,7 @@ export function SecaoCartaoDePecaDoPainel() {
       <Regras itens={[
         "Foto 4:5 no cinza de apoio; sem foto, a camiseta. A situação é um ChipDeEstado numa base branca, sobre a foto.",
         "Nome em até 2 linhas (text-body-sm), preço em text-body negrito (promoção: o antigo riscado em text-label cinza e o novo em --primary-text, “em promoção” para leitores de tela), tamanhos em text-label cinza numa linha.",
-        "O nome do cartão diz a ação e o interesse (“Editar Vestido midi florido. 3 pessoas pediram contato · 5 pessoas salvaram”); os números do rodapé ficam escondidos dos leitores (já estão no nome).",
+        "O nome do cartão é o próprio conteúdo, na ordem em que aparece, começando por “Editar” (escondido na tela); o interesse vai por extenso no fim (“3 pessoas pediram contato · 5 pessoas salvaram”) e os números do rodapé ficam escondidos dos leitores.",
         "Hover: borda mais forte, sombra pequena e subida de 2 px; toque encolhe um pouco. Com “menos movimento”, só a borda e a sombra mudam. Destaque de sucesso: borda e anel verdes. Vendida: foto esmaecida (o chip diz em texto).",
       ]} />
       <DoDont

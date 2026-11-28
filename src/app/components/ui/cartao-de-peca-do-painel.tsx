@@ -13,8 +13,9 @@ import { cn } from "./utils";
  * - nome em até 2 linhas; preço (com promoção: o antigo riscado e o novo no rosa do texto, "em promoção" para leitores
  *   de tela; sem preço, o texto `semPreco`); linha de detalhes (os tamanhos), em 1 linha;
  * - rodapé opcional com indicadores (ícone + número); o texto completo de cada um ("3 pessoas pediram contato") vai no
- *   nome do cartão, para leitores de tela;
- * - com `onAbrir` ou `href`, o cartão inteiro é um botão ou um link ("Editar <nome>. 3 pessoas pediram contato"), com
+ *   nome do cartão, para leitores de tela (o nome é o próprio conteúdo, na ordem em que aparece: "Editar <nome>, situação,
+ *   preço, tamanhos. 3 pessoas pediram contato");
+ * - com `onAbrir` ou `href`, o cartão inteiro é um botão ou um link (o nome começa por "Editar"), com
  *   hover de borda mais forte, sombra pequena e subida de 2 px; sem, é só de leitura (a ficha da parceira);
  * - `destaque` = sucesso depois de salvar: borda verde e anel verde por um momento (quem usa limpa a prop);
  * - `vendida`: a foto fica esmaecida e meio cinza (a situação "Vendida" continua no chip, em texto).
@@ -63,20 +64,11 @@ export function CartaoDePecaDoPainel({
   onAbrir, href, comoLink, acao = "Editar", iconeSemFoto, className,
 }: CartaoDePecaDoPainelProps) {
   const comNumero = indicadores.filter((i) => i.valor > 0);
-  const nome = `${acao} ${titulo}${comNumero.length ? `. ${comNumero.map((i) => i.rotulo).join(" · ")}` : ""}`;
   const interativo = !!(onAbrir || href);
   const corpo = (
     <>
-      <span className="relative block aspect-[4/5] w-full bg-muted">
-        {foto ? (
-          <img src={foto} alt="" loading="lazy" className={cn("size-full object-cover transition-[opacity,filter] duration-[var(--duration-normal)]", vendida && "opacity-70 grayscale-[40%]")} />
-        ) : (
-          <span className="flex size-full items-center justify-center text-muted-foreground [&_svg]:size-8">{iconeSemFoto ?? <Shirt aria-hidden />}</span>
-        )}
-        {situacao && <span className="absolute left-2 top-2 rounded-full bg-card shadow-[var(--shadow-xs)]">{situacao}</span>}
-      </span>
       <span className="flex flex-1 flex-col gap-0.5 p-3">
-        <span className="line-clamp-2 text-body-sm font-semibold leading-snug text-foreground">{titulo}</span>
+        <span className="line-clamp-2 text-body-sm font-semibold leading-snug text-foreground">{interativo && <span className="sr-only">{acao} </span>}{titulo}</span>
         {preco && precoPromocional ? (
           <span className="flex flex-wrap items-baseline gap-x-1.5" data-preco-em-promocao>
             <s className="text-label text-muted-foreground">{preco}</s>
@@ -88,15 +80,24 @@ export function CartaoDePecaDoPainel({
         )}
         {detalhes && <span className="line-clamp-1 text-label text-muted-foreground">{detalhes}</span>}
         {comNumero.length > 0 && (
-          <span aria-hidden={interativo || undefined} className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-1.5 text-label font-medium tabular-nums text-muted-foreground" data-indicadores-da-peca>
+          <span aria-hidden className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-1.5 text-label font-medium tabular-nums text-muted-foreground" data-indicadores-da-peca>
             {comNumero.map((i) => (
               <span key={i.rotulo} title={i.rotulo} className="inline-flex items-center gap-1 [&_svg]:size-3.5 [&_svg]:shrink-0">
                 {i.icone} {i.valor}
-                {!interativo && <span className="sr-only">: {i.rotulo}</span>}
               </span>
             ))}
           </span>
         )}
+        {comNumero.length > 0 && <span className="sr-only">. {comNumero.map((i) => i.rotulo).join(" · ")}</span>}
+      </span>
+      {/* A foto vem depois do texto no HTML (o nome do cartão começa por "Editar <nome>") e aparece em cima (order-first). */}
+      <span className="relative order-first block aspect-[4/5] w-full bg-muted">
+        {foto ? (
+          <img src={foto} alt="" loading="lazy" className={cn("size-full object-cover transition-[opacity,filter] duration-[var(--duration-normal)]", vendida && "opacity-70 grayscale-[40%]")} />
+        ) : (
+          <span className="flex size-full items-center justify-center text-muted-foreground [&_svg]:size-8">{iconeSemFoto ?? <Shirt aria-hidden />}</span>
+        )}
+        {situacao && <span className="absolute left-2 top-2 rounded-full bg-card shadow-[var(--shadow-xs)]">{situacao}</span>}
       </span>
     </>
   );
@@ -108,10 +109,10 @@ export function CartaoDePecaDoPainel({
   );
   if (href) {
     const Link = comoLink ?? "a";
-    return <Link href={href} aria-label={nome} data-slot="cartao-de-peca-do-painel" data-vendida={vendida || undefined} className={caixa}>{corpo}</Link>;
+    return <Link href={href} data-slot="cartao-de-peca-do-painel" data-vendida={vendida || undefined} className={caixa}>{corpo}</Link>;
   }
   if (onAbrir) {
-    return <button type="button" onClick={onAbrir} aria-label={nome} data-slot="cartao-de-peca-do-painel" data-vendida={vendida || undefined} className={cn(caixa, "font-normal")}>{corpo}</button>;
+    return <button type="button" onClick={onAbrir} data-slot="cartao-de-peca-do-painel" data-vendida={vendida || undefined} className={cn(caixa, "font-normal")}>{corpo}</button>;
   }
   return <article aria-label={titulo} data-slot="cartao-de-peca-do-painel" data-vendida={vendida || undefined} className={caixa}>{corpo}</article>;
 }

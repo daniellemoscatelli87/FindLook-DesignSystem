@@ -121,7 +121,6 @@ function BarrasHorizontais({
       <>
         <span className={cn("min-w-0 break-words text-body-sm font-semibold leading-snug text-foreground", comLinks && "group-hover:underline")}>
           {l.rotulo}
-          {comLinks && <span className="sr-only">, {l.texto}</span>}
         </span>
         <span className="h-3.5 min-w-0 rounded-full bg-muted" aria-hidden={comLinks || undefined}>
           <span
@@ -135,7 +134,7 @@ function BarrasHorizontais({
             ))}
           </span>
         </span>
-        <span aria-hidden={comLinks || undefined} className="shrink-0 text-right text-body-sm tabular-nums text-muted-foreground">{l.texto}</span>
+        <span className="shrink-0 text-right text-body-sm tabular-nums text-muted-foreground">{l.texto}</span>
       </>
     );
   };

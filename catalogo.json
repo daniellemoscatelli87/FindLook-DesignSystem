@@ -12,7 +12,7 @@
     "tokens": 177,
     "paginas": 37,
     "ancoras": 278,
-    "propostas": 35
+    "propostas": 47
   },
   "componentes": [
     {
@@ -3501,7 +3501,7 @@
         {
           "nome": "CartaoDePecaDoPainel",
           "tipo": "componente",
-          "linha": 61,
+          "linha": 62,
           "descricao": "",
           "props": [
             "titulo",
@@ -7338,7 +7338,7 @@
         {
           "nome": "faixaDoMapa",
           "tipo": "utilitário",
-          "linha": 188,
+          "linha": 187,
           "descricao": "Faixa (0 a 4) de um valor: divide de 0 ao máximo em 5 partes iguais; -1 quando não há valor.",
           "props": [],
           "reexportaDe": null
@@ -7346,7 +7346,7 @@
         {
           "nome": "corDoMapa",
           "tipo": "utilitário",
-          "linha": 194,
+          "linha": 193,
           "descricao": "Cor de um valor (28/11/2026): com `faixas`, a primeira faixa em que o valor cabe (a 1ª faixa no --mapa-1, a 5ª no --mapa-5; até 5 faixas); sem, as 5 partes iguais de 0 ao máximo. Sem valor (0), --mapa-vazio.",
           "props": [],
           "reexportaDe": null
@@ -7354,7 +7354,7 @@
         {
           "nome": "LegendaDoMapa",
           "tipo": "componente",
-          "linha": 204,
+          "linha": 203,
           "descricao": "Legenda em lista das faixas fixas: um quadrado da cor e o texto de cada faixa. Use dentro ou fora do mapa.",
           "props": [
             "faixas",
@@ -7367,7 +7367,7 @@
         {
           "nome": "MapaCoropletico",
           "tipo": "componente",
-          "linha": 223,
+          "linha": 222,
           "descricao": "",
           "props": [
             "viewBox",
@@ -14962,7 +14962,7 @@
         {
           "nome": "ImageGrid",
           "tipo": "componente",
-          "linha": 326,
+          "linha": 327,
           "descricao": "",
           "props": [
             "images",
@@ -19978,6 +19978,30 @@
       "componente": "TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx"
     },
     {
+      "arquivo": "propostas/2026-11-28-barras-com-link.md",
+      "titulo": "Barras com link por linha",
+      "status": "proposta",
+      "componente": "BarrasOrdenadas (graficos-inteligencia.tsx, nos dois DS) e BarrasHorizontais (graficos.tsx, só no FindLook): href/onClick por item e comoLink"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-calendario-v9.md",
+      "titulo": "Calendário no react-day-picker 9",
+      "status": "proposta",
+      "componente": "Calendar em src/app/components/ui/calendar.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-campo-de-mensagem-fotos.md",
+      "titulo": "Campo de mensagem com ref, anexar desligado e fotos",
+      "status": "proposta",
+      "componente": "CampoDeMensagem (forwardRef, anexarDesativado, fotos, onRemoverFoto, tituloDasFotos, descricaoDasFotos, rotuloRemoverFoto) em src/app/components/ui/conversa.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-cartao-de-peca-do-painel.md",
+      "titulo": "Cartão de peça do painel",
+      "status": "proposta",
+      "componente": "CartaoDePecaDoPainel em src/app/components/ui/cartao-de-peca-do-painel.tsx"
+    },
+    {
       "arquivo": "propostas/2026-11-28-confete.md",
       "titulo": "Confete",
       "status": "proposta",
@@ -19996,10 +20020,58 @@
       "componente": "EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx"
     },
     {
+      "arquivo": "propostas/2026-11-28-grade-de-miniaturas.md",
+      "titulo": "Grade de miniaturas",
+      "status": "proposta",
+      "componente": "GradeDeMiniaturas em src/app/components/ui/grade-de-miniaturas.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-image-upload-ocupado.md",
+      "titulo": "ImageUpload enviando e com iniciais",
+      "status": "proposta",
+      "componente": "ImageUpload (ocupado, textoOcupado, iniciais) em src/app/components/ui/upload.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-item-marcavel.md",
+      "titulo": "Item marcável",
+      "status": "proposta",
+      "componente": "ItemMarcavel e ListaMarcavel em src/app/components/ui/item-marcavel.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-lista-de-passos.md",
+      "titulo": "Lista de passos",
+      "status": "proposta",
+      "componente": "ListaDePassos, PassoDaLista e NumeroDoPasso em src/app/components/ui/lista-de-passos.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-mapa-com-faixas.md",
+      "titulo": "Mapa coroplético com faixas fixas e números",
+      "status": "proposta",
+      "componente": "MapaCoropletico (faixas, etiquetas, semDado, mostrarLegenda), LegendaDoMapa e corDoMapa em src/app/components/ui/graficos.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-quadro-link-esticado.md",
+      "titulo": "Quadro com link esticado",
+      "status": "proposta",
+      "componente": "Quadro em src/app/components/ui/quadro.tsx"
+    },
+    {
       "arquivo": "propostas/2026-11-28-recorte-de-foto.md",
       "titulo": "Recorte de foto",
       "status": "proposta",
       "componente": "RecorteDeFoto em src/app/components/ui/recorte-de-foto.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-seletor-de-etapa.md",
+      "titulo": "Seletor de etapa",
+      "status": "proposta",
+      "componente": "SeletorDeEtapa em src/app/components/ui/seletor-de-etapa.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-tabela-linha-atual.md",
+      "titulo": "Linha atual na tabela adaptável",
+      "status": "proposta",
+      "componente": "TabelaAdaptavel (linhaAtual) em src/app/components/ui/tabela-adaptavel.tsx"
     }
   ],
   "paginas": [
