@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 129 arquivos de componentes em `src/app/components/ui/` com 469 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 177 tokens · 37 páginas e 278 âncoras no site (https://designsystem.findlook.com.br) · 47 propostas de componente.
+**Resumo:** 129 arquivos de componentes em `src/app/components/ui/` com 469 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 177 tokens · 37 páginas e 279 âncoras no site (https://designsystem.findlook.com.br) · 48 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -167,7 +167,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `Button` (props: `className`, `variant`, `size`, `forma`, `quebra`, `asChild`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
 - **Funções e constantes:** `buttonVariants`
 - **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon-lg`; `forma` = `padrao` · `pilula`; `quebra` = `celular` · `nunca` · `sempre`
-- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 45 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 46 seções (ver `catalogo.json`)
 
 ### cabecalho-do-site
 
@@ -177,7 +177,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `MenuDoCelular` (props: `aberto`, `onAbertoChange`, `itens`, `atual`, `acao`, `acaoSecundaria`, `comoLink`, `textos`, `container`, `retornarFocoPara`): Menu do celular em folha inferior: os itens um por linha (48 px, seta à direita; o atual no rosa do selecionado) e as ações lado a lado embaixo. Fecha com Esc, com o fundo, arrastando para baixo e ao escolher um item.
   - `CabecalhoDoSite` (props: `itens`, `atual`, `acao`, `superficie`, `esconderAoRolar`, `inicioHref`, `rotuloInicio`, `logo`, `raiz`, `posicao`, `tela`, `textos`, `className`, `acaoSecundaria`, `transparenteNoTopo`, `iconeAoRolar`, `telaLarga`, `comoLink`, `containerDoMenu`)
 - **Funções e constantes:** `useRolagemDoCabecalho`
-- **Onde ver:** Moldura do site › Cabeçalho e menu do celular (`site#site-cabecalho`)
+- **Onde ver:** Moldura do site › Cabeçalho e menu do celular (`site#site-cabecalho`) · Sobreposições (overlays) › Janela, busca e cabeçalho sem itens (`overlays#janelas-e-cabecalho`)
 
 ### cadastro-lojista
 
@@ -259,7 +259,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CardAction` (props: `className`)
   - `CardContent` (props: `className`)
   - `CardFooter` (props: `className`, `children`): Rodapé do card. No Card horizontal, ganha o divisor do card em cima e as ações vão para o canto inferior direito.
-- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 40 seções (ver `catalogo.json`)
+- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 41 seções (ver `catalogo.json`)
 
 ### card-de-preco
 
@@ -373,7 +373,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Paleta de comandos com busca (Ctrl+K).
 - **Componentes:**
   - `Command` (props: `className`)
-  - `CommandDialog` (props: `title`, `description`, `children`)
+  - `CommandDialog` (props: `title`, `description`, `children`, `filter`, `shouldFilter`, `loop`, `value`, `onValueChange`): CommandDialog (28/11/2026, igual nos dois DS): o título e a descrição ficam dentro da janela (escondidos na tela, lidos por leitores de tela), como o Radix pede.
   - `CommandInput` (props: `className`)
   - `CommandList` (props: `className`)
   - `CommandEmpty`
@@ -381,7 +381,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CommandSeparator` (props: `className`)
   - `CommandItem` (props: `className`)
   - `CommandShortcut` (props: `className`)
-- **Onde ver:** Templates › Painel da loja (protótipo) (`templates#template-dashboard`)
+- **Onde ver:** Sobreposições (overlays) › Janela, busca e cabeçalho sem itens (`overlays#janelas-e-cabecalho`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`)
 
 ### confete
 
@@ -461,7 +461,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `DialogFooter` (props: `className`)
   - `DialogTitle` (props: `className`)
   - `DialogDescription` (props: `className`)
-- **Onde ver:** Sobreposições (overlays) › Diálogos (`overlays#dialogs`)
+- **Onde ver:** Sobreposições (overlays) › Diálogos (`overlays#dialogs`) · Sobreposições (overlays) › Janela, busca e cabeçalho sem itens (`overlays#janelas-e-cabecalho`)
 
 ### divisor-do-card
 
@@ -597,7 +597,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 97 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 98 seções (ver `catalogo.json`)
 
 ### grade-de-miniaturas
 
@@ -1495,9 +1495,9 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `Alert` | Feedback › Alertas (`feedback#alerts`) | [src/app/components/showcase/FeedbackShowcase.tsx:86](src/app/components/showcase/FeedbackShowcase.tsx#L86) | `Alert`, `AlertDescription`, `AlertTitle` | 1 |
 | `DemoAbasComContador` | Feedback › Abas com contador (`feedback#abas-contador`) | [src/app/components/showcase/FeedbackShowcase.tsx:141](src/app/components/showcase/FeedbackShowcase.tsx#L141) | `AbasComContador` | 1 |
 | `DemoBannerPromocional`<br>Banner promocional | Feedback › Banner promocional (`feedback#banner-promocional`) | [src/app/components/showcase/FeedbackShowcase.tsx:158](src/app/components/showcase/FeedbackShowcase.tsx#L158) | `BannerPromocional`, `IconeModa` | 2 |
-| `DrawerDemo`<br>Drawer | Sobreposições (overlays) | [src/app/components/showcase/OverlaysShowcase.tsx:147](src/app/components/showcase/OverlaysShowcase.tsx#L147) | `Button`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle` | 3 |
-| `ExemploMenuRecolhivel`<br>Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. | Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) | [src/app/components/showcase/OverlaysShowcase.tsx:201](src/app/components/showcase/OverlaysShowcase.tsx#L201) | `BarraSuperiorDoPainel`, `GatilhoDaConta`, `GrupoDoMenu`, `ItemDoMenu`, `MenuLateral`, `MenuLateralProvider`, `NavDoMenu`, `TopoDoMenu` | 4 |
-| `ExemploOpcaoA`<br>Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. | Sobreposições (overlays) › Cabeçalho da página (`overlays#cabecalho-pagina`) | [src/app/components/showcase/OverlaysShowcase.tsx:250](src/app/components/showcase/OverlaysShowcase.tsx#L250) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 1 |
+| `DrawerDemo`<br>Drawer | Sobreposições (overlays) | [src/app/components/showcase/OverlaysShowcase.tsx:148](src/app/components/showcase/OverlaysShowcase.tsx#L148) | `Button`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle` | 3 |
+| `ExemploMenuRecolhivel`<br>Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. | Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) | [src/app/components/showcase/OverlaysShowcase.tsx:202](src/app/components/showcase/OverlaysShowcase.tsx#L202) | `BarraSuperiorDoPainel`, `GatilhoDaConta`, `GrupoDoMenu`, `ItemDoMenu`, `MenuLateral`, `MenuLateralProvider`, `NavDoMenu`, `TopoDoMenu` | 4 |
+| `ExemploOpcaoA`<br>Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. | Sobreposições (overlays) › Cabeçalho da página (`overlays#cabecalho-pagina`) | [src/app/components/showcase/OverlaysShowcase.tsx:251](src/app/components/showcase/OverlaysShowcase.tsx#L251) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 1 |
 | `Segmentado`<br>Controles da demonstração com os componentes do DS (27/11/2026): até 3 opções, Controle segmentado; mais que isso, lista de seleção (Select), que cabe em qualquer largura. O interruptor é o Switch. | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:102](src/app/components/showcase/HeaderShowcase.tsx#L102) | `Select`, `SelectContent`, `SelectItem`, `SelectTrigger`, `SelectValue` | 1 |
 | `Capa`<br>Fundos por trás do header | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:149](src/app/components/showcase/HeaderShowcase.tsx#L149) |  | 4 |
 | `DemoHeader`<br>Demonstração: janela com rolagem própria | Header e menus › Demonstração (`header#header-demo`) | [src/app/components/showcase/HeaderShowcase.tsx:173](src/app/components/showcase/HeaderShowcase.tsx#L173) |  | 39 |
@@ -1596,11 +1596,11 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Rótulos › Selo (tag do hero) (`badges#selo`) | [src/app/components/showcase/FeedbackShowcase.tsx:539](src/app/components/showcase/FeedbackShowcase.tsx#L539) | `Selo` | 3 |
 | Rótulos › Avatar (`badges#avatar`) | [src/app/components/showcase/FeedbackShowcase.tsx:613](src/app/components/showcase/FeedbackShowcase.tsx#L613) |  | 4 |
 | Ícones › Tamanhos e cores (`icons#icon-sizes`) | [src/app/components/showcase/IconsShowcase.tsx:124](src/app/components/showcase/IconsShowcase.tsx#L124) |  | 8 |
-| Sobreposições (overlays) › Barra superior (`overlays#barra-superior`) | [src/app/components/showcase/OverlaysShowcase.tsx:459](src/app/components/showcase/OverlaysShowcase.tsx#L459) | `BotaoDeNotificacoes`, `CampoDeBuscaGlobal`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger` +1 | 4 |
-| Sobreposições (overlays) › Dica de contexto (tooltip) (`overlays#tooltips`) | [src/app/components/showcase/OverlaysShowcase.tsx:547](src/app/components/showcase/OverlaysShowcase.tsx#L547) | `Tooltip` | 3 |
-| Sobreposições (overlays) › Menu suspenso (dropdown) (`overlays#dropdown`) | [src/app/components/showcase/OverlaysShowcase.tsx:562](src/app/components/showcase/OverlaysShowcase.tsx#L562) | `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuTrigger` | 4 |
-| Sobreposições (overlays) › Diálogos (`overlays#dialogs`) | [src/app/components/showcase/OverlaysShowcase.tsx:610](src/app/components/showcase/OverlaysShowcase.tsx#L610) | `Calendar`, `Dialog`, `Popover` | 3 |
-| Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:697](src/app/components/showcase/OverlaysShowcase.tsx#L697) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
+| Sobreposições (overlays) › Barra superior (`overlays#barra-superior`) | [src/app/components/showcase/OverlaysShowcase.tsx:460](src/app/components/showcase/OverlaysShowcase.tsx#L460) | `BotaoDeNotificacoes`, `CampoDeBuscaGlobal`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger` +1 | 4 |
+| Sobreposições (overlays) › Dica de contexto (tooltip) (`overlays#tooltips`) | [src/app/components/showcase/OverlaysShowcase.tsx:548](src/app/components/showcase/OverlaysShowcase.tsx#L548) | `Tooltip` | 3 |
+| Sobreposições (overlays) › Menu suspenso (dropdown) (`overlays#dropdown`) | [src/app/components/showcase/OverlaysShowcase.tsx:563](src/app/components/showcase/OverlaysShowcase.tsx#L563) | `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuTrigger` | 4 |
+| Sobreposições (overlays) › Diálogos (`overlays#dialogs`) | [src/app/components/showcase/OverlaysShowcase.tsx:611](src/app/components/showcase/OverlaysShowcase.tsx#L611) | `Calendar`, `Dialog`, `Popover` | 3 |
+| Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:698](src/app/components/showcase/OverlaysShowcase.tsx#L698) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
 | Painel lateral › Anatomia (`sidepanel#sidepanel-anatomy`) | [src/app/components/showcase/SidePanelShowcase.tsx:158](src/app/components/showcase/SidePanelShowcase.tsx#L158) |  | 3 |
 | Etapas (Stepper) › Demonstração (`stepper#stepper-demo`) | [src/app/components/showcase/StepperShowcase.tsx:26](src/app/components/showcase/StepperShowcase.tsx#L26) | `Button`, `Stepper` | 3 |
 
@@ -1913,6 +1913,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Grade de miniaturas](propostas/2026-11-28-grade-de-miniaturas.md) | `GradeDeMiniaturas em src/app/components/ui/grade-de-miniaturas.tsx` | proposta |
 | [ImageUpload enviando e com iniciais](propostas/2026-11-28-image-upload-ocupado.md) | `ImageUpload (ocupado, textoOcupado, iniciais) em src/app/components/ui/upload.tsx` | proposta |
 | [Item marcável](propostas/2026-11-28-item-marcavel.md) | `ItemMarcavel e ListaMarcavel em src/app/components/ui/item-marcavel.tsx` | proposta |
+| [Fechar das janelas, busca de comandos, cabeçalho sem itens e nome do arquivo no recorte](propostas/2026-11-28-janela-busca-cabecalho-recorte.md) | `DialogContent (ui/dialog.tsx), CommandDialog (ui/command.tsx), CabecalhoDoSite (ui/cabecalho-do-site.tsx), RecorteDeFoto (ui/recorte-de-foto.tsx)` | proposta |
 | [Lista de passos](propostas/2026-11-28-lista-de-passos.md) | `ListaDePassos, PassoDaLista e NumeroDoPasso em src/app/components/ui/lista-de-passos.tsx` | proposta |
 | [Mapa coroplético com faixas fixas e números](propostas/2026-11-28-mapa-com-faixas.md) | `MapaCoropletico (faixas, etiquetas, semDado, mostrarLegenda), LegendaDoMapa e corDoMapa em src/app/components/ui/graficos.tsx` | proposta |
 | [Quadro com link esticado](propostas/2026-11-28-quadro-link-esticado.md) | `Quadro em src/app/components/ui/quadro.tsx` | proposta |
@@ -1948,7 +1949,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Feedback** (`feedback`): `tabs` Abas · `abas-contador` Abas com contador · `alerts` Alertas · `alerta-sem-titulo` Alerta só com descrição · `alerta-com-acao` Alerta com ação · `banner-promocional` Banner promocional · `toasts` Notificações (toast) · `progress` Progresso · `skeleton` Carregamento (skeleton) · `feedback-tokens` Tokens · `confete` Confete na conquista · `avatar-decorativo` Avatares de enfeite
 - **Rótulos** (`badges`): `badges` Badges e tags · `selo` Selo (tag do hero) · `selo-secao` Selo de seção · `rotulos-timeline` · `avatar` Avatar · `avatar-circles` Círculos de avatares · `empty-states` Estados vazios · `listas-painel` Listas de atividade e ações · `badges-tokens` Tokens
 - **Ícones** (`icons`): `icon-sizes` Tamanhos e cores · `icon-base` Base do ícone · `icon-library` Biblioteca · `icons-tokens` Tokens
-- **Sobreposições (overlays)** (`overlays`): `breadcrumb` Trilha de navegação (breadcrumb) · `pagination` Paginação · `menu-painel` Menu do painel · `barra-superior` Barra superior · `cabecalho-pagina` Cabeçalho da página · `tooltips` Dica de contexto (tooltip) · `dropdown` Menu suspenso (dropdown) · `dialogs` Diálogos · `accordion` Sanfona (accordion) · `overlays-tokens` Tokens
+- **Sobreposições (overlays)** (`overlays`): `breadcrumb` Trilha de navegação (breadcrumb) · `pagination` Paginação · `menu-painel` Menu do painel · `barra-superior` Barra superior · `cabecalho-pagina` Cabeçalho da página · `tooltips` Dica de contexto (tooltip) · `dropdown` Menu suspenso (dropdown) · `dialogs` Diálogos · `accordion` Sanfona (accordion) · `overlays-tokens` Tokens · `janelas-e-cabecalho` Janela, busca e cabeçalho sem itens
 - **Header e menus** (`header`): `header-demo` Demonstração · `header-models` Modelos · `header-scroll` Comportamentos de rolagem · `header-mobile` Menus no celular · `header-backgrounds` Fundos por trás do header · `header-a11y` Checklist de acessibilidade · `header-usage` Uso · `header-tokens` Tokens
 - **Painel lateral** (`sidepanel`): `sidepanel-anatomy` Anatomia · `sidepanel-behavior` Comportamento · `sidepanel-store` Formulário em painel · `sidepanel-a11y` Checklist de acessibilidade · `sidepanel-usage` Uso · `sidepanel-tokens` Tokens
 - **Linha do tempo** (`timeline`): `timeline-demo` Demonstração · `timeline-anatomy` Anatomia · `timeline-motion` Movimento: indicador de etapas · `timeline-usage` Uso · `lista-de-passos` Lista de passos · `seletor-de-etapa` Seletor de etapa

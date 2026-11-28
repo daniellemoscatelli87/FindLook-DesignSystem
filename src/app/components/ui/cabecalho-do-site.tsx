@@ -18,7 +18,8 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } fr
  * - esconderAoRolar: some ao descer (mais de 6 px) e volta ao subir ou quando algo dentro dele recebe o foco.
  * - Computador: logo, links (`itens`; o `atual` no rosa do selecionado, com aria-current; hover cinza), a ação
  *   secundária (FindLook: pílula de contorno) e a `acao` principal (pílula preenchida). Celular (abaixo de `telaLarga`,
- *   ou `tela="celular"`): logo e o botão Menu (44 px), que abre o MenuDoCelular em folha inferior.
+ *   ou `tela="celular"`): logo e o botão Menu (44 px), que abre o MenuDoCelular em folha inferior. Sem `itens`
+ *   (28/11/2026), não há botão Menu: as ações aparecem na faixa também no celular.
  * - superficie "escura": logo da versão sobre grafite (página do lojista, tema escuro).
  * Props em comum com o DS Dani Moscatelli (27/11/2026; lá, com o modelo pílula ou faixa): acaoSecundaria, transparenteNoTopo, iconeAoRolar, telaLarga ("lg" 1024 px ou "xl"
  * 1280 px), comoLink (o Link do Next.js) e containerDoMenu (demonstrações).
@@ -220,6 +221,9 @@ export function CabecalhoDoSite({
   const noCelular = tela === "computador" ? "hidden" : tela === "celular" ? "flex" : telaLarga === "xl" ? "flex xl:hidden" : telaLarga === "md" ? "flex md:hidden" : "flex lg:hidden";
   const alto = tela === "computador" ? "h-18 px-6" : tela === "celular" ? "" : telaLarga === "xl" ? "xl:h-18 xl:px-6" : telaLarga === "md" ? "md:h-18 md:px-6" : "lg:h-18 lg:px-6";
   const botaoDoMenu = React.useRef<HTMLButtonElement>(null);
+  // Sem itens (28/11/2026): não há o que pôr no menu do celular; o botão Menu some e as ações ficam na faixa.
+  const semMenu = itens.length === 0;
+  const acaoNaTela = semMenu ? "flex" : naTela;
 
   return (
     <header
@@ -260,9 +264,9 @@ export function CabecalhoDoSite({
         </nav>
 
         <div className="flex items-center gap-2">
-          {acaoSecundaria && <Acao acao={acaoSecundaria} variant="outline" comoLink={comoLink} className={cn("px-5", naTela)} />}
-          {acao && <Acao acao={acao} comoLink={comoLink} className={cn("px-5", naTela)} />}
-          <Button
+          {acaoSecundaria && <Acao acao={acaoSecundaria} variant="outline" comoLink={comoLink} className={cn("px-5", acaoNaTela)} />}
+          {acao && <Acao acao={acao} comoLink={comoLink} className={cn("px-5", acaoNaTela)} />}
+          {!semMenu && <Button
             ref={botaoDoMenu}
             type="button"
             variant="ghost"
@@ -273,10 +277,10 @@ export function CabecalhoDoSite({
             className={cn("-mr-1.5 size-11 rounded-full text-foreground [&_svg:not([class*='size-'])]:size-6", noCelular)}
           >
             <Menu aria-hidden />
-          </Button>
+          </Button>}
         </div>
       </div>
-      <MenuDoCelular
+      {!semMenu && <MenuDoCelular
         aberto={aberto}
         onAbertoChange={setAberto}
         itens={itens}
@@ -287,7 +291,7 @@ export function CabecalhoDoSite({
         textos={textos}
         container={containerDoMenu}
         retornarFocoPara={botaoDoMenu}
-      />
+      />}
     </header>
   );
 }

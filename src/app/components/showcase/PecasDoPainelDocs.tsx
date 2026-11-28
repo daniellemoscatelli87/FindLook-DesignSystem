@@ -102,8 +102,8 @@ export function SecaoMapaComFaixas() {
       <ComoUsar>{`<MapaCoropletico
   viewBox={geo.viewBox} regioes={geo.bairros} valores={lojasPorBairro}
   faixas={[{ ate: 25, rotulo: "0 – 25 lojas" }, …, { ate: Infinity, rotulo: "300+ lojas" }]}
-  mostrarLegenda={false}                      // legenda em outro lugar: <LegendaDoMapa faixas={…} />
-  semDado="var(--accent)"                     // bairros que não estão em valores
+  mostrarLegenda={false} // legenda em outro lugar: <LegendaDoMapa faixas={…} />
+  semDado="var(--accent)" // bairros que não estão em valores
   etiquetas={(bairro, n) => n > 0 ? { texto: String(n), extra: conferir(bairro) ? \`+\${conferir(bairro)}\` : undefined } : null}
   rotuloDoValor={(n, bairro) => \`\${n} lojas\`}
   escolhida={escolhido} onEscolher={setEscolhido}
@@ -199,13 +199,13 @@ export function SecaoCartaoDePecaDoPainel() {
       </Card>
       <ComoUsar>{`<CartaoDePecaDoPainel
   titulo={peca.titulo} foto={url}
-  situacao={<ChipDaPeca situacao={peca.situacao} />}     // um ChipDeEstado
+  situacao={<ChipDaPeca situacao={peca.situacao} />} // um ChipDeEstado
   preco={reais(peca.preco)} precoPromocional={promocao ? reais(promocao) : null}
   detalhes={textoTamanhos(peca.tamanhos)}
   indicadores={[{ icone: <MessageCircle />, valor: 3, rotulo: "3 pessoas pediram contato" }]}
   vendida={peca.situacao === "vendida"}
   destaque={acabouDeSalvar === peca.id}
-  onAbrir={() => abrir(peca.id)}                          // ou href + comoLink; sem os dois, só leitura
+  onAbrir={() => abrir(peca.id)} // ou href + comoLink; sem os dois, só leitura
 />`}</ComoUsar>
       <Regras itens={[
         "Foto 4:5 no cinza de apoio; sem foto, a camiseta. A situação é um ChipDeEstado numa base branca, sobre a foto.",
@@ -277,7 +277,7 @@ export function SecaoCampoDeMensagemComFotos() {
   onAnexar={() => seletorDeArquivo.current?.click()}
   anexarDesativado={fotos.length >= 3}
   fotos={fotos.map(f => ({ id: f.id, url: f.previa }))}
-  onRemoverFoto={(id) => tirar(id)}                 // o foco volta sozinho ao campo
+  onRemoverFoto={(id) => tirar(id)} // o foco volta sozinho ao campo
   tituloDasFotos="Foto pronta para enviar"
   descricaoDasFotos="Pode juntar até 3 fotos da mesma peça."
   onEnviar={() => { enviar(); campo.current?.focus(); }}
