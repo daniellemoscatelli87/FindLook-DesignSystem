@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 125 arquivos de componentes em `src/app/components/ui/` com 461 componentes exportados · 88 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 270 âncoras no site (https://designsystem.findlook.com.br) · 37 propostas de componente.
+**Resumo:** 126 arquivos de componentes em `src/app/components/ui/` com 462 componentes exportados · 88 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 271 âncoras no site (https://designsystem.findlook.com.br) · 39 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -125,6 +125,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `EspacoDaBarraFixa` (props: `somenteCelular`, `className`): Espaço no fim da página para a barra fixa (e o Voltar ao topo) não cobrirem o conteúdo. A BarraFixaDoCelular já o coloca sozinha; use este só quando a barra estiver com reservarEspaco={false}.
   - `BarraFixaDoCelular` (props: `icone`, `oculta`, `somenteCelular`, `reservarEspaco`, `classeDaFaixa`, `className`, `children`)
 - **Onde ver:** Templates › Botões flutuantes (`templates#template-flutuantes`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
+
+### beneficios-dos-dois-lados
+
+- **Arquivo:** [src/app/components/ui/beneficios-dos-dois-lados.tsx](src/app/components/ui/beneficios-dos-dois-lados.tsx)
+- **Quando usar:** BeneficiosDosDoisLados (o que cada lado ganha, num card só): Mostra os benefícios de uma parceria para os dois lados (por exemplo, "Para sua empresa" e "Para o Studio"), num card só. Prévia aprovada pela dona do produto em 28/11/2026. Mesmo arquivo nos dois DS (Dani Moscatelli e FindLook).
+- **Componentes:**
+  - `BeneficiosDosDoisLados` (props: `lados`, `ladoInicial`, `rotulo`, `nivel`, `className`)
+- **Onde ver:** Moldura do site › Benefícios dos dois lados (`site#site-beneficios`)
 
 ### botao-de-envio
 
@@ -597,7 +605,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 90 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 91 seções (ver `catalogo.json`)
 
 ### graficos
 
@@ -1870,10 +1878,12 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Tabela adaptável e barra de ferramentas](propostas/2026-11-27-tabela-adaptavel.md) | `TabelaAdaptavel, BarraDeFerramentasDaTabela em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
 | [Contador de caracteres no Textarea](propostas/2026-11-27-textarea-contador.md) | `Textarea (prop contador) em src/app/components/ui/textarea.tsx` | proposta |
 | [Título de grupo](propostas/2026-11-27-titulo-de-grupo.md) | `TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx` | proposta |
+| [Benefícios dos dois lados](propostas/2026-11-28-beneficios-dos-dois-lados.md) | `BeneficiosDosDoisLados em src/app/components/ui/beneficios-dos-dois-lados.tsx (o mesmo arquivo nos dois DS); classes .ds-beneficios-lados em src/styles/theme.css (bloco @ds-css-puro:beneficios-dos-dois-lados, igual nos dois DS)` | proposta (prévia aprovada pela dona do produto em 28/11/2026; publicação com o "sim" dela) |
 | [Caixa de consentimento](propostas/2026-11-28-caixa-de-consentimento.md) | `CaixaDeConsentimento em src/app/components/ui/caixa-de-consentimento.tsx (mesmo arquivo e API no DS Dani Moscatelli)` | aprovada (dona do produto, 28/11/2026; publicação com o "sim" dela) |
 | [Confete](propostas/2026-11-28-confete.md) | `Confete, dispararConfete e EstadoFinal comemorar em src/app/components/ui/confete.tsx` | proposta |
 | [Escala de notas](propostas/2026-11-28-escala-de-notas.md) | `EscalaDeNotas e GrupoDeEscalas em src/app/components/ui/escala-de-notas.tsx` | proposta |
 | [Escolha ordenada](propostas/2026-11-28-escolha-ordenada.md) | `EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx` | proposta |
+| [Ícone com base: três estados (desabilitado, informativo, clicável)](propostas/2026-11-28-icone-com-base-tres-estados.md) | `IconeComBase em src/app/components/ui/painel-dados.tsx (bloco igual nos dois DS; só os tamanhos mudam de um DS para o outro)` | decisão da dona do produto (28/11/2026) |
 | [Página 404 padrão e espaço abaixo do cabeçalho](propostas/2026-11-28-pagina-404-padrao.md) | `PaginaDeErro (nova prop abaixoDoCabecalho; a variante moldura="card" é o modelo do Dani Moscatelli) em src/app/components/ui/estado-vazio.tsx; token --espaco-abaixo-do-cabecalho e classe .ds-abaixo-do-cabecalho em src/styles/theme.css` | aprovada (decisões da dona do produto de 28/11/2026; publicação com o "sim" dela) |
 | [Recorte de foto](propostas/2026-11-28-recorte-de-foto.md) | `RecorteDeFoto em src/app/components/ui/recorte-de-foto.tsx` | proposta |
 
@@ -1911,7 +1921,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Linha do tempo** (`timeline`): `timeline-demo` Demonstração · `timeline-anatomy` Anatomia · `timeline-motion` Movimento: indicador de etapas · `timeline-usage` Uso
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso
 - **Upload** (`upload`): `upload-dropzone` Área de soltar · `recorte-de-foto` Recorte de foto
-- **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-erro` Página de erro (404) · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
+- **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-erro` Página de erro (404) · `site-hero` Vantagens e prova social · `site-beneficios` Benefícios dos dois lados · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
 - **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar) · `campo-de-endereco` Endereço com sugestões (CampoDeEndereco) · `campo-com-prefixo` Prefixo, sufixo e desabilitado · `escolha-ordenada` Escolha ordenada · `escala-de-notas` Escala de notas · `caixa-de-consentimento` Caixa de consentimento
 - **Chips e estados** (`chips-e-estados`): `chip-de-estado` Chip de estado · `chips-filtro` Chips de filtro · `etiquetas-tons` Etiquetas e bases por tom · `alerta-tom` Alerta com tom · `estado-vazio` Estado vazio · `avaliacao-e-grupos` Avaliação e título de grupo
 - **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável

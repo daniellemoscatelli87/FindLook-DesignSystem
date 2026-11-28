@@ -581,6 +581,7 @@ const navGroups: { group: string; items: NavItem[] }[] = [
           { id: "site-conta",     label: "Moldura das telas de conta",  sectionId: "site" },
           { id: "site-erro",      label: "Página de erro (404)",        sectionId: "site" },
           { id: "site-hero",      label: "Vantagens e prova social",    sectionId: "site" },
+          { id: "site-beneficios", label: "Benefícios dos dois lados",  sectionId: "site" },
           { id: "site-logo",      label: "Logo",                        sectionId: "site" },
           { id: "site-links",     label: "Links de texto",              sectionId: "site" },
           { id: "site-prosa",     label: "Prosa (textos longos)",       sectionId: "site" },

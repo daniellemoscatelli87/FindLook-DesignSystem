@@ -5,14 +5,14 @@
   "geradoPor": "scripts/gerar-catalogo.mjs",
   "regra": "antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.",
   "resumo": {
-    "arquivosDeComponentes": 125,
-    "componentesExportados": 461,
+    "arquivosDeComponentes": 126,
+    "componentesExportados": 462,
     "templatesEPadroesSoEmDemonstracao": 88,
     "secoesComMarcacaoAMao": 50,
     "tokens": 179,
     "paginas": 37,
-    "ancoras": 270,
-    "propostas": 37
+    "ancoras": 271,
+    "propostas": 39
   },
   "componentes": [
     {
@@ -798,6 +798,47 @@
       ]
     },
     {
+      "arquivo": "src/app/components/ui/beneficios-dos-dois-lados.tsx",
+      "nome": "beneficios-dos-dois-lados",
+      "quandoUsar": "BeneficiosDosDoisLados (o que cada lado ganha, num card só): Mostra os benefícios de uma parceria para os dois lados (por exemplo, \"Para sua empresa\" e \"Para o Studio\"), num card só. Prévia aprovada pela dona do produto em 28/11/2026. Mesmo arquivo nos dois DS (Dani Moscatelli e FindLook).",
+      "fonteDescricao": "comentário do arquivo",
+      "exports": [
+        {
+          "nome": "BeneficiosDosDoisLados",
+          "tipo": "componente",
+          "linha": 54,
+          "descricao": "",
+          "props": [
+            "lados",
+            "ladoInicial",
+            "rotulo",
+            "nivel",
+            "className"
+          ],
+          "reexportaDe": null
+        }
+      ],
+      "tipos": [
+        "BeneficiosDosDoisLadosProps",
+        "LadoDosBeneficios"
+      ],
+      "variantes": {},
+      "ondeVer": [
+        {
+          "pagina": "site",
+          "paginaRotulo": "Moldura do site",
+          "ancora": "site-beneficios",
+          "titulo": "Benefícios dos dois lados",
+          "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
+          "linha": 175,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "BeneficiosDosDoisLados"
+          ]
+        }
+      ]
+    },
+    {
       "arquivo": "src/app/components/ui/botao-de-envio.tsx",
       "nome": "botao-de-envio",
       "quandoUsar": "BotaoDeEnvio (botão com os estados de envio): mesma API do BotaoDeEnvio do design system Dani Moscatelli. O Button do DS com o retorno de cada envio, sem mudar de tamanho: parado → \"Enviando…\" (girando) → \"Enviado\" com check → volta sozinho ao estado parado; ou \"Tentar de novo\" quando falha.",
@@ -1368,7 +1409,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "Button"
@@ -1656,7 +1697,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "Button"
@@ -1752,7 +1793,7 @@
           "ancora": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 43,
+          "linha": 44,
           "uso": "direto",
           "exports": [
             "CabecalhoDoSite"
@@ -1776,7 +1817,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "CabecalhoDoSite"
@@ -2369,7 +2410,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "Campo"
@@ -5348,7 +5389,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "PaginaDeErro"
@@ -6862,7 +6903,7 @@
           "ancora": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 43,
+          "linha": 44,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6874,7 +6915,7 @@
           "ancora": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 86,
+          "linha": 87,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6886,7 +6927,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -6898,7 +6939,19 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "site",
+          "paginaRotulo": "Moldura do site",
+          "ancora": "site-beneficios",
+          "titulo": "Benefícios dos dois lados",
+          "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
+          "linha": 175,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -8574,7 +8627,7 @@
           "ancora": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 43,
+          "linha": 44,
           "uso": "direto",
           "exports": [
             "Heading"
@@ -9206,7 +9259,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "direto",
           "exports": [
             "LinkSaibaMais"
@@ -9270,7 +9323,7 @@
           "ancora": "site-links",
           "titulo": "Links de texto",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 183,
+          "linha": 237,
           "uso": "direto",
           "exports": [
             "LinkDeTexto",
@@ -9284,7 +9337,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "LinkDeTexto"
@@ -9335,7 +9388,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "ListaDeVantagens"
@@ -9347,7 +9400,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "direto",
           "exports": [
             "ListaDeVantagens"
@@ -9401,7 +9454,7 @@
           "ancora": "site-logo",
           "titulo": "Logo",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 173,
+          "linha": 227,
           "uso": "direto",
           "exports": [
             "Logo"
@@ -9877,7 +9930,7 @@
           "ancora": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107,
+          "linha": 108,
           "uso": "direto",
           "exports": [
             "MolduraDeConta"
@@ -11901,7 +11954,7 @@
           "ancora": "site-prosa",
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 199,
+          "linha": 253,
           "uso": "direto",
           "exports": [
             "Prosa"
@@ -11942,7 +11995,7 @@
           "ancora": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152,
+          "linha": 153,
           "uso": "direto",
           "exports": [
             "ProvaSocial"
@@ -12188,7 +12241,7 @@
           "ancora": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 86,
+          "linha": 87,
           "uso": "direto",
           "exports": [
             "RodapeDoSite"
@@ -12409,7 +12462,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128,
+          "linha": 129,
           "uso": "dentro de outro exemplo",
           "exports": [
             "SegmentedControl"
@@ -14980,7 +15033,7 @@
           "ancora": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128
+          "linha": 129
         }
       ],
       "usaComponentes": [
@@ -19515,6 +19568,12 @@
       "componente": "TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx"
     },
     {
+      "arquivo": "propostas/2026-11-28-beneficios-dos-dois-lados.md",
+      "titulo": "Benefícios dos dois lados",
+      "status": "proposta (prévia aprovada pela dona do produto em 28/11/2026; publicação com o \"sim\" dela)",
+      "componente": "BeneficiosDosDoisLados em src/app/components/ui/beneficios-dos-dois-lados.tsx (o mesmo arquivo nos dois DS); classes .ds-beneficios-lados em src/styles/theme.css (bloco @ds-css-puro:beneficios-dos-dois-lados, igual nos dois DS)"
+    },
+    {
       "arquivo": "propostas/2026-11-28-caixa-de-consentimento.md",
       "titulo": "Caixa de consentimento",
       "status": "aprovada (dona do produto, 28/11/2026; publicação com o \"sim\" dela)",
@@ -19537,6 +19596,12 @@
       "titulo": "Escolha ordenada",
       "status": "proposta",
       "componente": "EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx"
+    },
+    {
+      "arquivo": "propostas/2026-11-28-icone-com-base-tres-estados.md",
+      "titulo": "Ícone com base: três estados (desabilitado, informativo, clicável)",
+      "status": "decisão da dona do produto (28/11/2026)",
+      "componente": "IconeComBase em src/app/components/ui/painel-dados.tsx (bloco igual nos dois DS; só os tamanhos mudam de um DS para o outro)"
     },
     {
       "arquivo": "propostas/2026-11-28-pagina-404-padrao.md",
@@ -21193,49 +21258,55 @@
           "id": "site-cabecalho",
           "titulo": "Cabeçalho e menu do celular",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 43
+          "linha": 44
         },
         {
           "id": "site-rodape",
           "titulo": "Rodapé do site",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 86
+          "linha": 87
         },
         {
           "id": "site-conta",
           "titulo": "Moldura das telas de conta",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 107
+          "linha": 108
         },
         {
           "id": "site-erro",
           "titulo": "Página de erro (404)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 128
+          "linha": 129
         },
         {
           "id": "site-hero",
           "titulo": "Vantagens e prova social",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 152
+          "linha": 153
+        },
+        {
+          "id": "site-beneficios",
+          "titulo": "Benefícios dos dois lados",
+          "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
+          "linha": 175
         },
         {
           "id": "site-logo",
           "titulo": "Logo",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 173
+          "linha": 227
         },
         {
           "id": "site-links",
           "titulo": "Links de texto",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 183
+          "linha": 237
         },
         {
           "id": "site-prosa",
           "titulo": "Prosa (textos longos)",
           "arquivo": "src/app/components/showcase/SiteShowcase.tsx",
-          "linha": 199
+          "linha": 253
         }
       ]
     },

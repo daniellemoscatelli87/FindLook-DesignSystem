@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { AtSign, LogIn, ShieldCheck, Store } from "lucide-react";
+import { AtSign, LogIn, ShieldCheck, ShoppingBag, Store } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { Callout, DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
 import { PaginaAbaixoDoCabecalho } from "./shared/PaginaAbaixoDoCabecalho";
@@ -15,6 +15,7 @@ import { Prosa } from "../ui/prosa";
 import { Campo } from "../ui/campo";
 import { Button } from "../ui/button";
 import { Heading } from "../ui/heading";
+import { SecaoBeneficiosDosDoisLados } from "./shared/SecaoBeneficiosDosDoisLados";
 
 /* Moldura do site: as peças das páginas públicas do produto, promovidas a componentes (27/11/2026). */
 
@@ -169,6 +170,59 @@ export function SiteShowcase() {
           donts={["Inventar depoimentos ou números.", "Check verde ou ícones diferentes por item."]}
         />
       </section>
+
+      {/* Exemplo fictício (não é texto aprovado do produto). */}
+      <SecaoBeneficiosDosDoisLados
+        id="site-beneficios"
+        ficticio
+        lados={[
+          { id: "quem-compra", rotulo: "Para quem compra", icone: <ShoppingBag />,
+            titulo: "Mais facilidade para encontrar o que procura.",
+            itens: ["Busca pela descrição da peça", "Lojas e brechós da região", "Peças novas e de segunda mão"] },
+          { id: "loja", rotulo: "Para a loja", icone: <Store />,
+            titulo: "Mais visibilidade para quem já está perto.",
+            itens: ["Peças encontradas por quem procura na região", "Mais conexões com potenciais clientes", "Inteligência para reconhecer oportunidades de venda"] },
+        ]}
+        api={`<BeneficiosDosDoisLados
+  lados={[
+    { id: "quem-compra", rotulo: "Para quem compra", icone: <ShoppingBag />,
+      titulo: "Mais facilidade para encontrar o que procura.",
+      itens: ["Busca pela descrição da peça", "Lojas e brechós da região", "Peças novas e de segunda mão"] },
+    { id: "loja", rotulo: "Para a loja", icone: <Store />,
+      titulo: "Mais visibilidade para quem já está perto.",
+      itens: ["Peças encontradas por quem procura na região", "Mais conexões com potenciais clientes", "Inteligência para reconhecer oportunidades de venda"] },
+  ]}
+/>`}
+        html={`<div class="ds-beneficios-lados">
+  <div class="ds-beneficios-lados__card">
+    <div class="ds-beneficios-lados__alternador" role="radiogroup" aria-label="Benefícios">
+      <label class="ds-beneficios-lados__opcao">
+        <input type="radio" name="beneficios-exemplo" value="quem-compra" checked>
+        <svg aria-hidden="true"><!-- ícone ShoppingBag --></svg><span>Para quem compra</span>
+      </label>
+      <label class="ds-beneficios-lados__opcao">
+        <input type="radio" name="beneficios-exemplo" value="loja">
+        <svg aria-hidden="true"><!-- ícone Store --></svg><span>Para a loja</span>
+      </label>
+    </div>
+    <div class="ds-beneficios-lados__lados">
+      <div class="ds-beneficios-lados__lado">
+        <div class="ds-beneficios-lados__cabecalho">
+          <span class="ds-beneficios-lados__base" aria-hidden="true"><svg><!-- ShoppingBag --></svg></span>
+          <p class="ds-beneficios-lados__rotulo">Para quem compra</p>
+        </div>
+        <h3 class="ds-beneficios-lados__titulo">Mais facilidade para encontrar o que procura.</h3>
+        <ul class="ds-beneficios-lados__lista">
+          <li><svg class="ds-beneficios-lados__check" aria-hidden="true"><!-- CircleCheckBig --></svg><span>Busca pela descrição da peça</span></li>
+          …
+        </ul>
+      </div>
+      <div class="ds-beneficios-lados__divisor" aria-hidden="true"></div>
+      <div class="ds-beneficios-lados__lado">…Para a loja…</div>
+    </div>
+  </div>
+</div>`}
+      />
 
       <section id="site-logo" className="scroll-mt-32 space-y-6">
         <SectionHeader title="Logo" description="A assinatura oficial desenhada no próprio componente: Find na cor do fundo e Look e o símbolo no rosa da marca. Com href, vira o link para a página inicial (44 px de toque)." />
