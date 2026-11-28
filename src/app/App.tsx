@@ -988,10 +988,10 @@ function AppShell() {
 
 
         {/* Dark/Light segmented pill */}
-        <div className="flex items-center h-8 toque:h-auto p-1 rounded-full bg-muted border border-border gap-1">
+        <div className="flex items-center h-9 p-1 rounded-full bg-muted border border-border gap-1">
           <button
             onClick={() => setDark(false)}
-            className={`flex items-center gap-1 h-7 px-3 rounded-full text-label font-medium transition-all duration-150 ${
+            data-alvo-compacto className={`relative flex items-center gap-1 h-7 px-3 rounded-full text-label font-medium transition-all duration-150 after:absolute after:inset-x-0 after:-inset-y-2 after:content-[''] ${
               !dark
                 ? "bg-card text-foreground shadow-sm border border-border"
                 : "text-muted-foreground hover:text-foreground"
@@ -1002,7 +1002,7 @@ function AppShell() {
           </button>
           <button
             onClick={() => setDark(true)}
-            className={`flex items-center gap-1 h-7 px-3 rounded-full text-label font-medium transition-all duration-150 ${
+            data-alvo-compacto className={`relative flex items-center gap-1 h-7 px-3 rounded-full text-label font-medium transition-all duration-150 after:absolute after:inset-x-0 after:-inset-y-2 after:content-[''] ${
               dark
                 ? "bg-card text-foreground shadow-sm border border-border"
                 : "text-muted-foreground hover:text-foreground"
