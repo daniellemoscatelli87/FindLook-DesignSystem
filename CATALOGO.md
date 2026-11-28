@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 124 arquivos de componentes em `src/app/components/ui/` com 460 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 177 tokens · 37 páginas e 267 âncoras no site (https://designsystem.findlook.com.br) · 35 propostas de componente.
+**Resumo:** 129 arquivos de componentes em `src/app/components/ui/` com 469 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 177 tokens · 37 páginas e 278 âncoras no site (https://designsystem.findlook.com.br) · 35 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -167,7 +167,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `Button` (props: `className`, `variant`, `size`, `forma`, `quebra`, `asChild`): forwardRef (27/11/2026): com React 18, sem ele a ref do Radix (asChild em PopoverTrigger, TooltipTrigger, DropdownMenuTrigger…) se perdia no Button e o Popover ficava fora da tela (translate(0, -200%)), por exemplo o seletor de data dentro …
 - **Funções e constantes:** `buttonVariants`
 - **Variantes:** `variant` = `default` · `destructive` · `outline` · `ghost` · `link`; `size` = `default` · `sm` · `lg` · `icon-lg`; `forma` = `padrao` · `pilula`; `quebra` = `celular` · `nunca` · `sempre`
-- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 42 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Variantes de botão (`buttons#buttons`) · Desenvolvimento › Consulte o catálogo antes de montar qualquer peça (`develop#dev-catalogo`) · Movimento › Presets de entrada e saída (`motion#enter-presets`) · e mais 45 seções (ver `catalogo.json`)
 
 ### cabecalho-do-site
 
@@ -212,7 +212,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/calendar.tsx](src/app/components/ui/calendar.tsx)
 - **Quando usar:** Calendar (seletor de data de um campo; para ver o mês com compromissos, use a AgendaDoMes)
 - **Componentes:**
-  - `Calendar` (props: `className`, `classNames`, `showOutsideDays`)
+  - `Calendar` (props: `className`, `classNames`, `showOutsideDays`, `components`)
 - **Onde ver:** Campos e formulários › Seletor de data (Calendar) (`campos#calendario`) · Sobreposições (overlays) › Diálogos (`overlays#dialogs`)
 
 ### campo
@@ -259,7 +259,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CardAction` (props: `className`)
   - `CardContent` (props: `className`)
   - `CardFooter` (props: `className`, `children`): Rodapé do card. No Card horizontal, ganha o divisor do card em cima e as ações vão para o canto inferior direito.
-- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 30 seções (ver `catalogo.json`)
+- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 40 seções (ver `catalogo.json`)
 
 ### card-de-preco
 
@@ -309,6 +309,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CartaoDeEscolha` (props: `valor`, `titulo`, `descricao`, `icone`, `desabilitado`, `id`, `className`)
 - **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
 
+### cartao-de-peca-do-painel
+
+- **Arquivo:** [src/app/components/ui/cartao-de-peca-do-painel.tsx](src/app/components/ui/cartao-de-peca-do-painel.tsx)
+- **Quando usar:** Cartão de peça do painel (28/11/2026): a peça como a loja a vê no painel (Peças do lojista, ficha da loja parceira na área administrativa). O ProductCard é da vitrine (favorito, "Ver peça", estoque para quem compra); este é de quem cuida da peça: - foto 4:5 (ou o ícone, sem foto) com a situação por cima (um ChipDeEstado do DS, numa base branca para ficar legível sobre qualquer foto); - nome em até 2 linhas;
+- **Componentes:**
+  - `CartaoDePecaDoPainel` (props: `titulo`, `foto`, `situacao`, `preco`, `precoPromocional`, `semPreco`, `detalhes`, `indicadores`, `vendida`, `destaque`, `onAbrir`, `href`, `comoLink`, `acao`, `iconeSemFoto`, `className`)
+- **Onde ver:** Quadro, conversa e tabela › Cartão de peça do painel (`painel-e-admin#cartao-de-peca-do-painel`)
+
 ### chart
 
 - **Arquivo:** [src/app/components/ui/chart.tsx](src/app/components/ui/chart.tsx)
@@ -335,7 +343,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Chip de estado: o estado de um item (etapa da loja, situação da peça, cadastro) sempre em texto, com ícone opcional e o fundo do tom. Mesma API do ChipDeEstado do design system Dani Moscatelli. Regra: estado nunca só por cor ou forma; o texto é obrigatório. Vai na coluna do fim de uma LinhaDeLista (tags e ações), que no celular desce para uma linha própria embaixo do texto.
 - **Componentes:**
   - `ChipDeEstado` (props: `tom`, `icone`, `tamanho`, `className`, `children`)
-- **Onde ver:** Chips e estados › Chip de estado (`chips-e-estados#chip-de-estado`) · Demonstrações animadas › Miniatura do painel (`demonstracoes#miniatura-do-painel`)
+- **Onde ver:** Chips e estados › Chip de estado (`chips-e-estados#chip-de-estado`) · Campos e formulários › Item marcável (`campos#item-marcavel`) · Quadro, conversa e tabela › Cartão de peça do painel (`painel-e-admin#cartao-de-peca-do-painel`) · e mais 2 seções (ver `catalogo.json`)
 
 ### chip-filtravel
 
@@ -425,9 +433,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `SeparadorDaConversa` (props: `children`, `className`): Separador
   - `IndicadorDeDigitacao` (props: `autor`, `avatar`, `rotulo`, `texto`, `icone`, `className`): Digitando
   - `BotaoDeResposta` (props: `className`, `icone`, `children`): Resposta rápida
-  - `CampoDeMensagem` (props: `valor`, `onValorChange`, `onEnviar`, `onAnexar`, `ocupado`, `placeholder`, `rotulo`, `rotuloAnexar`, `rotuloEnviar`, `podeEnviarSemTexto`, `className`)
+  - `CampoDeMensagem` (props: `valor`, `onValorChange`, `onEnviar`, `onAnexar`, `anexarDesativado`, `ocupado`, `placeholder`, `rotulo`, `rotuloAnexar`, `rotuloEnviar`, `podeEnviarSemTexto`, `fotos`, `onRemoverFoto`, `tituloDasFotos`, `descricaoDasFotos`, `rotuloRemoverFoto`, `className`): Campo de mensagem: anexar (clipe), texto e enviar, todos com 44 px. Repassa a ref para o campo de texto (28/11/2026), para quem usa devolver o foco ao campo depois de enviar, escolher ou tirar uma foto;
   - `FolhaDeOpcoes` (props: `titulo`, `opcoes`, `aberta`, `onFechar`, `onEscolher`)
-- **Onde ver:** Quadro, conversa e tabela › Conversa e celular (`painel-e-admin#conversa`) · Movimento › Loaders e progresso (`motion#loaders`)
+- **Onde ver:** Quadro, conversa e tabela › Conversa e celular (`painel-e-admin#conversa`) · Quadro, conversa e tabela › Campo de mensagem com fotos (`painel-e-admin#campo-de-mensagem-fotos`) · Movimento › Loaders e progresso (`motion#loaders`)
 
 ### cursor-de-demonstracao
 
@@ -589,7 +597,15 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 87 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 97 seções (ver `catalogo.json`)
+
+### grade-de-miniaturas
+
+- **Arquivo:** [src/app/components/ui/grade-de-miniaturas.tsx](src/app/components/ui/grade-de-miniaturas.tsx)
+- **Quando usar:** Grade de miniaturas (28/11/2026, igual nos dois DS): poucas fotos pequenas, quadradas, com o nome e uma linha de detalhe embaixo, para dar uma ideia do que existe (as peças de uma ideia de post no Plano de divulgação do FindLook, os trabalhos de um projeto). Não é a galeria de envio (ImageGrid, com capa e remover) nem uma vitrine (ProductCard).
+- **Componentes:**
+  - `GradeDeMiniaturas` (props: `itens`, `colunas`, `maximo`, `vazio`, `rotulo`, `comoLink`, `className`)
+- **Onde ver:** Exibição de dados › Grade de miniaturas (`data#grade-de-miniaturas`)
 
 ### graficos
 
@@ -597,10 +613,11 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Gráficos de participação e comparação (FindLook): Rosca: partes de um todo (até 5 partes), com o total ou o número de partes no centro e legenda com a porcentagem. BarrasHorizontais: compara grupos numa medida; cada linha pode ter uma parte (barra simples) ou várias (barra empilhada).
 - **Componentes:**
   - `Rosca` (props: `partes`, `centro`, `rotuloCentro`, `rotulo`, `className`): Rosca Desde 19/11/2026 a rosca do DS é a redesenhada (GraficoDeRosca, em graficos-inteligencia.tsx): anel fino, tons por importância (coresPorImportancia) da maior para a menor parte, "Outros" em cinza e por último, percentual escrito …
-  - `BarrasHorizontais` (props: `linhas`, `maximo`, `legenda`, `rotulo`, `className`)
-  - `MapaCoropletico` (props: `viewBox`, `regioes`, `valores`, `rotulo`, `rotuloDoValor`, `escolhida`, `onEscolher`, `marcadores`, `nomesCurtos`, `legenda`, `className`)
-- **Funções e constantes:** `faixaDoMapa`
-- **Onde ver:** Exibição de dados › Rosca, barras e mapa (`data#grafico-participacao`)
+  - `BarrasHorizontais` (props: `linhas`, `maximo`, `legenda`, `rotulo`, `comoLink`, `className`)
+  - `LegendaDoMapa` (props: `faixas`, `semValor`, `rotulo`, `className`): Legenda em lista das faixas fixas: um quadrado da cor e o texto de cada faixa. Use dentro ou fora do mapa.
+  - `MapaCoropletico` (props: `viewBox`, `regioes`, `valores`, `rotulo`, `rotuloDoValor`, `escolhida`, `onEscolher`, `marcadores`, `nomesCurtos`, `legenda`, `faixas`, `mostrarLegenda`, `etiquetas`, `semDado`, `className`)
+- **Funções e constantes:** `faixaDoMapa`, `corDoMapa`
+- **Onde ver:** Exibição de dados › Rosca, barras e mapa (`data#grafico-participacao`) · Exibição de dados › Mapa com faixas e números (`data#mapa-com-faixas`)
 
 ### graficos-catalogo
 
@@ -644,7 +661,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `DescobertaVisual` (props: `tema`, `conclusao`, `contexto`, `children`, `porQueImporta`, `acao`, `dados`, `selo`, `numerar`, `rotulos`, `className`): Card de descoberta: conclusão, gráfico, por que importa, próximo passo e dados (recolhidos).
   - `LegendaDoGrafico` (props: `itens`, `className`): Legenda compacta (sempre junto de rótulos diretos, nunca sozinha)
   - `GraficoDeRosca` (props: `partes`, `centro`, `rotulo`, `formatarQuantidade`, `localidade`, `tamanho`, `className`): Rosca de participação, no traço fino do DS: as partes nos tons por importância (da maior para a menor; a maior no tom 1), "Outros" em cinza de contexto no fim, percentuais escritos junto de cada parte e lista com nome, quantidade e …
-  - `BarrasOrdenadas` (props: `itens`, `destaques`, `destaque`, `ordenar`, `posicao`, `cores`, `rotulo`, `formatar`, `className`): Barras horizontais ordenadas, com o nome em cima e o valor escrito no fim de cada barra.
+  - `BarrasOrdenadas` (props: `itens`, `destaques`, `destaque`, `ordenar`, `posicao`, `cores`, `rotulo`, `formatar`, `comoLink`, `className`): Barras horizontais ordenadas, com o nome em cima e o valor escrito no fim de cada barra. Com `href` ou `onClick` nos itens (28/11/2026), o gráfico vira uma lista ordenada (<ol>) em que cada linha inteira é um link ou um botão: o nome do …
   - `LegendaSequencial` (props: `menos`, `mais`)
   - `MapaDeCalorPorRegiao` (props: `regioes`, `colunas`, `linhas`, `destaque`, `rotulo`, `formatar`, `rotulos`, `className`): Mapa de calor esquemático: cada região é um bloco numa grade, na posição aproximada (não é mapa em escala). As posições vêm por props; nada de dados geográficos é buscado. O nome fica escrito acima de cada bloco, fora da cor;
   - `GraficoDeHalteres` (props: `itens`, `series`, `maximo`, `rotulo`, `formatar`, `formatarDiferenca`, `className`): Halteres: para cada item, um ponto para cada medida ligados por uma linha; os valores ficam escritos nos pontos.
@@ -657,7 +674,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GraficoDeRanking` (props: `series`, `periodos`, `rotulo`, `formatarPosicao`): Bump chart: como a posição de cada item muda ao longo dos períodos. O destaque no tom 1 (um 2º no tom 2), o restante no cinza de contexto.
   - `Funil` (props: `etapas`, `destacarMaiorPerda`, `rotulo`, `formatar`, `localidade`, `rotulos`, `className`): Funil: etapas da jornada com o valor escrito e, entre elas, quanto seguiu para a próxima. A maior perda fica marcada: a etapa logo depois dela é o ponto de atenção (tom 1) e as outras ficam no cinza de contexto. Sem a marca, todas no tom 1.
 - **Funções e constantes:** `CORES_GRAFICO`, `COR_NEUTRA`, `corDoTom`, `coresPorImportancia`, `coresDasSeries`, `coresDeFoco`, `coresDeContexto`, `COR_GRADE`, `TRACO_DA_GRADE`, `LINHA_DA_AREA`, `useIdDoSvg`, `curvaMonotona`, `ESCALA_SEQUENCIAL`, `formatarNumero`, `formatarPercentual`, `soma`, `useLargura`, `marcasDoEixo`, `afastar`, `larguraTexto`, `fmtPadrao`, `arco`, `faixa`, `TOM_NEUTRO`, `TONS_DA_ESCALA`, `TOTAL_DE_TONS`
-- **Onde ver:** Gráficos › Design de inteligência (`graficos#graficos-inteligencia`) · Gráficos › Escala em ordem e funil (`graficos#barras-destaque-e-funil`) · Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · e mais 9 seções (ver `catalogo.json`)
+- **Onde ver:** Gráficos › Design de inteligência (`graficos#graficos-inteligencia`) · Gráficos › Escala em ordem e funil (`graficos#barras-destaque-e-funil`) · Gráficos › Barras ordenadas com link (`graficos#barras-com-link`) · e mais 10 seções (ver `catalogo.json`)
 
 ### graficos-paleta
 
@@ -721,6 +738,15 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `InputOTPSeparator`
 - **Onde ver:** nenhuma página do site importa este componente (sem demonstração).
 
+### item-marcavel
+
+- **Arquivo:** [src/app/components/ui/item-marcavel.tsx](src/app/components/ui/item-marcavel.tsx)
+- **Quando usar:** Item marcável (28/11/2026, igual nos dois DS): uma etapa de checklist que a própria pessoa marca como feita. Veio do Plano de divulgação do FindLook. O ItemDeChecklist do painel (FindLook) é outra coisa: um link que leva a uma tela, com o estado calculado pelo sistema (em dia ou precisa de atenção). - ListaMarcavel: a lista (<ol>), com 8 px entre os itens.
+- **Componentes:**
+  - `ListaMarcavel` (props: `className`)
+  - `ItemMarcavel` (props: `titulo`, `marcado`, `onMarcadoChange`, `etiqueta`, `descricao`, `indicador`, `prefixoParaLeitores`, `desabilitado`, `id`, `className`)
+- **Onde ver:** Campos e formulários › Item marcável (`campos#item-marcavel`)
+
 ### label
 
 - **Arquivo:** [src/app/components/ui/label.tsx](src/app/components/ui/label.tsx)
@@ -754,6 +780,16 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `LinkDeVoltar` (props: `href`, `comoLink`, `className`, `children`)
   - `LinkPularConteudo` (props: `href`, `children`, `className`)
 - **Onde ver:** Moldura do site › Links de texto (`site#site-links`) · Moldura do site › Moldura das telas de conta (`site#site-conta`) · Templates › Entrar e criar conta (`templates#template-auth`)
+
+### lista-de-passos
+
+- **Arquivo:** [src/app/components/ui/lista-de-passos.tsx](src/app/components/ui/lista-de-passos.tsx)
+- **Quando usar:** Lista de passos (28/11/2026, igual nos dois DS): instruções numeradas de cima para baixo, com qualquer conteúdo em cada passo (texto, botões, um código, um controle segmentado). Veio dos passos do simulador do WhatsApp do FindLook.
+- **Componentes:**
+  - `NumeroDoPasso` (props: `n`, `tamanho`, `feito`, `className`): Círculo numerado de destaque. É decorativo (aria-hidden): diga o número em texto perto dele, se ele importar.
+  - `PassoDaLista` (props: `titulo`, `children`, `numero`, `feito`, `nivel`, `rotuloDoPasso`, `textoFeito`, `className`)
+  - `ListaDePassos` (props: `inicio`, `className`, `children`)
+- **Onde ver:** Linha do tempo › Lista de passos (`timeline#lista-de-passos`)
 
 ### lista-de-vantagens
 
@@ -1031,7 +1067,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Quadro (colunas de etapas com cartões, estilo kanban). O mesmo arquivo nos dois DS (FindLook e Dani Moscatelli, 27/11/2026), com dois jeitos de usar e as mesmas props:
 - **Componentes:**
   - `Quadro` (props: `colunas`, `rotulo`, `textos`, `className`, `itens`, `chave`)
-- **Onde ver:** Quadro, conversa e tabela › Quadro (kanban) (`painel-e-admin#quadro`)
+- **Onde ver:** Quadro, conversa e tabela › Quadro (kanban) (`painel-e-admin#quadro`) · Quadro, conversa e tabela › Quadro com link esticado (`painel-e-admin#quadro-link-esticado`)
 
 ### radio-group
 
@@ -1083,7 +1119,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** SegmentedControl (controle segmentado): Opções acopladas, uma selecionada por vez, que se tocam como botões. Use para escolhas curtas e exclusivas (2 a 5 opções, rótulos de uma ou duas palavras): filtro, condição, período, modo de exibição. Sempre há uma opção selecionada. Teclado: setas movem a seleção; Tab entra e sai do grupo.
 - **Componentes:**
   - `SegmentedControl` (props: `options`, `value`, `defaultValue`, `onValueChange`, `variant`, `size`, `fullWidth`, `className`)
-- **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Linha do tempo › Demonstração (`timeline#timeline-demo`) · Upload › Recorte de foto (`upload#recorte-de-foto`) · e mais 8 seções (ver `catalogo.json`)
+- **Onde ver:** Botões › Cartões de escolha (`buttons#cartoes-de-escolha`) · Exibição de dados › Grade de miniaturas (`data#grade-de-miniaturas`) · Linha do tempo › Demonstração (`timeline#timeline-demo`) · e mais 12 seções (ver `catalogo.json`)
 
 ### select
 
@@ -1101,6 +1137,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `SelectScrollUpButton` (props: `className`)
   - `SelectScrollDownButton` (props: `className`)
 - **Onde ver:** Botões › Senha (`buttons#password`) · Cards › Estados (`cards#card-states`) · Cards › Testar o vidro (`cards#card-glass-teste`) · e mais 1 seções (ver `catalogo.json`)
+
+### seletor-de-etapa
+
+- **Arquivo:** [src/app/components/ui/seletor-de-etapa.tsx](src/app/components/ui/seletor-de-etapa.tsx)
+- **Quando usar:** Seletor de etapa (28/11/2026, igual nos dois DS): mostra em que etapa um processo está (Cadastro → Treinamento → Ativa) e deixa mudar para outra com um toque. Veio da ficha da loja parceira no FindLook. Por que não os que já existiam: o Stepper é o progresso de um assistente (as etapas futuras não abrem e não têm explicação); o SegmentedControl troca uma vista, sem ordem nem etapas já passadas.
+- **Componentes:**
+  - `SeletorDeEtapa` (props: `etapas`, `atual`, `onEscolher`, `salvando`, `feita`, `rotulo`, `textos`, `className`)
+- **Onde ver:** Linha do tempo › Seletor de etapa (`timeline#seletor-de-etapa`)
 
 ### seletor-de-quantidade
 
@@ -1270,9 +1314,9 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Arquivo:** [src/app/components/ui/tabela-adaptavel.tsx](src/app/components/ui/tabela-adaptavel.tsx)
 - **Quando usar:** Tabela adaptável: o mesmo componente nos dois DS (FindLook e Dani Moscatelli, 27/11/2026): seleção, ordem controlada (ordem + onOrdenar) ou da própria tabela, e as colunas que cabem pela medida da largura (`largura`). A tabela das listas do painel (lojas, peças, agendamentos) que nunca rola para o lado (regra da dona do produto, 18/11/2026).
 - **Componentes:**
-  - `TabelaAdaptavel` (props: `colunas`, `linhas`, `chave`, `legenda`, `mostrarLegenda`, `ordemInicial`, `textos`, `rotuloDaLinha`, `selecionadas`, `onSelecionadasChange`, `acoes`, `larguraDasAcoes`, `ordem`, `onOrdenar`, `moldura`, `larguraDaLista`, `vazio`, `className`)
+  - `TabelaAdaptavel` (props: `colunas`, `linhas`, `chave`, `legenda`, `mostrarLegenda`, `ordemInicial`, `textos`, `rotuloDaLinha`, `selecionadas`, `onSelecionadasChange`, `linhaAtual`, `acoes`, `larguraDasAcoes`, `ordem`, `onOrdenar`, `moldura`, `larguraDaLista`, `vazio`, `className`)
   - `BarraDeFerramentasDaTabela` (props: `busca`, `children`, `filtrosAtivos`, `className`): Barra de ferramentas
-- **Onde ver:** Quadro, conversa e tabela › Tabela adaptável (`painel-e-admin#tabela-adaptavel`) · Gráficos › Como escolher (`graficos#graficos-escolher`) · Gráficos › Componentes e props (`graficos#graficos-componentes`)
+- **Onde ver:** Quadro, conversa e tabela › Tabela adaptável (`painel-e-admin#tabela-adaptavel`) · Quadro, conversa e tabela › Tabela com linha atual (`painel-e-admin#tabela-linha-atual`) · Gráficos › Como escolher (`graficos#graficos-escolher`) · e mais 1 seções (ver `catalogo.json`)
 
 ### table
 
@@ -1362,10 +1406,10 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `UploadDropzone` (props: `onFiles`, `accept`, `maxSize`, `maxFiles`, `multiple`, `disabled`, `capture`, `title`, `description`, `actionLabel`, `error`, `onError`, `size`, `className`, `icon`)
   - `UploadItem` (props: `item`, `onRemove`, `onRetry`, `className`): Item e lista
   - `UploadList` (props: `items`, `onRemove`, `onRetry`, `className`)
-  - `ImageUpload` (props: `value`, `onChange`, `shape`, `size`, `label`, `accept`, `maxSize`, `onError`, `className`, `capture`): Imagem única com prévia
+  - `ImageUpload` (props: `value`, `onChange`, `shape`, `size`, `label`, `accept`, `maxSize`, `onError`, `className`, `capture`, `ocupado`, `textoOcupado`, `iniciais`): Imagem única com prévia
   - `ImageGrid` (props: `images`, `onAdd`, `onRemove`, `onSetCover`, `coverId`, `max`, `accept`, `maxSize`, `onError`, `className`, `addLabel`)
 - **Funções e constantes:** `formatBytes`, `fileKind`, `validateFiles`
-- **Onde ver:** Upload › Área de soltar (`upload#upload-dropzone`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
+- **Onde ver:** Upload › Área de soltar (`upload#upload-dropzone`) · Upload › Imagem enviando e iniciais (`upload#imagem-enviando`) · Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · e mais 1 seções (ver `catalogo.json`)
 
 ### use-mobile
 
@@ -1434,14 +1478,14 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `CardPorFundo` | Cards › Por fundo (`cards#card-fundos`) | [src/app/components/showcase/CardShowcase.tsx:390](src/app/components/showcase/CardShowcase.tsx#L390) | `Button`, `Card` | 2 |
 | `DemoMesmaAltura`<br>Dois cards lado a lado; o interruptor põe muito conteúdo no segundo e a GradeDeCards troca para um por linha. | Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) | [src/app/components/showcase/CardShowcase.tsx:415](src/app/components/showcase/CardShowcase.tsx#L415) | `Badge`, `Button`, `Card`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardMidia` +4 | 2 |
 | `CardDeExemplo`<br>Card pequeno dos exemplos certo e errado. | Cards › Mesma altura ou um por linha (`cards#card-mesma-altura`) | [src/app/components/showcase/CardShowcase.tsx:487](src/app/components/showcase/CardShowcase.tsx#L487) | `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle` | 1 |
-| `AndamentoDeTarefa`<br>Andamento de uma tarefa longa (FaixaDeEstado + ProgressoRotulado + ResumoEmLinha), usado na página Cards. Números de exemplo. | Cards › Andamento de tarefa (`cards#card-andamento`) | [src/app/components/showcase/DataShowcase.tsx:658](src/app/components/showcase/DataShowcase.tsx#L658) | `Button`, `CardDoPainel`, `FaixaDeEstado`, `LinkVerTudo`, `ProgressoRotulado`, `ResumoEmLinha` | 3 |
+| `AndamentoDeTarefa`<br>Andamento de uma tarefa longa (FaixaDeEstado + ProgressoRotulado + ResumoEmLinha), usado na página Cards. Números de exemplo. | Cards › Andamento de tarefa (`cards#card-andamento`) | [src/app/components/showcase/DataShowcase.tsx:660](src/app/components/showcase/DataShowcase.tsx#L660) | `Button`, `CardDoPainel`, `FaixaDeEstado`, `LinkVerTudo`, `ProgressoRotulado`, `ResumoEmLinha` | 3 |
 | `WobbleCardConteudo`<br>Card com wobble: demonstração com controles (usada na página Cards). | Cards › Animação (`cards#card-animacao`) | [src/app/components/showcase/MotionShowcase.tsx:1931](src/app/components/showcase/MotionShowcase.tsx#L1931) |  | 5 |
 | `ShineBorderConteudo`<br>Shine Border: velocidades, combinações de cor, tokens e acessibilidade (usado na página Cards). | Cards › Borda brilhante (shine border) (`cards#card-shine`) | [src/app/components/showcase/MotionShowcase.tsx:2035](src/app/components/showcase/MotionShowcase.tsx#L2035) | `ShineBorder` | 5 |
-| `RoscaAntiga`<br>Reprodução da rosca atual do admin, só para comparação (traço grosso, centro com o número de tipos, grafite como série). | Gráficos › Rosca (`graficos#graficos-rosca`) | [src/app/components/showcase/GraficosShowcase.tsx:37](src/app/components/showcase/GraficosShowcase.tsx#L37) |  | 1 |
-| `TabelaQueQuebra`<br>Tabela que vira lista no celular (card nunca rola na horizontal): a TabelaAdaptavel do DS (27/11/2026). | Gráficos › Como escolher (`graficos#graficos-escolher`) (+1) | [src/app/components/showcase/GraficosShowcase.tsx:387](src/app/components/showcase/GraficosShowcase.tsx#L387) | `TabelaAdaptavel` | 1 |
-| `Cartao` | Gráficos › Cores dos gráficos (`graficos#graficos-cores`) (+3) | [src/app/components/showcase/GraficosShowcase.tsx:398](src/app/components/showcase/GraficosShowcase.tsx#L398) |  | 1 |
-| `CartaoDoCatalogo`<br>Card do catálogo: nome, componente, quando usar, o gráfico, o cuidado de leitura e Ver dados. | Gráficos › (`graficos#graficos-catalogo-comparacao`) (+5) | [src/app/components/showcase/GraficosShowcase.tsx:623](src/app/components/showcase/GraficosShowcase.tsx#L623) | `TabelaDeDados` | 5 |
-| `Familia` | Gráficos › (`graficos#graficos-catalogo-comparacao`) (+5) | [src/app/components/showcase/GraficosShowcase.tsx:657](src/app/components/showcase/GraficosShowcase.tsx#L657) | `GradeDeCards` | 1 |
+| `RoscaAntiga`<br>Reprodução da rosca atual do admin, só para comparação (traço grosso, centro com o número de tipos, grafite como série). | Gráficos › Rosca (`graficos#graficos-rosca`) | [src/app/components/showcase/GraficosShowcase.tsx:38](src/app/components/showcase/GraficosShowcase.tsx#L38) |  | 1 |
+| `TabelaQueQuebra`<br>Tabela que vira lista no celular (card nunca rola na horizontal): a TabelaAdaptavel do DS (27/11/2026). | Gráficos › Como escolher (`graficos#graficos-escolher`) (+1) | [src/app/components/showcase/GraficosShowcase.tsx:388](src/app/components/showcase/GraficosShowcase.tsx#L388) | `TabelaAdaptavel` | 1 |
+| `Cartao` | Gráficos › Cores dos gráficos (`graficos#graficos-cores`) (+3) | [src/app/components/showcase/GraficosShowcase.tsx:399](src/app/components/showcase/GraficosShowcase.tsx#L399) |  | 1 |
+| `CartaoDoCatalogo`<br>Card do catálogo: nome, componente, quando usar, o gráfico, o cuidado de leitura e Ver dados. | Gráficos › (`graficos#graficos-catalogo-comparacao`) (+5) | [src/app/components/showcase/GraficosShowcase.tsx:624](src/app/components/showcase/GraficosShowcase.tsx#L624) | `TabelaDeDados` | 5 |
+| `Familia` | Gráficos › (`graficos#graficos-catalogo-comparacao`) (+5) | [src/app/components/showcase/GraficosShowcase.tsx:658](src/app/components/showcase/GraficosShowcase.tsx#L658) | `GradeDeCards` | 1 |
 | `Tag` | Exibição de dados › Linhas com tags e ações (`data#linhas-colunas`) | [src/app/components/showcase/shared/RegraDasLinhas.tsx:44](src/app/components/showcase/shared/RegraDasLinhas.tsx#L44) | `Badge` | 1 |
 | `Celular`<br>Moldura com a largura de um celular (360 px), para mostrar a linha como ela fica no telefone. | Exibição de dados › Linhas com tags e ações (`data#linhas-colunas`) | [src/app/components/showcase/shared/RegraDasLinhas.tsx:53](src/app/components/showcase/shared/RegraDasLinhas.tsx#L53) |  | 3 |
 | `ListaCerta`<br>Exemplo certo, com LinhaDeLista: no celular, as tags e ações numa linha própria abaixo de todo o texto (padrão, decisão da dona do produto de 27/11/2026), hover e seleção na linha inteira, sem cantos. | Exibição de dados › Linhas com tags e ações (`data#linhas-colunas`) | [src/app/components/showcase/shared/RegraDasLinhas.tsx:81](src/app/components/showcase/shared/RegraDasLinhas.tsx#L81) | `Badge`, `Checkbox`, `LinhaDeLista` | 2 |
@@ -1541,11 +1585,11 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1025](src/app/components/showcase/CardShowcase.tsx#L1025) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
 | Cards › Cards aninhados (`cards#card-nested`) | [src/app/components/showcase/CardShowcase.tsx:1179](src/app/components/showcase/CardShowcase.tsx#L1179) | `Card`, `CardDescription`, `CardTitle`, `GradeDeCards` | 5 |
 | Cards › Vidro no tema escuro (`cards#card-glass-escuro`) | [src/app/components/showcase/CardShowcase.tsx:1505](src/app/components/showcase/CardShowcase.tsx#L1505) | `Card`, `GlassCard`, `GradeDeCards`, `LuzesDifusas` | 6 |
-| Gráficos › Cores dos gráficos (`graficos#graficos-cores`) | [src/app/components/showcase/GraficosShowcase.tsx:255](src/app/components/showcase/GraficosShowcase.tsx#L255) | `BarrasEmpilhadas100`, `BarrasOrdenadas`, `GradeDeCards`, `GraficoDeLinhas`, `GraficoDeRosca`, `MapaDeCalorMatricial` | 9 |
-| Gráficos › Como escolher (`graficos#graficos-escolher`) | [src/app/components/showcase/GraficosShowcase.tsx:821](src/app/components/showcase/GraficosShowcase.tsx#L821) | `GradeDeCards` | 4 |
-| Gráficos › Design de inteligência (`graficos#graficos-inteligencia`) | [src/app/components/showcase/GraficosShowcase.tsx:1069](src/app/components/showcase/GraficosShowcase.tsx#L1069) | `BarrasOrdenadas`, `DescobertaVisual` | 3 |
-| Exibição de dados › Gráficos (`data#charts`) | [src/app/components/showcase/DataShowcase.tsx:224](src/app/components/showcase/DataShowcase.tsx#L224) |  | 3 |
-| Exibição de dados › Tabela (`data#table`) | [src/app/components/showcase/DataShowcase.tsx:407](src/app/components/showcase/DataShowcase.tsx#L407) |  | 10 |
+| Gráficos › Cores dos gráficos (`graficos#graficos-cores`) | [src/app/components/showcase/GraficosShowcase.tsx:256](src/app/components/showcase/GraficosShowcase.tsx#L256) | `BarrasEmpilhadas100`, `BarrasOrdenadas`, `GradeDeCards`, `GraficoDeLinhas`, `GraficoDeRosca`, `MapaDeCalorMatricial` | 9 |
+| Gráficos › Como escolher (`graficos#graficos-escolher`) | [src/app/components/showcase/GraficosShowcase.tsx:822](src/app/components/showcase/GraficosShowcase.tsx#L822) | `GradeDeCards` | 4 |
+| Gráficos › Design de inteligência (`graficos#graficos-inteligencia`) | [src/app/components/showcase/GraficosShowcase.tsx:1070](src/app/components/showcase/GraficosShowcase.tsx#L1070) | `BarrasOrdenadas`, `DescobertaVisual` | 3 |
+| Exibição de dados › Gráficos (`data#charts`) | [src/app/components/showcase/DataShowcase.tsx:226](src/app/components/showcase/DataShowcase.tsx#L226) |  | 3 |
+| Exibição de dados › Tabela (`data#table`) | [src/app/components/showcase/DataShowcase.tsx:409](src/app/components/showcase/DataShowcase.tsx#L409) |  | 10 |
 | Feedback › Progresso (`feedback#progress`) | [src/app/components/showcase/FeedbackShowcase.tsx:397](src/app/components/showcase/FeedbackShowcase.tsx#L397) |  | 4 |
 | Feedback › Carregamento (skeleton) (`feedback#skeleton`) | [src/app/components/showcase/FeedbackShowcase.tsx:440](src/app/components/showcase/FeedbackShowcase.tsx#L440) | `Skeleton` | 7 |
 | Rótulos › Badges e tags (`badges#badges`) | [src/app/components/showcase/FeedbackShowcase.tsx:488](src/app/components/showcase/FeedbackShowcase.tsx#L488) | `ChipFiltravel`, `GrupoDeChips` | 5 |
@@ -1803,8 +1847,8 @@ Regras documentadas no site. Antes de montar uma tela, leia as que valem para el
 - **Durações e curvas oficiais de movimento** — Movimento › Tokens de movimento (`motion#motion-tokens`) · [src/app/components/showcase/MotionShowcase.tsx:1102](src/app/components/showcase/MotionShowcase.tsx#L1102)
 - **Ações destrutivas: confirmação e desfazer** — Usabilidade › Ações destrutivas (`usability#ux-destructive`) · [src/app/components/showcase/UsabilityShowcase.tsx:371](src/app/components/showcase/UsabilityShowcase.tsx#L371)
 - **Microcopy: textos de botões, erros e estados** — Tom de voz › Microcopy (`voice#voice-microcopy`) · [src/app/components/showcase/VoiceShowcase.tsx:154](src/app/components/showcase/VoiceShowcase.tsx#L154)
-- **Gráficos: como escolher** — Gráficos › Como escolher (`graficos#graficos-escolher`) · [src/app/components/showcase/GraficosShowcase.tsx:821](src/app/components/showcase/GraficosShowcase.tsx#L821)
-- **Gráficos: cores e ordem dos tons** — Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · [src/app/components/showcase/GraficosShowcase.tsx:255](src/app/components/showcase/GraficosShowcase.tsx#L255)
+- **Gráficos: como escolher** — Gráficos › Como escolher (`graficos#graficos-escolher`) · [src/app/components/showcase/GraficosShowcase.tsx:822](src/app/components/showcase/GraficosShowcase.tsx#L822)
+- **Gráficos: cores e ordem dos tons** — Gráficos › Cores dos gráficos (`graficos#graficos-cores`) · [src/app/components/showcase/GraficosShowcase.tsx:256](src/app/components/showcase/GraficosShowcase.tsx#L256)
 - **Cabeçalho: uso** — Header e menus › Uso (`header#header-usage`) · [src/app/components/showcase/HeaderShowcase.tsx:803](src/app/components/showcase/HeaderShowcase.tsx#L803)
 
 Regras de trabalho do repositório: [`CLAUDE.md`](CLAUDE.md), [`guidelines/Guidelines.md`](guidelines/Guidelines.md), [`propostas/README.md`](propostas/README.md).
@@ -1887,19 +1931,19 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Padrões do produto** (`produto`): `produto-busca` Busca do hero · `produto-loja-mapa` Card de loja e mapa · `produto-cadastro` Cadastro do lojista
 - **Botões** (`buttons`): `buttons` Variantes de botão · `botao-principal` Um botão principal · `inputs` Controles de formulário · `password` Senha · `cartoes-de-escolha` Cartões de escolha · `botao-dividido` Botão dividido · `seletor-periodo` Seletor de período · `buttons-tokens` Tokens · `botao-quebra` Texto longo no botão
 - **Cards** (`cards`): `card-escolher` Como escolher · `card-solido` Card sólido · `card-anatomy` Anatomia do card · `card-fundos` Por fundo · `card-layout` Borda, sombra e raio · `card-orientacao` Vertical e horizontal · `card-mesma-altura` Mesma altura ou um por linha · `card-actions` Botões em cards · `card-ia` Arquitetura de informação · `card-uso` Uso com limite · `card-andamento` Andamento de tarefa · `card-states` Estados · `card-animacao` Animação · `card-shine` Borda brilhante (shine border) · `card-nested` Cards aninhados · `card-partner` Card de convite ao parceiro · `card-produto` Card de peça · `card-plano` Card de plano · `card-dica` Card de dica · `card-mostrar-mais` Card com Mostrar mais · `faixa-beneficios` Faixa de benefícios · `card-vidro` Card de vidro · `card-glass` Vidro: acabamentos · `card-glass-fundos` Vidro por fundo · `card-glass-conteudo` Vidro com conteúdo · `card-glass-escuro` Vidro no tema escuro · `card-testar` Testar o vidro · `card-glass-teste` Testar o vidro · `card-evitar` O que evitar · `card-guidelines` O que evitar · `card-accessibility` Acessibilidade do card · `card-tokens` Tokens de card
-- **Gráficos** (`graficos`): `graficos-cores` Cores dos gráficos · `graficos-catalogo` Catálogo completo · `graficos-catalogo-comparacao` · `graficos-catalogo-tempo` · `graficos-catalogo-composicao` · `graficos-catalogo-relacoes` · `graficos-catalogo-distribuicao` · `graficos-catalogo-geografia` · `graficos-escolher` Como escolher · `graficos-rosca` Rosca · `graficos-recomendados` Gráficos recomendados · `graficos-inteligencia` Design de inteligência · `graficos-componentes` Componentes e props · `graficos-acessibilidade` Acessibilidade dos gráficos · `barras-destaque-e-funil` Escala em ordem e funil
-- **Exibição de dados** (`data`): `kpi-cards` Cards de KPI · `kpi-painel` Indicador do painel · `charts` Gráficos · `grafico-desempenho` Gráfico de desempenho · `grafico-participacao` Rosca, barras e mapa · `grafico-anel` Gráfico de anel · `table` Tabela · `linhas-colunas` Linhas com tags e ações · `tabela-produtos` Tabela de produtos · `data-tokens` Tokens
+- **Gráficos** (`graficos`): `graficos-cores` Cores dos gráficos · `graficos-catalogo` Catálogo completo · `graficos-catalogo-comparacao` · `graficos-catalogo-tempo` · `graficos-catalogo-composicao` · `graficos-catalogo-relacoes` · `graficos-catalogo-distribuicao` · `graficos-catalogo-geografia` · `graficos-escolher` Como escolher · `graficos-rosca` Rosca · `graficos-recomendados` Gráficos recomendados · `graficos-inteligencia` Design de inteligência · `graficos-componentes` Componentes e props · `graficos-acessibilidade` Acessibilidade dos gráficos · `barras-destaque-e-funil` Escala em ordem e funil · `barras-com-link` Barras ordenadas com link
+- **Exibição de dados** (`data`): `kpi-cards` Cards de KPI · `kpi-painel` Indicador do painel · `charts` Gráficos · `grafico-desempenho` Gráfico de desempenho · `grafico-participacao` Rosca, barras e mapa · `grafico-anel` Gráfico de anel · `table` Tabela · `linhas-colunas` Linhas com tags e ações · `tabela-produtos` Tabela de produtos · `data-tokens` Tokens · `mapa-com-faixas` Mapa com faixas e números · `grade-de-miniaturas` Grade de miniaturas
 - **Feedback** (`feedback`): `tabs` Abas · `abas-contador` Abas com contador · `alerts` Alertas · `alerta-sem-titulo` Alerta só com descrição · `alerta-com-acao` Alerta com ação · `banner-promocional` Banner promocional · `toasts` Notificações (toast) · `progress` Progresso · `skeleton` Carregamento (skeleton) · `feedback-tokens` Tokens · `confete` Confete na conquista · `avatar-decorativo` Avatares de enfeite
 - **Rótulos** (`badges`): `badges` Badges e tags · `selo` Selo (tag do hero) · `selo-secao` Selo de seção · `rotulos-timeline` · `avatar` Avatar · `avatar-circles` Círculos de avatares · `empty-states` Estados vazios · `listas-painel` Listas de atividade e ações · `badges-tokens` Tokens
 - **Ícones** (`icons`): `icon-sizes` Tamanhos e cores · `icon-base` Base do ícone · `icon-library` Biblioteca · `icons-tokens` Tokens
 - **Sobreposições (overlays)** (`overlays`): `breadcrumb` Trilha de navegação (breadcrumb) · `pagination` Paginação · `menu-painel` Menu do painel · `barra-superior` Barra superior · `cabecalho-pagina` Cabeçalho da página · `tooltips` Dica de contexto (tooltip) · `dropdown` Menu suspenso (dropdown) · `dialogs` Diálogos · `accordion` Sanfona (accordion) · `overlays-tokens` Tokens
 - **Header e menus** (`header`): `header-demo` Demonstração · `header-models` Modelos · `header-scroll` Comportamentos de rolagem · `header-mobile` Menus no celular · `header-backgrounds` Fundos por trás do header · `header-a11y` Checklist de acessibilidade · `header-usage` Uso · `header-tokens` Tokens
 - **Painel lateral** (`sidepanel`): `sidepanel-anatomy` Anatomia · `sidepanel-behavior` Comportamento · `sidepanel-store` Formulário em painel · `sidepanel-a11y` Checklist de acessibilidade · `sidepanel-usage` Uso · `sidepanel-tokens` Tokens
-- **Linha do tempo** (`timeline`): `timeline-demo` Demonstração · `timeline-anatomy` Anatomia · `timeline-motion` Movimento: indicador de etapas · `timeline-usage` Uso
+- **Linha do tempo** (`timeline`): `timeline-demo` Demonstração · `timeline-anatomy` Anatomia · `timeline-motion` Movimento: indicador de etapas · `timeline-usage` Uso · `lista-de-passos` Lista de passos · `seletor-de-etapa` Seletor de etapa
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso
-- **Upload** (`upload`): `upload-dropzone` Área de soltar · `recorte-de-foto` Recorte de foto
+- **Upload** (`upload`): `upload-dropzone` Área de soltar · `recorte-de-foto` Recorte de foto · `imagem-enviando` Imagem enviando e iniciais
 - **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
-- **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar) · `campo-de-endereco` Endereço com sugestões (CampoDeEndereco) · `campo-com-prefixo` Prefixo, sufixo e desabilitado · `escolha-ordenada` Escolha ordenada · `escala-de-notas` Escala de notas
+- **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar) · `campo-de-endereco` Endereço com sugestões (CampoDeEndereco) · `campo-com-prefixo` Prefixo, sufixo e desabilitado · `escolha-ordenada` Escolha ordenada · `escala-de-notas` Escala de notas · `item-marcavel` Item marcável
 - **Chips e estados** (`chips-e-estados`): `chip-de-estado` Chip de estado · `chips-filtro` Chips de filtro · `etiquetas-tons` Etiquetas e bases por tom · `alerta-tom` Alerta com tom · `estado-vazio` Estado vazio · `avaliacao-e-grupos` Avaliação e título de grupo
-- **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável
+- **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável · `cartao-de-peca-do-painel` Cartão de peça do painel · `campo-de-mensagem-fotos` Campo de mensagem com fotos · `tabela-linha-atual` Tabela com linha atual · `quadro-link-esticado` Quadro com link esticado
 - **Demonstrações animadas** (`demonstracoes`): `surgir-ao-rolar` Entrada ao rolar · `numero-animado` Número animado · `cursor-de-demonstracao` Cursor de demonstração · `miniatura-do-painel` Miniatura do painel

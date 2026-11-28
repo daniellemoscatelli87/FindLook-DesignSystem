@@ -22,6 +22,8 @@ import { produtosExemplo, dadosDesempenho, contagensExemplo } from "./PainelTemp
 import { SectionHeader } from "./shared/SectionHeader";
 import { RegraDasLinhas } from "./shared/RegraDasLinhas";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { SecaoGradeDeMiniaturas } from "./shared/PecasDoProdutoDocs";
+import { SecaoMapaComFaixas, SecaoBarrasHorizontaisComLink } from "./PecasDoPainelDocs";
 
 function ShowcaseCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -176,7 +178,7 @@ const itensChecklist: { estado: "ok" | "atencao"; texto: string }[] = [
   { estado: "ok", texto: "Preços revisados neste mês" },
 ];
 
-export function DataShowcase() {
+function DataShowcaseBase() {
   const { t } = useI18n();
   const dataTokenGroups = getDataTokenGroups(t);
   const areaData = areaDataBase.map((d, i) => ({ ...d, month: t(d.month, areaMonthsPt[i]) }));
@@ -715,5 +717,19 @@ function MapaDeExemplo() {
       />
       <p aria-live="polite" className="mt-2 min-h-5 text-center text-body-sm text-muted-foreground">{escolhida ? `${escolhida}: ${valores.get(escolhida)} lojas` : "Toque numa região."}</p>
     </div>
+  );
+}
+
+/* Peças de 28/11/2026 (shared/PecasDoProdutoDocs): a mesma documentação nos dois design systems. */
+export function DataShowcase() {
+  return (
+    <>
+      <DataShowcaseBase  />
+      <div className="mt-20 space-y-20">
+        <SecaoGradeDeMiniaturas />
+        <SecaoMapaComFaixas />
+        <SecaoBarrasHorizontaisComLink />
+      </div>
+    </>
   );
 }

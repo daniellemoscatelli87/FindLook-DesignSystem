@@ -251,11 +251,16 @@ export function BotaoDeResposta({ className, icone, children, ...props }: React.
 }
 
 /* ── Campo de mensagem ── */
+/** Foto escolhida para enviar, na faixa de prévia acima do campo. */
+export type FotoDoCampo = { id: string; url: string; nome?: string };
+
 export type CampoDeMensagemProps = {
   valor: string;
   onValorChange: (v: string) => void;
   onEnviar: () => void;
   onAnexar?: () => void;
+  /** Desliga só o botão de anexar (por exemplo, quando já há o máximo de fotos), com o campo e o enviar livres. */
+  anexarDesativado?: boolean;
   ocupado?: boolean;
   placeholder?: string;
   rotulo?: string;
@@ -263,40 +268,102 @@ export type CampoDeMensagemProps = {
   rotuloEnviar?: string;
   /** Algo pronto para enviar sem texto (por exemplo, uma foto escolhida). */
   podeEnviarSemTexto?: boolean;
+  /**
+   * Prévia das fotos escolhidas (28/11/2026): miniaturas acima do campo, cada uma com o botão de remover, e o texto ao
+   * lado (`tituloDasFotos`, `descricaoDasFotos`). Com fotos, o enviar fica livre mesmo sem texto.
+   */
+  fotos?: FotoDoCampo[];
+  onRemoverFoto?: (id: string) => void;
+  tituloDasFotos?: React.ReactNode;
+  descricaoDasFotos?: React.ReactNode;
+  /** Nome do botão de remover de cada foto (padrão "Remover foto 1"; com uma foto só, "Remover foto"). */
+  rotuloRemoverFoto?: (indice: number, total: number) => string;
   className?: string;
 };
 
-export function CampoDeMensagem({ valor, onValorChange, onEnviar, onAnexar, ocupado = false, placeholder = "Mensagem", rotulo = "Mensagem", rotuloAnexar = "Anexar foto", rotuloEnviar = "Enviar mensagem", podeEnviarSemTexto = false, className }: CampoDeMensagemProps) {
+/**
+ * Campo de mensagem: anexar (clipe), texto e enviar, todos com 44 px. Repassa a ref para o campo de texto (28/11/2026),
+ * para quem usa devolver o foco ao campo depois de enviar, escolher ou tirar uma foto; ao remover uma foto da prévia,
+ * o foco volta sozinho ao campo. Movimento: a faixa das fotos desliza de baixo e cada miniatura aparece com uma
+ * pequena escala; com "menos movimento", só aparecem.
+ */
+export const CampoDeMensagem = React.forwardRef<HTMLInputElement, CampoDeMensagemProps>(function CampoDeMensagem(
+  { valor, onValorChange, onEnviar, onAnexar, anexarDesativado = false, ocupado = false, placeholder = "Mensagem", rotulo = "Mensagem", rotuloAnexar = "Anexar foto", rotuloEnviar = "Enviar mensagem", podeEnviarSemTexto = false, fotos = [], onRemoverFoto, tituloDasFotos, descricaoDasFotos, rotuloRemoverFoto, className },
+  ref,
+) {
   const id = React.useId();
-  const pode = (valor.trim().length > 0 || podeEnviarSemTexto) && !ocupado;
+  const campo = React.useRef<HTMLInputElement | null>(null);
+  const juntar = React.useCallback((el: HTMLInputElement | null) => {
+    campo.current = el;
+    if (typeof ref === "function") ref(el);
+    else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = el;
+  }, [ref]);
+  const pode = (valor.trim().length > 0 || podeEnviarSemTexto || fotos.length > 0) && !ocupado;
+  const nomeDoRemover = rotuloRemoverFoto ?? ((i: number, total: number) => (total > 1 ? `Remover foto ${i + 1}` : "Remover foto"));
   return (
-    <form
-      data-slot="campo-de-mensagem"
-      onSubmit={(e) => { e.preventDefault(); if (pode) onEnviar(); }}
-      className={cn("flex shrink-0 items-center gap-1.5 border-t border-border bg-card p-2", className)}
-    >
-      {onAnexar && (
-        <Button type="button" variant="ghost" size="icon" className="size-11 shrink-0 rounded-full text-muted-foreground" aria-label={rotuloAnexar} disabled={ocupado} onClick={onAnexar}>
-          <Paperclip aria-hidden className="size-5" />
-        </Button>
+    <div data-slot="campo-de-mensagem" className={cn("shrink-0 border-t border-border bg-card", className)}>
+      {fotos.length > 0 && (
+        <div data-slot="fotos-do-campo" className="flex items-center gap-3 border-b border-border px-3 py-2.5 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-[var(--duration-normal)]">
+          <ul className="m-0 flex shrink-0 list-none gap-2 p-0" aria-label="Fotos escolhidas">
+            {fotos.map((f, i) => (
+              <li key={f.id} className="relative motion-safe:animate-in motion-safe:zoom-in-90 motion-safe:fade-in motion-safe:duration-[var(--duration-fast)]">
+                <img src={f.url} alt={f.nome ?? (fotos.length > 1 ? `Foto ${i + 1} escolhida` : "Foto escolhida")} className="size-14 rounded-md border border-border object-cover" />
+                {onRemoverFoto && (
+                  <button
+                    type="button"
+                    data-alvo-compacto
+                    aria-label={nomeDoRemover(i, fotos.length)}
+                    disabled={ocupado}
+                    onClick={() => { onRemoverFoto(f.id); campo.current?.focus(); }}
+                    className={cn(
+                      "absolute -right-1.5 -top-1.5 flex size-6 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[var(--shadow-xs)] transition-colors hover:bg-accent disabled:opacity-50",
+                      // Área de toque de 44 px em volta do botão de 24 px (o desenho não muda).
+                      "after:absolute after:left-1/2 after:top-1/2 after:size-11 after:-translate-x-1/2 after:-translate-y-1/2 after:content-['']",
+                      foco,
+                    )}
+                  >
+                    <X aria-hidden className="size-3.5" />
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+          {(tituloDasFotos || descricaoDasFotos) && (
+            <p className="m-0 min-w-0 flex-1 text-body-sm leading-snug text-muted-foreground" aria-live="polite">
+              {tituloDasFotos && <span className="block font-semibold text-foreground">{tituloDasFotos}</span>}
+              {descricaoDasFotos}
+            </p>
+          )}
+        </div>
       )}
-      <label htmlFor={id} className="sr-only">{rotulo}</label>
-      <Input
-        id={id}
-        value={valor}
-        onChange={(e) => onValorChange(e.target.value)}
-        placeholder={placeholder}
-        autoComplete="off"
-        enterKeyHint="send"
-        maxLength={2000}
-        className="h-11 min-w-0 flex-1 rounded-full bg-background px-4 text-body"
-      />
-      <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full transition-transform active:scale-95 motion-reduce:active:scale-100" aria-label={rotuloEnviar} disabled={!pode}>
-        {ocupado ? <Loader2 aria-hidden className="size-5 animate-spin motion-reduce:animate-none" /> : <SendHorizontal aria-hidden className="size-5" />}
-      </Button>
-    </form>
+      <form
+        onSubmit={(e) => { e.preventDefault(); if (pode) onEnviar(); }}
+        className="flex items-center gap-1.5 p-2"
+      >
+        {onAnexar && (
+          <Button type="button" variant="ghost" size="icon" className="size-11 shrink-0 rounded-full text-muted-foreground" aria-label={rotuloAnexar} disabled={ocupado || anexarDesativado} onClick={onAnexar}>
+            <Paperclip aria-hidden className="size-5" />
+          </Button>
+        )}
+        <label htmlFor={id} className="sr-only">{rotulo}</label>
+        <Input
+          ref={juntar}
+          id={id}
+          value={valor}
+          onChange={(e) => onValorChange(e.target.value)}
+          placeholder={placeholder}
+          autoComplete="off"
+          enterKeyHint="send"
+          maxLength={2000}
+          className="h-11 min-w-0 flex-1 rounded-full bg-background px-4 text-body"
+        />
+        <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full transition-transform active:scale-95 motion-reduce:active:scale-100" aria-label={rotuloEnviar} disabled={!pode}>
+          {ocupado ? <Loader2 aria-hidden className="size-5 animate-spin motion-reduce:animate-none" /> : <SendHorizontal aria-hidden className="size-5" />}
+        </Button>
+      </form>
+    </div>
   );
-}
+});
 
 /* ── Folha de opções ── */
 export type OpcaoDaFolha = { id: string; titulo: string; descricao?: string };

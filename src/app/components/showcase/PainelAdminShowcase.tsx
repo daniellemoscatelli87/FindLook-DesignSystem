@@ -14,6 +14,8 @@ import { CardIndicador } from "../ui/painel-dados";
 import { Button } from "../ui/button";
 import { SimboloFindLook } from "../ui/carregando";
 import { GradeDeCards } from "../ui/grade-de-cards";
+import { SecaoTabelaLinhaAtual, SecaoQuadroComLinkEsticado } from "./shared/PecasDoProdutoDocs";
+import { SecaoCartaoDePecaDoPainel, SecaoCampoDeMensagemComFotos } from "./PecasDoPainelDocs";
 
 /* Quadro, conversa e tabela: as peças da área administrativa e do painel do lojista (27/11/2026). Dados de exemplo. */
 
@@ -51,7 +53,7 @@ const COLUNAS_DA_TABELA: ColunaDaTabela<LojaExemplo>[] = [
   { id: "contato", titulo: "Contato", largura: 110, prioridade: 5, celula: (l) => l.contato },
 ];
 
-export function PainelAdminShowcase() {
+function PainelAdminShowcaseBase() {
   const [lojas, setLojas] = useState(LOJAS);
   const [busca, setBusca] = useState("");
   const [selecionadas, setSelecionadas] = useState<Set<string>>(new Set(["2"]));
@@ -223,5 +225,20 @@ export function PainelAdminShowcase() {
         <p className="text-body-sm text-muted-foreground">Os dois primeiros são clicáveis; o terceiro não (sem href). Números de exemplo.</p>
       </section>
     </div>
+  );
+}
+
+/* Peças de 28/11/2026 (shared/PecasDoProdutoDocs): a mesma documentação nos dois design systems. */
+export function PainelAdminShowcase() {
+  return (
+    <>
+      <PainelAdminShowcaseBase  />
+      <div className="mt-20 space-y-20">
+        <SecaoQuadroComLinkEsticado />
+        <SecaoTabelaLinhaAtual />
+        <SecaoCartaoDePecaDoPainel />
+        <SecaoCampoDeMensagemComFotos />
+      </div>
+    </>
   );
 }
