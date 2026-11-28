@@ -423,7 +423,7 @@ function TabelaDeProdutos({ produtos, titulo, descricao, total, limite, selecion
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 @2xl:px-6">
         <p className="text-body-sm text-muted-foreground">Exibindo {visiveis.length ? `1–${visiveis.length}` : "0"} de {formatarNumero(contagem(aba))}</p>
         {limite !== undefined && (
-          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("inline-flex items-center gap-1 rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] hover:underline toque:min-h-11", foco)}>
+          <a href="#" onClick={e => { if (onVerTodos) { e.preventDefault(); onVerTodos(); } }} className={cn("ml-auto inline-flex items-center gap-1 rounded-sm text-body-sm font-semibold text-[var(--primary-text,var(--primary))] hover:underline toque:min-h-11", foco)}>
             Ver todos os produtos <ArrowRight aria-hidden className="h-3.5 w-3.5" />
           </a>
         )}

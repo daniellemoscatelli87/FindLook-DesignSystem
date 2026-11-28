@@ -40,7 +40,7 @@ function Token({ name, value }: { name: string; value: string }) {
 function ReplayBtn({ onClick }: { onClick: () => void }) {
   const { t, bi } = useI18n();
   return (
-    <Button type="button" variant="ghost" size="sm" onClick={onClick} className="mt-auto text-muted-foreground hover:text-foreground">
+    <Button type="button" variant="ghost" size="sm" onClick={onClick} className="mt-auto w-full text-muted-foreground hover:text-foreground">
       <RefreshCw aria-hidden className="h-3.5 w-3.5" /> {t("replay", "repetir")}
     </Button>
   );

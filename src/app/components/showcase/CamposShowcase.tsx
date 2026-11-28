@@ -152,7 +152,7 @@ function CamposShowcaseBase() {
       </section>
 
       <section id="caixa-de-codigo" className="scroll-mt-32 space-y-6">
-        <SectionHeader title="Caixa de código" description="Um código para copiar ou enviar (o vínculo do WhatsApp da loja): instrução, o código grande, a validade e as ações numa linha, alinhadas à borda do texto." />
+        <SectionHeader title="Caixa de código" description="Um código para copiar ou enviar (o vínculo do WhatsApp da loja): instrução, o código grande, a validade e, depois do divisor, as ações à direita (no celular, na largura toda, a principal em cima)." />
         <div className="max-w-lg">
           <CaixaDeCodigo
             instrucao="Do WhatsApp da loja, mande esta mensagem:"

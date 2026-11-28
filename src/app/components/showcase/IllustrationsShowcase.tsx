@@ -147,7 +147,7 @@ async function baixar(url: string, filename: string) {
 
 function DownloadButton({ url, filename, label }: { url: string; filename: string; label: string }) {
   return (
-    <button type="button" onClick={() => baixar(url, filename)} className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground">
+    <button type="button" onClick={() => baixar(url, filename)} className="inline-flex items-center justify-center gap-1 rounded-full border border-border bg-card px-3 py-1 max-sm:min-h-11 text-label font-semibold text-foreground transition-colors hover:border-[var(--border-strong)] hover:bg-accent hover:text-foreground">
       <Download className="h-3.5 w-3.5" aria-hidden /> {label}
     </button>
   );
@@ -291,7 +291,7 @@ export function IllustrationsShowcase() {
           <div className="rounded-lg border border-border bg-muted/40 p-4 text-body-sm leading-relaxed text-muted-foreground">
             <p className="mb-2 font-semibold text-foreground">{t("Download the master sheet", "Baixar a folha de referência")}</p>
             <p className="mb-3">{t("The canonical sheet is the starting point for any new scene: same proportions, same elements, same palette.", "A folha canônica é o ponto de partida de qualquer cena nova: mesmas proporções, mesmos elementos, mesma paleta.")}</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-end gap-2 border-t border-border pt-4 max-sm:flex-col max-sm:items-stretch">
               <DownloadButton url={m("nyx-folha-canonica.png")} filename="nyx-folha-canonica.png" label="PNG" />
               <DownloadButton url={m("nyx-folha-canonica.webp")} filename="nyx-folha-canonica.webp" label="WebP" />
             </div>

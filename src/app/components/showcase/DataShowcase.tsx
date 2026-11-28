@@ -684,7 +684,7 @@ export function AndamentoDeTarefa() {
           />
           <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-border pt-4">
             <LinkVerTudo icone={<ListTree />} onClick={() => {}}>Ver resultados por bairro</LinkVerTudo>
-            <LinkVerTudo tom="neutro" href="#card-andamento">Ver todas as buscas</LinkVerTudo>
+            <LinkVerTudo tom="neutro" href="#card-andamento" className="ml-auto">Ver todas as buscas</LinkVerTudo>
           </div>
         </div>
       </CardDoPainel>

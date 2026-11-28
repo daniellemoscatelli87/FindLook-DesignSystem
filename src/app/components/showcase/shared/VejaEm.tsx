@@ -30,7 +30,7 @@ export function VejaEm({ secao, ancora, titulo, texto, rotuloBotao }: { secao: s
       <button
         type="button"
         onClick={() => navegarPara(secao, ancora)}
-        className="col-span-2 col-start-1 row-start-3 mt-4 inline-flex h-10 items-center justify-center gap-2 justify-self-start rounded-md border border-primary px-4 text-button font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 toque:h-11 sm:col-span-1 sm:col-start-3 sm:row-span-2 sm:row-start-1 sm:mt-0 sm:self-center"
+        className="col-span-2 col-start-1 row-start-3 mt-4 inline-flex h-10 items-center justify-center gap-2 w-full justify-self-stretch sm:w-auto sm:justify-self-end rounded-md border border-primary px-4 text-button font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 toque:h-11 sm:col-span-1 sm:col-start-3 sm:row-span-2 sm:row-start-1 sm:mt-0 sm:self-center"
       >
         {rotuloBotao ?? t("See in Cards", "Ver em Cards")} <ArrowRight aria-hidden className="h-4 w-4" />
       </button>

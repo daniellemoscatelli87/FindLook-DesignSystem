@@ -4,12 +4,14 @@ import * as React from "react";
 import { Check, Clock, Copy } from "lucide-react";
 import { cn } from "./utils";
 import { Button } from "./button";
+import { AcoesDoCard } from "./acoes-do-card";
 
 /**
  * Caixa de código: um código ou mensagem curta que a pessoa precisa copiar ou enviar (o código de vínculo do WhatsApp
  * da loja: "FINDLOOK 4821"). O código fica grande, em fonte mono e espaçado, sobre o rosa de destaque
- * (--primary-muted, 21:1 com o texto); em cima, a instrução; embaixo, a validade (relógio + texto) e as ações, numa
- * linha, alinhadas à borda esquerda do texto.
+ * (--primary-muted, 21:1 com o texto); em cima, a instrução; embaixo, a validade (relógio + texto) e, depois do
+ * divisor, as ações à direita (regra da ação nos cards, 28/11/2026): Copiar e, na ponta, a principal; no celular, na
+ * largura toda, uma embaixo da outra, a principal em cima.
  * `copiar` põe o botão Copiar, que vira "Copiado" com o check por 2 s e avisa os leitores de tela. `acoes` recebe
  * outros botões (por exemplo, "Abrir no WhatsApp" e "Já mandei"). Uma ação principal só por caixa.
  * Entrada suave quando aparece (parada com "menos movimento").
@@ -47,16 +49,18 @@ export function CaixaDeCodigo({ codigo, instrucao, validade, copiar = true, acoe
         </p>
       )}
       {(copiar || acoes) && (
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          {acoes}
+        // Linha da ação (regra da ação nos cards, 28/11/2026): divisor e as ações à direita, Copiar antes e a principal
+        // na ponta; no celular, na largura toda, uma embaixo da outra, a principal em cima.
+        <AcoesDoCard className="mt-4">
+          <span className="sr-only" aria-live="polite">{copiado ? "Código copiado." : ""}</span>
           {copiar && (
             <Button type="button" variant="outline" onClick={() => void copiarAgora()} className="h-10 toque:h-11">
               {copiado ? <Check aria-hidden className="text-success-text" /> : <Copy aria-hidden />}
               {copiado ? (textos.rotuloCopiado ?? "Copiado") : (textos.rotulo ?? "Copiar")}
             </Button>
           )}
-          <span className="sr-only" aria-live="polite">{copiado ? "Código copiado." : ""}</span>
-        </div>
+          {acoes}
+        </AcoesDoCard>
       )}
     </div>
   );

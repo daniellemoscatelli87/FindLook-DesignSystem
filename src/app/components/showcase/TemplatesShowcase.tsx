@@ -1909,7 +1909,7 @@ function LandingTemplate() {
                 <div className="rounded-md border border-border bg-card p-3">
                   <p className="text-label font-semibold text-foreground mb-1">Já tem conta?</p>
                   <p className="text-caption text-muted-foreground mb-2">Entre no painel para atualizar peças e ver os avisos da loja.</p>
-                  <button type="button" className={`h-7 px-3 rounded-sm border border-border bg-background text-caption font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1 ${foco}`}>
+                  <button type="button" className={`h-7 w-full justify-center px-3 rounded-sm border border-border bg-background text-caption font-semibold text-foreground hover:bg-accent inline-flex items-center gap-1 ${foco}`}>
                     <LogIn aria-hidden className="h-3 w-3" /> Entrar no painel
                   </button>
                 </div>

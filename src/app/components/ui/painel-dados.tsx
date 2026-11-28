@@ -412,7 +412,8 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
         <div className="min-w-0 flex-1">
           <p className="text-body font-bold text-foreground">{dica.titulo}</p>
           <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{dica.texto}</p>
-          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("mt-2 inline-flex h-8 items-center rounded-sm border border-primary px-3 text-body-sm font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent toque:h-11", foco)}>{dica.acao}</a>
+          {/* ação da dica à direita (regra da ação nos cards, 28/11/2026) */}
+          <a href={dica.href ?? "#"} onClick={dica.onAcao} className={cn("ml-auto mt-2 flex w-fit h-8 items-center rounded-sm border border-primary px-3 text-body-sm font-semibold text-[var(--primary-text,var(--primary))] transition-colors hover:bg-accent toque:h-11", foco)}>{dica.acao}</a>
         </div>
         {onFechar && <button type="button" className={cn(btn, "absolute right-2 top-2 border-transparent bg-transparent")} onClick={onFechar} aria-label="Fechar dicas"><X aria-hidden className="h-4 w-4" /></button>}
       </div>

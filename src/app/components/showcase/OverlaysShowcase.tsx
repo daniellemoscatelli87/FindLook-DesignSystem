@@ -37,6 +37,7 @@ import { Textarea } from "../ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
 import { CalendarDays } from "lucide-react";
+import { SecaoBotaoDeAcoes } from "./shared/AcaoNoCardDocs";
 
 type Bi = { en: string; pt: string };
 type TFn = (en: string, pt: string) => string;
@@ -605,6 +606,8 @@ export function OverlaysShowcase() {
           </ShowcaseCard>
         </SubSection>
       </section>
+
+      <SecaoBotaoDeAcoes marca="fl" />
 
       {/* ── DIALOGS ── */}
       <section id="dialogs">

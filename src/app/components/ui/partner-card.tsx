@@ -6,6 +6,8 @@ import { cn } from "./utils";
 import { Selo } from "./selo";
 import { withHighlight } from "./heading";
 import { useOrientacaoDoCard } from "./grade-de-cards";
+import { Button } from "./button";
+import { AcoesDoCard } from "./acoes-do-card";
 
 /**
  * PartnerCard (card de convite ao parceiro)
@@ -43,7 +45,7 @@ const titleSize: Record<Size, string> = {
 };
 const descSize: Record<Size, string> = { p: "text-body-sm", m: "text-body", g: "text-body-lg" };
 const visualBox: Record<Size, string> = { p: "h-12 w-12", m: "h-16 w-16", g: "h-24 w-24" };
-const ctaSize: Record<Size, string> = { p: "h-10 px-4 text-button toque:h-11", m: "h-10 px-5 text-button toque:h-11", g: "h-12 px-6 text-body" };
+const tamanhoDoBotao: Record<Size, "default" | "lg"> = { p: "default", m: "default", g: "lg" };
 
 export function PartnerCard({
   orientation: orientacaoFixa, size = "m", eyebrow, title, description, cta, secondary, visual, surface = "card", className, ...props
@@ -51,8 +53,6 @@ export function PartnerCard({
   const daGrade = useOrientacaoDoCard();
   const horizontal = (orientacaoFixa ?? daGrade ?? "vertical") === "horizontal";
   const dark = surface === "dark";
-  const Cta = cta.href ? "a" : "button";
-  const Sec = secondary?.href ? "a" : "button";
   return (
     <div
       data-slot="partner-card"
@@ -92,32 +92,24 @@ export function PartnerCard({
           {withHighlight(title, size === "p" && !dark ? "text-primary-text" : "text-primary-destaque")}
         </h3>
         {description && <p className={cn("mt-2 max-w-prose leading-relaxed", descSize[size], dark ? "text-white/70" : surface === "tint" ? "text-[color:color-mix(in_oklab,var(--muted-foreground)_85%,var(--foreground))]" : "text-muted-foreground")}>{description}</p>}
-        {/* Ações (27/11/2026): o botão e o link ficam na mesma linha quando o card tem espaço. Em card estreito (menos de
-            384 px de texto, como no celular), os dois viram botões da mesma largura, um embaixo do outro: o principal
-            cheio e o secundário de contorno. Nunca um link sozinho embaixo do botão; o link tem 44 px de altura no toque. */}
-        <div className={cn("mt-auto grid grid-cols-1 gap-3 @sm/parceiro:flex @sm/parceiro:flex-wrap @sm/parceiro:items-center @sm/parceiro:gap-x-5", size === "p" ? "pt-4" : "pt-6")}>
-          <Cta
-            {...(cta.href ? { href: cta.href } : { type: "button", onClick: cta.onClick })}
-            className={cn("group inline-flex items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground shadow-[var(--shadow-sm)] transition-all duration-[var(--duration-fast)] hover:-translate-y-0.5 hover:bg-[var(--primary-hover)] hover:shadow-[var(--shadow-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0", dark && "focus-visible:ring-offset-[var(--graphite-950)]", ctaSize[size])}
-          >
-            {cta.label}
-            <ArrowRight className={cn("transition-transform group-hover:translate-x-0.5", size === "g" ? "h-5 w-5" : "h-4 w-4")} aria-hidden />
-          </Cta>
-          {secondary && (
-            <Sec
-              {...(secondary.href ? { href: secondary.href } : { type: "button", onClick: secondary.onClick })}
-              className={cn(
-                "inline-flex items-center justify-center rounded-full border font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                ctaSize[size],
-                dark ? "border-white/30 text-white/90 hover:bg-white/10" : "border-input bg-card text-foreground hover:bg-accent",
-                // Card largo: vira link discreto, na linha do botão, com a mesma altura de toque
-                "@sm/parceiro:h-auto @sm/parceiro:min-h-11 @sm/parceiro:rounded-sm @sm/parceiro:border-0 @sm/parceiro:bg-transparent @sm/parceiro:px-1 @sm/parceiro:underline-offset-4 @sm/parceiro:hover:bg-transparent @sm/parceiro:hover:underline",
-                !dark && "@sm/parceiro:text-[var(--primary-text,var(--primary))]",
+        {/* Ações (regra da ação nos cards, dona do produto, 28/11/2026): divisor e a linha da ação (AcoesDoCard), com a
+            ação principal (pílula) na ponta direita e o secundário como botão link. No celular, os dois ocupam a largura
+            toda, um embaixo do outro, o principal em cima; do tablet em diante, lado a lado, à direita. */}
+        <div className={cn("mt-auto", size === "p" ? "pt-4" : "pt-6")}>
+          <AcoesDoCard className={dark ? "border-white/10" : undefined}>
+            {secondary && (
+              <Button asChild={!!secondary.href} variant="link" size={tamanhoDoBotao[size]} onClick={secondary.href ? undefined : secondary.onClick} type={secondary.href ? undefined : "button"} className={dark ? "text-white/85 hover:text-white" : undefined}>
+                {secondary.href ? <a href={secondary.href}>{secondary.label}</a> : secondary.label}
+              </Button>
+            )}
+            <Button asChild={!!cta.href} size={tamanhoDoBotao[size]} onClick={cta.href ? undefined : cta.onClick} type={cta.href ? undefined : "button"} className={cn("group", dark && "focus-visible:ring-offset-[var(--graphite-950)]")}>
+              {cta.href ? (
+                <a href={cta.href}>{cta.label}<ArrowRight className="transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden /></a>
+              ) : (
+                <>{cta.label}<ArrowRight className="transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden /></>
               )}
-            >
-              {secondary.label}
-            </Sec>
-          )}
+            </Button>
+          </AcoesDoCard>
         </div>
       </div>
     </div>

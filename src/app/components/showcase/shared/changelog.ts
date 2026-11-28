@@ -17,6 +17,21 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "Updated", title: pt("A ação no card: à direita, ou na largura toda"),
+    desc: pt("Decisão da dona do produto (28/11/2026), para todo tipo de card, substitui \"divisor e botão no canto inferior direito\": a ação fica depois do divisor, no lado DIREITO da linha (a informação à esquerda), ou ocupa a largura toda do card. No celular (menos de 640 px), os botões ocupam a largura toda e dois botões ficam um embaixo do outro, o principal em cima; no tablet e no computador, lado a lado, à direita, quando há espaço. Ação principal = pílula rosa; secundária = botão link, ou contorno quando as duas importam de verdade. Novo AcoesDoCard (e a mesma regra no CardFooter, agora alinhado à direita), com as classes em CSS puro .ds-acoes-do-card. Revisados: PartnerCard (pílula + link, à direita), ProductCard (Ver peça / Avise-me à direita), CaixaDeCodigo (Copiar e a principal à direita), ConviteAoMapa, BannerPromocional, dica do CarrosselDeDicas, cards de gráfico (Ver dados), cards de Repetir (largura toda), cards de opção do cabeçalho, botões de baixar da marca e do mascote, VejaEm e os exemplos da página Cards."),
+    page: "cards", anchor: "card-acao",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Card de publicação"),
+    desc: pt("CardDePublicacao (28/11/2026, pedido da dona do produto; mesma API do DS Dani Moscatelli): para publicações da FindLook (novidades da plataforma, moda, promoções). Foto com selo opcional (\"Mais recente\"), categoria em rosa e data, título (o link, sobre o card todo), resumo com limite de linhas (3; 2 no horizontal), divisor e a linha da ação: a informação à esquerda e \"Ler publicação →\" à direita. Formatos destaque, horizontal e vertical; sem foto, só o texto. Uma fonte só: as classes .ds-card-publicacao do theme.css (bloco \"@ds-css-puro:cards-acao\"), usadas pelo componente e por páginas em HTML puro (htmlDoCardDePublicacao). Os exemplos da documentação são fictícios."),
+    page: "cards", anchor: "card-publicacao",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Botão de ações"),
+    desc: pt("BotaoDeAcoes (28/11/2026, pedido da dona do produto; o mesmo arquivo do DS Dani Moscatelli), inspirado no menu Ações da área restrita do estúdio: pílula secundária (contorno) \"Ações\" com a seta para baixo; abaixo de 640 px (ou soIcone), botão redondo com três pontinhos verticais, 44 px, que continua se chamando \"Ações\" para leitores de tela. Abre o Dropdown do DS alinhado à borda direita; opções com rótulo, ícone, onSelect ou href, destrutiva (cor de erro, depois de um separador) e desabilitada. Em cards com mais de duas ações: a pílula principal + BotaoDeAcoes, ou só o BotaoDeAcoes."),
+    page: "overlays", anchor: "botao-de-acoes",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Caixa de consentimento e caixa de marcar quadrada"),
     desc: pt("CaixaDeConsentimento (28/11/2026, aprovada pela dona do produto; mesma API nos dois DS): um sim de consentimento num card que se marca inteiro (caixa nativa dentro de um label): caixa quadrada de 22 px com cantos de 6 px, título de 16 px seminegrito, texto de 14 px em cinza escuro (grafite 600, 7,8:1) com links em --primary-text; marcado = fundo --primary-suave e borda --primary; anel de foco, erro (borda --error e MensagemDeErro) e desativado. paragrafos põe cada frase numa linha nova. A Checkbox fica claramente quadrada: cantos de 6 px (novo --radius-xs) no lugar de 8 px, que deixavam a caixa de 20 px com cara de redonda, como um rádio."),
     page: "campos", anchor: "caixa-de-consentimento",
