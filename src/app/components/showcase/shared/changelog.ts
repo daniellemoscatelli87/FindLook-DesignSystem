@@ -17,6 +17,26 @@ const pt = (text: string): Bi => ({ en: text, pt: text });
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "Nov 2026", kind: "New", title: pt("Botão do WhatsApp"),
+    desc: pt("Pedido da dona do produto (28/11/2026): o BotaoWhatsApp do DS Dani Moscatelli chega ao FindLook com a mesma API (sem número padrão: cada tela passa o número). Círculo de 56 px no verde oficial do WhatsApp (--marca-whatsapp, exceção da dona do produto) com o ícone branco, no canto inferior direito, 20 px da borda (24 px a partir de 640 px) mais a área segura do aparelho, camada 45 (acima das faixas fixas), nome acessível com \"(abre em nova aba)\", anel de foco e parado com \"menos movimento\". Classes .ds-botao-whatsapp e .ds-espaco-botao-whatsapp (para o rodapé não ficar embaixo do botão) no theme.css; documentação em Moldura do site › Botão do WhatsApp, junto dos links de redes sociais."),
+    page: "site", anchor: "site-botao-whatsapp",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Card de depoimento (feedback de quem usou a plataforma)"),
+    desc: pt("Decisão da dona do produto (28/11/2026): o CardDeDepoimento do DS Dani Moscatelli chega ao FindLook, o mesmo arquivo e a mesma API nos dois DS, adaptado para o feedback de quem usou a plataforma: aspas, o depoimento primeiro, divisor e a pessoa embaixo, com perfil (\"consumidor\" = selo Cliente, \"lojista\" = selo Loja parceira, no ChipDeEstado neutro), loja (na linha do cargo) e nota (a Avaliacao do DS, no alto à direita), todos opcionais. Card só de borda, cores por token. O desenho está nas classes .ds-card-depoimento e partes do theme.css (bloco \"@ds-css-puro\"). Exemplos da documentação fictícios; só feedback real, com autorização, sem inventar números."),
+    page: "site", anchor: "site-depoimentos",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Links de redes sociais (LinkDeRedeSocial)"),
+    desc: pt("Aprovado pela dona do produto (28/11/2026), igual nos dois DS: as pílulas brancas de \"Me siga nas redes sociais\" da página inicial do site do estúdio Dani Moscatelli. LinkDeRedeSocial (rede, href, children, tamanho sm/md, novaAba) e GrupoDeRedesSociais (lista centralizada que quebra em linhas, 12 px entre as pílulas). Ícone da marca na cor oficial (LinkedIn, Instagram, WhatsApp, Facebook, YouTube, TikTok, Behance: novos tokens --marca-*, só no ícone, exceção da dona do produto), texto em --foreground, sombra suave (novo token --shadow-suave: a pílula é um link, não um card, então a regra de card sem sombra parada não vale para ela). Hover cinza (--accent), anel de foco, área de toque de 44 px no celular sem mudar o desenho, parado com \"menos movimento\". Uma fonte só: as classes .ds-link-rede-social (+ --md, --<rede>) e .ds-grupo-redes-sociais do theme.css (bloco \"@ds-css-puro\"), usadas pelo componente em React e pelas páginas em HTML puro (htmlDoLinkDeRedeSocial dá o HTML pronto)."),
+    page: "site", anchor: "site-redes-sociais",
+  },
+  {
+    date: "Nov 2026", kind: "New", title: pt("Pílulas de destaque (PilulaDeDestaque)"),
+    desc: pt("Aprovado pela dona do produto (28/11/2026), igual nos dois DS: os destaques de cima dos depoimentos da página inicial do site do estúdio Dani Moscatelli (\"35 recomendações\", \"Excelência e compromisso\", \"Líderes, clientes & pares\"). PilulaDeDestaque (icone: um ícone Lucide, children) e GrupoDePilulasDeDestaque (ul, centralizado, quebrando em linhas, 12 px entre as pílulas). Não é link nem botão: sem hover e sem foco. Fundo cinza bem claro (metade do --muted sobre o card), borda --border-strong, texto --foreground de 12 px (14 px a partir de 768 px), ícone Lucide de 18 px em --primary-text. As mesmas classes no HTML puro: .ds-grupo-pilulas-destaque, .ds-pilula-destaque, .ds-pilula-destaque__icone (theme.css, bloco \"@ds-css-puro\")."),
+    page: "site", anchor: "site-pilulas-destaque",
+  },
+  {
     date: "Nov 2026", kind: "New", title: pt("Caixa de consentimento e caixa de marcar quadrada"),
     desc: pt("CaixaDeConsentimento (28/11/2026, aprovada pela dona do produto; mesma API nos dois DS): um sim de consentimento num card que se marca inteiro (caixa nativa dentro de um label): caixa quadrada de 22 px com cantos de 6 px, título de 16 px seminegrito, texto de 14 px em cinza escuro (grafite 600, 7,8:1) com links em --primary-text; marcado = fundo --primary-suave e borda --primary; anel de foco, erro (borda --error e MensagemDeErro) e desativado. paragrafos põe cada frase numa linha nova. A Checkbox fica claramente quadrada: cantos de 6 px (novo --radius-xs) no lugar de 8 px, que deixavam a caixa de 20 px com cara de redonda, como um rádio."),
     page: "campos", anchor: "caixa-de-consentimento",

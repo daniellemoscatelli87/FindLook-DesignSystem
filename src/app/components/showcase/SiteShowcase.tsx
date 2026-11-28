@@ -3,6 +3,7 @@ import { AtSign, LogIn, ShieldCheck, Store } from "lucide-react";
 import { SectionHeader } from "./shared/SectionHeader";
 import { Callout, DataTable, DoDont, Mono, Panel, SubTitle } from "./shared/Guidance";
 import { PaginaAbaixoDoCabecalho } from "./shared/PaginaAbaixoDoCabecalho";
+import { SecaoBotaoWhatsApp, SecaoCardDeDepoimento, SecaoLinkDeRedeSocial, SecaoPilulaDeDestaque } from "./shared/SecoesRedesEDestaques";
 import { CabecalhoDoSite, type ItemDoCabecalho } from "../ui/cabecalho-do-site";
 import { RodapeDoSite } from "../ui/rodape-do-site";
 import { MolduraDeConta } from "../ui/moldura-de-conta";
@@ -209,6 +210,14 @@ export function SiteShowcase() {
           </Prosa>
         </Panel>
       </section>
+
+      <SecaoCardDeDepoimento />
+
+      <SecaoLinkDeRedeSocial />
+
+      <SecaoBotaoWhatsApp />
+
+      <SecaoPilulaDeDestaque />
     </div>
   );
 }

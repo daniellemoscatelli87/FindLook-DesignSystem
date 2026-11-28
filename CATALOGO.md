@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 125 arquivos de componentes em `src/app/components/ui/` com 461 componentes exportados · 88 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 270 âncoras no site (https://designsystem.findlook.com.br) · 37 propostas de componente.
+**Resumo:** 129 arquivos de componentes em `src/app/components/ui/` com 469 componentes exportados · 88 templates e padrões ainda só em demonstração · 51 seções com marcação feita à mão · 187 tokens · 37 páginas e 274 âncoras no site (https://designsystem.findlook.com.br) · 41 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -134,6 +134,16 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `BotaoDeEnvio` (props: `estado`, `children`, `textos`, `icone`, `voltarApos`, `onVoltar`, `className`, `disabled`, `variant`)
 - **Funções e constantes:** `useEstadoDoEnvio`
 - **Onde ver:** Campos e formulários › Botão de envio (`campos#botao-de-envio`)
+
+### botao-whatsapp
+
+- **Arquivo:** [src/app/components/ui/botao-whatsapp.tsx](src/app/components/ui/botao-whatsapp.tsx)
+- **Quando usar:** BotaoWhatsApp (botão flutuante do WhatsApp): Botão redondo de 56 px no canto inferior direito que abre a conversa no WhatsApp em nova aba, com uma mensagem pronta. Mesmo componente e mesma API nos dois design systems (pedido da dona do produto, 28/11/2026), documentado junto das peças de redes sociais (LinkDeRedeSocial). Só os valores padrão mudam: o número e a mensagem de cada marca.
+- **Componentes:**
+  - `IconeWhatsApp` (props: `className`): O ícone do WhatsApp (o mesmo do LinkDeRedeSocial).
+  - `BotaoWhatsApp` (props: `numero`, `mensagem`, `rotulo`, `titulo`, `fixo`, `className`)
+- **Funções e constantes:** `VERDE_WHATSAPP`, `linkWhatsApp`, `htmlDoBotaoWhatsApp`
+- **Onde ver:** Moldura do site › Botão do WhatsApp (`site#site-botao-whatsapp`)
 
 ### breadcrumb
 
@@ -268,6 +278,14 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `CardContent` (props: `className`)
   - `CardFooter` (props: `className`, `children`): Rodapé do card. No Card horizontal, ganha o divisor do card em cima e as ações vão para o canto inferior direito.
 - **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 30 seções (ver `catalogo.json`)
+
+### card-de-depoimento
+
+- **Arquivo:** [src/app/components/ui/card-de-depoimento.tsx](src/app/components/ui/card-de-depoimento.tsx)
+- **Quando usar:** CardDeDepoimento (depoimento de cliente, par ou de quem usou a plataforma): O cartão padrão de depoimento nos dois design systems (decisão da dona do produto, 28/11/2026): o ícone de aspas, o depoimento em cima e, depois de um divisor, a pessoa (foto ou iniciais, nome, cargo e, opcional, a origem, como "Recomendação no LinkedIn").
+- **Componentes:**
+  - `CardDeDepoimento` (props: `nome`, `cargo`, `foto`, `origem`, `perfil`, `loja`, `nota`, `children`, `className`)
+- **Onde ver:** Moldura do site › Card de depoimento (`site#site-depoimentos`)
 
 ### card-de-preco
 
@@ -597,7 +615,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 89 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 93 seções (ver `catalogo.json`)
 
 ### graficos
 
@@ -744,6 +762,17 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Componentes:**
   - `LinhaDeLista` (props: `as`, `inicio`, `titulo`, `descricao`, `fim`, `quebraAcoes`, `alinharAcoesAbaixo`, `alinhar`, `interativa`, `selecionada`, `className`, `children`)
 - **Onde ver:** Cards › Borda, sombra e raio (`cards#card-layout`) · Exibição de dados › Linhas com tags e ações (`data#linhas-colunas`)
+
+### link-de-rede-social
+
+- **Arquivo:** [src/app/components/ui/link-de-rede-social.tsx](src/app/components/ui/link-de-rede-social.tsx)
+- **Quando usar:** LinkDeRedeSocial e GrupoDeRedesSociais (links de redes sociais): A pílula branca de "Me siga nas redes sociais" da página inicial do site (`ih-redes`): o ícone da rede na cor oficial da marca, o texto em --foreground e a sombra suave (--shadow-suave). É um link: abre o perfil da rede. Aprovados pela dona do produto em 28/11/2026.
+- **Componentes:**
+  - `IconeDeRedeSocial` (props: `rede`, `className`): O ícone da marca (aria-hidden), na cor oficial quando dentro de .ds-link-rede-social--<rede>.
+  - `LinkDeRedeSocial` (props: `rede`, `href`, `children`, `tamanho`, `novaAba`, `className`, `target`, `rel`)
+  - `GrupoDeRedesSociais` (props: `alinhamento`, `className`, `children`): Lista dos links: cada LinkDeRedeSocial vira um item; centralizados e quebrando em linhas, 12 px entre eles.
+- **Funções e constantes:** `redesSociais`, `nomeDaRede`, `svgDaRedeSocial`, `htmlDoLinkDeRedeSocial`
+- **Onde ver:** Moldura do site › Links de redes sociais (`site#site-redes-sociais`)
 
 ### link-saiba-mais
 
@@ -989,6 +1018,16 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `PasswordConfirm` (props: `senha`, `confirmacao`, `onSenhaChange`, `onConfirmacaoChange`, `regras`, `textos`, `semConfirmacao`, `erroSenha`, `erroConfirmacao`, `idSenha`, `idConfirmacao`, `disabled`, `className`): Senha + confirmação, com força da senha, dicas com check e verificação de coincidência.
 - **Funções e constantes:** `regrasPadrao`, `textosPadrao`, `forcaDaSenha`
 - **Onde ver:** Botões › Senha (`buttons#password`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
+
+### pilula-de-destaque
+
+- **Arquivo:** [src/app/components/ui/pilula-de-destaque.tsx](src/app/components/ui/pilula-de-destaque.tsx)
+- **Quando usar:** PilulaDeDestaque e GrupoDePilulasDeDestaque (destaques que não são clicáveis): Os destaques curtos da seção de depoimentos da página inicial do site (`ih-tags`: "35 recomendações", "Excelência e compromisso", "Líderes, clientes & pares"): pílula de fundo cinza bem claro, borda fina, texto em --foreground e um ícone Lucide de 18 px no vermelho do texto da marca (--primary-text), o mesmo tamanho em todas.
+- **Componentes:**
+  - `PilulaDeDestaque` (props: `icone`, `className`, `children`)
+  - `GrupoDePilulasDeDestaque` (props: `alinhamento`, `className`): A lista das pílulas (<ul>); os filhos são PilulaDeDestaque. Dê um aria-label quando não houver título perto.
+- **Funções e constantes:** `htmlDaPilulaDeDestaque`
+- **Onde ver:** Moldura do site › Pílulas de destaque (`site#site-pilulas-destaque`)
 
 ### popover
 
@@ -1512,7 +1551,7 @@ Exemplos que ilustram uma regra (usabilidade, acessibilidade, movimento, marca, 
 | `OrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1478](src/app/components/showcase/MotionShowcase.tsx#L1478) |  | 1 |
 | `AvatarOrbitCanvas` | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1626](src/app/components/showcase/MotionShowcase.tsx#L1626) |  | 3 |
 
-### 2.4 Seções com marcação feita à mão no próprio corpo (50)
+### 2.4 Seções com marcação feita à mão no próprio corpo (51)
 
 Seções que montam peças direto na página, sem componente local, com 3 ou mais elementos de estilo próprio. Antes de copiar uma delas, confira se a peça já existe na seção 1.
 
@@ -1544,7 +1583,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Movimento › Transições de layout (`motion#layout`) | [src/app/components/showcase/MotionShowcase.tsx:1038](src/app/components/showcase/MotionShowcase.tsx#L1038) |  | 6 |
 | Movimento › Lista animada (`motion#animated-list`) | [src/app/components/showcase/MotionShowcase.tsx:1322](src/app/components/showcase/MotionShowcase.tsx#L1322) |  | 7 |
 | Movimento › Círculos orbitais (`motion#orbiting-circles`) | [src/app/components/showcase/MotionShowcase.tsx:1708](src/app/components/showcase/MotionShowcase.tsx#L1708) |  | 6 |
-| Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:142](src/app/components/showcase/CatalogoShowcase.tsx#L142) | `Input` | 5 |
+| Catálogo de componentes › Todos os componentes (`catalogo#catalogo-lista`) | [src/app/components/showcase/CatalogoShowcase.tsx:147](src/app/components/showcase/CatalogoShowcase.tsx#L147) | `Input` | 5 |
 | Botões › Um botão principal (`buttons#botao-principal`) | [src/app/components/showcase/FormShowcase.tsx:202](src/app/components/showcase/FormShowcase.tsx#L202) |  | 5 |
 | Cards › Borda, sombra e raio (`cards#card-layout`) | [src/app/components/showcase/CardShowcase.tsx:669](src/app/components/showcase/CardShowcase.tsx#L669) | `Card`, `DivisorSuave`, `GradeDeCards` | 3 |
 | Cards › Estados (`cards#card-states`) | [src/app/components/showcase/CardShowcase.tsx:1025](src/app/components/showcase/CardShowcase.tsx#L1025) | `BrilhoDeSelecionado`, `Button`, `Card`, `CardDescription`, `CardFooter`, `CardHeader`, `CardTitle`, `GradeDeCards` +3 | 3 |
@@ -1568,6 +1607,7 @@ Seções que montam peças direto na página, sem componente local, com 3 ou mai
 | Sobreposições (overlays) › Sanfona (accordion) (`overlays#accordion`) | [src/app/components/showcase/OverlaysShowcase.tsx:697](src/app/components/showcase/OverlaysShowcase.tsx#L697) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger` | 8 |
 | Painel lateral › Anatomia (`sidepanel#sidepanel-anatomy`) | [src/app/components/showcase/SidePanelShowcase.tsx:158](src/app/components/showcase/SidePanelShowcase.tsx#L158) |  | 3 |
 | Etapas (Stepper) › Demonstração (`stepper#stepper-demo`) | [src/app/components/showcase/StepperShowcase.tsx:26](src/app/components/showcase/StepperShowcase.tsx#L26) | `Button`, `Stepper` | 3 |
+| Moldura do site › Botão do WhatsApp (`site#site-botao-whatsapp`) | [src/app/components/showcase/shared/SecoesRedesEDestaques.tsx:201](src/app/components/showcase/shared/SecoesRedesEDestaques.tsx#L201) | `BotaoWhatsApp` | 4 |
 
 ## 3. Tokens
 
@@ -1668,6 +1708,13 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 | `--destructive-foreground` | `#FFFFFF` | `#000000` |  |
 | `--sobreposicao` | `color-mix(in srgb, var(--graphite-950) 50%, transparent)` | igual |  |
 | `--espaco-abaixo-do-cabecalho` | `--space-8 (32px)` | igual |  |
+| `--marca-linkedin` | `#0A66C2` | igual |  |
+| `--marca-instagram` | `#E1306C` | igual |  |
+| `--marca-whatsapp` | `#25D366` | igual |  |
+| `--marca-facebook` | `#1877F2` | igual |  |
+| `--marca-youtube` | `#FF0000` | igual |  |
+| `--marca-tiktok` | `#000000` | `#FFFFFF` |  |
+| `--marca-behance` | `#1769FF` | igual |  |
 
 ### 3.3 Cores da marca (atalhos)
 
@@ -1742,6 +1789,7 @@ Primitivas: servem de base para os tokens semânticos. Em componentes, prefira o
 - `--shadow-md`: `0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 36px rgba(0, 0, 0, 0.06)` (escuro: `0 4px 16px rgba(0, 0, 0, 0.45), 0 16px 48px rgba(0, 0, 0, 0.30)`)
 - `--shadow-lg`: `0 8px 24px rgba(0, 0, 0, 0.09), 0 24px 64px rgba(0, 0, 0, 0.07)` (escuro: `0 8px 32px rgba(0, 0, 0, 0.50), 0 32px 80px rgba(0, 0, 0, 0.35)`)
 - `--shadow-xl`: `0 16px 48px rgba(0, 0, 0, 0.10), 0 40px 96px rgba(0, 0, 0, 0.08)` (escuro: `0 16px 64px rgba(0, 0, 0, 0.55), 0 48px 100px rgba(0, 0, 0, 0.40)`)
+- `--shadow-suave`: `0 10px 30px -5px color-mix(in srgb, var(--graphite-950) 4%, transparent), 0 4px 12px -2px color-mix(in srgb, var(--graphite-950) 2%, transparent)` (escuro: `0 10px 30px -5px rgba(0, 0, 0, 0.45), 0 4px 12px -2px rgba(0, 0, 0, 0.3)`)
 
 ### 3.9 Espaçamento, grid e larguras
 
@@ -1870,11 +1918,15 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 | [Tabela adaptável e barra de ferramentas](propostas/2026-11-27-tabela-adaptavel.md) | `TabelaAdaptavel, BarraDeFerramentasDaTabela em src/app/components/ui/tabela-adaptavel.tsx` | proposta |
 | [Contador de caracteres no Textarea](propostas/2026-11-27-textarea-contador.md) | `Textarea (prop contador) em src/app/components/ui/textarea.tsx` | proposta |
 | [Título de grupo](propostas/2026-11-27-titulo-de-grupo.md) | `TituloDeGrupo em src/app/components/ui/titulo-de-grupo.tsx` | proposta |
+| [Botão do WhatsApp nos dois DS](propostas/2026-11-28-botao-whatsapp.md) | `BotaoWhatsApp, IconeWhatsApp, linkWhatsApp, htmlDoBotaoWhatsApp em src/app/components/ui/botao-whatsapp.tsx. Mesma API nos dois DS; os arquivos só diferem no bloco dos valores padrão (número e mensagem do estúdio no DM; sem número no FindLook).` | pedido da dona do produto (28/11/2026): "O botão do WhatsApp também já está nos botões das redes sociais no design system; precisa estar em ambos os DS." |
 | [Caixa de consentimento](propostas/2026-11-28-caixa-de-consentimento.md) | `CaixaDeConsentimento em src/app/components/ui/caixa-de-consentimento.tsx (mesmo arquivo e API no DS Dani Moscatelli)` | aprovada (dona do produto, 28/11/2026; publicação com o "sim" dela) |
+| [Card de depoimento (padrão dos dois DS)](propostas/2026-11-28-card-de-depoimento.md) | `CardDeDepoimento em src/app/components/ui/card-de-depoimento.tsx (arquivo idêntico nos dois DS); Avaliacao (ui/avaliacao.tsx) agora também no DS Dani Moscatelli, idêntica` | decisão da dona do produto (28/11/2026): "Use o componente de depoimento do Design System … leve o componente de depoimento para o FindLook, adaptado para feedbacks de clientes que usaram a plataforma." |
 | [Confete](propostas/2026-11-28-confete.md) | `Confete, dispararConfete e EstadoFinal comemorar em src/app/components/ui/confete.tsx` | proposta |
 | [Escala de notas](propostas/2026-11-28-escala-de-notas.md) | `EscalaDeNotas e GrupoDeEscalas em src/app/components/ui/escala-de-notas.tsx` | proposta |
 | [Escolha ordenada](propostas/2026-11-28-escolha-ordenada.md) | `EscolhaOrdenada (e proximaOrdem) em src/app/components/ui/escolha-ordenada.tsx` | proposta |
+| [Link de rede social](propostas/2026-11-28-link-de-rede-social.md) | — | aprovado (dona do produto, 28/11/2026; publicação com o "sim" dela) |
 | [Página 404 padrão e espaço abaixo do cabeçalho](propostas/2026-11-28-pagina-404-padrao.md) | `PaginaDeErro (nova prop abaixoDoCabecalho; a variante moldura="card" é o modelo do Dani Moscatelli) em src/app/components/ui/estado-vazio.tsx; token --espaco-abaixo-do-cabecalho e classe .ds-abaixo-do-cabecalho em src/styles/theme.css` | aprovada (decisões da dona do produto de 28/11/2026; publicação com o "sim" dela) |
+| [Pílula de destaque](propostas/2026-11-28-pilula-de-destaque.md) | — | aprovada (dona do produto, 28/11/2026; prévia `mock-pilulas/pilulas.png`, linha "Proposta") |
 | [Recorte de foto](propostas/2026-11-28-recorte-de-foto.md) | `RecorteDeFoto em src/app/components/ui/recorte-de-foto.tsx` | proposta |
 
 ## 6. Páginas e âncoras do site
@@ -1911,7 +1963,7 @@ Peças novas pedidas por um produto, no processo de [`propostas/README.md`](prop
 - **Linha do tempo** (`timeline`): `timeline-demo` Demonstração · `timeline-anatomy` Anatomia · `timeline-motion` Movimento: indicador de etapas · `timeline-usage` Uso
 - **Etapas (Stepper)** (`stepper`): `stepper-demo` Demonstração · `stepper-anatomy` Anatomia e estados · `stepper-a11y` Acessibilidade · `stepper-usage` Uso
 - **Upload** (`upload`): `upload-dropzone` Área de soltar · `recorte-de-foto` Recorte de foto
-- **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-erro` Página de erro (404) · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos)
+- **Moldura do site** (`site`): `site-cabecalho` Cabeçalho e menu do celular · `site-rodape` Rodapé do site · `site-conta` Moldura das telas de conta · `site-erro` Página de erro (404) · `site-hero` Vantagens e prova social · `site-logo` Logo · `site-links` Links de texto · `site-prosa` Prosa (textos longos) · `site-redes-sociais` Links de redes sociais · `site-pilulas-destaque` Pílulas de destaque · `site-depoimentos` Card de depoimento · `site-botao-whatsapp` Botão do WhatsApp
 - **Campos e formulários** (`campos`): `campo-padrao` Campo (o campo padrão) · `campo-de-busca` Campo de busca · `campo-texto-longo` Texto longo com contador · `grupo-de-opcoes` Grupo de opções e interruptor · `seletor-de-quantidade` Seletor de quantidade · `caixa-de-codigo` Caixa de código · `botao-de-envio` Botão de envio · `calendario` Seletor de data (Calendar) · `campo-de-endereco` Endereço com sugestões (CampoDeEndereco) · `campo-com-prefixo` Prefixo, sufixo e desabilitado · `escolha-ordenada` Escolha ordenada · `escala-de-notas` Escala de notas · `caixa-de-consentimento` Caixa de consentimento
 - **Chips e estados** (`chips-e-estados`): `chip-de-estado` Chip de estado · `chips-filtro` Chips de filtro · `etiquetas-tons` Etiquetas e bases por tom · `alerta-tom` Alerta com tom · `estado-vazio` Estado vazio · `avaliacao-e-grupos` Avaliação e título de grupo
 - **Quadro, conversa e tabela** (`painel-e-admin`): `quadro` Quadro (kanban) · `conversa` Conversa e celular · `tabela-adaptavel` Tabela adaptável · `card-indicador-link` Card de indicador clicável

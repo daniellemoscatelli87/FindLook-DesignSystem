@@ -47,7 +47,7 @@ const explore: { label: string; items: CardItem[] }[] = [
       { icon: Image, title: "Backgrounds", desc: "Superfícies animadas: gradientes, canvas reveal, vortex e linhas.", target: { page: "backgrounds" } },
       { icon: Wind, title: "Motion", desc: "Presets, easing, física de spring e tokens de movimento.", target: { page: "motion" } },
       { icon: Component, title: "Componentes", desc: "Botões, cards, exibição de dados, feedback, rótulos, ícones e overlays.", target: { page: "buttons" } },
-      { icon: AppWindow, title: "Componentes do produto", desc: "Moldura do site, campos, chips e estados, quadro, conversa, tabela adaptável e demonstrações animadas.", target: { page: "site" } },
+      { icon: AppWindow, title: "Componentes do produto", desc: "Moldura do site (com card de depoimento, links de redes sociais e pílulas de destaque), campos, chips e estados, quadro, conversa, tabela adaptável e demonstrações animadas.", target: { page: "site" } },
       { icon: LayoutTemplate, title: "Templates", desc: "Dashboard, autenticação, configurações, lista e landing page.", target: { page: "templates" } },
     ],
   },
