@@ -49,7 +49,7 @@ const papeisDoPink = [
 const rosasClaros = [
   { nivel: "1", token: "--primary-suave", hex: "#FFECF0", papel: "Selecionado", uso: "Estado selecionado: item ativo do menu, botão “✓ Selecionado”, segmento ativo, chip ativo, linha selecionada e selos como “Recomendado”. Selecionado com o mouse em cima continua neste rosa. O card selecionado continua branco.", contraste: "Texto --primary-text: 5,7:1", amostra: "card" as const },
   { nivel: "2", token: "--accent", hex: "#E9E9EC", papel: "Hover", uso: "Cinza claro, nunca rosa: o hover dos itens não selecionados (menu, chips, botão “Selecionar”, cards de escolha). O --muted (#F6F6F7) é claro demais sobre o branco para mostrar o hover. Linhas de lista de ponta a ponta usam o --row-hover.", contraste: "Texto --foreground 17,0:1; --muted-foreground 4,6:1", amostra: "chip" as const },
-  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Destaque", uso: "Base dos ícones na cor da marca e destaques (por exemplo, o plano destacado numa tabela). Nunca marca seleção.", contraste: "Ícone e texto --primary-text: 5,2:1", amostra: "botao" as const },
+  { nivel: "3", token: "--primary-muted", hex: "#FEDFE6", papel: "Destaque", uso: "Base dos ícones clicáveis (IconeComBase clicavel; o informativo usa a base cinza) e destaques (por exemplo, o plano destacado numa tabela). Nunca marca seleção.", contraste: "Ícone e texto --primary-text: 5,2:1", amostra: "botao" as const },
 ];
 
 const semanticColors = [
@@ -607,7 +607,7 @@ function getFoundationTokenGroups(t: (en: string, pt: string) => string): TokenG
       { name: "--primary-foreground", description: t("Text on primary", "Texto sobre primária"),                 light: "#FFFFFF", dark: "#FFFFFF", isColor: true },
       { name: "--primary-suave",      description: t("Selected (the middle pink): active menu item, selected button, active segment and chip, selected row; stays pink under the pointer", "Selecionado (o rosa do meio): item ativo do menu, botão selecionado, segmento e chip ativos, linha selecionada; continua rosa com o mouse em cima"), light: "#FFECF0", dark: "rgba(252,2,86,0.12)", isColor: true },
       { name: "--accent",             description: t("Hover: light grey, never pink", "Hover: cinza claro, nunca rosa"), light: "#E9E9EC", dark: "rgba(44,44,51,0.6)", isColor: true },
-      { name: "--primary-muted",      description: t("Highlight: icon bases and highlights; never a selection", "Destaque: base de ícones e destaques; nunca seleção"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
+      { name: "--primary-muted",      description: t("Highlight: bases of clickable icons and highlights; never a selection", "Destaque: base de ícones clicáveis e destaques; nunca seleção"), light: "#FEDFE6", dark: "rgba(252,2,86,0.16)", isColor: true },
       { name: "--primary-sutil",      description: t("No longer used for selection (kept for compatibility)", "Não é mais usado para seleção (mantido por compatibilidade)"), light: "#FFF5F8", dark: "rgba(252,2,86,0.08)", isColor: true },
     ],
   },

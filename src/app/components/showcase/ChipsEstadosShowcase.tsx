@@ -87,8 +87,9 @@ export function ChipsEstadosShowcase() {
           <div className="space-y-3">
             <SubTitle>IconeComBase tom</SubTitle>
             <div className="flex flex-wrap gap-3">
-              <IconeComBase tom="marca"><Store /></IconeComBase>
-              <IconeComBase tom="neutro"><Store /></IconeComBase>
+              <IconeComBase tom="desabilitado"><Store /></IconeComBase>
+              <IconeComBase tom="informativo"><Store /></IconeComBase>
+              <IconeComBase tom="clicavel"><Store /></IconeComBase>
               <IconeComBase tom="sucesso"><CheckCircle2 /></IconeComBase>
               <IconeComBase tom="aviso"><AlertCircle /></IconeComBase>
               <IconeComBase tom="erro"><XCircle /></IconeComBase>
@@ -96,7 +97,7 @@ export function ChipsEstadosShowcase() {
             </div>
           </div>
         </Panel>
-        <DoDont dos={["Etiqueta (retângulo) para atributo; chip (pílula) para estado.", "Tom de estado na base só quando o ícone diz o estado."]} donts={["Base colorida só para enfeitar uma grade de cards iguais (use neutro)."]} />
+        <DoDont dos={["Etiqueta (retângulo) para atributo; chip (pílula) para estado.", "Tom de estado na base só quando o ícone diz o estado."]} donts={["Base colorida em algo que não se toca: use o tom informativo (ícone colorido na base cinza). Regra em Ícones › Base do ícone."]} />
       </section>
 
       <section id="alerta-tom" className="scroll-mt-32 space-y-6">
@@ -120,7 +121,7 @@ export function ChipsEstadosShowcase() {
           <EstadoVazio moldura="tracejado" icone={<Plus />} tom="marca" titulo="Cadastre sua primeira peça" descricao="Peças publicadas aparecem para quem procura na região." acoes={<Button className="h-10 toque:h-11"><Plus aria-hidden /> Cadastrar peça</Button>} />
           <EstadoVazio moldura="tracejado" tamanho="sm" titulo="Nada agendado para hoje" descricao="Os contatos e visitas marcados aparecem aqui." />
         </GradeDeCards>
-        <DataTable head={["Prop", "Valores"]} rows={[[<Mono>variante</Mono>, "pagina (padrão, centralizado) · lista (dentro de um card, como uma linha)"], [<Mono>moldura</Mono>, "FindLook: nenhuma (padrão) · tracejado (no lugar de uma lista) · card (sozinho na página)"], [<Mono>ilustracao · icone · tom</Mono>, "imagem do mascote, ou ícone na base cinza (ou rosa com tom=\"marca\")"], [<Mono>tamanho</Mono>, "md (padrão) · sm (colunas estreitas)"], [<Mono>acoes</Mono>, "botões ou links (um principal no máximo)"], [<Mono>descricao · nivel</Mono>, "a frase de apoio; o nível do título (padrão h2)"]]} />
+        <DataTable head={["Prop", "Valores"]} rows={[[<Mono>variante</Mono>, "pagina (padrão, centralizado) · lista (dentro de um card, como uma linha)"], [<Mono>moldura</Mono>, "FindLook: nenhuma (padrão) · tracejado (no lugar de uma lista) · card (sozinho na página)"], [<Mono>ilustracao · icone · tom</Mono>, "imagem do mascote, ou ícone informativo (colorido na base cinza); tom=\"desabilitado\" quando a área está indisponível"], [<Mono>tamanho</Mono>, "md (padrão) · sm (colunas estreitas)"], [<Mono>acoes</Mono>, "botões ou links (um principal no máximo)"], [<Mono>descricao · nivel</Mono>, "a frase de apoio; o nível do título (padrão h2)"]]} />
         <DoDont dos={["Diga o próximo passo.", "Uma ação principal só."]} donts={["\"Ops!\" ou culpa em quem usa.", "Inventar números ou motivos."]} />
       </section>
 

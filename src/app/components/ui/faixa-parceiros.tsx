@@ -71,7 +71,7 @@ function FaixaDeParceiros({
             </span>
           ) : (
             <span className="flex h-16 w-48 items-center gap-3 rounded-lg border border-dashed border-primary/30 bg-card/80 px-4">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-muted text-primary-text">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-primary-text">
                 <Store className="size-4" />
               </span>
               <span className="text-body-sm leading-5 font-semibold text-foreground">{convite}</span>

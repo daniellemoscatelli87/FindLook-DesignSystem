@@ -989,7 +989,7 @@ import { Card, CardMidia, CardHeader, CardTitle, CardFooter } from "@/app/compon
             <UsoComLimite />
           </div>
           <div id="card-andamento">
-            <Rotulo>{t("Progress of a long task: state (chip → what is happening and what comes next) → progress → numbers with a gray icon base → actions", "Andamento de uma tarefa longa: estado (chip → o que acontece e o que vem depois) → progresso → números com ícone em base cinza → ações")}</Rotulo>
+            <Rotulo>{t("Progress of a long task: state (chip → what is happening and what comes next) → progress → numbers with an informative icon (coloured on a grey base) → actions", "Andamento de uma tarefa longa: estado (chip → o que acontece e o que vem depois) → progresso → números com ícone informativo (colorido na base cinza) → ações")}</Rotulo>
             <AndamentoDeTarefa />
           </div>
           <GradeDeCards className="gap-5 lg:grid-cols-2">

@@ -7,7 +7,7 @@
   "resumo": {
     "arquivosDeComponentes": 125,
     "componentesExportados": 461,
-    "templatesEPadroesSoEmDemonstracao": 87,
+    "templatesEPadroesSoEmDemonstracao": 88,
     "secoesComMarcacaoAMao": 50,
     "tokens": 179,
     "paginas": 37,
@@ -189,7 +189,7 @@
           "ancora": "alerta-tom",
           "titulo": "Alerta com tom",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 102,
+          "linha": 103,
           "uso": "direto",
           "exports": [
             "Alert",
@@ -217,7 +217,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "Alert",
@@ -450,7 +450,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "AlertaComAcao",
@@ -511,7 +511,7 @@
           "ancora": "avaliacao-e-grupos",
           "titulo": "Avaliação e título de grupo",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 127,
+          "linha": 128,
           "uso": "direto",
           "exports": [
             "Avaliacao"
@@ -1428,7 +1428,7 @@
           "ancora": "estado-vazio",
           "titulo": "Estado vazio",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 113,
+          "linha": 114,
           "uso": "direto",
           "exports": [
             "Button"
@@ -2567,18 +2567,19 @@
         {
           "nome": "CardMidia",
           "tipo": "componente",
-          "linha": 60,
-          "descricao": "Mídia do card: foto (tipo=\"imagem\", de ponta a ponta) ou ícone (tipo=\"icone\", com o respiro do card; um ícone svg direto ganha a base rosa clara com o ícone na cor de texto da primária, o padrão dos templates do painel). Vertical: no topo.",
+          "linha": 69,
+          "descricao": "",
           "props": [
             "className",
-            "tipo"
+            "tipo",
+            "tom"
           ],
           "reexportaDe": null
         },
         {
           "nome": "CardHeader",
           "tipo": "componente",
-          "linha": 77,
+          "linha": 87,
           "descricao": "",
           "props": [
             "className"
@@ -2588,7 +2589,7 @@
         {
           "nome": "CardTitle",
           "tipo": "componente",
-          "linha": 90,
+          "linha": 100,
           "descricao": "",
           "props": [
             "className"
@@ -2598,7 +2599,7 @@
         {
           "nome": "CardDescription",
           "tipo": "componente",
-          "linha": 100,
+          "linha": 110,
           "descricao": "",
           "props": [
             "className"
@@ -2608,7 +2609,7 @@
         {
           "nome": "CardAction",
           "tipo": "componente",
-          "linha": 110,
+          "linha": 120,
           "descricao": "",
           "props": [
             "className"
@@ -2618,7 +2619,7 @@
         {
           "nome": "CardContent",
           "tipo": "componente",
-          "linha": 123,
+          "linha": 133,
           "descricao": "",
           "props": [
             "className"
@@ -2628,7 +2629,7 @@
         {
           "nome": "CardFooter",
           "tipo": "componente",
-          "linha": 134,
+          "linha": 144,
           "descricao": "Rodapé do card. No Card horizontal, ganha o divisor do card em cima e as ações vão para o canto inferior direito.",
           "props": [
             "className",
@@ -3067,6 +3068,18 @@
           ]
         },
         {
+          "pagina": "icons",
+          "paginaRotulo": "Ícones",
+          "ancora": "icon-base",
+          "titulo": "Base do ícone",
+          "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
+          "linha": 245,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "Card"
+          ]
+        },
+        {
           "pagina": "upload",
           "paginaRotulo": "Upload",
           "ancora": "upload-dropzone",
@@ -3085,7 +3098,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "Card",
@@ -3103,8 +3116,8 @@
         {
           "nome": "ListaDeRecursos",
           "tipo": "componente",
-          "linha": 64,
-          "descricao": "ListaDeRecursos: a lista de recursos de um plano (incluído com check na base rosa de destaque; não incluído com traço na base cinza e o texto em cinza), a mesma do CardDePreco.",
+          "linha": 65,
+          "descricao": "ListaDeRecursos: a lista de recursos de um plano (incluído: check colorido na base cinza, o tom informativo; não incluído: traço cinza na base cinza, o tom desabilitado, e o texto em cinza), a mesma do CardDePreco.",
           "props": [
             "recursos",
             "textos",
@@ -3115,7 +3128,7 @@
         {
           "nome": "CardDePreco",
           "tipo": "componente",
-          "linha": 122,
+          "linha": 123,
           "descricao": "",
           "props": [
             "valor",
@@ -3375,7 +3388,7 @@
         {
           "nome": "GrupoDeCartoesDeEscolha",
           "tipo": "componente",
-          "linha": 45,
+          "linha": 46,
           "descricao": "",
           "props": [
             "value",
@@ -3389,7 +3402,7 @@
         {
           "nome": "CartaoDeEscolha",
           "tipo": "componente",
-          "linha": 84,
+          "linha": 85,
           "descricao": "",
           "props": [
             "valor",
@@ -3840,7 +3853,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "ChipFiltravel",
@@ -4063,7 +4076,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "dispararConfete"
@@ -5265,7 +5278,7 @@
         {
           "nome": "EstadoVazio",
           "tipo": "componente",
-          "linha": 74,
+          "linha": 76,
           "descricao": "",
           "props": [
             "icone",
@@ -5285,7 +5298,7 @@
         {
           "nome": "EstadoFinal",
           "tipo": "componente",
-          "linha": 136,
+          "linha": 138,
           "descricao": "",
           "props": [
             "tom",
@@ -5304,7 +5317,7 @@
         {
           "nome": "PaginaDeErro",
           "tipo": "componente",
-          "linha": 183,
+          "linha": 185,
           "descricao": "",
           "props": [
             "codigo",
@@ -5347,7 +5360,7 @@
           "ancora": "estado-vazio",
           "titulo": "Estado vazio",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 113,
+          "linha": 114,
           "uso": "direto",
           "exports": [
             "EstadoVazio"
@@ -5544,7 +5557,7 @@
           "ancora": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 729,
+          "linha": 728,
           "uso": "direto",
           "exports": [
             "IconeModa"
@@ -6354,7 +6367,7 @@
           "ancora": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 729,
+          "linha": 728,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -6427,7 +6440,7 @@
           "ancora": "alerta-tom",
           "titulo": "Alerta com tom",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 102,
+          "linha": 103,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -6439,7 +6452,7 @@
           "ancora": "estado-vazio",
           "titulo": "Estado vazio",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 113,
+          "linha": 114,
           "uso": "direto",
           "exports": [
             "GradeDeCards"
@@ -6778,6 +6791,18 @@
           "titulo": "Avatares de enfeite",
           "arquivo": "src/app/components/showcase/shared/LacunasDocs.tsx",
           "linha": 216,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "GradeDeCards"
+          ]
+        },
+        {
+          "pagina": "icons",
+          "paginaRotulo": "Ícones",
+          "ancora": "icon-base",
+          "titulo": "Base do ícone",
+          "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
+          "linha": 245,
           "uso": "dentro de outro exemplo",
           "exports": [
             "GradeDeCards"
@@ -9430,7 +9455,7 @@
           "ancora": "icon-library",
           "titulo": "Biblioteca",
           "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
-          "linha": 303,
+          "linha": 257,
           "uso": "direto",
           "exports": [
             "versaoLucide"
@@ -10366,7 +10391,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "BannerPromocional"
@@ -10381,9 +10406,25 @@
       "fonteDescricao": "comentário do arquivo",
       "exports": [
         {
+          "nome": "resolverTomDoIcone",
+          "tipo": "utilitário",
+          "linha": 53,
+          "descricao": "Troca os nomes antigos pelos novos: marca vira clicavel; neutro vira informativo.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
+          "nome": "tomSemClique",
+          "tipo": "utilitário",
+          "linha": 58,
+          "descricao": "Tom de um ícone dentro de uma peça que não se toca (cabeçalho de card, estado vazio, item de registro): fica informativo, a não ser que a peça esteja desabilitada. Aceita os nomes antigos sem mudar o desenho para clicável.",
+          "props": [],
+          "reexportaDe": null
+        },
+        {
           "nome": "IconeComBase",
           "tipo": "componente",
-          "linha": 48,
+          "linha": 64,
           "descricao": "",
           "props": [
             "tom",
@@ -10397,7 +10438,7 @@
         {
           "nome": "superficieDoCard",
           "tipo": "utilitário",
-          "linha": 70,
+          "linha": 87,
           "descricao": "Superfície dos cards Padrão \"Só borda\" do DS (card parado): borda de 1 px (border-border), fundo branco e nenhuma sombra em repouso. A dona do produto voltou a este padrão em 23/11/2026; sombra fica só no que abre por cima da tela.",
           "props": [],
           "reexportaDe": null
@@ -10405,7 +10446,7 @@
         {
           "nome": "formatarNumero",
           "tipo": "utilitário",
-          "linha": 75,
+          "linha": 92,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -10413,7 +10454,7 @@
         {
           "nome": "formatarPreco",
           "tipo": "utilitário",
-          "linha": 76,
+          "linha": 93,
           "descricao": "",
           "props": [],
           "reexportaDe": null
@@ -10421,7 +10462,7 @@
         {
           "nome": "formatarVariacao",
           "tipo": "utilitário",
-          "linha": 78,
+          "linha": 95,
           "descricao": "+18,6% / −4% (sinal sempre visível; vírgula decimal).",
           "props": [],
           "reexportaDe": null
@@ -10429,7 +10470,7 @@
         {
           "nome": "Variacao",
           "tipo": "componente",
-          "linha": 84,
+          "linha": 101,
           "descricao": "Variação (seta + texto; nunca só cor)",
           "props": [
             "valor",
@@ -10441,7 +10482,7 @@
         {
           "nome": "Explicacao",
           "tipo": "componente",
-          "linha": 100,
+          "linha": 117,
           "descricao": "Explicação acessível (toque, teclado e mouse)",
           "props": [
             "termo",
@@ -10452,8 +10493,8 @@
         {
           "nome": "CardIndicador",
           "tipo": "componente",
-          "linha": 151,
-          "descricao": "Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. Diagramação (21/11/2026 e 27/11/2026, pedidos da dona do produto): o ícone de explicação fica sempre colado à última palavra do …",
+          "linha": 170,
+          "descricao": "Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone com base à direita e variação embaixo. Ícone pela regra dos três estados (28/11/2026): card parado, informativo (colorido na base cinza);",
           "props": [
             "icone",
             "valor",
@@ -10475,7 +10516,7 @@
         {
           "nome": "GraficoDeDesempenho",
           "tipo": "componente",
-          "linha": 208,
+          "linha": 227,
           "descricao": "",
           "props": [
             "dados",
@@ -10491,7 +10532,7 @@
         {
           "nome": "iniciais",
           "tipo": "utilitário",
-          "linha": 282,
+          "linha": 301,
           "descricao": "Até duas iniciais do nome, sem palavras de ligação (\"Loja da Ana\" → \"LA\"; \"Brechó\" → \"BR\").",
           "props": [],
           "reexportaDe": null
@@ -10499,7 +10540,7 @@
         {
           "nome": "ItemDeAtividade",
           "tipo": "componente",
-          "linha": 294,
+          "linha": 314,
           "descricao": "Item de atividade. icone: o ícone do tipo de evento; ou iniciais (o nome de quem aparece na lista), quando o título do card já diz o tipo e o ícone repetido não ajuda a diferenciar os itens (pedido da dona do produto, 20/11/2026).",
           "props": [
             "icone",
@@ -10514,8 +10555,8 @@
         {
           "nome": "ItemDeAcao",
           "tipo": "componente",
-          "linha": 313,
-          "descricao": "tom: \"marca\" (padrão) para o que convida a agir ou está ativo; \"neutro\" para o que está pausado, encerrado ou é só registro.",
+          "linha": 334,
+          "descricao": "O item é um link: ícone clicável, colorido na base colorida (regra de 28/11/2026). tom=\"desabilitado\" para um item indisponível;",
           "props": [
             "midia",
             "titulo",
@@ -10530,7 +10571,7 @@
         {
           "nome": "ListaDeTendencias",
           "tipo": "componente",
-          "linha": 332,
+          "linha": 353,
           "descricao": "Lista de tendências",
           "props": [
             "itens",
@@ -10541,7 +10582,7 @@
         {
           "nome": "ItemDeChecklist",
           "tipo": "componente",
-          "linha": 347,
+          "linha": 368,
           "descricao": "Item de checklist",
           "props": [
             "estado",
@@ -10554,7 +10595,7 @@
         {
           "nome": "faixaDaPontuacao",
           "tipo": "utilitário",
-          "linha": 362,
+          "linha": 383,
           "descricao": "Anel de pontuação",
           "props": [],
           "reexportaDe": null
@@ -10562,7 +10603,7 @@
         {
           "nome": "AnelDePontuacao",
           "tipo": "componente",
-          "linha": 368,
+          "linha": 389,
           "descricao": "",
           "props": [
             "valor",
@@ -10575,7 +10616,7 @@
         {
           "nome": "CarrosselDeDicas",
           "tipo": "componente",
-          "linha": 403,
+          "linha": 424,
           "descricao": "Carrossel de dicas (27/11/2026): a dica num card; embaixo dela, alinhados à esquerda com a borda do card da dica, os controles (anterior, \"1 de 3\", próxima).",
           "props": [
             "dicas",
@@ -10587,7 +10628,7 @@
         {
           "nome": "FaixaDeBeneficios",
           "tipo": "componente",
-          "linha": 429,
+          "linha": 450,
           "descricao": "Faixa de benefícios",
           "props": [
             "icone",
@@ -10601,7 +10642,7 @@
         {
           "nome": "CardDoPainel",
           "tipo": "componente",
-          "linha": 452,
+          "linha": 473,
           "descricao": "Card de seção do painel (título, descrição, ação)",
           "props": [
             "icone",
@@ -10618,7 +10659,7 @@
         {
           "nome": "DivisorSuave",
           "tipo": "componente",
-          "linha": 476,
+          "linha": 497,
           "descricao": "Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).",
           "props": [
             "className"
@@ -10628,7 +10669,7 @@
         {
           "nome": "CardComCabecalho",
           "tipo": "componente",
-          "linha": 497,
+          "linha": 519,
           "descricao": "",
           "props": [
             "icone",
@@ -10649,7 +10690,7 @@
         {
           "nome": "ConteudoRecolhivel",
           "tipo": "componente",
-          "linha": 532,
+          "linha": 554,
           "descricao": "Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê.",
           "props": [
             "children",
@@ -10668,8 +10709,8 @@
         {
           "nome": "LinkVerTudo",
           "tipo": "componente",
-          "linha": 612,
-          "descricao": "Link \"ver tudo\" com seta. tom=\"marca\" (padrão) para o principal; tom=\"neutro\" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).",
+          "linha": 634,
+          "descricao": "Link \"ver tudo\" com seta. tom=\"marca\" ou \"clicavel\" (padrão) para o principal; tom=\"neutro\" ou \"informativo\" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro.",
           "props": [
             "children",
             "href",
@@ -10684,7 +10725,7 @@
         {
           "nome": "FaixaDeEstado",
           "tipo": "componente",
-          "linha": 638,
+          "linha": 660,
           "descricao": "Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o que vem depois.",
           "props": [
             "estado",
@@ -10699,7 +10740,7 @@
         {
           "nome": "ProgressoRotulado",
           "tipo": "componente",
-          "linha": 657,
+          "linha": 679,
           "descricao": "Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária).",
           "props": [
             "rotulo",
@@ -10712,8 +10753,8 @@
         {
           "nome": "ResumoEmLinha",
           "tipo": "componente",
-          "linha": 677,
-          "descricao": "Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;",
+          "linha": 699,
+          "descricao": "Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone informativo (colorido na base cinza), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro.",
           "props": [
             "itens",
             "className"
@@ -10723,8 +10764,8 @@
         {
           "nome": "PainelDeUso",
           "tipo": "componente",
-          "linha": 725,
-          "descricao": "Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.",
+          "linha": 747,
+          "descricao": "Destaque do uso do mês, no padrão clean dos templates: card branco, ícone informativo (colorido na base cinza: o card não se toca), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.",
           "props": [
             "icone",
             "sobretitulo",
@@ -10741,8 +10782,8 @@
         {
           "nome": "CardDeUso",
           "tipo": "componente",
-          "linha": 773,
-          "descricao": "Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a porcentagem do limite.",
+          "linha": 795,
+          "descricao": "Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone informativo (colorido na base cinza); embaixo, a barra e a porcentagem do limite.",
           "props": [
             "icone",
             "rotulo",
@@ -10843,24 +10884,12 @@
           "ancora": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 729,
+          "linha": 728,
           "uso": "direto",
           "exports": [
             "ItemDeAtividade",
             "ItemDeAcao",
             "ListaDeTendencias"
-          ]
-        },
-        {
-          "pagina": "icons",
-          "paginaRotulo": "Ícones",
-          "ancora": "icon-base",
-          "titulo": "Base do ícone",
-          "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
-          "linha": 245,
-          "uso": "direto",
-          "exports": [
-            "IconeComBase"
           ]
         },
         {
@@ -10968,6 +10997,18 @@
           ]
         },
         {
+          "pagina": "icons",
+          "paginaRotulo": "Ícones",
+          "ancora": "icon-base",
+          "titulo": "Base do ícone",
+          "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
+          "linha": 245,
+          "uso": "dentro de outro exemplo",
+          "exports": [
+            "IconeComBase"
+          ]
+        },
+        {
           "pagina": "overlays",
           "paginaRotulo": "Sobreposições (overlays)",
           "ancora": "cabecalho-pagina",
@@ -10985,7 +11026,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "ItemDeAtividade",
@@ -11191,7 +11232,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "AbasComContador"
@@ -12645,7 +12686,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "Selo"
@@ -12694,7 +12735,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "SeloSecao"
@@ -13374,7 +13415,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "Skeleton"
@@ -13970,7 +14011,7 @@
           "ancora": null,
           "titulo": null,
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 870,
+          "linha": 869,
           "uso": "na página, dentro de outro exemplo",
           "exports": [
             "Tabs",
@@ -14167,7 +14208,7 @@
           "ancora": "avaliacao-e-grupos",
           "titulo": "Avaliação e título de grupo",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 127,
+          "linha": 128,
           "uso": "direto",
           "exports": [
             "TituloDeGrupo"
@@ -16800,6 +16841,31 @@
         "IconeModa"
       ],
       "elementosFeitosAMao": 2
+    },
+    {
+      "nome": "RegraDoIconeComBase",
+      "tipo": "padrão de componente",
+      "arquivo": "src/app/components/showcase/shared/RegraDoIconeComBase.tsx",
+      "linha": 14,
+      "descricao": "Regra do ícone com base (decisão da dona do produto, 28/11/2026): três estados, pelo que o componente faz. Arquivo igual nos dois DS (Dani Moscatelli e FindLook).",
+      "pagina": "icons",
+      "paginaRotulo": "Ícones",
+      "onde": [
+        {
+          "pagina": "icons",
+          "paginaRotulo": "Ícones",
+          "ancora": "icon-base",
+          "titulo": "Base do ícone",
+          "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
+          "linha": 245
+        }
+      ],
+      "usaComponentes": [
+        "Card",
+        "GradeDeCards",
+        "IconeComBase"
+      ],
+      "elementosFeitosAMao": 1
     },
     {
       "nome": "DrawerDemo",
@@ -20764,7 +20830,7 @@
           "id": "feedback-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 779
+          "linha": 778
         },
         {
           "id": "confete",
@@ -20831,13 +20897,13 @@
           "id": "listas-painel",
           "titulo": "Listas de atividade e ações",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 729
+          "linha": 728
         },
         {
           "id": "badges-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/FeedbackShowcase.tsx",
-          "linha": 790
+          "linha": 789
         }
       ]
     },
@@ -20862,13 +20928,13 @@
           "id": "icon-library",
           "titulo": "Biblioteca",
           "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
-          "linha": 303
+          "linha": 257
         },
         {
           "id": "icons-tokens",
           "titulo": "Tokens",
           "arquivo": "src/app/components/showcase/IconsShowcase.tsx",
-          "linha": 375
+          "linha": 329
         }
       ]
     },
@@ -21285,19 +21351,19 @@
           "id": "alerta-tom",
           "titulo": "Alerta com tom",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 102
+          "linha": 103
         },
         {
           "id": "estado-vazio",
           "titulo": "Estado vazio",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 113
+          "linha": 114
         },
         {
           "id": "avaliacao-e-grupos",
           "titulo": "Avaliação e título de grupo",
           "arquivo": "src/app/components/showcase/ChipsEstadosShowcase.tsx",
-          "linha": 127
+          "linha": 128
         }
       ]
     },

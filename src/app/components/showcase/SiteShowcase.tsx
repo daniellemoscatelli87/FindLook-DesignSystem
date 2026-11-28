@@ -150,7 +150,7 @@ export function SiteShowcase() {
       </section>
 
       <section id="site-hero" className="scroll-mt-32 space-y-6">
-        <SectionHeader title="Peças do hero: vantagens, prova social e Saiba mais" description="A lista de vantagens com o check na base rosa, os círculos de avatares com a frase e a alça Saiba mais na base do hero." />
+        <SectionHeader title="Peças do hero: vantagens, prova social e Saiba mais" description="A lista de vantagens com o check colorido na base cinza (informativo), os círculos de avatares com a frase e a alça Saiba mais na base do hero." />
         <Panel className="space-y-8 p-6 sm:p-8">
           <Exemplo titulo="ListaDeVantagens">
             <ListaDeVantagens surgir itens={["Suas peças encontradas por quem procura na região", "Mais conexões entre sua loja e potenciais clientes", "Inteligência para reconhecer oportunidades de negócio"]} />

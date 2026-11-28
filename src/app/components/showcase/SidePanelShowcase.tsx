@@ -82,7 +82,7 @@ function StorePanelDemo({ triggerLabel = "Cadastrar minha loja", outline = false
         <SidePanelBody>
           {sent ? (
             <div className="flex flex-col items-center space-y-4 px-4 py-8 text-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--primary-muted)] text-primary-text"><Check className="h-8 w-8" strokeWidth={2.5} aria-hidden /></div>
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-muted text-primary-text"><Check className="h-8 w-8" strokeWidth={2.5} aria-hidden /></div>
               <div>
                 <h3 className="text-h4 font-bold text-foreground">Perfil criado!</h3>
                 <p className="mx-auto mt-2 max-w-xs text-body-sm text-muted-foreground">Próximo passo: cadastre produtos ou importe sua planilha. Depois, revise, publique e seja encontrado.</p>

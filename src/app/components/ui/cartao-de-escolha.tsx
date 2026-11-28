@@ -18,10 +18,11 @@ import { IconeComBase } from "./painel-dados";
  * Checkbox.
  *
  * Aparência (a do card selecionável do design system, Cards › Estados): card branco com borda de 2 px; selecionado,
- * a borda fica na primária com o brilho animado (BrilhoDeSelecionado; parado com "menos movimento"), o ícone fica na
- * base rosa (IconeComBase tom "marca") e o rádio à direita fica marcado. Não selecionado: borda neutra, que escurece
- * no hover, ícone na base cinza e rádio vazio. O card nunca fica rosa por inteiro: a seleção aparece na borda, no
- * ícone e no rádio, nunca só na cor.
+ * a borda fica na primária com o brilho animado (BrilhoDeSelecionado; parado com "menos movimento") e o rádio à
+ * direita fica marcado. Não selecionado: borda neutra, que escurece no hover, e rádio vazio. O card nunca fica rosa por
+ * inteiro: a seleção aparece na borda e no rádio, nunca só na cor. O ícone segue a regra dos três estados (28/11/2026):
+ * o cartão se toca, então fica no tom clicável (colorido na base colorida), escolhido ou não; desabilitado, no tom
+ * desabilitado.
  *
  * Acessibilidade: é um grupo de rádios de verdade (RadioGroup do design system). O cartão inteiro é o rótulo do rádio
  * (clicar em qualquer ponto escolhe), as setas do teclado trocam a opção, o nome lido é o título e a explicação é a
@@ -73,7 +74,7 @@ type CartaoDeEscolhaProps = {
   titulo: React.ReactNode;
   /** Uma frase curta que explica a opção. */
   descricao?: React.ReactNode;
-  /** Ícone lucide; vai na base cinza e passa para a base rosa quando o cartão é escolhido. */
+  /** Ícone lucide, na base do tom clicável (o cartão se toca); desabilitado, no tom desabilitado. */
   icone?: React.ReactNode;
   desabilitado?: boolean;
   /** id do rádio (para levar o foco a ele, por exemplo pelo resumo de erros). */
@@ -105,7 +106,7 @@ function CartaoDeEscolha({ valor, titulo, descricao, icone, desabilitado = false
       >
         {selecionado && !desabilitado && <BrilhoDeSelecionado />}
         {icone && (
-          <IconeComBase tom={selecionado && !desabilitado ? "marca" : "neutro"} tamanho="md" className="transition-colors duration-[var(--duration-fast)] motion-reduce:transition-none">
+          <IconeComBase tom={desabilitado ? "desabilitado" : "clicavel"} tamanho="md" className="transition-colors duration-[var(--duration-fast)] motion-reduce:transition-none">
             {icone}
           </IconeComBase>
         )}

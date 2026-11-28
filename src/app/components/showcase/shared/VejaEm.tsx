@@ -22,7 +22,7 @@ export function VejaEm({ secao, ancora, titulo, texto, rotuloBotao }: { secao: s
       data-slot="veja-em"
       className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-x-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-[2.25rem_minmax(0,1fr)_auto] sm:gap-x-4 sm:p-5"
     >
-      <span aria-hidden className="col-start-1 row-start-1 flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] sm:row-span-2 sm:self-start">
+      <span aria-hidden className="col-start-1 row-start-1 flex size-9 shrink-0 items-center justify-center rounded-full bg-muted sm:row-span-2 sm:self-start">
         <Layers className="h-4 w-4 text-[var(--primary-text,var(--primary))]" />
       </span>
       <p className="col-start-2 row-start-1 min-w-0 text-body-sm font-semibold text-foreground sm:self-end">{titulo}</p>

@@ -12,7 +12,7 @@ import { IconeComBase } from "./painel-dados";
  * - marca: logo, slogan (20 px, negrito), texto curto e um complemento (por exemplo, o Instagram).
  * - colunas: grupos de links, cada um com título (um <nav> com o nome do grupo). No celular, duas colunas lado a lado.
  * - convite: card só de borda com selo, título, texto e a ação (divisor e botão no canto inferior direito).
- * - faixa: linha de destaque com ícone na base rosa (por exemplo, "Suas escolhas, seus dados."), texto e um link;
+ * - faixa: linha de destaque com ícone informativo (colorido na base cinza: a faixa não se toca, só o link) (por exemplo, "Suas escolhas, seus dados."), texto e um link;
  *   no celular o link desce para a coluna do texto.
  * - linhaFinal: duas frases curtas (direitos, cidade e site).
  * - creditos: links pequenos (Privacidade, Termos de uso, Área administrativa) e a autoria.
@@ -98,7 +98,7 @@ export function RodapeDoSite({ marca, superficie = "clara", inicioHref = "/", co
 
         {faixa && (
           <div className="mt-12 grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 gap-y-3 border-t border-border py-6 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center">
-            <IconeComBase tom="marca" tamanho="lg">{faixa.icone}</IconeComBase>
+            <IconeComBase tom="informativo" tamanho="lg">{faixa.icone}</IconeComBase>
             <div className="min-w-0">
               <p className="m-0 text-body-sm font-bold text-foreground">{faixa.titulo}</p>
               {faixa.texto && <p className="m-0 mt-1 text-body-sm text-muted-foreground">{faixa.texto}</p>}

@@ -48,7 +48,7 @@ export function CabecalhoDaConversa({ nome, status, digitando = false, foto, sim
       {foto ? (
         <img src={foto} alt="" className="size-10 shrink-0 rounded-full object-cover" />
       ) : (
-        <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-muted)] text-primary-text [&>svg]:size-6">{simbolo}</span>
+        <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted text-primary-text [&>svg]:size-6">{simbolo}</span>
       )}
       <div className="min-w-0 flex-1">
         <p className="m-0 truncate text-body font-bold text-foreground">{nome}</p>

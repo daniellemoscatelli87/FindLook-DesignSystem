@@ -106,7 +106,7 @@
      SELECIONADO --primary-suave #FFECF0  item ativo do menu, botão "✓ Selecionado", segmento e chip ativos, linha
                                           selecionada, selos como "Recomendado" (5,7:1); selecionado + hover continua aqui
      HOVER       --accent (graphite-100 #E9E9EC), cinza claro, nunca rosa (o --muted graphite-50 é claro demais no branco)
-     DESTAQUE    --primary-muted #FEDFE6  bases de ícones e destaques (5,2:1); texto cinza de apoio sobre ele usa
+     DESTAQUE    --primary-muted #FEDFE6  bases de ícones clicáveis e destaques (5,2:1); texto cinza de apoio sobre ele usa
                                           --muted-foreground com 15% de --foreground
      --primary-sutil #FFF5F8 deixa de ser usado para seleção (mantido por compatibilidade)
      Só a ação principal da etapa é preenchida (pink-550); estados selecionados usam estes fundos (Opção A, 27/11/2026). */

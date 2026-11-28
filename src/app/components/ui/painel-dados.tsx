@@ -21,40 +21,57 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 const display = "font-[family-name:var(--font-display)]";
 const foco = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-/* ── Ícone com base (regra do DS, 20/11/2026: Ícones › Base do ícone) ── */
+/* ── Ícone com base (regra da dona do produto, 28/11/2026: três estados) ──
+   Bloco igual nos dois DS (Dani Moscatelli e FindLook); só os tamanhos da base mudam de um para o outro. */
 /**
- * marca: base rosa + ícone vermelho. O ícone principal do que é foco ou convida a agir (destaque do topo, insight,
- *        próxima ação, atividade, algo ativo ou em andamento).
- * neutro: base cinza + ícone cinza. O ícone só identifica o tipo de informação (cards de indicador e de uso, itens
- *        pausados, encerrados ou inativos, metadados). É o padrão em grades de cards iguais.
+ * O tom diz o que o componente faz, nunca a importância do ícone:
+ * clicavel: ícone colorido (--primary-text) na base colorida clara (--primary-muted). Para o que se pode tocar: card
+ *           clicável, linha de lista clicável, link.
+ * informativo: ícone colorido (--primary-text) na base cinza clara (--muted). Para o que só informa e não se toca:
+ *           bloco de benefícios, card parado, cabeçalho de card que não é clicável.
+ * desabilitado: ícone cinza na base cinza (--disabled e --disabled-foreground). Para card ou item desabilitado ou
+ *           indisponível.
+ * Nomes antigos, que continuam valendo: marca = clicavel; neutro = informativo.
+ * Tons de estado (sucesso, aviso, erro, info): o ícone de um estado (pagamento confirmado, cadastro pendente, falha
+ * na importação, novidade), na tinta clara do tom com o ícone na cor de texto do tom (3:1 ou mais). Use só quando o
+ * ícone diz o estado.
  * Ícone sem base (inline, ao lado do texto) não usa este componente.
  */
-type TomDoIcone = "marca" | "neutro";
-/**
- * Tons de estado da base (27/11/2026): sucesso, aviso, erro e info, para o ícone de um estado (pagamento confirmado,
- * cadastro pendente, falha na importação, novidade). Tinta -muted do tom com o ícone na cor de texto do tom (3:1 ou mais).
- * Use só quando o ícone diz o estado; para identificar o tipo de informação, fique no neutro.
- */
+type TomDoIcone = "clicavel" | "informativo" | "desabilitado" | "marca" | "neutro";
 type TomDaBase = TomDoIcone | "sucesso" | "aviso" | "erro" | "info";
-const CORES_DA_BASE: Record<TomDaBase, string> = {
-  marca: "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]",
-  neutro: "bg-muted text-muted-foreground",
+type TomResolvido = Exclude<TomDaBase, "marca" | "neutro">;
+const CORES_DA_BASE: Record<TomResolvido, string> = {
+  clicavel: "bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))]",
+  informativo: "bg-muted text-[var(--primary-text,var(--primary))]",
+  desabilitado: "bg-disabled text-disabled-foreground",
   sucesso: "bg-success-muted text-success-text",
   aviso: "bg-warning-muted text-warning-text",
   erro: "bg-error-muted text-error-text",
   info: "bg-info-muted text-info-text",
 };
+/** Troca os nomes antigos pelos novos: marca vira clicavel; neutro vira informativo. */
+function resolverTomDoIcone(tom: TomDaBase): TomResolvido {
+  return tom === "marca" ? "clicavel" : tom === "neutro" ? "informativo" : tom;
+}
+/** Tom de um ícone dentro de uma peça que não se toca (cabeçalho de card, estado vazio, item de registro): fica
+ *  informativo, a não ser que a peça esteja desabilitada. Aceita os nomes antigos sem mudar o desenho para clicável. */
+function tomSemClique(tom: TomDaBase | undefined): TomResolvido {
+  if (!tom) return "informativo";
+  const r = resolverTomDoIcone(tom);
+  return r === "clicavel" ? "informativo" : r;
+}
 const TAMANHO_DA_BASE = { sm: "h-8 w-8 [&>svg]:h-4 [&>svg]:w-4", md: "h-9 w-9 [&>svg]:h-[18px] [&>svg]:w-[18px]", lg: "h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" };
 function IconeComBase({ tom, tamanho = "md", redonda = false, children, className }: { tom: TomDaBase; tamanho?: keyof typeof TAMANHO_DA_BASE; redonda?: boolean; children: React.ReactNode; className?: string }) {
+  const resolvido = resolverTomDoIcone(tom);
   return (
     <span
       aria-hidden
       data-slot="icone-com-base"
-      data-tom={tom}
+      data-tom={resolvido}
       className={cn(
         "flex shrink-0 items-center justify-center",
         redonda ? "rounded-full" : "rounded-md",
-        CORES_DA_BASE[tom],
+        CORES_DA_BASE[resolvido],
         TAMANHO_DA_BASE[tamanho],
         className,
       )}
@@ -141,7 +158,9 @@ type CardIndicadorProps = {
 };
 
 /**
- * Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo.
+ * Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone com base à direita e variação embaixo. Ícone pela regra
+ * dos três estados (28/11/2026): card parado, informativo (colorido na base cinza); card com href ou onClick, clicável
+ * (colorido na base colorida).
  * Diagramação (21/11/2026 e 27/11/2026, pedidos da dona do produto): o ícone de explicação fica sempre colado à última
  * palavra do rótulo (não quebra sozinho para outra linha). O cabeçalho (rótulo e ícone) tem altura mínima de 40 px, que
  * cabe um rótulo de até duas linhas, e o número vem logo abaixo dele; a variação fica na base do card. Assim, numa linha
@@ -173,7 +192,7 @@ function CardIndicador({ icone, valor, total, rotulo, formato = "numero", format
             {explicacao && !clicavel && <span className="ml-1 inline-flex align-middle"><Explicacao termo={rotulo}>{explicacao}</Explicacao></span>}
           </span>
         </p>
-        <IconeComBase tom="neutro" className="@max-[11rem]/indicador:hidden">{icone}</IconeComBase>
+        <IconeComBase tom={clicavel ? "clicavel" : "informativo"} className="@max-[11rem]/indicador:hidden">{icone}</IconeComBase>
       </div>
       <p className="mt-2 text-h3 font-bold leading-none tracking-[-0.025em] text-foreground">
         {mostrar(valor)}
@@ -290,11 +309,12 @@ function iniciais(nome: string): string {
 /**
  * Item de atividade. icone: o ícone do tipo de evento; ou iniciais (o nome de quem aparece na lista), quando o título do
  * card já diz o tipo e o ícone repetido não ajuda a diferenciar os itens (pedido da dona do produto, 20/11/2026).
+ * O item só informa (não se toca): ícone informativo, colorido na base cinza (regra de 28/11/2026).
  */
 function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className }: { icone?: React.ReactNode; iniciaisDe?: string; titulo: string; detalhe?: string; quando: string; className?: string }) {
   return (
     <li data-slot="item-de-atividade" className={cn("flex items-start gap-3 py-3", className)}>
-      <IconeComBase tom="marca" redonda className="[&>svg]:h-4 [&>svg]:w-4">
+      <IconeComBase tom="informativo" redonda className="[&>svg]:h-4 [&>svg]:w-4">
         {iniciaisDe !== undefined ? <span className={`${display} text-label font-bold leading-none tracking-[0.02em]`}>{iniciais(iniciaisDe)}</span> : icone}
       </IconeComBase>
       <div className="min-w-0 flex-1">
@@ -307,7 +327,8 @@ function ItemDeAtividade({ icone, iniciaisDe, titulo, detalhe, quando, className
 }
 
 /* ── Item de ação (insight / próxima ação) ───────────────────── */
-/** tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro.
+/** O item é um link: ícone clicável, colorido na base colorida (regra de 28/11/2026). tom="desabilitado" para um item
+    indisponível; os nomes antigos ("marca", "neutro") e "informativo" continuam aceitos e ficam clicáveis, porque o item se toca.
     Hover cinza claro, nunca rosa (regra dos rosas claros, 27/11/2026): fundo --muted (graphite-50), com a borda cinza forte (--border-strong; desde 27/11/2026, nunca rosa no hover)
     a descrição cinza fica em 5,0:1 e a base rosa do ícone continua visível. */
 function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marca", className }: { midia: React.ReactNode; titulo: string; descricao?: string; href?: string; onClick?: React.MouseEventHandler<HTMLAnchorElement>; tom?: TomDoIcone; className?: string }) {
@@ -318,7 +339,7 @@ function ItemDeAcao({ midia, titulo, descricao, href = "#", onClick, tom = "marc
       onClick={onClick}
       className={cn("group flex items-center gap-3 rounded-md border border-border bg-card p-3 transition-[background-color,border-color,box-shadow] duration-150 hover:border-[var(--border-strong)] hover:bg-muted hover:shadow-[var(--shadow-xs)] active:scale-[0.995]", foco, className)}
     >
-      <IconeComBase tom={tom} tamanho="lg">{midia}</IconeComBase>
+      <IconeComBase tom={resolverTomDoIcone(tom) === "desabilitado" ? "desabilitado" : "clicavel"} tamanho="lg">{midia}</IconeComBase>
       <span className="min-w-0 flex-1">
         <span className="block text-body-sm font-semibold text-foreground">{titulo}</span>
         {descricao && <span className="block text-body-sm text-muted-foreground">{descricao}</span>}
@@ -408,7 +429,7 @@ function CarrosselDeDicas({ dicas, onFechar, className }: { dicas: Dica[]; onFec
     <div data-slot="carrossel-de-dicas" role="region" aria-roledescription="carrossel" aria-label="Dicas para vender mais" className={cn("@container/dicas min-w-0", className)}>
       <div role="group" aria-roledescription="dica" aria-label={`${i + 1} de ${dicas.length}`} className={cn("relative flex gap-4 rounded-lg border border-border bg-card p-3", onFechar && "pr-12")}>
         {/* Em espaço estreito (menos de 320 px), a imagem decorativa sai para o texto ter largura */}
-        {dica.midia && <div aria-hidden className="hidden h-16 w-16 shrink-0 items-center justify-center rounded-md bg-[var(--primary-muted)] text-[var(--primary-text,var(--primary))] @xs/dicas:flex @md/dicas:h-24 @md/dicas:w-24">{dica.midia}</div>}
+        {dica.midia && <div aria-hidden className="hidden h-16 w-16 shrink-0 items-center justify-center rounded-md bg-muted text-[var(--primary-text,var(--primary))] @xs/dicas:flex @md/dicas:h-24 @md/dicas:w-24">{dica.midia}</div>}
         <div className="min-w-0 flex-1">
           <p className="text-body font-bold text-foreground">{dica.titulo}</p>
           <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{dica.texto}</p>
@@ -488,13 +509,14 @@ function DivisorSuave({ className }: { className?: string }) {
  * Card branco das páginas do painel (padrão "Só borda": 1 px, sem sombra): ícone na base rosa clara (a mesma do
  * CardIndicador), título e uma linha opcional de descrição; ação opcional à direita, no alto; depois, o conteúdo.
  * Fica embaixo do cabeçalho da página (título, descrição e abas, fora de qualquer card). Um card por assunto.
- * tom="neutro" (base cinza + ícone cinza) para o que está pausado ou é só registro.
+ * O card não é clicável, então o ícone fica informativo (colorido na base cinza, regra de 28/11/2026); tom="desabilitado"
+ * para um card indisponível. Os nomes antigos ("marca", "neutro") continuam aceitos e ficam informativos.
  *
  * cabecalho: "divisor" (padrão, decisão da dona do produto de 23/11/2026): o cabeçalho é separado do conteúdo por um
  * DivisorSuave, que desaparece nas laterais. "simples": sem divisor, só o espaçamento. (As faixas de cor saíram.)
  */
 type EstiloDoCabecalhoDoCard = "divisor" | "simples";
-function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabecalho = "divisor", children, className, id, nivel = 2, sangria = false, idDoTitulo }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4; /** O conteúdo vai de ponta a ponta do card (listas com hover de linha inteira). */ sangria?: boolean; /** Id do título (aria-labelledby da seção). */ idDoTitulo?: string }) {
+function CardComCabecalho({ icone, titulo, descricao, acao, tom = "informativo", cabecalho = "divisor", children, className, id, nivel = 2, sangria = false, idDoTitulo }: { icone: React.ReactNode; titulo: string; descricao?: React.ReactNode; acao?: React.ReactNode; tom?: TomDoIcone; cabecalho?: EstiloDoCabecalhoDoCard; children?: React.ReactNode; className?: string; id?: string; nivel?: 2 | 3 | 4; /** O conteúdo vai de ponta a ponta do card (listas com hover de linha inteira). */ sangria?: boolean; /** Id do título (aria-labelledby da seção). */ idDoTitulo?: string }) {
   const gerado = React.useId();
   const tid = idDoTitulo ?? gerado;
   const Titulo = `h${nivel}` as "h2" | "h3" | "h4";
@@ -505,7 +527,7 @@ function CardComCabecalho({ icone, titulo, descricao, acao, tom = "marca", cabec
           mais) e, em card estreito, desce para baixo da descrição, na coluna do texto (mesma borda do título). */}
       <div data-slot="cabecalho-do-card" className={cn("grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3", acao && "@md:grid-cols-[auto_minmax(0,1fr)_auto]", temConteudo && cabecalho === "simples" && "mb-5")}>
         {/* Mesma base de ícone do CardIndicador ("Produtos publicados"): IconeComBase no tamanho padrão. */}
-        <IconeComBase tom={tom}>{icone}</IconeComBase>
+        <IconeComBase tom={tomSemClique(tom)}>{icone}</IconeComBase>
         <div className="min-w-0 self-center">
           <Titulo id={tid} className={`${display} text-subtitle font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</Titulo>
           {descricao && <p className="mt-1 text-body-sm leading-snug text-muted-foreground">{descricao}</p>}
@@ -605,14 +627,14 @@ function ConteudoRecolhivel({
 }
 
 /**
- * Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois
+ * Link "ver tudo" com seta. tom="marca" ou "clicavel" (padrão) para o principal; tom="neutro" ou "informativo" (cinza) para o secundário, quando há dois
  * lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo). icone: ícone
  * pequeno antes do texto (inline, sem base).
  */
 function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marca", icone, as: Comp = "a" }: { /** O Link do roteador do produto no lugar do <a>. */ as?: React.ElementType;  children?: React.ReactNode; href?: string; rotulo?: string; onClick?: React.MouseEventHandler<HTMLElement>; tom?: TomDoIcone; icone?: React.ReactNode }) {
   const classe = cn(
     "group inline-flex shrink-0 items-center gap-1 rounded-sm text-body-sm font-semibold hover:underline [&>svg]:h-3.5 [&>svg]:w-3.5 toque:min-h-11",
-    tom === "marca" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:text-foreground",
+    tom === "marca" || tom === "clicavel" ? "text-[var(--primary-text,var(--primary))]" : "text-muted-foreground hover:text-foreground",
     foco,
   );
   const conteudo = (
@@ -635,7 +657,7 @@ function LinkVerTudo({ children = "Ver tudo", href, rotulo, onClick, tom = "marc
  * tom="neutro" (cinza, quando o estado é só registro). No celular, o texto desce para baixo do chip.
  * No rosa claro, o texto de apoio usa --muted-foreground com 15% de --foreground (6,1:1; o cinza puro dava 4,35:1).
  */
-function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; /** À direita (embaixo, em telas estreitas): progresso, botão ou link. Uso: cabeçalho de uma tarefa longa (21/11/2026). */ complemento?: React.ReactNode; tom?: TomDoIcone; className?: string } & Omit<React.HTMLAttributes<HTMLDivElement>, "title">) {
+function FaixaDeEstado({ estado, titulo, texto, complemento, tom = "marca", className, ...props }: { estado: React.ReactNode; titulo: string; texto?: React.ReactNode; /** À direita (embaixo, em telas estreitas): progresso, botão ou link. Uso: cabeçalho de uma tarefa longa (21/11/2026). */ complemento?: React.ReactNode; tom?: "marca" | "neutro"; className?: string } & Omit<React.HTMLAttributes<HTMLDivElement>, "title">) {
   return (
     <div data-slot="faixa-de-estado" data-tom={tom} className={cn("@container rounded-lg border p-4", tom === "marca" ? "border-primary/20 bg-[var(--primary-muted)]" : "border-border bg-muted/40", className)} {...props}>
       <div className="flex flex-col gap-3 @3xl:flex-row @3xl:items-center @3xl:gap-6">
@@ -670,7 +692,7 @@ function ProgressoRotulado({ rotulo, pct, texto, className }: { rotulo: string; 
 type ItemDoResumo = { icone: React.ReactNode; valor: React.ReactNode; rotulo: string };
 
 /**
- * Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o
+ * Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone informativo (colorido na base cinza), o valor e o
  * rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;
  * números que são o foco da página usam CardIndicador.
  */
@@ -681,7 +703,7 @@ function ResumoEmLinha({ itens, className }: { itens: ItemDoResumo[]; className?
       <ul data-slot="resumo-em-linha" className={cn("m-0 grid list-none grid-cols-1 divide-y divide-border p-0 @lg:divide-x @lg:divide-y-0", colunas)}>
         {itens.map((i) => (
           <li key={i.rotulo} className="flex min-w-0 items-center gap-3 py-3 @lg:gap-2 @lg:px-3 @lg:py-1 @lg:first:pl-0">
-            <IconeComBase tom="neutro">{i.icone}</IconeComBase>
+            <IconeComBase tom="informativo">{i.icone}</IconeComBase>
             <p className="m-0 min-w-0">
               <span className={`${display} block text-h4 font-bold leading-tight tabular-nums tracking-[-0.02em] text-foreground`}>{i.valor}</span>
               <span className="block text-body-sm text-muted-foreground">{i.rotulo}</span>
@@ -720,7 +742,7 @@ function BarraDeUso({ pct, rotulo, className }: { pct: number; rotulo: string; c
   return <Progress value={pct} aria-label={rotulo} className={cn("h-1.5 bg-muted", className)} />;
 }
 
-/** Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a
+/** Destaque do uso do mês, no padrão clean dos templates: card branco, ícone informativo (colorido na base cinza: o card não se toca), a porcentagem grande com a
  *  barra e o estado do limite numa linha discreta (neutra) ou em alerta. */
 function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, unidade, selo, className }: PainelDeUsoProps) {
   const pct = pctDoUso(usado, limite) ?? 0;
@@ -732,7 +754,7 @@ function PainelDeUso({ icone, sobretitulo, titulo, descricao, usado, limite, uni
       className={cn("grid gap-5 rounded-lg p-5", superficieDoCard, "@3xl:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] @3xl:items-center @3xl:gap-8", className)}
     >
       <div className="flex min-w-0 items-start gap-3">
-        <IconeComBase tom="marca" tamanho="lg">{icone}</IconeComBase>
+        <IconeComBase tom="informativo" tamanho="lg">{icone}</IconeComBase>
         <div className="min-w-0">
           {sobretitulo && <p className="text-label font-medium text-muted-foreground">{sobretitulo}</p>}
           <p className={`${display} text-subtitle font-bold leading-snug tracking-[-0.01em] text-foreground`}>{titulo}</p>
@@ -768,7 +790,7 @@ type CardDeUsoProps = {
   className?: string;
 };
 
-/** Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a
+/** Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone informativo (colorido na base cinza); embaixo, a barra e a
  *  porcentagem do limite. */
 function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", className }: CardDeUsoProps) {
   const pct = pctDoUso(usado, limite);
@@ -782,7 +804,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
             {limite ? <span className="ml-1 text-body font-semibold text-muted-foreground">de {formatarNumero(limite)}</span> : null}
           </p>
         </div>
-        <IconeComBase tom="neutro">{icone}</IconeComBase>
+        <IconeComBase tom="informativo">{icone}</IconeComBase>
       </div>
       {pct !== null ? (
         <div className="mt-auto">
@@ -799,7 +821,7 @@ function CardDeUso({ icone, rotulo, usado, limite, semLimite = "Sem limite", cla
 export {
   formatarNumero, formatarPreco, formatarVariacao, Variacao, Explicacao, CardIndicador, GraficoDeDesempenho,
   ItemDeAtividade, ItemDeAcao, ListaDeTendencias, ItemDeChecklist, AnelDePontuacao, faixaDaPontuacao,
-  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase,
+  CarrosselDeDicas, FaixaDeBeneficios, CardDoPainel, CardComCabecalho, DivisorSuave, ConteudoRecolhivel, LinkVerTudo, PainelDeUso, CardDeUso, IconeComBase, resolverTomDoIcone, tomSemClique,
   FaixaDeEstado, ProgressoRotulado, ResumoEmLinha, iniciais,
 };
 export type { TomDoIcone, TomDaBase, EstiloDoCabecalhoDoCard };

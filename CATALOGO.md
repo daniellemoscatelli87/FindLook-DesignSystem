@@ -4,7 +4,7 @@
 
 **A regra:** antes de criar ou alterar qualquer elemento visual (inclusive páginas de demonstração e templates), consulte este catálogo e use o componente, template ou padrão que já existe; não recrie à mão. Peça nova nasce em `src/app/components/ui/` pelo processo de `propostas/README.md`.
 
-**Resumo:** 125 arquivos de componentes em `src/app/components/ui/` com 461 componentes exportados · 87 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 270 âncoras no site (https://designsystem.findlook.com.br) · 37 propostas de componente.
+**Resumo:** 125 arquivos de componentes em `src/app/components/ui/` com 461 componentes exportados · 88 templates e padrões ainda só em demonstração · 50 seções com marcação feita à mão · 179 tokens · 37 páginas e 270 âncoras no site (https://designsystem.findlook.com.br) · 37 propostas de componente.
 
 Como procurar: use a busca do editor (Ctrl+F) pelo que a tela precisa (por exemplo "plano", "preço", "card", "alerta", "tabela", "chip"). "Onde ver" leva à página do site e à âncora da seção (`página#âncora`); no site, abra a página pelo menu e a seção pelo submenu.
 
@@ -260,21 +260,21 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
 - **Quando usar:** Card vertical (padrão) ou horizontal (27/11/2026). Dentro de uma GradeDeCards que virou lista, o Card fica horizontal sozinho; a prop orientacao fixa a orientação. Horizontal: mídia ou ícone (CardMidia) à esquerda, cabeçalho e conteúdo ocupando o resto da largura e, embaixo, numa linha de largura inteira, o rodapé com o divisor do card (DivisorDoCard) e as ações no canto inferior direito ("Card com ação: divisor e …
 - **Componentes:**
   - `Card` (props: `className`, `orientacao`, `children`): forwardRef (28/11/2026): o card pode ser o filho de um Radix com asChild (HoverCardTrigger, CollapsibleTrigger).
-  - `CardMidia` (props: `className`, `tipo`): Mídia do card: foto (tipo="imagem", de ponta a ponta) ou ícone (tipo="icone", com o respiro do card; um ícone svg direto ganha a base rosa clara com o ícone na cor de texto da primária, o padrão dos templates do painel). Vertical: no topo.
+  - `CardMidia` (props: `className`, `tipo`, `tom`)
   - `CardHeader` (props: `className`)
   - `CardTitle` (props: `className`)
   - `CardDescription` (props: `className`)
   - `CardAction` (props: `className`)
   - `CardContent` (props: `className`)
   - `CardFooter` (props: `className`, `children`): Rodapé do card. No Card horizontal, ganha o divisor do card em cima e as ações vão para o canto inferior direito.
-- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 30 seções (ver `catalogo.json`)
+- **Onde ver:** Cards › Como escolher (`cards#card-escolher`) · Cards › Card sólido (`cards#card-solido`) · Cards › Anatomia do card (`cards#card-anatomy`) · e mais 31 seções (ver `catalogo.json`)
 
 ### card-de-preco
 
 - **Arquivo:** [src/app/components/ui/card-de-preco.tsx](src/app/components/ui/card-de-preco.tsx)
 - **Quando usar:** Card de preço (CardDePreco), o card do template "Planos e assinatura" (Templates › Pricing), agora reaproveitável (extraído em 27/11/2026, sem mudar o visual do template).
 - **Componentes:**
-  - `ListaDeRecursos` (props: `recursos`, `textos`, `className`): ListaDeRecursos: a lista de recursos de um plano (incluído com check na base rosa de destaque; não incluído com traço na base cinza e o texto em cinza), a mesma do CardDePreco.
+  - `ListaDeRecursos` (props: `recursos`, `textos`, `className`): ListaDeRecursos: a lista de recursos de um plano (incluído: check colorido na base cinza, o tom informativo; não incluído: traço cinza na base cinza, o tom desabilitado, e o texto em cinza), a mesma do CardDePreco.
   - `CardDePreco` (props: `valor`, `nome`, `descricao`, `icone`, `destaque`, `paraQuem`, `recursos`, `recursosAbertos`, `onRecursosAbertosChange`, `preco`, `periodo`, `selecao`, `selecionado`, `onSelecionar`, `idDaAcao`, `textos`, `className`)
 - **Onde ver:** Templates › Painel da loja (protótipo) (`templates#template-dashboard`) · Padrões do produto › Cadastro do lojista (`produto#produto-cadastro`)
 
@@ -597,7 +597,7 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `GradeDeCards` (props: `colunas`, `larguraMinima`, `limiteDeDiferenca`, `layout`, `onLayoutChange`, `className`, `style`, `children`)
   - `ItemDaGrade` (props: `className`): ItemDaGrade: item com um rótulo em cima do card. Estica o último filho (o card) até a base da linha, para os cards da linha terem a mesma altura.
 - **Funções e constantes:** `LIMITE_DE_DIFERENCA`, `FATOR_DE_VOLTA`, `passaDoLimite`, `useOrientacaoDoCard`
-- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 89 seções (ver `catalogo.json`)
+- **Onde ver:** Mascote & Ilustrações › Personagem (Nyx) (`ilustracoes#mascote-personagem`) · Mascote & Ilustrações › Diretrizes de uso (`ilustracoes#mascote-diretrizes`) · Fundamentos › Tipografia (`colors#typography`) · e mais 90 seções (ver `catalogo.json`)
 
 ### graficos
 
@@ -912,10 +912,10 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `IconeComBase` (props: `tom`, `tamanho`, `redonda`, `children`, `className`)
   - `Variacao` (props: `valor`, `comparacao`, `className`): Variação (seta + texto; nunca só cor)
   - `Explicacao` (props: `termo`, `children`): Explicação acessível (toque, teclado e mouse)
-  - `CardIndicador` (props: `icone`, `valor`, `total`, `rotulo`, `formato`, `formatar`, `variacao`, `comparacao`, `explicacao`, `grafico`, `href`, `onClick`, `comoLink`, `className`): Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone em quadrado neutro à direita e variação embaixo. Diagramação (21/11/2026 e 27/11/2026, pedidos da dona do produto): o ícone de explicação fica sempre colado à última palavra do …
+  - `CardIndicador` (props: `icone`, `valor`, `total`, `rotulo`, `formato`, `formatar`, `variacao`, `comparacao`, `explicacao`, `grafico`, `href`, `onClick`, `comoLink`, `className`): Mesma anatomia dos Cards de KPI do DS: rótulo, número, ícone com base à direita e variação embaixo. Ícone pela regra dos três estados (28/11/2026): card parado, informativo (colorido na base cinza);
   - `GraficoDeDesempenho` (props: `dados`, `chaveX`, `series`, `visiveisIniciais`, `altura`, `destacarUltimo`, `className`)
   - `ItemDeAtividade` (props: `icone`, `iniciaisDe`, `titulo`, `detalhe`, `quando`, `className`): Item de atividade. icone: o ícone do tipo de evento; ou iniciais (o nome de quem aparece na lista), quando o título do card já diz o tipo e o ícone repetido não ajuda a diferenciar os itens (pedido da dona do produto, 20/11/2026).
-  - `ItemDeAcao` (props: `midia`, `titulo`, `descricao`, `href`, `onClick`, `tom`, `className`): tom: "marca" (padrão) para o que convida a agir ou está ativo; "neutro" para o que está pausado, encerrado ou é só registro.
+  - `ItemDeAcao` (props: `midia`, `titulo`, `descricao`, `href`, `onClick`, `tom`, `className`): O item é um link: ícone clicável, colorido na base colorida (regra de 28/11/2026). tom="desabilitado" para um item indisponível;
   - `ListaDeTendencias` (props: `itens`, `className`): Lista de tendências
   - `ItemDeChecklist` (props: `estado`, `texto`, `href`, `className`): Item de checklist
   - `AnelDePontuacao` (props: `valor`, `tamanho`, `rotulo`, `className`)
@@ -925,13 +925,13 @@ Tudo o que está em `src/app/components/ui/`. Dentro do design system, importe d
   - `DivisorSuave` (props: `className`): Linha de 1 px que some nas laterais: degradê transparente → --border-strong → transparente, com o esmaecimento nos últimos ~18% de cada lado. Separa partes de um card sem fechar uma caixa (pedido da dona do produto, 23/11/2026).
   - `CardComCabecalho` (props: `icone`, `titulo`, `descricao`, `acao`, `tom`, `cabecalho`, `children`, `className`, `id`, `nivel`, `sangria`, `idDoTitulo`)
   - `ConteudoRecolhivel` (props: `children`, `titulo`, `descricao`, `altura`, `preencher`, `aberto`, `onAbertoChange`, `onMostrarMais`, `rotuloMais`, `className`): Conteúdo de card sem rolagem própria (pedido da dona do produto, 21/11/2026: cards com rolagem por dentro prendiam a roda do mouse e dificultavam rolar a página). O que não cabe fica escondido sob um degradê.
-  - `LinkVerTudo` (props: `children`, `href`, `rotulo`, `onClick`, `tom`, `icone`, `as`): Link "ver tudo" com seta. tom="marca" (padrão) para o principal; tom="neutro" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro. Sem href, vira botão (abre painel lateral, por exemplo).
+  - `LinkVerTudo` (props: `children`, `href`, `rotulo`, `onClick`, `tom`, `icone`, `as`): Link "ver tudo" com seta. tom="marca" ou "clicavel" (padrão) para o principal; tom="neutro" ou "informativo" (cinza) para o secundário, quando há dois lado a lado e um não pode competir com o outro.
   - `FaixaDeEstado` (props: `estado`, `titulo`, `texto`, `complemento`, `tom`, `className`): Faixa de estado: o chip do estado (ícone + texto, nunca só cor), uma divisória e, ao lado, o que está acontecendo e o que vem depois.
   - `ProgressoRotulado` (props: `rotulo`, `pct`, `texto`, `className`): Progresso com rótulo: o nome à esquerda, a porcentagem à direita e a barra fina (trilho cinza, preenchimento na primária).
-  - `ResumoEmLinha` (props: `itens`, `className`): Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone em base cinza (só identifica), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro. Para números soltos dentro de um card;
-  - `PainelDeUso` (props: `icone`, `sobretitulo`, `titulo`, `descricao`, `usado`, `limite`, `unidade`, `selo`, `className`): Destaque do uso do mês, no padrão clean dos templates: card branco, ícone de marca (base rosa, é o foco da página), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.
-  - `CardDeUso` (props: `icone`, `rotulo`, `usado`, `limite`, `semLimite`, `className`): Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone em base cinza; embaixo, a barra e a porcentagem do limite.
-- **Funções e constantes:** `superficieDoCard`, `formatarNumero`, `formatarPreco`, `formatarVariacao`, `iniciais`, `faixaDaPontuacao`
+  - `ResumoEmLinha` (props: `itens`, `className`): Resumo em linha: poucos números (2 a 4) lado a lado, cada um com o ícone informativo (colorido na base cinza), o valor e o rótulo embaixo, separados por divisórias. Em telas estreitas, um embaixo do outro.
+  - `PainelDeUso` (props: `icone`, `sobretitulo`, `titulo`, `descricao`, `usado`, `limite`, `unidade`, `selo`, `className`): Destaque do uso do mês, no padrão clean dos templates: card branco, ícone informativo (colorido na base cinza: o card não se toca), a porcentagem grande com a barra e o estado do limite numa linha discreta (neutra) ou em alerta.
+  - `CardDeUso` (props: `icone`, `rotulo`, `usado`, `limite`, `semLimite`, `className`): Um tipo de uso do mês, no formato do CardIndicador: rótulo, número e ícone informativo (colorido na base cinza); embaixo, a barra e a porcentagem do limite.
+- **Funções e constantes:** `resolverTomDoIcone`, `tomSemClique`, `superficieDoCard`, `formatarNumero`, `formatarPreco`, `formatarVariacao`, `iniciais`, `faixaDaPontuacao`
 - **Onde ver:** Cards › Faixa de benefícios (`cards#faixa-beneficios`) · Exibição de dados › Gráfico de desempenho (`data#grafico-desempenho`) · Quadro, conversa e tabela › Card de indicador clicável (`painel-e-admin#card-indicador-link`) · e mais 14 seções (ver `catalogo.json`)
 
 ### painel-produtos
@@ -1417,7 +1417,7 @@ Telas inteiras montadas nas páginas de demonstração. Para uma tela parecida n
 | `ContactTemplate` | Templates › Painel da loja (protótipo) (`templates#template-dashboard`) | [src/app/components/showcase/TemplatesShowcase.tsx:1015](src/app/components/showcase/TemplatesShowcase.tsx#L1015) | `CabecalhoDaPagina`, `CardComCabecalho`, `Checkbox` | 6 |
 | `LandingTemplate` | Templates › Landing page para lojistas (`templates#template-landing`) | [src/app/components/showcase/TemplatesShowcase.tsx:1407](src/app/components/showcase/TemplatesShowcase.tsx#L1407) | `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger`, `Campo`, `Checkbox`, `GradeDeCards`, `IconeModa` +2 | 77 |
 
-### 2.2 Padrões nas páginas de componentes (45)
+### 2.2 Padrões nas páginas de componentes (46)
 
 Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentro das páginas de componentes. São as primeiras candidatas a virar componente.
 
@@ -1459,6 +1459,7 @@ Peças de interface (cards, painéis, menus, controles) desenhadas à mão dentr
 | `Alert` | Feedback › Alertas (`feedback#alerts`) | [src/app/components/showcase/FeedbackShowcase.tsx:86](src/app/components/showcase/FeedbackShowcase.tsx#L86) | `Alert`, `AlertDescription`, `AlertTitle` | 1 |
 | `DemoAbasComContador` | Feedback › Abas com contador (`feedback#abas-contador`) | [src/app/components/showcase/FeedbackShowcase.tsx:141](src/app/components/showcase/FeedbackShowcase.tsx#L141) | `AbasComContador` | 1 |
 | `DemoBannerPromocional`<br>Banner promocional | Feedback › Banner promocional (`feedback#banner-promocional`) | [src/app/components/showcase/FeedbackShowcase.tsx:158](src/app/components/showcase/FeedbackShowcase.tsx#L158) | `BannerPromocional`, `IconeModa` | 2 |
+| `RegraDoIconeComBase`<br>Regra do ícone com base (decisão da dona do produto, 28/11/2026): três estados, pelo que o componente faz. Arquivo igual nos dois DS (Dani Moscatelli e FindLook). | Ícones › Base do ícone (`icons#icon-base`) | [src/app/components/showcase/shared/RegraDoIconeComBase.tsx:14](src/app/components/showcase/shared/RegraDoIconeComBase.tsx#L14) | `Card`, `GradeDeCards`, `IconeComBase` | 1 |
 | `DrawerDemo`<br>Drawer | Sobreposições (overlays) | [src/app/components/showcase/OverlaysShowcase.tsx:147](src/app/components/showcase/OverlaysShowcase.tsx#L147) | `Button`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle` | 3 |
 | `ExemploMenuRecolhivel`<br>Exemplo da moldura do painel, igual à do site do design system (23/11/2026): barra superior branca de ponta a ponta (logo à esquerda, perfil à direita); embaixo, o menu lateral com o botão "≡ Menu" no topo, que recolhe e expande. | Sobreposições (overlays) › Menu do painel (`overlays#menu-painel`) | [src/app/components/showcase/OverlaysShowcase.tsx:201](src/app/components/showcase/OverlaysShowcase.tsx#L201) | `BarraSuperiorDoPainel`, `GatilhoDaConta`, `GrupoDoMenu`, `ItemDoMenu`, `MenuLateral`, `MenuLateralProvider`, `NavDoMenu`, `TopoDoMenu` | 4 |
 | `ExemploOpcaoA`<br>Opção A (decisão da dona do produto, 23/11/2026): cabeçalho da página fora do card (título, descrição e abas); conteúdo em cards com cabeçalho de ícone, um card por assunto. Sem linhas desnecessárias. | Sobreposições (overlays) › Cabeçalho da página (`overlays#cabecalho-pagina`) | [src/app/components/showcase/OverlaysShowcase.tsx:250](src/app/components/showcase/OverlaysShowcase.tsx#L250) | `AbasComContador`, `CabecalhoDaPagina`, `CardComCabecalho`, `Switch` | 1 |

@@ -59,7 +59,7 @@ function TemplateLabel({ icon: Icon, label }: { icon: React.ElementType; label: 
   return (
     <div className="flex items-center gap-2 mb-4">
       <div className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center">
-        <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+        <Icon className="h-3.5 w-3.5 text-[var(--primary-text,var(--primary))]" />
       </div>
       <span className="text-label font-semibold uppercase tracking-[0.07em] text-muted-foreground">{label}</span>
     </div>
@@ -157,8 +157,8 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
     <div key={id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
       <div className="flex items-start gap-2 min-w-0">
         {Icon && (
-          <span className="h-7 w-7 rounded-sm bg-muted flex items-center justify-center shrink-0">
-            <Icon aria-hidden className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className={`h-7 w-7 rounded-sm flex items-center justify-center shrink-0 ${desativado ? "bg-disabled" : "bg-muted"}`}>
+            <Icon aria-hidden className={`h-3.5 w-3.5 ${desativado ? "text-disabled-foreground" : "text-[var(--primary-text,var(--primary))]"}`} />
           </span>
         )}
         <div className="min-w-0">
@@ -198,7 +198,7 @@ function SettingsTemplate({ abaInicial = "perfil" }: { abaInicial?: string }) {
               <CardComCabecalho nivel={3} icone={<Store />} titulo="Identidade da loja" descricao="Nome, logo e a frase que apresenta a loja na vitrine.">
                 <div className="space-y-4 max-w-lg">
                   <div className="flex items-center gap-4">
-                    <div className="h-14 w-14 rounded-full bg-[var(--primary-muted)] flex items-center justify-center shrink-0">
+                    <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center shrink-0">
                       <Store aria-hidden className={`h-7 w-7 ${textoMarca}`} />
                     </div>
                     <div>
@@ -1584,7 +1584,7 @@ function LandingTemplate() {
           <GradeDeCards className="max-w-2xl mx-auto sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2 rounded-lg border border-border bg-card p-5 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary/8 blur-2xl pointer-events-none" />
-              <div className="h-8 w-8 rounded-md bg-[var(--primary-muted)] flex items-center justify-center mb-3">
+              <div className="h-8 w-8 rounded-md bg-muted flex items-center justify-center mb-3">
                 <Search aria-hidden className={`h-4 w-4 ${textoMarca}`} />
               </div>
               <h3 className="text-body-sm font-bold text-foreground mb-1">Apareça na busca certa</h3>
@@ -1918,7 +1918,7 @@ function LandingTemplate() {
               {/* Formulário */}
               <div className="rounded-lg border border-border bg-card overflow-hidden" style={{ boxShadow: "var(--shadow-md)" }}>
                 <div className="px-5 py-4 border-b border-border bg-muted/30 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-sm bg-[var(--primary-muted)] flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-sm bg-muted flex items-center justify-center">
                     <Send aria-hidden className={`h-4 w-4 ${textoMarca}`} />
                   </div>
                   <div>

@@ -13,5 +13,5 @@ A dona do produto: "o estado selecionado fica com a mesma cor do estado hover [o
 
 - **Selecionado** `--primary-suave` #FFECF0 (o rosa do meio): item ativo do menu, chip, segmento e linha selecionados, botão "✓ Selecionado", plano escolhido. Selecionado com o mouse em cima continua neste rosa.
 - **Hover** cinza claro, nunca rosa: `--accent` (graphite-100 #E9E9EC) nos itens de menu, chips e botões, com o texto passando a `--foreground` (17:1); o `--muted` (graphite-50 #F6F6F7) é claro demais sobre o branco (1,08:1) para um item pequeno. Em cards inteiros com texto cinza de apoio (ItemDeAcao, CardDePreco), o hover é o `--muted` com a borda mudando, porque o `--muted-foreground` sobre o `--accent` fica em 4,46:1 e sobre o `--muted` em 5,0:1. Linhas de lista de ponta a ponta continuam no `--row-hover` (graphite-50).
-- **Destaque** `--primary-muted` #FEDFE6: bases de ícone, chips de estado, faixas de apoio. Nunca marca seleção.
+- **Destaque** `--primary-muted` #FEDFE6: bases de ícones clicáveis (IconeComBase clicavel; o informativo usa a base cinza), chips de estado, faixas de apoio. Nunca marca seleção.
 - `--primary-sutil` (#FFF5F8) deixa de ser usado para seleção (o token continua no tema por compatibilidade).

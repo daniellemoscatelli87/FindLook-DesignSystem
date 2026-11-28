@@ -418,7 +418,7 @@ const [confirmacao, setConfirmacao] = useState("");
           <div id="cartoes-de-escolha" className="scroll-mt-32" />
           <ShowcaseCard>
             <p className="mb-6 max-w-3xl text-body-sm leading-relaxed text-muted-foreground">
-              Escolha única entre 2 a 4 opções grandes, cada uma com ícone, título e uma frase de explicação, como a primeira pergunta do cadastro. Componente <code className="text-foreground">CartaoDeEscolha</code>, sempre dentro de um <code className="text-foreground">GrupoDeCartoesDeEscolha</code>, em <code className="text-foreground">ui/cartao-de-escolha.tsx</code>. O cartão é branco com borda de 2 px; escolhido, a borda fica na cor da marca com o brilho que corre por ela, o ícone passa para a base rosa e o rádio à direita fica marcado. Clique em qualquer ponto do cartão para escolher; no teclado, as setas trocam a opção.
+              Escolha única entre 2 a 4 opções grandes, cada uma com ícone, título e uma frase de explicação, como a primeira pergunta do cadastro. Componente <code className="text-foreground">CartaoDeEscolha</code>, sempre dentro de um <code className="text-foreground">GrupoDeCartoesDeEscolha</code>, em <code className="text-foreground">ui/cartao-de-escolha.tsx</code>. O cartão é branco com borda de 2 px; escolhido, a borda fica na cor da marca com o brilho que corre por ela, e o rádio à direita fica marcado; o ícone fica sempre na base colorida, porque o cartão se toca (cinza só quando desabilitado). Clique em qualquer ponto do cartão para escolher; no teclado, as setas trocam a opção.
             </p>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
               <div className="min-w-0">

@@ -715,7 +715,6 @@ function FeedbackShowcaseBase({ parte = "feedback" }: { parte?: "feedback" | "ro
           <EstadoVazio
             moldura="card"
             icone={<Plus />}
-            tom="marca"
             titulo={t("Create your first project", "Crie seu primeiro projeto")}
             descricao={t("Projects help you organize your work and collaborate with your team.", "Projetos ajudam você a organizar seu trabalho e colaborar com sua equipe.")}
             acoes={<Button className="h-10 toque:h-11"><Plus aria-hidden /> {t("New Project", "Novo projeto")}</Button>}

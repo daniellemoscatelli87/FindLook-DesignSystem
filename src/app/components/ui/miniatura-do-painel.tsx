@@ -71,7 +71,7 @@ export function MiniaturaDoPainel({ titulo, menu, ativo = 0, logo, avatar, aviso
   );
 }
 
-export type IndicadorDaMiniatura = { icone: React.ReactNode; valor: number; rotulo: string; sinal?: "check" | "alta"; tom?: "marca" | "neutro" };
+export type IndicadorDaMiniatura = { icone: React.ReactNode; valor: number; rotulo: string; sinal?: "check" | "alta"; /** Aceito por compatibilidade: a miniatura só informa, então o ícone é sempre informativo (regra de 28/11/2026). */ tom?: "marca" | "neutro" };
 
 export function IndicadoresDaMiniatura({ itens, className }: { itens: IndicadorDaMiniatura[]; className?: string }) {
   return (
@@ -79,7 +79,7 @@ export function IndicadoresDaMiniatura({ itens, className }: { itens: IndicadorD
       {itens.map((it, i) => (
         <div key={it.rotulo} className="relative min-w-0 rounded-md border border-border bg-card p-2.5">
           <div className="flex items-center gap-2">
-            <span className={cn("flex size-7 shrink-0 items-center justify-center rounded-sm [&>svg]:size-3.5", it.tom === "neutro" ? "bg-muted text-muted-foreground" : "bg-[var(--primary-muted)] text-primary-text")}>{it.icone}</span>
+            <span className={cn("flex size-7 shrink-0 items-center justify-center rounded-sm [&>svg]:size-3.5", "bg-muted text-primary-text")}>{it.icone}</span>
             <NumeroAnimado valor={it.valor} atraso={0.2 + i * 0.1} className="text-body-lg font-bold leading-none text-foreground" />
           </div>
           <p className="m-0 mt-1.5 truncate text-caption text-muted-foreground">{it.rotulo}</p>

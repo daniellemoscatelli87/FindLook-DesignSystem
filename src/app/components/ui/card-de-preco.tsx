@@ -5,12 +5,13 @@ import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { ArrowRight, Check, ChevronDown, Lightbulb, Minus, Star } from "lucide-react";
 import { cn } from "./utils";
 import { BrilhoDeSelecionado, molduraDoSelecionavel } from "./shine-border";
+import { IconeComBase } from "./painel-dados";
 
 /**
  * Card de preço (CardDePreco), o card do template "Planos e assinatura" (Templates › Pricing), agora reaproveitável
  * (extraído em 27/11/2026, sem mudar o visual do template).
  *
- * Estrutura: ícone do plano na base rosa clara e, no plano em destaque, o selo "Recomendado" · nome · descrição ·
+ * Estrutura: ícone do plano informativo (colorido na base cinza: o card não se toca, só a ação) e, no plano em destaque, o selo "Recomendado" · nome · descrição ·
  * "Para quem" opcional (caixa neutra, até 4 linhas, mesma altura em todos os cards) · Ver/Ocultar recursos do plano
  * (abre e fecha a lista com incluído e não incluído) · divisor · preço com período à esquerda e a ação à direita
  * (empilham quando o card fica estreito).
@@ -57,8 +58,8 @@ const textosPadrao: TextosDoCardDePreco = {
 };
 
 /**
- * ListaDeRecursos: a lista de recursos de um plano (incluído com check na base rosa de destaque; não incluído com traço
- * na base cinza e o texto em cinza), a mesma do CardDePreco. Use na revisão do cadastro e na comparação de planos, para
+ * ListaDeRecursos: a lista de recursos de um plano (incluído: check colorido na base cinza, o tom informativo;
+ * não incluído: traço cinza na base cinza, o tom desabilitado, e o texto em cinza), a mesma do CardDePreco. Use na revisão do cadastro e na comparação de planos, para
  * o mesmo recurso ter sempre o mesmo sinal. Leitores de tela ouvem "Incluído:" ou "Não incluído:" antes de cada item.
  */
 export function ListaDeRecursos({ recursos, textos, className, ...props }: Omit<React.ComponentProps<"ul">, "children"> & {
@@ -70,10 +71,10 @@ export function ListaDeRecursos({ recursos, textos, className, ...props }: Omit<
     <ul data-slot="lista-de-recursos" className={cn("m-0 list-none space-y-2 p-0", className)} {...props}>
       {recursos.map((r) => (
         <li key={r.texto} className={`flex items-start gap-2 text-body-sm leading-snug ${r.incluido ? "text-foreground" : "text-muted-foreground"}`}>
-          <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${r.incluido ? "bg-[var(--primary-muted)]" : "bg-muted"}`}>
+          <span aria-hidden className={`mt-px h-4 w-4 shrink-0 rounded-full flex items-center justify-center ${r.incluido ? "bg-muted" : "bg-disabled"}`}>
             {r.incluido
               ? <Check className="h-2.5 w-2.5 text-[var(--primary-text,var(--primary))]" strokeWidth={3} />
-              : <Minus className="h-2.5 w-2.5 text-muted-foreground" strokeWidth={3} />}
+              : <Minus className="h-2.5 w-2.5 text-disabled-foreground" strokeWidth={3} />}
           </span>
           <span>
             <span className="sr-only">{(r.incluido ? tx.incluido : tx.naoIncluido).trim()} </span>
@@ -156,9 +157,7 @@ export function CardDePreco({
       {selecionado && <BrilhoDeSelecionado />}
       {/* Topo: ícone do plano e, no destacado, o selo no estilo do card com wobble */}
       <div className="mb-4 flex items-center justify-between gap-2">
-        <div className="h-8 w-8 rounded-full flex items-center justify-center bg-[var(--primary-muted)] dark:bg-muted shrink-0 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-[var(--primary-text,var(--primary))] dark:[&>svg]:text-muted-foreground">
-          {icone}
-        </div>
+        <IconeComBase tom="informativo" tamanho="sm" redonda>{icone}</IconeComBase>
         {destaque && (
           <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-[var(--primary-suave)] px-2 py-1 text-caption font-bold uppercase tracking-[0.06em] text-[var(--primary-text,var(--primary))] whitespace-nowrap">
             <Star aria-hidden className="h-3 w-3 fill-current" />
